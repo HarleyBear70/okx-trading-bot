@@ -1,41 +1,35 @@
 # okx-trading-bot
 
-SP-12 v4 SAR demo trading bot for OKX using the TradingView strategy rules.
+Jeff's demo trading bots. GitHub runs them every hour for free, so they don't use any Claude usage.
 
-**Demo only.** Every OKX order is sent with the demo header, so this bot can't touch real money.
+**Nothing here can touch real money.** "Demo" bots trade on the OKX demo account, and every order carries OKX's demo header. "Paper" bots place no orders at all. They only write pretend trades to `trades.csv`.
 
-## What it does
+## The bots
 
-GitHub runs `bot.py` every hour (see the **Actions** tab). For BTC, ETH, SOL and XRP (USDT pairs) it:
+| Bot | Where | Coins | Rules |
+|---|---|---|---|
+| SP-12 v4 | OKX demo | BTC, ETH, SOL, XRP | 12-check score ≥ 2, EMA 8>21>55, above daily VWAP, 3R target, SAR trail after +1R, 120-candle limit. Risks 1% of a $1,000 practice balance |
+| SP-12 v4 (Kraken paper) | Kraken prices | BTC, ETH, SOL, XRP | Same as above, paper only |
+| SP-12 v2 | OKX demo | ETH, SOL | 12-check score ≥ 2, stop 1.5–4%, target 2.5R (3–10%), 60-candle limit, $50 risk |
+| SP-12 v2 (gold paper) | OKX live gold price | XAUT | Same as above, paper only (OKX demo gold is frozen) |
+| Trend Rider | OKX demo | BTC, ETH, SOL | Daily close > daily 50 EMA, 4H break of structure above 4H 50 EMA, stop under swing low (1–3 ATR), trails at highest close − 3 ATR, $50 risk |
+| Trend Rider (gold paper) | OKX live gold price | XAUT | Same as above with swing strength 3, paper only |
 
-1. Downloads OKX 4-hour and daily candles.
-2. Runs the same checks as the TradingView script "Structure Pullback (12-Check) v4 SAR" with its default settings:
-   Tuned score ≥ 2, 4H trend up, EMA 8 > 21 > 55, price above daily VWAP, stop 1–4% away.
-3. On a buy signal it buys at market on OKX demo, risking 1% of the bot's own $1,000 practice account.
-4. Manages the trade: stop-loss, 3R target, Parabolic SAR trailing stop after +1R, time exit after 120 candles.
+All of them run on 4-hour candles. Each bot only sells coins it bought itself.
 
-It only sells coins it bought itself. Other demo balances aren't touched.
+## Where to look
 
-## Files
-
-- `bot.py`: the bot
-- `.github/workflows/bot.yml`: the hourly schedule
-- `state.json`: the bot's memory (open trades, practice balance), written by the bot
-- `trades.csv`: a log of every buy and sell, written by the bot
+- **trades.csv**: every buy and sell, with profit or loss and each bot's practice balance
+- **state.json**: the bots' memory (open trades and stops)
+- **Actions tab**: a log for every hourly run
 
 ## Setup
 
-In **Settings → Secrets and variables → Actions**, add these repository secrets from an OKX **demo** API key (Read + Trade, no withdraw):
+The repository secrets `OKX_API_KEY`, `OKX_API_SECRET` and `OKX_API_PASSPHRASE` come from an OKX **demo** API key with Read + Trade permissions. The optional variable `OKX_BASE_URL` defaults to `https://us.okx.com`.
 
-- `OKX_API_KEY`
-- `OKX_API_SECRET`
-- `OKX_API_PASSPHRASE`
-
-Optional variable: `OKX_BASE_URL` (default `https://us.okx.com`; use `https://www.okx.com` if your account is on OKX global).
-
-Test it: **Actions → SP-12 v4 demo bot → Run workflow → mode: check**.
+To test: **Actions → SP-12 v4 demo bot → Run workflow → check**.
 
 ## Notes
 
-- Exits are checked once an hour, so a stop can fill a bit past its price. A real exchange stop order would be more exact.
-- GitHub's free plan covers this. An hourly run uses roughly 750 of the 2,000 free minutes a month on a private repo.
+- Stops and targets are checked once an hour, so a demo fill can land a little past the stop price.
+- Kraken has no demo mode, which is why the Kraken bot is paper only for now.

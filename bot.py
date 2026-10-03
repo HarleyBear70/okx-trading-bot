@@ -1,20 +1,16 @@
 """
-SP-12 v4 SAR demo bot for OKX (spot, DEMO ONLY).
+Jeff's demo trading bots, run by GitHub Actions every hour. No libraries needed beyond Python.
 
-A Python copy of the TradingView strategy "Structure Pullback (12-Check) v4 SAR"
-using its default settings:
-  4H candles, Tuned scoring (net score >= 2), swing strength 7,
-  Propulsion trend filter (EMA 8 > 21 > 55), price above daily VWAP,
-  stop = lowest low of 10 candles (1%..4% away), target = 3R (2%..15%),
-  Parabolic SAR trailing stop once price has gone +1R (target removed),
-  close the trade after 120 candles.
-  Size: 1% risk of the bot's own $1,000 virtual account (like the
-  strategy's initial_capital=1000), never more than the whole account.
+Bots (all settings copied from the strategies Jeff tested):
+  SP-12 v4      OKX demo  BTC ETH SOL XRP   + PAPER on Kraken prices (BTC ETH SOL XRP)
+  SP-12 v2      OKX demo  ETH SOL           + PAPER gold (XAUT, live OKX prices)
+  Trend Rider   OKX demo  BTC ETH SOL       + PAPER gold (XAUT, swing strength 3)
 
-GitHub Actions runs this every hour. It needs no libraries beyond Python.
+"demo"  = real orders on the OKX DEMO account (every private request carries the
+          "x-simulated-trading: 1" header, so real money can't be touched).
+"paper" = no orders at all; the bot just records pretend trades in trades.csv.
 
-Every private OKX request is sent with the demo header
-"x-simulated-trading: 1", so this file cannot trade real money.
+Each bot only ever sells what it bought itself (tracked in state.json).
 """
 
 import base64
@@ -31,25 +27,30 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
-# ───────── Settings ─────────
-COINS = [c.strip() for c in os.environ.get("BOT_COINS", "BTC-USDT,ETH-USDT,SOL-USDT,XRP-USDT").split(",") if c.strip()]
 BASE_URL = os.environ.get("OKX_BASE_URL", "").strip() or "https://us.okx.com"
-START_EQUITY = 1000.0      # strategy initial_capital
-MIN_TUNED = 2              # Tuned: minimum net score
-PIVOT_LEN = 7              # swing strength
-RISK_PCT = 1.0             # risk per trade, % of bot equity
-MAX_RISK = 4.0             # max stop distance %
-MIN_RISK = 1.0             # min stop distance %
-RR = 3.0                   # reward : risk
-TP_MIN, TP_MAX = 2.0, 15.0 # take profit bounds %
-MAX_BARS = 120             # time stop in candles
+KRAKEN_URL = "https://api.kraken.com"
+FEE = 0.001                 # 0.1% per side for paper trades (same as the backtests)
 SAR_START, SAR_INC, SAR_MAX = 0.02, 0.02, 0.2
-ORDER_PREFIX = "gh4"       # client order id prefix (Claude's old bot used "v4")
+H4_MS = 4 * 3600 * 1000
+
+BOTS = [
+    {"id": "v4-okx", "name": "SP-12 v4", "strat": "v4", "venue": "okx", "mode": "demo", "prefix": "gh4",
+     "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "XRP-USDT"], "equity": 1000.0},
+    {"id": "v4-kraken", "name": "SP-12 v4 (Kraken paper)", "strat": "v4", "venue": "kraken", "mode": "paper",
+     "coins": ["XBTUSD", "ETHUSD", "SOLUSD", "XRPUSD"], "equity": 1000.0},
+    {"id": "v2-okx", "name": "SP-12 v2", "strat": "v2", "venue": "okx", "mode": "demo", "prefix": "ghS",
+     "coins": ["ETH-USDT", "SOL-USDT"], "equity": 5000.0},
+    {"id": "v2-gold", "name": "SP-12 v2 (gold paper)", "strat": "v2", "venue": "okx", "mode": "paper",
+     "coins": ["XAUT-USDT"], "equity": 5000.0},
+    {"id": "tr-okx", "name": "Trend Rider", "strat": "tr", "venue": "okx", "mode": "demo", "prefix": "ghT",
+     "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT"], "equity": 5000.0, "pivot": 5},
+    {"id": "tr-gold", "name": "Trend Rider (gold paper)", "strat": "tr", "venue": "okx", "mode": "paper",
+     "coins": ["XAUT-USDT"], "equity": 5000.0, "pivot": 3},
+]
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 STATE_FILE = os.path.join(HERE, "state.json")
 TRADES_FILE = os.path.join(HERE, "trades.csv")
-H4_MS = 4 * 3600 * 1000
 
 
 def log(*a):
@@ -112,7 +113,6 @@ class OKX:
                 "v": float(r[5]), "confirm": r[8] == "1"} for r in rows]
         out.sort(key=lambda x: x["ts"])
         return out
-
 
 # ───────── Pine-style indicators (lists, None = na) ─────────
 def sma(src, n):
@@ -263,39 +263,73 @@ def day_of(ts):
     return ts // 86400000
 
 
-# ───────── The strategy ─────────
-def analyse(bars, daily):
-    """bars: confirmed 4H candles oldest->newest. daily: confirmed 1D (UTC) candles.
-    Returns per-bar dict lists needed for entries/exits (evaluated on the last bar)."""
+
+def kraken_candles(pair, interval):
+    """Kraken public OHLC (no key). interval in minutes. Last row is the forming candle."""
+    url = f"{KRAKEN_URL}/0/public/OHLC?" + urllib.parse.urlencode({"pair": pair, "interval": interval})
+    for attempt in range(4):
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "sp12-bot"}), timeout=20) as r:
+                out = json.loads(r.read().decode())
+            break
+        except Exception as e:
+            if attempt == 3:
+                raise RuntimeError(f"Kraken {pair}: {e}")
+            time.sleep(2 + attempt * 2)
+    if out.get("error"):
+        raise RuntimeError(f"Kraken {pair}: {out['error']}")
+    rows = next(v for k, v in out["result"].items() if k != "last")
+    bars = [{"ts": int(r[0]) * 1000, "o": float(r[1]), "h": float(r[2]), "l": float(r[3]), "c": float(r[4]),
+             "v": float(r[6]), "confirm": True} for r in rows]
+    if bars:
+        bars[-1]["confirm"] = False
+    return bars
+
+
+def pivots_ge(src, L, high=True):
+    """Swing point if it is the highest (lowest) of the L bars each side, ties allowed (as in Jeff's v2 / Trend Rider scripts)."""
+    out = [None] * len(src)
+    for i in range(2 * L, len(src)):
+        w = src[i - 2 * L:i + 1]
+        ctr = src[i - L]
+        if (high and ctr >= max(w)) or (not high and ctr <= min(w)):
+            out[i] = ctr
+    return out
+
+
+def daily_lookup(bars, daily):
+    """For each 4H bar: index of the last COMPLETED daily candle before that bar's day."""
+    didx = {day_of(d["ts"]): k for k, d in enumerate(daily)}
+    return [didx.get(day_of(b["ts"]) - 1) for b in bars]
+
+
+# ───────── SP-12 (v4 and v2 share the 12 checks) ─────────
+SP_SETTINGS = {
+    "v4": {"pivot": 7, "pivot_fn": "strict", "filters": True, "min_risk": 1.0, "max_risk": 4.0, "rr": 3.0,
+           "tp_min": 2.0, "tp_max": 15.0, "max_bars": 120, "sar": True, "min_bars": 60},
+    "v2": {"pivot": 5, "pivot_fn": "ge", "filters": False, "min_risk": 1.5, "max_risk": 4.0, "rr": 2.5,
+           "tp_min": 3.0, "tp_max": 10.0, "max_bars": 60, "sar": False, "min_bars": 120},
+}
+
+
+def analyse_sp(bars, daily, cfg):
     o = [b["o"] for b in bars]; h = [b["h"] for b in bars]; l = [b["l"] for b in bars]
     c = [b["c"] for b in bars]; v = [b["v"] for b in bars]; n = len(bars)
-
-    # Daily trend (previous completed day vs day before)
     dc = [d["c"] for d in daily]
     de = ema(dc, 20)
-    didx = {day_of(d["ts"]): k for k, d in enumerate(daily)}
-
-    def daily_up(i):
-        k = didx.get(day_of(bars[i]["ts"]) - 1)
-        if k is None or k < 1 or de[k] is None or de[k - 1] is None:
-            return False
-        return dc[k] > de[k] and de[k] > de[k - 1]
+    dk = daily_lookup(bars, daily)
 
     e50 = ema(c, 50)
     stdir = supertrend(h, l, c, 3, 10)
     e8, e21, e55 = ema(c, 8), ema(c, 21), ema(c, 55)
-    r = rsi(c, 14)
     m12, m26 = ema(c, 12), ema(c, 26)
     macd = [a - b if a is not None and b is not None else None for a, b in zip(m12, m26)]
     sig_src = [x for x in macd if x is not None]
-    sig_part = ema(sig_src, 9)
-    sig = [None] * (n - len(sig_src)) + sig_part
+    sig = [None] * (n - len(sig_src)) + ema(sig_src, 9)
     hist = [a - b if a is not None and b is not None else None for a, b in zip(macd, sig)]
     sar = psar(h, l, c, SAR_START, SAR_INC, SAR_MAX)
-    rng_hi, rng_lo = highest(h, 30), lowest(l, 30)
     low10 = lowest(l, 10)
 
-    # daily-anchored VWAP of hlc3
     vwap, cum_pv, cum_v, cur_day = [None] * n, 0.0, 0.0, None
     for i in range(n):
         dday = day_of(bars[i]["ts"])
@@ -305,20 +339,22 @@ def analyse(bars, daily):
         cum_v += v[i]
         vwap[i] = cum_pv / cum_v if cum_v else c[i]
 
-    ph, pl = pivots(h, PIVOT_LEN, True), pivots(l, PIVOT_LEN, False)
+    L = cfg["pivot"]
+    if cfg["pivot_fn"] == "ge":
+        ph, pl = pivots_ge(h, L, True), pivots_ge(l, L, False)
+    else:
+        ph, pl = pivots(h, L, True), pivots(l, L, False)
     last_ph = last_pl = None
     bos_bar = sweep_bar = ob_bar = fvg_bar = None
     ob_top = ob_bot = fvg_top = fvg_bot = None
-    signal = [False] * n
-    info = [None] * n
+    signal, info = [False] * n, [None] * n
 
     for i in range(n):
         if ph[i] is not None:
             last_ph = ph[i]
         if pl[i] is not None:
             last_pl = pl[i]
-        bos_up = last_ph is not None and i > 0 and c[i] > last_ph and c[i - 1] <= last_ph
-        if bos_up:
+        if last_ph is not None and i > 0 and c[i] > last_ph and c[i - 1] <= last_ph:
             bos_bar, ob_top, ob_bot = i, None, None
             for k in range(1, 11):
                 if i - k >= 0 and c[i - k] < o[i - k]:
@@ -329,10 +365,11 @@ def analyse(bars, daily):
         if last_pl is not None and l[i] < last_pl and c[i] > last_pl:
             sweep_bar = i
 
-        if i < 1 or None in (e50[i - 1], stdir[i - 1], e55[i], hist[i], hist[i - 1], low10[i], rng_hi[i]):
+        if i < 1 or None in (e50[i - 1], stdir[i - 1], e55[i], hist[i], hist[i - 1], low10[i]):
             continue
-
-        c1 = daily_up(i)
+        k = dk[i]
+        c1 = bool(k is not None and k >= 1 and de[k] is not None and de[k - 1] is not None
+                  and dc[k] > de[k] and de[k] > de[k - 1])
         c2 = c[i - 1] > e50[i - 1] and stdir[i - 1] < 0
         c3 = bos_bar is not None and i - bos_bar <= 20
         c5 = fvg_bar is not None and i > fvg_bar and i - fvg_bar <= 30 and l[i] <= fvg_top and c[i] >= fvg_bot
@@ -349,26 +386,58 @@ def analyse(bars, daily):
         c12 = hist[i] > hist[i - 1]
         score = int(c1) + int(c7) + int(c11) + int(c12) - int(c3) - int(c5) - int(c6) - int(c10)
 
-        prop_up = e8[i] > e21[i] > e55[i]
-        vwap_ok = c[i] > vwap[i]
+        filt = (e8[i] > e21[i] > e55[i] and c[i] > vwap[i]) if cfg["filters"] else True
         swing_stop = low10[i] * (1 - 0.001)
         raw_risk = (c[i] - swing_stop) / c[i] * 100
-        risk_use = max(raw_risk, MIN_RISK)
-        tp_pct = min(max(RR * risk_use, TP_MIN), TP_MAX)
+        risk_use = max(raw_risk, cfg["min_risk"])
+        tp_pct = min(max(cfg["rr"] * risk_use, cfg["tp_min"]), cfg["tp_max"])
+        signal[i] = bool(i + 1 >= cfg["min_bars"] and c2 and filt and score >= 2 and raw_risk <= cfg["max_risk"])
+        info[i] = {"score": score, "raw_risk": raw_risk,
+                   "sl": c[i] * (1 - risk_use / 100), "tp": c[i] * (1 + tp_pct / 100)}
+    return {"signal": signal, "info": info, "sar": sar}
 
-        signal[i] = bool(c2 and prop_up and vwap_ok and score >= MIN_TUNED and raw_risk <= MAX_RISK)
-        info[i] = {"score": score, "risk_use": risk_use, "raw_risk": raw_risk, "tp_pct": tp_pct,
-                   "checks": {"daily": c1, "h4": c2, "bos": c3, "fvg": c5, "ob": c6, "sweep": c7,
-                              "candle": c10, "st": c11, "macd": c12, "prop": prop_up, "vwap": vwap_ok}}
-    return {"signal": signal, "info": info, "sar": sar, "close": c, "high": h, "low": l}
+
+# ───────── Trend Rider ─────────
+def analyse_tr(bars, daily, L):
+    h = [b["h"] for b in bars]; l = [b["l"] for b in bars]; c = [b["c"] for b in bars]; n = len(bars)
+    e50 = ema(c, 50)
+    a = atr(h, l, c, 14)
+    dc = [d["c"] for d in daily]
+    de = ema(dc, 50)
+    dk = daily_lookup(bars, daily)
+    ph_l, pl_l = pivots_ge(h, L, True), pivots_ge(l, L, False)
+    ph = pl = None
+    signal, info = [False] * n, [None] * n
+    for i in range(n):
+        if ph_l[i] is not None:
+            ph = ph_l[i]
+        if pl_l[i] is not None:
+            pl = pl_l[i]
+        if i < 1 or a[i] is None or e50[i] is None:
+            continue
+        k = dk[i]
+        daily_ok = bool(k is not None and de[k] is not None and dc[k] > de[k])
+        bos = ph is not None and c[i] > ph and c[i - 1] <= ph
+        sig = bool(i + 1 >= 61 and bos and c[i] > e50[i] and daily_ok)
+        s = pl * 0.998 if pl is not None else c[i] - 2 * a[i]
+        s = min(max(s, c[i] - 3 * a[i]), c[i] - 1 * a[i])
+        signal[i] = sig
+        info[i] = {"score": "BOS" if bos else "-", "raw_risk": (c[i] - s) / c[i] * 100, "sl": s, "tp": None}
+    return {"signal": signal, "info": info, "atr": a}
 
 
 # ───────── State & logging ─────────
 def load_state():
     if os.path.exists(STATE_FILE):
         with open(STATE_FILE) as f:
-            return json.load(f)
-    return {"equity": START_EQUITY, "positions": {}, "last_bar": {}}
+            s = json.load(f)
+        if s.get("version") == 2:
+            return s
+    return {"version": 2, "bots": {}}
+
+
+def bot_state(state, bot):
+    return state["bots"].setdefault(bot["id"], {"equity": bot["equity"], "positions": {}, "last_bar": {}})
 
 
 def save_state(s):
@@ -377,13 +446,16 @@ def save_state(s):
         f.write("\n")
 
 
-def log_trade(row):
+def log_trade(bot, coin, side, qty, px, usdt, pnl, pnl_pct, reason, equity):
     new = not os.path.exists(TRADES_FILE)
     with open(TRADES_FILE, "a", newline="") as f:
         w = csv.writer(f)
         if new:
-            w.writerow(["time_utc", "coin", "side", "qty", "price", "usdt", "pnl_usdt", "pnl_pct", "reason", "equity"])
-        w.writerow(row)
+            w.writerow(["time_utc", "bot", "mode", "coin", "side", "qty", "price", "usdt",
+                        "pnl_usdt", "pnl_pct", "reason", "bot_balance"])
+        w.writerow([now_iso(), bot["name"], bot["mode"], coin, side, f"{qty:.8g}", f"{px:.8g}", round(usdt, 2),
+                    "" if pnl is None else round(pnl, 2), "" if pnl_pct is None else round(pnl_pct, 2),
+                    reason, round(equity, 2)])
 
 
 def now_iso():
@@ -394,10 +466,15 @@ def ts_iso(ms):
     return dt.datetime.fromtimestamp(ms / 1000, dt.timezone.utc).strftime("%Y-%m-%d %H:%M")
 
 
-# ───────── Orders ─────────
+# ───────── OKX demo orders ─────────
+_inst_cache = {}
+
+
 def inst_info(api, inst):
-    d = api.get("/api/v5/public/instruments", {"instType": "SPOT", "instId": inst})[0]
-    return float(d["lotSz"]), float(d["minSz"])
+    if inst not in _inst_cache:
+        d = api.get("/api/v5/public/instruments", {"instType": "SPOT", "instId": inst})[0]
+        _inst_cache[inst] = (float(d["lotSz"]), float(d["minSz"]))
+    return _inst_cache[inst]
 
 
 def floor_to(x, step):
@@ -405,6 +482,7 @@ def floor_to(x, step):
 
 
 def wait_fill(api, inst, cl_id):
+    o = None
     for _ in range(10):
         o = api.get("/api/v5/trade/order", {"instId": inst, "clOrdId": cl_id}, private=True)[0]
         if o["state"] in ("filled", "canceled", "mmp_canceled"):
@@ -413,161 +491,216 @@ def wait_fill(api, inst, cl_id):
     return o
 
 
-def buy(api, inst, usdt, bar_ts):
-    cl_id = f"{ORDER_PREFIX}{inst.split('-')[0]}{bar_ts // 1000}"[:32]
+def okx_buy(api, bot, inst, usdt, bar_ts):
+    cl_id = f"{bot['prefix']}B{inst.split('-')[0]}{bar_ts // 1000}"[:32]
     api.post("/api/v5/trade/order", {"instId": inst, "tdMode": "cash", "side": "buy", "ordType": "market",
                                      "tgtCcy": "quote_ccy", "sz": f"{usdt:.2f}", "clOrdId": cl_id})
     o = wait_fill(api, inst, cl_id)
     filled = float(o.get("accFillSz") or 0)
-    fee = float(o.get("fee") or 0)  # negative number
+    fee = float(o.get("fee") or 0)  # negative
     qty = filled + fee if o.get("feeCcy") == inst.split("-")[0] else filled
     px = float(o.get("avgPx") or 0)
-    return cl_id, qty, px, filled * px
+    return qty, px, filled * px
 
 
-def sell(api, inst, qty, tag):
+def okx_sell(api, bot, inst, qty):
     base = inst.split("-")[0]
     lot, min_sz = inst_info(api, inst)
     bal = api.get("/api/v5/account/balance", {"ccy": base}, private=True)[0]["details"]
     avail = float(bal[0]["availBal"]) if bal else 0.0
     sz = floor_to(min(qty, avail), lot)
     if sz < min_sz:
-        log(f"  {inst}: nothing to sell (size {sz})")
-        return None, 0.0, 0.0
-    cl_id = f"{ORDER_PREFIX}{tag}{base}{int(time.time())}"[:32]
+        return 0.0, 0.0
     dec = max(0, -int(math.floor(math.log10(lot)))) if lot < 1 else 0
+    cl_id = f"{bot['prefix']}S{base}{int(time.time())}"[:32]
     api.post("/api/v5/trade/order", {"instId": inst, "tdMode": "cash", "side": "sell", "ordType": "market",
                                      "sz": f"{sz:.{dec}f}", "clOrdId": cl_id})
     o = wait_fill(api, inst, cl_id)
     filled = float(o.get("accFillSz") or 0)
     px = float(o.get("avgPx") or 0)
-    fee = float(o.get("fee") or 0)  # negative, in USDT for a sell
-    return cl_id, filled, filled * px + fee
+    fee = float(o.get("fee") or 0)  # negative, in quote
+    return filled, filled * px + fee
 
 
-# ───────── Main loop per coin ─────────
-def close_position(api, state, inst, reason):
-    pos = state["positions"][inst]
-    cl_id, filled, proceeds = sell(api, inst, pos["qty"], "s")
-    if cl_id is None:
-        state["positions"].pop(inst)
+# ───────── Opening / closing (demo or paper) ─────────
+def open_position(api, bot, bs, coin, bar, inf, extra):
+    close = bar["c"]
+    sl = inf["sl"]
+    if close <= sl:
         return
+    if bot["strat"] == "v4":
+        eq = bs["equity"]
+        qty = min(eq * 0.01 / (close - sl), eq / close)
+    else:
+        qty = min(50.0 / (close - sl), 5000.0 / close)
+    usdt = qty * close
+    if usdt < 5:
+        log(f"  {coin}: signal but order too small ({usdt:.2f})")
+        return
+    if bot["mode"] == "demo":
+        got, px, cost = okx_buy(api, bot, coin, usdt, bar["ts"])
+        if got <= 0:
+            log(f"  {coin}: buy did not fill")
+            return
+    else:
+        got, px, cost = qty, close, usdt * (1 + FEE)
+    pos = {"entry_ts": bar["ts"], "entry_px": px or close, "qty": got, "cost": cost, "sl": sl, "tp": inf["tp"],
+           "stop": sl, "limit": inf["tp"], "trail": False, "hi": None}
+    pos.update(extra)
+    bs["positions"][coin] = pos
+    tp_txt = f" TP {inf['tp']:.6g}" if inf["tp"] else " (trailing stop)"
+    log(f"  BUY {coin} {got:.8g} @ {px:.6g} for {cost:.2f} | SL {sl:.6g}{tp_txt} | {inf['score']}")
+    log_trade(bot, coin, "buy", got, px, cost, None, None, f"score {inf['score']}", bs["equity"])
+
+
+def close_position(api, bot, bs, coin, reason, paper_px):
+    pos = bs["positions"][coin]
+    if bot["mode"] == "demo":
+        filled, proceeds = okx_sell(api, bot, coin, pos["qty"])
+        if filled <= 0:
+            log(f"  {coin}: nothing left to sell — clearing position")
+            bs["positions"].pop(coin)
+            return
+        px = proceeds / filled
+    else:
+        filled, px = pos["qty"], paper_px
+        proceeds = filled * px * (1 - FEE)
     pnl = proceeds - pos["cost"]
-    state["equity"] = round(state["equity"] + pnl, 4)
-    px = proceeds / filled if filled else 0
-    log(f"  SELL {inst} {filled} @ {px:.6g} ({reason}) P/L {pnl:+.2f} USDT")
-    log_trade([now_iso(), inst, "sell", filled, round(px, 8), round(proceeds, 2), round(pnl, 2),
-               round(pnl / pos["cost"] * 100, 2) if pos["cost"] else 0, reason, round(state["equity"], 2)])
-    state["positions"].pop(inst)
+    bs["equity"] = round(bs["equity"] + pnl, 4)
+    pct = pnl / pos["cost"] * 100 if pos["cost"] else 0
+    log(f"  SELL {coin} {filled:.8g} @ {px:.6g} ({reason}) P/L {pnl:+.2f} ({pct:+.2f}%)")
+    log_trade(bot, coin, "sell", filled, px, proceeds, pnl, pct, reason, bs["equity"])
+    bs["positions"].pop(coin)
 
 
-def run_coin(api, state, inst, trade=True):
-    raw4 = api.candles(inst, "4H", 500)
-    rawd = api.candles(inst, "1Dutc", 120)
-    bars = [b for b in raw4 if b["confirm"]]
-    forming = raw4[-1] if not raw4[-1]["confirm"] else None
-    daily = [d for d in rawd if d["confirm"]]
-    a = analyse(bars, daily)
-    idx = {b["ts"]: i for i, b in enumerate(bars)}
-    last_done = state["last_bar"].get(inst, 0)
-    new_bars = [i for i, b in enumerate(bars) if b["ts"] > last_done]
-    if last_done == 0:
-        new_bars = new_bars[-1:]   # first run: only look at the latest closed candle
+def check_hit(api, bot, bs, coin, bar):
+    """Did this candle touch the resting stop / target? Returns True if the trade was closed."""
+    pos = bs["positions"][coin]
+    if bar["l"] <= pos["stop"]:
+        reason = "trailing stop" if pos.get("trail") or bot["strat"] == "tr" and pos["stop"] > pos["sl"] else "stop"
+        close_position(api, bot, bs, coin, reason, min(pos["stop"], bar["o"]))
+        return True
+    if pos.get("limit") and bar["h"] >= pos["limit"]:
+        close_position(api, bot, bs, coin, "take profit", max(pos["limit"], bar["o"]))
+        return True
+    return False
 
+
+def manage_on_close(api, bot, bs, coin, a, i, bar, bars_in):
+    """Update stop/target at a candle close, like the TradingView strategy. True if closed."""
+    pos = bs["positions"][coin]
+    if bot["strat"] == "v4":
+        pos["hi"] = max(pos["hi"] or bar["h"], bar["h"])
+        one_r = pos["entry_px"] - pos["sl"]
+        trail = pos["hi"] >= pos["entry_px"] + one_r
+        s = a["sar"][i]
+        pos["trail"] = trail
+        pos["stop"] = max(pos["sl"], s) if trail and s is not None and s < bar["c"] else pos["sl"]
+        pos["limit"] = None if trail else pos["tp"]
+    elif bot["strat"] == "tr":
+        pos["hi"] = max(pos["hi"] or bar["c"], bar["c"])
+        if a["atr"][i] is not None:
+            pos["stop"] = max(pos["stop"], pos["hi"] - 3 * a["atr"][i])
+    max_bars = SP_SETTINGS.get(bot["strat"], {}).get("max_bars")
+    if max_bars and bars_in >= max_bars:
+        close_position(api, bot, bs, coin, "time exit", bar["c"])
+        return True
+    return False
+
+
+# ───────── Market data (cached per run) ─────────
+_data = {}
+
+
+def get_data(api, venue, coin):
+    key = (venue, coin)
+    if key not in _data:
+        if venue == "kraken":
+            raw4, rawd = kraken_candles(coin, 240), kraken_candles(coin, 1440)
+        else:
+            raw4, rawd = api.candles(coin, "4H", 500), api.candles(coin, "1Dutc", 120)
+        bars = [b for b in raw4 if b["confirm"]]
+        forming = raw4[-1] if raw4 and not raw4[-1]["confirm"] else None
+        daily = [d for d in rawd if d["confirm"]]
+        _data[key] = (bars, forming, daily)
+    return _data[key]
+
+
+def run_bot_coin(api, state, bot, coin, trade=True):
+    bars, forming, daily = get_data(api, bot["venue"], coin)
+    if bot["strat"] == "tr":
+        a = analyse_tr(bars, daily, bot.get("pivot", 5))
+    else:
+        a = analyse_sp(bars, daily, SP_SETTINGS[bot["strat"]])
+    bs = bot_state(state, bot)
     i_last = len(bars) - 1
     inf = a["info"][i_last]
-    log(f"{inst}: last 4H candle {ts_iso(bars[i_last]['ts'])} close {bars[i_last]['c']}"
-        + (f" | score {inf['score']} risk {inf['raw_risk']:.2f}% signal={a['signal'][i_last]}" if inf else ""))
+    pos = bs["positions"].get(coin)
+    log(f"[{bot['name']}] {coin}: 4H {ts_iso(bars[i_last]['ts'])} close {bars[i_last]['c']:.6g}"
+        + (f" | score {inf['score']} risk {inf['raw_risk']:.2f}% signal={a['signal'][i_last]}" if inf else "")
+        + (f" | OPEN from {pos['entry_px']:.6g}, stop {pos['stop']:.6g}" if pos else ""))
     if not trade:
         return
 
-    for i in new_bars:
-        b = bars[i]
-        pos = state["positions"].get(inst)
-        # 1) exit orders that were resting during this candle
-        if pos and b["ts"] > pos["entry_ts"]:
-            if b["l"] <= pos["stop"]:
-                close_position(api, state, inst, "stop" if not pos.get("trail") else "SAR trail")
-                pos = None
-            elif pos.get("limit") and b["h"] >= pos["limit"]:
-                close_position(api, state, inst, "take profit")
-                pos = None
-        # 2) update the position at this candle's close (SAR trail, time stop)
-        if pos and b["ts"] > pos["entry_ts"]:
-            pos["hi_since"] = max(pos.get("hi_since") or b["h"], b["h"])
-            one_r = pos["entry_px"] - pos["sl"]
-            trail = pos["hi_since"] >= pos["entry_px"] + one_r
-            s = a["sar"][i]
-            pos["trail"] = trail
-            pos["stop"] = max(pos["sl"], s) if trail and s is not None and s < b["c"] else pos["sl"]
-            pos["limit"] = None if trail else pos["tp"]
-            bars_in = i - idx.get(pos["entry_ts"], i)
-            if pos["entry_ts"] not in idx:
-                bars_in = (b["ts"] - pos["entry_ts"]) // H4_MS
-            if bars_in >= MAX_BARS:
-                close_position(api, state, inst, "time exit")
-                pos = None
-        # 3) new entry at this candle's close (only acted on for the latest candle)
-        if not pos and a["signal"][i] and i == i_last:
-            inf = a["info"][i]
-            close = b["c"]
-            sl = close * (1 - inf["risk_use"] / 100)
-            tp = close * (1 + inf["tp_pct"] / 100)
-            eq = state["equity"]
-            qty = min(eq * RISK_PCT / 100 / (close - sl), eq / close)
-            usdt = qty * close
-            if usdt < 5:
-                log(f"  {inst}: signal but order too small ({usdt:.2f} USDT)")
-            else:
-                cl_id, got, px, cost = buy(api, inst, usdt, b["ts"])
-                if got > 0:
-                    state["positions"][inst] = {"entry_ts": b["ts"], "entry_px": px or close, "qty": got,
-                                                "cost": cost, "sl": sl, "tp": tp, "stop": sl, "limit": tp,
-                                                "trail": False, "hi_since": None, "clOrdId": cl_id}
-                    log(f"  BUY {inst} {got} @ {px:.6g} for {cost:.2f} USDT | SL {sl:.6g} TP {tp:.6g} score {inf['score']}")
-                    log_trade([now_iso(), inst, "buy", got, round(px, 8), round(cost, 2), "", "",
-                               f"score {inf['score']}", round(state["equity"], 2)])
-        state["last_bar"][inst] = b["ts"]
+    idx = {b["ts"]: k for k, b in enumerate(bars)}
+    last_done = bs["last_bar"].get(coin, 0)
+    new_bars = [k for k, b in enumerate(bars) if b["ts"] > last_done]
+    if last_done == 0:
+        new_bars = new_bars[-1:]
 
-    # 4) check the candle that is still forming (hourly runs catch stops/targets early)
-    pos = state["positions"].get(inst)
-    if pos and forming and forming["ts"] > pos["entry_ts"]:
-        if forming["l"] <= pos["stop"]:
-            close_position(api, state, inst, "stop" if not pos.get("trail") else "SAR trail")
-        elif pos.get("limit") and forming["h"] >= pos["limit"]:
-            close_position(api, state, inst, "take profit")
+    for k in new_bars:
+        b = bars[k]
+        if coin in bs["positions"] and b["ts"] > bs["positions"][coin]["entry_ts"]:
+            if not check_hit(api, bot, bs, coin, b):
+                p = bs["positions"][coin]
+                bars_in = k - idx[p["entry_ts"]] if p["entry_ts"] in idx else (b["ts"] - p["entry_ts"]) // H4_MS
+                manage_on_close(api, bot, bs, coin, a, k, b, bars_in)
+        if coin not in bs["positions"] and a["signal"][k] and k == i_last:
+            extra = {"hi": b["c"]} if bot["strat"] == "tr" else {}
+            open_position(api, bot, bs, coin, b, a["info"][k], extra)
+        bs["last_bar"][coin] = b["ts"]
+
+    if coin in bs["positions"] and forming and forming["ts"] > bs["positions"][coin]["entry_ts"]:
+        check_hit(api, bot, bs, coin, forming)
 
 
 def main():
     mode = (sys.argv[1] if len(sys.argv) > 1 else "run").lower()
     key, sec, pw = (os.environ.get(k, "") for k in ("OKX_API_KEY", "OKX_API_SECRET", "OKX_API_PASSPHRASE"))
     api = OKX(key, sec, pw)
-    log(f"SP-12 v4 demo bot | mode={mode} | {BASE_URL} | {now_iso()} UTC")
+    log(f"Jeff's demo bots | mode={mode} | {BASE_URL} | {now_iso()} UTC")
+    state = load_state()
 
     if mode == "check":
-        for inst in COINS:
-            run_coin(api, load_state(), inst, trade=False)
-        if not (key and sec and pw):
-            log("API key secrets are missing — public data works, but trading can't start yet.")
-            sys.exit(1)
+        for bot in BOTS:
+            for coin in bot["coins"]:
+                try:
+                    run_bot_coin(api, state, bot, coin, trade=False)
+                except Exception as e:
+                    log(f"[{bot['name']}] {coin}: ERROR {e}")
         bal = api.get("/api/v5/account/balance", {"ccy": "USDT"}, private=True)[0]["details"]
         log(f"Demo account connected. USDT available: {bal[0]['availBal'] if bal else 0}")
         return
 
-    if not (key and sec and pw):
-        log("Waiting for OKX_API_KEY / OKX_API_SECRET / OKX_API_PASSPHRASE secrets — not trading.")
-        return
-    state = load_state()
-    errors = 0
-    for inst in COINS:
-        try:
-            run_coin(api, state, inst, trade=True)
-        except Exception as e:  # keep going with the other coins
-            errors += 1
-            log(f"  ERROR {inst}: {e}")
-        save_state(state)
-    log(f"Bot equity: {state['equity']:.2f} USDT | open: {', '.join(state['positions']) or 'none'}")
-    if errors == len(COINS):
+    have_keys = bool(key and sec and pw)
+    errors = total = 0
+    for bot in BOTS:
+        if bot["mode"] == "demo" and not have_keys:
+            log(f"[{bot['name']}] waiting for OKX API key secrets — skipped")
+            continue
+        for coin in bot["coins"]:
+            total += 1
+            try:
+                run_bot_coin(api, state, bot, coin, trade=True)
+            except Exception as e:
+                errors += 1
+                log(f"[{bot['name']}] {coin}: ERROR {e}")
+            save_state(state)
+    for bot in BOTS:
+        bs = state["bots"].get(bot["id"])
+        if bs:
+            log(f"{bot['name']}: balance {bs['equity']:.2f} | open: {', '.join(bs['positions']) or 'none'}")
+    if total and errors == total:
         sys.exit(1)
 
 
