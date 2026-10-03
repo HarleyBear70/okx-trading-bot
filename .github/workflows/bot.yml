@@ -1,0 +1,43 @@
+name: SP-12 v4 demo bot
+
+on:
+  schedule:
+    - cron: "7 * * * *"   # every hour at :07 (UTC); GitHub may start it a few minutes late
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "check = test the connection only, run = trade on OKX demo"
+        type: choice
+        default: check
+        options: [check, run]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sp12-bot
+  cancel-in-progress: false
+
+jobs:
+  bot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run bot
+        env:
+          OKX_API_KEY: ${{ secrets.OKX_API_KEY }}
+          OKX_API_SECRET: ${{ secrets.OKX_API_SECRET }}
+          OKX_API_PASSPHRASE: ${{ secrets.OKX_API_PASSPHRASE }}
+          OKX_BASE_URL: ${{ vars.OKX_BASE_URL }}
+        run: python bot.py ${{ github.event.inputs.mode || 'run' }}
+      - name: Save bot memory (state.json, trades.csv)
+        if: always()
+        run: |
+          git config user.name "sp12-bot"
+          git config user.email "sp12-bot@users.noreply.github.com"
+          git add state.json trades.csv 2>/dev/null || true
+          git diff --cached --quiet || (git commit -m "bot: update state" && git push)
