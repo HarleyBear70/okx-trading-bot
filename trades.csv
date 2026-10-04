@@ -2,3 +2,4 @@ time_utc,bot,mode,coin,side,qty,price,usdt,pnl_usdt,pnl_pct,reason,bot_balance
 2026-10-04 02:47,SP-12 v2,demo,ETH-USDT,buy,1.2337716,2692.2818,3333.33,,,score 2,5000.0
 2026-10-04 04:49,SP-12 v4,demo,BTC-USDT,buy,0.0095497286,84824.9,812.9,,,score 2,1000.0
 2026-10-04 04:49,SP-12 v4 (Kraken paper),paper,XBTUSD,buy,0.0094682561,84833,804.02,,,score 2,1000.0
+2026-10-04 12:26,SP-12 v4 (Kraken paper),paper,ETHUSD,buy,0.21907312,2699.85,592.06,,,score 3,1000.0
