@@ -54,6 +54,33 @@ jobs:
             done
           } > freqtrade/results/SUMMARY.md
 
+      - name: Coin scan (which coins the rules work on)
+        run: |
+          docker run --rm -v "$GITHUB_WORKSPACE:/repo" $IMG download-data \
+            --config $CFG --userdir $UD --timeframes 4h 1d --timerange 20231001- \
+            --pairs DOGE/USDT SUI/USDT BNB/USDT AVAX/USDT ADA/USDT XAUT/USDT || true
+          scan() {
+            name=$1; shift
+            docker run --rm -v "$GITHUB_WORKSPACE:/repo" $IMG backtesting \
+              --config $CFG --userdir $UD --strategy $name --timerange $RANGE --fee 0.001 \
+              --export none --max-open-trades 12 --pairs "$@" 2>&1 | tee freqtrade/results/coinscan_$name.txt || true
+          }
+          ALL="BTC/USDT ETH/USDT SOL/USDT XRP/USDT DOGE/USDT SUI/USDT BNB/USDT AVAX/USDT ADA/USDT"
+          scan SP12v4 $ALL
+          scan TrendRider $ALL
+          scan TrendRiderGold XAUT/USDT
+          scan SP12v2 XAUT/USDT
+          {
+            echo "# Coin scan"
+            echo
+            echo "Updated $(date -u '+%Y-%m-%d %H:%M') UTC. Every coin trades on its own (no 3-trade limit), OKX prices from March 2024. Compare Tot Profit % per coin. Gold (XAUT) uses Trend Rider swing 3 and SP-12 v2, like the gold paper bots."
+            for s in SP12v4 TrendRider TrendRiderGold SP12v2; do
+              echo; echo "## $s"; echo; echo '```'
+              sed -n '/BACKTESTING REPORT/,/^└/p' freqtrade/results/coinscan_$s.txt | sed 's/\x1b\[[0-9;]*m//g'
+              echo '```'
+            done
+          } > freqtrade/results/COINSCAN.md
+
       - name: Save results to the repo
         run: |
           git config user.name "freqtrade-backtest"
