@@ -3,31 +3,31 @@
     "tr-gold": {
       "equity": 5000.0,
       "last_bar": {
-        "XAUT-USDT": 1791057600000
+        "XAUT-USDT": 1791072000000
       },
       "positions": {}
     },
     "tr-okx": {
       "equity": 5000.0,
       "last_bar": {
-        "BTC-USDT": 1791057600000,
-        "ETH-USDT": 1791057600000,
-        "SOL-USDT": 1791057600000
+        "BTC-USDT": 1791072000000,
+        "ETH-USDT": 1791072000000,
+        "SOL-USDT": 1791072000000
       },
       "positions": {}
     },
     "v2-gold": {
       "equity": 5000.0,
       "last_bar": {
-        "XAUT-USDT": 1791057600000
+        "XAUT-USDT": 1791072000000
       },
       "positions": {}
     },
     "v2-okx": {
       "equity": 5000.0,
       "last_bar": {
-        "ETH-USDT": 1791057600000,
-        "SOL-USDT": 1791057600000
+        "ETH-USDT": 1791072000000,
+        "SOL-USDT": 1791072000000
       },
       "positions": {
         "ETH-USDT": {
@@ -47,22 +47,48 @@
     "v4-kraken": {
       "equity": 1000.0,
       "last_bar": {
-        "ETHUSD": 1791057600000,
-        "SOLUSD": 1791057600000,
-        "XBTUSD": 1791057600000,
-        "XRPUSD": 1791057600000
+        "ETHUSD": 1791072000000,
+        "SOLUSD": 1791072000000,
+        "XBTUSD": 1791072000000,
+        "XRPUSD": 1791072000000
       },
-      "positions": {}
+      "positions": {
+        "XBTUSD": {
+          "cost": 804.0237910764847,
+          "entry_px": 84833.0,
+          "entry_ts": 1791072000000,
+          "hi": null,
+          "limit": 88001.48210000002,
+          "qty": 0.009468256109131809,
+          "sl": 83776.83929999999,
+          "stop": 83776.83929999999,
+          "tp": 88001.48210000002,
+          "trail": false
+        }
+      }
     },
     "v4-okx": {
       "equity": 1000.0,
       "last_bar": {
-        "BTC-USDT": 1791057600000,
-        "ETH-USDT": 1791057600000,
-        "SOL-USDT": 1791057600000,
-        "XRP-USDT": 1791057600000
+        "BTC-USDT": 1791072000000,
+        "ETH-USDT": 1791072000000,
+        "SOL-USDT": 1791072000000,
+        "XRP-USDT": 1791072000000
       },
-      "positions": {}
+      "positions": {
+        "BTC-USDT": {
+          "cost": 812.8999194229999,
+          "entry_px": 84824.9,
+          "entry_ts": 1791072000000,
+          "hi": null,
+          "limit": 87974.85200000003,
+          "qty": 0.009549728555,
+          "sl": 83800.116,
+          "stop": 83800.116,
+          "tp": 87974.85200000003,
+          "trail": false
+        }
+      }
     }
   },
   "version": 2
