@@ -1,11 +1,11 @@
 [
  {
-  "best_pct": 0.593,
-  "best_px": 2708.25,
-  "best_r": 0.35,
+  "best_pct": 0.677,
+  "best_px": 2710.51,
+  "best_r": 0.4,
   "bot": "SP-12 v2",
   "bot_id": "v2-okx",
-  "candles_held": 5,
+  "candles_held": 6,
   "chart_coin": "ETH-USDT",
   "coin": "ETH-USDT",
   "cost": 3333.33,
@@ -89,7 +89,7 @@
     "daily_ema20": 2631.69,
     "daily_ema50": 2465.42,
     "daily_rsi14": 58.8,
-    "ema200": 2562.17,
+    "ema200": 2562.2,
     "ema21": 2690.26,
     "ema50": 2684.74,
     "ema55": 2682.43,
@@ -99,7 +99,7 @@
     "macd_hist": -2.08819,
     "macd_hist_prev": -2.58629,
     "open": 2685.69,
-    "pct_from_ema200": 4.887,
+    "pct_from_ema200": 4.886,
     "pct_from_ema50": 0.099,
     "psar": 2761.77,
     "rsi14": 49.1,
@@ -144,7 +144,7 @@
   "mode": "demo",
   "planned_stop": 2647.08,
   "planned_target": 2788.17,
-  "price_now": 2703.07,
+  "price_now": 2703.84,
   "qty": 1.2337716,
   "result": "open",
   "risk_pct": 1.679,
@@ -153,18 +153,18 @@
   "stop_now": 2647.08,
   "strategy": "v2",
   "trailing_on": false,
-  "unrealized_pct": 0.401,
+  "unrealized_pct": 0.429,
   "why_entry": "BUY signal. Score 2 (needed 2). Points for: Daily trend up: yesterday's daily close above a rising 20-day EMA; Liquidity sweep in the last 10 candles: price dipped under a swing low and closed back above it; Supertrend is green on this candle; MACD histogram rising (momentum picking up). Points against: Break of structure in the last 20 candles (the tested settings count this AGAINST a buy); Price retesting the order block before the last BOS (counted against). Stop 1.45% below, target 3.75% above.",
   "worst_pct": -0.215,
   "worst_px": 2686.48
  },
  {
-  "best_pct": 0.774,
-  "best_px": 85481.7,
-  "best_r": 0.64,
+  "best_pct": 1.473,
+  "best_px": 86074.4,
+  "best_r": 1.22,
   "bot": "SP-12 v4",
   "bot_id": "v4-okx",
-  "candles_held": 4,
+  "candles_held": 5,
   "chart_coin": "BTC-USDT",
   "coin": "BTC-USDT",
   "cost": 812.9,
@@ -258,7 +258,7 @@
     "daily_ema20": 82691.6,
     "daily_ema50": 78589.2,
     "daily_rsi14": 63.7,
-    "ema200": 80731.9,
+    "ema200": 80732.6,
     "ema21": 84639.9,
     "ema50": 84200.7,
     "ema55": 84107.7,
@@ -268,7 +268,7 @@
     "macd_hist": -40.1722,
     "macd_hist_prev": -40.6124,
     "open": 84755.0,
-    "pct_from_ema200": 5.093,
+    "pct_from_ema200": 5.092,
     "pct_from_ema50": 0.764,
     "psar": 87184.5,
     "rsi14": 53.6,
@@ -313,7 +313,7 @@
   "mode": "demo",
   "planned_stop": 83800.1,
   "planned_target": 87974.9,
-  "price_now": 85428.5,
+  "price_now": 85837.2,
   "qty": 0.0095497286,
   "result": "open",
   "risk_pct": 1.208,
@@ -322,18 +322,18 @@
   "stop_now": 83800.1,
   "strategy": "v4",
   "trailing_on": false,
-  "unrealized_pct": 0.712,
+  "unrealized_pct": 1.193,
   "why_entry": "BUY signal. Score 2 (needed 2). Points for: Daily trend up: yesterday's daily close above a rising 20-day EMA; Supertrend is green on this candle; MACD histogram rising (momentum picking up). Points against: Break of structure in the last 20 candles (the tested settings count this AGAINST a buy). Stop 1.23% below, target 3.69% above.",
   "worst_pct": -0.007,
   "worst_px": 84818.7
  },
  {
-  "best_pct": 0.739,
-  "best_px": 85459.5,
-  "best_r": 0.59,
+  "best_pct": 1.434,
+  "best_px": 86049.9,
+  "best_r": 1.15,
   "bot": "SP-12 v4 (Kraken paper)",
   "bot_id": "v4-kraken",
-  "candles_held": 4,
+  "candles_held": 5,
   "chart_coin": "BTC-USDT",
   "coin": "XBTUSD",
   "cost": 804.02,
@@ -427,7 +427,7 @@
     "daily_ema20": 82666.3,
     "daily_ema50": 78560.8,
     "daily_rsi14": 63.7,
-    "ema200": 80687.7,
+    "ema200": 80687.8,
     "ema21": 84617.9,
     "ema50": 84174.8,
     "ema55": 84081.7,
@@ -482,7 +482,7 @@
   "mode": "paper",
   "planned_stop": 83776.8,
   "planned_target": 88001.5,
-  "price_now": 85393.1,
+  "price_now": 85847.2,
   "qty": 0.0094682561,
   "result": "open",
   "risk_pct": 1.245,
@@ -491,18 +491,18 @@
   "stop_now": 83776.8,
   "strategy": "v4",
   "trailing_on": false,
-  "unrealized_pct": 0.66,
+  "unrealized_pct": 1.196,
   "why_entry": "BUY signal. Score 2 (needed 2). Points for: Daily trend up: yesterday's daily close above a rising 20-day EMA; Supertrend is green on this candle; MACD histogram rising (momentum picking up). Points against: Break of structure in the last 20 candles (the tested settings count this AGAINST a buy). Stop 1.24% below, target 3.73% above.",
   "worst_pct": -0.035,
   "worst_px": 84803.3
  },
  {
-  "best_pct": 0.256,
-  "best_px": 2706.75,
-  "best_r": 0.15,
+  "best_pct": 0.361,
+  "best_px": 2709.59,
+  "best_r": 0.21,
   "bot": "SP-12 v4 (Kraken paper)",
   "bot_id": "v4-kraken",
-  "candles_held": 2,
+  "candles_held": 3,
   "chart_coin": "ETH-USDT",
   "coin": "ETHUSD",
   "cost": 592.06,
@@ -651,7 +651,7 @@
   "mode": "paper",
   "planned_stop": 2654.2,
   "planned_target": 2836.79,
-  "price_now": 2702.6,
+  "price_now": 2703.25,
   "qty": 0.21907312,
   "result": "open",
   "risk_pct": 1.691,
@@ -660,9 +660,178 @@
   "stop_now": 2654.2,
   "strategy": "v4",
   "trailing_on": false,
-  "unrealized_pct": 0.102,
+  "unrealized_pct": 0.126,
   "why_entry": "BUY signal. Score 3 (needed 2). Points for: Daily trend up: yesterday's daily close above a rising 20-day EMA; Supertrend is green on this candle; MACD histogram rising (momentum picking up). Stop 1.69% below, target 5.07% above.",
   "worst_pct": -0.303,
   "worst_px": 2691.66
+ },
+ {
+  "best_pct": 0.243,
+  "best_px": 2710.51,
+  "best_r": 0.19,
+  "bot": "SP-12 v4",
+  "bot_id": "v4-okx",
+  "candles_held": 1,
+  "chart_coin": "ETH-USDT",
+  "coin": "ETH-USDT",
+  "cost": 187.1,
+  "csv_row": 4,
+  "entry_bar_ms": 1791129600000,
+  "entry_bar_time": "2026-10-04 16:00",
+  "entry_decision": {
+   "checks": [
+    {
+     "key": "daily_trend",
+     "passed": true,
+     "plain": "Daily trend up: yesterday's daily close above a rising 20-day EMA",
+     "points": 1
+    },
+    {
+     "key": "liquidity_sweep",
+     "passed": false,
+     "plain": "Liquidity sweep in the last 10 candles: price dipped under a swing low and closed back above it",
+     "points": 1
+    },
+    {
+     "key": "supertrend_green",
+     "passed": true,
+     "plain": "Supertrend is green on this candle",
+     "points": 1
+    },
+    {
+     "key": "macd_rising",
+     "passed": true,
+     "plain": "MACD histogram rising (momentum picking up)",
+     "points": 1
+    },
+    {
+     "key": "recent_bos",
+     "passed": false,
+     "plain": "Break of structure in the last 20 candles (the tested settings count this AGAINST a buy)",
+     "points": -1
+    },
+    {
+     "key": "in_fvg",
+     "passed": true,
+     "plain": "Price dipping into a recent fair value gap (counted against)",
+     "points": -1
+    },
+    {
+     "key": "in_order_block",
+     "passed": false,
+     "plain": "Price retesting the order block before the last BOS (counted against)",
+     "points": -1
+    },
+    {
+     "key": "reversal_candle",
+     "passed": false,
+     "plain": "Bullish engulfing or hammer candle (counted against)",
+     "points": -1
+    }
+   ],
+   "gates": [
+    {
+     "key": "trend_gate",
+     "passed": true,
+     "plain": "Required: previous candle closed above the 50 EMA with Supertrend green"
+    },
+    {
+     "key": "score",
+     "passed": true,
+     "plain": "Required: score of 2 or more (got 2)"
+    },
+    {
+     "key": "risk",
+     "passed": true,
+     "plain": "Required: stop no more than 4.0% away (it was 1.19%)"
+    },
+    {
+     "key": "ema_stack",
+     "passed": true,
+     "plain": "Required: EMAs stacked up (8 above 21 above 55)"
+    },
+    {
+     "key": "above_vwap",
+     "passed": true,
+     "plain": "Required: price above daily VWAP"
+    }
+   ],
+   "market": {
+    "atr14": 22.9856,
+    "atr_pct": 0.851,
+    "candle_change_pct": 0.119,
+    "close": 2701.94,
+    "daily_close": 2687.39,
+    "daily_ema20": 2637.0,
+    "daily_ema50": 2474.13,
+    "daily_rsi14": 60.5,
+    "ema200": 2568.94,
+    "ema21": 2694.13,
+    "ema50": 2687.58,
+    "ema55": 2685.42,
+    "ema8": 2696.76,
+    "high": 2707.2,
+    "low": 2696.31,
+    "macd_hist": 1.0059,
+    "macd_hist_prev": 0.750659,
+    "open": 2698.74,
+    "pct_from_ema200": 5.177,
+    "pct_from_ema50": 0.534,
+    "psar": 2751.13,
+    "rsi14": 53.1,
+    "supertrend": "green/up",
+    "volume_vs_20avg": 0.18,
+    "vwap": 2700.38
+   },
+   "near_miss": false,
+   "ready": true,
+   "risk": {
+    "planned_stop": 2669.7,
+    "planned_target": 2798.67,
+    "reward_to_risk": 3.0,
+    "stop_distance_pct": 1.193,
+    "stop_used_pct": 1.193,
+    "target_pct": 3.58
+   },
+   "score": 2,
+   "score_needed": 2,
+   "signal": true,
+   "swing": {
+    "candles_since_bos": 32,
+    "candles_since_sweep": 139,
+    "fvg": [
+     2697.0,
+     2698.0
+    ],
+    "last_swing_high": 2778.6,
+    "last_swing_low": 2651.0,
+    "order_block": [
+     2652.36,
+     2695.6
+    ]
+   },
+   "why": "BUY signal. Score 2 (needed 2). Points for: Daily trend up: yesterday's daily close above a rising 20-day EMA; Supertrend is green on this candle; MACD histogram rising (momentum picking up). Points against: Price dipping into a recent fair value gap (counted against). Stop 1.19% below, target 3.58% above."
+  },
+  "entry_ms": 1791149040000,
+  "entry_note": "score 2",
+  "entry_px": 2703.94,
+  "entry_time": "2026-10-04 21:24",
+  "id": "v4-okx|ETH-USDT|2026-10-04 21:24",
+  "mode": "demo",
+  "planned_stop": 2669.7,
+  "planned_target": 2798.67,
+  "price_now": 2703.84,
+  "qty": 0.068952818,
+  "result": "open",
+  "risk_pct": 1.266,
+  "side_group": "testing",
+  "status": "open",
+  "stop_now": 2669.7,
+  "strategy": "v4",
+  "trailing_on": false,
+  "unrealized_pct": -0.004,
+  "why_entry": "BUY signal. Score 2 (needed 2). Points for: Daily trend up: yesterday's daily close above a rising 20-day EMA; Supertrend is green on this candle; MACD histogram rising (momentum picking up). Points against: Price dipping into a recent fair value gap (counted against). Stop 1.19% below, target 3.58% above.",
+  "worst_pct": -0.155,
+  "worst_px": 2699.74
  }
 ]
