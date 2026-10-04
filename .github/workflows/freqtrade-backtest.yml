@@ -26,7 +26,8 @@ jobs:
 
       - name: Download OKX price history (4h + daily)
         run: |
-          docker run --rm --user root -v "$GITHUB_WORKSPACE:/repo" $IMG download-data \
+          chmod -R a+rwX "$GITHUB_WORKSPACE"
+          docker run --rm -v "$GITHUB_WORKSPACE:/repo" $IMG download-data \
             --config $CFG --userdir $UD --timeframes 4h 1d --timerange 20231001- \
             --pairs BTC/USDT ETH/USDT SOL/USDT XRP/USDT
 
@@ -35,7 +36,7 @@ jobs:
           mkdir -p freqtrade/results
           run() {
             name=$1; shift
-            docker run --rm --user root -v "$GITHUB_WORKSPACE:/repo" $IMG backtesting \
+            docker run --rm -v "$GITHUB_WORKSPACE:/repo" $IMG backtesting \
               --config $CFG --userdir $UD --strategy $name --timerange $RANGE --fee 0.001 \
               --export none --pairs "$@" 2>&1 | tee freqtrade/results/$name.txt || true
           }
