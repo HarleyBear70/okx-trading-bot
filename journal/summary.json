@@ -264,21 +264,6 @@
      "win_rate_pct": null,
      "wins": 0
     },
-    "SOLUSD": {
-     "avg_candles_held": null,
-     "avg_loss": null,
-     "avg_r": null,
-     "avg_win": null,
-     "closed": 0,
-     "losers_that_were_green_first": 0,
-     "losses": 0,
-     "open": 0,
-     "profit_factor": null,
-     "total_pnl": 0,
-     "trades": 0,
-     "win_rate_pct": null,
-     "wins": 0
-    },
     "XBTUSD": {
      "avg_candles_held": null,
      "avg_loss": null,
@@ -373,21 +358,6 @@
      "win_rate_pct": null,
      "wins": 0
     },
-    "SOL-USDT": {
-     "avg_candles_held": null,
-     "avg_loss": null,
-     "avg_r": null,
-     "avg_win": null,
-     "closed": 0,
-     "losers_that_were_green_first": 0,
-     "losses": 0,
-     "open": 0,
-     "profit_factor": null,
-     "total_pnl": 0,
-     "trades": 0,
-     "win_rate_pct": null,
-     "wins": 0
-    },
     "XRP-USDT": {
      "avg_candles_held": null,
      "avg_loss": null,
@@ -461,5 +431,5 @@
    "wins": 0
   }
  },
- "updated_utc": "2026-10-04 22:23"
+ "updated_utc": "2026-10-04 23:22"
 }
