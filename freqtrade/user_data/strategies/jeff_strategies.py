@@ -49,7 +49,7 @@ class JeffBase(IStrategy):
     stoploss = -0.15              # safety net only; the real stop is custom_stoploss
     use_custom_stoploss = True
     trailing_stop = False
-    use_exit_signal = False
+    use_exit_signal = True        # needed so custom_exit (take profit, time exit) runs; exit_long is never set
 
     strat = "v4"                  # v4, v2 or tr
     pivot = 5                     # Trend Rider swing strength
