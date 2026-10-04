@@ -182,3 +182,8 @@ class SP12v2(JeffBase):
 class TrendRider(JeffBase):
     strat = "tr"
     pivot = 5
+
+
+class TrendRiderGold(JeffBase):
+    strat = "tr"
+    pivot = 3
