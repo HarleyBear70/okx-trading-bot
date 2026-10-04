@@ -1,6 +1,6 @@
 platform,bot,mode,exchange,coins,start_balance_usd,risk_per_trade,start_date,trades_closed,wins,losses,win_rate_pct,net_pnl_usd,net_pnl_pct,profit_factor,max_drawdown_pct,buy_hold_pct,status,notes,last_updated
-GitHub,SP-12 v4,demo,OKX,BTC ETH SOL XRP,1000,1%,2026-10-04,0,0,0,,0,0,,,,testing,2 trades open,2026-10-04
-GitHub,SP-12 v4 (Kraken paper),paper,Kraken,BTC ETH SOL XRP,1000,1%,2026-10-04,0,0,0,,0,0,,,,testing,2 trades open,2026-10-04
+GitHub,SP-12 v4,demo,OKX,BTC ETH XRP (SOL dropped Oct 4),1000,1%,2026-10-04,0,0,0,,0,0,,,,testing,2 trades open,2026-10-04
+GitHub,SP-12 v4 (Kraken paper),paper,Kraken,BTC ETH XRP (SOL dropped Oct 4),1000,1%,2026-10-04,0,0,0,,0,0,,,,testing,2 trades open,2026-10-04
 GitHub,SP-12 v2,demo,OKX,ETH SOL,1000,1%,2026-10-04,0,0,0,,0,0,,,,testing,1 trade open (first trade logged on old 5000 balance - code now uses 1000),2026-10-04
 GitHub,SP-12 v2 (gold paper),paper,OKX,XAUT,1000,1%,2026-10-04,0,0,0,,0,0,,,,testing,no trades yet,2026-10-04
 GitHub,Trend Rider,demo,OKX,BTC ETH SOL,1000,1%,2026-10-04,0,0,0,,0,0,,,,testing,no trades yet,2026-10-04
@@ -16,6 +16,8 @@ HaasOnline,Index Bot,paper,OKX,BTC (check basket),,fixed size,2026-10-04,0,0,0,,
 3Commas,DCA / Grid / Signal bots,demo,Kraken,?,,?,?,,,,,,,,,,testing,need trade history export,
 Bitsgap,Demo bots,demo,Kraken,?,,?,?,,,,,,,,,,testing,need trade history export - 7 day trial,
 Freqtrade,SP12v4 backtest,backtest,OKX,BTC ETH SOL XRP,1000,1%,2024-03-01,225,90,135,40.0,573.22,57.32,1.41,15.71,41.29,watch,beats hold and PF ok but drawdown over 10% - SOL loses money,2026-10-04
-Freqtrade,SP12v2 backtest,backtest,OKX,ETH SOL,1000,1%,2024-03-01,96,,,,-46.70,-4.67,0.88,38.93,-14.70,fail,loses money and 39% drawdown,2026-10-04
+Freqtrade,SP12v2 backtest,backtest,OKX,ETH SOL,1000,1%,2024-03-01,,,,,327.00,32.70,1.28,12.27,-14.70,watch,corrected run (take profit now works) - beats hold but PF just under 1.3 and drawdown over 10%,2026-10-04
 Freqtrade,TrendRider backtest,backtest,OKX,BTC ETH SOL,1000,1%,2024-03-01,134,52,82,38.8,251.24,25.12,1.46,7.58,3.47,shortlist,passes all rules - best risk vs reward so far,2026-10-04
+Freqtrade,TrendRider gold backtest,backtest,OKX,XAUT,1000,1%,2024-03-01,80,50,30,62.5,328.98,32.90,,,,shortlist candidate,coin scan - gold works well for both Trend Rider and SP-12 v2 (+34%),2026-10-04
+Freqtrade,Coin scan,backtest,OKX,9 coins,1000,1%,2024-03-01,,,,,,,,,,info,BNB and SUI positive on both strategies; AVAX and DOGE negative on both - see freqtrade/results/COINSCAN.md,2026-10-04
 Freqtrade,Live practice (dry-run),dry-run,OKX + Kraken,BTC ETH SOL XRP,1000,1%,,,,,,,,,,,planned,needs an always-on server,
