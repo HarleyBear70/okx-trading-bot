@@ -360,6 +360,8 @@ EXIT_PLAIN = {
     "stop": "Price fell to the stop-loss, so the bot sold to cap the loss.",
     "trailing stop": "Price came back down to the trailing stop after moving up - the bot locked in what it could.",
     "take profit": "Price reached the profit target and the bot sold.",
+    "half profit +2R": "Price reached 2x the risk, so the bot sold half to bank profit and let the rest run.",
+    "breakeven stop": "Price reached +1R, then came back to the entry - the bot got out about even instead of taking a loss.",
     "time exit": "The trade ran out of time (held the maximum number of candles) and was closed at market.",
 }
 
@@ -383,9 +385,13 @@ def build_trades(api, state):
             tr["side_group"] = testing_or_live(tr["mode"])
             trades.append(tr)
             open_by[key] = tr
+        elif row["side"] == "sell" and key in open_by and (row.get("reason") or "").startswith("half"):
+            tr = open_by[key]
+            tr["half_pnl"] = (tr.get("half_pnl") or 0) + (fnum(row["pnl_usdt"]) or 0)
+            tr["half_time"], tr["half_px"] = row["time_utc"], fnum(row["price"])
         elif row["side"] == "sell" and key in open_by:
             tr = open_by.pop(key)
-            pnl = fnum(row["pnl_usdt"])
+            pnl = (fnum(row["pnl_usdt"]) or 0) + (tr.get("half_pnl") or 0)
             tr.update({"status": "closed", "exit_time": row["time_utc"], "exit_ms": t,
                        "exit_px": fnum(row["price"]), "proceeds": fnum(row["usdt"]), "pnl": pnl,
                        "pnl_pct": fnum(row["pnl_pct"]), "exit_reason": row["reason"],
