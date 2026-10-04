@@ -32,6 +32,10 @@ KRAKEN_URL = "https://api.kraken.com"
 FEE = 0.001                 # 0.1% per side for paper trades (same as the backtests)
 SAR_START, SAR_INC, SAR_MAX = 0.02, 0.02, 0.2
 H4_MS = 4 * 3600 * 1000
+RISK_PCT = 0.01  # every bot starts by risking 1% of its own $1,000 practice balance per trade
+RISK_STEPS = [(0.50, 0.02), (0.25, 0.015), (0.10, 0.0125)]  # balance up 50% -> 2%, up 25% -> 1.5%, up 10% -> 1.25%
+MAX_OPEN = 3  # no more than 3 trades open at once per bot
+BE_BUFFER = 2 * FEE  # breakeven stop sits just above entry so fees are covered
 
 BOTS = [
     {"id": "v4-okx", "name": "SP-12 v4", "strat": "v4", "venue": "okx", "mode": "demo", "prefix": "gh4",
@@ -39,13 +43,13 @@ BOTS = [
     {"id": "v4-kraken", "name": "SP-12 v4 (Kraken paper)", "strat": "v4", "venue": "kraken", "mode": "paper",
      "coins": ["XBTUSD", "ETHUSD", "SOLUSD", "XRPUSD"], "equity": 1000.0},
     {"id": "v2-okx", "name": "SP-12 v2", "strat": "v2", "venue": "okx", "mode": "demo", "prefix": "ghS",
-     "coins": ["ETH-USDT", "SOL-USDT"], "equity": 5000.0},
+     "coins": ["ETH-USDT", "SOL-USDT"], "equity": 1000.0},
     {"id": "v2-gold", "name": "SP-12 v2 (gold paper)", "strat": "v2", "venue": "okx", "mode": "paper",
-     "coins": ["XAUT-USDT"], "equity": 5000.0},
+     "coins": ["XAUT-USDT"], "equity": 1000.0},
     {"id": "tr-okx", "name": "Trend Rider", "strat": "tr", "venue": "okx", "mode": "demo", "prefix": "ghT",
-     "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT"], "equity": 5000.0, "pivot": 5},
+     "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT"], "equity": 1000.0, "pivot": 5},
     {"id": "tr-gold", "name": "Trend Rider (gold paper)", "strat": "tr", "venue": "okx", "mode": "paper",
-     "coins": ["XAUT-USDT"], "equity": 5000.0, "pivot": 3},
+     "coins": ["XAUT-USDT"], "equity": 1000.0, "pivot": 3},
 ]
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -440,6 +444,20 @@ def bot_state(state, bot):
     return state["bots"].setdefault(bot["id"], {"equity": bot["equity"], "positions": {}, "last_bar": {}})
 
 
+def migrate_budget(state):
+    """One time: bots that started on $5,000 switch to the same $1,000 practice balance as SP-12 v4.
+    The balance keeps its % gain/loss, and trades already open count at 1/5 size."""
+    if state.get("budget") == 1000:
+        return state
+    for b in BOTS:
+        bs = state["bots"].get(b["id"])
+        if bs and bs.get("equity", 0) > 2500:
+            bs["equity"] = round(bs["equity"] * 0.2, 4)
+            for pos in bs["positions"].values():
+                pos["pnl_scale"] = pos.get("pnl_scale", 1.0) * 0.2
+    state["budget"] = 1000
+    return state
+
 def save_state(s):
     with open(STATE_FILE, "w") as f:
         json.dump(s, f, indent=2, sort_keys=True)
@@ -523,16 +541,31 @@ def okx_sell(api, bot, inst, qty):
 
 
 # ───────── Opening / closing (demo or paper) ─────────
+def risk_pct(bot, bs):
+    """Base 1%. As the practice balance grows, risk a bit more per trade so it grows faster.
+    Drops straight back to 1% if the balance falls 5% from its best."""
+    eq = bs["equity"]
+    bs["peak"] = max(bs.get("peak", eq), eq)
+    if eq < bs["peak"] * 0.95:
+        return RISK_PCT
+    gain = eq / bot["equity"] - 1
+    for need, pct in RISK_STEPS:
+        if gain >= need:
+            return pct
+    return RISK_PCT
+
 def open_position(api, bot, bs, coin, bar, inf, extra):
     close = bar["c"]
     sl = inf["sl"]
     if close <= sl:
         return
-    if bot["strat"] == "v4":
-        eq = bs["equity"]
-        qty = min(eq * 0.01 / (close - sl), eq / close)
-    else:
-        qty = min(50.0 / (close - sl), 5000.0 / close)
+    if len(bs["positions"]) >= MAX_OPEN:
+        log(f"  {coin}: signal but {MAX_OPEN} trades already open")
+        return
+    eq = bs["equity"]
+    in_use = sum(p["cost"] * p.get("pnl_scale", 1.0) for p in bs["positions"].values())
+    free = max(eq - in_use, 0.0)
+    qty = min(eq * risk_pct(bot, bs) / (close - sl), free / close)
     usdt = qty * close
     if usdt < 5:
         log(f"  {coin}: signal but order too small ({usdt:.2f})")
@@ -565,21 +598,53 @@ def close_position(api, bot, bs, coin, reason, paper_px):
     else:
         filled, px = pos["qty"], paper_px
         proceeds = filled * px * (1 - FEE)
-    pnl = proceeds - pos["cost"]
+    pnl = (proceeds - pos["cost"]) * pos.get("pnl_scale", 1.0)
     bs["equity"] = round(bs["equity"] + pnl, 4)
-    pct = pnl / pos["cost"] * 100 if pos["cost"] else 0
+    pct = (proceeds - pos["cost"]) / pos["cost"] * 100 if pos["cost"] else 0
     log(f"  SELL {coin} {filled:.8g} @ {px:.6g} ({reason}) P/L {pnl:+.2f} ({pct:+.2f}%)")
     log_trade(bot, coin, "sell", filled, px, proceeds, pnl, pct, reason, bs["equity"])
     bs["positions"].pop(coin)
 
 
+def stop_reason(pos):
+    if pos["stop"] <= pos["sl"]:
+        return "stop"
+    if pos["stop"] <= pos["entry_px"] * (1 + BE_BUFFER) * 1.0001:
+        return "breakeven stop"
+    return "trailing stop"
+
+def take_half(api, bot, bs, coin, paper_px):
+    """+2R reached: sell half to bank profit, the rest keeps running with its stop."""
+    pos = bs["positions"][coin]
+    pos["half"] = True
+    if bot["mode"] == "demo":
+        filled, proceeds = okx_sell(api, bot, coin, pos["qty"] / 2)
+        if filled <= 0:
+            log(f"  {coin}: +2R reached but half is too small to sell - letting it all run")
+            return
+        px = proceeds / filled
+    else:
+        filled, px = pos["qty"] / 2, paper_px
+        proceeds = filled * px * (1 - FEE)
+    part_cost = pos["cost"] * filled / pos["qty"]
+    pnl = (proceeds - part_cost) * pos.get("pnl_scale", 1.0)
+    bs["equity"] = round(bs["equity"] + pnl, 4)
+    pct = (proceeds - part_cost) / part_cost * 100 if part_cost else 0
+    pos["qty"] -= filled
+    pos["cost"] -= part_cost
+    log(f"  HALF {coin} {filled:.8g} @ {px:.6g} (+2R) P/L {pnl:+.2f} ({pct:+.2f}%)")
+    log_trade(bot, coin, "sell", filled, px, proceeds, pnl, pct, "half profit +2R", bs["equity"])
+
 def check_hit(api, bot, bs, coin, bar):
     """Did this candle touch the resting stop / target? Returns True if the trade was closed."""
     pos = bs["positions"][coin]
     if bar["l"] <= pos["stop"]:
-        reason = "trailing stop" if pos.get("trail") or bot["strat"] == "tr" and pos["stop"] > pos["sl"] else "stop"
+        reason = stop_reason(pos)
         close_position(api, bot, bs, coin, reason, min(pos["stop"], bar["o"]))
         return True
+    two_r = pos["entry_px"] + 2 * (pos["entry_px"] - pos["sl"])
+    if not pos.get("half") and pos["entry_px"] > pos["sl"] and bar["h"] >= two_r:
+        take_half(api, bot, bs, coin, max(two_r, bar["o"]))
     if pos.get("limit") and bar["h"] >= pos["limit"]:
         close_position(api, bot, bs, coin, "take profit", max(pos["limit"], bar["o"]))
         return True
@@ -589,18 +654,24 @@ def check_hit(api, bot, bs, coin, bar):
 def manage_on_close(api, bot, bs, coin, a, i, bar, bars_in):
     """Update stop/target at a candle close, like the TradingView strategy. True if closed."""
     pos = bs["positions"][coin]
+    one_r = pos["entry_px"] - pos["sl"]
+    if one_r > 0 and bar["h"] >= pos["entry_px"] + one_r:
+        pos["be"] = True  # +1R reached: the stop never goes back below breakeven
+    be_floor = max(pos["sl"], pos["entry_px"] * (1 + BE_BUFFER)) if pos.get("be") else pos["sl"]
     if bot["strat"] == "v4":
         pos["hi"] = max(pos["hi"] or bar["h"], bar["h"])
-        one_r = pos["entry_px"] - pos["sl"]
         trail = pos["hi"] >= pos["entry_px"] + one_r
         s = a["sar"][i]
         pos["trail"] = trail
-        pos["stop"] = max(pos["sl"], s) if trail and s is not None and s < bar["c"] else pos["sl"]
+        new = max(be_floor, s) if trail and s is not None and s < bar["c"] else be_floor
+        pos["stop"] = max(pos["stop"], new)  # stops only ever move up
         pos["limit"] = None if trail else pos["tp"]
     elif bot["strat"] == "tr":
         pos["hi"] = max(pos["hi"] or bar["c"], bar["c"])
-        if a["atr"][i] is not None:
-            pos["stop"] = max(pos["stop"], pos["hi"] - 3 * a["atr"][i])
+        trail_stop = pos["hi"] - 3 * a["atr"][i] if a["atr"][i] is not None else be_floor
+        pos["stop"] = max(pos["stop"], be_floor, trail_stop)
+    else:
+        pos["stop"] = max(pos["stop"], be_floor)
     max_bars = SP_SETTINGS.get(bot["strat"], {}).get("max_bars")
     if max_bars and bars_in >= max_bars:
         close_position(api, bot, bs, coin, "time exit", bar["c"])
@@ -669,7 +740,7 @@ def main():
     key, sec, pw = (os.environ.get(k, "") for k in ("OKX_API_KEY", "OKX_API_SECRET", "OKX_API_PASSPHRASE"))
     api = OKX(key, sec, pw)
     log(f"Jeff's demo bots | mode={mode} | {BASE_URL} | {now_iso()} UTC")
-    state = load_state()
+    state = migrate_budget(load_state())
 
     if mode == "check":
         for bot in BOTS:
