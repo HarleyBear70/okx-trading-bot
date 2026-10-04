@@ -15,7 +15,7 @@ HaasOnline,Market Making Bot,paper,OKX,BTC,,fixed size,2026-10-04,0,0,0,,0,0,,,,
 HaasOnline,Index Bot,paper,OKX,BTC (check basket),,fixed size,2026-10-04,0,0,0,,0,0,,,,testing,trial ends Oct 11,2026-10-04
 3Commas,DCA / Grid / Signal bots,demo,Kraken,?,,?,?,,,,,,,,,,testing,need trade history export,
 Bitsgap,Demo bots,demo,Kraken,?,,?,?,,,,,,,,,,testing,need trade history export - 7 day trial,
-Freqtrade,SP12v4 backtest,backtest,OKX,BTC ETH SOL XRP,1000,1%,2024-03-01,,,,,,,,,,running,weekly backtest - see freqtrade/results/SUMMARY.md,2026-10-04
-Freqtrade,SP12v2 backtest,backtest,OKX,ETH SOL,1000,1%,2024-03-01,,,,,,,,,,running,weekly backtest,2026-10-04
-Freqtrade,TrendRider backtest,backtest,OKX,BTC ETH SOL,1000,1%,2024-03-01,,,,,,,,,,running,weekly backtest,2026-10-04
+Freqtrade,SP12v4 backtest,backtest,OKX,BTC ETH SOL XRP,1000,1%,2024-03-01,225,90,135,40.0,573.22,57.32,1.41,15.71,41.29,watch,beats hold and PF ok but drawdown over 10% - SOL loses money,2026-10-04
+Freqtrade,SP12v2 backtest,backtest,OKX,ETH SOL,1000,1%,2024-03-01,96,,,,-46.70,-4.67,0.88,38.93,-14.70,fail,loses money and 39% drawdown,2026-10-04
+Freqtrade,TrendRider backtest,backtest,OKX,BTC ETH SOL,1000,1%,2024-03-01,134,52,82,38.8,251.24,25.12,1.46,7.58,3.47,shortlist,passes all rules - best risk vs reward so far,2026-10-04
 Freqtrade,Live practice (dry-run),dry-run,OKX + Kraken,BTC ETH SOL XRP,1000,1%,,,,,,,,,,,planned,needs an always-on server,
