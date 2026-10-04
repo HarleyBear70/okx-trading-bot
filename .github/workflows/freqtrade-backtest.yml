@@ -1,0 +1,62 @@
+name: Freqtrade backtest
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 13 * * 0"   # every Sunday
+
+permissions:
+  contents: write
+
+concurrency:
+  group: freqtrade-backtest
+  cancel-in-progress: false
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      IMG: freqtradeorg/freqtrade:stable
+      CFG: /repo/freqtrade/user_data/config.json
+      UD: /repo/freqtrade/user_data
+      RANGE: "20240301-"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download OKX price history (4h + daily)
+        run: |
+          docker run --rm --user root -v "$GITHUB_WORKSPACE:/repo" $IMG download-data \
+            --config $CFG --userdir $UD --timeframes 4h 1d --timerange 20231001- \
+            --pairs BTC/USDT ETH/USDT SOL/USDT XRP/USDT
+
+      - name: Backtest each strategy
+        run: |
+          mkdir -p freqtrade/results
+          run() {
+            name=$1; shift
+            docker run --rm --user root -v "$GITHUB_WORKSPACE:/repo" $IMG backtesting \
+              --config $CFG --userdir $UD --strategy $name --timerange $RANGE --fee 0.001 \
+              --export none --pairs "$@" 2>&1 | tee freqtrade/results/$name.txt || true
+          }
+          run SP12v4 BTC/USDT ETH/USDT SOL/USDT XRP/USDT
+          run SP12v2 ETH/USDT SOL/USDT
+          run TrendRider BTC/USDT ETH/USDT SOL/USDT
+          {
+            echo "# Freqtrade backtest results"
+            echo
+            echo "Updated $(date -u '+%Y-%m-%d %H:%M') UTC. OKX prices from March 2024, 1,000 USDT start, 0.1% fee, 1% risk per trade."
+            for s in SP12v4 SP12v2 TrendRider; do
+              echo; echo "## $s"; echo; echo '```'
+              sed -n '/STRATEGY SUMMARY/,/^$/p;/SUMMARY METRICS/,/^$/p' freqtrade/results/$s.txt | sed 's/\x1b\[[0-9;]*m//g'
+              echo '```'
+            done
+          } > freqtrade/results/SUMMARY.md
+
+      - name: Save results to the repo
+        run: |
+          git config user.name "freqtrade-backtest"
+          git config user.email "actions@users.noreply.github.com"
+          git add freqtrade/results
+          git commit -m "Freqtrade backtest results" || exit 0
+          for i in 1 2 3; do git pull --rebase && git push && break; sleep 5; done
