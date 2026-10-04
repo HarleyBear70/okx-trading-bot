@@ -1,7 +1,7 @@
 platform,bot,mode,exchange,coins,start_balance_usd,risk_per_trade,start_date,trades_closed,wins,losses,win_rate_pct,net_pnl_usd,net_pnl_pct,profit_factor,max_drawdown_pct,buy_hold_pct,status,notes,last_updated
 GitHub,SP-12 v4,demo,OKX,BTC ETH SOL XRP,1000,1%,2026-10-04,0,0,0,,0,0,,,,testing,2 trades open,2026-10-04
 GitHub,SP-12 v4 (Kraken paper),paper,Kraken,BTC ETH SOL XRP,1000,1%,2026-10-04,0,0,0,,0,0,,,,testing,2 trades open,2026-10-04
-GitHub,SP-12 v2,demo,OKX,ETH SOL,5000,1%,2026-10-04,0,0,0,,0,0,,,,testing,balance is 5000 not 1000 - fix so it matches the others,2026-10-04
+GitHub,SP-12 v2,demo,OKX,ETH SOL,1000,1%,2026-10-04,0,0,0,,0,0,,,,testing,1 trade open (first trade logged on old 5000 balance - code now uses 1000),2026-10-04
 GitHub,SP-12 v2 (gold paper),paper,OKX,XAUT,1000,1%,2026-10-04,0,0,0,,0,0,,,,testing,no trades yet,2026-10-04
 GitHub,Trend Rider,demo,OKX,BTC ETH SOL,1000,1%,2026-10-04,0,0,0,,0,0,,,,testing,no trades yet,2026-10-04
 GitHub,Trend Rider (gold paper),paper,OKX,XAUT,1000,1%,2026-10-04,0,0,0,,0,0,,,,testing,no trades yet,2026-10-04
@@ -15,4 +15,7 @@ HaasOnline,Market Making Bot,paper,OKX,BTC,,fixed size,2026-10-04,0,0,0,,0,0,,,,
 HaasOnline,Index Bot,paper,OKX,BTC (check basket),,fixed size,2026-10-04,0,0,0,,0,0,,,,testing,trial ends Oct 11,2026-10-04
 3Commas,DCA / Grid / Signal bots,demo,Kraken,?,,?,?,,,,,,,,,,testing,need trade history export,
 Bitsgap,Demo bots,demo,Kraken,?,,?,?,,,,,,,,,,testing,need trade history export - 7 day trial,
-Freqtrade,SP-12 / Trend Rider port,backtest then dry-run,OKX + Kraken,BTC ETH SOL XRP,1000,1%,,,,,,,,,,,planned,needs an always-on server,
+Freqtrade,SP12v4 backtest,backtest,OKX,BTC ETH SOL XRP,1000,1%,2024-03-01,,,,,,,,,,running,weekly backtest - see freqtrade/results/SUMMARY.md,2026-10-04
+Freqtrade,SP12v2 backtest,backtest,OKX,ETH SOL,1000,1%,2024-03-01,,,,,,,,,,running,weekly backtest,2026-10-04
+Freqtrade,TrendRider backtest,backtest,OKX,BTC ETH SOL,1000,1%,2024-03-01,,,,,,,,,,running,weekly backtest,2026-10-04
+Freqtrade,Live practice (dry-run),dry-run,OKX + Kraken,BTC ETH SOL XRP,1000,1%,,,,,,,,,,,planned,needs an always-on server,
