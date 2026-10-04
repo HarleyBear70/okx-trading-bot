@@ -40,7 +40,7 @@ jobs:
               --config $CFG --userdir $UD --strategy $name --timerange $RANGE --fee 0.001 \
               --export none --pairs "$@" 2>&1 | tee freqtrade/results/$name.txt || true
           }
-          run SP12v4 BTC/USDT ETH/USDT SOL/USDT XRP/USDT
+          run SP12v4 BTC/USDT ETH/USDT XRP/USDT
           run SP12v2 ETH/USDT SOL/USDT
           run TrendRider BTC/USDT ETH/USDT SOL/USDT
           {
@@ -81,10 +81,39 @@ jobs:
             done
           } > freqtrade/results/COINSCAN.md
 
+      - name: Skeptic check (do strategies work in both halves?)
+        run: |
+          half() {
+            name=$1; range=$2; shift 2
+            docker run --rm -v "$GITHUB_WORKSPACE:/repo" $IMG backtesting \
+              --config $CFG --userdir $UD --strategy $name --timerange $range --fee 0.001 \
+              --export none --pairs "$@" 2>&1 | sed 's/\x1b\[[0-9;]*m//g' | grep "^│ $name " | tail -1
+          }
+          {
+            echo "# Skeptic check"
+            echo
+            echo "Updated $(date -u '+%Y-%m-%d %H:%M') UTC. Each strategy tested separately on the first half (Mar 2024 - Jun 2025) and the second half (Jul 2025 - now). A strategy that only makes money in one half is probably luck."
+            echo
+            echo "Columns: Strategy, Trades, Avg Profit %, Tot Profit USDT, Tot Profit %, Avg Duration, Win Draw Loss Win%, Drawdown"
+            for s in "SP12v4 BTC/USDT ETH/USDT XRP/USDT" "SP12v2 ETH/USDT SOL/USDT" "TrendRider BTC/USDT ETH/USDT SOL/USDT" "TrendRiderGold XAUT/USDT"; do
+              set -- $s; name=$1; shift
+              echo; echo "## $name"; echo; echo '```'
+              echo "First half:  $(half $name 20240301-20250701 "$@")"
+              echo "Second half: $(half $name 20250701- "$@")"
+              echo '```'
+            done
+          } > freqtrade/results/SKEPTIC.md
+          cat freqtrade/results/SKEPTIC.md
+
+      - name: Research - test Brad's concepts on each coin
+        run: |
+          docker run --rm --entrypoint python -v "$GITHUB_WORKSPACE:/repo" $IMG \
+            /repo/research/concept_test.py /repo/freqtrade/user_data/data/okx /repo/research/CONCEPTS.md || true
+
       - name: Save results to the repo
         run: |
           git config user.name "freqtrade-backtest"
           git config user.email "actions@users.noreply.github.com"
-          git add freqtrade/results
+          git add freqtrade/results research
           git commit -m "Freqtrade backtest results" || exit 0
           for i in 1 2 3; do git pull --rebase && git push && break; sleep 5; done
