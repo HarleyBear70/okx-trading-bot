@@ -39,11 +39,11 @@ BE_BUFFER = 2 * FEE  # breakeven stop sits just above entry so fees are covered
 
 BOTS = [
     {"id": "v4-okx", "name": "SP-12 v4", "strat": "v4", "venue": "okx", "mode": "demo", "prefix": "gh4",
-     "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "XRP-USDT"], "equity": 1000.0},
+     "coins": ["BTC-USDT", "ETH-USDT", "XRP-USDT"], "equity": 1000.0},  # SOL dropped: lost money in backtest
     {"id": "v4-kraken", "name": "SP-12 v4 (Kraken paper)", "strat": "v4", "venue": "kraken", "mode": "paper",
-     "coins": ["XBTUSD", "ETHUSD", "SOLUSD", "XRPUSD"], "equity": 1000.0},
+     "coins": ["XBTUSD", "ETHUSD", "XRPUSD"], "equity": 1000.0},  # SOL dropped: lost money in backtest
     {"id": "v2-okx", "name": "SP-12 v2", "strat": "v2", "venue": "okx", "mode": "demo", "prefix": "ghS",
-     "coins": ["ETH-USDT", "SOL-USDT"], "equity": 1000.0},
+     "coins": ["ETH-USDT", "SOL-USDT"], "equity": 1000.0, "new_trades": False},  # paused: failed backtest; open trades still managed
     {"id": "v2-gold", "name": "SP-12 v2 (gold paper)", "strat": "v2", "venue": "okx", "mode": "paper",
      "coins": ["XAUT-USDT"], "equity": 1000.0},
     {"id": "tr-okx", "name": "Trend Rider", "strat": "tr", "venue": "okx", "mode": "demo", "prefix": "ghT",
@@ -726,7 +726,7 @@ def run_bot_coin(api, state, bot, coin, trade=True):
                 p = bs["positions"][coin]
                 bars_in = k - idx[p["entry_ts"]] if p["entry_ts"] in idx else (b["ts"] - p["entry_ts"]) // H4_MS
                 manage_on_close(api, bot, bs, coin, a, k, b, bars_in)
-        if coin not in bs["positions"] and a["signal"][k] and k == i_last:
+        if coin not in bs["positions"] and a["signal"][k] and k == i_last and bot.get("new_trades", True):
             extra = {"hi": b["c"]} if bot["strat"] == "tr" else {}
             open_position(api, bot, bs, coin, b, a["info"][k], extra)
         bs["last_bar"][coin] = b["ts"]
