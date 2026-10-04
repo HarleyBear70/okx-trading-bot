@@ -1,6 +1,6 @@
 # Coin scan
 
-Updated 2026-10-04 22:37 UTC. Every coin trades on its own (no 3-trade limit), OKX prices from March 2024. Compare Tot Profit % per coin. Gold (XAUT) uses Trend Rider swing 3 and SP-12 v2, like the gold paper bots.
+Updated 2026-10-04 22:43 UTC. Every coin trades on its own (no 3-trade limit), OKX prices from March 2024. Compare Tot Profit % per coin. Gold (XAUT) uses Trend Rider swing 3 and SP-12 v2, like the gold paper bots.
 
 ## SP12v4
 
@@ -57,11 +57,11 @@ Updated 2026-10-04 22:37 UTC. Every coin trades on its own (no 3-trade limit), O
 ## SP12v2
 
 ```
-                                                 BACKTESTING REPORT                                                 
-┏━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃      Pair ┃ Trades ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃       Avg Duration ┃  Win  Draw  Loss  Win% ┃
-┡━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ XAUT/USDT │      1 │       102.31 │         682.484 │        68.25 │ 947 days, 12:00:00 │    1     0     0   100 │
-│     TOTAL │      1 │       102.31 │         682.484 │        68.25 │ 947 days, 12:00:00 │    1     0     0   100 │
-└───────────┴────────┴──────────────┴─────────────────┴──────────────┴────────────────────┴────────────────────────┘
+                                               BACKTESTING REPORT                                                
+┏━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃      Pair ┃ Trades ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃    Avg Duration ┃  Win  Draw  Loss  Win% ┃
+┡━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ XAUT/USDT │     94 │         0.44 │         343.541 │        34.35 │ 5 days, 6:20:00 │   59     0    35  62.8 │
+│     TOTAL │     94 │         0.44 │         343.541 │        34.35 │ 5 days, 6:20:00 │   59     0    35  62.8 │
+└───────────┴────────┴──────────────┴─────────────────┴──────────────┴─────────────────┴────────────────────────┘
 ```
