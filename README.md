@@ -10,12 +10,12 @@ Jeff's demo trading bots. GitHub runs them every hour for free, so they don't us
 |---|---|---|---|
 | SP-12 v4 | OKX demo | BTC, ETH, SOL, XRP | 12-check score ≥ 2, EMA 8>21>55, above daily VWAP, 3R target, SAR trail after +1R, 120-candle limit. Risks 1% of a $1,000 practice balance |
 | SP-12 v4 (Kraken paper) | Kraken prices | BTC, ETH, SOL, XRP | Same as above, paper only |
-| SP-12 v2 | OKX demo | ETH, SOL | 12-check score ≥ 2, stop 1.5–4%, target 2.5R (3–10%), 60-candle limit, $50 risk |
+| SP-12 v2 | OKX demo | ETH, SOL | 12-check score ≥ 2, stop 1.5–4%, target 2.5R (3–10%), 60-candle limit, risks 1% of a $1,000 practice balance |
 | SP-12 v2 (gold paper) | OKX live gold price | XAUT | Same as above, paper only (OKX demo gold is frozen) |
-| Trend Rider | OKX demo | BTC, ETH, SOL | Daily close > daily 50 EMA, 4H break of structure above 4H 50 EMA, stop under swing low (1–3 ATR), trails at highest close − 3 ATR, $50 risk |
+| Trend Rider | OKX demo | BTC, ETH, SOL | Daily close > daily 50 EMA, 4H break of structure above 4H 50 EMA, stop under swing low (1–3 ATR), trails at highest close − 3 ATR, risks 1% of a $1,000 practice balance |
 | Trend Rider (gold paper) | OKX live gold price | XAUT | Same as above with swing strength 3, paper only |
 
-All of them run on 4-hour candles. Each bot only sells coins it bought itself.
+All of them run on 4-hour candles. Every bot: stop moves to breakeven once a trade is up 1R, half is sold at +2R, stops only move up, max 3 trades open. Risk starts at 1% of the balance and steps up to 1.25% / 1.5% / 2% once the balance is up 10% / 25% / 50%; it drops back to 1% if the balance falls 5% from its best. Each bot only sells coins it bought itself.
 
 ## Where to look
 
