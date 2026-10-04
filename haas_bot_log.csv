@@ -1,0 +1,3 @@
+timestamp_utc,bot,market,status,realized_pnl,unrealized_pnl,roi,closed_positions,winning,losing,filled_orders
+2026-10-04T21:28Z,[SIM] Grid Bot (Spot),BTC/USDT,Running,0,0,0%,0,0,0,0
+2026-10-04T21:28Z,My DCA Bot #1,ETH/USDT,Active,0,0,0%,0,0,0,0
