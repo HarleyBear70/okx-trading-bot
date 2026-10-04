@@ -43,7 +43,7 @@ BOTS = [
     {"id": "v4-kraken", "name": "SP-12 v4 (Kraken paper)", "strat": "v4", "venue": "kraken", "mode": "paper",
      "coins": ["XBTUSD", "ETHUSD", "XRPUSD"], "equity": 1000.0},  # SOL dropped: lost money in backtest
     {"id": "v2-okx", "name": "SP-12 v2", "strat": "v2", "venue": "okx", "mode": "demo", "prefix": "ghS",
-     "coins": ["ETH-USDT", "SOL-USDT"], "equity": 1000.0, "new_trades": False},  # paused: failed backtest; open trades still managed
+     "coins": ["ETH-USDT", "SOL-USDT"], "equity": 1000.0},  # set "new_trades": False here to pause new entries
     {"id": "v2-gold", "name": "SP-12 v2 (gold paper)", "strat": "v2", "venue": "okx", "mode": "paper",
      "coins": ["XAUT-USDT"], "equity": 1000.0},
     {"id": "tr-okx", "name": "Trend Rider", "strat": "tr", "venue": "okx", "mode": "demo", "prefix": "ghT",
