@@ -1,6 +1,6 @@
 # Freqtrade backtest results
 
-Updated 2026-10-04 22:14 UTC. OKX prices from March 2024, 1,000 USDT start, 0.1% fee, 1% risk per trade.
+Updated 2026-10-04 22:36 UTC. OKX prices from March 2024, 1,000 USDT start, 0.1% fee, 1% risk per trade.
 
 ## SP12v4
 
