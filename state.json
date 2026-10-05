@@ -3,13 +3,22 @@
     "b1-paper": {
       "equity": 1000.0,
       "last_bar": {
-        "BTC-USDT": 1791201600000,
-        "ETH-USDT": 1791201600000,
-        "XRP-USDT": 1791201600000
+        "BTC-USDT": 1791205200000,
+        "ETH-USDT": 1791205200000,
+        "XRP-USDT": 1791205200000
       },
       "positions": {}
     },
     "b3-paper": {
+      "equity": 1000.0,
+      "last_bar": {
+        "BTC-USDT": 1791072000000,
+        "ETH-USDT": 1791072000000,
+        "XRP-USDT": 1791072000000
+      },
+      "positions": {}
+    },
+    "nnfx-paper": {
       "equity": 1000.0,
       "last_bar": {
         "BTC-USDT": 1791072000000,
@@ -32,7 +41,8 @@
         "BTC-USDT": 1791187200000,
         "ETH-USDT": 1791187200000,
         "SOL-USDT": 1791187200000,
-        "SUI-USDT": 1791187200000
+        "SUI-USDT": 1791187200000,
+        "TRX-USDT": 1791187200000
       },
       "peak": 1000.0,
       "positions": {

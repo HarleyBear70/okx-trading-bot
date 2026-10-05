@@ -144,6 +144,78 @@
    "start_balance": 1000.0,
    "strategy": "pairs"
   },
+  "nnfx-paper": {
+   "all": {
+    "avg_candles_held": null,
+    "avg_loss": null,
+    "avg_r": null,
+    "avg_win": null,
+    "closed": 0,
+    "losers_that_were_green_first": 0,
+    "losses": 0,
+    "open": 0,
+    "profit_factor": null,
+    "total_pnl": 0,
+    "trades": 0,
+    "win_rate_pct": null,
+    "wins": 0
+   },
+   "balance": 1000.0,
+   "by_coin": {
+    "BTC-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "ETH-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "XRP-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    }
+   },
+   "group": "testing",
+   "mode": "paper",
+   "name": "NNFX Aroon (paper)",
+   "open_positions": [],
+   "signals_seen": {},
+   "start_balance": 1000.0,
+   "strategy": "nnfx"
+  },
   "tr-gold": {
    "all": {
     "avg_candles_held": null,
@@ -282,6 +354,21 @@
      "trades": 1,
      "win_rate_pct": null,
      "wins": 0
+    },
+    "TRX-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
     }
    },
    "group": "testing",
@@ -291,7 +378,7 @@
     "SUI-USDT"
    ],
    "signals_seen": {
-    "candles": 35,
+    "candles": 36,
     "near_misses": 34,
     "signals": 1
    },
@@ -681,10 +768,55 @@
    "review": "-",
    "review_on": null,
    "why": "research/H5_SWEEP.md. Jeff: leave off until real money; judge the trading pile's DD on its own."
+  },
+  {
+   "approved_by": "Jeff (demo)",
+   "bots": "Trend Rider (tr-okx, demo)",
+   "change": "Coins + TRX-USDT (now BTC ETH SOL BNB SUI TRX). v4 unchanged.",
+   "date_utc": "2026-10-05",
+   "review": "TRX per-coin results in the Scout; bot DD vs -7.4%.",
+   "review_on": "2026-10-19",
+   "why": "research/TRX.md: TRX passed pick (to 2021) and check (2022-now). Confirm backtest with the fear filter, 2022-now: 311 -> 368 trades, +60.1% -> +84.2%, PF 1.84 -> 1.94, max DD -5.3% -> -7.4%."
+  },
+  {
+   "approved_by": "Jeff (paper)",
+   "bots": "NNFX Aroon (nnfx-paper), new",
+   "change": "New PAPER bot on BTC ETH XRP, daily, long only: buy on an Aroon(25) up-flip, stop 1.5 ATR, half off at +1 ATR then breakeven, rest exits on the Aroon down-flip.",
+   "date_utc": "2026-10-05",
+   "review": "Forward trades vs backtest (win 61%, PF 2.20, DD -5.4%).",
+   "review_on": "2026-10-19",
+   "why": "research/NNFX.md: crypto version judged once on 2022-now: 113 trades, +26.8%, DD -5.4%, PF 2.20; never-seen coins PF 1.34. Failed only the diversification rule (corr 0.75). Backup candidate if v4 or Trend Rider degrade. bot.py reproduces the backtest exactly (113 trades, +26.8%)."
   }
  ],
- "check_meanings": {},
- "now": {},
+ "check_meanings": {
+  "above_ema50": {
+   "meaning": "Required: 4H close above the 50 EMA",
+   "points": null
+  },
+  "bos": {
+   "meaning": "Required: candle closes above the last swing high (0.33759) - a break of structure",
+   "points": null
+  },
+  "daily_trend": {
+   "meaning": "Required: daily close above the 50-day EMA",
+   "points": null
+  }
+ },
+ "now": {
+  "tr-okx|TRX-USDT": {
+   "action": "NO TRADE",
+   "bot": "Trend Rider",
+   "candle_utc": "2026-10-05 08:00",
+   "chart_coin": "TRX-USDT",
+   "close": 0.33666,
+   "coin": "TRX-USDT",
+   "group": "testing",
+   "mode": "demo",
+   "rsi14": 54.7,
+   "score": "-",
+   "why": "No buy. Missing: daily close above the 50-day EMA; candle closes above the last swing high (0.33759) - a break of structure."
+  }
+ },
  "totals": {
   "live": {
    "avg_candles_held": null,
@@ -717,5 +849,5 @@
    "wins": 0
   }
  },
- "updated_utc": "2026-10-05 13:31"
+ "updated_utc": "2026-10-05 14:31"
 }

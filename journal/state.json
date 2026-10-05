@@ -6,12 +6,16 @@
   "b3-paper|BTC-USDT": 1791187200000,
   "b3-paper|ETH-USDT": 1791187200000,
   "b3-paper|XRP-USDT": 1791187200000,
+  "nnfx-paper|BTC-USDT": 1791187200000,
+  "nnfx-paper|ETH-USDT": 1791187200000,
+  "nnfx-paper|XRP-USDT": 1791187200000,
   "tr-gold|XAUT-USDT": 1791187200000,
   "tr-okx|BNB-USDT": 1791187200000,
   "tr-okx|BTC-USDT": 1791187200000,
   "tr-okx|ETH-USDT": 1791187200000,
   "tr-okx|SOL-USDT": 1791187200000,
   "tr-okx|SUI-USDT": 1791187200000,
+  "tr-okx|TRX-USDT": 1791187200000,
   "v2-gold|XAUT-USDT": 1791187200000,
   "v2-okx|ETH-USDT": 1791187200000,
   "v2-okx|SOL-USDT": 1791187200000,
@@ -34,7 +38,7 @@
    "signals": 0
   },
   "tr-okx": {
-   "candles": 35,
+   "candles": 36,
    "near_misses": 34,
    "signals": 1
   },
