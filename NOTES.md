@@ -686,3 +686,23 @@ Next: idea sources (Quantpedia free + Google Scholar log), then NNFX.
 It trades the full balance in and out every day, so at taker fees the costs (about 0.2% a day) eat everything. At maker-level fees the edge was real in 2018-21 but has almost vanished since 2022 (PF 1.02-1.11), and ETH and XRP lose even before 2022. Same story as our own bots: an older edge that faded, and the published version left out fees.
 
 Next: NNFX daily system.
+
+
+2026-10-05 TERMINAL: NNFX daily system done: FAIL as a whole, but the crypto half is interesting. Plan committed first (research/IDEAS_PLAN.md); results: research/NNFX.md. Built the NNFX way: one slot at a time, 3 candidates per slot, every choice made on the early period only (forex 2012-18 long+short, crypto 2018-05 to 2021 long only), then the finished system judged once on the later period.
+
+Build (pooled PF, early period): C1 Aroon(25) 1.86 (Vortex 1.16, SSL 1.16). Baseline: none kept (Kijun 1.72, KAMA 1.80, HMA 1.47 were all worse than Aroon alone). Volume filter: none kept (ADX > 20 1.69, ADX rising 1.73, ATR > 50-day 1.45). Exit: opposite Aroon flip 1.86 (PSAR 1.18). So the finished system is Aroon(25) + 1.5 ATR stop + half off at +1 ATR, then breakeven + exit on the Aroon flip.
+
+Later period (judged once):
+
+| Group | Trades | Win % | Return | Max DD | PF |
+|---|---|---|---|---|---|
+| Forex majors, long+short, 2019-now | 168 | 60% | -8.4% | -8.8% | 0.74 |
+| Crypto BTC ETH XRP, long only, 2022-now | 113 | 61% | +26.8% | -5.4% | 2.20 |
+| Never-seen forex (AUD NZD CAD CHF) | 240 | | -148 USD | worst -8.9% | 0.72 |
+| Never-seen crypto (10 coins) | 364 | | +246 USD | worst -10.6% | 1.34 |
+
+- Forex: no edge out of sample (it worked in 2012-18, PF 1.54, then lost). Same pattern as job 2c.
+- Crypto, long only: genuinely good out of sample (PF 2.20, DD -5.4%, never-seen PF 1.34). But it's a daily trend follower, so it's 0.75 correlated with v4 + Trend Rider, and adding it as a third bot leaves the portfolio about the same (14.54 vs 15.07). It fails the diversification rule, not the profit rule.
+- If Jeff wants it anyway, the crypto Aroon system is a good PAPER candidate (like B1c), or a possible replacement idea if v4 or Trend Rider ever degrades. His call.
+
+Queue status: Jeff's decisions done; TRX done (add to Trend Rider awaits Jeff's OK); idea sources set up (Q1 failed after fees); NNFX done. Still open from earlier: jobs 4 (three piles) and 5 (dashboard).
