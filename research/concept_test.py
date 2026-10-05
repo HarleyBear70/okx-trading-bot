@@ -147,6 +147,51 @@ def stats(vals):
     return m, up, sd, len(vals)
 
 
+def shift_pvalue(per_coin, hz=12, k=1000, seed=7):
+    """Skeptic test that respects clustering: slide each coin's signals to a random time
+    (keeping their spacing) many times. p = how often the slid signals did as well as the
+    real ones. per_coin = list of (closes, event_indexes, first_index_in_test)."""
+    import numpy as np
+    rng = np.random.default_rng(seed)
+    fw, ev = [], []
+    for closes, idx, first in per_coin:
+        c = np.asarray(closes, dtype=float)
+        f = np.full(len(c), np.nan)
+        f[:-hz] = (c[hz:] / c[:-hz] - 1) * 100
+        f[:first] = np.nan
+        fw.append(f)
+        ev.append(np.asarray([i for i in idx if i >= first], dtype=int))
+    def edge(shift_list):
+        vals = []
+        for f, e, sh in zip(fw, ev, shift_list):
+            if len(e):
+                x = f[(e + sh) % len(f)]
+                vals.append(x[~np.isnan(x)])
+        allv = np.concatenate(vals) if vals else np.array([])
+        return allv.mean() if len(allv) else np.nan
+    obs = edge([0] * len(fw))
+    if np.isnan(obs):
+        return None
+    hits = 0
+    for _ in range(k):
+        sh = [int(rng.integers(len(f) // 10, len(f) - len(f) // 10)) for f in fw]
+        if edge(sh) >= obs:
+            hits += 1
+    return (hits + 1) / (k + 1)
+
+
+def verdict_for(p, a1, a2, n):
+    if p is None or a1 is None or a2 is None or n < 30:
+        return "Not enough data"
+    if a1 > 0 and a2 > 0 and p < 0.005:
+        return "**Real**"
+    if a1 > 0 and a2 > 0 and p < 0.02:
+        return "Weak (could be luck)"
+    if a1 > 0 or a2 > 0:
+        return "Mixed (works only part of the time)"
+    return "No edge"
+
+
 def main():
     data_dir, out = sys.argv[1], sys.argv[2]
     halves = {"first half": (START, SPLIT), "second half": (SPLIT, None)}
@@ -154,6 +199,7 @@ def main():
     base = {}          # (horizon, half) -> list of returns
     per_coin = {}      # (concept, coin) -> list of 2-day returns (full period)
     coins_used = []
+    shift_data = {}    # concept -> list of (closes, events, first index)
     for coin in COINS:
         df4, d1 = load(data_dir, coin, "4h"), load(data_dir, coin, "1d")
         if df4 is None or d1 is None:
@@ -169,15 +215,18 @@ def main():
                 for name, idx in ev.items():
                     sel = [i for i in idx if in_half[i]]
                     rows.setdefault((name, hz, hname), []).extend(fwd_returns(df4, sel, hz))
+        first = int((dates >= START).idxmax())
         for name, idx in ev.items():
             sel = [i for i in idx if dates[i] >= START]
             per_coin.setdefault((name, coin), []).extend(fwd_returns(df4, sel, 12))
+            shift_data.setdefault(name, []).append((df4["close"].tolist(), idx, first))
 
     names = sorted({k[0] for k in rows})
     lines = ["# Concept test: do Brad's concepts work on your coins?", "",
              f"OKX 4H candles, {', '.join(coins_used)}. Bullish (buy) side only. "
              "Edge = average % move after the concept minus the average % move after any candle. "
-             "**Real** means the 2-day edge was positive in both halves (Mar 2024 - Jun 2025 and Jul 2025 - now).",
+             "**Real** means the 2-day edge was positive in both halves (Mar 2024 - Jun 2025 and Jul 2025 - now) "
+             "AND passed the shift test: the same signals slid to random times did as well less than 0.5% of the time (p under 0.005).",
              "", "## Summary (2-day move)", "",
              "| Concept | Times seen | Edge 1st half | Edge 2nd half | Up % (all) | Verdict |",
              "|---|---|---|---|---|---|"]
@@ -191,15 +240,10 @@ def main():
             tot += rows[(name, 12, hname)]
         st = stats(tot)
         a1, a2 = e["first half"], e["second half"]
-        if a1 is None or a2 is None or st is None or st[3] < 30:
-            verdict = "Not enough data"
-        elif a1 > 0 and a2 > 0:
-            se = st[2] / math.sqrt(st[3])
-            verdict = "**Real**" if (a1 + a2) / 2 > se else "Weak (could be luck)"
-        elif a1 > 0 or a2 > 0:
-            verdict = "Mixed (works only part of the time)"
-        else:
-            verdict = "No edge"
+        p = shift_pvalue(shift_data[name])
+        verdict = verdict_for(p, a1, a2, st[3] if st else 0)
+        if p is not None:
+            verdict += f" (p={p:.2f})"
         verdicts.append((name, verdict))
         fmt = lambda x: "-" if x is None else f"{x:+.2f}%"
         lines.append(f"| {name} | {st[3] if st else 0} | {fmt(a1)} | {fmt(a2)} | "
@@ -234,7 +278,7 @@ def main():
 
     lines += ["", "## How to read this", "",
               "- A positive edge means price tended to rise more than usual after the concept appeared.",
-              "- **Real** = positive in both halves and bigger than normal noise. **Mixed** = worked in one half only, "
+              "- **Real** = positive in both halves and passed the shift test (p under 0.005). p = chance that luck alone did this well. **Mixed** = worked in one half only, "
               "which usually means luck or a change in the market.",
               "- This tests each concept on its own. A concept with no edge alone can still help as a filter "
               "together with others (that is what the bots do).", ""]
