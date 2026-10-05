@@ -382,3 +382,28 @@ B2. Failed-breakout RECLAIM bot: ignore the first poke outside the box; when pri
 B3. Pairs (spot-only): for a correlated pair (e.g. ETH/BTC), hold whichever leg is lagging when the spread z-score is extreme, else cash. Long-only, so no short leg. Low on evidence; quick test.
 S1. Sentiment filter (an overlay on v4 and TR): e.g. skip new buys when the Crypto Fear & Greed Index is in extreme greed, and/or allow only when not in extreme fear. Free history exists from about 2018 (alternative.me). Pass only if it improves both halves.
 Suggested order: N2, N3, B1, B2, D1 (capitulation, intraday momentum), N4, B3, S1, N5, H1-H5, job 3. Adjust if data downloads force it.
+
+
+2026-10-05 TERMINAL: N2 rotation and N3 squeeze breakout: both FAIL. Plans committed first (research/NEWBOTS_PLAN.md); results: research/N2_ROTATION.md, research/N3_SQUEEZE.md.
+
+N2 rotation (CoinMarketCap top 10 as listed at the time, monthly snapshots since 2018, stablecoins removed; only 3% of top-10 slots skipped for missing data: CRO, HYPE, HT, HEX and glitch entries):
+
+| Variant | Top-10 return 1st / 2nd half | Top-10 max DD 1st / 2nd | Ranks 11-20 PF 1st / 2nd | Corr. with v4+TR |
+|---|---|---|---|---|
+| M1 28-day momentum | +198% / +71% | -69% / -56% | 1.09 / 0.96 | 0.56 |
+| M2 90-day momentum | +277% / +111% | -59% / -55% | 1.28 / 1.00 | 0.61 |
+| M3 28-day, volatility-scaled | +118% / +78% | -39% / -34% | 1.40 / 1.20 | 0.60 |
+
+It makes a lot of money but with crypto-sized drawdowns (-34% to -69%), and it's correlated with v4+TR (momentum and trend following win and lose together), so it fails the 10% DD and diversification rules. It is NOT a fit for the trading pile. But M3 might be worth a look for job 4's long-term HOLD pile instead of plain buy-and-hold: +286% since 2018-05 with -39% max DD, against BTC buy-and-hold's -77%. That would need its own test against plain DCA / buy-and-hold (H4-style). Suggestion only.
+
+N3 squeeze breakout (BTC ETH XRP shared; never-seen pooled):
+
+| Variant | Design PF 1st / 2nd half | Design DD 1st / 2nd | Never-seen PF 1st / 2nd | Corr. |
+|---|---|---|---|---|
+| S1 10th-percentile squeeze | 1.69 / 0.84 | -3.7% / -9.1% | 1.46 / 1.05 | 0.48 |
+| S2 S1 + daily trend | 1.87 / 0.76 | -2.1% / -9.9% | 1.73 / 1.19 | 0.43 |
+| S3 180-day lowest squeeze | 1.13 / 1.00 | -2.9% / -3.9% | 0.98 / 1.56 | 0.20 |
+
+It worked in 2018-21 and stopped working on BTC/ETH/XRP from 2022 (PF under 1), though it stayed slightly positive on never-seen coins.
+
+A note on the portfolio rule (criterion 4): v4+TR together make 15.1 units of return per unit of DD (+99% / -6.6%). A new bot taking 1/3 of the money has to come close to that on its own, or it dilutes the mix. That's a high bar: low-correlation bots with small returns (N1 R3, N3 S3 at 0.14-0.20 correlation) still lowered the ratio. I've kept the rule as written. Next: B1 and B2 (1H data downloaded), then D1.

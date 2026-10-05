@@ -199,11 +199,13 @@ def trade_sim(coins, data, entries_fn, t0, t1=None, risk=None, max_open=3, fee=N
     return _stats(trades, curve, eq)
 
 
-def unseen_pooled(sim_one, coins=UNSEEN):
+def unseen_pooled(sim_one, coins=UNSEEN, loader=None):
     """sim_one(coin, data, t0, t1) -> result. Each coin alone per job-2b period; pooled per half."""
     out = {h: {"won": 0.0, "lost": 0.0, "pnl": 0.0, "trades": 0, "worst": 0.0} for h in ("1st half", "2nd half")}
     for c in coins:
-        data = load([c])
+        data = (loader or load)([c])
+        if not data.get(c) or not data[c][0]:
+            continue
         bars = data[c][0]
         for p, t0, t1 in lh.PERIODS:
             t0 = max(t0, dt.datetime.fromtimestamp(bars[0]["ts"] / 1000, UTC))
@@ -285,19 +287,19 @@ def baseline():
     return _BASE
 
 
-def evaluate(variants):
+def evaluate(variants, loader=None):
     """variants: {name: (design_sim(data, t0, t1), unseen_one(coin, data, t0, t1))}.
     Returns (rows for a table, verdict lines, best passing name or None)."""
     base = baseline()
     b_ret, b_dd, b_rd = ret_dd(base["mix"])
-    data = load(DESIGN)
+    data = (loader or load)(DESIGN)
     rows = ["| Variant | Half | Trades | Win % | Return | Max DD | PF | Never-seen trades | Never-seen PF | "
             "Never-seen worst DD |", "|---|---|---|---|---|---|---|---|---|---|"]
     verdicts, best = [], (None, 0.0)
     for name, (design_sim, unseen_one) in variants.items():
         why = []
         halves = {h: design_sim(data, t0, t1) for h, t0, t1 in HALVES}
-        un = unseen_pooled(unseen_one)
+        un = unseen_pooled(unseen_one, loader=loader)
         for h in halves:
             r, u = halves[h], un[h]
             rows.append(f"| {name} | {h} | {r['trades']} | {r['win']:.0f}% | {r['ret']:+.1f}% | {r['dd']:.1f}% | "
