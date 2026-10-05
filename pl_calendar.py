@@ -139,6 +139,15 @@ def months_between(first, last):
     return out
 
 
+def build_cards(rows):
+    """Strategy cards (cards.py); never breaks the calendar if it fails."""
+    try:
+        import cards
+        return cards.build(bot.OKX("", "", ""), rows)
+    except Exception as ex:
+        return ["## Strategy cards", "", f"(cards unavailable this hour: {str(ex)[:150]})", ""]
+
+
 def main():
     rows = read_rows()
     os.makedirs(OUT_DIR, exist_ok=True)
@@ -155,11 +164,16 @@ def main():
             continue  # paused bots hidden
         views.append((b["id"], b["name"], f"{b['mode'].upper()} · {' '.join(c.split('-')[0] for c in b['coins'])}",
                       [b["name"]]))
-    md = ["# P/L calendar", "", f"Updated automatically every hour ({stamp}). Days are Eastern time. Green = closed "
+    cards_done = False
+    md = ["# P/L calendar and strategy cards", "", f"Updated automatically every hour ({stamp}). Days are Eastern time. Green = closed "
           "profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at "
           f"{FULL_AT:g}% of the balance). Each square: the day's % change of the balance and the $ amount. "
           "DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.", ""]
     for vid, title, sub, names in views:
+        if vid != "combined" and not cards_done:
+            md += build_cards(rows)
+            md += ["## Per-bot P/L calendars", ""]
+            cards_done = True
         days = daily_pl(rows, names, start)
         with open(os.path.join(OUT_DIR, f"{vid}.svg"), "w") as f:
             f.write(build_svg(title, sub, days, months))

@@ -810,3 +810,32 @@ B. A small unpacked Chrome extension for a claude.ai TAB (not the side panel)
 - Setup: about 5 minutes once. Download a folder from the repo, open chrome://extensions, turn on Developer mode, click "Load unpacked", pick the folder. No store, no account.
 
 Recommendation: A now (zero risk, works in the side panel). If Jeff wants hands-free read-aloud of every reply, I'll build B (about an hour) and test it on claude.ai. Chrome, please take this to Jeff.
+
+
+2026-10-05 TERMINAL: L1 Scout research loop, T1 trend sizing and D2 strategy cards are done.
+
+L1, Scout as the research loop (runs on GitHub, no Claude usage):
+- research/spec_runner.py. Each Sunday the Scout runs the next 3 rows marked "queued" in the new "Scout queue" table at the bottom of research/ideas/IDEAS.md. Each row points to a spec file in research/specs/ (rules + max 3 variants) written BEFORE it runs; the Scout never invents or tunes anything. Results: research/specs/results/<id>.md, plus a section in the weekly report; the queue row is marked pass/fail.
+- Two spec kinds: "overlay" (changes v4 or Trend Rider: risk sizing and/or an entry filter) and "newbot" (new entries, judged by the usual new-bot rules). An overlay passes only if, in BOTH halves (2022-now is the holdout), return/DD goes up, PF doesn't drop and DD stays inside 10%, AND it isn't worse on never-seen coins. A pass only makes a PAPER candidate, with Jeff's OK.
+- Data-mining guard: research/specs/LEDGER.md counts every variant ever tested. It now reads 133 tested / 10 passes; at a 5% false-pass rate about 7 passes would be expected by luck alone. That's the honest reason every pass still has to prove itself on paper.
+- The Scout workflow now caches price history between runs, has a 150-minute limit, and commits the queue, ledger and results.
+- To add an idea: copy research/specs/T1_trend_sizing.py, change the rules, add a "queued" row. Chrome can write specs too.
+
+T1 trend-strength sizing (first queue item, run by the same code the Scout uses): FAIL, all 3 variants on both bots (research/specs/results/T1.md).
+
+| Bot / variant | Return/DD 1st / 2nd half (now: v4 8.06 / 2.80, TR 7.96 / 11.31) | Avg risk used |
+|---|---|---|
+| v4 TS1 4H ADX | 6.74 / 3.98 | 0.42-0.45% |
+| v4 TS2 daily ADX | 8.00 / 2.21 | 0.43-0.47% |
+| v4 TS3 EMA slope | 7.09 / 2.81 | 0.34% |
+| TR TS1 4H ADX | 7.00 / 10.87 | 0.38-0.40% |
+| TR TS2 daily ADX | 7.39 / 8.54 | 0.44-0.46% |
+| TR TS3 EMA slope | 5.93 / 8.99 | 0.31% |
+
+My mistake in the spec: the mappings were meant to average about 0.5% risk, but in practice they averaged 0.31-0.47% (trend strength at real entries is lower than I assumed). So part of the drop is just less risk. Trend strength doesn't pick the better trades either: the best result, v4 TS1 in 2022-now, does worse on never-seen coins. A fair retry would be a NEW spec (T1b) whose mapping is centred on the median ADX at entries measured on 2018-21 data only; it would count in the ledger. Say if Jeff wants it queued.
+
+D2 strategy cards (part of job 5): on the same page as the calendar (CALENDAR.md, linked from the README as "Dashboard"), rebuilt every hour by pl_calendar.py (cards.py).
+- One card per bot: status (DEMO / PAPER / PAUSED / LIVE), market, coins, timeframe, start date, balance now.
+- Chart: blue = the bot's real balance (demo or paper fills, open trades valued now); dashed grey = the SAME bot.py code replayed on the same candles since the start, paper and in memory only. A gap between the lines = fills, timing or a settings change (e.g. v4's risk and coins changed on Oct 5).
+- Table: win %, PF, max DD and trades for the long-run research backtest (2022-now) vs the replay since start vs live.
+- To make the replay exactly the live code, bot.py's run step was split into analyse_for() and entry_extra(); behaviour unchanged (full dry run checked).

@@ -951,8 +951,13 @@ def get_data(api, venue, coin, tf="4H"):
     return _data[key]
 
 
-def run_bot_coin(api, state, bot, coin, trade=True):
-    tf = {"b1": "1H", "pairs": "1D", "nnfx": "1D"}.get(bot["strat"], "4H")
+def bot_tf(bot):
+    return {"b1": "1H", "pairs": "1D", "nnfx": "1D"}.get(bot["strat"], "4H")
+
+
+def analyse_for(api, bot, coin):
+    """(timeframe, bars, forming candle, analysis) for one bot + coin, from the live market data."""
+    tf = bot_tf(bot)
     bars, forming, daily = get_data(api, bot["venue"], coin, tf)
     if bot["strat"] == "b1":
         a = analyse_b1(bars)
@@ -965,6 +970,24 @@ def run_bot_coin(api, state, bot, coin, trade=True):
         a = analyse_tr(bars, daily, bot.get("pivot", 5))
     else:
         a = analyse_sp(bars, daily, SP_SETTINGS[bot["strat"]])
+    return tf, bars, forming, a
+
+
+def entry_extra(bot, bar, inf):
+    """Strategy-specific fields stored on a new position."""
+    if bot["strat"] == "tr":
+        return {"hi": bar["c"]}
+    if bot["strat"] == "b1":
+        return {"no_half": True}
+    if bot["strat"] == "pairs":
+        return {"no_half": True, "tag": inf["tag"]}
+    if bot["strat"] == "nnfx":
+        return {"half_at": inf["half_at"], "be_after_half": True}
+    return {}
+
+
+def run_bot_coin(api, state, bot, coin, trade=True):
+    tf, bars, forming, a = analyse_for(api, bot, coin)
     bs = bot_state(state, bot)
     i_last = len(bars) - 1
     inf = a["info"][i_last]
@@ -992,11 +1015,7 @@ def run_bot_coin(api, state, bot, coin, trade=True):
             if fear_blocks(bot, b):
                 log(f"  {coin}: signal skipped - Fear & Greed at or below {bot['fear_skip_at_or_below']} (or unavailable)")
             else:
-                extra = {"hi": b["c"]} if bot["strat"] == "tr" else (
-                    {"no_half": True} if bot["strat"] == "b1" else (
-                        {"no_half": True, "tag": a["info"][k]["tag"]} if bot["strat"] == "pairs" else (
-                            {"half_at": a["info"][k]["half_at"], "be_after_half": True} if bot["strat"] == "nnfx" else {})))
-                open_position(api, bot, bs, coin, b, a["info"][k], extra)
+                open_position(api, bot, bs, coin, b, a["info"][k], entry_extra(bot, b, a["info"][k]))
         bs["last_bar"][coin] = b["ts"]
 
     if coin in bs["positions"] and forming and forming["ts"] > bs["positions"][coin]["entry_ts"]:

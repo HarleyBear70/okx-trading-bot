@@ -24,3 +24,15 @@
 | TRX for Trend Rider | Scout flag | passed pick + check; TR + TRX better on every measure | yes | awaiting Jeff's OK (research/TRX.md) |
 | Rejection block (ICT), long only | Jeff / ICT | wick zone of a swing low before a strong move | tested on crypto 4H | FAILED: all 3 variants lose (research/R1_REJECTION.md) |
 | Wyckoff volume filter (volume above average, effort vs result, spring) | Jeff / Wyckoff | better entries | tested on v4, Trend Rider, B1c | only v4 + volume-above-average passed, and it got worse on never-seen coins; not recommended (research/W1_VOLUME.md) |
+
+## Scout queue
+
+The weekly Scout (research/scout.py, Sundays) runs the next 2-3 rows marked "queued", using research/spec_runner.py.
+Each row points to a spec file written BEFORE it runs (rules + max 3 variants); the Scout never invents or tunes
+anything. Results go in research/specs/results/ and every tested variant is counted in research/specs/LEDGER.md.
+A pass only makes a PAPER candidate, and only with Jeff's OK. To add an idea: write a spec file in research/specs/
+(copy T1_trend_sizing.py) and add a row here with status "queued".
+
+| Order | Spec | Status | Result |
+|---|---|---|---|
+| 1 | research/specs/T1_trend_sizing.py | fail | research/specs/results/T1.md |

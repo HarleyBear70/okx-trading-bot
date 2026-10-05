@@ -1,6 +1,6 @@
 # okx-trading-bot
 
-**Daily P/L calendar:** [CALENDAR.md](CALENDAR.md) (updated every hour, Eastern time).
+**Dashboard:** [CALENDAR.md](CALENDAR.md): daily P/L calendar + one strategy card per bot (live vs backtest), updated every hour.
 
 Jeff's demo trading bots. GitHub runs them every hour for free, so they don't use any Claude usage.
 

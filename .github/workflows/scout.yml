@@ -1,7 +1,8 @@
 name: Weekly Scout (read-only)
 
 # Every Sunday: a demo performance review of every bot, the existing bots tested on new top-20 coins,
-# and any research/ideas scripts. Writes reports/weekly-YYYY-MM-DD.md and commits ONLY that folder.
+# any research/ideas scripts, and the next queued spec files (research loop). Commits only reports/,
+# research/ideas/IDEAS.md and research/specs/.
 # It never edits bot.py, never places orders and needs no API keys.
 
 on:
@@ -19,21 +20,29 @@ concurrency:
 jobs:
   scout:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 150
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Reuse downloaded price history (refreshed weekly)
+        uses: actions/cache@v4
+        with:
+          path: research/.cache
+          key: price-history-${{ github.run_id }}
+          restore-keys: price-history-
+      - name: Clear stale candle files older than 6 days (so new candles are downloaded)
+        run: find research/.cache -maxdepth 1 -name "*.json" -mtime +6 -delete 2>/dev/null || true
       - name: Write the weekly report
         env:
           OKX_BASE_URL: ${{ vars.OKX_BASE_URL }}
         run: python research/scout.py
-      - name: Save the report (reports/ only)
+      - name: Save the report, research queue and ledger
         run: |
           git config user.name "scout-bot"
           git config user.email "scout-bot@users.noreply.github.com"
-          git add reports
+          git add reports research/ideas/IDEAS.md research/specs
           git diff --cached --quiet && exit 0
           git commit -m "scout: weekly report"
           for i in 1 2 3; do git pull --rebase -q && git push && exit 0; sleep 10; done

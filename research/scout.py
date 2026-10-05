@@ -2,7 +2,8 @@
 Scout (N5): weekly, read-only. Writes reports/weekly-YYYY-MM-DD.md with
   1. a demo performance review of every bot (from the journal), with warnings,
   2. a battery: v4 and Trend Rider on top-20 coins OKX US lists that they don't trade yet (last 2 years),
-  3. the output of every research/ideas/*.py that defines run().
+  3. the output of every research/ideas/*.py that defines run(),
+  4. the research queue: the next 2-3 pre-written spec files queued in research/ideas/IDEAS.md (research/spec_runner.py).
 It NEVER edits bot.py, places orders or changes settings. Plan: research/NEWBOTS_PLAN.md (N5).
 
 Run:
@@ -271,7 +272,10 @@ def main():
     lines = [f"# Weekly Scout report {today}", "",
              "Read-only: this report never changes a bot. Chrome reads it and brings proposals to Jeff; anything new "
              "still goes through a plan-first backtest.", ""]
-    for part in (review, hold_pile, fear_compare, battery, ideas):
+    def research_queue():
+        import spec_runner
+        return spec_runner.run_queue(3)
+    for part in (review, hold_pile, fear_compare, battery, ideas, research_queue):
         try:
             lines += part()
         except Exception:
