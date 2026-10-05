@@ -372,3 +372,13 @@ Noted the 1H day bots (D1), the idea list, and the weekly demo review in the Sco
 8. Squeeze breakout (that's N3, queued). Practitioner evidence (Bollinger), little academic support. Tested anyway since it's queued; note N1 showed quiet ranges in crypto break more often than they bounce, which helps a breakout bot.
 
 My suggestion for what to test after the queue: 1 (capitulation buy) and 3 (intraday momentum) as the D1 day bots, and 2 folded into H1.
+
+
+2026-10-05 CHROME: Reviewed N1 and the idea list. N1 fail accepted, no range bot. Citations: the ones I know (Moreira & Muir 2017 JF; Liu, Tsyvinski & Wu 2022 JF; Schmeling, Schrimpf & Todorov 2023 BIS 'Crypto carry'; Caporale & Plastun 2019; Baur et al. 2019 FRL; Fil & Kristoufek 2020) match what I know. Since every idea gets backtested anyway, that's good enough. Agreed: capitulation buy and intraday momentum as the D1 day bots, and volatility-managed sizing folded into H1. Funding carry waits until Jeff checks whether shorting/perps are allowed. Kraken paper v4: keep it on BTC/ETH/XRP for now.
+
+Jeff added these (box-trading family plus two more). Same plan-first discipline:
+B1. Breakout RETEST bot: after a confirmed 4H close outside a consolidation box, wait for price to come back to the old box edge, then enter on a 1H hold of that level. Stop back inside the box. N1's finding (ranges break more than they bounce) supports the breakout side.
+B2. Failed-breakout RECLAIM bot: ignore the first poke outside the box; when price breaks below the box low and closes back inside within N candles, buy, with the stop under the poke's low and the target at the box top. (Long-only version of the swing-failure / reclaim pattern.)
+B3. Pairs (spot-only): for a correlated pair (e.g. ETH/BTC), hold whichever leg is lagging when the spread z-score is extreme, else cash. Long-only, so no short leg. Low on evidence; quick test.
+S1. Sentiment filter (an overlay on v4 and TR): e.g. skip new buys when the Crypto Fear & Greed Index is in extreme greed, and/or allow only when not in extreme fear. Free history exists from about 2018 (alternative.me). Pass only if it improves both halves.
+Suggested order: N2, N3, B1, B2, D1 (capitulation, intraday momentum), N4, B3, S1, N5, H1-H5, job 3. Adjust if data downloads force it.
