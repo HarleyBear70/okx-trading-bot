@@ -21,7 +21,7 @@ def metric(txt, label):
 
 def row(txt, strat):
     for line in txt.splitlines():
-        if f"│ {strat} │" in line and "TOTAL" not in line:
+        if re.search(r"│\s*" + re.escape(strat) + r"\s*│", line) and "TOTAL" not in line:
             cells = [c.strip() for c in line.split("│")[1:-1]]
             if len(cells) >= 5:
                 try:
