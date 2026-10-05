@@ -8,6 +8,7 @@ GitHub,Trend Rider (gold paper),paper,OKX,XAUT,1000,0.5%,2026-10-04,0,0,0,,0,0,,
 GitHub,B1c breakout retest (paper),paper,OKX,BTC ETH XRP (1H),1000,0.5%,2026-10-05,0,0,0,,0,0,,,,testing,forward test of a research bot (research/B_BOXES.md),2026-10-05
 GitHub,B3 pairs (paper),paper,OKX,ETH/BTC XRP/BTC (daily),1000,0.5%,2026-10-05,0,0,0,,0,0,,,,testing,forward test of a research bot (research/B3_PAIRS.md),2026-10-05
 GitHub,Hold pile dip-DCA (paper),paper,OKX,BTC XRP,1000,0.5%,2026-10-05,0,0,0,,0,0,,,,testing,"weekly buyer, $10/week setting; judged on cost per coin, not the 10% DD rule",2026-10-05
+GitHub,NNFX Aroon (paper),paper,OKX,BTC ETH XRP (daily),1000,0.5%,2026-10-05,0,0,0,,0,0,,,,testing,backup candidate (research/NNFX.md),2026-10-05
 HaasOnline,Grid Bot (Spot),paper,OKX,BTC,,fixed size,2026-10-04,0,0,0,,0,0,,,,testing,trial ends Oct 11,2026-10-04
 HaasOnline,DCA Bot,paper,OKX,ETH,,fixed size,2026-10-04,0,0,0,,0,0,,,,testing,trial ends Oct 11,2026-10-04
 HaasOnline,Flash Crash Bot,paper,OKX,SOL,,fixed size,2026-10-04,0,0,0,,0,0,,,,testing,trial ends Oct 11,2026-10-04

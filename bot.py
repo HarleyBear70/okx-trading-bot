@@ -65,6 +65,8 @@ BOTS = [
     {"id": "b3-paper", "name": "B3 pairs (paper)", "strat": "pairs", "venue": "okx", "mode": "paper",
      "coins": ["ETH-USDT", "XRP-USDT", "BTC-USDT"], "equity": 1000.0,
      "pairs": ["ETH-USDT", "XRP-USDT"]},  # forward test from Oct 5 2026 (research/B3_PAIRS.md, variant P3)
+    {"id": "nnfx-paper", "name": "NNFX Aroon (paper)", "strat": "nnfx", "venue": "okx", "mode": "paper",
+     "coins": ["BTC-USDT", "ETH-USDT", "XRP-USDT"], "equity": 1000.0},  # backup candidate from Oct 5 2026 (research/NNFX.md)
     {"id": "tr-gold", "name": "Trend Rider (gold paper)", "strat": "tr", "venue": "okx", "mode": "paper",
      "coins": ["XAUT-USDT"], "equity": 1000.0, "pivot": 3,
      "new_trades": False},  # paused Oct 5 2026: weak in long-history test, repair failed (research/REPAIR_gold.md)
@@ -514,6 +516,38 @@ def analyse_pairs(coin, bars, btc_daily, alt_dailies):
     return {"signal": signal, "info": info, "exit": exit_}
 
 
+# ───────── NNFX Aroon (daily candles, paper backup candidate) ─────────
+NNFX_SETTINGS = {"aroon": 25, "stop_atr": 1.5, "half_atr": 1.0}
+
+
+def aroon_dir(h, l, n=25):
+    """+1 when Aroon up > Aroon down, -1 when down > up (unchanged on a tie)."""
+    out = [0] * len(h)
+    for i in range(n, len(h)):
+        wh, wl = h[i - n:i + 1], l[i - n:i + 1]
+        up = 100 * (n - wh[::-1].index(max(wh))) / n
+        dn = 100 * (n - wl[::-1].index(min(wl))) / n
+        out[i] = 1 if up > dn else (-1 if dn > up else out[i - 1])
+    return out
+
+
+def analyse_nnfx(bars):
+    """Daily, long only: buy when Aroon(25) flips up; stop 1.5 ATR; half off at +1 ATR, then breakeven;
+    the rest leaves when Aroon flips down (a["exit"])."""
+    cfg = NNFX_SETTINGS
+    h, l, c = [b["h"] for b in bars], [b["l"] for b in bars], [b["c"] for b in bars]
+    a, d = atr(h, l, c, 14), aroon_dir(h, l, cfg["aroon"])
+    n = len(bars)
+    signal, info = [False] * n, [None] * n
+    for k in range(1, n):
+        if d[k] == 1 and d[k - 1] != 1 and a[k] is not None:
+            sl = c[k] - cfg["stop_atr"] * a[k]
+            signal[k] = True
+            info[k] = {"score": "Aroon flipped up", "raw_risk": (c[k] - sl) / c[k] * 100, "sl": sl, "tp": None,
+                       "half_at": c[k] + cfg["half_atr"] * a[k]}
+    return {"signal": signal, "info": info, "exit": [x == -1 for x in d]}
+
+
 # ───────── Trend Rider ─────────
 def analyse_tr(bars, daily, L):
     h = [b["h"] for b in bars]; l = [b["l"] for b in bars]; c = [b["c"] for b in bars]; n = len(bars)
@@ -757,9 +791,11 @@ def check_hit(api, bot, bs, coin, bar):
         reason = stop_reason(pos)
         close_position(api, bot, bs, coin, reason, min(pos["stop"], bar["o"]))
         return True
-    two_r = pos["entry_px"] + 2 * (pos["entry_px"] - pos["sl"])
+    two_r = pos.get("half_at") or pos["entry_px"] + 2 * (pos["entry_px"] - pos["sl"])
     if not pos.get("half") and not pos.get("no_half") and pos["entry_px"] > pos["sl"] and bar["h"] >= two_r:
         take_half(api, bot, bs, coin, max(two_r, bar["o"]))
+        if pos.get("be_after_half") and coin in bs["positions"]:
+            pos["stop"] = max(pos["stop"], pos["entry_px"])  # NNFX: the runner's stop goes to breakeven
     if pos.get("limit") and bar["h"] >= pos["limit"]:
         close_position(api, bot, bs, coin, "take profit", max(pos["limit"], bar["o"]))
         return True
@@ -783,6 +819,11 @@ def manage_on_close(api, bot, bs, coin, a, i, bar, bars_in):
         pos["limit"] = None if trail else pos["tp"]
     elif bot["strat"] == "b1":
         pass  # fixed stop and target, as backtested
+    elif bot["strat"] == "nnfx":
+        if a["exit"][i]:
+            close_position(api, bot, bs, coin, "Aroon flipped down", bar["c"])
+            return True
+        return False
     elif bot["strat"] == "pairs":
         if a["exit"].get(pos.get("tag"), [False] * (i + 1))[i]:
             close_position(api, bot, bs, coin, "spread back to normal", bar["c"])
@@ -911,10 +952,12 @@ def get_data(api, venue, coin, tf="4H"):
 
 
 def run_bot_coin(api, state, bot, coin, trade=True):
-    tf = {"b1": "1H", "pairs": "1D"}.get(bot["strat"], "4H")
+    tf = {"b1": "1H", "pairs": "1D", "nnfx": "1D"}.get(bot["strat"], "4H")
     bars, forming, daily = get_data(api, bot["venue"], coin, tf)
     if bot["strat"] == "b1":
         a = analyse_b1(bars)
+    elif bot["strat"] == "nnfx":
+        a = analyse_nnfx(bars)
     elif bot["strat"] == "pairs":
         btc = get_data(api, bot["venue"], "BTC-USDT", "1D")[0]
         a = analyse_pairs(coin, bars, btc, {alt: get_data(api, bot["venue"], alt, "1D")[0] for alt in bot["pairs"]})
@@ -951,7 +994,8 @@ def run_bot_coin(api, state, bot, coin, trade=True):
             else:
                 extra = {"hi": b["c"]} if bot["strat"] == "tr" else (
                     {"no_half": True} if bot["strat"] == "b1" else (
-                        {"no_half": True, "tag": a["info"][k]["tag"]} if bot["strat"] == "pairs" else {}))
+                        {"no_half": True, "tag": a["info"][k]["tag"]} if bot["strat"] == "pairs" else (
+                            {"half_at": a["info"][k]["half_at"], "be_after_half": True} if bot["strat"] == "nnfx" else {})))
                 open_position(api, bot, bs, coin, b, a["info"][k], extra)
         bs["last_bar"][coin] = b["ts"]
 

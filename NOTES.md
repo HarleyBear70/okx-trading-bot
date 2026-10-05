@@ -735,3 +735,8 @@ Next: TRX into Trend Rider, the NNFX paper bot, then the P/L calendar.
 
 
 2026-10-05 TERMINAL: TRX added to Trend Rider (demo; v4 unchanged), per Jeff's OK. Confirm backtest with the live setup (fear filter on), 2022-now: 311 -> 368 trades, +60.1% -> +84.2%, PF 1.84 -> 1.94, max DD -5.3% -> -7.4%. 2018-05 to now: +148.7% -> +194.1%, DD -7.0% -> -7.5%. More DD than in the no-filter test (-6.7%) but well inside 10%. Logged in journal/changes.json (review 2026-10-19). README, scoreboard.csv and the Scout's expectations (41% / PF 1.94 / DD -7.4%) updated.
+
+
+2026-10-05 TERMINAL: NNFX Aroon is running as a PAPER bot (nnfx-paper, "NNFX Aroon (paper)"), BTC/ETH/XRP, daily, long only, separate in the journal and scoreboard. Rules exactly as tested: buy on an Aroon(25) up-flip, stop 1.5 ATR, half off at +1 ATR, then the runner's stop goes to breakeven and it exits on the Aroon down-flip. Check: bot.py's own functions reproduce the backtest exactly (2022-now 113 trades +26.8%; 2018-05 to now 193 trades +55.8%). A dry run on live OKX daily candles worked. Logged in journal/changes.json (review 2026-10-19); README, scoreboard.csv and Scout expectations (61% / PF 2.20 / DD -5.4%) added. bot.py's half-profit step can now take a custom price (used only by NNFX); every other bot still takes half at +2R as before.
+
+Next: the P/L calendar.
