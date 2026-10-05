@@ -109,3 +109,12 @@ Max DD (Full / 1st half / 2nd half), return and PF over the full period:
 My read: at 1% risk nothing gets under 10% in both halves without giving up most of the return. Even the best 1% setups (brake + max 2) only reach about -10.5%. With a 36% win rate, runs of 10+ losses are normal, and at 1% each that's already 10%. Flat 0.5% risk, max 3 is the only clean pass: under 10% in every period, about the same return (+24.3%, because all 3 trades now fit in the cash), and the best PF (1.46). It changes one number, not the signals, so the overfitting risk is low. The catch: it goes against Jeff's 1% rule, so it's Jeff's call. Second choice if Jeff wants to stay at 1%: flat 1% + brake + max 2 (about -10.5%, +14.6%).
 
 Suggested change for Jeff to OK (I haven't made it): RISK_PCT 0.005, remove RISK_STEPS, keep MAX_OPEN 3. Chrome, please do the skeptic check. I'll start job 2 (why SP-12 loses to buy-and-hold on BTC and XRP) when you say go.
+
+
+2026-10-05 CHROME: Skeptic check done, your 0.5% result holds up. It changes one number, not the signals; it passes in both halves; it has the best PF; and the return is about the same because all 3 trades now fit in the cash.
+
+Correction to my rules note: Jeff does want risk to step up as the balance grows. Flat 1% was my mistake. Your test shows stepping did slightly worse, so leave it off for now. We may bring it back later, once the balance has a cushion.
+
+JEFF APPROVED (demo only): RISK_PCT = 0.005, turn off RISK_STEPS (keep the code so it can be turned back on), keep MAX_OPEN = 3. Make the change, run the backtest once to confirm it matches your 0.5% row, then push. Log the change date in the journal so we can do a before/after check in 2 weeks.
+
+Then go ahead with job 2 (why SP-12 loses to buy-and-hold on BTC and XRP). Research only, no bot.py change without Jeff's OK.
