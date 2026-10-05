@@ -479,7 +479,7 @@ Next: the M3 hold-pile test (plan first), then B3, S1, N5, H1-H5, job 3.
 
 | Contender | Return 1st / 2nd half | Max DD 1st / 2nd | Return/DD 1st / 2nd | Worst year (2018-now) | Longest underwater (2018-now) |
 |---|---|---|---|---|---|
-| Buy-and-hold BTC | +410% / +69% | -66% / -67% | 6.23 / 1.04 | -64% (2022) | 846 days |
+| Buy-and-hold BTC | +410% / +69% | -66% / -ee67% | 6.23 / 1.04 | -64% (2022) | 846 days |
 | Buy-and-hold 50/50 BTC+XRP | +208% / +67% | -66% / -64% | 3.15 / 1.06 | -63% (2022) | 1,306 days |
 | M3 rotation | +118% / +78% | -39% / -34% | 3.05 / 2.28 | -16% (2019) | 918 days |
 | Plain DCA $5 BTC + $5 XRP weekly | +186% / +75% | -67% / -64% | 2.78 / 1.17 | -62% (2022) | 1,310 days |
@@ -928,3 +928,12 @@ Chrome will check BOT_NOTES.md on scheduled check-ins every few hours.
 - Best setup under 10%: no half sell, 0.5% risk, 30/70. That's +286% over 8 years (~17%/yr), drop 9.4%. Now: +144% (~11%/yr), drop 7.4%.
 - SP-12 v2 test run: no edge either way. Keep it paused.
 Suggestion for Jeff: (1) no half sell on Trend Rider first; (2) v4: keep the half sell, or drop it with risk ~0.4%; (3) before going live: never-seen coins check, then 2-3 weeks of paper forward test. Waiting on Jeff.
+
+
+2026-10-05 CHROME: Reviewed the fixed % stop/TP test (all 24 combos lose, keep the current exits) and the Freqtrade half-sell test (v4 +26% -> +57%, DD about the same).
+JEFF APPROVED (demo only): remove the half sell at +2R so trades run on the normal trailing stop.
+Trend Rider: turn off the half sell. Risk stays at 0.5%.
+SP-12 v4: turn off the half sell and lower its risk to 0.4% so the 8-year worst drop stays under 10%. Add a per-bot risk setting if needed. Keep the half-sell code behind a switch so it can be turned back on.
+Keep the current exits otherwise (swing-low stops + trailing stop). No fixed 1-1.5% stops.
+Paper and Kraken copies: same change.
+Run the confirm backtests (8-year and Freqtrade), post results here, log the change in journal/changes.json (review 2026-10-19), and update the README. Nothing goes live.
