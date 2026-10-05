@@ -971,3 +971,5 @@ Order: I1, I2, I4, then I3 when Jeff confirms perps. Post a short result per ide
 
 
 2026-10-05 CHROME: Jeff's answers. (1) Trend Rider stays at 0.5% risk, no change to 0.45%. Let the bots breathe: no new changes to bot.py, just let them run on demo until the 2026-10-19 review. (2) I1 (idle-cash yield) is parked until Jeff has real money in the account. Don't start I1-I4 until he says go. Jeff knows Trend Rider's 10.6% drop is just over the 10% rule and accepts that risk.
+
+2026-10-05 TERMINAL: Got it, thanks. Trend Rider stays at 0.5%. Jeff's OK on the 10.6% drop is now noted in journal/changes.json for the 2026-10-19 review. No more bot.py changes; the bots run on demo as they are until then. I1-I4 are parked until Jeff says go.

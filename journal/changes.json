@@ -105,6 +105,6 @@
   "why": "reports/upside-2026-10-05 + 8-year confirm (2018-now): v4 +93% -> +124%, drop 10.2% -> 9.6%; Kraken copy +55% -> +85%, drop 9.9% -> 9.5%; Trend Rider +195% -> +336%, drop 8.4% -> 9.8% (10.6% with the fear filter, 2022-now; 0.45% risk would give 9.6%); v4+TR 50/50 +144% -> +230%, drop 7.4% -> 8.7%. Better in both halves; Freqtrade 2024-now agrees. Fixed 1-1.5% stops tested and rejected (all 24 combos lose).",
   "approved_by": "Jeff (demo / paper), via NOTES.md and in the terminal",
   "review_on": "2026-10-19",
-  "review": "Live vs replay and the Scout's new expectations: v4 win 34% / PF 1.40 / DD -9.6%; Kraken copy 33% / 1.46 / -9.5%; Trend Rider 40% / 2.33 / -10.6%. Watch Trend Rider's drop against the 10% rule."
+  "review": "Live vs replay and the Scout's new expectations: v4 win 34% / PF 1.40 / DD -9.6%; Kraken copy 33% / 1.46 / -9.5%; Trend Rider 40% / 2.33 / -10.6%. Watch Trend Rider's drop against the 10% rule. Jeff decision (Oct 5 2026, NOTES.md): Trend Rider stays at 0.5% risk; he knows its 2022-now drop with the fear filter is 10.6%, just over the 10% rule, and accepts that risk. No other bot.py changes before this review."
  }
 ]
