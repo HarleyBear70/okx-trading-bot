@@ -1,65 +1,65 @@
 {
  "last_bar": {
-  "b1-paper|BTC-USDT": 1791187200000,
-  "b1-paper|ETH-USDT": 1791187200000,
-  "b1-paper|XRP-USDT": 1791187200000,
-  "b3-paper|BTC-USDT": 1791187200000,
-  "b3-paper|ETH-USDT": 1791187200000,
-  "b3-paper|XRP-USDT": 1791187200000,
-  "nnfx-paper|BTC-USDT": 1791187200000,
-  "nnfx-paper|ETH-USDT": 1791187200000,
-  "nnfx-paper|XRP-USDT": 1791187200000,
-  "tr-gold|XAUT-USDT": 1791187200000,
-  "tr-okx|BNB-USDT": 1791187200000,
-  "tr-okx|BTC-USDT": 1791187200000,
-  "tr-okx|ETH-USDT": 1791187200000,
-  "tr-okx|SOL-USDT": 1791187200000,
-  "tr-okx|SUI-USDT": 1791187200000,
-  "tr-okx|TRX-USDT": 1791187200000,
-  "v2-gold|XAUT-USDT": 1791187200000,
-  "v2-okx|ETH-USDT": 1791187200000,
-  "v2-okx|SOL-USDT": 1791187200000,
-  "v4-kraken|ETHUSD": 1791187200000,
+  "b1-paper|BTC-USDT": 1791201600000,
+  "b1-paper|ETH-USDT": 1791201600000,
+  "b1-paper|XRP-USDT": 1791201600000,
+  "b3-paper|BTC-USDT": 1791201600000,
+  "b3-paper|ETH-USDT": 1791201600000,
+  "b3-paper|XRP-USDT": 1791201600000,
+  "nnfx-paper|BTC-USDT": 1791201600000,
+  "nnfx-paper|ETH-USDT": 1791201600000,
+  "nnfx-paper|XRP-USDT": 1791201600000,
+  "tr-gold|XAUT-USDT": 1791201600000,
+  "tr-okx|BNB-USDT": 1791201600000,
+  "tr-okx|BTC-USDT": 1791201600000,
+  "tr-okx|ETH-USDT": 1791201600000,
+  "tr-okx|SOL-USDT": 1791201600000,
+  "tr-okx|SUI-USDT": 1791201600000,
+  "tr-okx|TRX-USDT": 1791201600000,
+  "v2-gold|XAUT-USDT": 1791201600000,
+  "v2-okx|ETH-USDT": 1791201600000,
+  "v2-okx|SOL-USDT": 1791201600000,
+  "v4-kraken|ETHUSD": 1791201600000,
   "v4-kraken|SOLUSD": 1791129600000,
-  "v4-kraken|XBTUSD": 1791187200000,
-  "v4-kraken|XRPUSD": 1791187200000,
-  "v4-okx|BNB-USDT": 1791187200000,
-  "v4-okx|BTC-USDT": 1791187200000,
-  "v4-okx|ETH-USDT": 1791187200000,
+  "v4-kraken|XBTUSD": 1791201600000,
+  "v4-kraken|XRPUSD": 1791201600000,
+  "v4-okx|BNB-USDT": 1791201600000,
+  "v4-okx|BTC-USDT": 1791201600000,
+  "v4-okx|ETH-USDT": 1791201600000,
   "v4-okx|SOL-USDT": 1791129600000,
-  "v4-okx|XLM-USDT": 1791187200000,
-  "v4-okx|XRP-USDT": 1791187200000
+  "v4-okx|XLM-USDT": 1791201600000,
+  "v4-okx|XRP-USDT": 1791201600000
  },
- "rows_seen": 10,
+ "rows_seen": 12,
  "signal_counts": {
   "tr-gold": {
-   "candles": 9,
+   "candles": 10,
    "near_misses": 0,
    "signals": 0
   },
   "tr-okx": {
-   "candles": 36,
-   "near_misses": 34,
+   "candles": 42,
+   "near_misses": 38,
    "signals": 1
   },
   "v2-gold": {
-   "candles": 9,
+   "candles": 10,
    "near_misses": 5,
    "signals": 0
   },
   "v2-okx": {
-   "candles": 18,
-   "near_misses": 9,
+   "candles": 20,
+   "near_misses": 10,
    "signals": 4
   },
   "v4-kraken": {
-   "candles": 32,
-   "near_misses": 13,
+   "candles": 35,
+   "near_misses": 14,
    "signals": 10
   },
   "v4-okx": {
-   "candles": 36,
-   "near_misses": 13,
+   "candles": 41,
+   "near_misses": 14,
    "signals": 8
   }
  }
