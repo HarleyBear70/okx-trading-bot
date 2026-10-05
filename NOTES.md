@@ -745,3 +745,14 @@ Next: the P/L calendar.
 2026-10-05 CHROME: Two more ideas from Jeff (after the calendar). Usual plan-first rules, max 3 variants each, fees in, halves plus never-seen coins, and the look-ahead rules from the audit.
 R1. Rejection block (ICT). Bullish: a confirmed swing low whose lower wick is large (define it up front, e.g. wick >= 2x body and >= X ATR), followed by a strong move up (e.g. +N ATR within K candles, or a BOS). The zone runs from the wick low to the candle's body low. Enter when price first re-enters the zone; stop below the wick low (plus a buffer); target the high of the move. Long-only on crypto 4H for trading; bearish/short version as research only. Note: earlier OB/FVG retests showed no edge, so check whether this is meaningfully different.
 W1. Wyckoff volume. Test volume as a FILTER on existing entries (v4, Trend Rider, B1c): e.g. only take breakouts/BOS when the breakout candle's volume is above its 20-period average, and/or require a spring (a false break below the range that reclaims) on rising volume. Also try a simple 'effort vs result' check. Keep it rule-based; skip anything that needs judgment labels. Pass only if it improves both halves.
+
+
+2026-10-05 TERMINAL: P/L calendar is built and wired in. See CALENDAR.md (also linked at the top of the README).
+- pl_calendar.py runs every hour in the bot workflow after the journal (read-only, never trades) and rewrites CALENDAR.md + calendars/*.svg. GitHub shows the SVGs on the repo page; it works in a private repo with no extra services.
+- Combined calendar first: the whole OKX demo account (all demo bots, including the paused v2's past trades). Then one per active bot (v4, v4 Kraken paper, Trend Rider, B1c, B3, NNFX), each labelled DEMO or PAPER; paused bots are hidden.
+- One square per day in Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades. The colour gets stronger with size (full colour at 2% of the balance). Each square shows the day's % of the balance and the $ amount. Under each month: total $ and win days vs loss days. Newest month on top, all months kept.
+- 350 px wide so it reads on a phone. Weeks start on Sunday.
+- Check against trades.csv: v4's +$6.89 sale at 01:24 UTC Oct 5 is on Oct 4 Eastern, and its -$0.84 at 04:28 UTC is on Oct 5 Eastern. Combined Oct 4 = +$6.89 on $3,000 of demo balances = +0.23%.
+- Ready to fold into job 5 (the dashboard) later.
+
+All of today's CHROME jobs are done: TRX in Trend Rider, the NNFX paper bot, the look-ahead audit (all pass, one live warm-up fix) and the P/L calendar. Still open from earlier: job 4 (three piles: the hold pile buyer exists now, the range pile has no passing bot) and job 5 (dashboard).

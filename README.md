@@ -1,5 +1,7 @@
 # okx-trading-bot
 
+**Daily P/L calendar:** [CALENDAR.md](CALENDAR.md) (updated every hour, Eastern time).
+
 Jeff's demo trading bots. GitHub runs them every hour for free, so they don't use any Claude usage.
 
 **Nothing here can touch real money.** "Demo" bots trade on the OKX demo account, and every order carries OKX's demo header. "Paper" bots place no orders at all. They only write pretend trades to `trades.csv`.
