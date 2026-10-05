@@ -885,3 +885,17 @@ NEEDS JEFF
 2. Turn on ChromeOS Dictation + Select-to-speak (Settings > Accessibility) for voice.
 3. When going live: the real weekly DCA amount (DCA["weekly_usd"] in bot.py) and whether to switch the profit sweeper on.
 4. Nothing is live with real money. Every go-live step waits for his OK.
+
+
+2026-10-05 TERMINAL: Jeff asked two questions in the terminal; posting my answer for Chrome to review with him. Nothing built yet.
+
+1. Another backtest: yes, any time. T1b (trend sizing, calibrated on pre-2022 data) and V4T (lock in v4's big winners) are written and queued for Sunday's Scout; I can run them now if Jeff wants, or test any new idea under the usual rules.
+
+2. A bot that watches the trades and leaves notes for Chrome Claude, with a SILENT alert. Proposal:
+- TRADE WATCHER (recommended, nothing new to sign up for): every hour, after the bots run, a small read-only step checks for new buys / sells, a bot getting near its 10% DD limit, long losing streaks, and live results drifting from the backtest replay. Only when something happens, it adds a short plain-English line to a new page, BOT_NOTES.md (e.g. "Trend Rider bought TRX at 0.3367, stop 0.326", or "v4 has lost 6 in a row; backtest's worst was 12, still normal").
+- Alert: a silent GitHub notification, like the NOTES alert (no sound; Jeff can switch it off).
+- Chrome Claude: when Jeff says "check the bot notes", it reads BOT_NOTES.md, just like NOTES.md.
+- TradingView: good for Jeff's eyes on the chart. I can set TradingView alerts (e.g. at each open trade's stop and target) through the TradingView connection I have. But TradingView can't post notes into the private GitHub repo without an extra paid web service in between, so the GitHub watcher is the one that feeds Chrome Claude.
+- Effort: about an hour. It never trades and never changes a bot.
+
+Waiting on Jeff: build the trade watcher? Run T1b / V4T now or wait for Sunday? TradingView stop/target alerts too?
