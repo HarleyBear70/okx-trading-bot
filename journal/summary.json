@@ -427,48 +427,8 @@
   "btc_close": 86525.1,
   "btc_rsi14": 69.0
  },
- "check_meanings": {
-  "above_ema50": {
-   "meaning": "Required: 4H close above the 50 EMA",
-   "points": null
-  },
-  "bos": {
-   "meaning": "Required: candle closes above the last swing high (784.5) - a break of structure",
-   "points": null
-  },
-  "daily_trend": {
-   "meaning": "Required: daily close above the 50-day EMA",
-   "points": null
-  }
- },
- "now": {
-  "tr-okx|BNB-USDT": {
-   "action": "NO TRADE",
-   "bot": "Trend Rider",
-   "candle_utc": "2026-10-04 20:00",
-   "chart_coin": "BNB-USDT",
-   "close": 795.4,
-   "coin": "BNB-USDT",
-   "group": "testing",
-   "mode": "demo",
-   "rsi14": 67.4,
-   "score": "-",
-   "why": "No buy. Missing: candle closes above the last swing high (784.5) - a break of structure."
-  },
-  "tr-okx|SUI-USDT": {
-   "action": "NO TRADE",
-   "bot": "Trend Rider",
-   "candle_utc": "2026-10-04 20:00",
-   "chart_coin": "SUI-USDT",
-   "close": 1.2085,
-   "coin": "SUI-USDT",
-   "group": "testing",
-   "mode": "demo",
-   "rsi14": 55.6,
-   "score": "-",
-   "why": "No buy. Missing: candle closes above the last swing high (1.2187) - a break of structure."
-  }
- },
+ "check_meanings": {},
+ "now": {},
  "totals": {
   "live": {
    "avg_candles_held": null,
@@ -501,5 +461,5 @@
    "wins": 0
   }
  },
- "updated_utc": "2026-10-05 02:24"
+ "updated_utc": "2026-10-05 03:27"
 }
