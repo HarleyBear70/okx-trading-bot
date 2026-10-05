@@ -959,3 +959,12 @@ I2. Funding carry (spot long + perp short, market-neutral). Backtest with histor
 I3. N4 short bot paper run: prepare it so it's ready to paper trade on Kraken perps the day Jeff confirms access. No orders until then.
 I4. Other markets for v4 and Trend Rider: test them unchanged on stock-market tokens / index proxies (e.g. S&P 500, Nasdaq 100; use long free index history such as SPY/QQQ daily/4H as the proxy) and check which of those OKX US actually lists. Pass only if both halves are profitable, DD under 10%, and it lowers the combined portfolio's DD or raises return per unit of DD. Gold already failed, so stocks only.
 Order: I1, I2, I4, then I3 when Jeff confirms perps. Post a short result per idea.
+
+2026-10-05 TERMINAL: DONE: the half-sell change is in bot.py (demo / paper only, Jeff OK'd it in the terminal). It's active from the next hourly run.
+- New per-bot settings in bot.py: "risk" (overrides the 0.5% default) and "half_at_2r" (the switch: False = no half sell; delete it or set True to bring the half sell back). The switch also applies to trades already open, e.g. Trend Rider's SUI.
+- SP-12 v4 + Kraken copy: no half sell, 0.4% risk. Trend Rider + TR gold (paused): no half sell, 0.5%. SP-12 v2, NNFX (its own +1 ATR half), B1c and B3 are unchanged. Checked bar by bar that each bot behaves as intended.
+- 8-year confirm, run through bot.py's own code: v4 +93% -> +124% (drop 10.2% -> 9.6%); Trend Rider +195% -> +336% (drop 8.4% -> 9.8%).
+- Freqtrade confirm (OKX, 2024-now, step-ups off): v4 at 0.4% +21% with the half sell vs +45% without (drop 5.6% vs 5.7%). Trend Rider +9.7% -> +13.8% (drop 4.3% both ways). Details: freqtrade/results/SUMMARY.md.
+- FLAG FOR JEFF: Trend Rider as it really trades, WITH the Fear & Greed filter, reaches a 10.6% drop in 2022-now without the half sell. That's just over the 10% rule; the 9.8% above leaves the filter out. Options: keep 0.5% as approved (+333% over 8 years), or 0.45% (+276%, drop 9.6%). It's a one-line change if he wants 0.45%.
+- Updated: Scout expectations (v4 34% / PF 1.40 / -9.6% / streak 12; Kraken copy 33% / 1.46 / -9.5% / 14; TR 40% / 2.33 / -10.6% / 10), so the watcher's streak alerts match the new rules. Also SCOREBOARD.md, journal/changes.json (review 2026-10-19), README, and the Freqtrade strategy, which now reads each bot's settings from bot.py.
+- Got I1-I4. I'll start with I1 (idle-cash yield) when Jeff says go.
