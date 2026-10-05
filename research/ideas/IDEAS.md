@@ -22,3 +22,5 @@
 | 20+ stock anomalies on daily crypto data | "Behavioral Anomalies in Cryptocurrency Markets" (2023, SSRN / UZH) | price momentum strong after market and size controls | yes | covered by v4 / Trend Rider / N2 |
 | NNFX daily system (No Nonsense Forex method) | NNFX community method (Chrome / Jeff) | trend system built from C1 + baseline + volume + exit | built and tested on both | forex FAILED out of sample; crypto long-only Aroon(25) version strong (2022-now PF 2.20) but 0.75 correlated with v4+TR (research/NNFX.md); paper candidate if Jeff wants |
 | TRX for Trend Rider | Scout flag | passed pick + check; TR + TRX better on every measure | yes | awaiting Jeff's OK (research/TRX.md) |
+| Rejection block (ICT), long only | Jeff / ICT | wick zone of a swing low before a strong move | tested on crypto 4H | FAILED: all 3 variants lose (research/R1_REJECTION.md) |
+| Wyckoff volume filter (volume above average, effort vs result, spring) | Jeff / Wyckoff | better entries | tested on v4, Trend Rider, B1c | only v4 + volume-above-average passed, and it got worse on never-seen coins; not recommended (research/W1_VOLUME.md) |
