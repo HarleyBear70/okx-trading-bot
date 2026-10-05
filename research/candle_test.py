@@ -30,7 +30,8 @@ def patterns(df, daily):
     day_up = [bool(up_by_day.get(t.floor("D"), False)) for t in df["date"]]
 
     ev = {k: [] for k in ("Bullish engulfing", "Hammer", "Morning star", "Three white soldiers",
-                          "Inside bar breakout", "Big breakout candle")}
+                          "Inside bar breakout", "Big breakout candle",
+                          "CRT sweep (candle 2)", "CRT confirmed (candle 3)")}
     for i in range(3, n):
         if avg_body[i] is None or math.isnan(avg_body[i]) or avg_body[i] == 0:
             continue
@@ -58,6 +59,13 @@ def patterns(df, daily):
         # big breakout candle: body 2x normal, closes in the top quarter of its range
         if green and body[i] > 2 * avg_body[i] and rng > 0 and (c[i] - l[i]) / rng >= 0.75:
             ev["Big breakout candle"].append(i)
+        # Candle Range Theory: candle i-1 dips under candle i-2's low and closes back inside its range
+        if l[i - 1] < l[i - 2] and l[i - 2] < c[i - 1] < h[i - 2]:
+            # confirmation: candle i closes above candle i-1's high
+            if c[i] > h[i - 1]:
+                ev["CRT confirmed (candle 3)"].append(i)
+        if l[i] < l[i - 1] and l[i - 1] < c[i] < h[i - 1]:
+            ev["CRT sweep (candle 2)"].append(i)
     out = {}
     for name, idx in ev.items():
         out[name] = idx
