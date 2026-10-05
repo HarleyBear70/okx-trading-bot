@@ -358,6 +358,21 @@
    },
    "balance": 1006.0547,
    "by_coin": {
+    "BNB-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
     "BTC-USDT": {
      "avg_candles_held": null,
      "avg_loss": null,
@@ -388,6 +403,21 @@
      "win_rate_pct": 0.0,
      "wins": 0
     },
+    "XLM-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
     "XRP-USDT": {
      "avg_candles_held": null,
      "avg_loss": null,
@@ -411,7 +441,7 @@
     "BTC-USDT"
    ],
    "signals_seen": {
-    "candles": 29,
+    "candles": 31,
     "near_misses": 12,
     "signals": 8
    },
@@ -444,10 +474,108 @@
    "review": "Stays paused unless a new idea passes backtest + skeptic check.",
    "review_on": null,
    "why": "Long-history test (research/LONG_HISTORY.md): PF 0.88 on its own coins, 0.91 on never-seen coins. Repair attempt with 3 pre-registered variants (research/REPAIR_PLAN.md) all failed the pass rules (research/REPAIR_v2.md)."
+  },
+  {
+   "approved_by": "Jeff (pause if repair fails, demo only)",
+   "bots": "Trend Rider gold paper (tr-gold)",
+   "change": "Paused: new_trades False (no new entries; no open trade). Code kept.",
+   "date_utc": "2026-10-05",
+   "review": "Stays paused unless a new idea passes backtest + skeptic check.",
+   "review_on": null,
+   "why": "Long-history test: lost in 2 of 3 periods, broke 10% DD in 2023-now. Repair attempt with 3 pre-registered variants (research/REPAIR_PLAN.md, amended for data before running) all failed (research/REPAIR_gold.md)."
+  },
+  {
+   "approved_by": "Jeff (demo)",
+   "bots": "SP-12 v4 (v4-okx, demo)",
+   "change": "Coins BTC ETH XRP -> BTC ETH XRP XLM BNB. Kraken paper copy unchanged.",
+   "date_utc": "2026-10-05",
+   "review": "Per-coin results for XLM and BNB vs backtest; bot DD vs the -10.2% backtest figure.",
+   "review_on": "2026-10-19",
+   "why": "Job 2d (research/COINS.md): XLM and BNB picked on data to 2021 and passed the 2022-now check. Portfolio 2022-now +20.0% -> +28.4%, PF 1.23 both, max DD -9.9% -> -10.2%."
   }
  ],
- "check_meanings": {},
- "now": {},
+ "check_meanings": {
+  "above_vwap": {
+   "meaning": "Required: price above daily VWAP",
+   "points": null
+  },
+  "daily_trend": {
+   "meaning": "Daily trend up: yesterday's daily close above a rising 20-day EMA",
+   "points": 1
+  },
+  "ema_stack": {
+   "meaning": "Required: EMAs stacked up (8 above 21 above 55)",
+   "points": null
+  },
+  "in_fvg": {
+   "meaning": "Price dipping into a recent fair value gap (counted against)",
+   "points": -1
+  },
+  "in_order_block": {
+   "meaning": "Price retesting the order block before the last BOS (counted against)",
+   "points": -1
+  },
+  "liquidity_sweep": {
+   "meaning": "Liquidity sweep in the last 10 candles: price dipped under a swing low and closed back above it",
+   "points": 1
+  },
+  "macd_rising": {
+   "meaning": "MACD histogram rising (momentum picking up)",
+   "points": 1
+  },
+  "recent_bos": {
+   "meaning": "Break of structure in the last 20 candles (the tested settings count this AGAINST a buy)",
+   "points": -1
+  },
+  "reversal_candle": {
+   "meaning": "Bullish engulfing or hammer candle (counted against)",
+   "points": -1
+  },
+  "risk": {
+   "meaning": "Required: stop no more than 4.0% away",
+   "points": null
+  },
+  "score": {
+   "meaning": "Required: score of 2 or more",
+   "points": null
+  },
+  "supertrend_green": {
+   "meaning": "Supertrend is green on this candle",
+   "points": 1
+  },
+  "trend_gate": {
+   "meaning": "Required: previous candle closed above the 50 EMA with Supertrend green",
+   "points": null
+  }
+ },
+ "now": {
+  "v4-okx|BNB-USDT": {
+   "action": "NO TRADE",
+   "bot": "SP-12 v4",
+   "candle_utc": "2026-10-05 04:00",
+   "chart_coin": "BNB-USDT",
+   "close": 791.7,
+   "coin": "BNB-USDT",
+   "group": "testing",
+   "mode": "demo",
+   "rsi14": 62.6,
+   "score": 0,
+   "why": "No buy. Missing: score of 2 or more (got 0); price above daily VWAP. Score 0 (needed 2). Points for: Daily trend up: yesterday's daily close above a rising 20-day EMA; Supertrend is green on this candle. Points against: Break of structure in the last 20 candles (the tested settings count this AGAINST a buy); Price dipping into a recent fair value gap (counted against)."
+  },
+  "v4-okx|XLM-USDT": {
+   "action": "NO TRADE",
+   "bot": "SP-12 v4",
+   "candle_utc": "2026-10-05 04:00",
+   "chart_coin": "XLM-USDT",
+   "close": 0.22357,
+   "coin": "XLM-USDT",
+   "group": "testing",
+   "mode": "demo",
+   "rsi14": 57.3,
+   "score": 0,
+   "why": "No buy. Missing: score of 2 or more (got 0); stop no more than 4.0% away (it was 4.81%); price above daily VWAP. Score 0 (needed 2). Points for: Daily trend up: yesterday's daily close above a rising 20-day EMA; Supertrend is green on this candle; MACD histogram rising (momentum picking up). Points against: Price dipping into a recent fair value gap (counted against); Price retesting the order block before the last BOS (counted against); Bullish engulfing or hammer candle (counted against)."
+  }
+ },
  "totals": {
   "live": {
    "avg_candles_held": null,
@@ -480,5 +608,5 @@
    "wins": 0
   }
  },
- "updated_utc": "2026-10-05 10:27"
+ "updated_utc": "2026-10-05 11:25"
 }

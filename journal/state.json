@@ -13,9 +13,11 @@
   "v4-kraken|SOLUSD": 1791129600000,
   "v4-kraken|XBTUSD": 1791172800000,
   "v4-kraken|XRPUSD": 1791172800000,
+  "v4-okx|BNB-USDT": 1791172800000,
   "v4-okx|BTC-USDT": 1791172800000,
   "v4-okx|ETH-USDT": 1791172800000,
   "v4-okx|SOL-USDT": 1791129600000,
+  "v4-okx|XLM-USDT": 1791172800000,
   "v4-okx|XRP-USDT": 1791172800000
  },
  "rows_seen": 10,
@@ -46,7 +48,7 @@
    "signals": 10
   },
   "v4-okx": {
-   "candles": 29,
+   "candles": 31,
    "near_misses": 12,
    "signals": 8
   }
