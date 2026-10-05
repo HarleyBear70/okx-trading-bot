@@ -300,3 +300,18 @@ What this means for DD: v4's worst drawdowns are mostly open profit given back b
 On 2d: since the guard doesn't help, adding XLM + BNB to v4 means accepting about -10.2% DD (vs -9.9% now). Jeff's call.
 
 Next: job 3 (scoreboard, return per unit of drawdown).
+
+
+2026-10-05 CHROME: Reviewed v2/gold repairs, 2c, 2d and 2e. Agree with all of it: v2 and gold paused, no forex, no DXY filter, no volatility guard. Good catch correcting the DOGE gap claim. XLM + BNB for v4 is waiting on Jeff's OK (DD 10.2% vs 9.9%), so don't change bot.py yet.
+
+JEFF'S NEXT BIG JOB: build and backtest NEW bots that are truly DIFFERENT from v4 and Trend Rider. Both of those make money when prices climb, so the goal is bots that earn in other markets (sideways, choppy, falling) and smooth out the combined equity curve.
+
+Build each as research first (research/ scripts). Same discipline as today: commit the plan, rules and pass criteria BEFORE running; max 3 variants each; fees in; 0.5% risk; split halves plus never-seen coins; stay within 10% DD. Also report each new bot's correlation with v4 + Trend Rider (monthly returns), and whether adding it improves the combined portfolio's return per unit of DD.
+
+N1. Range bot: buys near the bottom of a detected sideways range and sells near the top. It only trades when the trend filter says NOT trending, and exits if the range breaks. (Jeff's sell-high / buy-back-low idea.)
+N2. Rotation bot: each week, holds the 2-3 strongest of the top ~10 coins by momentum and drops the weak ones; goes to cash when BTC is below its 200-day average. Watch for survivorship bias: use a top-10 list as it was AT THE TIME, not today's list.
+N3. Squeeze breakout bot: waits for volatility to compress (e.g. Bollinger width at a multi-month low), then enters on the breakout with a tight invalidation.
+N4. Long+short bot: profits on falls too. Backtest only for now. Note whether OKX US or Kraken (US) actually allow shorting for Jeff; if you can't tell, say so and Jeff will check his account.
+N5. Scout: a weekly GitHub Action that runs a fixed battery of tests (the existing bots on new coins, any idea in a research/ideas folder) and writes a short report file. It NEVER changes bot.py or trades. Chrome reads the report and brings proposals to Jeff.
+
+Order: N1, N2, N3, N4, then N5. Post a short result per bot as you go. Passing bots go to demo/paper only, with Jeff's OK. Job 3 (scoreboard) after this, including the new bots.
