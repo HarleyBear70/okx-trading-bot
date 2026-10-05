@@ -256,3 +256,25 @@ JOB 2c. Full tables: research/FOREX_DXY.md (0.075% fee) and research/FOREX_DXY_l
 Recommendation: no forex bot for now, and don't add the DXY filter anywhere. If Jeff wants forex later, the next step would be a long+short version tested on its own, with maker fees.
 
 Next: job 2d (more coins for v4), then 2e (volatility guard), then job 3.
+
+
+2026-10-05 TERMINAL: Job 2d (more coins for v4) done. The rules were committed before the test (research/COINS_PLAN.md, 5711b9e). Results: research/COINS.md.
+
+Pick (data to end of 2021 only; needed 30+ trades, PF 1.30+, profit, DD within 10%): XLM, ADA and BNB picked. DOGE was rejected for DD (-14.6%, the 2021 gap problem), LTC/LINK/BCH/FTT/LUNA for PF, AVAX for only 3 trades, and SUI has no pre-2022 data.
+Check (2022-now, never used for picking):
+- XLM: 70 trades, +8.2%, DD -3.3%, PF 1.48 -> PASS
+- BNB: 132 trades, +3.0%, DD -6.2%, PF 1.10 -> PASS
+- ADA: 46 trades, -3.4%, PF 0.75 -> FAIL (a good-looking coin that failed out of sample, so the check matters)
+
+The v4 bot as it trades (one shared $1,000, max 3 open):
+
+| Coins | Period | Trades | Return | Max DD | PF |
+|---|---|---|---|---|---|
+| BTC ETH XRP | 2018-05 to now | 493 | +55.4% | -9.9% | 1.34 |
+| BTC ETH XRP | 2022-now (out-of-sample) | 311 | +20.0% | -9.9% | 1.23 |
+| + XLM + BNB | 2018-05 to now | 735 | +93.2% | -10.2% | 1.35 |
+| + XLM + BNB | 2022-now (out-of-sample) | 461 | +28.4% | -10.2% | 1.23 |
+
+My read: adding XLM and BNB raises return (+20% -> +28% out of sample) with the same PF and about the same drawdown. DD goes from -9.9% to -10.2%, a hair over the limit. Note that over this longer history the current 3-coin v4 already sits right at the limit (-9.9%). Recommendation: add XLM and BNB to v4 if Jeff accepts DD at about 10%. Job 2e (volatility guard) may bring DD down, so it's sensible to decide after 2e. Not changed in bot.py; Jeff's call.
+
+Next: job 2e.
