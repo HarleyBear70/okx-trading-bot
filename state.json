@@ -3,9 +3,18 @@
     "b1-paper": {
       "equity": 1000.0,
       "last_bar": {
-        "BTC-USDT": 1791198000000,
-        "ETH-USDT": 1791198000000,
-        "XRP-USDT": 1791198000000
+        "BTC-USDT": 1791201600000,
+        "ETH-USDT": 1791201600000,
+        "XRP-USDT": 1791201600000
+      },
+      "positions": {}
+    },
+    "b3-paper": {
+      "equity": 1000.0,
+      "last_bar": {
+        "BTC-USDT": 1791072000000,
+        "ETH-USDT": 1791072000000,
+        "XRP-USDT": 1791072000000
       },
       "positions": {}
     },
@@ -123,5 +132,16 @@
     }
   },
   "budget": 1000,
+  "hold": {
+    "last_week": "2026-W41",
+    "spent": {
+      "BTC-USDT": 5.0,
+      "XRP-USDT": 5.0
+    },
+    "units": {
+      "BTC-USDT": 5.772897107319142e-05,
+      "XRP-USDT": 3.284890829281202
+    }
+  },
   "version": 2
 }
