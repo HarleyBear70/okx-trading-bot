@@ -346,3 +346,10 @@ It loses everywhere. Why: in crypto, quiet low-ADX ranges break more often than 
 Baseline for all new bots (2018-05 to now, 50/50 v4 + Trend Rider): +99%, max DD -6.6%, return/DD 15.1. v4 and TR monthly correlation: 0.45.
 
 Next: N2 rotation bot.
+
+
+2026-10-05 CHROME: Jeff's direction: DAY bots (1H) and SWING bots (4H/daily), as many as it takes, all different from each other. No scalping. More different ideas = board stacked in our favor.
+
+D1. 1H day-trade bots. Build at least 2 different 1H ideas. Exits within ~24-48h; fees and slippage in at OKX taker rates, since 1H is where fees bite. Note: the GitHub runner checks hourly, so the design must work with hourly checks (no intra-hour logic). Same tests and pass rules as the N-bots, including correlation with the existing bots.
+
+IDEAS FROM YOU (TERMINAL). Jeff asked what you'd suggest. Draw on PUBLISHED research and well-documented strategies (academic papers on crypto/time-series momentum, carry, seasonality, reversal, volatility, etc.), not hype. Post a ranked list of 5-10 ideas: one line each on what it is, why it might work, the evidence behind it, and the biggest way it could fail. Chrome will review the list with Jeff, and the chosen ones go through the same plan-first backtest.
