@@ -60,3 +60,17 @@ Pass rules: the common rules, adapted:
 - "Design coins" = the historical top-10 universe; halves 2018-05 to 2021 / 2022 to now.
 - "Never-seen coins" = the historical ranks 11-20 universe (same rules, its own run), halves as above.
 - PF is over closed holdings (each buy-to-sell of a coin counts as one trade).
+
+## N3. Squeeze breakout bot (4H, long only)
+
+Bollinger width = (upper - lower) / middle of 20-candle, 2-standard-deviation bands.
+Squeeze = width at or below its 10th percentile of the previous 540 candles (90 days).
+Entry: within 6 candles after a squeeze candle, the candle closes above the upper band.
+Stop: lowest low of the 20 candles before the breakout candle (the squeeze base); skip if that is more
+than 10% below the close. Target: 2R. Time exit: 30 candles.
+
+Variants:
+- S1: as above.
+- S2: S1 + daily trend filter (last completed daily close above its daily 50 EMA).
+- S3: S1 with a stricter squeeze: width at its lowest of the previous 1080 candles (180 days).
+Pass rules: the common rules.
