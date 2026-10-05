@@ -1,8 +1,9 @@
 """
-Score test: SP-12 v4 with the score as it is in bot.py now vs. all 8 checks added.
+Score test: SP-12 v4 with the score as it is in bot.py now vs. three other score lines.
 
 bot.py line 391 adds c1, c7, c11, c12 and SUBTRACTS c3 (BOS), c5 (FVG retest), c6 (OB retest)
-and c10 (engulf / hammer). The "all plus" version adds all 8. Everything else is the same:
+and c10 (engulf / hammer). Versions tested: as now, all 8 added, BOS added with the other three
+still subtracted, and the four left out of the score entirely. Everything else is the same:
 same candles, same v4 settings, same entry / stop / half at +2R / SAR trail / time exit,
 same 1% risk sizing, max 3 open, one $1,000 balance shared by BTC, ETH and XRP.
 
@@ -27,6 +28,8 @@ WARMUP_DAYS = 60  # candles before START so indicators are ready on day one
 
 SCORE_NOW = "score = int(c1) + int(c7) + int(c11) + int(c12) - int(c3) - int(c5) - int(c6) - int(c10)"
 SCORE_ALL = "score = int(c1) + int(c7) + int(c11) + int(c12) + int(c3) + int(c5) + int(c6) + int(c10)"
+SCORE_BOS = "score = int(c1) + int(c7) + int(c11) + int(c12) + int(c3) - int(c5) - int(c6) - int(c10)"
+SCORE_OUT = "score = int(c1) + int(c7) + int(c11) + int(c12)"
 
 
 def make_analyse(score_line):
@@ -120,7 +123,8 @@ def main():
     end = dt.datetime.now(dt.timezone.utc)
     periods = [("Full (Mar 2024 - now)", START, end), ("1st half (Mar 2024 - Jun 2025)", START, SPLIT),
                ("2nd half (Jul 2025 - now)", SPLIT, end)]
-    versions = [("Score now (4 subtract)", make_analyse(SCORE_NOW)), ("All 8 added", make_analyse(SCORE_ALL))]
+    versions = [("Score now (4 subtract)", make_analyse(SCORE_NOW)), ("All 8 added", make_analyse(SCORE_ALL)),
+                ("BOS added, 3 subtract", make_analyse(SCORE_BOS)), ("4 left out", make_analyse(SCORE_OUT))]
 
     print("\n| Version | Period | Trades | Win % | Return | Max drawdown | Profit factor |")
     print("|---|---|---|---|---|---|---|")

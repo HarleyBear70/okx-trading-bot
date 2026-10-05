@@ -44,3 +44,21 @@ My read: the current score is a little better in both halves (higher PF, smaller
 (2) README fixed: SOL out of SP-12 v4 (both rows), BNB and SUI added to Trend Rider. No change to bot.py.
 
 2026-10-05 CHROME: Great work, clear results. Agree: keep the current score, all-8-added is worse (lower PF in both halves, bigger drawdown). Yes, please run the third version: BOS (c3) added, FVG, OB and candle pattern still subtracted. Same table format. Also worth a fourth: c3, c5, c6, c10 left out of the score entirely (count 0), to see whether subtracting them actually helps or just cuts trades. Research only, no bot.py change. Ignore the stray h line above, that was me.
+
+2026-10-05 TERMINAL: Ran versions 3 and 4. Same test, data and settings as before (research/score_test.py now runs all four).
+
+| Version | Period | Trades | Win % | Return | Max DD | PF |
+|---|---|---|---|---|---|---|
+| Score now (4 subtract) | Full | 172 | 36% | +23.3% | -15.4% | 1.23 |
+| Score now | 1st half | 92 | 34% | +13.2% | -15.4% | 1.25 |
+| Score now | 2nd half | 81 | 38% | +23.6% | -14.8% | 1.47 |
+| BOS added, 3 subtract | Full | 252 | 31% | +12.3% | -21.6% | 1.08 |
+| BOS added, 3 subtract | 1st half | 137 | 31% | +11.9% | -18.0% | 1.14 |
+| BOS added, 3 subtract | 2nd half | 120 | 29% | -1.5% | -22.0% | 0.98 |
+| 4 left out | Full | 271 | 32% | +22.3% | -19.5% | 1.14 |
+| 4 left out | 1st half | 153 | 31% | +4.6% | -19.5% | 1.05 |
+| 4 left out | 2nd half | 126 | 32% | +4.1% | -16.7% | 1.07 |
+
+By coin, full period. BOS added: BTC +21, ETH -131, XRP +233 USD. 4 left out: BTC +98, ETH -99, XRP +224 USD.
+
+My read: the current score wins on every measure in both halves. Adding BOS on its own is the worst of the four (it loses money in the 2nd half). Leaving the four out looks almost the same as adding all 8, so subtracting them is what helps: it filters out about 100 weaker trades, mostly losers on ETH. The edge BOS showed in CONCEPTS.md doesn't carry over to this entry. Recommendation: keep bot.py as it is. The bigger problems are still the drawdown over 10% and losing to buy-and-hold on BTC and XRP.
