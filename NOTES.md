@@ -593,3 +593,31 @@ Next: H3 news guard. Event dates: FOMC from federalreserve.gov; CPI and NFP exac
 Skeptic read: G1 skips only about 5-15 trades per half and moves return by 1-2 points; the 2nd-half DD is actually slightly worse (-7.3% vs -7.1%). That's within noise, and G2 (a wider window) fails, so there's no clear "more guard = better" pattern. It passes the rule as written, but I'd call it optional and low priority. If Jeff wants it, G1 is the simplest: the bot skips entries when a listed event is within 4 hours, and the event list needs a monthly update (the Scout could do that).
 
 Helper bots done: H1 fail, H2 fail, H3 marginal pass, H4 dip DCA pass (hold pile), H5 effect reported. Next: job 3, the scoreboard (return per unit of DD), including the new bots.
+
+
+2026-10-05 TERMINAL: Job 3 scoreboard done. SCOREBOARD.md now has a generated "Equal-terms backtest scoreboard" section (research/scoreboard.py rewrites only that section; Jeff's hand-kept rules, platforms and scoreboard.csv stay). scoreboard.csv's GitHub rows are updated: 0.5% risk, current coins, v2 / gold PAUSED, and a new B1c paper row. Live demo numbers come from the Scout's weekly report.
+
+Equal terms: $1,000, 0.5% risk, 0.1% fee (0.15% on 1H bots), max 3 open, 2018-05 to now + halves. Ranked by return / max DD:
+
+| Rank | Bot | Status | Return | Max DD | Return/DD | PF | 1st / 2nd half return | Corr. |
+|---|---|---|---|---|---|---|---|---|
+| 1 | Trend Rider | demo | +143% | -8.9% | 16.08 | 1.80 | +55% / +57% | 0.88 |
+| 2 | SP-12 v4 (5 coins) | demo | +93% | -10.2% | 9.17 | 1.35 | +50% / +28% | 0.84 |
+| 3 | N2 M3 rotation (allocation) | failed (DD) | +287% | -38.8% | 7.39 | 1.54 | +118% / +78% | 0.60 |
+| 4 | SP-12 v4 (Kraken, 3 coins) | paper | +55% | -9.9% | 5.61 | 1.34 | +29% / +20% | 0.81 |
+| 5 | B3 P3 pairs | candidate | +14% | -5.4% | 2.60 | 1.52 | +6% / +8% | 0.40 |
+| 6 | B1c breakout retest | paper | +15% | -5.8% | 2.55 | 1.26 | +8% / +7% | 0.55 |
+| 7 | D1 I3 intraday momentum | failed | +20% | -11.2% | 1.81 | 1.09 | +18% / +2% | 0.21 |
+| 8 | N4 X2 short side | failed | +20% | -16.7% | 1.21 | 1.27 | +22% / -2% | -0.08 |
+| 9 | N3 S2 squeeze | failed | +6% | -9.9% | 0.58 | 1.15 | +12% / -5% | 0.43 |
+| 10 | SP-12 v2 | paused | +5% | -20.9% | 0.22 | 1.02 | -12% / +19% | 0.47 |
+| 11 | Trend Rider gold | paused | -1% | -16.3% | -0.08 | 0.97 | -3% / +2% | 0.16 |
+| 12 | B2c reclaim | failed | -7% | -12.9% | -0.58 | 0.81 | +3% / -10% | -0.05 |
+| 13 | D1 C3 capitulation | failed | -5% | -8.3% | -0.63 | 0.83 | -2% / -4% | 0.20 |
+| 14 | N1 R3 range | failed | -13% | -18.4% | -0.72 | 0.70 | -11% / -2% | 0.14 |
+
+Reference: v4 + TR 50/50 = +99% / -6.6% (15.07). Buy-and-hold BTC = +863% / -77% (11.20); over this window BTC's return/DD beats v4 alone. But from 2022 BTC's was only 1.04 (HOLD.md), against the bots' 2.8-8.1, and its -77% drop breaks every rule Jeff has.
+
+Read: Trend Rider is the strongest bot; v4 is solid; together they beat either alone. Everything else is either small (B3, B1c) or failed. The ranking agrees with all the individual tests.
+
+QUEUE DONE: 2b-2e, repairs, N1-N5, B1-B3, D1, S1, H1-H5, hold pile, job 3. Waiting on Jeff for: (1) B3 P3 paper run? (2) Trend Rider + fear filter (S1 F2)? (3) news guard G1 (marginal)? (4) dip DCA hold pile setup (job 4)? (5) a GitHub login with "workflow" permission so the Scout and NOTES-alert workflows can be pushed (run: gh auth refresh -h github.com -s workflow). Still open from earlier: jobs 4 (three piles) and 5 (dashboard).

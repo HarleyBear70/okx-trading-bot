@@ -1,10 +1,11 @@
 platform,bot,mode,exchange,coins,start_balance_usd,risk_per_trade,start_date,trades_closed,wins,losses,win_rate_pct,net_pnl_usd,net_pnl_pct,profit_factor,max_drawdown_pct,buy_hold_pct,status,notes,last_updated
-GitHub,SP-12 v4,demo,OKX,BTC ETH XRP (SOL dropped Oct 4),1000,1%,2026-10-04,0,0,0,,0,0,,,,testing,2 trades open,2026-10-04
-GitHub,SP-12 v4 (Kraken paper),paper,Kraken,BTC ETH XRP (SOL dropped Oct 4),1000,1%,2026-10-04,0,0,0,,0,0,,,,testing,2 trades open,2026-10-04
-GitHub,SP-12 v2,demo,OKX,ETH SOL,1000,1%,2026-10-04,0,0,0,,0,0,,,,testing,1 trade open (first trade logged on old 5000 balance - code now uses 1000),2026-10-04
-GitHub,SP-12 v2 (gold paper),paper,OKX,XAUT,1000,1%,2026-10-04,0,0,0,,0,0,,,,testing,no trades yet,2026-10-04
-GitHub,Trend Rider,demo,OKX,BTC ETH SOL,1000,1%,2026-10-04,0,0,0,,0,0,,,,testing,no trades yet,2026-10-04
-GitHub,Trend Rider (gold paper),paper,OKX,XAUT,1000,1%,2026-10-04,0,0,0,,0,0,,,,testing,no trades yet,2026-10-04
+GitHub,SP-12 v4,demo,OKX,BTC ETH XRP XLM BNB (SOL dropped Oct 4; XLM BNB added Oct 5),1000,0.5%,2026-10-04,0,0,0,,0,0,,,,testing,risk 1% -> 0.5% Oct 5; see reports/ for live stats,2026-10-05
+GitHub,SP-12 v4 (Kraken paper),paper,Kraken,BTC ETH XRP (SOL dropped Oct 4),1000,0.5%,2026-10-04,0,0,0,,0,0,,,,testing,risk 1% -> 0.5% Oct 5; see reports/ for live stats,2026-10-05
+GitHub,SP-12 v2,demo,OKX,ETH SOL,1000,0.5%,2026-10-04,0,0,0,,0,0,,,,paused,"paused Oct 5: no edge in long-history test, repair failed (research/REPAIR_v2.md)",2026-10-05
+GitHub,SP-12 v2 (gold paper),paper,OKX,XAUT,1000,0.5%,2026-10-04,0,0,0,,0,0,,,,paused,paused Oct 5 with SP-12 v2,2026-10-05
+GitHub,Trend Rider,demo,OKX,BTC ETH SOL BNB SUI,1000,0.5%,2026-10-04,0,0,0,,0,0,,,,testing,BNB SUI added Oct 5; risk 0.5%; see reports/ for live stats,2026-10-05
+GitHub,Trend Rider (gold paper),paper,OKX,XAUT,1000,0.5%,2026-10-04,0,0,0,,0,0,,,,paused,paused Oct 5: repair failed (research/REPAIR_gold.md),2026-10-05
+GitHub,B1c breakout retest (paper),paper,OKX,BTC ETH XRP (1H),1000,0.5%,2026-10-05,0,0,0,,0,0,,,,testing,forward test of a research bot (research/B_BOXES.md),2026-10-05
 HaasOnline,Grid Bot (Spot),paper,OKX,BTC,,fixed size,2026-10-04,0,0,0,,0,0,,,,testing,trial ends Oct 11,2026-10-04
 HaasOnline,DCA Bot,paper,OKX,ETH,,fixed size,2026-10-04,0,0,0,,0,0,,,,testing,trial ends Oct 11,2026-10-04
 HaasOnline,Flash Crash Bot,paper,OKX,SOL,,fixed size,2026-10-04,0,0,0,,0,0,,,,testing,trial ends Oct 11,2026-10-04
