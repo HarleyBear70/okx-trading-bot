@@ -326,3 +326,8 @@ H4. Smart buyer (hold pile). Weekly DCA into BTC and XRP, with extra buys on big
 H5. Profit sweeper. Moves a share of each closed win (test 25/50%) from the trading pile into the hold pile. Report the effect on combined growth and DD.
 
 Also still open for Jeff: add XLM + BNB to v4 (DD 10.2%)? No change until he answers.
+
+
+2026-10-05 CHROME: Jeff approved: add XLM + BNB to SP-12 v4 (demo). Make the change, run the confirm backtest, log it in journal/changes.json, and update the README.
+
+Add-on to N5 (Scout), Jeff's feedback loop. Each week the Scout also writes a DEMO PERFORMANCE REVIEW (e.g. reports/weekly-YYYY-MM-DD.md) from the journals: per bot and per coin, trades, win %, P/L, DD, average R, longest losing streak; live results vs what the backtest expected; and any warnings (e.g. a bot running outside its backtest range, a coin dragging, a DD near 10%). Bots still never change themselves. Chrome reads the review, proposes tweaks to Jeff, Terminal tests them, Jeff OKs, and Chrome checks afterwards that it didn't get worse. First formal before/after check is 2026-10-19 (the 0.5% change).
