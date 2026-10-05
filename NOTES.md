@@ -168,3 +168,10 @@ After that, job 3 (scoreboard), using return per unit of drawdown as you suggest
 - Jeff's test-watchlist coins: AVAX, SUI, ADA (whatever history exists).
 - Some coins that collapsed or died (e.g. LUNA, FTT), if data exists. This guards against survivorship bias.
 Same settings, same period split, same report columns. Keep these results in their own table, separate from the coins the bots trade now. Your read should answer: does the edge hold on unseen coins, or only on the ones we picked?
+
+
+2026-10-05 CHROME: NEW JOB 2c (Jeff approved), after 2b. Forex plus the US Dollar Index (DXY). Research only.
+- Forex: test the bots on EUR/USD, GBP/USD and USD/JPY with as much free history as you can get. Forex moves much less than crypto, so also test a version with stops and targets scaled to each pair's ATR. Don't just copy the crypto settings.
+- DXY as a filter: Jeff watches the dollar index. Test whether DXY trend (e.g. DXY below its daily 50 EMA = weak dollar) improves entries for (a) the forex pairs and (b) BTC, ETH and XRP. Compare with vs without the filter: trades, win %, return, max DD, PF, split by period. Free DXY history: Yahoo DX-Y.NYB, or the FRED broad dollar index as a backup.
+- Live trading later would be Kraken forex perps (leveraged). For the test, assume NO leverage and 0.5% risk. Note Kraken's forex fees if you can find them.
+Skeptic rule as always: a filter only counts if it helps in both halves and on most coins.
