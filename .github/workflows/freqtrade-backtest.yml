@@ -46,10 +46,10 @@ jobs:
             run $steps SP12v2 ETH/USDT SOL/USDT
             run $steps TrendRider BTC/USDT ETH/USDT SOL/USDT
           done
-          # SP12v4 without selling half at +2R (step-ups off), to compare with SP12v4.txt
-          docker run --rm -e JEFF_RISK_STEPS=off -e JEFF_TAKE_HALF=off -v "$GITHUB_WORKSPACE:/repo" $IMG backtesting \
+          # SP12v4 WITH the old half sell at +2R (step-ups off, same risk), to compare with SP12v4.txt (live rules)
+          docker run --rm -e JEFF_RISK_STEPS=off -e JEFF_TAKE_HALF=on -v "$GITHUB_WORKSPACE:/repo" $IMG backtesting \
             --config $CFG --userdir $UD --strategy SP12v4 --timerange $RANGE --fee 0.001 \
-            --export none --pairs BTC/USDT ETH/USDT XRP/USDT 2>&1 | tee freqtrade/results/SP12v4_nohalf.txt || true
+            --export none --pairs BTC/USDT ETH/USDT XRP/USDT 2>&1 | tee freqtrade/results/SP12v4_half.txt || true
           python3 freqtrade/summary.py SP12v4 SP12v2 TrendRider
 
       - name: Coin scan (which coins the rules work on)

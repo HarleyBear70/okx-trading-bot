@@ -31,9 +31,10 @@ STABLE = {"USDT", "USDC", "BUSD", "DAI", "TUSD", "UST", "USDe", "USD1", "WBTC", 
 
 # What the backtests say each bot should look like (2022 to now, bot.py as it is; research/*.md)
 EXPECTED = {
-    "v4-okx": {"win": 36, "pf": 1.23, "dd": -10.2, "streak": 12, "src": "research/COINS.md"},
-    "v4-kraken": {"win": 36, "pf": 1.23, "dd": -9.9, "streak": 10, "src": "research/VOL.md"},
-    "tr-okx": {"win": 41, "pf": 1.94, "dd": -7.4, "streak": 10, "src": "fear filter + TRX, 2022-now (research/TRX.md)"},
+    # v4, Kraken copy, Trend Rider: no half sell at +2R (v4 0.4% risk) since Oct 5 2026 (reports/upside-2026-10-05)
+    "v4-okx": {"win": 34, "pf": 1.40, "dd": -9.6, "streak": 12, "src": "no half sell, 0.4% risk, 2022-now"},
+    "v4-kraken": {"win": 33, "pf": 1.46, "dd": -9.5, "streak": 14, "src": "no half sell, 0.4% risk, 2022-now"},
+    "tr-okx": {"win": 40, "pf": 2.33, "dd": -10.6, "streak": 10, "src": "fear filter + TRX, no half sell, 2022-now"},
     "b3-paper": {"win": 44, "pf": 1.52, "dd": -5.1, "streak": 10, "src": "research/B3_PAIRS.md (P3)"},
     "nnfx-paper": {"win": 61, "pf": 2.20, "dd": -5.4, "streak": None, "src": "research/NNFX.md (2022-now)"},
     "b1-paper": {"win": 46, "pf": 1.17, "dd": -5.8, "streak": None, "src": "research/B_BOXES.md"},

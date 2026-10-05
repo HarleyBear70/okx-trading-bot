@@ -24,6 +24,12 @@ START, END = "<!-- equal-terms start -->", "<!-- equal-terms end -->"
 PERIODS = [("full", e.START, None)] + list(e.HALVES)
 
 
+def rules(bid):
+    """The bot's live exit rules (half sell switch); risk stays at the scoreboard's equal 0.5%."""
+    b = next(b for b in bot.BOTS if b["id"] == bid)
+    return {"half_at_2r": b["half_at_2r"]} if "half_at_2r" in b else {}
+
+
 def bot_coins(bid):
     return [c.split("-")[0].replace("XBT", "BTC").replace("USD", "") for c in
             next(b for b in bot.BOTS if b["id"] == bid)["coins"]]
@@ -50,15 +56,18 @@ def rows():
     D = n2.Data()
     sp = lambda cfg: (lambda b, d: bot.analyse_sp(b, d, bot.SP_SETTINGS[cfg]))  # noqa: E731
     return [
-        ("SP-12 v4", "demo, live on OKX", lambda t0, t1: e.v4_sim(d4, t0, t1, coins=v4c), " ".join(v4c)),
-        ("SP-12 v4 (Kraken paper)", "paper", lambda t0, t1: e.v4_sim(dk, t0, t1, coins=["BTC", "ETH", "XRP"]), "BTC ETH XRP"),
-        ("Trend Rider", "demo, live on OKX (fear filter since Oct 5; row is without it)", lambda t0, t1: e.tr_sim(dtr, t0, t1, coins=trc), " ".join(trc)),
+        ("SP-12 v4", "demo, live on OKX", lambda t0, t1: e.bot_sim("v4", v4c, d4, sp("v4"), t0, t1, settings=rules("v4-okx")),
+         " ".join(v4c)),
+        ("SP-12 v4 (Kraken paper)", "paper", lambda t0, t1: e.bot_sim("v4", ["BTC", "ETH", "XRP"], dk, sp("v4"), t0, t1,
+                                                                settings=rules("v4-kraken")), "BTC ETH XRP"),
+        ("Trend Rider", "demo, live on OKX (fear filter since Oct 5; row is without it)", lambda t0, t1: e.bot_sim("tr", trc, dtr, lambda b, d: bot.analyse_tr(b, d, 5), t0, t1,
+                                  extra=lambda x: {"hi": x["c"]}, settings=rules("tr-okx")), " ".join(trc)),
         ("B1c breakout retest", "paper forward test",
          lambda t0, t1: e.trade_sim(e.DESIGN, d1h, bb.b1_entries(2.0, 60), t0, t1), "BTC ETH XRP, 1H"),
         ("SP-12 v2", "paused", lambda t0, t1: e.bot_sim("v2", ["ETH", "SOL", "XAUT"], dv2, sp("v2"), t0, t1), "ETH SOL XAUT"),
         ("Trend Rider gold (pivot 3)", "paused",
          lambda t0, t1: e.bot_sim("tr", ["XAUT"], dg, lambda b, d: bot.analyse_tr(b, d, 3), t0, t1,
-                                  extra=lambda x: {"hi": x["c"]}), "XAUT (from 2020)"),
+                                  extra=lambda x: {"hi": x["c"]}, settings=rules("tr-gold")), "XAUT (from 2020)"),
         ("NNFX Aroon", "paper forward test (backup)",
          lambda t0, t1: e.bot_sim("nnfx", ["BTC", "ETH", "XRP"], dn, lambda b, d: bot.analyse_nnfx(b), t0, t1),
          "BTC ETH XRP, daily"),
@@ -102,7 +111,7 @@ def main():
     table.sort(key=lambda x: -x[0])
     out = [START, "", f"## Equal-terms backtest scoreboard (generated {dt.datetime.now(dt.timezone.utc):%Y-%m-%d} by "
            "research/scoreboard.py)", "",
-           "Every bot on the same footing: $1,000, 0.5% risk per trade, 0.1% fee each side (0.15% on the 1H bots), "
+           "Every bot on the same footing: $1,000, 0.5% risk per trade (v4's live 0.4% is not used here), each bot's live exit rules (no half sell on v4 and Trend Rider since Oct 5 2026), 0.1% fee each side (0.15% on the 1H bots), "
            "max 3 open, 2018-05 to now, plus the halves 2018-05 to 2021 and 2022 to now. Sorted by return / max "
            "drawdown (higher = more return for each point of pain). Correlation = monthly returns vs 50/50 v4 + "
            "Trend Rider. Live demo results are in the Scout's weekly report (reports/).", "",

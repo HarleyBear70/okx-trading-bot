@@ -10,10 +10,11 @@ Exits are copied as closely as Freqtrade allows:
   - SP-12 v4: Parabolic SAR trail after +1R, target removed once trailing
   - Trend Rider: trail at highest close - 3 ATR
   - SP-12 v2 / v4: take-profit target and time exit
-  - sell half at +2R, the rest keeps running with its stop (bot.take_half)
-Position size uses bot.risk_pct(): RISK_PCT of the balance, stepping up by RISK_STEPS as the balance
-grows when step-ups are on. Step-ups follow bot.RISK_STEPS_ON unless JEFF_RISK_STEPS=on/off is set,
-so the backtest can be run both ways. JEFF_TAKE_HALF=off turns off selling half at +2R.
+  - sell half at +2R, the rest keeps running with its stop (bot.take_half), only for bots whose
+    "half_at_2r" setting in bot.BOTS is not False (off for v4 and Trend Rider since Oct 5 2026)
+Position size uses bot.risk_pct() with the live bot's settings: its "risk" (else RISK_PCT), stepping up
+by RISK_STEPS as the balance grows when step-ups are on. Step-ups follow bot.RISK_STEPS_ON unless
+JEFF_RISK_STEPS=on/off is set; the half sell follows the bot unless JEFF_TAKE_HALF=on/off is set.
 """
 import os
 import sys
@@ -38,7 +39,11 @@ HALF_TAG = "half profit +2R"
 _steps = os.environ.get("JEFF_RISK_STEPS", "").strip().lower()
 if _steps in ("on", "off"):
     bot.RISK_STEPS_ON = _steps == "on"
-TAKE_HALF = os.environ.get("JEFF_TAKE_HALF", "").strip().lower() != "off"
+_half = os.environ.get("JEFF_TAKE_HALF", "").strip().lower()
+
+
+def live_bot(bot_id):
+    return next(b for b in bot.BOTS if b["id"] == bot_id)
 
 
 def to_bars(df: DataFrame) -> list:
@@ -64,10 +69,14 @@ class JeffBase(IStrategy):
 
     strat = "v4"                  # v4, v2 or tr
     pivot = 5                     # Trend Rider swing strength
-    take_half = TAKE_HALF         # sell half at +2R, like the live bots
+    bot_id = "v4-okx"             # live bot in bot.BOTS whose risk and half-sell settings are used
+    take_half = None              # None: follow the live bot's "half_at_2r"
 
     def bot_start(self, **kwargs) -> None:
         self._bs = {}             # balance and peak, the same fields bot.risk_pct() reads
+        self._bot = live_bot(self.bot_id)
+        if self.take_half is None:
+            self.take_half = _half == "on" if _half in ("on", "off") else self._bot.get("half_at_2r", True)
 
     def informative_pairs(self):
         return [(p, "1d") for p in self.dp.current_whitelist()]
@@ -128,7 +137,7 @@ class JeffBase(IStrategy):
         equity = (start + Trade.get_total_closed_profit()
                   + sum(t.realized_profit for t in Trade.get_trades_proxy(is_open=True)))
         self._bs["equity"] = equity
-        risk = bot.risk_pct({"equity": start}, self._bs)
+        risk = bot.risk_pct({**self._bot, "equity": start}, self._bs)
         stake = equity * risk / (current_rate - sl) * current_rate
         stake = min(stake, max_stake)
         if min_stake and stake < min_stake:
@@ -219,22 +228,26 @@ class SP12v4(JeffBase):
 
 class SP12v2(JeffBase):
     strat = "v2"
+    bot_id = "v2-okx"
 
 
 class TrendRider(JeffBase):
     strat = "tr"
     pivot = 5
+    bot_id = "tr-okx"
 
 
 class TrendRiderGold(JeffBase):
     strat = "tr"
     pivot = 3
+    bot_id = "tr-gold"
 
 
 class TrendRider1h(JeffBase):
     """Trend Rider on 1-hour candles (daily trend filter unchanged). Run with --timeframe 1h."""
     strat = "tr"
     pivot = 5
+    bot_id = "tr-okx"
     timeframe = "1h"
     startup_candle_count = 400
 

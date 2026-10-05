@@ -81,10 +81,12 @@ def _stats(trades, curve, eq_end):
             "won": won, "lost": lost, "pnl": eq_end - 1000, "list": trades, "curve": curve}
 
 
-def bot_sim(strat, coins, data, analyse, t0, t1=None, extra=None):
-    """bot.py's strategy `strat` ("v4", "v2", "tr") on `coins`, one shared $1,000, bar by bar."""
+def bot_sim(strat, coins, data, analyse, t0, t1=None, extra=None, settings=None):
+    """bot.py's strategy `strat` ("v4", "v2", "tr") on `coins`, one shared $1,000, bar by bar.
+    settings: per-bot keys from bot.BOTS ("risk", "half_at_2r") to test a bot with its live settings."""
     t1 = t1 or now()
-    b = {"id": "sim", "name": "sim", "strat": strat, "venue": "okx", "mode": "paper", "coins": coins, "equity": 1000.0}
+    b = {"id": "sim", "name": "sim", "strat": strat, "venue": "okx", "mode": "paper", "coins": coins, "equity": 1000.0,
+         **(settings or {})}
     bs = {"equity": 1000.0, "positions": {}, "last_bar": {}}
     trades, open_id = [], {}
 

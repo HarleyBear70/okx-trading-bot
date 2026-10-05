@@ -33,6 +33,8 @@ FEE = 0.001                 # 0.1% per side for paper trades (same as the backte
 SAR_START, SAR_INC, SAR_MAX = 0.02, 0.02, 0.2
 H4_MS = 4 * 3600 * 1000
 RISK_PCT = 0.005  # every bot risks 0.5% of its balance per trade (was 1%; changed Oct 5 2026 to keep drawdown under 10%)
+# Per-bot settings in BOTS: "risk" overrides RISK_PCT; "half_at_2r": False turns off selling half at +2R
+# (the switch: delete it or set True to sell half again). Both since Oct 5 2026, research/upside_test.py.
 RISK_STEPS = [(0.50, 0.02), (0.25, 0.015), (0.10, 0.0125)]  # balance up 50% -> 2%, up 25% -> 1.5%, up 10% -> 1.25%
 RISK_STEPS_ON = False  # stepping risk up is off for now (Oct 5 2026); set True to turn it back on
 MAX_OPEN = 3  # no more than 3 trades open at once per bot
@@ -47,10 +49,12 @@ BE_BUFFER = 2 * FEE  # breakeven stop sits just above entry so fees are covered
 
 BOTS = [
     {"id": "v4-okx", "name": "SP-12 v4", "strat": "v4", "venue": "okx", "mode": "demo", "prefix": "gh4",
-     "coins": ["BTC-USDT", "ETH-USDT", "XRP-USDT", "XLM-USDT", "BNB-USDT"], "equity": 1000.0},
+     "coins": ["BTC-USDT", "ETH-USDT", "XRP-USDT", "XLM-USDT", "BNB-USDT"], "equity": 1000.0,
+     "risk": 0.004, "half_at_2r": False},  # Oct 5 2026 (Jeff, demo): no half sell, 0.4% keeps the 8-year drop under 10%
     # SOL dropped: lost money in backtest. XLM, BNB added Oct 5 2026 (passed pick + out-of-sample check, research/COINS.md)
     {"id": "v4-kraken", "name": "SP-12 v4 (Kraken paper)", "strat": "v4", "venue": "kraken", "mode": "paper",
-     "coins": ["XBTUSD", "ETHUSD", "XRPUSD"], "equity": 1000.0},  # SOL dropped: lost money in backtest
+     "coins": ["XBTUSD", "ETHUSD", "XRPUSD"], "equity": 1000.0,  # SOL dropped: lost money in backtest
+     "risk": 0.004, "half_at_2r": False},  # same change as SP-12 v4 (Oct 5 2026)
     {"id": "v2-okx", "name": "SP-12 v2", "strat": "v2", "venue": "okx", "mode": "demo", "prefix": "ghS",
      "coins": ["ETH-USDT", "SOL-USDT"], "equity": 1000.0,
      "new_trades": False},  # paused Oct 5 2026: no edge in long-history test, repair failed (research/REPAIR_v2.md)
@@ -58,6 +62,7 @@ BOTS = [
      "coins": ["XAUT-USDT"], "equity": 1000.0, "new_trades": False},  # paused Oct 5 2026 with SP-12 v2
     {"id": "tr-okx", "name": "Trend Rider", "strat": "tr", "venue": "okx", "mode": "demo", "prefix": "ghT",
      "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "BNB-USDT", "SUI-USDT", "TRX-USDT"], "equity": 1000.0, "pivot": 5,
+     "half_at_2r": False,  # Oct 5 2026 (Jeff, demo): no half sell at +2R, the trailing stop handles the exit
      "fear_skip_at_or_below": 25},  # no new buys when Fear & Greed <= 25 (Oct 5 2026, research/S1_SENTIMENT.md)
     # Trend Rider coins: BNB, SUI added Oct 5 (passed backtest); TRX added Oct 5 (research/TRX.md)
     {"id": "b1-paper", "name": "B1c breakout retest (paper)", "strat": "b1", "venue": "okx", "mode": "paper",
@@ -68,7 +73,7 @@ BOTS = [
     {"id": "nnfx-paper", "name": "NNFX Aroon (paper)", "strat": "nnfx", "venue": "okx", "mode": "paper",
      "coins": ["BTC-USDT", "ETH-USDT", "XRP-USDT"], "equity": 1000.0},  # backup candidate from Oct 5 2026 (research/NNFX.md)
     {"id": "tr-gold", "name": "Trend Rider (gold paper)", "strat": "tr", "venue": "okx", "mode": "paper",
-     "coins": ["XAUT-USDT"], "equity": 1000.0, "pivot": 3,
+     "coins": ["XAUT-USDT"], "equity": 1000.0, "pivot": 3, "half_at_2r": False,  # same change as Trend Rider
      "new_trades": False},  # paused Oct 5 2026: weak in long-history test, repair failed (research/REPAIR_gold.md)
 ]
 
@@ -689,17 +694,18 @@ def okx_sell(api, bot, inst, qty):
 
 # ───────── Opening / closing (demo or paper) ─────────
 def risk_pct(bot, bs):
-    """Base RISK_PCT. If RISK_STEPS_ON, risk a bit more per trade as the practice balance grows
-    so it grows faster, dropping straight back to base if the balance falls 5% from its best."""
+    """The bot's base risk (its "risk" setting, else RISK_PCT). If RISK_STEPS_ON, risk a bit more per trade as the
+    practice balance grows so it grows faster, dropping straight back to base if the balance falls 5% from its best."""
+    base = bot.get("risk", RISK_PCT)
     eq = bs["equity"]
     bs["peak"] = max(bs.get("peak", eq), eq)
     if not RISK_STEPS_ON or eq < bs["peak"] * 0.95:
-        return RISK_PCT
+        return base
     gain = eq / bot["equity"] - 1
     for need, pct in RISK_STEPS:
         if gain >= need:
             return pct
-    return RISK_PCT
+    return base
 
 def open_position(api, bot, bs, coin, bar, inf, extra):
     close = bar["c"]
@@ -792,7 +798,8 @@ def check_hit(api, bot, bs, coin, bar):
         close_position(api, bot, bs, coin, reason, min(pos["stop"], bar["o"]))
         return True
     two_r = pos.get("half_at") or pos["entry_px"] + 2 * (pos["entry_px"] - pos["sl"])
-    if not pos.get("half") and not pos.get("no_half") and pos["entry_px"] > pos["sl"] and bar["h"] >= two_r:
+    if (bot.get("half_at_2r", True) and not pos.get("half") and not pos.get("no_half") and pos["entry_px"] > pos["sl"]
+            and bar["h"] >= two_r):
         take_half(api, bot, bs, coin, max(two_r, bar["o"]))
         if pos.get("be_after_half") and coin in bs["positions"]:
             pos["stop"] = max(pos["stop"], pos["entry_px"])  # NNFX: the runner's stop goes to breakeven

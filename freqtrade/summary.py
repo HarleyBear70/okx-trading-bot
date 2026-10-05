@@ -1,7 +1,7 @@
 """Write results/SUMMARY.md: each strategy with risk step-ups off and on, side by side.
 
 Reads results/<name>.txt (step-ups off) and results/<name>_steps.txt (step-ups on). If
-results/SP12v4_nohalf.txt exists, SP12v4 with and without selling half at +2R comes first.
+results/SP12v4_half.txt exists, SP12v4 with the old half sell vs the live rules (no half sell) comes first.
 results/EXTRA_TESTS.md (hand-kept results from other tests) is added at the end.
 Usage: python3 freqtrade/summary.py SP12v4 SP12v2 TrendRider
 """
@@ -76,16 +76,16 @@ def main(names):
     lines = [
         "# Freqtrade backtest results",
         "",
-        f"Updated {now} UTC. OKX prices from March 2024, 1,000 USDT start, 0.1% fee. Exits match the live bots, "
-        "including selling half at +2R. Risk per trade comes from `risk_pct()` in bot.py: "
-        "**Step-ups off** risks RISK_PCT every trade; **Step-ups on** raises it by RISK_STEPS as the balance grows "
-        "(back to RISK_PCT if the balance falls 5% from its best).",
+        f"Updated {now} UTC. OKX prices from March 2024, 1,000 USDT start, 0.1% fee. Exits and risk follow each "
+        "bot's live settings in bot.py: no half sell at +2R on SP-12 v4 and Trend Rider (since Oct 5 2026), risk 0.4% "
+        "on SP-12 v4 and 0.5% on the rest. **Step-ups off** risks that every trade; **Step-ups on** raises it by "
+        "RISK_STEPS as the balance grows (back to base if the balance falls 5% from its best).",
     ]
-    if (RESULTS / "SP12v4_nohalf.txt").exists():
-        lines += section("SP12v4: selling half at +2R vs not", "SP12v4",
-                         [("Sell half at +2R", "SP12v4"), ("No half sell", "SP12v4_nohalf")])
-        lines += ["", "Both risk 0.5% per trade (RISK_PCT) with step-ups off. Without the half sell, the whole position runs "
-                  "to the stop, trailing stop, target or time exit."]
+    if (RESULTS / "SP12v4_half.txt").exists():
+        lines += section("SP12v4: old half sell at +2R vs live rules (no half sell)", "SP12v4",
+                         [("Old: sell half at +2R", "SP12v4_half"), ("Live: no half sell", "SP12v4")])
+        lines += ["", "Both at SP-12 v4's live risk (0.4%) with step-ups off. Without the half sell, the whole position "
+                  "runs to the stop, trailing stop, target or time exit."]
     for name in names:
         lines += section(name, name, [("Step-ups off", name), ("Step-ups on", f"{name}_steps")])
     extra = RESULTS / "EXTRA_TESTS.md"  # hand-kept tests from other tools, kept on every rebuild

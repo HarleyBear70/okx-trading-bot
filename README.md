@@ -14,7 +14,7 @@
 | INCUBATING | B1c breakout retest, B3 pairs, NNFX Aroon, and the Kraken-price copy of v4 | paper |
 | PAUSED | SP-12 v2, SP-12 v2 gold, Trend Rider gold (failed long-history tests and repairs) | - |
 
-All bots risk 0.5% of their own $1,000 practice balance per trade. Nothing uses real money until Jeff says go.
+All bots risk 0.5% of their own $1,000 practice balance per trade (SP-12 v4 and its Kraken copy 0.4%, since Oct 5 2026). Nothing uses real money until Jeff says go.
 
 Jeff's demo trading bots. GitHub runs them every hour for free, so they don't use any Claude usage.
 
@@ -24,18 +24,18 @@ Jeff's demo trading bots. GitHub runs them every hour for free, so they don't us
 
 | Bot | Where | Coins | Rules |
 |---|---|---|---|
-| SP-12 v4 | OKX demo | BTC, ETH, XRP, XLM, BNB | 12-check score ≥ 2, EMA 8>21>55, above daily VWAP, 3R target, SAR trail after +1R, 120-candle limit. Risks 0.5% of a $1,000 practice balance |
+| SP-12 v4 | OKX demo | BTC, ETH, XRP, XLM, BNB | 12-check score ≥ 2, EMA 8>21>55, above daily VWAP, 3R target, SAR trail after +1R, 120-candle limit, no half sell at +2R (since Oct 5 2026). Risks 0.4% of a $1,000 practice balance |
 | SP-12 v4 (Kraken paper) | Kraken prices | BTC, ETH, XRP | Same as above, paper only |
 | SP-12 v2 (PAUSED Oct 5 2026, no edge in long-history test) | OKX demo | ETH, SOL | 12-check score ≥ 2, stop 1.5–4%, target 2.5R (3–10%), 60-candle limit, risks 0.5% of a $1,000 practice balance |
 | SP-12 v2 (gold paper, PAUSED Oct 5 2026) | OKX live gold price | XAUT | Same as above, paper only (OKX demo gold is frozen) |
-| Trend Rider | OKX demo | BTC, ETH, SOL, BNB, SUI, TRX | Daily close > daily 50 EMA, 4H break of structure above 4H 50 EMA, stop under swing low (1–3 ATR), trails at highest close − 3 ATR, risks 0.5% of a $1,000 practice balance. No new buys when the Crypto Fear & Greed Index was 25 or lower the day before (since Oct 5 2026) |
+| Trend Rider | OKX demo | BTC, ETH, SOL, BNB, SUI, TRX | Daily close > daily 50 EMA, 4H break of structure above 4H 50 EMA, stop under swing low (1–3 ATR), trails at highest close − 3 ATR, no half sell at +2R (since Oct 5 2026), risks 0.5% of a $1,000 practice balance. No new buys when the Crypto Fear & Greed Index was 25 or lower the day before (since Oct 5 2026) |
 | Trend Rider (gold paper, PAUSED Oct 5 2026) | OKX live gold price | XAUT | Same as above with swing strength 3, paper only |
 | B1c breakout retest (paper forward test) | OKX live prices, no orders | BTC, ETH, XRP | 1H: after a 4H close above a 60-candle box (3-12% tall), buy the first 1H dip back to the old box top that closes above it; stop 25% back inside the box, target 2R, 48-hour limit, no half-profit step. Paper only since Oct 5 2026 to collect forward data (research/B_BOXES.md) |
 | B3 pairs (paper forward test) | OKX live prices, no orders | ETH/BTC, XRP/BTC (daily) | Holds the lagging coin when the coin/BTC spread is 2.5 standard deviations from its 60-day normal; exits when the spread is back within 0.5, after 30 days, or at a 2 x daily ATR stop. Paper since Oct 5 2026 (research/B3_PAIRS.md) |
 | NNFX Aroon (paper backup) | OKX live prices, no orders | BTC, ETH, XRP (daily) | Long only: buy when Aroon(25) flips up; stop 1.5 x ATR; half sold at +1 ATR, then the rest's stop goes to breakeven and it exits when Aroon flips down. Paper since Oct 5 2026 as a backup if v4 or Trend Rider weaken (research/NNFX.md) |
 | Hold pile (paper) | OKX live prices, no orders | BTC, XRP | Weekly dip-DCA buyer: $10 a week 50/50 (setting DCA in bot.py), double when a coin is 20%+ below its 200-day average. Buys logged in hold_pile.csv. Profit sweeper (25% of wins to the hold pile) is built but switched off |
 
-All of them run on 4-hour candles. Every bot: stop moves to breakeven once a trade is up 1R, half is sold at +2R, stops only move up, max 3 trades open. Risk is 0.5% of the current balance per trade (cut from 1% on Oct 5 2026 to keep drawdown under 10%, see research/drawdown_test.py). Stepping risk up as the balance grows (1.25% / 1.5% / 2% at +10% / 25% / 50%) is built in but switched off for now (RISK_STEPS_ON in bot.py). Each bot only sells coins it bought itself. SOL was dropped from SP-12 v4 after it lost money in backtests, and XLM and BNB were added to it on Oct 5 after passing a pick + out-of-sample check (the Kraken paper copy stays on BTC, ETH, XRP); BNB and SUI were added to Trend Rider on Oct 5 after passing a backtest, and TRX on Oct 5 after passing a pick + out-of-sample check (research/TRX.md).
+All of them run on 4-hour candles. Every bot: stop moves to breakeven once a trade is up 1R, stops only move up, max 3 trades open. Half is sold at +2R only on the bots that still have it (SP-12 v2, paused): since Oct 5 2026 SP-12 v4, its Kraken copy and Trend Rider let the whole trade run on the trailing stop, which raised their 8-year backtest profit (v4 +93% to +124% at 0.4% risk, Trend Rider +195% to +336%; reports/upside-2026-10-05; switch: "half_at_2r" in bot.py). Risk is 0.5% of the current balance per trade (0.4% on SP-12 v4 and its Kraken copy) (cut from 1% on Oct 5 2026 to keep drawdown under 10%, see research/drawdown_test.py). Stepping risk up as the balance grows (1.25% / 1.5% / 2% at +10% / 25% / 50%) is built in but switched off for now (RISK_STEPS_ON in bot.py). Each bot only sells coins it bought itself. SOL was dropped from SP-12 v4 after it lost money in backtests, and XLM and BNB were added to it on Oct 5 after passing a pick + out-of-sample check (the Kraken paper copy stays on BTC, ETH, XRP); BNB and SUI were added to Trend Rider on Oct 5 after passing a backtest, and TRX on Oct 5 after passing a pick + out-of-sample check (research/TRX.md).
 
 ## Where to look
 
