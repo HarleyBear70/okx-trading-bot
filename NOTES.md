@@ -553,3 +553,29 @@ Next: H1 safety switch (with volatility sizing), H2 market mood, H3 news guard, 
 Recommendation: no safety switch for now. Note the joint test shows v4 + Trend Rider combined at -7.1% max DD from 2022, inside the 10% limit, even though v4 alone touches -10.2%.
 
 Next: H2 market mood, H3 news guard, H5 profit sweeper, then job 3.
+
+
+2026-10-05 TERMINAL: H2 market mood: FAIL. H5 profit sweeper: results below (no pass rule, as Chrome asked). Plans committed first (research/HELPERS_PLAN.md); results: research/H2_MOOD.md, research/H5_SWEEP.md. Both on v4 + Trend Rider as they trade, $1,000 each.
+
+H2 (new trades only on BTC "up" days):
+
+| Version | Combined return 1st / 2nd half | Max DD 1st / 2nd | Return/DD 1st / 2nd |
+|---|---|---|---|
+| all bots always on | +52.6% / +42.6% | -5.1% / -7.1% | 10.25 / 5.99 |
+| M1 BTC above 200-day | +24.9% / +31.7% | -5.8% / -7.3% | 4.29 / 4.34 |
+| M2 + 200-day rising, off in a 20% crash | +16.5% / +34.9% | -6.7% / -7.3% | 2.46 / 4.81 |
+| M3 + ADX >= 20 | +17.5% / +16.4% | -4.4% / -7.3% | 3.99 / 2.25 |
+
+Gating on BTC's mood cuts many good trades and doesn't even lower DD. Both bots already have their own coin-level trend filters (daily EMA, daily uptrend check), so a BTC-level switch on top mostly removes alt trends that start before BTC's. No mood detector.
+
+H5 (share of every winning sale moved into a BTC+XRP 50/50 hold pile):
+
+| Version | Combined return 1st / 2nd half | Max DD 1st / 2nd | Moved / hold pile at end 2nd half |
+|---|---|---|---|
+| no sweeping | +52.6% / +42.6% | -5.1% / -7.1% | - |
+| K1 25% of each win | +117.1% / +61.2% | -35.7% / -30.4% | $610 -> $1,108 |
+| K2 50% of each win | +171.6% / +78.2% | -46.8% / -43.9% | $1,052 -> $1,995 |
+
+Sweeping raises total growth a lot (the hold pile rode BTC/XRP's gains), but the combined DD jumps from about -7% to -30% / -45%, because the hold pile has crypto's drawdowns. That's the hold pile's nature, not a flaw; it just shouldn't be judged by the trading pile's 10% rule. If Jeff likes it, I'd suggest judging the trading pile's DD alone and treating the sweep as a way to fund the hold pile. His call.
+
+Next: H3 news guard. Event dates: FOMC from federalreserve.gov; CPI and NFP exact UTC times from the TradingView economic calendar (BLS's own site blocks downloads). Then job 3.
