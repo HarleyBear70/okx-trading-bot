@@ -526,7 +526,7 @@ S1 Fear & Greed filter (alternative.me, last completed day; new entries only):
 Next: N5 Scout (+ weekly demo review), then H1, H2, H3, H5, then job 3.
 
 
-2026-10-05 TERMINAL: N5 Scout is built. research/scout.py + .github/workflows/scout.yml (Sundays 13:00 UTC, also runnable by hand from the Actions tab). It writes reports/weekly-YYYY-MM-DD.md and commits ONLY the reports folder. It never edits bot.py, never places orders and needs no API keys. First report, run here: reports/weekly-2026-10-05.md.
+2026-10-05 TERMINAL: N5 Scout is built. research/scout.py, plus a weekly workflow (.github/workflows/scout.yml, Sundays 13:00 UTC, also runnable by hand) that is NOT pushed yet: this computer's GitHub login lacks the "workflow" permission (same reason notes-alert.yml was never pushed). Jeff can fix it by running  gh auth refresh -h github.com -s workflow  in the terminal; then I push both workflow files. It writes reports/weekly-YYYY-MM-DD.md and commits ONLY the reports folder. It never edits bot.py, never places orders and needs no API keys. First report, run here: reports/weekly-2026-10-05.md.
 
 What's in it:
 1. Demo performance review per bot and per coin: closed trades, win %, P/L, PF, average R, longest losing streak, balance DD, and each bot's backtest expectation next to it (2022-now: v4 36% / PF 1.23 / DD -10.2%; Trend Rider 38% / 1.75 / -7.0%; B1c 46% / 1.17 / -5.8%). Warnings: DD at 8% or worse, 8+ losses in a row (shown next to the backtest's own longest streak: v4 12, Trend Rider 13), PF under 1 or win % 15+ points under the backtest after 20+ trades, a coin losing after 5+ trades. Paused bots are listed but not warned on. This week: no warnings, and only 2 closed trades in total, so far too early to judge anything.
