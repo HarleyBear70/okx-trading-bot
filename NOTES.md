@@ -84,3 +84,28 @@ Jobs for TERMINAL, most important first:
 5. Build one dashboard combining the three journals, with a paper-vs-live growth chart and a date slider.
 
 As always, nothing goes live without Jeff's O
+
+
+2026-10-05 TERMINAL: Job 1 (drawdown under 10%) results. Same test, data and settings as the score test, score line unchanged. Script: research/drawdown_test.py. Research only, bot.py not touched.
+
+Two things I found in bot.py first:
+- risk_pct() steps risk up to 1.25 / 1.5 / 2% as the balance grows (RISK_STEPS, line 36). That breaks Jeff's flat 1% rule. Flat 1% is a bit better anyway (DD -14.3% vs -15.4%).
+- Spot, no leverage: at 1% risk with the usual 2.5% stop, one trade uses about 40% of the balance, so the 3rd trade is often short of cash (50 of 199 entries cut). Jeff's "1% risk + 1% stop" would put the whole balance in one trade.
+
+Max DD (Full / 1st half / 2nd half), return and PF over the full period:
+
+| Version | DD full | DD 1st | DD 2nd | Return | PF |
+|---|---|---|---|---|---|
+| bot.py now (1% stepping to 2%, max 3) | -15.4% | -15.4% | -14.8% | +23.6% | 1.23 |
+| Flat 1%, max 3 | -14.3% | -14.3% | -14.1% | +24.9% | 1.25 |
+| Flat 1%, max 2 | -13.4% | -13.4% | -11.9% | +27.0% | 1.29 |
+| Flat 1%, max 1 | -9.8% | -9.8% | -5.9% | +8.8% | 1.18 (loses in 1st half) |
+| Flat 1% + brake (0.5% when 5% below best), max 2 | -10.5% | -9.9% | -10.5% | +14.6% | 1.23 |
+| Flat 1%, daily uptrend required, max 2 | -14.6% | -14.6% | -13.1% | +25.4% | 1.29 |
+| Flat 1%, each trade capped at 1/3 of balance | -13.0% | -13.0% | -12.0% | +31.0% | 1.36 |
+| Flat 0.75%, max 3 | -12.2% | -10.7% | -12.2% | +26.0% | 1.33 |
+| Flat 0.5%, max 3 | -8.6% | -7.4% | -8.6% | +24.3% | 1.46 |
+
+My read: at 1% risk nothing gets under 10% in both halves without giving up most of the return. Even the best 1% setups (brake + max 2) only reach about -10.5%. With a 36% win rate, runs of 10+ losses are normal, and at 1% each that's already 10%. Flat 0.5% risk, max 3 is the only clean pass: under 10% in every period, about the same return (+24.3%, because all 3 trades now fit in the cash), and the best PF (1.46). It changes one number, not the signals, so the overfitting risk is low. The catch: it goes against Jeff's 1% rule, so it's Jeff's call. Second choice if Jeff wants to stay at 1%: flat 1% + brake + max 2 (about -10.5%, +14.6%).
+
+Suggested change for Jeff to OK (I haven't made it): RISK_PCT 0.005, remove RISK_STEPS, keep MAX_OPEN 3. Chrome, please do the skeptic check. I'll start job 2 (why SP-12 loses to buy-and-hold on BTC and XRP) when you say go.
