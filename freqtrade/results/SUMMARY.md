@@ -1,23 +1,23 @@
 # Freqtrade backtest results
 
-Updated 2026-10-05 17:00 UTC. OKX prices from March 2024, 1,000 USDT start, 0.1% fee. Exits match the live bots, including selling half at +2R. Risk per trade comes from `risk_pct()` in bot.py: **Step-ups off** risks RISK_PCT every trade; **Step-ups on** raises it by RISK_STEPS as the balance grows (back to RISK_PCT if the balance falls 5% from its best).
+Updated 2026-10-05 17:21 UTC. OKX prices from March 2024, 1,000 USDT start, 0.1% fee. Exits match the live bots, including selling half at +2R. Risk per trade comes from `risk_pct()` in bot.py: **Step-ups off** risks RISK_PCT every trade; **Step-ups on** raises it by RISK_STEPS as the balance grows (back to RISK_PCT if the balance falls 5% from its best).
 
-## SP12v4
+## SP12v4: selling half at +2R vs not
 
-| | Step-ups off | Step-ups on |
+| | Sell half at +2R | No half sell |
 |---|---|---|
-| Trades | 182 / 0.19 | 181 / 0.19 |
-| Final balance | 1259.82 USDT | 1208.872 USDT |
-| Total profit % | 25.98% | 20.89% |
-| CAGR % | 9.30% | 7.58% |
-| Win / draw / loss, win % | 75 / 0 / 107, 41.2% | 74 / 0 / 107, 40.9% |
-| Profit factor | 1.49 | 1.32 |
-| Max % of account underwater | 6.97% | 11.82% |
-| Absolute drawdown | 90.524 USDT (6.97%) | 155.444 USDT (11.82%) |
-| Best trade | XRP/USDT 82.34% | XRP/USDT 82.34% |
+| Trades | 182 / 0.19 | 182 / 0.19 |
+| Final balance | 1259.82 USDT | 1566.453 USDT |
+| Total profit % | 25.98% | 56.65% |
+| CAGR % | 9.30% | 18.86% |
+| Win / draw / loss, win % | 75 / 0 / 107, 41.2% | 71 / 0 / 111, 39.0% |
+| Profit factor | 1.49 | 1.93 |
+| Max % of account underwater | 6.97% | 7.04% |
+| Absolute drawdown | 90.524 USDT (6.97%) | 111.991 USDT (7.04%) |
+| Best trade | XRP/USDT 82.34% | XRP/USDT 158.33% |
 | Worst trade | BTC/USDT -4.19% | BTC/USDT -4.19% |
 
-<details><summary>SP12v4: full report, step-ups off</summary>
+<details><summary>SP12v4: selling half at +2R vs not: full report, Sell half at +2R</summary>
 
 ```
                                    SUMMARY METRICS                                    
@@ -94,7 +94,178 @@ Updated 2026-10-05 17:00 UTC. OKX prices from March 2024, 1,000 USDT start, 0.1%
 
 </details>
 
-<details><summary>SP12v4: full report, step-ups on</summary>
+<details><summary>SP12v4: selling half at +2R vs not: full report, No half sell</summary>
+
+```
+                                   SUMMARY METRICS                                    
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Metric                                 ┃ Value                                     ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Backtesting from                       │ 2024-03-01 00:00:00                       │
+│ Backtesting to                         │ 2026-10-05 12:00:00                       │
+│ Trading Mode                           │ Spot                                      │
+│ Max open trades                        │ 3                                         │
+│                                        │                                           │
+│ Total/Daily Avg Trades                 │ 182 / 0.19                                │
+│ Starting balance                       │ 1000 USDT                                 │
+│ Final balance                          │ 1566.453 USDT                             │
+│ Absolute profit                        │ 566.453 USDT                              │
+│ Total profit %                         │ 56.65%                                    │
+│ CAGR %                                 │ 18.86%                                    │
+│ Sharpe (closed trades)                 │ 0.42                                      │
+│ Sortino (closed trades)                │ 3.58                                      │
+│ Calmar (closed trades)                 │ 16.21                                     │
+│ SQN                                    │ 1.55                                      │
+│ Mean profit p-value                    │ 0.122                                     │
+│ Profit factor                          │ 1.93                                      │
+│ Expectancy (Ratio)                     │ 3.11 (0.56)                               │
+│ Avg. daily profit                      │ 0.598 USDT                                │
+│ Avg. stake amount                      │ 292.956 USDT                              │
+│ Market change                          │ 57.34%                                    │
+│ Total trade volume                     │ 107416.956 USDT                           │
+│                                        │                                           │
+│ Best Pair                              │ XRP/USDT 31.82%                           │
+│ Worst Pair                             │ BTC/USDT 7.59%                            │
+│ Best trade                             │ XRP/USDT 158.33%                          │
+│ Worst trade                            │ BTC/USDT -4.19%                           │
+│ Best day                               │ 243.623 USDT                              │
+│ Worst day                              │ -18.167 USDT                              │
+│ Days win/draw/lose                     │ 47 / 815 / 83                             │
+│ Min/Max/Avg. Duration Winners          │ 0d 08:00 / 13d 16:00 / 3d 14:29           │
+│ Min/Max/Avg. Duration Losers           │ 0d 00:00 / 5d 20:00 / 1d 02:42            │
+│ Max Consecutive Wins / Loss            │ 6 / 9                                     │
+│ Rejected Entry signals                 │ 0                                         │
+│ Entry/Exit Timeouts                    │ 0 / 0                                     │
+│                                        │                                           │
+│ Min/Max balance (closed trades)        │ 975.335 USDT / 1590.768 USDT              │
+│ Max % of account underwater            │ 7.04%                                     │
+│ Absolute drawdown                      │ 111.991 USDT (7.04%)                      │
+│ Drawdown duration                      │ 146 days 08:00:00                         │
+│ Profit at drawdown start               │ 590.42 USDT                               │
+│ Profit at drawdown end                 │ 478.429 USDT                              │
+│ Drawdown start                         │ 2026-03-18 08:00:00                       │
+│ Drawdown end                           │ 2026-08-11 16:00:00                       │
+│                                        │                                           │
+│ Wallet based Metrics                   │                                           │
+│ Min/Max balance (wallet balance)       │ 971.359 USDT / 1618.333 USDT              │
+│ Min/Max balance dates (wallet balance) │ 2024-05-19 20:00:00 / 2026-08-22 04:00:00 │
+│ Max % of account underwater (balance)  │ 9.56%                                     │
+│ Absolute drawdown (wallet balance)     │ 141.441 USDT (8.75%)                      │
+│ Drawdown duration                      │ 155 days 04:00:00                         │
+│ Profit at drawdown start               │ 617.191 USDT                              │
+│ Profit at drawdown end                 │ 475.749 USDT                              │
+│ Drawdown start                         │ 2026-03-17 00:00:00                       │
+│ Drawdown end                           │ 2026-08-19 04:00:00                       │
+│ Sharpe (daily wallet balance)          │ 1.34                                      │
+│ Sortino (daily wallet balance)         │ 1.95                                      │
+│ Calmar (daily wallet balance)          │ 13.08                                     │
+└────────────────────────────────────────┴───────────────────────────────────────────┘
+
+                                                           STRATEGY SUMMARY                                                           
+┏━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┓
+┃ Strategy ┃ Trades ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃    Avg Duration ┃  Win  Draw  Loss  Win% ┃            Drawdown ┃
+┡━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━┩
+│   SP12v4 │    182 │         1.26 │         566.453 │        56.65 │ 2 days, 2:01:00 │   71     0   111  39.0 │ 111.991 USDT  7.04% │
+└──────────┴────────┴──────────────┴─────────────────┴──────────────┴─────────────────┴────────────────────────┴─────────────────────┘
+```
+
+</details>
+
+Both risk 0.5% per trade (RISK_PCT) with step-ups off. Without the half sell, the whole position runs to the stop, trailing stop, target or time exit.
+
+## SP12v4
+
+| | Step-ups off | Step-ups on |
+|---|---|---|
+| Trades | 182 / 0.19 | 181 / 0.19 |
+| Final balance | 1259.82 USDT | 1208.872 USDT |
+| Total profit % | 25.98% | 20.89% |
+| CAGR % | 9.30% | 7.58% |
+| Win / draw / loss, win % | 75 / 0 / 107, 41.2% | 74 / 0 / 107, 40.9% |
+| Profit factor | 1.49 | 1.32 |
+| Max % of account underwater | 6.97% | 11.82% |
+| Absolute drawdown | 90.524 USDT (6.97%) | 155.444 USDT (11.82%) |
+| Best trade | XRP/USDT 82.34% | XRP/USDT 82.34% |
+| Worst trade | BTC/USDT -4.19% | BTC/USDT -4.19% |
+
+<details><summary>SP12v4: full report, Step-ups off</summary>
+
+```
+                                   SUMMARY METRICS                                    
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Metric                                 ┃ Value                                     ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Backtesting from                       │ 2024-03-01 00:00:00                       │
+│ Backtesting to                         │ 2026-10-05 12:00:00                       │
+│ Trading Mode                           │ Spot                                      │
+│ Max open trades                        │ 3                                         │
+│                                        │                                           │
+│ Total/Daily Avg Trades                 │ 182 / 0.19                                │
+│ Starting balance                       │ 1000 USDT                                 │
+│ Final balance                          │ 1259.82 USDT                              │
+│ Absolute profit                        │ 259.82 USDT                               │
+│ Total profit %                         │ 25.98%                                    │
+│ CAGR %                                 │ 9.30%                                     │
+│ Sharpe (closed trades)                 │ 0.36                                      │
+│ Sortino (closed trades)                │ 2.06                                      │
+│ Calmar (closed trades)                 │ 7.52                                      │
+│ SQN                                    │ 1.33                                      │
+│ Mean profit p-value                    │ 0.1852                                    │
+│ Profit factor                          │ 1.49                                      │
+│ Expectancy (Ratio)                     │ 1.43 (0.29)                               │
+│ Avg. daily profit                      │ 0.274 USDT                                │
+│ Avg. stake amount                      │ 223.553 USDT                              │
+│ Market change                          │ 57.34%                                    │
+│ Total trade volume                     │ 93433.912 USDT                            │
+│                                        │                                           │
+│ Best Pair                              │ XRP/USDT 12.23%                           │
+│ Worst Pair                             │ BTC/USDT 4.50%                            │
+│ Best trade                             │ XRP/USDT 82.34%                           │
+│ Worst trade                            │ BTC/USDT -4.19%                           │
+│ Best day                               │ 124.633 USDT                              │
+│ Worst day                              │ -14.857 USDT                              │
+│ Days win/draw/lose                     │ 50 / 815 / 80                             │
+│ Min/Max/Avg. Duration Winners          │ 0d 08:00 / 13d 16:00 / 3d 11:31           │
+│ Min/Max/Avg. Duration Losers           │ 0d 00:00 / 5d 20:00 / 1d 02:33            │
+│ Max Consecutive Wins / Loss            │ 6 / 9                                     │
+│ Rejected Entry signals                 │ 0                                         │
+│ Entry/Exit Timeouts                    │ 0 / 0                                     │
+│                                        │                                           │
+│ Min/Max balance (closed trades)        │ 976.884 USDT / 1299.576 USDT              │
+│ Max % of account underwater            │ 6.97%                                     │
+│ Absolute drawdown                      │ 90.524 USDT (6.97%)                       │
+│ Drawdown duration                      │ 146 days 08:00:00                         │
+│ Profit at drawdown start               │ 299.576 USDT                              │
+│ Profit at drawdown end                 │ 209.052 USDT                              │
+│ Drawdown start                         │ 2026-03-18 08:00:00                       │
+│ Drawdown end                           │ 2026-08-11 16:00:00                       │
+│                                        │                                           │
+│ Wallet based Metrics                   │                                           │
+│ Min/Max balance (wallet balance)       │ 975.219 USDT / 1314.693 USDT              │
+│ Min/Max balance dates (wallet balance) │ 2024-05-19 20:00:00 / 2025-10-05 08:00:00 │
+│ Max % of account underwater (balance)  │ 8.20%                                     │
+│ Absolute drawdown (wallet balance)     │ 107.832 USDT (8.20%)                      │
+│ Drawdown duration                      │ 317 days 20:00:00                         │
+│ Profit at drawdown start               │ 314.693 USDT                              │
+│ Profit at drawdown end                 │ 206.861 USDT                              │
+│ Drawdown start                         │ 2025-10-05 08:00:00                       │
+│ Drawdown end                           │ 2026-08-19 04:00:00                       │
+│ Sharpe (daily wallet balance)          │ 1.00                                      │
+│ Sortino (daily wallet balance)         │ 1.27                                      │
+│ Calmar (daily wallet balance)          │ 6.41                                      │
+└────────────────────────────────────────┴───────────────────────────────────────────┘
+
+                                                          STRATEGY SUMMARY                                                           
+┏━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┓
+┃ Strategy ┃ Trades ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃    Avg Duration ┃  Win  Draw  Loss  Win% ┃           Drawdown ┃
+┡━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━┩
+│   SP12v4 │    182 │         0.60 │         259.820 │        25.98 │ 2 days, 2:01:00 │   75     0   107  41.2 │ 90.524 USDT  6.97% │
+└──────────┴────────┴──────────────┴─────────────────┴──────────────┴─────────────────┴────────────────────────┴────────────────────┘
+```
+
+</details>
+
+<details><summary>SP12v4: full report, Step-ups on</summary>
 
 ```
                                    SUMMARY METRICS                                    
@@ -186,7 +357,7 @@ Updated 2026-10-05 17:00 UTC. OKX prices from March 2024, 1,000 USDT start, 0.1%
 | Best trade | ETH/USDT 9.96% | ETH/USDT 9.96% |
 | Worst trade | SOL/USDT -4.19% | SOL/USDT -4.19% |
 
-<details><summary>SP12v2: full report, step-ups off</summary>
+<details><summary>SP12v2: full report, Step-ups off</summary>
 
 ```
                                    SUMMARY METRICS                                    
@@ -263,7 +434,7 @@ Updated 2026-10-05 17:00 UTC. OKX prices from March 2024, 1,000 USDT start, 0.1%
 
 </details>
 
-<details><summary>SP12v2: full report, step-ups on</summary>
+<details><summary>SP12v2: full report, Step-ups on</summary>
 
 ```
                                    SUMMARY METRICS                                    
@@ -355,7 +526,7 @@ Updated 2026-10-05 17:00 UTC. OKX prices from March 2024, 1,000 USDT start, 0.1%
 | Best trade | SOL/USDT 26.24% | SOL/USDT 26.24% |
 | Worst trade | SOL/USDT -8.92% | SOL/USDT -8.92% |
 
-<details><summary>TrendRider: full report, step-ups off</summary>
+<details><summary>TrendRider: full report, Step-ups off</summary>
 
 ```
                                    SUMMARY METRICS                                    
@@ -432,7 +603,7 @@ Updated 2026-10-05 17:00 UTC. OKX prices from March 2024, 1,000 USDT start, 0.1%
 
 </details>
 
-<details><summary>TrendRider: full report, step-ups on</summary>
+<details><summary>TrendRider: full report, Step-ups on</summary>
 
 ```
                                    SUMMARY METRICS                                    
