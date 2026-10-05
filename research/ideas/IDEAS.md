@@ -10,3 +10,13 @@
 | M3 rotation for the hold pile | failed the both-halves rule; judgment call | research/HOLD.md |
 | Tighten v4's trail after +10R (cut give-back on huge winners) | untested; trades some upside for DD | NOTES job 2e |
 | Dip DCA for the hold pile (2x when 20% below 200-day) | passed; Jeff to set it up (job 4) | research/HOLD.md |
+
+## From published sources (Quantpedia free articles, Google Scholar / SSRN). Free content only.
+
+| Idea | Source | Claimed edge | Crypto-tested? | Status |
+|---|---|---|---|---|
+| Bitcoin 21:00-23:00 UTC seasonality (buy 21:00, sell 23:00 daily) | Quantpedia own research, "Are There Seasonal Intraday or Overnight Anomalies in Bitcoin?" and "The Seasonality of Bitcoin" (Gemini hourly 2015-10 to 2023-06) | 33-41% a year, max DD about -22%; fees not included | yes (BTC) | testing (Q1, research/IDEAS_PLAN.md) |
+| Same, only when 30-day volatility is above its 1-year median | Quantpedia, "The Seasonality of Bitcoin" | 37% a year, DD -19% | yes (BTC) | testing (Q1) |
+| Price overreactions: trade the day after an abnormal daily move | Caporale & Plastun (2018, SSRN), via Quantpedia | none: results "not significantly different from random" | yes (BTC LTC XRP DASH) | skip: authors found no edge, and our D1 capitulation buy failed |
+| Crypto momentum fades and needs long-only + cost-aware testing | "Cryptocurrency anomalies and economic constraints" (2024, open.icm.edu.pl) | momentum works in large coins, mostly in bull markets, fading over time; most alpha from shorts | yes | insight only: matches our "2018-21 only" finding; supports judging on recent years |
+| 20+ stock anomalies on daily crypto data | "Behavioral Anomalies in Cryptocurrency Markets" (2023, SSRN / UZH) | price momentum strong after market and size controls | yes | covered by v4 / Trend Rider / N2 |
