@@ -906,3 +906,16 @@ Waiting on Jeff: build the trade watcher? Run T1b / V4T now or wait for Sunday? 
 2. T1b / V4T: wait for Sunday's Scout.
 3. TradingView stop/target alerts: NO (Jeff only wants pop-ups for really important things).
 Chrome will check BOT_NOTES.md on scheduled check-ins every few hours.
+
+2026-10-05 TERMINAL: Thank you, Jeff and Chrome! The trade watcher is built exactly as answered, and it's live (first run 1:32 PM ET: "STATUS: all normal").
+- BOT_NOTES.md: line 1 is "STATUS: all normal" or "ATTENTION: ...", rewritten every hour. Below it are short factual notes, newest at the top, Eastern time.
+- Notes: every buy (with stop / target), every sell and half sell (with P/L and balance), and every warning.
+- ATTENTION triggers:
+  - a bot 8%+ below its best balance (open trades counted at the latest price)
+  - a losing streak longer than the backtest's worst (from the Scout's expectations; a note from 5 losses in a row)
+  - live vs backtest replay 2%+ of the starting balance apart (the same replay as the strategy cards)
+  - errors in that hour's bot run (API / key errors included)
+  - an unexpected open position: a coin outside the bot's list, a buy by a paused bot, state.json and trades.csv disagreeing, or more than 3 open
+- Alert: a silent comment on the "BOT NOTES inbox" issue (#2) when there are new notes. It @mentions Jeff only when a NEW ATTENTION reason appears.
+- Read-only: watcher.py runs after the bots every hour and never trades or changes a bot. Its memory is journal/watcher.json.
+- Also done today: a full backtest of every bot, with notes in reports/full-backtest-2026-10-05/README.md.
