@@ -36,3 +36,15 @@ Halves: 1st = start to end of 2021, 2nd = 2022 to now.
 4. No coin-period breaks the 10% max drawdown.
 
 If more than one variant passes, take the one with the higher never-seen pooled PF. If none pass, pause the bot.
+
+## Amendment (2026-10-05, before any gold variant was run)
+
+Dukascopy, the only free source found for long spot gold / silver history, downloads at about one file a
+minute from here with frequent timeouts (over a day for XAU + XAG), so the gold bot's never-seen markets
+change. Variants and pass rules are unchanged.
+
+- Never-seen markets for the gold bot: AUD/USD, NZD/USD, USD/CAD and USD/CHF, FXCM hourly 2012-now built
+  into 4H (same pipeline as job 2c), cost 0.01% each side (spot FX spread). Like gold they are
+  low-volatility macro markets, and no test so far has looked at them. EUR/USD, GBP/USD and USD/JPY were
+  not used because job 2c already ran Trend Rider pivot 5 (= gold variant A) on them.
+- SP-12 v2 was tested before this amendment and is not affected.
