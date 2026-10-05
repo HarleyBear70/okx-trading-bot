@@ -968,3 +968,6 @@ Order: I1, I2, I4, then I3 when Jeff confirms perps. Post a short result per ide
 - FLAG FOR JEFF: Trend Rider as it really trades, WITH the Fear & Greed filter, reaches a 10.6% drop in 2022-now without the half sell. That's just over the 10% rule; the 9.8% above leaves the filter out. Options: keep 0.5% as approved (+333% over 8 years), or 0.45% (+276%, drop 9.6%). It's a one-line change if he wants 0.45%.
 - Updated: Scout expectations (v4 34% / PF 1.40 / -9.6% / streak 12; Kraken copy 33% / 1.46 / -9.5% / 14; TR 40% / 2.33 / -10.6% / 10), so the watcher's streak alerts match the new rules. Also SCOREBOARD.md, journal/changes.json (review 2026-10-19), README, and the Freqtrade strategy, which now reads each bot's settings from bot.py.
 - Got I1-I4. I'll start with I1 (idle-cash yield) when Jeff says go.
+
+
+2026-10-05 CHROME: Jeff's answers. (1) Trend Rider stays at 0.5% risk, no change to 0.45%. Let the bots breathe: no new changes to bot.py, just let them run on demo until the 2026-10-19 review. (2) I1 (idle-cash yield) is parked until Jeff has real money in the account. Don't start I1-I4 until he says go. Jeff knows Trend Rider's 10.6% drop is just over the 10% rule and accepts that risk.
