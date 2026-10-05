@@ -175,3 +175,33 @@ Same settings, same period split, same report columns. Keep these results in the
 - DXY as a filter: Jeff watches the dollar index. Test whether DXY trend (e.g. DXY below its daily 50 EMA = weak dollar) improves entries for (a) the forex pairs and (b) BTC, ETH and XRP. Compare with vs without the filter: trades, win %, return, max DD, PF, split by period. Free DXY history: Yahoo DX-Y.NYB, or the FRED broad dollar index as a backup.
 - Live trading later would be Kraken forex perps (leveraged). For the test, assume NO leverage and 0.5% risk. Note Kraken's forex fees if you can find them.
 Skeptic rule as always: a filter only counts if it helps in both halves and on most coins.
+
+
+2026-10-05 TERMINAL: Job 2b (long-history stress test + out-of-sample) done. Full tables, data sources and start dates: research/LONG_HISTORY.md. Script: research/long_history.py. Research only.
+
+Setup: bot.py as it is now (0.5% risk, 0.1% fee each side), each coin alone with a fresh $1,000 per period. Data: Bitfinex for BTC (from Jan 2013), ETH (Mar 2016), XRP (May 2017), LTC (2013), XLM, AVAX, SUI and XAUT; Binance archive for SOL, BNB, DOGE, ADA, LINK, BCH, LUNA and FTT (it has the longer history and keeps delisted coins). Two data fixes: SUI's first Bitfinex candle (open 10,000) dropped, and LUNA cut at the May 2022 collapse (Binance reused the ticker for Terra 2.0).
+
+Coin-periods = one coin in one market period (2013-14, 2015-17, 2018, 2019-21, 2022, 2023-now).
+
+| Bot | Coins | Coin-periods | Profitable | Median return | Median PF | Broke 10% DD |
+|---|---|---|---|---|---|---|
+| SP-12 v4 | traded now (BTC ETH XRP, + SOL) | 16 | 75% | +2.6% | 1.31 | 0 |
+| SP-12 v4 | never seen | 36 | 61% | +1.1% | 1.30 | 2 |
+| Trend Rider | traded now (BTC ETH SOL BNB SUI) | 19 | 68% | +6.1% | 1.45 | 0 |
+| Trend Rider | never seen | 30 | 50% | +0.5% | 1.13 | 0 |
+| SP-12 v2 | traded now (ETH SOL XAUT) | 11 | 36% | -1.3% | 0.88 | 0 |
+| SP-12 v2 | never seen | 37 | 38% | -1.7% | 0.91 | 6 |
+| Trend Rider gold (pivot 3) | XAUT | 3 | 33% | -1.4% | 0.73 | 1 |
+
+By period (all bots): every bot makes money in the bull periods (2015-17, 2019-21; Trend Rider out-of-sample was profitable on 8 of 9 coins in 2019-21) and loses a little in the crash years (2018, 2022). The crash losses are small, mostly 0-3%, because the daily-trend filters keep the bots out.
+
+My read:
+1. SP-12 v4 holds up best. On unseen coins its PF is the same as on its own coins (1.30 vs 1.31), with a smaller return. The edge looks real, if modest. Best on BTC: +28% in 2015-17 and +23% in 2019-21 with DD under 4%.
+2. Trend Rider is a bull-market trend follower. It's strong on its own coins (PF 1.45) but only about break-even on unseen coins outside bull runs (2023-now unseen: 4 of 8 profitable). Part of its in-sample edge comes from picking coins that trended well. Still never broke 10% DD.
+3. SP-12 v2 has no edge: losing in-sample and out-of-sample, and 6 of the 7 bot DD breaks. Its one good result is XAUT 2023-now (+14.5%, PF 1.59), which is a single period. Recommend Jeff consider pausing v2 (it's demo only, so no rush; his call).
+4. Trend Rider gold (pivot 3) lost in 2 of 3 periods and broke DD in 2023-now (-10.8% with a 13-loss streak) while gold itself went +129%. All its profit came from one month. Weak.
+5. Why the DD breaks: v2's come from low win rates (18-26%) with 10-18 losses in a row on choppy coins (LTC, ADA, LINK, BCH). v4 LTC 2023-now: 28% win, PF 0.55, LTC chopped sideways for 3 years. v4 DOGE 2019-21: -14.6% DD but +35.8% return. In the 2021 DOGE mania, 4H candles moved 20%+, so stops filled far below their level.
+6. Dead coins didn't hurt. On LUNA and FTT during their collapses, v4 and Trend Rider were mostly flat (v4 LUNA 2022: 3 trades, +1.0%; FTT 2022: +3.1%), because the trend filter was already off. Survivorship check passes.
+7. Best-month concentration: Chrome's flag is real. In the weaker coin-periods, one month often makes 100%+ of the profit (the other months net negative), e.g. v4 XRP 2023-now 134%, from Nov 2024. The strong periods are spread out: v4 BTC 2015-17 21%, 2019-21 15%.
+
+Recommendation: keep v4 and Trend Rider as they are. Consider pausing SP-12 v2 and Trend Rider gold. Nothing changes in bot.py without Jeff's OK. Starting job 2c (forex + DXY) now. Data: Dukascopy hourly for EUR/USD, GBP/USD and USD/JPY back to about 2003, plus Yahoo DXY daily.
