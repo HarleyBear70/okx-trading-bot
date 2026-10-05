@@ -19,6 +19,7 @@ from pathlib import Path
 
 from pandas import DataFrame
 
+from freqtrade.exchange import timeframe_to_minutes
 from freqtrade.strategy import IStrategy, stoploss_from_absolute
 
 REPO = Path(__file__).resolve().parents[3]
@@ -86,7 +87,7 @@ class JeffBase(IStrategy):
         if df is None or df.empty:
             return None, None, None
         opened = trade.open_date_utc
-        sig = df[df["date"] <= opened - FOUR_H]
+        sig = df[df["date"] <= opened - timedelta(minutes=timeframe_to_minutes(self.timeframe))]
         if sig.empty:
             return df, None, None
         since = df[df["date"] >= opened]
@@ -187,3 +188,24 @@ class TrendRider(JeffBase):
 class TrendRiderGold(JeffBase):
     strat = "tr"
     pivot = 3
+
+
+class TrendRider1h(JeffBase):
+    """Trend Rider on 1-hour candles (daily trend filter unchanged). Run with --timeframe 1h."""
+    strat = "tr"
+    pivot = 5
+    timeframe = "1h"
+    startup_candle_count = 400
+
+
+class JeffFixedTP(JeffBase):
+    """Trend Rider entries with Jeff's manual exits: fixed 1% stop, 2.5% take profit."""
+    strat = "tr"
+    pivot = 5
+    use_custom_stoploss = False
+    stoploss = -0.01
+    minimal_roi = {"0": 0.025}
+
+    def custom_stake_amount(self, pair, current_time, current_rate, proposed_stake, min_stake,
+                            max_stake, leverage, entry_tag, side, **kwargs) -> float:
+        return proposed_stake
