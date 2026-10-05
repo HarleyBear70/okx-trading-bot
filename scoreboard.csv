@@ -13,7 +13,10 @@ HaasOnline,Ping Pong Bot,paper,OKX,BTC,,fixed size,2026-10-04,0,0,0,,0,0,,,,test
 HaasOnline,Scalper Bot,paper,OKX,ETH,,1 ETH per trade,2026-10-04,0,0,0,,0,0,,,,testing,trade size too big - resize to match 1000/1%,2026-10-04
 HaasOnline,Market Making Bot,paper,OKX,BTC,,fixed size,2026-10-04,0,0,0,,0,0,,,,testing,trial ends Oct 11,2026-10-04
 HaasOnline,Index Bot,paper,OKX,BTC (check basket),,fixed size,2026-10-04,0,0,0,,0,0,,,,testing,trial ends Oct 11,2026-10-04
-3Commas,DCA / Grid / Signal bots,demo,Kraken,?,,?,?,,,,,,,,,,testing,need trade history export,
+3Commas,DCA bots (5),demo,Kraken Futures,BTC SOL + multi-pair,10001,?,?,10,,,,-1,0.00,,,,fail,about breakeven on a 10001 demo balance - too few trades and too small to matter; backtest of DCA style also failed,2026-10-05
+3Commas,Grid bots (2),demo,Kraken Futures,ETH BTC,10001,?,?,10,,,,1,0.01,,,,watch,+1 USD on 10 trades - tiny,2026-10-05
+3Commas,Signal bots,demo,Kraken Futures,,10001,?,?,0,,,,0,0,,,,fail,no trades yet,2026-10-05
+3Commas,Account total,demo,Kraken Futures,,10001,,,,,,,-1.94,-0.02,,,,cancel,overall -1.94 USD; Pro plan expires Oct 6 - let it lapse,2026-10-05
 Bitsgap,Demo bots,demo,Kraken,?,,?,?,,,,,,,,,,testing,need trade history export - 7 day trial,
 Freqtrade,SP12v4 backtest,backtest,OKX,BTC ETH SOL XRP,1000,1%,2024-03-01,225,90,135,40.0,573.22,57.32,1.41,15.71,41.29,watch,beats hold and PF ok but drawdown over 10% - SOL loses money,2026-10-04
 Freqtrade,SP12v2 backtest,backtest,OKX,ETH SOL,1000,1%,2024-03-01,,,,,327.00,32.70,1.28,12.27,-14.70,watch,corrected run (take profit now works) - beats hold but PF just under 1.3 and drawdown over 10%,2026-10-04
