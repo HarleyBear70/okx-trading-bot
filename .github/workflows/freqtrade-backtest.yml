@@ -83,11 +83,13 @@ jobs:
 
       - name: Skeptic check (do strategies work in both halves?)
         run: |
+          mkdir -p freqtrade/results/skeptic_logs
           half() {
             name=$1; range=$2; shift 2
             docker run --rm -v "$GITHUB_WORKSPACE:/repo" $IMG backtesting \
               --config $CFG --userdir $UD --strategy $name --timerange $range --fee 0.001 \
-              --export none --pairs "$@" 2>&1 | sed 's/\x1b\[[0-9;]*m//g' | grep "^│ $name " | tail -1
+              --export none --pairs "$@" 2>&1 | sed 's/\x1b\[[0-9;]*m//g' > freqtrade/results/skeptic_logs/${name}_${range}.txt
+            grep "^│ $name " freqtrade/results/skeptic_logs/${name}_${range}.txt | tail -1
           }
           {
             echo "# Skeptic check"
