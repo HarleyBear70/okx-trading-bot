@@ -2,6 +2,7 @@
 
 Reads results/<name>.txt (step-ups off) and results/<name>_steps.txt (step-ups on). If
 results/SP12v4_nohalf.txt exists, SP12v4 with and without selling half at +2R comes first.
+results/EXTRA_TESTS.md (hand-kept results from other tests) is added at the end.
 Usage: python3 freqtrade/summary.py SP12v4 SP12v2 TrendRider
 """
 import re
@@ -87,6 +88,9 @@ def main(names):
                   "to the stop, trailing stop, target or time exit."]
     for name in names:
         lines += section(name, name, [("Step-ups off", name), ("Step-ups on", f"{name}_steps")])
+    extra = RESULTS / "EXTRA_TESTS.md"  # hand-kept tests from other tools, kept on every rebuild
+    if extra.exists():
+        lines += ["", extra.read_text().rstrip()]
     (RESULTS / "SUMMARY.md").write_text("\n".join(lines) + "\n")
 
 
