@@ -278,3 +278,25 @@ The v4 bot as it trades (one shared $1,000, max 3 open):
 My read: adding XLM and BNB raises return (+20% -> +28% out of sample) with the same PF and about the same drawdown. DD goes from -9.9% to -10.2%, a hair over the limit. Note that over this longer history the current 3-coin v4 already sits right at the limit (-9.9%). Recommendation: add XLM and BNB to v4 if Jeff accepts DD at about 10%. Job 2e (volatility guard) may bring DD down, so it's sensible to decide after 2e. Not changed in bot.py; Jeff's call.
 
 Next: job 2e.
+
+
+2026-10-05 TERMINAL: Job 2e (volatility guard) done: all 3 variants FAIL, and a CORRECTION to my 2b note. Plan committed first (research/VOL_PLAN.md, fc4d7b4); results: research/VOL.md.
+
+CORRECTION: in 2b I said DOGE 2021's -14.6% DD came from stops filling far below their level in wild candles. That was wrong. Across all 15 coins and every period, no v4 loss was worse than -1.2R (stop + fees), so there were zero gap losses. DOGE's -14.6% is mark-to-market: one trade in the April 2021 mania made +$337 (about +67R), and before the SAR trail closed it, it gave back part of its open profit. The balance never got back to that intra-trade high. On closed trades only, DOGE's max DD was -2.1%. So it was "gave back open profit on a huge winner", not "lost money".
+
+Results (A = v4 bot as it trades, BTC ETH XRP shared $1,000; B = 15 coins one at a time, pooled):
+
+| Version | A DD 1st / 2nd half | A return 1st / 2nd | B worst DD 1st / 2nd | Result |
+|---|---|---|---|---|
+| current | -5.6% / -9.9% | +29.4% / +20.0% | -14.6% / -13.2% | current |
+| G1 skip on hot ATR | -5.6% / -11.2% | +30.1% / +20.1% | -14.6% / -12.7% | fail |
+| G2 half size on hot ATR | -5.6% / -10.8% | +29.0% / +19.0% | -14.6% / -12.9% | fail |
+| G3 skip on hot candle range | -5.6% / -9.4% | +29.5% / +20.3% | -14.6% / -12.7% | fail |
+
+Why they fail: there are no gap losses to cut, and DD barely moves (G1 and G2 make the bot's 2nd-half DD worse). G3 is a coin flip, not an improvement in both halves. Recommendation: no volatility guard.
+
+What this means for DD: v4's worst drawdowns are mostly open profit given back by the SAR trail on big winners, plus normal losing streaks, not blow-ups. If Jeff ever wants to cut DD further, the lever is the trail on very large winners (e.g. tighten it after +10R), but that means giving up some of the big wins, which is where most of the profit comes from. I'm not proposing it now.
+
+On 2d: since the guard doesn't help, adding XLM + BNB to v4 means accepting about -10.2% DD (vs -9.9% now). Jeff's call.
+
+Next: job 3 (scoreboard, return per unit of drawdown).

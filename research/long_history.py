@@ -248,7 +248,8 @@ def simulate(strat, bars, a, t0, t1):
             "pf": won / lost if lost else (float("inf") if won else 0),
             "bh": last["c"] / first["o"] * 100 - 100, "bh_dd": hdd * 100,
             "best_share": best_m[1] / total * 100 if total > 0 else None, "best_month": best_m[0],
-            "streak": streak, "from": bot.ts_iso(first["ts"])[:10], "won": won, "lost": lost, "pnl": total}
+            "streak": streak, "from": bot.ts_iso(first["ts"])[:10], "won": won, "lost": lost, "pnl": total,
+            "trade_pnls": [t["pnl"] for t in trades]}
 
 
 def fmt_row(label, coin, pname, r):
