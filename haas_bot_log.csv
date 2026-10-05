@@ -1,3 +1,17 @@
 timestamp_utc,bot,market,status,realized_pnl,unrealized_pnl,roi,closed_positions,winning,losing,filled_orders
 2026-10-04T21:28Z,[SIM] Grid Bot (Spot),BTC/USDT,Running,0,0,0%,0,0,0,0
 2026-10-04T21:28Z,My DCA Bot #1,ETH/USDT,Active,0,0,0%,0,0,0,0
+2026-10-04T21:44Z,My Flash Crash Bot #1,SOL/USDT,Running,0,0,0%,0,0,0,0
+2026-10-04T21:44Z,My WaveRunner Bot #1,XRP/USDT,Running,0,0,0%,0,0,0,0
+2026-10-04T21:44Z,My Ping Pong Bot #1,BTC/USDT,Running,0,0,0%,0,0,0,0
+2026-10-04T21:44Z,My Scalper Bot #1,ETH/USDT,Running,0,0,0%,0,0,0,0
+2026-10-04T21:51Z,My Market Making Bot #1,BTC/USDT,Running,0,0,0%,0,0,0,0
+2026-10-04T21:51Z,My Index Bot #1or,BTC/USDT,Running,0,0,0%,0,0,0,0
+2026-10-05T01:42Z,[SIM] Grid Bot (Spot),BTC/USDT,Active,-0.04,-0.03,,,,,
+2026-10-05T01:42Z,My DCA Bot #1,ETH/USDT,Insufficient funds,22.67,0,0.84%,,,,
+2026-10-05T01:42Z,My Flash Crash Bot #1,SOL/USDT,Scripting error,-0.12,-1.01,,,,,
+2026-10-05T01:42Z,My Index Bot #1or,BTC/USDT,Scripting error,0,0,,,,,
+2026-10-05T01:42Z,My Market Making Bot #1,BTC/USDT,Scripting error,0,0,,,,,
+2026-10-05T01:42Z,My Ping Pong Bot #1,BTC/USDT,Insufficient funds,0,0,,,,,
+2026-10-05T01:42Z,My Scalper Bot #1,ETH/USDT,Insufficient funds,0,0,,,,,
+2026-10-05T01:42Z,My WaveRunner Bot #1,XRP/USDT,Active,0,0,,,,,
