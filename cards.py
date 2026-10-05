@@ -223,6 +223,7 @@ def build(api, rows):
            "engine). A gap between them = fills, timing, or a settings change during the period (see journal/changes.json). "
            "'Backtest' stats are the long-run research numbers (2022-now).", ""]
     demo_curves, paper_curves = [], []
+    numbers = {}  # live vs replay per bot, saved for watcher.py
     for b in bot.BOTS:
         st = status(b)
         tf = {"1H": "1-hour", "4H": "4-hour", "1D": "daily"}[bot.bot_tf(b)]
@@ -244,6 +245,8 @@ def build(api, rows):
         closed = [t for t in jtrades if t.get("bot_id") == b["id"] and t.get("status") == "closed"]
         ls = stats([t.get("pnl") or 0.0 for t in closed], live)
         rs = stats(bpn, back or live)
+        numbers[b["id"]] = {"live_now": mtm, "replay_now": back[-1][1] if back else None, "live": ls,
+                            "replay": rs if back else None, "error": err}
         e = exp.get(b["id"])
         out += [f"### {b['name']}  ·  {st}", "",
                 f"{venue} · {' '.join(c.split('-')[0] for c in b['coins'])} · {tf} candles · started {START.get(b['id'], '-')}"
@@ -259,6 +262,9 @@ def build(api, rows):
                 f"{rs['dd']:.1f}% |",
                 f"| Live ({st.lower()}) since start | {ls['n']} | {fmt(ls['win'], '{:.0f}%')} | {fmt(ls['pf'], '{:.2f}')} | "
                 f"{ls['dd']:.1f}% |", ""]
+    with open(os.path.join(OUT, "numbers.json"), "w") as f:
+        json.dump({"updated_utc": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M"), "bots": numbers}, f,
+                  indent=1)
     growth = []
     if demo_curves and paper_curves:
         d = [(t, v / len(demo_curves)) for t, v in summed(demo_curves)]

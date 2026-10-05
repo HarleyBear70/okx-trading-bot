@@ -42,7 +42,8 @@ jobs:
           if [ "$who" = "CHROME" ]; then other="the terminal Claude (Claude Code)"; else other="the Chrome Claude"; fi
           # the newest message, quoted, cut to about 600 characters
           preview=$(awk -v n="$now" -v hdr="$HDR" '$0 ~ hdr {k++} k == n' NOTES.md | head -c 600 | sed 's/^/> /')
-          num=$(gh issue list --state open --search "NOTES inbox in:title" --json number --jq '.[0].number')
+          num=$(gh issue list --state open --search "NOTES inbox in:title" --json number,title \
+            --jq '[.[] | select(.title == "NOTES inbox")][0].number // empty')
           if [ -z "$num" ]; then
             url=$(gh issue create --title "NOTES inbox" --body "GitHub comments here every time a Claude adds a message to NOTES.md, so Jeff gets an alert. Leave this issue open.")
             num=${url##*/}

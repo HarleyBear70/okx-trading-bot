@@ -13,6 +13,7 @@ on:
 
 permissions:
   contents: write
+  issues: write # trade watcher comments on the "BOT NOTES inbox" issue
 
 concurrency:
   group: sp12-bot
@@ -28,12 +29,14 @@ jobs:
         with:
           python-version: "3.12"
       - name: Run bot
+        id: bot
+        shell: bash # with pipefail, so a failed bot.py still fails this step
         env:
           OKX_API_KEY: ${{ secrets.OKX_API_KEY }}
           OKX_API_SECRET: ${{ secrets.OKX_API_SECRET }}
           OKX_API_PASSPHRASE: ${{ secrets.OKX_API_PASSPHRASE }}
           OKX_BASE_URL: ${{ vars.OKX_BASE_URL }}
-        run: python bot.py ${{ github.event.inputs.mode || 'run' }}
+        run: python bot.py ${{ github.event.inputs.mode || 'run' }} 2>&1 | tee bot_run.log
       - name: Write trade journal (read-only, never trades)
         if: always()
         continue-on-error: true
@@ -44,6 +47,13 @@ jobs:
         if: always()
         continue-on-error: true
         run: python pl_calendar.py
+      - name: Trade watcher (read-only, never trades; writes BOT_NOTES.md)
+        id: watcher
+        if: always()
+        continue-on-error: true
+        env:
+          BOT_OUTCOME: ${{ steps.bot.outcome }}
+        run: python watcher.py
       - name: Save bot memory (state.json, trades.csv, hold_pile.csv, journal, calendar)
         if: always()
         run: |
@@ -52,4 +62,23 @@ jobs:
           git add state.json trades.csv journal 2>/dev/null || true
           if [ -f hold_pile.csv ]; then git add hold_pile.csv; fi
           if [ -f CALENDAR.md ]; then git add CALENDAR.md calendars; fi
+          if [ -f BOT_NOTES.md ]; then git add BOT_NOTES.md; fi
           git diff --cached --quiet || (git commit -m "bot: update state" && git push)
+      - name: Silent alert for new bot notes (@mentions Jeff only for a new ATTENTION)
+        if: always() && steps.watcher.outputs.new != '' && steps.watcher.outputs.new != '0'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OWNER: ${{ github.repository_owner }}
+          ATTN: ${{ steps.watcher.outputs.attention_new }}
+        run: |
+          num=$(gh issue list --state open --search "BOT NOTES inbox in:title" --json number,title \
+            --jq '[.[] | select(.title == "BOT NOTES inbox")][0].number // empty')
+          if [ -z "$num" ]; then
+            url=$(gh issue create --title "BOT NOTES inbox" --body "The trade watcher comments here when it adds notes to BOT_NOTES.md. It only @mentions Jeff for a new ATTENTION. Leave this issue open.")
+            num=${url##*/}
+          fi
+          who=""; [ "$ATTN" = "true" ] && who="@$OWNER ATTENTION. "
+          body=$(printf '%sNew notes in [BOT_NOTES.md](%s/%s/blob/main/BOT_NOTES.md). Tell the Chrome Claude: check the bot notes\n\n%s' \
+            "$who" "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$(head -c 1500 bot_notes_new.md | sed 's/^/> /')")
+          gh issue comment "$num" --body "$body"

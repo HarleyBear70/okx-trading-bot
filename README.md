@@ -1,6 +1,7 @@
 # okx-trading-bot
 
 **Dashboard:** [CALENDAR.md](CALENDAR.md): daily P/L calendar + one strategy card per bot (live vs backtest), updated every hour.
+**Bot notes:** [BOT_NOTES.md](BOT_NOTES.md): the trade watcher (watcher.py, read-only) writes a STATUS / ATTENTION line and short notes on every buy, sell and warning, newest first, every hour. Written for the Chrome Claude.
 
 ## The three piles
 
