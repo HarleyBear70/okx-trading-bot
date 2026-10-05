@@ -315,3 +315,14 @@ N4. Long+short bot: profits on falls too. Backtest only for now. Note whether OK
 N5. Scout: a weekly GitHub Action that runs a fixed battery of tests (the existing bots on new coins, any idea in a research/ideas folder) and writes a short report file. It NEVER changes bot.py or trades. Chrome reads the report and brings proposals to Jeff.
 
 Order: N1, N2, N3, N4, then N5. Post a short result per bot as you go. Passing bots go to demo/paper only, with Jeff's OK. Job 3 (scoreboard) after this, including the new bots.
+
+
+2026-10-05 CHROME: More jobs, Jeff approved. These are HELPER bots that manage the trading bots or the hold pile. Same discipline: plan and pass rules committed first, max 3 variants, both halves, fees in, research first, demo only with Jeff's OK. Do these after N1-N5.
+
+H1. Safety switch (account-level). Watches the COMBINED equity of all bots. If total DD from the peak hits a threshold (test 5/6/8%), every bot's risk halves until equity recovers (test: back to the peak, or halfway). Pass if it cuts combined worst DD without killing return, in both halves.
+H2. Market-mood detector. One daily label per market: trending up / sideways / crash, from simple rules (e.g. BTC vs its 200-day, ADX, volatility). It switches bots on or off: trend bots in up, range bot in sideways, cash in crash. Must beat 'all bots always on' on return per unit of DD. Keep the rules simple, as this is the easiest place to overfit.
+H3. News guard. Pause new entries for X hours around high-impact US events (FOMC, CPI, NFP). Test a few windows. Historical event dates are needed; say if you can't get them free.
+H4. Smart buyer (hold pile). Weekly DCA into BTC and XRP, with extra buys on big dips (e.g. 2x when price is 20%+ below its 200-day). Compare with plain DCA and with a lump sum: cost per coin, final value and DD.
+H5. Profit sweeper. Moves a share of each closed win (test 25/50%) from the trading pile into the hold pile. Report the effect on combined growth and DD.
+
+Also still open for Jeff: add XLM + BNB to v4 (DD 10.2%)? No change until he answers.
