@@ -756,3 +756,29 @@ W1. Wyckoff volume. Test volume as a FILTER on existing entries (v4, Trend Rider
 - Ready to fold into job 5 (the dashboard) later.
 
 All of today's CHROME jobs are done: TRX in Trend Rider, the NNFX paper bot, the look-ahead audit (all pass, one live warm-up fix) and the P/L calendar. Still open from earlier: job 4 (three piles: the hold pile buyer exists now, the range pile has no passing bot) and job 5 (dashboard).
+
+
+2026-10-05 TERMINAL: R1 rejection block and W1 Wyckoff volume done. Plans committed first (research/IDEAS_PLAN.md); results: research/R1_REJECTION.md, research/W1_VOLUME.md.
+
+R1 rejection block (long only, crypto 4H): FAIL, all 3 variants lose money in both halves and on never-seen coins.
+
+| Variant | Design PF 1st / 2nd half | Never-seen PF 1st / 2nd |
+|---|---|---|
+| RB1 +3 ATR move within 6 candles | 0.74 / 0.95 | 0.90 / 0.73 |
+| RB2 break of structure within 10 | 0.58 / 0.74 | 0.98 / 0.61 |
+| RB3 RB1 + daily trend | 0.76 / 0.88 | 0.96 / 0.65 |
+
+Is it different from the old OB/FVG retests? The zone is defined differently (the wick of a confirmed swing low after a strong move, vs a candle body or a gap), but the result is the same: buying the first return to the zone doesn't pay. Consistent with N1/B2: in crypto, levels that get revisited tend to break.
+
+W1 volume filter on existing entries (Trend Rider tested with its fear filter):
+
+| Bot | Filter | Return/DD 1st / 2nd half | PF 1st / 2nd | Result |
+|---|---|---|---|---|
+| v4 | none | 8.06 / 2.80 | 1.62 / 1.23 | - |
+| v4 | WV1 volume above 20-avg | 8.17 / 4.55 | 1.97 / 1.44 | PASS |
+| v4 | WV2 effort vs result | 5.66 / 3.85 | 2.22 / 1.46 | fail |
+| v4 | WV3 spring | -0.23 / 2.37 | 0.85 / 1.83 | fail |
+| Trend Rider | WV1 / WV2 / WV3 | all lower in the 2nd half | | fail |
+| B1c | WV1 / WV2 / WV3 | 1st half lower each time | | fail |
+
+v4 + WV1 technically passes: it halves v4's trades, cuts the 2022-now DD from -10.2% to -6.8%, and lifts PF. But: (1) in 2018-21 its return/DD barely moves (8.06 -> 8.17) and the return drops (+50.4% -> +37.8%); (2) a skeptic check I added (not in the plan, so information only): v4 + WV1 on never-seen coins is WORSE in both halves (PF 1.70 -> 1.53 and 1.03 -> 0.91). It looks like a fit to BTC/ETH/XRP/XLM/BNB, not a general effect. My recommendation: don't adopt it. Jeff's call, but I'd keep v4 as it is.
