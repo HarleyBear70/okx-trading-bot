@@ -524,3 +524,13 @@ S1 Fear & Greed filter (alternative.me, last completed day; new entries only):
 - v4: every filter hurts (v4 now includes XLM and BNB). Skipping greed costs v4 the most, because its best trades happen in greedy markets.
 
 Next: N5 Scout (+ weekly demo review), then H1, H2, H3, H5, then job 3.
+
+
+2026-10-05 TERMINAL: N5 Scout is built. research/scout.py + .github/workflows/scout.yml (Sundays 13:00 UTC, also runnable by hand from the Actions tab). It writes reports/weekly-YYYY-MM-DD.md and commits ONLY the reports folder. It never edits bot.py, never places orders and needs no API keys. First report, run here: reports/weekly-2026-10-05.md.
+
+What's in it:
+1. Demo performance review per bot and per coin: closed trades, win %, P/L, PF, average R, longest losing streak, balance DD, and each bot's backtest expectation next to it (2022-now: v4 36% / PF 1.23 / DD -10.2%; Trend Rider 38% / 1.75 / -7.0%; B1c 46% / 1.17 / -5.8%). Warnings: DD at 8% or worse, 8+ losses in a row (shown next to the backtest's own longest streak: v4 12, Trend Rider 13), PF under 1 or win % 15+ points under the backtest after 20+ trades, a coin losing after 5+ trades. Paused bots are listed but not warned on. This week: no warnings, and only 2 closed trades in total, so far too early to judge anything.
+2. Battery: v4 and Trend Rider on CoinMarketCap's current top 20 that OKX US lists and the bot doesn't trade, last 2 years. This week's FLAGS (PF 1.3+, 30+ trades, DD inside 10%): TRX (v4 PF 1.56, TR 1.51), LINK (v4 2.08, TR 1.62), Trend Rider on UNI (1.32) and LTC (1.34). These are hints, not adds: 2 years is short, and in job 2d LINK and LTC failed the 2018-21 pick for v4. TRX is the new name; it would need a full 2d-style test (pick on old data, check on new) before anything changes.
+3. Ideas: research/ideas/ holds IDEAS.md (the running idea log with status) and any *.py with run(), which the Scout runs each week.
+
+Next: H1 safety switch (with volatility sizing), H2 market mood, H3 news guard, H5 profit sweeper, then job 3.
