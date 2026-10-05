@@ -20,3 +20,10 @@ Step 3, portfolio. The v4 bot as it trades: one $1,000 balance shared by all its
 bot.py's own functions. Compare BTC+ETH+XRP alone vs BTC+ETH+XRP + the coins that passed both steps,
 on 2022-now (the out-of-sample part) and on the full common period: trades, return, max DD, PF.
 Only coins that pass both steps get recommended. No change to bot.py without Jeff's OK.
+
+## TRX (Scout flag, 2026-10-05), written before the test was run
+
+Same rules as above, for TRX, for BOTH v4 and Trend Rider (pivot 5). Data: Binance archive TRXUSDT 4H
+(research/long_history.py). Step 1 pick on data up to 2021-12-31 (30+ trades, PF 1.30+, profit, DD better
+than -10%), step 2 check on 2022-now (PF above 1, profit, DD better than -10%). If TRX passes for a bot,
+step 3 reports that bot as it trades with and without TRX (2022-now and the full common period).
