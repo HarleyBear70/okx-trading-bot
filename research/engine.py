@@ -140,22 +140,27 @@ def tr_sim(data, t0, t1=None, coins=TR_COINS):
     return bot_sim("tr", coins, data, lambda b, d: bot.analyse_tr(b, d, 5), t0, t1, extra=lambda x: {"hi": x["c"]})
 
 
-def trade_sim(coins, data, entries_fn, t0, t1=None, risk=None, max_open=3, fee=None, manage=None):
+def trade_sim(coins, data, entries_fn, t0, t1=None, risk=None, max_open=3, fee=None, manage=None, cooldown=0):
     """New-bot simulator. entries_fn(coin, bars, daily) -> list (per candle) of None or
-    {"stop": px, "target": px or None, "max_bars": n or None}. manage(pos, bars, k) may return a new stop."""
+    {"stop": px, "target": px or None, "max_bars": n or None, "side": 1 (long, default) or -1 (short)}.
+    manage(pos, bars, k) may return a new stop (only ever tightened)."""
     t1, risk, fee = t1 or now(), risk or bot.RISK_PCT, bot.FEE if fee is None else fee
     per = {}
     for c in coins:
         bars, daily = data[c]
         per[c] = (bars, entries_fn(c, bars, daily), {x["ts"]: k for k, x in enumerate(bars)})
     times = sorted({x["ts"] for bars, _, _ in per.values() for x in bars if ms(t0) <= x["ts"] < ms(t1)})
-    eq, pos, trades, curve = 1000.0, {}, [], []
+    eq, pos, trades, curve, last_exit = 1000.0, {}, [], [], {}
 
-    def close(c, px, reason):
+    def close(c, px, reason, k=None):
         nonlocal eq
         p = pos.pop(c)
-        proceeds = p["qty"] * px * (1 - fee)
-        pnl = proceeds - p["cost"]
+        if k is not None:
+            last_exit[c] = k
+        if p["side"] == 1:
+            pnl = p["qty"] * px * (1 - fee) - p["cost"]
+        else:
+            pnl = p["qty"] * p["entry"] * (1 - fee) - p["qty"] * px * (1 + fee)
         eq += pnl
         trades.append({"coin": c, "pnl": pnl, "entry_ts": p["ts"], "reason": reason})
 
@@ -168,29 +173,36 @@ def trade_sim(coins, data, entries_fn, t0, t1=None, risk=None, max_open=3, fee=N
             x = bars[k]
             if c in pos:
                 p = pos[c]
-                if x["l"] <= p["stop"]:
-                    close(c, min(p["stop"], x["o"]), "stop")
-                elif p["target"] and x["h"] >= p["target"]:
-                    close(c, max(p["target"], x["o"]), "target")
+                long_ = p["side"] == 1
+                if (x["l"] <= p["stop"]) if long_ else (x["h"] >= p["stop"]):
+                    close(c, min(p["stop"], x["o"]) if long_ else max(p["stop"], x["o"]), "stop", k)
+                elif p["target"] and ((x["h"] >= p["target"]) if long_ else (x["l"] <= p["target"])):
+                    close(c, max(p["target"], x["o"]) if long_ else min(p["target"], x["o"]), "target", k)
                 elif p["max_bars"] and k - p["k"] >= p["max_bars"]:
-                    close(c, x["c"], "time")
+                    close(c, x["c"], "time", k)
                 elif manage:
                     new = manage(p, bars, k)
                     if new is not None:
-                        p["stop"] = max(p["stop"], new)
-            if c not in pos and ent[k] and len(pos) < max_open and x["c"] > ent[k]["stop"]:
+                        p["stop"] = max(p["stop"], new) if long_ else min(p["stop"], new)
+            if (c not in pos and ent[k] and len(pos) < max_open
+                    and (x["c"] - ent[k]["stop"]) * ent[k].get("side", 1) > 0
+                    and (not cooldown or k - last_exit.get(c, -10 ** 9) > cooldown)):
                 e = ent[k]
                 in_use = sum(p["cost"] for p in pos.values())
-                qty = min(eq * risk / (x["c"] - e["stop"]), max(eq - in_use, 0.0) / x["c"])
+                qty = min(eq * risk / abs(x["c"] - e["stop"]), max(eq - in_use, 0.0) / x["c"])
                 if qty * x["c"] >= 5:
                     pos[c] = {"qty": qty, "cost": qty * x["c"] * (1 + fee), "stop": e["stop"], "target": e.get("target"),
-                              "max_bars": e.get("max_bars"), "k": k, "ts": ts, "entry": x["c"], "hi": x["c"]}
+                              "max_bars": e.get("max_bars"), "k": k, "ts": ts, "entry": x["c"], "hi": x["c"],
+                              "lo": x["c"], "side": e.get("side", 1)}
         mtm = eq
         for c, p in pos.items():
             bars, _, idx = per[c]
             k = idx.get(ts)
             px = bars[k]["c"] if k is not None else p["entry"]
-            mtm += p["qty"] * px * (1 - fee) - p["cost"]
+            if p["side"] == 1:
+                mtm += p["qty"] * px * (1 - fee) - p["cost"]
+            else:
+                mtm += p["qty"] * p["entry"] * (1 - fee) - p["qty"] * px * (1 + fee)
         curve.append((ts, mtm))
     for c in list(pos):
         bars, _, _ = per[c]

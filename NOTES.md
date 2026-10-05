@@ -424,3 +424,35 @@ A note on the portfolio rule (criterion 4): v4+TR together make 15.1 units of re
 - B2 (buying a reclaimed breakdown) worked in 2018-21 and lost badly from 2022 on: breakdowns in 2022-now mostly kept going. Its correlation is near zero, but it loses money.
 
 No bot so far adds to v4+TR. Next: D1 (1H capitulation buy and intraday momentum), plan first.
+
+
+2026-10-05 TERMINAL: D1 day bots and N4 short side: all FAIL. Plans committed first; results: research/D1_DAY.md, research/N4_SHORT.md.
+
+D1 (Binance 1H, 0.15% cost each side = 0.1% taker + 0.05% slippage):
+
+| Variant | Design PF 1st / 2nd half | Design DD 1st / 2nd | Never-seen PF 1st / 2nd | Corr. |
+|---|---|---|---|---|
+| C1 capitulation, drop > 3 sigma | 0.80 / 0.74 | -9.1% / -15.3% | 0.94 / 0.77 | 0.19 |
+| C2 capitulation, drop > 2.5 sigma | 0.68 / 0.79 | -16.9% / -15.3% | 0.92 / 0.95 | 0.22 |
+| C3 capitulation, 3 sigma + BTC above 200-day | 0.90 / 0.75 | -5.0% / -6.2% | 1.10 / 1.13 | 0.20 |
+| I1 intraday, up > 1% by 14:00 UTC | 1.12 / 0.89 | -9.0% / -24.7% | 1.02 / 0.78 | 0.24 |
+| I2 intraday, up > 2% | 1.45 / 0.89 | -4.6% / -13.1% | 1.14 / 0.82 | 0.16 |
+| I3 intraday, up > 1% + BTC above 200-day | 1.17 / 1.02 | -7.8% / -8.9% | 0.95 / 0.77 | 0.21 |
+
+- Capitulation buy loses in both halves: after a 3-sigma 24-hour drop, crypto tends to keep falling over the next 1-2 days more often than it bounces enough to pay the costs.
+- Intraday momentum worked in 2018-21 (I2: +38%, PF 1.45) and stopped working from 2022. It trades a lot (700-1,250 trades per half), so costs matter: at 0.3% round trip, a small edge disappears.
+
+N4 short side (mirrored Trend Rider, backtest only; funding ignored):
+
+| Variant | Design PF 1st / 2nd half | Design DD 1st / 2nd | Never-seen PF 1st / 2nd | Corr. |
+|---|---|---|---|---|
+| X1 pivot 5 | 1.62 / 0.95 | -9.9% / -17.5% | 1.24 / 1.06 | -0.15 |
+| X2 pivot 5, BTC below 200-day | 1.82 / 0.95 | -6.8% / -16.7% | 1.49 / 0.97 | -0.08 |
+| X3 pivot 3 | 1.69 / 0.92 | -11.6% / -24.0% | 1.15 / 1.01 | -0.17 |
+
+The first bot with NEGATIVE correlation to v4+TR (-0.08 to -0.17), which is what a diversifier needs, but from 2022 on it loses slightly on BTC/ETH/XRP (the 2023-26 bull outweighs the 2022 crash) and DD goes past 10%.
+Shorting access: Kraken launched CFTC-regulated perpetual futures for eligible US clients in June 2026 (BTC, ETH, SOL, XRP, ADA, LINK, DOGE, LTC, AVAX), plus spot margin in eligible states. For OKX US I found nothing confirming margin or perps for US accounts. Jeff, please check both accounts.
+
+The pattern across 10 new bots so far (N1-N4, B1-B2, D1): almost every idea worked in 2018-21 and stopped working from 2022 on BTC/ETH/XRP. Only v4 and Trend Rider held up out of sample. That fits published findings that crypto anomalies shrank as the market matured. It's also a good sign that the pass rules are doing their job: no 2018-21-only winner got through.
+
+Remaining queue: B3 pairs, S1 sentiment filter, N5 Scout (with the weekly demo review), H1-H5, job 3.
