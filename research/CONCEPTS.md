@@ -1,18 +1,18 @@
 # Concept test: do Brad's concepts work on your coins?
 
-OKX 4H candles, BTC, ETH, SOL, XRP, DOGE, SUI, BNB, AVAX, ADA. Bullish (buy) side only. Edge = average % move after the concept minus the average % move after any candle. **Real** means the 2-day edge was positive in both halves (Mar 2024 - Jun 2025 and Jul 2025 - now).
+OKX 4H candles, BTC, ETH, SOL, XRP, DOGE, SUI, BNB, AVAX, ADA. Bullish (buy) side only. Edge = average % move after the concept minus the average % move after any candle. **Real** means the 2-day edge was positive in both halves (Mar 2024 - Jun 2025 and Jul 2025 - now) AND passed the shift test: the same signals slid to random times did as well less than 0.5% of the time (p under 0.005).
 
 ## Summary (2-day move)
 
 | Concept | Times seen | Edge 1st half | Edge 2nd half | Up % (all) | Verdict |
 |---|---|---|---|---|---|
-| BOS + daily uptrend | 680 | +0.56% | +0.90% | 50% | **Real** |
-| Break of structure | 1470 | +0.56% | +0.19% | 48% | **Real** |
-| Discount zone (uptrend) | 1113 | -0.61% | +0.59% | 51% | Mixed (works only part of the time) |
-| FVG retest | 3251 | +0.11% | -0.32% | 46% | Mixed (works only part of the time) |
-| Liquidity sweep | 2453 | +0.46% | -0.22% | 54% | Mixed (works only part of the time) |
-| Market shift | 407 | +1.19% | -0.19% | 49% | Mixed (works only part of the time) |
-| Order block retest | 1044 | -0.14% | -0.10% | 46% | No edge |
+| BOS + daily uptrend | 680 | +0.56% | +0.90% | 50% | **Real** (p=0.00) |
+| Break of structure | 1470 | +0.56% | +0.19% | 48% | Weak (could be luck) (p=0.01) |
+| Discount zone (uptrend) | 1113 | -0.61% | +0.59% | 51% | Mixed (works only part of the time) (p=0.62) |
+| FVG retest | 3251 | +0.11% | -0.32% | 46% | Mixed (works only part of the time) (p=0.83) |
+| Liquidity sweep | 2453 | +0.46% | -0.22% | 54% | Mixed (works only part of the time) (p=0.32) |
+| Market shift | 407 | +1.19% | -0.19% | 49% | Mixed (works only part of the time) (p=0.07) |
+| Order block retest | 1044 | -0.14% | -0.10% | 46% | No edge (p=0.73) |
 
 ## Detail by time after the signal
 
@@ -50,5 +50,5 @@ OKX 4H candles, BTC, ETH, SOL, XRP, DOGE, SUI, BNB, AVAX, ADA. Bullish (buy) sid
 ## How to read this
 
 - A positive edge means price tended to rise more than usual after the concept appeared.
-- **Real** = positive in both halves and bigger than normal noise. **Mixed** = worked in one half only, which usually means luck or a change in the market.
+- **Real** = positive in both halves and passed the shift test (p under 0.005). p = chance that luck alone did this well. **Mixed** = worked in one half only, which usually means luck or a change in the market.
 - This tests each concept on its own. A concept with no edge alone can still help as a filter together with others (that is what the bots do).

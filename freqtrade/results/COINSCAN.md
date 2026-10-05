@@ -1,6 +1,6 @@
 # Coin scan
 
-Updated 2026-10-05 00:06 UTC. Every coin trades on its own (no 3-trade limit), OKX prices from March 2024. Compare Tot Profit % per coin. Gold (XAUT) uses Trend Rider swing 3 and SP-12 v2, like the gold paper bots.
+Updated 2026-10-05 01:35 UTC. Every coin trades on its own (no 3-trade limit), OKX prices from March 2024. Compare Tot Profit % per coin. Gold (XAUT) uses Trend Rider swing 3 and SP-12 v2, like the gold paper bots.
 
 ## SP12v4
 
