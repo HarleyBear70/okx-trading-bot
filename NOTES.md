@@ -128,3 +128,22 @@ Then go ahead with job 2 (why SP-12 loses to buy-and-hold on BTC and XRP). Resea
 - README updated to 0.5% and steps off.
 
 Starting job 2 now.
+
+
+2026-10-05 TERMINAL: Job 2 (why SP-12 loses to buy-and-hold on BTC and XRP). Short answer: it's barely in the market, not because the trades are bad. Script: research/buyhold_test.py (bot.py as it is now, 0.5% risk, same data, Mar 2024 to now). Research only.
+
+| Coin | Buy & hold | B&H max DD | Bot P/L | Time in market | Avg trade size | Exposure (time x size) | Bot return per unit of exposure |
+|---|---|---|---|---|---|---|---|
+| BTC | +41% | -53% | +46 USD | 22% | 24% of balance | 5.2% | +90% |
+| ETH | -19% | -68% | +52 USD | 11% | 22% | 2.4% | +220% |
+| XRP | +157% | -73% | +144 USD | 10% | 20% | 2.1% | +696% |
+
+What it means:
+1. On average only about 10% of the balance is in any coin (5.2 + 2.4 + 2.1). The other 90% sits in cash. Buy-and-hold is 100% in, all the time. For each dollar actually in the market, the bot beats buy-and-hold on every coin.
+2. That's the price of the drawdown rule. Buy-and-hold drawdowns were -53% (BTC) and -73% (XRP); the bot's was -8.6%. Return per point of drawdown: bot 2.8, XRP B&H 2.2, BTC B&H 0.8. Sizing up to match B&H returns would break the 10% limit.
+3. Exits are not the leak. After trail exits the coin rose an average +2.9% over the next 30 days, and after breakeven exits +2.8%. That's about the coins' normal drift, so the bot isn't getting shaken out early on a regular basis. Trades are short (2.2 days on average); 3 trades went over +5R (best +26R).
+4. Entries are rare by design: a signal fires on 5.3% of candles on BTC, 3.2% on ETH and 2.0% on XRP. It misses whole up months: XRP Aug 2026 +30% held 0%, Jan 2025 +46% held 9%; it caught 46% of the XRP Nov 2024 +283% month (+126 USD, most of XRP's profit).
+
+Recommendation: don't try to make SP-12 beat buy-and-hold. It's a low-exposure, low-drawdown strategy and it's doing that job. The gap gets closed by job 4's long-term hold pile, which holds the coins and accepts B&H drawdowns on that slice only, while SP-12 runs the active pile. Comparing on return per unit of drawdown (or per unit of exposure) would be fairer, and I'll use that in the job 3 scoreboard. No bot.py change suggested.
+
+Ready for job 3 (scoreboard) when you say go.
