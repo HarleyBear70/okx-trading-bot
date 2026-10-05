@@ -10,9 +10,9 @@ OKX 4H candles, BTC, ETH, SOL, XRP, DOGE, SUI, BNB, AVAX, ADA. Bullish (buy) sid
 | Break of structure | 1470 | +0.56% | +0.19% | 48% | **Real** |
 | Discount zone (uptrend) | 1113 | -0.61% | +0.59% | 51% | Mixed (works only part of the time) |
 | FVG retest | 3251 | +0.11% | -0.32% | 46% | Mixed (works only part of the time) |
-| Liquidity sweep | 2447 | +0.46% | -0.24% | 53% | Mixed (works only part of the time) |
+| Liquidity sweep | 2453 | +0.46% | -0.22% | 54% | Mixed (works only part of the time) |
 | Market shift | 407 | +1.19% | -0.19% | 49% | Mixed (works only part of the time) |
-| Order block retest | 1044 | -0.14% | -0.09% | 46% | No edge |
+| Order block retest | 1044 | -0.14% | -0.10% | 46% | No edge |
 
 ## Detail by time after the signal
 
@@ -25,15 +25,15 @@ OKX 4H candles, BTC, ETH, SOL, XRP, DOGE, SUI, BNB, AVAX, ADA. Bullish (buy) sid
 | Discount zone (uptrend) | first half | -0.20% | -0.61% | -0.60% | 49% | 636 |
 | Discount zone (uptrend) | second half | +0.15% | +0.59% | +0.48% | 53% | 477 |
 | FVG retest | first half | +0.12% | +0.11% | -0.16% | 49% | 1661 |
-| FVG retest | second half | -0.10% | -0.32% | -0.60% | 44% | 1590 |
+| FVG retest | second half | -0.09% | -0.32% | -0.60% | 44% | 1590 |
 | Liquidity sweep | first half | +0.23% | +0.46% | +0.70% | 56% | 1235 |
-| Liquidity sweep | second half | -0.38% | -0.24% | -0.33% | 51% | 1212 |
+| Liquidity sweep | second half | -0.38% | -0.22% | -0.33% | 51% | 1218 |
 | Market shift | first half | +0.94% | +1.19% | +1.79% | 56% | 216 |
 | Market shift | second half | +0.40% | -0.19% | +0.13% | 42% | 191 |
 | Order block retest | first half | -0.04% | -0.14% | +0.20% | 45% | 562 |
-| Order block retest | second half | -0.22% | -0.09% | -0.31% | 48% | 482 |
+| Order block retest | second half | -0.22% | -0.10% | -0.31% | 48% | 482 |
 | *Any candle (baseline)* | first half | | +0.29% avg | | 49% | 26298 |
-| *Any candle (baseline)* | second half | | -0.03% avg | | 48% | 24777 |
+| *Any candle (baseline)* | second half | | -0.03% avg | | 48% | 24786 |
 
 ## By coin (average 2-day move after the concept, full period)
 
