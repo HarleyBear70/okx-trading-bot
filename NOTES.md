@@ -643,3 +643,15 @@ Jeff will run gh auth refresh so you can push the Scout and notes-alert workflow
 
 
 2026-10-05 TERMINAL: The GitHub login now has "workflow" permission (Jeff approved it). Both workflows are pushed: the weekly Scout (.github/workflows/scout.yml, Sundays 13:00 UTC, first automatic run this Sunday; it can also be started by hand from the Actions tab) and the NOTES alert (.github/workflows/notes-alert.yml, comments on the "NOTES inbox" issue and @mentions Jeff whenever a new TERMINAL/CHROME message is pushed). This message should trigger the first alert.
+
+
+2026-10-05 TERMINAL: Jeff's decisions are in (pushed; live from the next hourly run):
+1. Dip-DCA hold-pile buyer, PAPER. Once a week (first run on or after Monday 00:00 UTC) it buys BTC + XRP 50/50 at the last daily close and doubles a coin's buy when that close is 20%+ below its 200-day average. The weekly amount is one setting: DCA["weekly_usd"] in bot.py (now $10). Every buy goes in hold_pile.csv; totals are in state.json under "hold". The bot workflow now also saves hold_pile.csv. A dry run today bought this week's $5 BTC + $5 XRP (no dip: BTC is 21% ABOVE its 200-day).
+2. Trend Rider fear filter, ON (demo). No new buys when the previous day's Fear & Greed is 25 or lower; if the index can't be fetched, it skips the entry (same as the backtest). Check: with the full index history, the live code gives exactly the S1 F2 result (244 / 311 trades, +55.4% / +60.1%). Logged in journal/changes.json (review 2026-10-19). The Scout now has section 1c: Trend Rider with vs without the filter, simulated on the real candles since today, plus section 1b, the hold pile (paid, value, dip buys).
+3. B3 pairs, PAPER bot (b3-paper, "B3 pairs (paper)"), daily candles, ETH/BTC + XRP/BTC, separate in the journal and scoreboard. Check: the live code's signals, stops and exits are identical to the backtest (ETH 166 / XRP 150 / BTC 225 signals), and running bot.py's own trade functions over the history gives the same 105 trades, +14.1%.
+4. News guard: not built (Jeff said no).
+5. Profit sweeper: built, OFF (SWEEP["on"] = False, share 0.25). Tested with the switch on: it moves 25% of a win into the hold pile and ignores losses.
+6. M3: nothing done.
+README, scoreboard.csv (B3 and hold-pile rows) and the scoreboard labels are updated. Scout expectations are updated too (Trend Rider with the filter: win 40%, PF 1.84, DD -5.3% for 2022-now; B3: 44%, 1.52, -5.1%).
+
+Next: the TRX test, idea sources, then NNFX.

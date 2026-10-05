@@ -32,7 +32,8 @@ STABLE = {"USDT", "USDC", "BUSD", "DAI", "TUSD", "UST", "USDe", "USD1", "WBTC", 
 EXPECTED = {
     "v4-okx": {"win": 36, "pf": 1.23, "dd": -10.2, "streak": 12, "src": "research/COINS.md"},
     "v4-kraken": {"win": 36, "pf": 1.23, "dd": -9.9, "streak": 10, "src": "research/VOL.md"},
-    "tr-okx": {"win": 38, "pf": 1.75, "dd": -7.0, "streak": 13, "src": "research/S1_SENTIMENT.md"},
+    "tr-okx": {"win": 40, "pf": 1.84, "dd": -5.3, "streak": 10, "src": "research/S1_SENTIMENT.md (with fear filter)"},
+    "b3-paper": {"win": 44, "pf": 1.52, "dd": -5.1, "streak": 10, "src": "research/B3_PAIRS.md (P3)"},
     "b1-paper": {"win": 46, "pf": 1.17, "dd": -5.8, "streak": None, "src": "research/B_BOXES.md"},
 }
 
@@ -123,6 +124,71 @@ def review():
     return lines
 
 
+# ───────── 1b. hold pile and Trend Rider's fear filter ─────────
+FEAR_SINCE = dt.datetime(2026, 10, 5, tzinfo=UTC)  # filter switched on (journal/changes.json)
+
+
+def hold_pile():
+    lines = ["## 1b. Hold pile (paper dip-DCA buyer)", ""]
+    hp = load_json(os.path.join(ROOT, "state.json"), {}).get("hold")
+    if not hp or not hp.get("units"):
+        return lines + ["No hold-pile buys yet.", ""]
+    api = bot.OKX("", "", "")
+    lines += ["| Coin | Units | Paid | Avg price | Price now | Value | Gain |", "|---|---|---|---|---|---|---|"]
+    tot_paid = tot_val = 0.0
+    for coin, units in hp["units"].items():
+        paid = hp["spent"].get(coin, 0.0)
+        try:
+            px = float(api.get("/api/v5/market/ticker", {"instId": coin})[0]["last"])
+        except Exception:
+            px = None
+        val = units * px if px else None
+        tot_paid += paid
+        tot_val += val or 0.0
+        lines.append(f"| {coin} | {units:.8g} | ${paid:,.2f} | {fmt(paid / units if units else None, '{:.6g}')} | "
+                     f"{fmt(px, '{:.6g}')} | {fmt(val, '${:,.2f}')} | {fmt((val / paid - 1) * 100 if val and paid else None, '{:+.1f}%')} |")
+    dips = 0
+    try:
+        with open(os.path.join(ROOT, "hold_pile.csv")) as f:
+            dips = sum(1 for r in csv.DictReader(f) if r.get("dip") == "True")
+    except FileNotFoundError:
+        pass
+    lines += ["", f"Total paid ${tot_paid:,.2f}, worth ${tot_val:,.2f}. Double (dip) buys so far: {dips}. "
+              f"Last buy week: {hp.get('last_week')}.", ""]
+    return lines
+
+
+def fear_compare():
+    """Trend Rider since the fear filter went on, simulated both ways on the real OKX candles."""
+    lines = ["## 1c. Trend Rider with vs without the fear filter (since 2026-10-05)", ""]
+    api = bot.OKX("", "", "")
+    trb = next(b for b in bot.BOTS if b["id"] == "tr-okx")
+    days = (dt.datetime.now(UTC) - FEAR_SINCE).days + 1
+    data = {}
+    for inst in trb["coins"]:
+        c = inst.split("-")[0]
+        raw4 = api.candles(inst, "4H", (days + 90) * 6)
+        rawd = api.candles(inst, "1Dutc", days + 120)
+        data[c] = ([x for x in raw4 if x["confirm"]], [x for x in rawd if x["confirm"]])
+    raw = json.loads(urllib.request.urlopen("https://api.alternative.me/fng/?limit=0&format=json", timeout=60).read())
+    bot._fng["v"] = {bot.day_of(int(x["timestamp"]) * 1000): int(x["value"]) for x in raw["data"]}
+    coins = list(data)
+
+    def with_filter(bars, daily):
+        a = bot.analyse_tr(bars, daily, 5)
+        return {**a, "signal": [s and not bot.fear_blocks(trb, b) for s, b in zip(a["signal"], bars)]}
+    res = {"with filter (live setting)": e.bot_sim("tr", coins, data, with_filter, FEAR_SINCE, extra=lambda x: {"hi": x["c"]}),
+           "without filter": e.bot_sim("tr", coins, data, lambda b, d: bot.analyse_tr(b, d, 5), FEAR_SINCE,
+                                       extra=lambda x: {"hi": x["c"]})}
+    lines += ["| Version | Trades | Win % | Return | Max DD | PF |", "|---|---|---|---|---|---|"]
+    for name, r in res.items():
+        lines.append(f"| {name} | {r['trades']} | {r['win']:.0f}% | {r['ret']:+.2f}% | {r['dd']:.1f}% | {fmt(r['pf'])} |")
+    blocked = sum(1 for d, v in bot._fng["v"].items() if v <= 25 and d >= bot.day_of(e.ms(FEAR_SINCE)))
+    lines += ["", f"Days at or below 25 (extreme fear) since the change: {blocked}. Simulated on the real candles, "
+              "same code the demo bot runs.", ""]
+    return lines
+
+
 # ───────── 2. battery: existing bots on new coins ─────────
 def latest_top20():
     day = dt.datetime.now(UTC).date()
@@ -204,7 +270,7 @@ def main():
     lines = [f"# Weekly Scout report {today}", "",
              "Read-only: this report never changes a bot. Chrome reads it and brings proposals to Jeff; anything new "
              "still goes through a plan-first backtest.", ""]
-    for part in (review, battery, ideas):
+    for part in (review, hold_pile, fear_compare, battery, ideas):
         try:
             lines += part()
         except Exception:

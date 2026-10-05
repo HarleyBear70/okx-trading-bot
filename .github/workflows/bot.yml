@@ -40,10 +40,11 @@ jobs:
         env:
           OKX_BASE_URL: ${{ vars.OKX_BASE_URL }}
         run: python journal.py
-      - name: Save bot memory (state.json, trades.csv, journal)
+      - name: Save bot memory (state.json, trades.csv, hold_pile.csv, journal)
         if: always()
         run: |
           git config user.name "sp12-bot"
           git config user.email "sp12-bot@users.noreply.github.com"
           git add state.json trades.csv journal 2>/dev/null || true
+          if [ -f hold_pile.csv ]; then git add hold_pile.csv; fi
           git diff --cached --quiet || (git commit -m "bot: update state" && git push)

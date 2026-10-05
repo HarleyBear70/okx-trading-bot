@@ -36,6 +36,13 @@ RISK_PCT = 0.005  # every bot risks 0.5% of its balance per trade (was 1%; chang
 RISK_STEPS = [(0.50, 0.02), (0.25, 0.015), (0.10, 0.0125)]  # balance up 50% -> 2%, up 25% -> 1.5%, up 10% -> 1.25%
 RISK_STEPS_ON = False  # stepping risk up is off for now (Oct 5 2026); set True to turn it back on
 MAX_OPEN = 3  # no more than 3 trades open at once per bot
+FNG_URL = "https://api.alternative.me/fng/?limit=10&format=json"  # Crypto Fear & Greed Index (free, no key)
+# Hold-pile buyer (Jeff, Oct 5 2026): every week buy BTC + XRP; double a coin's buy when its last daily close is
+# 20%+ below its 200-day average. PAPER until Jeff goes live; he sets the real weekly amount then.
+DCA = {"on": True, "mode": "paper", "weekly_usd": 10.0, "coins": {"BTC-USDT": 0.5, "XRP-USDT": 0.5},
+       "dip_below_200d": 0.20, "dip_mult": 2.0}
+# Profit sweeper (Jeff, Oct 5 2026): a share of every winning sale moves to the hold pile. OFF until real money.
+SWEEP = {"on": False, "share": 0.25}
 BE_BUFFER = 2 * FEE  # breakeven stop sits just above entry so fees are covered
 
 BOTS = [
@@ -50,9 +57,13 @@ BOTS = [
     {"id": "v2-gold", "name": "SP-12 v2 (gold paper)", "strat": "v2", "venue": "okx", "mode": "paper",
      "coins": ["XAUT-USDT"], "equity": 1000.0, "new_trades": False},  # paused Oct 5 2026 with SP-12 v2
     {"id": "tr-okx", "name": "Trend Rider", "strat": "tr", "venue": "okx", "mode": "demo", "prefix": "ghT",
-     "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "BNB-USDT", "SUI-USDT"], "equity": 1000.0, "pivot": 5},  # BNB, SUI added Oct 5 (passed backtest)
+     "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "BNB-USDT", "SUI-USDT"], "equity": 1000.0, "pivot": 5,
+     "fear_skip_at_or_below": 25},  # no new buys when Fear & Greed <= 25 (added Oct 5 2026, research/S1_SENTIMENT.md)  # BNB, SUI added Oct 5 (passed backtest)
     {"id": "b1-paper", "name": "B1c breakout retest (paper)", "strat": "b1", "venue": "okx", "mode": "paper",
      "coins": ["BTC-USDT", "ETH-USDT", "XRP-USDT"], "equity": 1000.0},  # forward test from Oct 5 2026 (research/B_BOXES.md)
+    {"id": "b3-paper", "name": "B3 pairs (paper)", "strat": "pairs", "venue": "okx", "mode": "paper",
+     "coins": ["ETH-USDT", "XRP-USDT", "BTC-USDT"], "equity": 1000.0,
+     "pairs": ["ETH-USDT", "XRP-USDT"]},  # forward test from Oct 5 2026 (research/B3_PAIRS.md, variant P3)
     {"id": "tr-gold", "name": "Trend Rider (gold paper)", "strat": "tr", "venue": "okx", "mode": "paper",
      "coins": ["XAUT-USDT"], "equity": 1000.0, "pivot": 3,
      "new_trades": False},  # paused Oct 5 2026: weak in long-history test, repair failed (research/REPAIR_gold.md)
@@ -61,6 +72,7 @@ BOTS = [
 HERE = os.path.dirname(os.path.abspath(__file__))
 STATE_FILE = os.path.join(HERE, "state.json")
 TRADES_FILE = os.path.join(HERE, "trades.csv")
+HOLD_FILE = os.path.join(HERE, "hold_pile.csv")
 
 
 def log(*a):
@@ -451,6 +463,56 @@ def analyse_b1(bars):
     return {"signal": signal, "info": info}
 
 
+# ───────── B3 pairs (daily candles, paper forward test) ─────────
+PAIRS_SETTINGS = {"n": 60, "entry": 2.5, "exit": 0.5, "max_bars": 30, "atr_mult": 2.0}
+
+
+def pair_z(alt_daily, btc_daily, n):
+    """{day ts: z-score of log(alt / BTC) vs its previous n days}."""
+    a = {d["ts"]: d["c"] for d in alt_daily}
+    b = {d["ts"]: d["c"] for d in btc_daily}
+    days = sorted(set(a) & set(b))
+    sp = [math.log(a[d] / b[d]) for d in days]
+    z = {}
+    for i in range(n, len(days)):
+        w = sp[i - n:i]
+        m = sum(w) / n
+        sd = math.sqrt(sum((x - m) ** 2 for x in w) / (n - 1))
+        if sd > 0:
+            z[days[i]] = (sp[i] - m) / sd
+    return z
+
+
+def analyse_pairs(coin, bars, btc_daily, alt_dailies):
+    """Hold the lagging leg: buy the alt when its spread vs BTC is 2.5 sd below normal, buy BTC when an alt's
+    spread is 2.5 sd above. Exit when the spread is back within 0.5 sd (a["exit"][alt][i]), after 30 days,
+    or at a 2 x daily ATR stop. `bars` are this coin's daily candles; alt_dailies = {alt: daily candles}."""
+    cfg = PAIRS_SETTINGS
+    zs = {alt: pair_z(d, btc_daily, cfg["n"]) for alt, d in alt_dailies.items()}
+    h, l, c = [b["h"] for b in bars], [b["l"] for b in bars], [b["c"] for b in bars]
+    at = atr(h, l, c, 14)
+    n = len(bars)
+    signal, info = [False] * n, [None] * n
+    exit_ = {alt: [False] * n for alt in zs}
+    for k, b in enumerate(bars):
+        for alt, z in zs.items():
+            v = z.get(b["ts"])
+            exit_[alt][k] = v is not None and abs(v) < cfg["exit"]
+        if at[k] is None:
+            continue
+        for alt, z in zs.items():
+            v = z.get(b["ts"])
+            if v is None:
+                continue
+            if (coin == alt and v < -cfg["entry"]) or (coin != alt and coin not in zs and v > cfg["entry"]):
+                sl = c[k] - cfg["atr_mult"] * at[k]
+                signal[k] = True
+                info[k] = {"score": f"z {v:+.2f} {alt.split('-')[0]}/BTC", "raw_risk": (c[k] - sl) / c[k] * 100,
+                           "sl": sl, "tp": None, "tag": alt}
+                break
+    return {"signal": signal, "info": info, "exit": exit_}
+
+
 # ───────── Trend Rider ─────────
 def analyse_tr(bars, daily, L):
     h = [b["h"] for b in bars]; l = [b["l"] for b in bars]; c = [b["c"] for b in bars]; n = len(bars)
@@ -654,6 +716,7 @@ def close_position(api, bot, bs, coin, reason, paper_px):
     log(f"  SELL {coin} {filled:.8g} @ {px:.6g} ({reason}) P/L {pnl:+.2f} ({pct:+.2f}%)")
     log_trade(bot, coin, "sell", filled, px, proceeds, pnl, pct, reason, bs["equity"])
     bs["positions"].pop(coin)
+    sweep_profit(api, bot, bs, pnl)
 
 
 def stop_reason(pos):
@@ -684,6 +747,7 @@ def take_half(api, bot, bs, coin, paper_px):
     pos["cost"] -= part_cost
     log(f"  HALF {coin} {filled:.8g} @ {px:.6g} (+2R) P/L {pnl:+.2f} ({pct:+.2f}%)")
     log_trade(bot, coin, "sell", filled, px, proceeds, pnl, pct, "half profit +2R", bs["equity"])
+    sweep_profit(api, bot, bs, pnl)
 
 def check_hit(api, bot, bs, coin, bar):
     """Did this candle touch the resting stop / target? Returns True if the trade was closed."""
@@ -718,17 +782,107 @@ def manage_on_close(api, bot, bs, coin, a, i, bar, bars_in):
         pos["limit"] = None if trail else pos["tp"]
     elif bot["strat"] == "b1":
         pass  # fixed stop and target, as backtested
+    elif bot["strat"] == "pairs":
+        if a["exit"].get(pos.get("tag"), [False] * (i + 1))[i]:
+            close_position(api, bot, bs, coin, "spread back to normal", bar["c"])
+            return True
     elif bot["strat"] == "tr":
         pos["hi"] = max(pos["hi"] or bar["c"], bar["c"])
         trail_stop = pos["hi"] - 3 * a["atr"][i] if a["atr"][i] is not None else be_floor
         pos["stop"] = max(pos["stop"], be_floor, trail_stop)
     else:
         pos["stop"] = max(pos["stop"], be_floor)
-    max_bars = (B1_SETTINGS if bot["strat"] == "b1" else SP_SETTINGS.get(bot["strat"], {})).get("max_bars")
+    max_bars = {"b1": B1_SETTINGS, "pairs": PAIRS_SETTINGS}.get(bot["strat"], SP_SETTINGS.get(bot["strat"], {})).get("max_bars")
     if max_bars and bars_in >= max_bars:
         close_position(api, bot, bs, coin, "time exit", bar["c"])
         return True
     return False
+
+
+# ───────── Fear & Greed filter, hold-pile buyer, profit sweeper ─────────
+_fng = {}
+
+
+def fear_greed():
+    """{day number: index value}, fetched once per run; {} if the API can't be reached."""
+    if "v" not in _fng:
+        try:
+            with urllib.request.urlopen(urllib.request.Request(FNG_URL, headers={"User-Agent": "sp12-bot"}),
+                                        timeout=20) as r:
+                _fng["v"] = {day_of(int(x["timestamp"]) * 1000): int(x["value"]) for x in json.loads(r.read())["data"]}
+        except Exception as e:
+            log(f"Fear & Greed fetch failed: {e}")
+            _fng["v"] = {}
+    return _fng["v"]
+
+
+def fear_blocks(bot, bar):
+    """True if the bot has a fear filter and the previous day's index is at/below it (or unknown), as backtested."""
+    limit = bot.get("fear_skip_at_or_below")
+    if limit is None:
+        return False
+    v = fear_greed().get(day_of(bar["ts"]) - 1)
+    return v is None or v <= limit
+
+
+def hold_log(row):
+    new = not os.path.exists(HOLD_FILE)
+    with open(HOLD_FILE, "a", newline="") as f:
+        w = csv.writer(f)
+        if new:
+            w.writerow(["time_utc", "mode", "kind", "coin", "usd", "price", "units", "dip", "sma200",
+                        "coin_units_total", "coin_spent_total"])
+        w.writerow(row)
+
+
+def hold_buy(state, coin, usd, px, kind, dip=False, sma200=None):
+    """Paper buy for the hold pile (fee included), logged to hold_pile.csv."""
+    hp = state.setdefault("hold", {"units": {}, "spent": {}, "last_week": None})
+    units = usd / (1 + FEE) / px
+    hp["units"][coin] = hp["units"].get(coin, 0.0) + units
+    hp["spent"][coin] = hp["spent"].get(coin, 0.0) + usd
+    hold_log([now_iso(), DCA["mode"], kind, coin, round(usd, 2), f"{px:.8g}", f"{units:.8g}", dip,
+              "" if sma200 is None else f"{sma200:.8g}", f"{hp['units'][coin]:.8g}", round(hp["spent"][coin], 2)])
+    return units
+
+
+def run_dca(api, state):
+    """Once per ISO week (first run on or after Monday 00:00 UTC): buy each coin's share of the weekly amount at the
+    last completed daily close; double it when that close is 20%+ below the 200-day average."""
+    if not DCA["on"]:
+        return
+    week = dt.datetime.now(dt.timezone.utc).strftime("%G-W%V")
+    hp = state.setdefault("hold", {"units": {}, "spent": {}, "last_week": None})
+    if hp.get("last_week") == week:
+        return
+    for coin, w in DCA["coins"].items():
+        daily = [d for d in api.candles(coin, "1Dutc", 210) if d["confirm"]]
+        if len(daily) < 200:
+            log(f"[Hold pile] {coin}: not enough daily candles for the 200-day average - skipped this week")
+            continue
+        px = daily[-1]["c"]
+        sma200 = sum(d["c"] for d in daily[-200:]) / 200
+        dip = px <= (1 - DCA["dip_below_200d"]) * sma200
+        usd = DCA["weekly_usd"] * w * (DCA["dip_mult"] if dip else 1)
+        units = hold_buy(state, coin, usd, px, "weekly DCA", dip, sma200)
+        log(f"[Hold pile] {coin}: bought {units:.8g} for {usd:.2f} @ {px:.6g}{' (DIP x2)' if dip else ''} "
+            f"| 200-day {sma200:.6g}")
+    hp["last_week"] = week
+
+
+def sweep_profit(api, bot, bs, pnl):
+    """If SWEEP is on: move a share of a winning sale out of the bot's balance into the hold pile (paper)."""
+    if not SWEEP["on"] or api is None or pnl is None or pnl <= 0 or "_state" not in _hold_ctx:
+        return
+    amt = SWEEP["share"] * pnl
+    bs["equity"] = round(bs["equity"] - amt, 4)
+    for coin, w in DCA["coins"].items():
+        px = float(api.get("/api/v5/market/ticker", {"instId": coin})[0]["last"])
+        hold_buy(_hold_ctx["_state"], coin, amt * w, px, f"sweep from {bot['name']}")
+    log(f"  SWEEP {amt:.2f} of the {pnl:.2f} profit to the hold pile")
+
+
+_hold_ctx = {}
 
 
 # ───────── Market data (cached per run) ─────────
@@ -740,6 +894,9 @@ def get_data(api, venue, coin, tf="4H"):
     if key not in _data:
         if tf == "1H":
             raw4, rawd = api.candles(coin, "1H", 400), []
+        elif tf == "1D":
+            raw4 = api.candles(coin, "1Dutc", 220)
+            rawd = raw4
         elif venue == "kraken":
             raw4, rawd = kraken_candles(coin, 240), kraken_candles(coin, 1440)
         else:
@@ -752,9 +909,13 @@ def get_data(api, venue, coin, tf="4H"):
 
 
 def run_bot_coin(api, state, bot, coin, trade=True):
-    bars, forming, daily = get_data(api, bot["venue"], coin, "1H" if bot["strat"] == "b1" else "4H")
+    tf = {"b1": "1H", "pairs": "1D"}.get(bot["strat"], "4H")
+    bars, forming, daily = get_data(api, bot["venue"], coin, tf)
     if bot["strat"] == "b1":
         a = analyse_b1(bars)
+    elif bot["strat"] == "pairs":
+        btc = get_data(api, bot["venue"], "BTC-USDT", "1D")[0]
+        a = analyse_pairs(coin, bars, btc, {alt: get_data(api, bot["venue"], alt, "1D")[0] for alt in bot["pairs"]})
     elif bot["strat"] == "tr":
         a = analyse_tr(bars, daily, bot.get("pivot", 5))
     else:
@@ -763,7 +924,7 @@ def run_bot_coin(api, state, bot, coin, trade=True):
     i_last = len(bars) - 1
     inf = a["info"][i_last]
     pos = bs["positions"].get(coin)
-    log(f"[{bot['name']}] {coin}: {'1H' if bot['strat'] == 'b1' else '4H'} {ts_iso(bars[i_last]['ts'])} close {bars[i_last]['c']:.6g}"
+    log(f"[{bot['name']}] {coin}: {tf} {ts_iso(bars[i_last]['ts'])} close {bars[i_last]['c']:.6g}"
         + (f" | score {inf['score']} risk {inf['raw_risk']:.2f}% signal={a['signal'][i_last]}" if inf else "")
         + (f" | OPEN from {pos['entry_px']:.6g}, stop {pos['stop']:.6g}" if pos else ""))
     if not trade:
@@ -783,8 +944,13 @@ def run_bot_coin(api, state, bot, coin, trade=True):
                 bars_in = k - idx[p["entry_ts"]] if p["entry_ts"] in idx else (b["ts"] - p["entry_ts"]) // H4_MS
                 manage_on_close(api, bot, bs, coin, a, k, b, bars_in)
         if coin not in bs["positions"] and a["signal"][k] and k == i_last and bot.get("new_trades", True):
-            extra = {"hi": b["c"]} if bot["strat"] == "tr" else ({"no_half": True} if bot["strat"] == "b1" else {})
-            open_position(api, bot, bs, coin, b, a["info"][k], extra)
+            if fear_blocks(bot, b):
+                log(f"  {coin}: signal skipped - Fear & Greed at or below {bot['fear_skip_at_or_below']} (or unavailable)")
+            else:
+                extra = {"hi": b["c"]} if bot["strat"] == "tr" else (
+                    {"no_half": True} if bot["strat"] == "b1" else (
+                        {"no_half": True, "tag": a["info"][k]["tag"]} if bot["strat"] == "pairs" else {}))
+                open_position(api, bot, bs, coin, b, a["info"][k], extra)
         bs["last_bar"][coin] = b["ts"]
 
     if coin in bs["positions"] and forming and forming["ts"] > bs["positions"][coin]["entry_ts"]:
@@ -810,6 +976,12 @@ def main():
         return
 
     have_keys = bool(key and sec and pw)
+    _hold_ctx["_state"] = state
+    try:
+        run_dca(api, state)
+    except Exception as e:
+        log(f"[Hold pile] ERROR {e}")
+    save_state(state)
     errors = total = 0
     for bot in BOTS:
         if bot["mode"] == "demo" and not have_keys:

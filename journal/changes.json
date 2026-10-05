@@ -43,5 +43,41 @@
   "approved_by": "Jeff (paper)",
   "review_on": "2026-10-19",
   "review": "Forward trades vs backtest: win %, avg R, PF."
+ },
+ {
+  "date_utc": "2026-10-05",
+  "bots": "Trend Rider (tr-okx, demo)",
+  "change": "Fear filter on: no new buys when the previous day's Crypto Fear & Greed Index is 25 or lower (or unavailable). Exits unchanged.",
+  "why": "S1 (research/S1_SENTIMENT.md): return/DD 9.60 -> 10.08 (2018-21) and 8.14 -> 11.30 (2022-now), PF up in both halves. Live code reproduces the backtest exactly.",
+  "approved_by": "Jeff (demo)",
+  "review_on": "2026-10-19",
+  "review": "Weekly Scout section 1c: Trend Rider with vs without the filter on the real candles since this date."
+ },
+ {
+  "date_utc": "2026-10-05",
+  "bots": "B3 pairs (b3-paper), new",
+  "change": "New PAPER bot: ETH/BTC and XRP/BTC daily spread, hold the lagging leg at |z| > 2.5 (60 days), exit at |z| < 0.5, 30 days or 2 x ATR stop.",
+  "why": "research/B3_PAIRS.md P3: PF 1.51 / 1.52 in both halves, never-seen PF 1.92 / 1.61, DD about -5%. Live signals and trade results identical to the backtest (105 trades, +14.1%).",
+  "approved_by": "Jeff (paper)",
+  "review_on": "2026-10-19",
+  "review": "Forward trades vs backtest (win 44%, PF 1.52, DD -5.1% for 2022-now)."
+ },
+ {
+  "date_utc": "2026-10-05",
+  "bots": "Hold pile (dip-DCA buyer), new",
+  "change": "PAPER weekly buyer: $10/week (setting DCA['weekly_usd']), 50/50 BTC + XRP, a coin's buy doubles when its daily close is 20%+ below its 200-day average. Logged in hold_pile.csv; totals in state.json 'hold'.",
+  "why": "research/HOLD.md: cheaper average prices than plain DCA in both halves (BTC $14,798 vs $16,531 since 2018-05), 4.13x vs 3.82x value per dollar.",
+  "approved_by": "Jeff (paper; he sets the real weekly amount when going live)",
+  "review_on": null,
+  "review": "Scout section 1b each week."
+ },
+ {
+  "date_utc": "2026-10-05",
+  "bots": "All bots",
+  "change": "Profit sweeper built but OFF (SWEEP['on'] = False). When on: 25% of every winning sale moves from the bot's balance into the hold pile.",
+  "why": "research/H5_SWEEP.md. Jeff: leave off until real money; judge the trading pile's DD on its own.",
+  "approved_by": "Jeff (build, keep off)",
+  "review_on": null,
+  "review": "-"
  }
 ]

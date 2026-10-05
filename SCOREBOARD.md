@@ -43,11 +43,11 @@ Every bot on the same footing: $1,000, 0.5% risk per trade, 0.1% fee each side (
 
 | Rank | Bot | Status | Coins | Return | Max DD | Return / DD | PF | Trades | Win % | 1st half return / DD | 2nd half return / DD | Corr. with v4+TR |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | Trend Rider | demo, live on OKX | BTC ETH SOL BNB SUI | +143% | -8.9% | 16.08 | 1.80 | 580 | 39% | +55% / -5.7% | +57% / -7.0% | 0.88 |
+| 1 | Trend Rider | demo, live on OKX (fear filter since Oct 5; row is without it) | BTC ETH SOL BNB SUI | +143% | -8.9% | 16.08 | 1.80 | 580 | 39% | +55% / -5.7% | +57% / -7.0% | 0.88 |
 | 2 | SP-12 v4 | demo, live on OKX | BTC ETH XRP XLM BNB | +93% | -10.2% | 9.17 | 1.35 | 735 | 36% | +50% / -6.3% | +28% / -10.2% | 0.84 |
 | 3 | N2 M3 rotation (not 0.5% risk: allocation) | research: failed (DD) | top 10 as listed at the time | +287% | -38.8% | 7.39 | 1.54 | 253 | 44% | +118% / -38.8% | +78% / -34.2% | 0.60 |
 | 4 | SP-12 v4 (Kraken paper) | paper | BTC ETH XRP | +55% | -9.9% | 5.61 | 1.34 | 493 | 35% | +29% / -5.6% | +20% / -9.9% | 0.81 |
-| 5 | B3 P3 pairs | research: passed 1-3, candidate | ETH/BTC XRP/BTC, daily | +14% | -5.4% | 2.60 | 1.52 | 105 | 40% | +6% / -4.9% | +8% / -5.1% | 0.40 |
+| 5 | B3 P3 pairs | paper forward test | ETH/BTC XRP/BTC, daily | +14% | -5.4% | 2.60 | 1.52 | 105 | 40% | +6% / -4.9% | +8% / -5.1% | 0.40 |
 | 6 | B1c breakout retest | paper forward test | BTC ETH XRP, 1H | +15% | -5.8% | 2.55 | 1.26 | 217 | 48% | +8% / -2.3% | +7% / -5.8% | 0.55 |
 | 7 | D1 I3 intraday momentum | research: failed | BTC ETH XRP, 1H | +20% | -11.2% | 1.81 | 1.09 | 1389 | 48% | +18% / -7.8% | +2% / -8.9% | 0.21 |
 | 8 | N4 X2 short side | research: failed (shorts) | BTC ETH XRP | +20% | -16.7% | 1.21 | 1.27 | 314 | 43% | +22% / -6.8% | -2% / -16.7% | -0.08 |

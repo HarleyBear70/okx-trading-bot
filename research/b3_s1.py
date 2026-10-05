@@ -48,7 +48,8 @@ def zscores(data, coin, n):
     return z
 
 
-def pairs_sim(alts, n, ent, data, t0, t1):
+def pair_entries(alts, n, ent, data):
+    """(entries_fn, z-scores) for the pairs bot; also used to check the live bot gives the same signals."""
     zs = {c: zscores(data, c, n) for c in alts}
 
     def entries(coin, bars, daily):
@@ -66,6 +67,11 @@ def pairs_sim(alts, n, ent, data, t0, t1):
                     out[k] = {"stop": c[k] - 2 * at[k], "target": None, "max_bars": 30, "tag": alt}
                     break
         return out
+    return entries, zs
+
+
+def pairs_sim(alts, n, ent, data, t0, t1):
+    entries, zs = pair_entries(alts, n, ent, data)
 
     def manage(p, bars, k):
         z = zs[p["tag"]].get(bars[k]["ts"])
