@@ -79,5 +79,14 @@
   "approved_by": "Jeff (build, keep off)",
   "review_on": null,
   "review": "-"
+ },
+ {
+  "date_utc": "2026-10-05",
+  "bots": "Trend Rider (tr-okx, demo)",
+  "change": "Coins + TRX-USDT (now BTC ETH SOL BNB SUI TRX). v4 unchanged.",
+  "why": "research/TRX.md: TRX passed pick (to 2021) and check (2022-now). Confirm backtest with the fear filter, 2022-now: 311 -> 368 trades, +60.1% -> +84.2%, PF 1.84 -> 1.94, max DD -5.3% -> -7.4%.",
+  "approved_by": "Jeff (demo)",
+  "review_on": "2026-10-19",
+  "review": "TRX per-coin results in the Scout; bot DD vs -7.4%."
  }
 ]

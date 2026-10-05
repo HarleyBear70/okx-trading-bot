@@ -732,3 +732,6 @@ How: two tests on BTC/ETH/XRP, plus a code review.
 - Code review: daily inputs use the previous day's CLOSED candle; pivots only appear once confirmed; B1c's 4H boxes come from complete 1H groups after the breakout closes; B3 uses the 60 days BEFORE the decision; Fear & Greed uses the previous day's value (published at 00:00 UTC, so always known); DCA uses the last closed daily and its 200 closed days; all candles are UTC-aligned and the forming candle is dropped; stops are only checked from the candle after entry, and the stop wins when stop and target are in the same candle. Entries are at the signal close in the backtest vs a market order a few minutes later live; crypto trades 24/7, so that's drift, not a gap.
 
 Next: TRX into Trend Rider, the NNFX paper bot, then the P/L calendar.
+
+
+2026-10-05 TERMINAL: TRX added to Trend Rider (demo; v4 unchanged), per Jeff's OK. Confirm backtest with the live setup (fear filter on), 2022-now: 311 -> 368 trades, +60.1% -> +84.2%, PF 1.84 -> 1.94, max DD -5.3% -> -7.4%. 2018-05 to now: +148.7% -> +194.1%, DD -7.0% -> -7.5%. More DD than in the no-filter test (-6.7%) but well inside 10%. Logged in journal/changes.json (review 2026-10-19). README, scoreboard.csv and the Scout's expectations (41% / PF 1.94 / DD -7.4%) updated.

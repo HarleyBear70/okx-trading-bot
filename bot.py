@@ -57,8 +57,9 @@ BOTS = [
     {"id": "v2-gold", "name": "SP-12 v2 (gold paper)", "strat": "v2", "venue": "okx", "mode": "paper",
      "coins": ["XAUT-USDT"], "equity": 1000.0, "new_trades": False},  # paused Oct 5 2026 with SP-12 v2
     {"id": "tr-okx", "name": "Trend Rider", "strat": "tr", "venue": "okx", "mode": "demo", "prefix": "ghT",
-     "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "BNB-USDT", "SUI-USDT"], "equity": 1000.0, "pivot": 5,
-     "fear_skip_at_or_below": 25},  # no new buys when Fear & Greed <= 25 (added Oct 5 2026, research/S1_SENTIMENT.md)  # BNB, SUI added Oct 5 (passed backtest)
+     "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "BNB-USDT", "SUI-USDT", "TRX-USDT"], "equity": 1000.0, "pivot": 5,
+     "fear_skip_at_or_below": 25},  # no new buys when Fear & Greed <= 25 (Oct 5 2026, research/S1_SENTIMENT.md)
+    # Trend Rider coins: BNB, SUI added Oct 5 (passed backtest); TRX added Oct 5 (research/TRX.md)
     {"id": "b1-paper", "name": "B1c breakout retest (paper)", "strat": "b1", "venue": "okx", "mode": "paper",
      "coins": ["BTC-USDT", "ETH-USDT", "XRP-USDT"], "equity": 1000.0},  # forward test from Oct 5 2026 (research/B_BOXES.md)
     {"id": "b3-paper", "name": "B3 pairs (paper)", "strat": "pairs", "venue": "okx", "mode": "paper",

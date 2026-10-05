@@ -32,7 +32,7 @@ STABLE = {"USDT", "USDC", "BUSD", "DAI", "TUSD", "UST", "USDe", "USD1", "WBTC", 
 EXPECTED = {
     "v4-okx": {"win": 36, "pf": 1.23, "dd": -10.2, "streak": 12, "src": "research/COINS.md"},
     "v4-kraken": {"win": 36, "pf": 1.23, "dd": -9.9, "streak": 10, "src": "research/VOL.md"},
-    "tr-okx": {"win": 40, "pf": 1.84, "dd": -5.3, "streak": 10, "src": "research/S1_SENTIMENT.md (with fear filter)"},
+    "tr-okx": {"win": 41, "pf": 1.94, "dd": -7.4, "streak": 10, "src": "fear filter + TRX, 2022-now (research/TRX.md)"},
     "b3-paper": {"win": 44, "pf": 1.52, "dd": -5.1, "streak": 10, "src": "research/B3_PAIRS.md (P3)"},
     "b1-paper": {"win": 46, "pf": 1.17, "dd": -5.8, "streak": None, "src": "research/B_BOXES.md"},
 }
