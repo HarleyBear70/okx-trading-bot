@@ -8,3 +8,4 @@ time_utc,bot,mode,coin,side,qty,price,usdt,pnl_usdt,pnl_pct,reason,bot_balance
 2026-10-05 02:24,SP-12 v4 (Kraken paper),paper,XBTUSD,sell,0.0047341281,86945.321,411.2,9.19,2.29,half profit +2R,1009.19
 2026-10-05 04:28,SP-12 v4,demo,ETH-USDT,sell,0.068952,2701.3521,186.26,-0.84,-0.45,breakeven stop,1006.05
 2026-10-05 04:28,Trend Rider,demo,SUI-USDT,buy,88.050341,1.2271441,108.43,,,score BOS,1000.0
+2026-10-05 05:28,SP-12 v2,demo,ETH-USDT,sell,1.233771,2688.2735,3316.71,-3.32,-0.5,breakeven stop,996.68

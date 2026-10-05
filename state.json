@@ -40,27 +40,12 @@
       "positions": {}
     },
     "v2-okx": {
-      "equity": 1000.0,
+      "equity": 996.6773,
       "last_bar": {
         "ETH-USDT": 1791158400000,
         "SOL-USDT": 1791158400000
       },
-      "positions": {
-        "ETH-USDT": {
-          "be": true,
-          "cost": 3333.32761583,
-          "entry_px": 2692.2818467173624,
-          "entry_ts": 1791057600000,
-          "hi": null,
-          "limit": 2788.167125,
-          "pnl_scale": 0.2,
-          "qty": 1.2337716325,
-          "sl": 2647.07915,
-          "stop": 2697.666410410797,
-          "tp": 2788.167125,
-          "trail": false
-        }
-      }
+      "positions": {}
     },
     "v4-kraken": {
       "equity": 1009.1868,
