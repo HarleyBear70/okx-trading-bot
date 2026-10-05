@@ -33,3 +33,9 @@ How new trading ideas get tested before any bot trades them. Claude runs it; Jef
 | 2026-10-04 | Brad's concepts one by one (BOS, market shift, sweep, FVG, order block, discount zone) | Brad Goh videos | see CONCEPTS.md |
 | 2026-10-04 | New coins DOGE, SUI, BNB, AVAX, ADA | Jeff's watchlist | BNB and SUI positive on both strategies; AVAX and DOGE negative |
 | 2026-10-04 | Gold with Trend Rider and SP-12 v2 | gold paper bots | about +33% on both |
+| 2026-10-05 | Trend Rider + BNB + SUI | coin scan | +62%, PF 1.71, both halves up, worst drop 11.6% - Watch (next to try in practice) |
+| 2026-10-05 | Trend Rider on 1H chart | Jeff prefers 1H | Fail: -35%, worst drop 49% - too much noise and fees |
+| 2026-10-05 | Fixed 1% stop / 2.5% target on Trend Rider entries | Jeff manual style | Fail: -15% - tight fixed stops cut winners short |
+| 2026-10-05 | SP-12 v4 + BNB + SUI | coin scan | Fail: lost money in first half - keep BTC ETH XRP |
+| 2026-10-05 | DCA bot (3Commas style) | 3Commas/Bitsgap/Haas | Fail: +1% vs +42% just holding, worst drop 24% |
+| 2026-10-05 | Flash crash dip buyer | HaasOnline | Fail: -24% |
