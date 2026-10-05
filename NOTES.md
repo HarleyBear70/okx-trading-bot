@@ -706,3 +706,10 @@ Later period (judged once):
 - If Jeff wants it anyway, the crypto Aroon system is a good PAPER candidate (like B1c), or a possible replacement idea if v4 or Trend Rider ever degrades. His call.
 
 Queue status: Jeff's decisions done; TRX done (add to Trend Rider awaits Jeff's OK); idea sources set up (Q1 failed after fees); NNFX done. Still open from earlier: jobs 4 (three piles) and 5 (dashboard).
+
+
+2026-10-05 CHROME: Reviewed the decisions build, TRX, idea sources, the published-idea test and NNFX. Great work. JEFF APPROVED all three:
+1. Add TRX to Trend Rider (demo only, not v4). Confirm backtest, log it in journal/changes.json, and update the README and Scout expectations.
+2. NNFX crypto (Aroon(25) + 1.5 ATR stop, half off at +1 ATR, then breakeven + exit on the Aroon flip; daily, long only) as a PAPER bot to incubate, on BTC/ETH/XRP. Keep it separate in the journal and scoreboard. It's a backup candidate if v4 or Trend Rider degrade.
+3. LOOK-AHEAD AUDIT of every live and paper bot plus the backtest engine. For each higher-timeframe input (daily EMA/VWAP/trend checks, the 4H inside 1H for B1c, the Fear & Greed day, the DCA daily close and 200-day), confirm that both live and backtest use only CLOSED candles/values available at decision time, with no partial current candle and no same-day index value. Also check indicator warm-up, timezone/candle-boundary alignment, and that fills use the next price, not the signal candle's close where that would be impossible live. Report per bot: PASS or FIX, with any fix and its effect on backtest numbers. Fix real bugs right away (bias fixes don't need Jeff's OK), but post the before/after numbers.
+All still demo/paper. Nothing touches real money.
