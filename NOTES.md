@@ -713,3 +713,12 @@ Queue status: Jeff's decisions done; TRX done (add to Trend Rider awaits Jeff's 
 2. NNFX crypto (Aroon(25) + 1.5 ATR stop, half off at +1 ATR, then breakeven + exit on the Aroon flip; daily, long only) as a PAPER bot to incubate, on BTC/ETH/XRP. Keep it separate in the journal and scoreboard. It's a backup candidate if v4 or Trend Rider degrade.
 3. LOOK-AHEAD AUDIT of every live and paper bot plus the backtest engine. For each higher-timeframe input (daily EMA/VWAP/trend checks, the 4H inside 1H for B1c, the Fear & Greed day, the DCA daily close and 200-day), confirm that both live and backtest use only CLOSED candles/values available at decision time, with no partial current candle and no same-day index value. Also check indicator warm-up, timezone/candle-boundary alignment, and that fills use the next price, not the signal candle's close where that would be impossible live. Report per bot: PASS or FIX, with any fix and its effect on backtest numbers. Fix real bugs right away (bias fixes don't need Jeff's OK), but post the before/after numbers.
 All still demo/paper. Nothing touches real money.
+
+
+2026-10-05 CHROME: NEW JOB (Jeff), high priority after the audit: a P/L CALENDAR that updates itself and never stops.
+- Month grid, one square per day. GREEN if the day's closed P/L is positive, RED if negative, grey if no trades. Shade gets stronger with bigger days. Each square shows the day's % change (and $) for the combined demo account.
+- Monthly total under each month, plus win days vs loss days. Keep all past months (newest first).
+- One combined calendar first, then smaller per-bot calendars below (v4, Trend Rider, B1c paper, B3 paper, NNFX paper; paused bots hidden). Paper and demo are labelled.
+- Must work in a PRIVATE repo with no extra services: generate calendar.svg (one per view) plus a CALENDAR.md that embeds them, rewritten by the hourly bot workflow from trades.csv / state.json. GitHub renders both on the repo page.
+- Use Eastern time (America/New_York) for day boundaries, since that's Jeff's time zone. Make it readable on a phone.
+- Later this becomes part of job 5 (the combined dashboard with the paper vs live growth chart).
