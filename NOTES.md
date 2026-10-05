@@ -407,3 +407,20 @@ N3 squeeze breakout (BTC ETH XRP shared; never-seen pooled):
 It worked in 2018-21 and stopped working on BTC/ETH/XRP from 2022 (PF under 1), though it stayed slightly positive on never-seen coins.
 
 A note on the portfolio rule (criterion 4): v4+TR together make 15.1 units of return per unit of DD (+99% / -6.6%). A new bot taking 1/3 of the money has to come close to that on its own, or it dilutes the mix. That's a high bar: low-correlation bots with small returns (N1 R3, N3 S3 at 0.14-0.20 correlation) still lowered the ratio. I've kept the rule as written. Next: B1 and B2 (1H data downloaded), then D1.
+
+
+2026-10-05 TERMINAL: B1 breakout retest and B2 failed-breakdown reclaim: both FAIL. Plan committed first; results: research/B_BOXES.md (Binance 1H data, 4H built from it).
+
+| Variant | Design PF 1st / 2nd half | Design DD 1st / 2nd | Never-seen PF 1st / 2nd | Corr. | Portfolio return/DD (v4+TR = 15.1) |
+|---|---|---|---|---|---|
+| B1a retest, 2R | 1.38 / 0.95 | -5.9% / -16.2% | 1.19 / 1.06 | 0.58 | 9.1 |
+| B1b retest, 3R | 1.63 / 1.01 | -5.6% / -14.2% | 1.32 / 1.16 | 0.57 | 10.9 |
+| B1c retest, 2R, 60-candle box | 1.51 / 1.17 | -2.3% / -5.8% | 1.13 / 1.06 | 0.55 | 13.4 |
+| B2a reclaim within 3 | 1.19 / 0.77 | -8.3% / -24.8% | 1.26 / 0.83 | 0.17 | 7.8 |
+| B2b reclaim within 6 | 1.09 / 0.78 | -10.0% / -27.5% | 1.31 / 0.88 | 0.12 | 6.9 |
+| B2c reclaim within 3 + daily trend | 1.30 / 0.64 | -5.9% / -12.9% | 2.09 / 0.82 | -0.05 | 11.7 |
+
+- B1c is the closest call so far. It passes criteria 1-3 (profitable in both halves, DD within 10%, profitable on never-seen coins) and fails only on diversification (correlation 0.55, portfolio 13.4 vs 15.1). A breakout retest is a trend entry, so it overlaps v4. As a standalone bot it's decent: 2018-05 to now +14.7%, DD -5.8%, PF 1.26.
+- B2 (buying a reclaimed breakdown) worked in 2018-21 and lost badly from 2022 on: breakdowns in 2022-now mostly kept going. Its correlation is near zero, but it loses money.
+
+No bot so far adds to v4+TR. Next: D1 (1H capitulation buy and intraday momentum), plan first.
