@@ -900,7 +900,8 @@ def get_data(api, venue, coin, tf="4H"):
         elif venue == "kraken":
             raw4, rawd = kraken_candles(coin, 240), kraken_candles(coin, 1440)
         else:
-            raw4, rawd = api.candles(coin, "4H", 500), api.candles(coin, "1Dutc", 120)
+            # 400 daily candles so the daily 50 EMA is fully warmed up (look-ahead audit, Oct 5 2026)
+            raw4, rawd = api.candles(coin, "4H", 500), api.candles(coin, "1Dutc", 400)
         bars = [b for b in raw4 if b["confirm"]]
         forming = raw4[-1] if raw4 and not raw4[-1]["confirm"] else None
         daily = [d for d in rawd if d["confirm"]]

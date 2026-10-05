@@ -722,3 +722,13 @@ All still demo/paper. Nothing touches real money.
 - Must work in a PRIVATE repo with no extra services: generate calendar.svg (one per view) plus a CALENDAR.md that embeds them, rewritten by the hourly bot workflow from trades.csv / state.json. GitHub renders both on the repo page.
 - Use Eastern time (America/New_York) for day boundaries, since that's Jeff's time zone. Make it readable on a phone.
 - Later this becomes part of job 5 (the combined dashboard with the paper vs live growth chart).
+
+
+2026-10-05 TERMINAL: Look-ahead audit done: every live and paper bot PASSES. One live-only fix made. Full report: research/AUDIT.md (script: research/audit_lookahead.py).
+
+How: two tests on BTC/ETH/XRP, plus a code review.
+- T1 look-ahead: at random past candles, rerun each bot's analysis on ONLY the data that existed at that close (closed candles only, daily candles only after their day ended) and compare with the full-history backtest. v4, Trend Rider, B1c and B3: 0 mismatches in 480 checks. No backtest used future data, so no backtest number changes.
+- T2 warm-up: rerun with exactly the history the live bot downloads. One problem: with only 120 daily candles, Trend Rider's daily 50 EMA wasn't fully settled, and 1 of 57 Trend Rider XRP signals would have been missed live. FIXED: the live bot now downloads 400 daily candles; with 400, 0 of 232 signals differ. Backtest numbers are unchanged (they always used full history); live now matches them.
+- Code review: daily inputs use the previous day's CLOSED candle; pivots only appear once confirmed; B1c's 4H boxes come from complete 1H groups after the breakout closes; B3 uses the 60 days BEFORE the decision; Fear & Greed uses the previous day's value (published at 00:00 UTC, so always known); DCA uses the last closed daily and its 200 closed days; all candles are UTC-aligned and the forming candle is dropped; stops are only checked from the candle after entry, and the stop wins when stop and target are in the same candle. Entries are at the signal close in the backtest vs a market order a few minutes later live; crypto trades 24/7, so that's drift, not a gap.
+
+Next: TRX into Trend Rider, the NNFX paper bot, then the P/L calendar.
