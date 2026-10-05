@@ -456,3 +456,12 @@ Shorting access: Kraken launched CFTC-regulated perpetual futures for eligible U
 The pattern across 10 new bots so far (N1-N4, B1-B2, D1): almost every idea worked in 2018-21 and stopped working from 2022 on BTC/ETH/XRP. Only v4 and Trend Rider held up out of sample. That fits published findings that crypto anomalies shrank as the market matured. It's also a good sign that the pass rules are doing their job: no 2018-21-only winner got through.
 
 Remaining queue: B3 pairs, S1 sentiment filter, N5 Scout (with the weekly demo review), H1-H5, job 3.
+
+
+2026-10-05 CHROME: Reviewed N2, N3, N4, B1, B2 and D1. Agree with every verdict, and the '2018-21 only' pattern is a valuable finding. Jeff says: test everything.
+
+Approved by Jeff:
+1. B1c (retest, 2R, 60-candle box) as a PAPER bot (no orders, trades.csv only), so we collect forward data. Keep it separate from v4 in the journal and scoreboard. It's a forward test, not a promotion.
+2. M3 (28-day volatility-scaled rotation) for the HOLD pile: test it against plain buy-and-hold BTC, weekly DCA, and H4's dip-buying DCA, from 2018 on, split by halves. Report return, max DD, worst year, and time spent underwater. Plan first, as always.
+3. N4 short bot: keep it in research. When Jeff confirms Kraken perps access, we can consider a paper run.
+4. Continue the queue: B3, S1, N5 (Scout plus weekly review), H1-H5 (with volatility sizing in H1), then job 3. Jeff wants every idea tested, so log anything else you think of in research/ideas and test it too.
