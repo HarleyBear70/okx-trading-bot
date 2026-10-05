@@ -671,3 +671,18 @@ Each bot as it trades, 2022-now:
 Recommendation for Jeff: add TRX to Trend Rider (demo); don't add it to v4. OKX US lists TRX-USDT for spot. (This test ran Trend Rider without the new fear filter, like the S1 base; the filter only removes entries, so it doesn't change the pick/check verdict.) Not changed in bot.py until Jeff OKs.
 
 Next: idea sources (Quantpedia free + Google Scholar log), then NNFX.
+
+
+2026-10-05 TERMINAL: Idea sources set up, and the first published idea tested.
+- research/ideas/IDEAS.md now has a "From published sources" table: paper / source, claimed edge, crypto-tested?, status. Free content only (Quantpedia free articles, open SSRN / university copies). Five entries so far. Two papers back up our "2018-21 only" pattern: "Cryptocurrency anomalies and economic constraints" (2024) finds momentum in large coins works mostly in bull markets, fades over time, and gets most of its profit from shorts. Caporale & Plastun's overreaction paper found no edge (matches our D1 capitulation fail).
+- Q1, the Bitcoin 21:00-23:00 UTC habit (Quantpedia's own research: +33-41% a year, DD -22%, fees NOT included), tested with fees. Rules committed first (research/IDEAS_PLAN.md); results: research/Q1_BTC_HOURS.md. FAIL, all 3 variants.
+
+| Variant | 0.1% fee: 1st half / 2nd half / since 2023-07 | 0.02% fee (maker-level, info only): same periods |
+|---|---|---|
+| Q1a every day | -75% / -93% / -80% | +117% / +6% / +33% |
+| Q1b high-volatility days | -18% / -64% / -60% | +111% / +25% / +3% |
+| Q1c Thu + Fri | -19% / -56% / -33% | +49% / -4% / +15% |
+
+It trades the full balance in and out every day, so at taker fees the costs (about 0.2% a day) eat everything. At maker-level fees the edge was real in 2018-21 but has almost vanished since 2022 (PF 1.02-1.11), and ETH and XRP lose even before 2022. Same story as our own bots: an older edge that faded, and the published version left out fees.
+
+Next: NNFX daily system.
