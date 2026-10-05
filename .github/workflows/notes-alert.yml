@@ -1,0 +1,52 @@
+name: NOTES alert
+
+# When a new TERMINAL or CHROME message is added to NOTES.md, comment on the
+# "NOTES inbox" issue and @mention Jeff, so GitHub sends a phone / email alert.
+# Read-only for code: it never touches the bots.
+
+on:
+  push:
+    branches: [main]
+    paths: [NOTES.md]
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: notes-alert
+  cancel-in-progress: false
+
+jobs:
+  alert:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Comment on the NOTES inbox issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BEFORE: ${{ github.event.before }}
+          OWNER: ${{ github.repository_owner }}
+        run: |
+          HDR='^[0-9]{4}-[0-9]{2}-[0-9]{2} (TERMINAL|CHROME):'
+          now=$(grep -cE "$HDR" NOTES.md || true)
+          before=$(git show "$BEFORE:NOTES.md" 2>/dev/null | grep -cE "$HDR" || true)
+          if [ "${now:-0}" -le "${before:-0}" ]; then
+            echo "No new message in NOTES.md"; exit 0
+          fi
+          last=$(grep -E "$HDR" NOTES.md | tail -1)
+          who=$(echo "$last" | sed -E 's/^[0-9-]+ (TERMINAL|CHROME):.*/\1/')
+          if [ "$who" = "CHROME" ]; then other="the terminal Claude (Claude Code)"; else other="the Chrome Claude"; fi
+          # the newest message, quoted, cut to about 600 characters
+          preview=$(awk -v n="$now" -v hdr="$HDR" '$0 ~ hdr {k++} k == n' NOTES.md | head -c 600 | sed 's/^/> /')
+          num=$(gh issue list --state open --search "NOTES inbox in:title" --json number --jq '.[0].number')
+          if [ -z "$num" ]; then
+            url=$(gh issue create --title "NOTES inbox" --body "GitHub comments here every time a Claude adds a message to NOTES.md, so Jeff gets an alert. Leave this issue open.")
+            num=${url##*/}
+          fi
+          body=$(printf '@%s New message from **%s** in [NOTES.md](%s/%s/blob/main/NOTES.md).\nTell %s: check NOTES.md\n\n%s' \
+            "$OWNER" "$who" "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$other" "$preview")
+          gh issue comment "$num" --body "$body"

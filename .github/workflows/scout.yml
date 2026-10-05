@@ -1,0 +1,40 @@
+name: Weekly Scout (read-only)
+
+# Every Sunday: a demo performance review of every bot, the existing bots tested on new top-20 coins,
+# and any research/ideas scripts. Writes reports/weekly-YYYY-MM-DD.md and commits ONLY that folder.
+# It never edits bot.py, never places orders and needs no API keys.
+
+on:
+  schedule:
+    - cron: "0 13 * * 0" # Sundays 13:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: scout
+  cancel-in-progress: false
+
+jobs:
+  scout:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Write the weekly report
+        env:
+          OKX_BASE_URL: ${{ vars.OKX_BASE_URL }}
+        run: python research/scout.py
+      - name: Save the report (reports/ only)
+        run: |
+          git config user.name "scout-bot"
+          git config user.email "scout-bot@users.noreply.github.com"
+          git add reports
+          git diff --cached --quiet && exit 0
+          git commit -m "scout: weekly report"
+          for i in 1 2 3; do git pull --rebase -q && git push && exit 0; sleep 10; done
+          exit 1
