@@ -426,6 +426,26 @@
   "btc_close": 86245.3,
   "btc_rsi14": 64.0
  },
+ "changes": [
+  {
+   "approved_by": "Jeff (demo only)",
+   "bots": "all (RISK_PCT is shared by every bot)",
+   "change": "Risk per trade 1% -> 0.5% of current balance. Risk stepping (RISK_STEPS) switched off via RISK_STEPS_ON = False; code kept. MAX_OPEN stays 3.",
+   "date_utc": "2026-10-05",
+   "review": "Compare trades before and after 2026-10-05: win %, avg R, P/L, max drawdown per bot.",
+   "review_on": "2026-10-19",
+   "why": "SP-12 v4 backtest Mar 2024 - Oct 2026 (research/drawdown_test.py): max drawdown -15.4% -> -8.6%, under 10% in both halves; return about the same (+24.3%), PF 1.23 -> 1.46."
+  },
+  {
+   "approved_by": "Jeff (pause if repair fails, demo only)",
+   "bots": "SP-12 v2 (v2-okx) and SP-12 v2 gold paper (v2-gold)",
+   "change": "Paused: new_trades False (no new entries; open trades would still be managed to exit). Code kept.",
+   "date_utc": "2026-10-05",
+   "review": "Stays paused unless a new idea passes backtest + skeptic check.",
+   "review_on": null,
+   "why": "Long-history test (research/LONG_HISTORY.md): PF 0.88 on its own coins, 0.91 on never-seen coins. Repair attempt with 3 pre-registered variants (research/REPAIR_PLAN.md) all failed the pass rules (research/REPAIR_v2.md)."
+  }
+ ],
  "check_meanings": {},
  "now": {},
  "totals": {
@@ -460,5 +480,5 @@
    "wins": 0
   }
  },
- "updated_utc": "2026-10-05 09:29"
+ "updated_utc": "2026-10-05 10:27"
 }
