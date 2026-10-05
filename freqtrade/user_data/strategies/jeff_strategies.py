@@ -13,7 +13,7 @@ Exits are copied as closely as Freqtrade allows:
   - sell half at +2R, the rest keeps running with its stop (bot.take_half)
 Position size uses bot.risk_pct(): RISK_PCT of the balance, stepping up by RISK_STEPS as the balance
 grows when step-ups are on. Step-ups follow bot.RISK_STEPS_ON unless JEFF_RISK_STEPS=on/off is set,
-so the backtest can be run both ways.
+so the backtest can be run both ways. JEFF_TAKE_HALF=off turns off selling half at +2R.
 """
 import os
 import sys
@@ -38,6 +38,7 @@ HALF_TAG = "half profit +2R"
 _steps = os.environ.get("JEFF_RISK_STEPS", "").strip().lower()
 if _steps in ("on", "off"):
     bot.RISK_STEPS_ON = _steps == "on"
+TAKE_HALF = os.environ.get("JEFF_TAKE_HALF", "").strip().lower() != "off"
 
 
 def to_bars(df: DataFrame) -> list:
@@ -63,7 +64,7 @@ class JeffBase(IStrategy):
 
     strat = "v4"                  # v4, v2 or tr
     pivot = 5                     # Trend Rider swing strength
-    take_half = True              # sell half at +2R, like the live bots
+    take_half = TAKE_HALF         # sell half at +2R, like the live bots
 
     def bot_start(self, **kwargs) -> None:
         self._bs = {}             # balance and peak, the same fields bot.risk_pct() reads

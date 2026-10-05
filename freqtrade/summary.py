@@ -1,6 +1,7 @@
 """Write results/SUMMARY.md: each strategy with risk step-ups off and on, side by side.
 
-Reads results/<name>.txt (step-ups off) and results/<name>_steps.txt (step-ups on).
+Reads results/<name>.txt (step-ups off) and results/<name>_steps.txt (step-ups on). If
+results/SP12v4_nohalf.txt exists, SP12v4 with and without selling half at +2R comes first.
 Usage: python3 freqtrade/summary.py SP12v4 SP12v2 TrendRider
 """
 import re
@@ -55,6 +56,20 @@ def block(text):
     return "\n".join(keep).strip("\n") or "(no result - check the workflow log)"
 
 
+def section(title, name, cols):
+    """cols: [(column label, results file name), (column label, results file name)]"""
+    texts = [read(f) for _, f in cols]
+    ms = [metrics(t, name) for t in texts]
+    lines = ["", f"## {title}", "", f"| | {cols[0][0]} | {cols[1][0]} |", "|---|---|---|"]
+    for label, key in ROWS:
+        k = key or "_wdl"
+        lines.append(f"| {label} | {ms[0].get(k, '-')} | {ms[1].get(k, '-')} |")
+    for (label, _), txt in zip(cols, texts):
+        lines += ["", f"<details><summary>{title}: full report, {label}</summary>", "", "```",
+                  block(txt), "```", "", "</details>"]
+    return lines
+
+
 def main(names):
     now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M")
     lines = [
@@ -65,16 +80,13 @@ def main(names):
         "**Step-ups off** risks RISK_PCT every trade; **Step-ups on** raises it by RISK_STEPS as the balance grows "
         "(back to RISK_PCT if the balance falls 5% from its best).",
     ]
+    if (RESULTS / "SP12v4_nohalf.txt").exists():
+        lines += section("SP12v4: selling half at +2R vs not", "SP12v4",
+                         [("Sell half at +2R", "SP12v4"), ("No half sell", "SP12v4_nohalf")])
+        lines += ["", "Both risk 0.5% per trade (RISK_PCT) with step-ups off. Without the half sell, the whole position runs "
+                  "to the stop, trailing stop, target or time exit."]
     for name in names:
-        off_txt, on_txt = read(name), read(f"{name}_steps")
-        off, on = metrics(off_txt, name), metrics(on_txt, name)
-        lines += ["", f"## {name}", "", "| | Step-ups off | Step-ups on |", "|---|---|---|"]
-        for label, key in ROWS:
-            k = key or "_wdl"
-            lines.append(f"| {label} | {off.get(k, '-')} | {on.get(k, '-')} |")
-        for title, txt in (("Step-ups off", off_txt), ("Step-ups on", on_txt)):
-            lines += ["", f"<details><summary>{name}: full report, {title.lower()}</summary>", "", "```",
-                      block(txt), "```", "", "</details>"]
+        lines += section(name, name, [("Step-ups off", name), ("Step-ups on", f"{name}_steps")])
     (RESULTS / "SUMMARY.md").write_text("\n".join(lines) + "\n")
 
 
