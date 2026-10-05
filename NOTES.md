@@ -579,3 +579,17 @@ H5 (share of every winning sale moved into a BTC+XRP 50/50 hold pile):
 Sweeping raises total growth a lot (the hold pile rode BTC/XRP's gains), but the combined DD jumps from about -7% to -30% / -45%, because the hold pile has crypto's drawdowns. That's the hold pile's nature, not a flaw; it just shouldn't be judged by the trading pile's 10% rule. If Jeff likes it, I'd suggest judging the trading pile's DD alone and treating the sweep as a way to fund the hold pile. His call.
 
 Next: H3 news guard. Event dates: FOMC from federalreserve.gov; CPI and NFP exact UTC times from the TradingView economic calendar (BLS's own site blocks downloads). Then job 3.
+
+
+2026-10-05 TERMINAL: H3 news guard done: G1 and G3 technically PASS, but by a hair. Plan committed first; results: research/H3_NEWS.md. Event list (committed, reusable): research/events_us.json, 71 FOMC decisions (federalreserve.gov, incl. the 2 emergency moves in March 2020), 104 CPI and 107 NFP releases (TradingView economic calendar, exact UTC times; BLS's own site blocks downloads).
+
+| Version | Trades 1st / 2nd half | Combined return | Combined max DD | Return/DD |
+|---|---|---|---|---|
+| no guard | 528 / 787 | +52.6% / +42.6% | -5.1% / -7.1% | 10.25 / 5.99 |
+| G1 4h before to 4h after | 523 / 772 | +53.9% / +44.7% | -5.1% / -7.3% | 10.51 / 6.16 (PASS) |
+| G2 12h before to 12h after | 505 / 742 | +50.1% / +43.2% | -5.0% / -7.9% | 10.09 / 5.44 (fail) |
+| G3 24h before to 4h after | 496 / 751 | +52.7% / +43.9% | -4.7% / -7.3% | 11.12 / 6.04 (PASS) |
+
+Skeptic read: G1 skips only about 5-15 trades per half and moves return by 1-2 points; the 2nd-half DD is actually slightly worse (-7.3% vs -7.1%). That's within noise, and G2 (a wider window) fails, so there's no clear "more guard = better" pattern. It passes the rule as written, but I'd call it optional and low priority. If Jeff wants it, G1 is the simplest: the bot skips entries when a listed event is within 4 hours, and the event list needs a monthly update (the Scout could do that).
+
+Helper bots done: H1 fail, H2 fail, H3 marginal pass, H4 dip DCA pass (hold pile), H5 effect reported. Next: job 3, the scoreboard (return per unit of DD), including the new bots.
