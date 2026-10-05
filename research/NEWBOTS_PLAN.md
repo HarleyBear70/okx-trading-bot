@@ -126,3 +126,21 @@ Stop: the day's low so far (00:00-14:00 UTC). Exit at the 00:00 UTC close (10 ho
 - I1: x = 1%.
 - I2: x = 2%.
 - I3: x = 1%, only when BTC's last daily close is above its 200-day average.
+
+## N4. Short side (backtest only): mirrored Trend Rider
+
+The "long" half of a long+short bot already exists (Trend Rider), so N4 is the SHORT half, judged by the
+common rules (so the portfolio test is Trend Rider + v4 + this short bot).
+
+Short entry (4H): last completed daily close below its daily 50 EMA; the 4H candle closes below the last
+confirmed pivot low (pivot strength P) and below the 4H 50 EMA, after closing above it the candle before.
+Stop: above the last pivot high + 0.2%, clamped to between 1 and 3 ATR(14) above the close (mirror of Trend
+Rider). Breakeven: once the trade is 1R in profit, the stop never goes back above entry - 2 x fee.
+Trail: lowest close since entry + 3 ATR. No half-profit step (simplification).
+Cost: 0.1% each side; funding ignored (it usually pays shorts in bull markets and costs them in crashes;
+noted as a risk). No leverage: a short's collateral counts like a long's cost against the cash.
+
+Variants:
+- X1: P = 5.
+- X2: P = 5, only when BTC's last daily close is below its 200-day average.
+- X3: P = 3.
