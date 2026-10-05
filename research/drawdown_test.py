@@ -6,7 +6,7 @@ functions bar by bar, one $1,000 balance shared by BTC, ETH and XRP, 0.1% fee ea
 The score line is left exactly as it is in bot.py. Each version changes one or two things:
 
   - risk per trade: bot.py now steps risk up to 1.25 / 1.5 / 2% as the balance grows
-    (RISK_STEPS). Jeff's rule is a flat 1%, so most versions use flat 1%.
+    (RISK_STEPS). Before Oct 5 2026 bot.py used 1% stepping up; now 0.5% with steps off.
   - max trades open at once (bot.py: 3). BTC, ETH and XRP tend to fall together.
   - drawdown brake: risk drops to 0.5% while the balance is more than 5% below its best.
   - daily uptrend required: c1 (daily close above a rising daily EMA20) must be true to enter.
@@ -94,7 +94,7 @@ def main():
     need_c1 = patched(bot.analyse_sp, NEED_C1, "score >= 2 and c1 and raw_risk")
 
     versions = [
-        ("bot.py now (1% stepping up to 2%, max 3)", now, ORIG_RISK_PCT, 3),
+        ("bot.py as it is (0.5% since Oct 5, steps off, max 3)", now, ORIG_RISK_PCT, 3),
         ("Flat 1%, max 3", now, flat(0.01), 3),
         ("Flat 1%, max 2", now, flat(0.01), 2),
         ("Flat 1%, max 1", now, flat(0.01), 1),

@@ -118,3 +118,13 @@ Correction to my rules note: Jeff does want risk to step up as the balance grows
 JEFF APPROVED (demo only): RISK_PCT = 0.005, turn off RISK_STEPS (keep the code so it can be turned back on), keep MAX_OPEN = 3. Make the change, run the backtest once to confirm it matches your 0.5% row, then push. Log the change date in the journal so we can do a before/after check in 2 weeks.
 
 Then go ahead with job 2 (why SP-12 loses to buy-and-hold on BTC and XRP). Research only, no bot.py change without Jeff's OK.
+
+
+2026-10-05 TERMINAL: Approved change is in and pushed (demo only).
+- bot.py: RISK_PCT 0.01 -> 0.005. New switch RISK_STEPS_ON = False; the stepping code and RISK_STEPS are kept, so turning it back on means setting it to True. MAX_OPEN still 3.
+- Heads up: RISK_PCT is shared, so every bot (v2, Trend Rider, the gold and Kraken paper bots) is now at 0.5% too, not only v4. Only v4 was backtested. Say if Jeff wants the others kept at 1% and I'll make it a per-bot setting.
+- Confirm run: research/drawdown_test.py with bot.py as it is now gives 182 trades, 36% win, +24.3%, max DD -8.6% (halves -7.4% / -8.6%), PF 1.46. That exactly matches the 0.5% row.
+- Journal: new journal/changes.json logs the change (date 2026-10-05, review on 2026-10-19). journal.py copies it into summary.json under "changes", so the before/after check can split trades on that date.
+- README updated to 0.5% and steps off.
+
+Starting job 2 now.

@@ -1,0 +1,11 @@
+[
+ {
+  "date_utc": "2026-10-05",
+  "bots": "all (RISK_PCT is shared by every bot)",
+  "change": "Risk per trade 1% -> 0.5% of current balance. Risk stepping (RISK_STEPS) switched off via RISK_STEPS_ON = False; code kept. MAX_OPEN stays 3.",
+  "why": "SP-12 v4 backtest Mar 2024 - Oct 2026 (research/drawdown_test.py): max drawdown -15.4% -> -8.6%, under 10% in both halves; return about the same (+24.3%), PF 1.23 -> 1.46.",
+  "approved_by": "Jeff (demo only)",
+  "review_on": "2026-10-19",
+  "review": "Compare trades before and after 2026-10-05: win %, avg R, P/L, max drawdown per bot."
+ }
+]

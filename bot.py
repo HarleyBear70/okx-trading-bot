@@ -32,8 +32,9 @@ KRAKEN_URL = "https://api.kraken.com"
 FEE = 0.001                 # 0.1% per side for paper trades (same as the backtests)
 SAR_START, SAR_INC, SAR_MAX = 0.02, 0.02, 0.2
 H4_MS = 4 * 3600 * 1000
-RISK_PCT = 0.01  # every bot starts by risking 1% of its own $1,000 practice balance per trade
+RISK_PCT = 0.005  # every bot risks 0.5% of its balance per trade (was 1%; changed Oct 5 2026 to keep drawdown under 10%)
 RISK_STEPS = [(0.50, 0.02), (0.25, 0.015), (0.10, 0.0125)]  # balance up 50% -> 2%, up 25% -> 1.5%, up 10% -> 1.25%
+RISK_STEPS_ON = False  # stepping risk up is off for now (Oct 5 2026); set True to turn it back on
 MAX_OPEN = 3  # no more than 3 trades open at once per bot
 BE_BUFFER = 2 * FEE  # breakeven stop sits just above entry so fees are covered
 
@@ -542,11 +543,11 @@ def okx_sell(api, bot, inst, qty):
 
 # ───────── Opening / closing (demo or paper) ─────────
 def risk_pct(bot, bs):
-    """Base 1%. As the practice balance grows, risk a bit more per trade so it grows faster.
-    Drops straight back to 1% if the balance falls 5% from its best."""
+    """Base RISK_PCT. If RISK_STEPS_ON, risk a bit more per trade as the practice balance grows
+    so it grows faster, dropping straight back to base if the balance falls 5% from its best."""
     eq = bs["equity"]
     bs["peak"] = max(bs.get("peak", eq), eq)
-    if eq < bs["peak"] * 0.95:
+    if not RISK_STEPS_ON or eq < bs["peak"] * 0.95:
         return RISK_PCT
     gain = eq / bot["equity"] - 1
     for need, pct in RISK_STEPS:

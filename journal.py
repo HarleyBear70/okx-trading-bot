@@ -11,6 +11,8 @@ Files it keeps (all inside the journal/ folder):
                            best/worst price during the trade, R multiple, testing vs live
   summary.json             report card per bot and per coin, and what every bot sees right now
   state.json               bookkeeping (last candle journaled, trade rows already read)
+  changes.json             hand-written log of every settings change (Claude adds to it, the journal
+                           never edits it), copied into summary.json for before/after checks
 """
 
 import csv
@@ -602,7 +604,8 @@ def main():
     append_lines(recs)
     write_json(os.path.join(JDIR, "trades.json"), trades)
     write_json(os.path.join(JDIR, "summary.json"),
-               build_summary(trades, latest, state, jstate["signal_counts"]) | {"btc": backdrop, "check_meanings": MEANINGS})
+               build_summary(trades, latest, state, jstate["signal_counts"]) | {"btc": backdrop, "check_meanings": MEANINGS,
+               "changes": load_json(os.path.join(JDIR, "changes.json"), [])})
     write_json(JSTATE, jstate)
     bot.log(f"[journal] {len([x for x in recs if x['type'] == 'candle'])} candle notes, "
             f"{len([x for x in recs if x['type'] == 'trade'])} trade notes, {len(trades)} trades on file, {errors} errors")
