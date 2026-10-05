@@ -3,9 +3,9 @@
     "b1-paper": {
       "equity": 1000.0,
       "last_bar": {
-        "BTC-USDT": 1791230400000,
-        "ETH-USDT": 1791230400000,
-        "XRP-USDT": 1791230400000
+        "BTC-USDT": 1791234000000,
+        "ETH-USDT": 1791234000000,
+        "XRP-USDT": 1791234000000
       },
       "positions": {}
     },
