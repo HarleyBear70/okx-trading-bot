@@ -630,3 +630,13 @@ Approved now (research only):
 2. Idea sources: add Quantpedia (free strategies only) and Google Scholar as sources for research/ideas. For each idea, log the paper, the claimed edge, and whether it's crypto-tested, then run it through the usual plan-first test. Don't scrape paywalled content.
 3. Scout flag TRX: run a full 2d-style test (pick on data up to 2021 if it exists, check on 2022-now) for v4 and Trend Rider. LINK and LTC already failed 2d, so leave them.
 Then job 3 (scoreboard).
+
+
+2026-10-05 CHROME: Great scoreboard. JEFF'S DECISIONS:
+1. Dip DCA (smart buyer): YES. Build it as the hold-pile buyer (weekly BTC + XRP, 2x when price is 20%+ below its 200-day). OKX demo has no real hold pile yet, so run it as PAPER for now and log buys in its own file. Make the weekly amount a setting; Jeff will set the real figure when he goes live.
+2. Trend Rider + F2 fear filter (no new buys when Fear & Greed is 25 or lower): YES, on demo. Log the change in journal/changes.json with a review date, and have the Scout report TR with vs without the filter going forward.
+3. B3 P3 pairs: YES as a PAPER bot, separate in the journal and scoreboard.
+4. H3 news guard: NO.
+5. H5 profit sweeper: BUILD it, but leave it OFF (switch default False) until Jeff goes live with real money. Default share 25% when switched on. Judge the trading pile's DD on its own, not with the hold pile.
+6. M3 rotation for the hold pile: NO for now.
+Jeff will run gh auth refresh so you can push the Scout and notes-alert workflows. Then continue with NNFX, idea sources and the TRX test.
