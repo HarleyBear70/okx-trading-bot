@@ -3,7 +3,8 @@ Repair test for SP-12 v2 and Trend Rider gold. The variants and pass rules were 
 research/REPAIR_PLAN.md (committed before this test was run); this script only applies them.
 
 Engine: research/long_history.py (bot.py as it is now, 0.5% risk, 0.1% fee each side, one coin at a
-time, fresh $1,000 per market period). Spot gold / silver come from Dukascopy via research/forex_dxy.py.
+time, fresh $1,000 per market period). The gold bot's never-seen markets are four FX pairs from FXCM via
+research/forex_dxy.py, at 0.01% cost each side (see the amendment in REPAIR_PLAN.md).
 
 Run:
   python research/repair_test.py        # writes research/REPAIR.md
@@ -24,7 +25,8 @@ UTC = dt.timezone.utc
 SPLIT = dt.datetime(2022, 1, 1, tzinfo=UTC)
 V2_COINS = ["ETH", "SOL", "XAUT"]
 V2_UNSEEN = ["LTC", "DOGE", "XLM", "ADA", "BNB", "LINK", "BCH", "AVAX", "SUI", "LUNA", "FTT"]
-fx.FX.update({"XAUUSD": 1e3, "XAGUSD": 1e3})
+GOLD_UNSEEN = ["AUDUSD", "NZDUSD", "USDCAD", "USDCHF"]
+FX_COST = 0.0001
 
 
 def patched(fn, old, new):
@@ -56,23 +58,22 @@ GOLD_VERSIONS = {
     "gold B: daily EMA100": ("tr", lambda b, d: TR_EMA100(b, d, 3), None),
     "gold C: 4 ATR trail": ("tr", lambda b, d: bot.analyse_tr(b, d, 3), MANAGE_4ATR),
 }
-FX_ERAS_TO_2019 = [e for e in fx.FX_ERAS if e[2] is not None and e[2].year <= 2020]
 
 
 def load(market):
-    """(bars, daily, daily_lookup to use)."""
-    if market in ("XAUUSD", "XAGUSD"):
-        bars = fx.dukascopy(market)
-        return bars, fx.fx_daily(bars), fx.gap_safe_daily_lookup
+    """(bars, daily, daily_lookup to use, fee each side)."""
+    if market in GOLD_UNSEEN:
+        bars = fx.fxcm(market)
+        return bars, fx.fx_daily(bars), fx.gap_safe_daily_lookup, FX_COST
     bars, daily = lh.load(market)
-    return bars, daily, bot.daily_lookup
+    return bars, daily, bot.daily_lookup, bot.FEE
 
 
 def run(version, market, periods):
     strat, analyse, manage = version
-    bars, daily, lookup = load(market)
-    orig_lookup, orig_manage = bot.daily_lookup, bot.manage_on_close
-    bot.daily_lookup = lookup
+    bars, daily, lookup, fee = load(market)
+    orig_lookup, orig_manage, orig_fee, orig_be = bot.daily_lookup, bot.manage_on_close, bot.FEE, bot.BE_BUFFER
+    bot.daily_lookup, bot.FEE, bot.BE_BUFFER = lookup, fee, 2 * fee
     if manage:
         bot.manage_on_close = manage
     try:
@@ -88,7 +89,7 @@ def run(version, market, periods):
                 out[p] = (t0, r)
         return out
     finally:
-        bot.daily_lookup, bot.manage_on_close = orig_lookup, orig_manage
+        bot.daily_lookup, bot.manage_on_close, bot.FEE, bot.BE_BUFFER = orig_lookup, orig_manage, orig_fee, orig_be
 
 
 def pool(rs):
@@ -157,10 +158,10 @@ def main():
         lines += [f"- {n}: " + ("PASS" if not r else "; ".join(r)) for n, r in v2_v.items()] + [""]
     if which in ("gold", "all"):
         gold_res = evaluate(GOLD_VERSIONS, [("XAUT", lh.PERIODS)],
-                            [("XAUUSD", FX_ERAS_TO_2019), ("XAGUSD", fx.FX_ERAS)])
+                            [(m, fx.FX_ERAS) for m in GOLD_UNSEEN])
         gold_v = judge(gold_res, "gold now (pivot 3)")
-        lines += ["## Trend Rider gold (traded: XAUT; never-seen: spot gold XAU/USD 2003-2019, silver XAG/USD "
-                  "2003-now)", ""]
+        lines += ["## Trend Rider gold (traded: XAUT; never-seen: AUD/USD, NZD/USD, USD/CAD, USD/CHF 2012-now, "
+                  "0.01% cost)", ""]
         lines += table(gold_res, gold_v) + [""]
         lines += [f"- {n}: " + ("PASS" if not r else "; ".join(r)) for n, r in gold_v.items()] + [""]
     head = ["# Repair test: SP-12 v2 and Trend Rider gold", "",

@@ -16,5 +16,14 @@
   "approved_by": "Jeff (pause if repair fails, demo only)",
   "review_on": null,
   "review": "Stays paused unless a new idea passes backtest + skeptic check."
+ },
+ {
+  "date_utc": "2026-10-05",
+  "bots": "Trend Rider gold paper (tr-gold)",
+  "change": "Paused: new_trades False (no new entries; no open trade). Code kept.",
+  "why": "Long-history test: lost in 2 of 3 periods, broke 10% DD in 2023-now. Repair attempt with 3 pre-registered variants (research/REPAIR_PLAN.md, amended for data before running) all failed (research/REPAIR_gold.md).",
+  "approved_by": "Jeff (pause if repair fails, demo only)",
+  "review_on": null,
+  "review": "Stays paused unless a new idea passes backtest + skeptic check."
  }
 ]

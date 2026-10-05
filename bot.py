@@ -51,7 +51,8 @@ BOTS = [
     {"id": "tr-okx", "name": "Trend Rider", "strat": "tr", "venue": "okx", "mode": "demo", "prefix": "ghT",
      "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "BNB-USDT", "SUI-USDT"], "equity": 1000.0, "pivot": 5},  # BNB, SUI added Oct 5 (passed backtest)
     {"id": "tr-gold", "name": "Trend Rider (gold paper)", "strat": "tr", "venue": "okx", "mode": "paper",
-     "coins": ["XAUT-USDT"], "equity": 1000.0, "pivot": 3},
+     "coins": ["XAUT-USDT"], "equity": 1000.0, "pivot": 3,
+     "new_trades": False},  # paused Oct 5 2026: weak in long-history test, repair failed (research/REPAIR_gold.md)
 ]
 
 HERE = os.path.dirname(os.path.abspath(__file__))

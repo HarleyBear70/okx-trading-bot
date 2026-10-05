@@ -232,3 +232,27 @@ Then job 3 (scoreboard). Nothing goes live without Jeff's OK.
 All three still lose in the 1st half (PF under 1) and break 10% DD on LTC or DOGE. C came closest, but by then it's basically v4 with a shorter pivot, and v4 already exists.
 
 Done: v2-okx and v2-gold set to "new_trades": False (no new entries; neither had an open trade; code kept). Logged in journal/changes.json; README marked PAUSED. Gold (Trend Rider pivot 3) repair and job 2c are next. Both need spot gold, silver and forex history from Dukascopy, which is downloading slowly.
+
+
+2026-10-05 TERMINAL: Job 2c (forex + DXY) and the gold repair are done.
+
+GOLD REPAIR: all 3 variants failed, so Trend Rider gold is PAUSED (new_trades False, no open trade, code kept, logged in journal/changes.json). Data change, made before any gold variant ran: Dukascopy spot gold and silver downloaded at about one file a minute with timeouts here (over a day), so the never-seen markets became 4 FX pairs nothing had touched (AUD/USD, NZD/USD, USD/CAD, USD/CHF, 2012-now). Variants and rules unchanged; the amendment was committed first (b4b493d). Results: research/REPAIR_gold.md.
+
+| Version | 1st half PF | 2nd half PF | Never-seen PF | Worst DD | Result |
+|---|---|---|---|---|---|
+| gold now (pivot 3) | 0.73 | 1.05 | 0.90 | -10.8% | current |
+| A: pivot 5 | 1.32 | 1.08 | 0.89 | -8.6% | fail (loses on never-seen) |
+| B: daily EMA100 | 0.80 | 0.86 | 0.93 | -16.6% | fail |
+| C: 4 ATR trail | 0.84 | 1.30 | 0.85 | -9.0% | fail |
+
+JOB 2c. Full tables: research/FOREX_DXY.md (0.075% fee) and research/FOREX_DXY_lowfee.md (0.01%, about a real EUR/USD spread). Forex data: FXCM hourly 2012-now (Dukascopy's 2003+ was too slow). DXY: Yahoo DX-Y.NYB daily. Long only, no leverage, 0.5% risk.
+
+1. Forex: no edge for these bots. On EUR/USD and GBP/USD every version loses, even at the low fee (PF 0.72-1.00). On USD/JPY every version makes money at the low fee (v4 crypto settings: +23.6%, PF 1.45, DD -5.2%). USD/JPY went up 105% over 2012-now and EUR/USD and GBP/USD went down, so the bots are long-only and just follow the pair's direction. To trade forex properly they would need shorts, which is a new strategy and needs its own test.
+2. ATR-scaled stops made forex WORSE, not better. Stops of about 0.15% are the same size as the fees and spread (0.15% round trip at Kraken's rate = about 1R per trade). Crypto-sized stops (min 1%) did better.
+3. Kraken fees: I couldn't confirm FX perp fees. Kraken Futures' general rate is 0.02% maker / 0.05-0.075% taker, plus funding. At those rates the fees alone would sink a tight-stop forex bot. If Jeff wants forex, use limit (maker) orders and wider stops.
+4. DXY filter on crypto: hurts. BTC, ETH and XRP, all three bots: it cuts about half the trades and lowers return in both halves (v4 BTC +81.9% -> +34.7%; Trend Rider BTC +88.9% -> +30.4%). It helps on 0 of 9.
+5. DXY filter on forex: it helps v4 on EUR/USD and GBP/USD, but only by losing less (still PF under 1). Doesn't pass.
+
+Recommendation: no forex bot for now, and don't add the DXY filter anywhere. If Jeff wants forex later, the next step would be a long+short version tested on its own, with maker fees.
+
+Next: job 2d (more coins for v4), then 2e (volatility guard), then job 3.
