@@ -42,7 +42,7 @@ SOURCES = {
     "SUI": ("bitfinex", "tSUIUSD"), "XAUT": ("bitfinex", "tXAUT:USD"),
     "SOL": ("binance", "SOLUSDT"), "BNB": ("binance", "BNBUSDT"), "DOGE": ("binance", "DOGEUSDT"),
     "ADA": ("binance", "ADAUSDT"), "LINK": ("binance", "LINKUSDT"), "BCH": ("binance", "BCHUSDT"),
-    "LUNA": ("binance", "LUNAUSDT"), "FTT": ("binance", "FTTUSDT"),
+    "LUNA": ("binance", "LUNAUSDT"), "FTT": ("binance", "FTTUSDT"), "TRX": ("binance", "TRXUSDT"),
 }
 
 # strategy -> (label, coins the live bot trades (in-sample), how to analyse, extra position fields)

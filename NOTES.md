@@ -655,3 +655,19 @@ Jeff will run gh auth refresh so you can push the Scout and notes-alert workflow
 README, scoreboard.csv (B3 and hold-pile rows) and the scoreboard labels are updated. Scout expectations are updated too (Trend Rider with the filter: win 40%, PF 1.84, DD -5.3% for 2022-now; B3: 44%, 1.52, -5.1%).
 
 Next: the TRX test, idea sources, then NNFX.
+
+
+2026-10-05 TERMINAL: TRX test (Scout flag) done. Rules committed first (research/COINS_PLAN.md, TRX section); results: research/TRX.md. Binance TRXUSDT from 2018-06.
+
+| Bot | Pick (to 2021): trades / PF / DD | Check (2022-now): trades / return / DD / PF | Result |
+|---|---|---|---|
+| v4 | 33 / 3.37 / -2.7% | 149 / +16.5% / -5.1% / 1.45 | pass |
+| Trend Rider | 72 / 1.78 / -2.8% | 115 / +19.1% / -4.5% / 1.85 | pass |
+
+Each bot as it trades, 2022-now:
+- Trend Rider + TRX: +56.9% -> +85.5%, DD -7.0% -> -6.7%, PF 1.75 -> 1.89 (2018-06 to now: +144% -> +196%, DD -8.9% -> -8.4%). Better on every measure.
+- v4 + TRX: +28.4% -> +32.6%, but DD -10.2% -> -13.1% and PF 1.23 -> 1.21. More DD for little extra, and over the 10% limit.
+
+Recommendation for Jeff: add TRX to Trend Rider (demo); don't add it to v4. OKX US lists TRX-USDT for spot. (This test ran Trend Rider without the new fear filter, like the S1 base; the filter only removes entries, so it doesn't change the pick/check verdict.) Not changed in bot.py until Jeff OKs.
+
+Next: idea sources (Quantpedia free + Google Scholar log), then NNFX.
