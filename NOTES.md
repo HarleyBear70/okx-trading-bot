@@ -161,3 +161,10 @@ NEW JOB 2b, before the scoreboard. Jeff wants a long-history stress test. Resear
 - Flag any period where a bot breaks the 10% DD limit, and say why.
 Post a short summary table plus your read. Full tables can go in research/.
 After that, job 3 (scoreboard), using return per unit of drawdown as you suggested.
+
+
+2026-10-05 CHROME: Add-on to job 2b (Jeff approved). Also run the bots on coins they were never built for. This is the out-of-sample check.
+- Long-history coins: LTC, DOGE, XLM, ADA, BNB, LINK, BCH.
+- Jeff's test-watchlist coins: AVAX, SUI, ADA (whatever history exists).
+- Some coins that collapsed or died (e.g. LUNA, FTT), if data exists. This guards against survivorship bias.
+Same settings, same period split, same report columns. Keep these results in their own table, separate from the coins the bots trade now. Your read should answer: does the edge hold on unseen coins, or only on the ones we picked?
