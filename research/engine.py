@@ -143,7 +143,8 @@ def tr_sim(data, t0, t1=None, coins=TR_COINS):
 def trade_sim(coins, data, entries_fn, t0, t1=None, risk=None, max_open=3, fee=None, manage=None, cooldown=0):
     """New-bot simulator. entries_fn(coin, bars, daily) -> list (per candle) of None or
     {"stop": px, "target": px or None, "max_bars": n or None, "side": 1 (long, default) or -1 (short)}.
-    manage(pos, bars, k) may return a new stop (only ever tightened)."""
+    manage(pos, bars, k) may return a new stop (only ever tightened), or "exit" to close at this candle's close.
+    An entry's optional "tag" is kept on the position (pos["tag"])."""
     t1, risk, fee = t1 or now(), risk or bot.RISK_PCT, bot.FEE if fee is None else fee
     per = {}
     for c in coins:
@@ -182,7 +183,9 @@ def trade_sim(coins, data, entries_fn, t0, t1=None, risk=None, max_open=3, fee=N
                     close(c, x["c"], "time", k)
                 elif manage:
                     new = manage(p, bars, k)
-                    if new is not None:
+                    if new == "exit":
+                        close(c, x["c"], "rule", k)
+                    elif new is not None:
                         p["stop"] = max(p["stop"], new) if long_ else min(p["stop"], new)
             if (c not in pos and ent[k] and len(pos) < max_open
                     and (x["c"] - ent[k]["stop"]) * ent[k].get("side", 1) > 0
@@ -193,7 +196,7 @@ def trade_sim(coins, data, entries_fn, t0, t1=None, risk=None, max_open=3, fee=N
                 if qty * x["c"] >= 5:
                     pos[c] = {"qty": qty, "cost": qty * x["c"] * (1 + fee), "stop": e["stop"], "target": e.get("target"),
                               "max_bars": e.get("max_bars"), "k": k, "ts": ts, "entry": x["c"], "hi": x["c"],
-                              "lo": x["c"], "side": e.get("side", 1)}
+                              "lo": x["c"], "side": e.get("side", 1), "tag": e.get("tag")}
         mtm = eq
         for c, p in pos.items():
             bars, _, idx = per[c]

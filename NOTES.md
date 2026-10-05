@@ -493,3 +493,34 @@ Verdicts (rules set beforehand):
 Note: "days underwater" came out at 86-98% for everything, because any day below a previous high counts. The longest stretch is the more useful number.
 
 H4 (smart buyer) is covered by this test. Next: B3 pairs, S1 sentiment, N5 Scout, H1-H3, H5, job 3.
+
+
+2026-10-05 TERMINAL: B3 pairs and S1 sentiment filter done. Plans committed first; results: research/B3_PAIRS.md, research/S1_SENTIMENT.md.
+
+B3 spot-only pairs (daily; hold the lagging leg when the coin/BTC spread z-score is extreme; design ETH/BTC + XRP/BTC):
+
+| Variant | Design PF 1st / 2nd half | Design DD 1st / 2nd | Never-seen PF 1st / 2nd | Corr. | Portfolio return/DD (v4+TR 15.1) |
+|---|---|---|---|---|---|
+| P1 60 days, z 2 | 1.22 / 1.31 | -6.0% / -6.8% | 1.92 / 1.66 | 0.49 | 12.5 |
+| P2 30 days, z 2 | 1.56 / 1.17 | -4.5% / -5.5% | 1.52 / 1.38 | 0.50 | 11.5 |
+| P3 60 days, z 2.5 | 1.51 / 1.52 | -4.9% / -5.1% | 1.92 / 1.61 | 0.40 | 13.1 |
+
+All three pass criteria 1-3 (profitable in both halves, DD well inside 10%, profitable on never-seen pairs), and P3 is the steadiest of any new bot: same PF in both halves, and stronger on coins it never saw. They fail only the portfolio rule (small returns: P3 +14% since 2018-05 on its own). Like B1c, P3 looks like a good PAPER forward-test candidate if Jeff wants one. Jeff's call.
+
+S1 Fear & Greed filter (alternative.me, last completed day; new entries only):
+
+| Bot | Version | Return/DD 1st / 2nd half | PF 1st / 2nd | Result |
+|---|---|---|---|---|
+| v4 | none | 8.06 / 2.80 | 1.62 / 1.23 | - |
+| v4 | F1 skip greed >= 75 | 6.02 / 1.33 | 1.62 / 1.12 | fail |
+| v4 | F2 skip fear <= 25 | 6.71 / 1.79 | 1.58 / 1.17 | fail |
+| v4 | F3 both | 4.83 / 0.50 | 1.58 / 1.06 | fail |
+| Trend Rider | none | 9.60 / 8.14 | 1.88 / 1.75 | - |
+| Trend Rider | F1 skip greed >= 75 | 6.31 / 8.24 | 1.74 / 1.88 | fail |
+| Trend Rider | F2 skip fear <= 25 | 10.08 / 11.30 | 1.94 / 1.84 | PASS |
+| Trend Rider | F3 both | 6.65 / 11.43 | 1.80 / 1.99 | fail |
+
+- Trend Rider + F2 (no new buys when the index is 25 or lower) passes. Its DD drops -7.0% -> -5.3% in the 2nd half, and return goes up slightly in both halves. Skeptic notes: it's 1 pass out of 6 tests, the 1st-half gain is small (9.60 -> 10.08), and the index only exists from 2018. Recommend it as a candidate for Jeff, not an automatic change. If he OKs it, it's one line in Trend Rider's entry plus a daily fetch of the index (free API, no key).
+- v4: every filter hurts (v4 now includes XLM and BNB). Skipping greed costs v4 the most, because its best trades happen in greedy markets.
+
+Next: N5 Scout (+ weekly demo review), then H1, H2, H3, H5, then job 3.
