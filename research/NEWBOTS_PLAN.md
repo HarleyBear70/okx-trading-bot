@@ -144,3 +144,27 @@ Variants:
 - X1: P = 5.
 - X2: P = 5, only when BTC's last daily close is below its 200-day average.
 - X3: P = 3.
+
+## B3. Pairs, spot only (daily)
+
+Spread = log(coin / BTC) on daily closes (long-history data). z = (spread - its N-day mean) / its N-day
+standard deviation, using the N days before today.
+Entry (at the daily close): z below -E -> buy the coin (it lags BTC); z above +E -> buy BTC (it lags the coin).
+Exit: z back inside +-0.5, or 30 days, or a price stop 2 x daily ATR(14) below entry. 0.5% risk from that
+stop, 0.1% fee each side, max 3 open on the shared balance.
+Design pairs: ETH/BTC and XRP/BTC. Never-seen pairs: each never-seen coin vs BTC, alone, pooled.
+
+- P1: N = 60, E = 2.
+- P2: N = 30, E = 2.
+- P3: N = 60, E = 2.5.
+
+## S1. Sentiment filter (overlay on v4 and Trend Rider)
+
+Crypto Fear & Greed Index, daily, alternative.me (from 2018-02). Uses the last completed day's value.
+Exits untouched; only new entries are filtered.
+- F1: no new buys when the index is 75 or higher (extreme greed).
+- F2: no new buys when the index is 25 or lower (extreme fear).
+- F3: both.
+Tested on v4 (its current 5 coins, as it trades) and Trend Rider (as it trades), halves 2018-05 to 2021 /
+2022 to now. A filter passes for a bot only if, in BOTH halves, that bot's return / max DD is higher and
+its PF is not lower than without the filter.
