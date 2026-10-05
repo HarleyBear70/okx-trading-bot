@@ -39,3 +39,6 @@ How new trading ideas get tested before any bot trades them. Claude runs it; Jef
 | 2026-10-05 | SP-12 v4 + BNB + SUI | coin scan | Fail: lost money in first half - keep BTC ETH XRP |
 | 2026-10-05 | DCA bot (3Commas style) | 3Commas/Bitsgap/Haas | Fail: +1% vs +42% just holding, worst drop 24% |
 | 2026-10-05 | Flash crash dip buyer | HaasOnline | Fail: -24% |
+| 2026-10-05 | Candle patterns (engulfing, hammer, morning star, soldiers, inside bar, big breakout) | investment club pitch | Real: inside bar breakout, big breakout candle in daily uptrend. No edge: engulfing, hammer, morning star - see CANDLES.md |
+| 2026-10-05 | Candle Range Theory (CRT 3-candle model) - closest public match to the club pitch | Mechanix Framework talk | No edge: slightly worse than a random candle |
+| 2026-10-05 | Stricter skeptic (shift test, checked on fake random prices) | process fix | BOS alone downgraded to could-be-luck; BOS + daily uptrend still Real |
