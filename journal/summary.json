@@ -788,35 +788,8 @@
    "why": "research/NNFX.md: crypto version judged once on 2022-now: 113 trades, +26.8%, DD -5.4%, PF 2.20; never-seen coins PF 1.34. Failed only the diversification rule (corr 0.75). Backup candidate if v4 or Trend Rider degrade. bot.py reproduces the backtest exactly (113 trades, +26.8%)."
   }
  ],
- "check_meanings": {
-  "above_ema50": {
-   "meaning": "Required: 4H close above the 50 EMA",
-   "points": null
-  },
-  "bos": {
-   "meaning": "Required: candle closes above the last swing high (0.33759) - a break of structure",
-   "points": null
-  },
-  "daily_trend": {
-   "meaning": "Required: daily close above the 50-day EMA",
-   "points": null
-  }
- },
- "now": {
-  "tr-okx|TRX-USDT": {
-   "action": "NO TRADE",
-   "bot": "Trend Rider",
-   "candle_utc": "2026-10-05 08:00",
-   "chart_coin": "TRX-USDT",
-   "close": 0.33666,
-   "coin": "TRX-USDT",
-   "group": "testing",
-   "mode": "demo",
-   "rsi14": 54.7,
-   "score": "-",
-   "why": "No buy. Missing: daily close above the 50-day EMA; candle closes above the last swing high (0.33759) - a break of structure."
-  }
- },
+ "check_meanings": {},
+ "now": {},
  "totals": {
   "live": {
    "avg_candles_held": null,
@@ -849,5 +822,5 @@
    "wins": 0
   }
  },
- "updated_utc": "2026-10-05 14:31"
+ "updated_utc": "2026-10-05 15:28"
 }
