@@ -74,3 +74,33 @@ Variants:
 - S2: S1 + daily trend filter (last completed daily close above its daily 50 EMA).
 - S3: S1 with a stricter squeeze: width at its lowest of the previous 1080 candles (180 days).
 Pass rules: the common rules.
+
+## Box bots (B1, B2): shared definitions
+
+Data: Binance archive 1H candles (one source per coin), with 4H candles built from them, for the design
+and never-seen coins (coins with no Binance history are skipped). Common pass rules apply.
+Box = highest high and lowest low of the 30 4H candles (5 days) before the candle being judged, height
+between 3% and 12% of the box low. The box is frozen at the moment of the break.
+
+## B1. Breakout retest (4H box, 1H entry)
+
+Breakout: a 4H candle closes above the box high. Then, within the next 12 4H candles (48 hours), a 1H
+candle's low comes back to within 0.2% of the old box high (or below it) and that 1H candle closes above
+the box high: buy at that 1H close. Stop: back inside the box, at box high - 25% of the box height.
+Exit: target or 48 1H candles. One retest entry per breakout.
+
+Variants:
+- B1a: target 2R.
+- B1b: target 3R.
+- B1c: target 2R, box of 60 4H candles (10 days).
+
+## B2. Failed-breakdown reclaim (4H)
+
+Break: a 4H candle closes below the box low. Reclaim: within N candles after that close, a 4H candle closes
+back above the box low: buy at that close. Stop: lowest low since the break - 0.1%. Target: the box high.
+Time exit: 30 candles. One entry per break.
+
+Variants:
+- B2a: N = 3.
+- B2b: N = 6.
+- B2c: N = 3 + daily trend filter (last completed daily close above its daily 50 EMA).
