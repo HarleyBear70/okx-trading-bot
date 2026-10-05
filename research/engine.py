@@ -114,7 +114,8 @@ def bot_sim(strat, coins, data, analyse, t0, t1=None, extra=None):
                     if not bot.check_hit(None, b, bs, c, x):
                         bot.manage_on_close(None, b, bs, c, a, k, x, k - entry_k[c])
                 if c not in bs["positions"] and a["signal"][k]:
-                    bot.open_position(None, b, bs, c, x, a["info"][k], (extra or (lambda x: {}))(x))
+                    bot.open_position(None, b, bs, c, x, a["info"][k],
+                                      extra(x) if extra else bot.entry_extra(b, x, a["info"][k]))
                     entry_k[c] = k
             mtm = bs["equity"]
             for c, p in bs["positions"].items():

@@ -46,6 +46,7 @@ def rows():
     ddaily = b3.load_daily(e.DESIGN)
     dv2 = e.load(["ETH", "SOL", "XAUT"])
     dg = e.load(["XAUT"])
+    dn = {c: (daily, daily) for c, (_, daily) in e.load(["BTC", "ETH", "XRP"]).items()}
     D = n2.Data()
     sp = lambda cfg: (lambda b, d: bot.analyse_sp(b, d, bot.SP_SETTINGS[cfg]))  # noqa: E731
     return [
@@ -58,6 +59,9 @@ def rows():
         ("Trend Rider gold (pivot 3)", "paused",
          lambda t0, t1: e.bot_sim("tr", ["XAUT"], dg, lambda b, d: bot.analyse_tr(b, d, 3), t0, t1,
                                   extra=lambda x: {"hi": x["c"]}), "XAUT (from 2020)"),
+        ("NNFX Aroon", "paper forward test (backup)",
+         lambda t0, t1: e.bot_sim("nnfx", ["BTC", "ETH", "XRP"], dn, lambda b, d: bot.analyse_nnfx(b), t0, t1),
+         "BTC ETH XRP, daily"),
         ("B3 P3 pairs", "paper forward test",
          lambda t0, t1: b3.pairs_sim(["ETH", "XRP"], 60, 2.5, ddaily, t0, t1), "ETH/BTC XRP/BTC, daily"),
         ("N3 S2 squeeze + daily trend", "research: failed",
