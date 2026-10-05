@@ -26,6 +26,11 @@ START = {"v4-okx": "2026-10-04", "v4-kraken": "2026-10-04", "v2-okx": "2026-10-0
          "tr-okx": "2026-10-04", "tr-gold": "2026-10-04", "b1-paper": "2026-10-05", "b3-paper": "2026-10-05",
          "nnfx-paper": "2026-10-05"}
 W, H, PADL, PADR, PADT, PADB = 330, 130, 44, 10, 12, 22
+# The three piles (job 4). RANGE is empty: no range bot has passed (research/N1_RANGE.md).
+PILES = [("ACTIVE (trading, OKX demo)", ["v4-okx", "tr-okx"]),
+         ("INCUBATING (paper forward tests)", ["b1-paper", "b3-paper", "nnfx-paper", "v4-kraken"]),
+         ("RANGE", []),
+         ("PAUSED", ["v2-okx", "v2-gold", "tr-gold"])]
 
 
 def expected():
@@ -114,7 +119,7 @@ def stats(pnls, curve):
             "pf": (won / lost if lost else (float("inf") if won else None)), "dd": dd * 100}
 
 
-def chart(live, back, path):
+def chart(live, back, path, labels=("live", "backtest replay")):
     pts = live + back
     t0, t1 = min(p[0] for p in pts), max(p[0] for p in pts)
     lo, hi = min(p[1] for p in pts), max(p[1] for p in pts)
@@ -141,8 +146,8 @@ def chart(live, back, path):
     d1 = dt.datetime.fromtimestamp(t1 / 1000, dt.timezone.utc).strftime("%b %d")
     el.append(f'<text x="{PADL}" y="{H - 7}" font-size="9" fill="#868e96">{d0}</text>')
     el.append(f'<text x="{W - PADR}" y="{H - 7}" font-size="9" fill="#868e96" text-anchor="end">{d1}</text>')
-    el.append(f'<text x="{W - PADR}" y="{PADT + 2}" font-size="9" text-anchor="end"><tspan fill="#1971c2">━ live</tspan>'
-              f'<tspan fill="#868e96">  ┅ backtest replay</tspan></text>')
+    el.append(f'<text x="{W - PADR}" y="{PADT + 2}" font-size="9" text-anchor="end"><tspan fill="#1971c2">━ {labels[0]}</tspan>'
+              f'<tspan fill="#868e96">  ┅ {labels[1]}</tspan></text>')
     with open(path, "w") as f:
         f.write(f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" '
                 f'font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif">' + "".join(el) + "</svg>")
@@ -152,6 +157,39 @@ def fmt(x, f):
     if x is None:
         return "-"
     return "inf" if x == float("inf") else f.format(x)
+
+
+def summed(curves):
+    """Add step curves (each held flat between its points) on the union of their times."""
+    times = sorted({t for c in curves for t, _ in c})
+    out = []
+    for t in times:
+        tot = 0.0
+        for c in curves:
+            v = c[0][1]
+            for tt, vv in c:
+                if tt <= t:
+                    v = vv
+                else:
+                    break
+            tot += v
+        out.append((t, tot))
+    return out
+
+
+def hold_pile_lines(state, api):
+    hp = state.get("hold") or {}
+    paid = sum(hp.get("spent", {}).values())
+    val = 0.0
+    for coin, units in hp.get("units", {}).items():
+        try:
+            val += units * bot.get_data(api, "okx", coin, "1D")[0][-1]["c"]
+        except Exception:
+            pass
+    return (f"HOLD (long-term, PAPER): weekly dip-DCA buyer, ${bot.DCA['weekly_usd']:g}/week into "
+            f"{' + '.join(c.split('-')[0] for c in bot.DCA['coins'])}, double when 20%+ below the 200-day average. "
+            f"Paid ${paid:,.2f}, worth ${val:,.2f}. Profit sweeper (25% of wins into this pile): "
+            f"{'ON' if bot.SWEEP['on'] else 'OFF until real money'}. Buys: hold_pile.csv.")
 
 
 def build(api, rows):
@@ -173,10 +211,18 @@ def build(api, rows):
         state = bot.load_state()
     except Exception:
         state = {"bots": {}}
+    names = {b["id"]: b["name"] for b in bot.BOTS}
+    piles = ["## The three piles", "", "- " + hold_pile_lines(state, api)]
+    for title, ids in PILES:
+        piles.append(f"- {title}: " + (", ".join(names[i] for i in ids if i in names) if ids else
+                                       "none yet. No range bot has passed a test (research/N1_RANGE.md, B2), so this pile stays "
+                                       "empty until one does."))
+    piles.append("")
     out = ["## Strategy cards", "", "One card per bot. Chart: blue = the bot's real balance (demo or paper fills, open trades "
            "valued now); dashed grey = the same bot.py code replayed on the same candles since the start (the backtest "
            "engine). A gap between them = fills, timing, or a settings change during the period (see journal/changes.json). "
            "'Backtest' stats are the long-run research numbers (2022-now).", ""]
+    demo_curves, paper_curves = [], []
     for b in bot.BOTS:
         st = status(b)
         tf = {"1H": "1-hour", "4H": "4-hour", "1D": "daily"}[bot.bot_tf(b)]
@@ -191,6 +237,8 @@ def build(api, rows):
         except Exception as ex:
             err = str(ex)[:120]
         live = live_curve(b, rows, mtm)
+        if b.get("new_trades") is not False:
+            (demo_curves if b["mode"] == "demo" else paper_curves).append(live)
         if back:
             chart(live, back, os.path.join(OUT, f"{b['id']}.svg"))
         closed = [t for t in jtrades if t.get("bot_id") == b["id"] and t.get("status") == "closed"]
@@ -211,4 +259,13 @@ def build(api, rows):
                 f"{rs['dd']:.1f}% |",
                 f"| Live ({st.lower()}) since start | {ls['n']} | {fmt(ls['win'], '{:.0f}%')} | {fmt(ls['pf'], '{:.2f}')} | "
                 f"{ls['dd']:.1f}% |", ""]
-    return out
+    growth = []
+    if demo_curves and paper_curves:
+        d = [(t, v / len(demo_curves)) for t, v in summed(demo_curves)]
+        p = [(t, v / len(paper_curves)) for t, v in summed(paper_curves)]
+        chart(d, p, os.path.join(OUT, "growth.svg"), labels=("demo (active)", "paper (incubating)"))
+        growth = ["## Growth: demo vs paper", "", f"Average balance per bot, each bot starting at $1,000: the active demo bots "
+                  f"({len(demo_curves)}, solid) vs the paper bots ({len(paper_curves)}, dashed). Demo now ${d[-1][1]:,.2f} "
+                  f"({(d[-1][1] / 1000 - 1) * 100:+.2f}%), paper now ${p[-1][1]:,.2f} ({(p[-1][1] / 1000 - 1) * 100:+.2f}%).",
+                  "", "![Demo vs paper growth](calendars/cards/growth.svg)", ""]
+    return piles + growth + out

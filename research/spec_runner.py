@@ -6,7 +6,8 @@ writes research/specs/results/<id>.md, marks the queue, and adds every tested va
 
 Spec kinds:
 - "overlay": changes an existing bot (v4 or Trend Rider, as they trade). A variant may give "risk_mult(bars, daily)"
-  (a per-candle multiplier on the 0.5% risk, None = 1) and / or "filter(bars, daily)" (per-candle True = entry allowed).
+  (a per-candle multiplier on the 0.5% risk, None = 1), "filter(bars, daily)" (per-candle True = entry allowed) and / or
+  "manage_wrap(original_manage_on_close)" (returns a replacement for bot.manage_on_close, to change exits).
   Pass for a bot: in BOTH halves (2018-05 to 2021 and the 2022-now holdout) return / max DD higher, PF not lower,
   max DD within 10%; AND on never-seen coins (alone, per market period, pooled) P/L and PF not lower in both halves.
 - "newbot": variants give "entries(coin, bars, daily)" (+ optional "manage") for engine.trade_sim; judged by the
@@ -83,7 +84,13 @@ def overlay_run(which, variant, coins, t0, t1):
         m = 1.0 if m is None else m
         used.append(m)
         return m
-    r = e.multi_sim([(which, strat, coins, data, an, extra)], t0, t1, risk_mult=risk_mult)
+    orig_manage = bot.manage_on_close
+    if variant and variant.get("manage_wrap"):
+        bot.manage_on_close = variant["manage_wrap"](orig_manage)
+    try:
+        r = e.multi_sim([(which, strat, coins, data, an, extra)], t0, t1, risk_mult=risk_mult)
+    finally:
+        bot.manage_on_close = orig_manage
     s = r["bots"][which]
     ret, dd, rd = e.ret_dd(s["curve"]) if s["curve"] else (0.0, 0.0, 0.0)
     return {"n": s["trades"], "ret": ret, "dd": dd, "rd": rd, "pf": s["pf"], "won": s["won"], "lost": s["lost"],

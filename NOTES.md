@@ -851,3 +851,37 @@ WRAP-UP. Jeff says finish what's in progress, no new ideas this round:
 3. Job 5 dashboard: if the calendar plus strategy cards page already covers 'combined journals + paper vs live growth chart', mark job 5 done; otherwise say what's missing.
 4. Put the passed and pending ideas we discussed (box retest etc. are already done) into the Scout queue only as specs, if any remain untested. Don't run new research now.
 5. Post ONE final status checklist: every bot with its status/coins/risk, what runs where (hourly bot, Sunday Scout, notes alert), review dates (2026-10-19), and anything that needs Jeff. Keep it short and plain.
+
+
+2026-10-05 TERMINAL: Wrap-up done. FINAL STATUS CHECKLIST.
+
+Confirmed live (GitHub run 14:30 UTC): Trend Rider is checking TRX (demo), the NNFX paper bot is running, and the calendar + strategy cards are built by GitHub itself. Voice: option A only (ChromeOS Dictation, Search+D; Select-to-speak, Search+S); nothing built.
+
+BOTS (all $1,000 practice balance, 0.5% risk per trade, max 3 open)
+| Pile | Bot | Mode | Coins / candles | Notes |
+|---|---|---|---|---|
+| ACTIVE | SP-12 v4 | OKX demo | BTC ETH XRP XLM BNB / 4H | |
+| ACTIVE | Trend Rider | OKX demo | BTC ETH SOL BNB SUI TRX / 4H | no new buys when Fear & Greed <= 25 |
+| INCUBATING | B1c breakout retest | paper | BTC ETH XRP / 1H | |
+| INCUBATING | B3 pairs | paper | ETH/BTC, XRP/BTC / daily | |
+| INCUBATING | NNFX Aroon | paper | BTC ETH XRP / daily | backup if v4 or TR weaken |
+| INCUBATING | SP-12 v4 Kraken copy | paper | BTC ETH XRP / 4H | |
+| HOLD | Dip-DCA buyer | paper | BTC + XRP weekly | $10/week, 2x when 20%+ below the 200-day; sweeper OFF |
+| RANGE | none | - | - | no range bot has passed |
+| PAUSED | SP-12 v2, v2 gold, Trend Rider gold | - | - | failed tests + repairs; code kept |
+
+WHAT RUNS WHERE (all on GitHub, no Claude usage)
+- Every hour (:07): bot.py (trades / paper), journal.py, pl_calendar.py (CALENDAR.md = dashboard: three piles, demo-vs-paper growth chart, strategy cards, P/L calendars), then everything is saved to the repo.
+- Sundays 13:00 UTC: Scout. Weekly report in reports/: live vs backtest review with warnings, hold pile, Trend Rider with vs without the fear filter, new-coin battery, and the research queue. Queued next: T1b (trend sizing, calibrated on pre-2022 data) and V4T (lock in v4's big winners). Spec files only; nothing run yet.
+- Every NOTES.md push: notes alert (comments on the "NOTES inbox" issue and tags Jeff).
+
+JOB 4 (three piles): DONE, mapped in the README and on the dashboard.
+JOB 5 (dashboard): DONE except a date slider. The page has the combined + per-bot P/L calendars (all journals), the demo-vs-paper growth chart and the live-vs-backtest cards. A real slider needs an interactive web page, which a GitHub repo page can't show (GitHub Pages for a private repo needs a paid plan). The calendar's month sections are the date navigation for now.
+
+REVIEW ON 2026-10-19 (journal/changes.json): 0.5% risk vs before; XLM + BNB on v4; TRX + fear filter on Trend Rider; B1c / B3 / NNFX forward trades vs backtest. The Scout's reports and the strategy cards have the numbers.
+
+NEEDS JEFF
+1. Check whether Kraken perps / shorting are available on his account (unblocks the short-side bot N4 and funding carry).
+2. Turn on ChromeOS Dictation + Select-to-speak (Settings > Accessibility) for voice.
+3. When going live: the real weekly DCA amount (DCA["weekly_usd"] in bot.py) and whether to switch the profit sweeper on.
+4. Nothing is live with real money. Every go-live step waits for his OK.

@@ -1,12 +1,26 @@
 # P/L calendar and strategy cards
 
-Updated automatically every hour (2026-10-05 10:31 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
+Updated automatically every hour (2026-10-05 10:38 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
 
 ## Combined OKX demo account
 
 Closed P/L so far: +$2.73 · 1 win day · 1 loss day
 
 ![Combined OKX demo account](calendars/combined.svg)
+
+## The three piles
+
+- HOLD (long-term, PAPER): weekly dip-DCA buyer, $10/week into BTC + XRP, double when 20%+ below the 200-day average. Paid $10.00, worth $9.99. Profit sweeper (25% of wins into this pile): OFF until real money. Buys: hold_pile.csv.
+- ACTIVE (trading, OKX demo): SP-12 v4, Trend Rider
+- INCUBATING (paper forward tests): B1c breakout retest (paper), B3 pairs (paper), NNFX Aroon (paper), SP-12 v4 (Kraken paper)
+- RANGE: none yet. No range bot has passed a test (research/N1_RANGE.md, B2), so this pile stays empty until one does.
+- PAUSED: SP-12 v2, SP-12 v2 (gold paper), Trend Rider (gold paper)
+
+## Growth: demo vs paper
+
+Average balance per bot, each bot starting at $1,000: the active demo bots (2, solid) vs the paper bots (4, dashed). Demo now $1,005.78 (+0.58%), paper now $1,004.39 (+0.44%).
+
+![Demo vs paper growth](calendars/cards/growth.svg)
 
 ## Strategy cards
 

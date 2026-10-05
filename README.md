@@ -2,6 +2,18 @@
 
 **Dashboard:** [CALENDAR.md](CALENDAR.md): daily P/L calendar + one strategy card per bot (live vs backtest), updated every hour.
 
+## The three piles
+
+| Pile | What's in it | Mode |
+|---|---|---|
+| HOLD (long-term) | Weekly dip-DCA buyer: $10/week into BTC + XRP, double when a coin is 20%+ below its 200-day average (setting DCA in bot.py). Profit sweeper (25% of wins to this pile) built but OFF until real money | paper |
+| ACTIVE (trading) | SP-12 v4 (BTC ETH XRP XLM BNB) and Trend Rider (BTC ETH SOL BNB SUI TRX, fear filter on) | OKX demo |
+| RANGE | None yet: no range bot has passed a test (research/N1_RANGE.md, B2 in research/B_BOXES.md) | - |
+| INCUBATING | B1c breakout retest, B3 pairs, NNFX Aroon, and the Kraken-price copy of v4 | paper |
+| PAUSED | SP-12 v2, SP-12 v2 gold, Trend Rider gold (failed long-history tests and repairs) | - |
+
+All bots risk 0.5% of their own $1,000 practice balance per trade. Nothing uses real money until Jeff says go.
+
 Jeff's demo trading bots. GitHub runs them every hour for free, so they don't use any Claude usage.
 
 **Nothing here can touch real money.** "Demo" bots trade on the OKX demo account, and every order carries OKX's demo header. "Paper" bots place no orders at all. They only write pretend trades to `trades.csv`.
