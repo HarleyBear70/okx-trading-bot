@@ -1,9 +1,11 @@
 {
  "last_bar": {
   "tr-gold|XAUT-USDT": 1791144000000,
+  "tr-okx|BNB-USDT": 1791144000000,
   "tr-okx|BTC-USDT": 1791144000000,
   "tr-okx|ETH-USDT": 1791144000000,
   "tr-okx|SOL-USDT": 1791144000000,
+  "tr-okx|SUI-USDT": 1791144000000,
   "v2-gold|XAUT-USDT": 1791144000000,
   "v2-okx|ETH-USDT": 1791144000000,
   "v2-okx|SOL-USDT": 1791144000000,
@@ -16,7 +18,7 @@
   "v4-okx|SOL-USDT": 1791129600000,
   "v4-okx|XRP-USDT": 1791144000000
  },
- "rows_seen": 6,
+ "rows_seen": 7,
  "signal_counts": {
   "tr-gold": {
    "candles": 6,
@@ -24,8 +26,8 @@
    "signals": 0
   },
   "tr-okx": {
-   "candles": 18,
-   "near_misses": 18,
+   "candles": 20,
+   "near_misses": 20,
    "signals": 0
   },
   "v2-gold": {
