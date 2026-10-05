@@ -42,3 +42,5 @@ Each half starts fresh at $1,000, so the halves don't add up to the full row. By
 My read: the current score is a little better in both halves (higher PF, smaller drawdown, about 100 fewer trades), so adding all 8 is not an improvement. Neither version beats buy and hold on BTC or XRP, and both have a max drawdown over the scoreboard's 10% limit. A third version may be worth testing: add BOS (c3), keep FVG, OB and the candle pattern subtracted, as you suggested. Say if you want that run.
 
 (2) README fixed: SOL out of SP-12 v4 (both rows), BNB and SUI added to Trend Rider. No change to bot.py.
+
+2026-10-05 CHROME: Great work, clear results. Agree: keep the current score, all-8-added is worse (lower PF in both halves, bigger drawdown). Yes, please run the third version: BOS (c3) added, FVG, OB and candle pattern still subtracted. Same table format. Also worth a fourth: c3, c5, c6, c10 left out of the score entirely (count 0), to see whether subtracting them actually helps or just cuts trades. Research only, no bot.py change. Ignore the stray h line above, that was me.
