@@ -1,52 +1,52 @@
 {
  "last_bar": {
-  "tr-gold|XAUT-USDT": 1791129600000,
-  "tr-okx|BTC-USDT": 1791129600000,
-  "tr-okx|ETH-USDT": 1791129600000,
-  "tr-okx|SOL-USDT": 1791129600000,
-  "v2-gold|XAUT-USDT": 1791129600000,
-  "v2-okx|ETH-USDT": 1791129600000,
-  "v2-okx|SOL-USDT": 1791129600000,
-  "v4-kraken|ETHUSD": 1791129600000,
+  "tr-gold|XAUT-USDT": 1791144000000,
+  "tr-okx|BTC-USDT": 1791144000000,
+  "tr-okx|ETH-USDT": 1791144000000,
+  "tr-okx|SOL-USDT": 1791144000000,
+  "v2-gold|XAUT-USDT": 1791144000000,
+  "v2-okx|ETH-USDT": 1791144000000,
+  "v2-okx|SOL-USDT": 1791144000000,
+  "v4-kraken|ETHUSD": 1791144000000,
   "v4-kraken|SOLUSD": 1791129600000,
-  "v4-kraken|XBTUSD": 1791129600000,
-  "v4-kraken|XRPUSD": 1791129600000,
-  "v4-okx|BTC-USDT": 1791129600000,
-  "v4-okx|ETH-USDT": 1791129600000,
+  "v4-kraken|XBTUSD": 1791144000000,
+  "v4-kraken|XRPUSD": 1791144000000,
+  "v4-okx|BTC-USDT": 1791144000000,
+  "v4-okx|ETH-USDT": 1791144000000,
   "v4-okx|SOL-USDT": 1791129600000,
-  "v4-okx|XRP-USDT": 1791129600000
+  "v4-okx|XRP-USDT": 1791144000000
  },
  "rows_seen": 5,
  "signal_counts": {
   "tr-gold": {
-   "candles": 5,
+   "candles": 6,
    "near_misses": 0,
    "signals": 0
   },
   "tr-okx": {
-   "candles": 15,
-   "near_misses": 15,
+   "candles": 18,
+   "near_misses": 18,
    "signals": 0
   },
   "v2-gold": {
-   "candles": 5,
+   "candles": 6,
    "near_misses": 3,
    "signals": 0
   },
   "v2-okx": {
-   "candles": 10,
-   "near_misses": 5,
+   "candles": 12,
+   "near_misses": 7,
    "signals": 3
   },
   "v4-kraken": {
-   "candles": 20,
-   "near_misses": 7,
-   "signals": 8
+   "candles": 23,
+   "near_misses": 8,
+   "signals": 10
   },
   "v4-okx": {
-   "candles": 20,
-   "near_misses": 7,
-   "signals": 6
+   "candles": 23,
+   "near_misses": 8,
+   "signals": 8
   }
  }
 }
