@@ -1,0 +1,42 @@
+{
+ "rows_seen": 12,
+ "bots": {
+  "v4-okx": {
+   "peak": 1006.89,
+   "odd": ""
+  },
+  "v4-kraken": {
+   "peak": 1009.19,
+   "odd": ""
+  },
+  "v2-okx": {
+   "peak": 1000.0,
+   "odd": ""
+  },
+  "v2-gold": {
+   "peak": 1000.0,
+   "odd": ""
+  },
+  "tr-okx": {
+   "peak": 1000.0,
+   "odd": ""
+  },
+  "b1-paper": {
+   "peak": 1000.0,
+   "odd": ""
+  },
+  "b3-paper": {
+   "peak": 1000.0,
+   "odd": ""
+  },
+  "nnfx-paper": {
+   "peak": 1000.0,
+   "odd": ""
+  },
+  "tr-gold": {
+   "peak": 1000.0,
+   "odd": ""
+  }
+ },
+ "attention": []
+}

@@ -1,0 +1,158 @@
+{
+ "updated_utc": "2026-10-05 17:32",
+ "bots": {
+  "v4-okx": {
+   "live_now": 1005.0504,
+   "replay_now": 1002.372576534384,
+   "live": {
+    "n": 2,
+    "win": 50.0,
+    "pf": 7.011904761904762,
+    "dd": -0.18274091509500323
+   },
+   "replay": {
+    "n": 0,
+    "win": null,
+    "pf": null,
+    "dd": -0.5910801113495623
+   },
+   "error": null
+  },
+  "v4-kraken": {
+   "live_now": 1007.3180577143751,
+   "replay_now": 1003.9744175728146,
+   "live": {
+    "n": 1,
+    "win": 100.0,
+    "pf": Infinity,
+    "dd": -0.18548957932846832
+   },
+   "replay": {
+    "n": 0,
+    "win": null,
+    "pf": null,
+    "dd": -0.4678393921740964
+   },
+   "error": null
+  },
+  "v2-okx": {
+   "live_now": 996.6773,
+   "replay_now": 1000.0,
+   "live": {
+    "n": 1,
+    "win": 0.0,
+    "pf": 0.0,
+    "dd": -0.3322700000000012
+   },
+   "replay": {
+    "n": 0,
+    "win": null,
+    "pf": null,
+    "dd": 0.0
+   },
+   "error": null
+  },
+  "v2-gold": {
+   "live_now": 1000.0,
+   "replay_now": 1000.0,
+   "live": {
+    "n": 0,
+    "win": null,
+    "pf": null,
+    "dd": 0.0
+   },
+   "replay": {
+    "n": 0,
+    "win": null,
+    "pf": null,
+    "dd": 0.0
+   },
+   "error": null
+  },
+  "tr-okx": {
+   "live_now": 995.8845172663937,
+   "replay_now": 996.7622552781004,
+   "live": {
+    "n": 0,
+    "win": null,
+    "pf": null,
+    "dd": -0.41154827336062905
+   },
+   "replay": {
+    "n": 0,
+    "win": null,
+    "pf": null,
+    "dd": -0.3237744721899638
+   },
+   "error": null
+  },
+  "b1-paper": {
+   "live_now": 1000.0,
+   "replay_now": 1000.0,
+   "live": {
+    "n": 0,
+    "win": null,
+    "pf": null,
+    "dd": 0.0
+   },
+   "replay": {
+    "n": 0,
+    "win": null,
+    "pf": null,
+    "dd": 0.0
+   },
+   "error": null
+  },
+  "b3-paper": {
+   "live_now": 1000.0,
+   "replay_now": 1000.0,
+   "live": {
+    "n": 0,
+    "win": null,
+    "pf": null,
+    "dd": 0.0
+   },
+   "replay": {
+    "n": 0,
+    "win": null,
+    "pf": null,
+    "dd": 0.0
+   },
+   "error": null
+  },
+  "nnfx-paper": {
+   "live_now": 1000.0,
+   "replay_now": 1000.0,
+   "live": {
+    "n": 0,
+    "win": null,
+    "pf": null,
+    "dd": 0.0
+   },
+   "replay": {
+    "n": 0,
+    "win": null,
+    "pf": null,
+    "dd": 0.0
+   },
+   "error": null
+  },
+  "tr-gold": {
+   "live_now": 1000.0,
+   "replay_now": 1000.0,
+   "live": {
+    "n": 0,
+    "win": null,
+    "pf": null,
+    "dd": 0.0
+   },
+   "replay": {
+    "n": 0,
+    "win": null,
+    "pf": null,
+    "dd": 0.0
+   },
+   "error": null
+  }
+ }
+}
