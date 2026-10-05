@@ -320,6 +320,8 @@ def coin_frame(api, b, coin):
 
 
 def detail_for(api, b, coin, wanted_idx):
+    if b["strat"] not in ("tr", "v4", "v2"):
+        return {}  # e.g. the B1c paper bot (1H candles): no per-candle notes, its trades are still journaled
     bars, forming, daily, ind = coin_frame(api, b, coin)
     if b["strat"] == "tr":
         d = detail_tr(bars, daily, b.get("pivot", 5), ind, set(wanted_idx))

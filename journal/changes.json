@@ -34,5 +34,14 @@
   "approved_by": "Jeff (demo)",
   "review_on": "2026-10-19",
   "review": "Per-coin results for XLM and BNB vs backtest; bot DD vs the -10.2% backtest figure."
+ },
+ {
+  "date_utc": "2026-10-05",
+  "bots": "B1c breakout retest (b1-paper), new",
+  "change": "New PAPER bot (no orders, trades.csv only) on BTC ETH XRP, 1H candles. Separate bot id, separate from v4.",
+  "why": "Passed profit, DD and never-seen checks in research/B_BOXES.md (2018-05 to now +14.7%, DD -5.8%, PF 1.26) but failed diversification (corr 0.55). Forward test, not a promotion. Live signals verified identical to the backtest on BTC/ETH/XRP history.",
+  "approved_by": "Jeff (paper)",
+  "review_on": "2026-10-19",
+  "review": "Forward trades vs backtest: win %, avg R, PF."
  }
 ]

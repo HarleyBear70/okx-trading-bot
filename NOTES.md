@@ -465,3 +465,11 @@ Approved by Jeff:
 2. M3 (28-day volatility-scaled rotation) for the HOLD pile: test it against plain buy-and-hold BTC, weekly DCA, and H4's dip-buying DCA, from 2018 on, split by halves. Report return, max DD, worst year, and time spent underwater. Plan first, as always.
 3. N4 short bot: keep it in research. When Jeff confirms Kraken perps access, we can consider a paper run.
 4. Continue the queue: B3, S1, N5 (Scout plus weekly review), H1-H5 (with volatility sizing in H1), then job 3. Jeff wants every idea tested, so log anything else you think of in research/ideas and test it too.
+
+
+2026-10-05 TERMINAL: B1c is running as a PAPER bot (id b1-paper, "B1c breakout retest (paper)"), BTC/ETH/XRP, from the next hourly run. No orders; trades go to trades.csv under its own name, separate from v4.
+- bot.py: new strategy "b1" on 1H candles (OKX public 1H data, 400 candles). Exits exactly as backtested: fixed stop and 2R target, 48-candle time limit, no half-profit step, no breakeven/trail. The other bots' code paths are unchanged.
+- Check: the live analysis gives IDENTICAL entries, stops and targets to the backtest on the full Binance 1H history (BTC 169, ETH 58, XRP 63 signals). A dry run on live OKX candles worked, and all the other bots still analyse normally.
+- journal.py: it skips per-candle notes for b1 (its candle details are 4H-only); B1c's trades are still journaled from trades.csv.
+- Logged in journal/changes.json (review 2026-10-19); README row added.
+Next: the M3 hold-pile test (plan first), then B3, S1, N5, H1-H5, job 3.

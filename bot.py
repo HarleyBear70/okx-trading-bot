@@ -51,6 +51,8 @@ BOTS = [
      "coins": ["XAUT-USDT"], "equity": 1000.0, "new_trades": False},  # paused Oct 5 2026 with SP-12 v2
     {"id": "tr-okx", "name": "Trend Rider", "strat": "tr", "venue": "okx", "mode": "demo", "prefix": "ghT",
      "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "BNB-USDT", "SUI-USDT"], "equity": 1000.0, "pivot": 5},  # BNB, SUI added Oct 5 (passed backtest)
+    {"id": "b1-paper", "name": "B1c breakout retest (paper)", "strat": "b1", "venue": "okx", "mode": "paper",
+     "coins": ["BTC-USDT", "ETH-USDT", "XRP-USDT"], "equity": 1000.0},  # forward test from Oct 5 2026 (research/B_BOXES.md)
     {"id": "tr-gold", "name": "Trend Rider (gold paper)", "strat": "tr", "venue": "okx", "mode": "paper",
      "coins": ["XAUT-USDT"], "equity": 1000.0, "pivot": 3,
      "new_trades": False},  # paused Oct 5 2026: weak in long-history test, repair failed (research/REPAIR_gold.md)
@@ -405,6 +407,50 @@ def analyse_sp(bars, daily, cfg):
     return {"signal": signal, "info": info, "sar": sar}
 
 
+# ───────── B1c breakout retest (1H candles, paper forward test) ─────────
+B1_SETTINGS = {"box": 60, "h_min": 0.03, "h_max": 0.12, "retest_4h": 12, "near": 0.002, "inside": 0.25,
+               "rr": 2.0, "max_bars": 48}
+
+
+def to_4h(bars):
+    """Complete 4H candles (UTC) built from 1H candles."""
+    out = {}
+    for b in bars:
+        k = b["ts"] - b["ts"] % H4_MS
+        x = out.setdefault(k, {"ts": k, "o": b["o"], "h": b["h"], "l": b["l"], "c": b["c"], "n": 0})
+        x["h"], x["l"], x["c"], x["n"] = max(x["h"], b["h"]), min(x["l"], b["l"]), b["c"], x["n"] + 1
+    return [x for x in sorted(out.values(), key=lambda x: x["ts"]) if x["n"] == 4]
+
+
+def analyse_b1(bars):
+    """4H box of the last 60 candles; after a 4H close above the box high, buy the first 1H candle (within
+    12 4H candles) that dips to within 0.2% of the old box high and closes back above it. Stop 25% back
+    inside the box, target 2R. `bars` are 1H candles."""
+    cfg = B1_SETTINGS
+    b4 = to_4h(bars)
+    h4, l4, c4 = [x["h"] for x in b4], [x["l"] for x in b4], [x["c"] for x in b4]
+    idx = {b["ts"]: k for k, b in enumerate(bars)}
+    n = len(bars)
+    signal, info = [False] * n, [None] * n
+    for j in range(cfg["box"] + 1, len(b4)):
+        hi, lo = max(h4[j - cfg["box"]:j]), min(l4[j - cfg["box"]:j])
+        if lo <= 0 or not (cfg["h_min"] <= (hi - lo) / lo <= cfg["h_max"]) or not (c4[j] > hi >= c4[j - 1]):
+            continue
+        start = b4[j]["ts"] + H4_MS
+        for t in range(start, start + cfg["retest_4h"] * H4_MS, 3600 * 1000):
+            k = idx.get(t)
+            if k is None:
+                continue
+            x = bars[k]
+            if x["l"] <= hi * (1 + cfg["near"]) and x["c"] > hi:
+                sl = hi - cfg["inside"] * (hi - lo)
+                signal[k] = True
+                info[k] = {"score": "retest", "raw_risk": (x["c"] - sl) / x["c"] * 100, "sl": sl,
+                           "tp": x["c"] + cfg["rr"] * (x["c"] - sl)}
+                break
+    return {"signal": signal, "info": info}
+
+
 # ───────── Trend Rider ─────────
 def analyse_tr(bars, daily, L):
     h = [b["h"] for b in bars]; l = [b["l"] for b in bars]; c = [b["c"] for b in bars]; n = len(bars)
@@ -647,7 +693,7 @@ def check_hit(api, bot, bs, coin, bar):
         close_position(api, bot, bs, coin, reason, min(pos["stop"], bar["o"]))
         return True
     two_r = pos["entry_px"] + 2 * (pos["entry_px"] - pos["sl"])
-    if not pos.get("half") and pos["entry_px"] > pos["sl"] and bar["h"] >= two_r:
+    if not pos.get("half") and not pos.get("no_half") and pos["entry_px"] > pos["sl"] and bar["h"] >= two_r:
         take_half(api, bot, bs, coin, max(two_r, bar["o"]))
     if pos.get("limit") and bar["h"] >= pos["limit"]:
         close_position(api, bot, bs, coin, "take profit", max(pos["limit"], bar["o"]))
@@ -670,13 +716,15 @@ def manage_on_close(api, bot, bs, coin, a, i, bar, bars_in):
         new = max(be_floor, s) if trail and s is not None and s < bar["c"] else be_floor
         pos["stop"] = max(pos["stop"], new)  # stops only ever move up
         pos["limit"] = None if trail else pos["tp"]
+    elif bot["strat"] == "b1":
+        pass  # fixed stop and target, as backtested
     elif bot["strat"] == "tr":
         pos["hi"] = max(pos["hi"] or bar["c"], bar["c"])
         trail_stop = pos["hi"] - 3 * a["atr"][i] if a["atr"][i] is not None else be_floor
         pos["stop"] = max(pos["stop"], be_floor, trail_stop)
     else:
         pos["stop"] = max(pos["stop"], be_floor)
-    max_bars = SP_SETTINGS.get(bot["strat"], {}).get("max_bars")
+    max_bars = (B1_SETTINGS if bot["strat"] == "b1" else SP_SETTINGS.get(bot["strat"], {})).get("max_bars")
     if max_bars and bars_in >= max_bars:
         close_position(api, bot, bs, coin, "time exit", bar["c"])
         return True
@@ -687,10 +735,12 @@ def manage_on_close(api, bot, bs, coin, a, i, bar, bars_in):
 _data = {}
 
 
-def get_data(api, venue, coin):
-    key = (venue, coin)
+def get_data(api, venue, coin, tf="4H"):
+    key = (venue, coin, tf)
     if key not in _data:
-        if venue == "kraken":
+        if tf == "1H":
+            raw4, rawd = api.candles(coin, "1H", 400), []
+        elif venue == "kraken":
             raw4, rawd = kraken_candles(coin, 240), kraken_candles(coin, 1440)
         else:
             raw4, rawd = api.candles(coin, "4H", 500), api.candles(coin, "1Dutc", 120)
@@ -702,8 +752,10 @@ def get_data(api, venue, coin):
 
 
 def run_bot_coin(api, state, bot, coin, trade=True):
-    bars, forming, daily = get_data(api, bot["venue"], coin)
-    if bot["strat"] == "tr":
+    bars, forming, daily = get_data(api, bot["venue"], coin, "1H" if bot["strat"] == "b1" else "4H")
+    if bot["strat"] == "b1":
+        a = analyse_b1(bars)
+    elif bot["strat"] == "tr":
         a = analyse_tr(bars, daily, bot.get("pivot", 5))
     else:
         a = analyse_sp(bars, daily, SP_SETTINGS[bot["strat"]])
@@ -711,7 +763,7 @@ def run_bot_coin(api, state, bot, coin, trade=True):
     i_last = len(bars) - 1
     inf = a["info"][i_last]
     pos = bs["positions"].get(coin)
-    log(f"[{bot['name']}] {coin}: 4H {ts_iso(bars[i_last]['ts'])} close {bars[i_last]['c']:.6g}"
+    log(f"[{bot['name']}] {coin}: {'1H' if bot['strat'] == 'b1' else '4H'} {ts_iso(bars[i_last]['ts'])} close {bars[i_last]['c']:.6g}"
         + (f" | score {inf['score']} risk {inf['raw_risk']:.2f}% signal={a['signal'][i_last]}" if inf else "")
         + (f" | OPEN from {pos['entry_px']:.6g}, stop {pos['stop']:.6g}" if pos else ""))
     if not trade:
@@ -731,7 +783,7 @@ def run_bot_coin(api, state, bot, coin, trade=True):
                 bars_in = k - idx[p["entry_ts"]] if p["entry_ts"] in idx else (b["ts"] - p["entry_ts"]) // H4_MS
                 manage_on_close(api, bot, bs, coin, a, k, b, bars_in)
         if coin not in bs["positions"] and a["signal"][k] and k == i_last and bot.get("new_trades", True):
-            extra = {"hi": b["c"]} if bot["strat"] == "tr" else {}
+            extra = {"hi": b["c"]} if bot["strat"] == "tr" else ({"no_half": True} if bot["strat"] == "b1" else {})
             open_position(api, bot, bs, coin, b, a["info"][k], extra)
         bs["last_bar"][coin] = b["ts"]
 
