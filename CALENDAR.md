@@ -1,6 +1,6 @@
 # P/L calendar and strategy cards
 
-Updated automatically every hour (2026-10-05 14:31 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
+Updated automatically every hour (2026-10-05 17:38 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
 
 ## Combined OKX demo account
 
@@ -18,7 +18,7 @@ Closed P/L so far: +$1.73 · 1 win day · 1 loss day
 
 ## Growth: demo vs paper
 
-Average balance per bot, each bot starting at $1,000: the active demo bots (2, solid) vs the paper bots (4, dashed). Demo now $1,000.47 (+0.05%), paper now $1,001.83 (+0.18%).
+Average balance per bot, each bot starting at $1,000: the active demo bots (2, solid) vs the paper bots (4, dashed). Demo now $1,001.23 (+0.12%), paper now $1,002.48 (+0.25%).
 
 ![Demo vs paper growth](calendars/cards/growth.svg)
 
@@ -35,20 +35,20 @@ OKX · BTC ETH XRP XLM BNB · 4-hour candles · started 2026-10-04 · balance no
 | | Trades | Win % | PF | Max DD |
 |---|---|---|---|---|
 | Backtest, long run (research, 2022-now) | - | 34% | 1.40 | -9.6% |
-| Backtest replay since start | 0 | - | - | -0.8% |
+| Backtest replay since start | 1 | 0% | 0.00 | -0.8% |
 | Live (demo) since start | 2 | 50% | 7.01 | -0.2% |
 
 ### SP-12 v4 (Kraken paper)  ·  PAPER
 
-Kraken · XBTUSD ETHUSD XRPUSD · 4-hour candles · started 2026-10-04 · balance now 1,007.32
+Kraken · XBTUSD ETHUSD XRPUSD · 4-hour candles · started 2026-10-04 · balance now 1,009.90
 
 ![SP-12 v4 (Kraken paper) live vs backtest](calendars/cards/v4-kraken.svg)
 
 | | Trades | Win % | PF | Max DD |
 |---|---|---|---|---|
 | Backtest, long run (research, 2022-now) | - | 33% | 1.46 | -9.5% |
-| Backtest replay since start | 0 | - | - | -0.7% |
-| Live (paper) since start | 1 | 100% | inf | -0.2% |
+| Backtest replay since start | 1 | 0% | 0.00 | -0.7% |
+| Live (paper) since start | 1 | 100% | inf | 0.0% |
 
 ### SP-12 v2  ·  PAUSED
 
@@ -76,7 +76,7 @@ OKX · XAUT · 4-hour candles · started 2026-10-04 · balance now 1,000.00
 
 ### Trend Rider  ·  DEMO
 
-OKX · BTC ETH SOL BNB SUI TRX · 4-hour candles · started 2026-10-04 · balance now 995.88
+OKX · BTC ETH SOL BNB SUI TRX · 4-hour candles · started 2026-10-04 · balance now 997.41
 
 ![Trend Rider live vs backtest](calendars/cards/tr-okx.svg)
 
@@ -84,7 +84,7 @@ OKX · BTC ETH SOL BNB SUI TRX · 4-hour candles · started 2026-10-04 · balanc
 |---|---|---|---|---|
 | Backtest, long run (research, 2022-now) | - | 40% | 2.33 | -10.6% |
 | Backtest replay since start | 0 | - | - | -0.3% |
-| Live (demo) since start | 0 | - | - | -0.4% |
+| Live (demo) since start | 0 | - | - | -0.3% |
 
 ### B1c breakout retest (paper)  ·  PAPER
 
