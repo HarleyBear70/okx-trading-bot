@@ -3,18 +3,18 @@
     "tr-gold": {
       "equity": 1000.0,
       "last_bar": {
-        "XAUT-USDT": 1791158400000
+        "XAUT-USDT": 1791172800000
       },
       "positions": {}
     },
     "tr-okx": {
       "equity": 1000.0,
       "last_bar": {
-        "BNB-USDT": 1791158400000,
-        "BTC-USDT": 1791158400000,
-        "ETH-USDT": 1791158400000,
-        "SOL-USDT": 1791158400000,
-        "SUI-USDT": 1791158400000
+        "BNB-USDT": 1791172800000,
+        "BTC-USDT": 1791172800000,
+        "ETH-USDT": 1791172800000,
+        "SOL-USDT": 1791172800000,
+        "SUI-USDT": 1791172800000
       },
       "peak": 1000.0,
       "positions": {
@@ -22,11 +22,11 @@
           "cost": 108.4299637,
           "entry_px": 1.2271441212952525,
           "entry_ts": 1791158400000,
-          "hi": 1.2305,
+          "hi": 1.2438,
           "limit": null,
           "qty": 88.0503414,
           "sl": 1.117019689104377,
-          "stop": 1.117019689104377,
+          "stop": 1.1301754255969219,
           "tp": null,
           "trail": false
         }
@@ -35,25 +35,25 @@
     "v2-gold": {
       "equity": 1000.0,
       "last_bar": {
-        "XAUT-USDT": 1791158400000
+        "XAUT-USDT": 1791172800000
       },
       "positions": {}
     },
     "v2-okx": {
       "equity": 996.6773,
       "last_bar": {
-        "ETH-USDT": 1791158400000,
-        "SOL-USDT": 1791158400000
+        "ETH-USDT": 1791172800000,
+        "SOL-USDT": 1791172800000
       },
       "positions": {}
     },
     "v4-kraken": {
       "equity": 1009.1868,
       "last_bar": {
-        "ETHUSD": 1791158400000,
+        "ETHUSD": 1791172800000,
         "SOLUSD": 1791129600000,
-        "XBTUSD": 1791158400000,
-        "XRPUSD": 1791158400000
+        "XBTUSD": 1791172800000,
+        "XRPUSD": 1791172800000
       },
       "positions": {
         "ETHUSD": {
@@ -87,10 +87,10 @@
     "v4-okx": {
       "equity": 1006.0547,
       "last_bar": {
-        "BTC-USDT": 1791158400000,
-        "ETH-USDT": 1791158400000,
+        "BTC-USDT": 1791172800000,
+        "ETH-USDT": 1791172800000,
         "SOL-USDT": 1791129600000,
-        "XRP-USDT": 1791158400000
+        "XRP-USDT": 1791172800000
       },
       "peak": 1000.0,
       "positions": {
