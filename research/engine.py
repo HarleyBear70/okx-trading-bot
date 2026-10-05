@@ -340,3 +340,90 @@ def evaluate(variants, loader=None):
             best = (name, n_rd - b_rd)
         print(f"done {name}", flush=True)
     return rows, verdicts, best[0]
+
+
+# ───────── several bot.py bots stepped together (helper-bot tests) ─────────
+def multi_sim(specs, t0, t1=None, on_bar=None, risk_mult=None):
+    """specs: [(name, strat, coins, data, analyse, extra)], each bot with its own $1,000, bar by bar on one
+    shared timeline, using bot.py's own functions.
+    on_bar(ctx) is called after every timestamp with ctx = {"ts", "mtm": {name: balance}, "combined"};
+    risk_mult(ctx, name, coin, bars, k) -> multiplier on bot.py's risk for that new trade (default 1).
+    Returns {"bots": {name: stats}, "combined": curve}."""
+    t1 = t1 or now()
+    states, per, trades = {}, {}, {}
+    for name, strat, coins, data, analyse, extra in specs:
+        states[name] = ({"id": name, "name": name, "strat": strat, "venue": "okx", "mode": "paper", "coins": coins,
+                         "equity": 1000.0}, {"equity": 1000.0, "positions": {}, "last_bar": {}}, extra)
+        per[name] = {}
+        for c in coins:
+            bars, daily = data[c]
+            per[name][c] = (bars, analyse(bars, daily), {x["ts"]: k for k, x in enumerate(bars)})
+        trades[name] = []
+    cur = {"bot": None, "m": 1.0}
+    open_id = {}
+
+    def log_trade(_bot, coin, side, qty, px, usdt, pnl, pnl_pct, reason, equity):
+        key = (_bot["name"], coin)
+        if side == "buy":
+            open_id[key] = len(trades[_bot["name"]])
+            trades[_bot["name"]].append({"coin": coin, "pnl": 0.0})
+        else:
+            trades[_bot["name"]][open_id[key]]["pnl"] += pnl
+    o_lt, o_log, o_risk = bot.log_trade, bot.log, bot.risk_pct
+    bot.log_trade, bot.log = log_trade, lambda *a: None
+    bot.risk_pct = lambda b, bs: bot.RISK_PCT * cur["m"]
+    times = sorted({x["ts"] for name in per for bars, _, _ in per[name].values() for x in bars
+                    if ms(t0) <= x["ts"] < ms(t1)})
+    curves = {name: [] for name in per}
+    combined, entry_k = [], {}
+    ctx = {"ts": None, "mtm": {name: 1000.0 for name in per}, "combined": 2000.0 if len(per) == 2 else 1000.0 * len(per)}
+    try:
+        for ts in times:
+            ctx["ts"] = ts
+            for name, (b, bs, extra) in states.items():
+                for c in b["coins"]:
+                    bars, a, idx = per[name][c]
+                    k = idx.get(ts)
+                    if k is None:
+                        continue
+                    x = bars[k]
+                    if c in bs["positions"] and x["ts"] > bs["positions"][c]["entry_ts"]:
+                        if not bot.check_hit(None, b, bs, c, x):
+                            bot.manage_on_close(None, b, bs, c, a, k, x, k - entry_k[(name, c)])
+                    if c not in bs["positions"] and a["signal"][k]:
+                        cur["m"] = risk_mult(ctx, name, c, bars, k) if risk_mult else 1.0
+                        bot.open_position(None, b, bs, c, x, a["info"][k], (extra or (lambda x: {}))(x))
+                        cur["m"] = 1.0
+                        entry_k[(name, c)] = k
+            tot = 0.0
+            for name, (b, bs, extra) in states.items():
+                mtm = bs["equity"]
+                for c, p in bs["positions"].items():
+                    bars, _, idx = per[name][c]
+                    k = idx.get(ts)
+                    px = bars[k]["c"] if k is not None else p["entry_px"]
+                    mtm += (p["qty"] * px * (1 - bot.FEE) - p["cost"]) * p.get("pnl_scale", 1.0)
+                curves[name].append((ts, mtm))
+                ctx["mtm"][name] = mtm
+                tot += mtm
+            ctx["combined"] = tot
+            combined.append((ts, tot))
+            if on_bar:
+                on_bar(ctx)
+        for name, (b, bs, extra) in states.items():
+            for c in list(bs["positions"]):
+                bars, _, _ = per[name][c]
+                last = max(k for k, x in enumerate(bars) if x["ts"] < ms(t1))
+                bot.close_position(None, b, bs, c, "end of test", bars[last]["c"])
+    finally:
+        bot.log_trade, bot.log, bot.risk_pct = o_lt, o_log, o_risk
+    return {"bots": {name: _stats(trades[name], curves[name], states[name][1]["equity"]) for name in states},
+            "combined": combined}
+
+
+def demo_specs():
+    """v4 and Trend Rider as they trade now (coins from bot.py)."""
+    v4c = [c.split("-")[0] for c in next(b for b in bot.BOTS if b["id"] == "v4-okx")["coins"]]
+    trc = [c.split("-")[0] for c in next(b for b in bot.BOTS if b["id"] == "tr-okx")["coins"]]
+    return [("v4", "v4", v4c, load(v4c), lambda b, d: bot.analyse_sp(b, d, bot.SP_SETTINGS["v4"]), None),
+            ("tr", "tr", trc, load(trc), lambda b, d: bot.analyse_tr(b, d, 5), lambda x: {"hi": x["c"]})]

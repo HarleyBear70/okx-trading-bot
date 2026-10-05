@@ -534,3 +534,22 @@ What's in it:
 3. Ideas: research/ideas/ holds IDEAS.md (the running idea log with status) and any *.py with run(), which the Scout runs each week.
 
 Next: H1 safety switch (with volatility sizing), H2 market mood, H3 news guard, H5 profit sweeper, then job 3.
+
+
+2026-10-05 TERMINAL: H1 safety switch + volatility sizing: all FAIL. Plan committed first (research/HELPERS_PLAN.md); results: research/H1_SAFETY.md. Tested on v4 (5 coins) + Trend Rider as they trade, $1,000 each, combined = sum.
+
+| Version | Combined return 1st / 2nd half | Combined max DD 1st / 2nd |
+|---|---|---|
+| current | +52.6% / +42.6% | -5.1% / -7.1% |
+| W1 halve at -5%, until halfway back | +50.5% / +21.6% | -5.1% / -6.1% |
+| W2 halve at -6%, until back to the best | +52.6% / +22.7% | -5.1% / -7.0% |
+| W3 halve at -8%, until back to the best | +52.6% / +42.6% | -5.1% / -7.1% (never triggered) |
+| V1 volatility sizing (0.25-0.75%) | +59.9% / +52.9% | -6.6% / -9.1% |
+
+- The two bots together already have a smaller drawdown than either one alone (v4 -10.2% and TR -7.0% from 2022, combined -7.1%), so the switch rarely fires. When it does, it halves risk during the RECOVERY, which is where the money is made back, so returns roughly halve (+42.6% -> +22%) for a 0-1 point smaller DD.
+- Volatility sizing makes more money (+59.9% / +52.9%) but with a bigger drawdown in both halves. It fails the rule, though it's a reasonable trade-off if Jeff ever wants more return for more DD.
+- The joint simulator (research/engine.py multi_sim) reproduces each bot's own numbers exactly.
+
+Recommendation: no safety switch for now. Note the joint test shows v4 + Trend Rider combined at -7.1% max DD from 2022, inside the 10% limit, even though v4 alone touches -10.2%.
+
+Next: H2 market mood, H3 news guard, H5 profit sweeper, then job 3.
