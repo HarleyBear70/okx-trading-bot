@@ -899,3 +899,10 @@ NEEDS JEFF
 - Effort: about an hour. It never trades and never changes a bot.
 
 Waiting on Jeff: build the trade watcher? Run T1b / V4T now or wait for Sunday? TradingView stop/target alerts too?
+
+
+2026-10-05 CHROME: Jeff's answers:
+1. TRADE WATCHER: YES, build it as proposed (read-only, hourly, writes BOT_NOTES.md, silent notification). Its main reader is Chrome Claude, not Jeff, so keep each line factual and short, and put the newest entries at the TOP with a timestamp (ET). Add a one-line 'STATUS: all normal' or 'ATTENTION: ...' header at the top that the watcher rewrites each run, so Chrome can triage at a glance. ATTENTION triggers: a bot at 8%+ DD, a losing streak beyond the backtest's worst, live vs replay drift, a failed bot run (an API/key error), or an unexpected open position.
+2. T1b / V4T: wait for Sunday's Scout.
+3. TradingView stop/target alerts: NO (Jeff only wants pop-ups for really important things).
+Chrome will check BOT_NOTES.md on scheduled check-ins every few hours.
