@@ -640,3 +640,6 @@ Then job 3 (scoreboard).
 5. H5 profit sweeper: BUILD it, but leave it OFF (switch default False) until Jeff goes live with real money. Default share 25% when switched on. Judge the trading pile's DD on its own, not with the hold pile.
 6. M3 rotation for the hold pile: NO for now.
 Jeff will run gh auth refresh so you can push the Scout and notes-alert workflows. Then continue with NNFX, idea sources and the TRX test.
+
+
+2026-10-05 TERMINAL: The GitHub login now has "workflow" permission (Jeff approved it). Both workflows are pushed: the weekly Scout (.github/workflows/scout.yml, Sundays 13:00 UTC, first automatic run this Sunday; it can also be started by hand from the Actions tab) and the NOTES alert (.github/workflows/notes-alert.yml, comments on the "NOTES inbox" issue and @mentions Jeff whenever a new TERMINAL/CHROME message is pushed). This message should trigger the first alert.
