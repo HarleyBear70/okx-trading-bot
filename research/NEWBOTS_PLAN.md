@@ -168,3 +168,19 @@ Exits untouched; only new entries are filtered.
 Tested on v4 (its current 5 coins, as it trades) and Trend Rider (as it trades), halves 2018-05 to 2021 /
 2022 to now. A filter passes for a bot only if, in BOTH halves, that bot's return / max DD is higher and
 its PF is not lower than without the filter.
+
+## N5. Scout (weekly, read-only)
+
+A weekly GitHub Action (Sunday 13:00 UTC) runs research/scout.py and commits one file,
+reports/weekly-YYYY-MM-DD.md. It never edits bot.py, never places orders and never changes a setting.
+1. Demo performance review from journal/trades.json, journal/summary.json and trades.csv: per bot and per
+   coin, closed trades, win %, P/L, profit factor, average R, longest losing streak, and drawdown of the
+   bot's balance; live vs backtest expectations; warnings (DD at 8% or worse, 8+ losses in a row, PF under 1
+   after 20+ trades, win % more than 15 points under the backtest after 20+ trades, a coin losing money
+   after 5+ trades).
+2. Battery: v4 and Trend Rider, each on every coin in CoinMarketCap's latest top 20 that OKX US lists for
+   spot (USDT) and the bot doesn't trade yet, last 2 years of OKX 4H candles, alone, 0.5% risk.
+   A coin is only FLAGGED (PF 1.3+, 30+ trades, DD better than -10%); a flag means "worth a full plan-first
+   test", never "add it".
+3. Every research/ideas/*.py that defines run() is run and its lines are included (errors are reported,
+   not fatal).
