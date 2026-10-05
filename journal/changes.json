@@ -7,5 +7,14 @@
   "approved_by": "Jeff (demo only)",
   "review_on": "2026-10-19",
   "review": "Compare trades before and after 2026-10-05: win %, avg R, P/L, max drawdown per bot."
+ },
+ {
+  "date_utc": "2026-10-05",
+  "bots": "SP-12 v2 (v2-okx) and SP-12 v2 gold paper (v2-gold)",
+  "change": "Paused: new_trades False (no new entries; open trades would still be managed to exit). Code kept.",
+  "why": "Long-history test (research/LONG_HISTORY.md): PF 0.88 on its own coins, 0.91 on never-seen coins. Repair attempt with 3 pre-registered variants (research/REPAIR_PLAN.md) all failed the pass rules (research/REPAIR_v2.md).",
+  "approved_by": "Jeff (pause if repair fails, demo only)",
+  "review_on": null,
+  "review": "Stays paused unless a new idea passes backtest + skeptic check."
  }
 ]

@@ -10,8 +10,8 @@ Jeff's demo trading bots. GitHub runs them every hour for free, so they don't us
 |---|---|---|---|
 | SP-12 v4 | OKX demo | BTC, ETH, XRP | 12-check score ≥ 2, EMA 8>21>55, above daily VWAP, 3R target, SAR trail after +1R, 120-candle limit. Risks 0.5% of a $1,000 practice balance |
 | SP-12 v4 (Kraken paper) | Kraken prices | BTC, ETH, XRP | Same as above, paper only |
-| SP-12 v2 | OKX demo | ETH, SOL | 12-check score ≥ 2, stop 1.5–4%, target 2.5R (3–10%), 60-candle limit, risks 0.5% of a $1,000 practice balance |
-| SP-12 v2 (gold paper) | OKX live gold price | XAUT | Same as above, paper only (OKX demo gold is frozen) |
+| SP-12 v2 (PAUSED Oct 5 2026, no edge in long-history test) | OKX demo | ETH, SOL | 12-check score ≥ 2, stop 1.5–4%, target 2.5R (3–10%), 60-candle limit, risks 0.5% of a $1,000 practice balance |
+| SP-12 v2 (gold paper, PAUSED Oct 5 2026) | OKX live gold price | XAUT | Same as above, paper only (OKX demo gold is frozen) |
 | Trend Rider | OKX demo | BTC, ETH, SOL, BNB, SUI | Daily close > daily 50 EMA, 4H break of structure above 4H 50 EMA, stop under swing low (1–3 ATR), trails at highest close − 3 ATR, risks 0.5% of a $1,000 practice balance |
 | Trend Rider (gold paper) | OKX live gold price | XAUT | Same as above with swing strength 3, paper only |
 

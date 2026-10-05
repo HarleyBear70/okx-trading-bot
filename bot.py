@@ -44,9 +44,10 @@ BOTS = [
     {"id": "v4-kraken", "name": "SP-12 v4 (Kraken paper)", "strat": "v4", "venue": "kraken", "mode": "paper",
      "coins": ["XBTUSD", "ETHUSD", "XRPUSD"], "equity": 1000.0},  # SOL dropped: lost money in backtest
     {"id": "v2-okx", "name": "SP-12 v2", "strat": "v2", "venue": "okx", "mode": "demo", "prefix": "ghS",
-     "coins": ["ETH-USDT", "SOL-USDT"], "equity": 1000.0},  # set "new_trades": False here to pause new entries
+     "coins": ["ETH-USDT", "SOL-USDT"], "equity": 1000.0,
+     "new_trades": False},  # paused Oct 5 2026: no edge in long-history test, repair failed (research/REPAIR_v2.md)
     {"id": "v2-gold", "name": "SP-12 v2 (gold paper)", "strat": "v2", "venue": "okx", "mode": "paper",
-     "coins": ["XAUT-USDT"], "equity": 1000.0},
+     "coins": ["XAUT-USDT"], "equity": 1000.0, "new_trades": False},  # paused Oct 5 2026 with SP-12 v2
     {"id": "tr-okx", "name": "Trend Rider", "strat": "tr", "venue": "okx", "mode": "demo", "prefix": "ghT",
      "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "BNB-USDT", "SUI-USDT"], "equity": 1000.0, "pivot": 5},  # BNB, SUI added Oct 5 (passed backtest)
     {"id": "tr-gold", "name": "Trend Rider (gold paper)", "strat": "tr", "venue": "okx", "mode": "paper",

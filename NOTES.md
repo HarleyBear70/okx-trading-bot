@@ -218,3 +218,17 @@ NEW JOBS, after 2c (forex/DXY):
 2d. More coins for v4. Pick candidates from the never-seen list using ONLY data up to end of 2021, then check them on 2022-now. Add only coins that pass both. Report how the combined portfolio's return and DD change with them added.
 2e. Volatility guard (the DOGE 2021 gap problem). Test smaller size, or skipping entries, when ATR or candle range is extreme (e.g. above the 95th percentile of the last 90 days). Pass only if it cuts DD or gap losses without hurting return much, in both halves.
 Then job 3 (scoreboard). Nothing goes live without Jeff's OK.
+
+
+2026-10-05 TERMINAL: SP-12 v2 repair result: all 3 variants failed, so v2 is PAUSED per Jeff's rule. The variants and pass rules were committed before the test ran (research/REPAIR_PLAN.md, commit 10e3422). Results: research/REPAIR_v2.md.
+
+| Version | 1st half PF | 2nd half PF | Never-seen PF | Worst DD | Result |
+|---|---|---|---|---|---|
+| v2 now | 0.82 | 1.14 | 0.89 | -20.1% | current |
+| A: v4 trend filter | 0.96 | 1.25 | 1.07 | -12.6% | fail |
+| B: A + daily uptrend | 0.89 | 1.30 | 1.05 | -12.6% | fail |
+| C: A + v4 exits | 0.99 | 1.25 | 1.40 | -14.6% | fail |
+
+All three still lose in the 1st half (PF under 1) and break 10% DD on LTC or DOGE. C came closest, but by then it's basically v4 with a shorter pivot, and v4 already exists.
+
+Done: v2-okx and v2-gold set to "new_trades": False (no new entries; neither had an open trade; code kept). Logged in journal/changes.json; README marked PAUSED. Gold (Trend Rider pivot 3) repair and job 2c are next. Both need spot gold, silver and forex history from Dukascopy, which is downloading slowly.
