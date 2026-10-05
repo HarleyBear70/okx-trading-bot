@@ -34,3 +34,29 @@ Variants:
 - R1: N = 60 candles (10 days), target = 80% of the way up the range.
 - R2: N = 60, target = middle of the range (50%).
 - R3: N = 120 candles (20 days), target = 80% of the range.
+
+## N2. Rotation bot (weekly)
+
+Universe, as it was at the time (no survivorship): CoinMarketCap's historical snapshot for the first Sunday
+of each month (coinmarketcap.com/historical/), top 10 by market cap after removing stablecoins and
+wrapped coins (USDT, USDC, BUSD, DAI, TUSD, UST, USDe, USD1, WBTC). A coin with no free price data at that
+date (e.g. CRO, HYPE, LEO before Bitfinex listing, glitch entries like TAGZ5) is skipped for that month;
+how often this happens is reported.
+Prices: Binance archive daily closes built from 4H (renamed tickers spliced: BCC->BCHABC->BCH,
+VEN->VET, MATIC->POL), Bitfinex where Binance has nothing (BSV, LEO).
+
+Every Monday 00:00 UTC: rank the universe by momentum, hold the top K at equal weight, sell the rest.
+Cash when BTC's daily close is below its 200-day average. Only coins with positive momentum are held
+(fewer than K if needed). 0.1% fee on every buy and sell. No stops; it is an allocation bot, so the
+0.5%-risk rule is replaced by the position weights below.
+
+Variants:
+- M1: K = 3, momentum = 28-day return, equal weight (1/3 each, fully invested when on).
+- M2: K = 3, momentum = 90-day return, equal weight.
+- M3: as M1, but each weight is cut to 1/3 x min(1, 2% / the coin's 20-day daily volatility), so wild coins
+  get less money (volatility-scaled; the rest stays in cash).
+
+Pass rules: the common rules, adapted:
+- "Design coins" = the historical top-10 universe; halves 2018-05 to 2021 / 2022 to now.
+- "Never-seen coins" = the historical ranks 11-20 universe (same rules, its own run), halves as above.
+- PF is over closed holdings (each buy-to-sell of a coin counts as one trade).
