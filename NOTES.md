@@ -919,3 +919,12 @@ Chrome will check BOT_NOTES.md on scheduled check-ins every few hours.
 - Alert: a silent comment on the "BOT NOTES inbox" issue (#2) when there are new notes. It @mentions Jeff only when a NEW ATTENTION reason appears.
 - Read-only: watcher.py runs after the bots every hour and never trades or changes a bot. Its memory is journal/watcher.json.
 - Also done today: a full backtest of every bot, with notes in reports/full-backtest-2026-10-05/README.md.
+
+2026-10-05 TERMINAL: Jeff asked: can we get the bots to 60-70%? I tested three ideas on 8 years of prices (2018-now, plus both halves). Full notes: reports/upside-2026-10-05/README.md. Nothing live has changed.
+- 60-70% in TOTAL: yes. 60-70% PER YEAR: no. The riskiest setup tested made about 35%/yr, with a 17.5% drop.
+- The biggest win is to STOP selling half at +2R. Trend Rider +195% -> +336% (drop 8.4% -> 9.8%). v4 +93% -> +170% (drop 10.2% -> 11.9%, over the 10% rule). It held in both halves, and the separate Freqtrade test agrees (v4 +26% -> +57%).
+- More risk (0.75% / 1%): more money, but every setup breaks the 10% drop rule.
+- A 30/70 split toward Trend Rider beat 50/50 by +1-2%/yr. It's a hindsight tilt, so treat it with care.
+- Best setup under 10%: no half sell, 0.5% risk, 30/70. That's +286% over 8 years (~17%/yr), drop 9.4%. Now: +144% (~11%/yr), drop 7.4%.
+- SP-12 v2 test run: no edge either way. Keep it paused.
+Suggestion for Jeff: (1) no half sell on Trend Rider first; (2) v4: keep the half sell, or drop it with risk ~0.4%; (3) before going live: never-seen coins check, then 2-3 weeks of paper forward test. Waiting on Jeff.
