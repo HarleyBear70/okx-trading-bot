@@ -37,3 +37,34 @@ Pass for the finished system (judged on the later period): PF above 1 and profit
 (crypto: SOL LTC DOGE XLM ADA BNB LINK BCH AVAX SUI, long only; forex: AUD/USD NZD/USD USD/CAD USD/CHF, long +
 short); and for the crypto version the common portfolio rule (correlation below 0.5 with v4 + TR, better
 portfolio return/DD).
+
+## R1. Rejection block (ICT), long only, crypto 4H
+
+Swing low = a confirmed pivot low (strength 3: lower than the 3 candles each side; known only 3 candles later).
+Rejection candle = that swing-low candle, if its lower wick (min(open, close) - low) is at least 2 x its body
+AND at least 0.5 x ATR(14). Zone = from the wick low up to the body low.
+The zone becomes valid only when BOTH the pivot is confirmed and the "strong move" condition has happened
+(no look-ahead). It expires 60 candles after the swing low; one entry per zone.
+Entry: the first later 4H candle whose low trades into the zone (low <= body low) and that closes above the wick
+low; buy at that close. Stop: wick low - 0.25 x ATR. Target: the highest high from the swing low to the moment
+the zone became valid (the high of the move); skip if the target isn't above the entry.
+- RB1: strong move = a high at least 3 x ATR above the wick low within 6 candles of the swing low.
+- RB2: strong move = a break of structure: a close above the last confirmed swing high (strength 3) within 10
+  candles of the swing low.
+- RB3: RB1 + daily trend filter (last completed daily close above its daily 50 EMA).
+Common pass rules (design BTC ETH XRP; never-seen coins; halves; 10% DD; diversification).
+Difference from the earlier OB / FVG retests (score test c5 / c6, no edge): those used a candle BODY zone
+(order block) or a 3-candle gap; this uses the WICK of a confirmed swing low that was followed by a strong move.
+
+## W1. Wyckoff volume as a filter on existing entries (v4, Trend Rider, B1c)
+
+Only entries are filtered; exits untouched. Volume = the candle's base volume; the "decision candle" is the
+signal candle (v4, Trend Rider) or the 4H breakout candle (B1c).
+- WV1: decision candle volume above its 20-candle average.
+- WV2: effort vs result: WV1 AND the decision candle's range (high - low) above its 20-candle average
+  (high volume that doesn't move price = absorption = skip).
+- WV3: spring: in the last 10 candles before the decision there was a candle that broke below the lowest low of
+  the 20 candles before it, closed back above that low, on volume above its 20-candle average.
+Each bot judged as it trades (v4 5 coins, Trend Rider 6 coins with its fear filter, B1c 3 coins, 1H).
+A filter passes for a bot only if, in BOTH halves (2018-05 to 2021, 2022-now), that bot's return / max DD is
+higher and its PF is not lower than without it.
