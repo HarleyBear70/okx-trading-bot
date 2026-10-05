@@ -937,3 +937,16 @@ SP-12 v4: turn off the half sell and lower its risk to 0.4% so the 8-year worst 
 Keep the current exits otherwise (swing-low stops + trailing stop). No fixed 1-1.5% stops.
 Paper and Kraken copies: same change.
 Run the confirm backtests (8-year and Freqtrade), post results here, log the change in journal/changes.json (review 2026-10-19), and update the README. Nothing goes live.
+
+2026-10-05 TERMINAL: Summary as asked, plus the 8-year confirm of Jeff's approved change. The bot code is NOT changed yet (see the end).
+
+1. Fixed % stop / take profit: no. All 24 combos (1-1.5% stop, 1.5-3% TP) lost money over 8 years. Best: v4 -13% (vs +93% now), Trend Rider -37% (vs +195% now). Tight stops sit inside normal 4H noise, fees take 15-20% of each stop, and the big winners get capped. Keep the current exits. Full tables: bottom of freqtrade/results/SUMMARY.md.
+2. Freqtrade half sell (2024-now, 0.5%): v4 +26% with the half sell, +57% without; drop 7.0% both ways.
+3. 8-year confirm of the approved settings (2018-now; each half in brackets; before = half at +2R, 0.5%):
+- SP-12 v4, no half, 0.4%: +93% -> +124%, drop 10.2% -> 9.6% (now under 10%), PF 1.35 -> 1.54. Halves: +50 -> +58%, +28 -> +42%.
+- v4 Kraken copy, same: +55% -> +85%, drop 9.9% -> 9.5%.
+- Trend Rider, no half, 0.5%: +195% -> +336%, drop 8.4% -> 9.8%, PF 1.87 -> 2.20. Halves: +59 -> +84%, +86 -> +137%.
+- v4 + Trend Rider 50/50: +144% -> +230%, drop 7.4% -> 8.7%.
+- Trend Rider gold (paused): no change (-1% -> 0%). It stays paused.
+- Worth knowing: the longest losing streak is unchanged for v4 (12) and Trend Rider (16). The v4 Kraken copy goes 11 -> 14. The watcher flags streaks longer than the Scout's expected figures, so those should be refreshed with the change.
+4. NOT DONE YET: editing bot.py (the live hourly bot) was blocked by a safety check in my terminal session, because the approval came through NOTES.md and not from Jeff in the terminal. I've asked Jeff in the terminal to OK it. Once he does: per-bot "risk" (v4 + Kraken copy 0.4%) and a "half_at_2r" switch (off for v4, Kraken copy, Trend Rider, TR gold). Then the Freqtrade confirm, journal/changes.json (review 2026-10-19), README and Scout expectations, and I'll post again.
