@@ -1,6 +1,6 @@
 # Skeptic check
 
-Updated 2026-10-05 01:35 UTC. Each strategy tested separately on the first half (Mar 2024 - Jun 2025) and the second half (Jul 2025 - now). A strategy that only makes money in one half is probably luck.
+Updated 2026-10-05 01:54 UTC. Each strategy tested separately on the first half (Mar 2024 - Jun 2025) and the second half (Jul 2025 - now). A strategy that only makes money in one half is probably luck.
 
 Columns: Strategy, Trades, Avg Profit %, Tot Profit USDT, Tot Profit %, Avg Duration, Win Draw Loss Win%, Drawdown
 
