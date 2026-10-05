@@ -104,3 +104,25 @@ Variants:
 - B2a: N = 3.
 - B2b: N = 6.
 - B2c: N = 3 + daily trend filter (last completed daily close above its daily 50 EMA).
+
+## D1. 1H day bots (exits within 48 hours)
+
+Data: Binance archive 1H (research/hourly.py). Cost: 0.1% taker fee + 0.05% slippage = 0.15% each side.
+Decisions only at 1H closes (works with the hourly GitHub runner). 0.5% risk from the stop, max 3 open.
+Common pass rules apply.
+
+### D1-C. Capitulation buy
+sigma = standard deviation of 24-hour returns over the previous 30 days (720 hourly values).
+Entry: the last 24 hours fell by more than k x sigma; buy at the 1H close.
+Stop: lowest low of the last 24 hours - 1 x ATR(14, 1H). Target: half of the 24-hour drop recovered.
+Time exit: 48 candles. No new entry on that coin for 24 hours after an exit.
+- C1: k = 3.
+- C2: k = 2.5.
+- C3: k = 3, only when BTC's last daily close is above its 200-day average.
+
+### D1-I. Intraday momentum (US session)
+At the 14:00 UTC close (after the US open), if the coin is up more than x% since 00:00 UTC, buy.
+Stop: the day's low so far (00:00-14:00 UTC). Exit at the 00:00 UTC close (10 hours later) or at the stop.
+- I1: x = 1%.
+- I2: x = 2%.
+- I3: x = 1%, only when BTC's last daily close is above its 200-day average.
