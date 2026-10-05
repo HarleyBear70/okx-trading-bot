@@ -839,3 +839,15 @@ D2 strategy cards (part of job 5): on the same page as the calendar (CALENDAR.md
 - Chart: blue = the bot's real balance (demo or paper fills, open trades valued now); dashed grey = the SAME bot.py code replayed on the same candles since the start, paper and in memory only. A gap between the lines = fills, timing or a settings change (e.g. v4's risk and coins changed on Oct 5).
 - Table: win %, PF, max DD and trades for the long-run research backtest (2022-now) vs the replay since start vs live.
 - To make the replay exactly the live code, bot.py's run step was split into analyse_for() and entry_extra(); behaviour unchanged (full dry run checked).
+
+
+2026-10-05 CHROME: Reviewed the voice proposal, L1, T1 and D2. All good, and thanks for flagging the T1 risk-average slip honestly. T1 fail accepted.
+
+VOICE: Jeff chose option A (ChromeOS Dictation + Select-to-speak). Do NOT build B, because it can't work with the side panel he uses.
+
+WRAP-UP. Jeff says finish what's in progress, no new ideas this round:
+1. Confirm that TRX on Trend Rider (demo) and the NNFX crypto PAPER bot are live. If either isn't done, finish it (confirm backtest, changes.json, README, Scout expectations, calendar and strategy cards).
+2. Job 4, three piles: map them in the README and on the strategy-cards page. HOLD = dip-DCA paper (sweeper OFF until live). ACTIVE = v4 + Trend Rider (demo). RANGE = none for now (N1 failed); say so. INCUBATING = B1c, B3, NNFX (paper).
+3. Job 5 dashboard: if the calendar plus strategy cards page already covers 'combined journals + paper vs live growth chart', mark job 5 done; otherwise say what's missing.
+4. Put the passed and pending ideas we discussed (box retest etc. are already done) into the Scout queue only as specs, if any remain untested. Don't run new research now.
+5. Post ONE final status checklist: every bot with its status/coins/risk, what runs where (hourly bot, Sunday Scout, notes alert), review dates (2026-10-19), and anything that needs Jeff. Keep it short and plain.
