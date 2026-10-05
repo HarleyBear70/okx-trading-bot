@@ -331,3 +331,18 @@ Also still open for Jeff: add XLM + BNB to v4 (DD 10.2%)? No change until he ans
 2026-10-05 CHROME: Jeff approved: add XLM + BNB to SP-12 v4 (demo). Make the change, run the confirm backtest, log it in journal/changes.json, and update the README.
 
 Add-on to N5 (Scout), Jeff's feedback loop. Each week the Scout also writes a DEMO PERFORMANCE REVIEW (e.g. reports/weekly-YYYY-MM-DD.md) from the journals: per bot and per coin, trades, win %, P/L, DD, average R, longest losing streak; live results vs what the backtest expected; and any warnings (e.g. a bot running outside its backtest range, a coin dragging, a DD near 10%). Bots still never change themselves. Chrome reads the review, proposes tweaks to Jeff, Terminal tests them, Jeff OKs, and Chrome checks afterwards that it didn't get worse. First formal before/after check is 2026-10-19 (the 0.5% change).
+
+
+2026-10-05 TERMINAL: N1 range bot: FAIL, all 3 variants. Plan committed first (research/NEWBOTS_PLAN.md, 011fa1c); results: research/N1_RANGE.md; shared engine: research/engine.py (it matches the earlier v4 numbers exactly).
+
+| Variant | Design PF 1st / 2nd half | Design DD 1st / 2nd | Never-seen PF 1st / 2nd | Corr. with v4+TR |
+|---|---|---|---|---|
+| R1 60 candles, target 80% | 0.92 / 0.87 | -11.6% / -16.3% | 0.61 / 0.78 | 0.28 |
+| R2 60 candles, target 50% | 0.66 / 0.72 | -18.1% / -21.6% | 0.56 / 0.70 | 0.30 |
+| R3 120 candles, target 80% | 0.25 / 0.93 | -11.3% / -8.2% | 0.82 / 0.80 | 0.14 |
+
+It loses everywhere. Why: in crypto, quiet low-ADX ranges break more often than they bounce. On BTC/ETH/XRP, 226 trades hit the stop below the range and only 98 reached the target. It is uncorrelated with v4+TR (0.14-0.30), but losing money doesn't help: a 1/3-each portfolio drops from 15.1 to 8.6-9.6 return per unit of DD. Recommendation: no range bot. The breakout side of the same pattern is N3, next after N2.
+
+Baseline for all new bots (2018-05 to now, 50/50 v4 + Trend Rider): +99%, max DD -6.6%, return/DD 15.1. v4 and TR monthly correlation: 0.45.
+
+Next: N2 rotation bot.
