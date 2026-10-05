@@ -1,0 +1,54 @@
+name: Research batch
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: freqtrade-backtest
+  cancel-in-progress: false
+
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      IMG: freqtradeorg/freqtrade:stable
+      CFG: /repo/freqtrade/user_data/config.json
+      UD: /repo/freqtrade/user_data
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download OKX price history (1h, 4h, daily)
+        run: |
+          chmod -R a+rwX "$GITHUB_WORKSPACE"
+          docker run --rm -v "$GITHUB_WORKSPACE:/repo" $IMG download-data \
+            --config $CFG --userdir $UD --timeframes 1h 4h 1d --timerange 20231001- \
+            --pairs BTC/USDT ETH/USDT SOL/USDT XRP/USDT BNB/USDT SUI/USDT
+
+      - name: Run every test (full period + both halves)
+        run: |
+          mkdir -p research/batch_logs
+          chmod a+rwX research/batch_logs
+          i=0
+          while IFS='|' read -r name strat tf pairs; do
+            [ -z "$strat" ] && continue
+            for part in full:20240301- h1:20240301-20250701 h2:20250701-; do
+              tag=${part%%:*}; range=${part#*:}
+              docker run --rm -v "$GITHUB_WORKSPACE:/repo" $IMG backtesting \
+                --config $CFG --userdir $UD --strategy $strat --timeframe $tf --timerange $range \
+                --fee 0.001 --export none --pairs $pairs < /dev/null > research/batch_logs/${i}_${tag}.txt 2>&1 || true
+            done
+            i=$((i+1))
+          done < research/batch1_tests.txt
+          python3 research/summarize_batch.py research/batch1_tests.txt research/batch_logs research/BATCH1.md
+
+      - name: Save results to the repo
+        run: |
+          git config user.name "research-batch"
+          git config user.email "actions@users.noreply.github.com"
+          git add research
+          git commit -m "Research batch results" || exit 0
+          for i in 1 2 3; do git pull --rebase && git push && break; sleep 5; done
