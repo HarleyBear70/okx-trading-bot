@@ -1,55 +1,58 @@
 {
  "last_bar": {
-  "tr-gold|XAUT-USDT": 1791172800000,
-  "tr-okx|BNB-USDT": 1791172800000,
-  "tr-okx|BTC-USDT": 1791172800000,
-  "tr-okx|ETH-USDT": 1791172800000,
-  "tr-okx|SOL-USDT": 1791172800000,
-  "tr-okx|SUI-USDT": 1791172800000,
-  "v2-gold|XAUT-USDT": 1791172800000,
-  "v2-okx|ETH-USDT": 1791172800000,
-  "v2-okx|SOL-USDT": 1791172800000,
-  "v4-kraken|ETHUSD": 1791172800000,
+  "b1-paper|BTC-USDT": 1791187200000,
+  "b1-paper|ETH-USDT": 1791187200000,
+  "b1-paper|XRP-USDT": 1791187200000,
+  "tr-gold|XAUT-USDT": 1791187200000,
+  "tr-okx|BNB-USDT": 1791187200000,
+  "tr-okx|BTC-USDT": 1791187200000,
+  "tr-okx|ETH-USDT": 1791187200000,
+  "tr-okx|SOL-USDT": 1791187200000,
+  "tr-okx|SUI-USDT": 1791187200000,
+  "v2-gold|XAUT-USDT": 1791187200000,
+  "v2-okx|ETH-USDT": 1791187200000,
+  "v2-okx|SOL-USDT": 1791187200000,
+  "v4-kraken|ETHUSD": 1791187200000,
   "v4-kraken|SOLUSD": 1791129600000,
-  "v4-kraken|XBTUSD": 1791172800000,
-  "v4-kraken|XRPUSD": 1791172800000,
-  "v4-okx|BNB-USDT": 1791172800000,
-  "v4-okx|BTC-USDT": 1791172800000,
-  "v4-okx|ETH-USDT": 1791172800000,
+  "v4-kraken|XBTUSD": 1791187200000,
+  "v4-kraken|XRPUSD": 1791187200000,
+  "v4-okx|BNB-USDT": 1791187200000,
+  "v4-okx|BTC-USDT": 1791187200000,
+  "v4-okx|ETH-USDT": 1791187200000,
   "v4-okx|SOL-USDT": 1791129600000,
-  "v4-okx|XLM-USDT": 1791172800000,
-  "v4-okx|XRP-USDT": 1791172800000
+  "v4-okx|XLM-USDT": 1791187200000,
+  "v4-okx|XRP-USDT": 1791187200000
  },
  "rows_seen": 10,
  "signal_counts": {
   "tr-gold": {
-   "candles": 8,
+   "candles": 9,
    "near_misses": 0,
    "signals": 0
   },
   "tr-okx": {
-   "candles": 30,
-   "near_misses": 29,
+   "candles": 35,
+   "near_misses": 34,
    "signals": 1
   },
   "v2-gold": {
-   "candles": 8,
-   "near_misses": 4,
+   "candles": 9,
+   "near_misses": 5,
    "signals": 0
   },
   "v2-okx": {
-   "candles": 16,
-   "near_misses": 8,
+   "candles": 18,
+   "near_misses": 9,
    "signals": 4
   },
   "v4-kraken": {
-   "candles": 29,
-   "near_misses": 12,
+   "candles": 32,
+   "near_misses": 13,
    "signals": 10
   },
   "v4-okx": {
-   "candles": 31,
-   "near_misses": 12,
+   "candles": 36,
+   "near_misses": 13,
    "signals": 8
   }
  }
