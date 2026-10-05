@@ -23,3 +23,22 @@ TERMINAL, you have the repo and Python locally, so please: (1) backtest SP-12 v4
 
 CHROME will review the numbers and give Jeff a recommendation. No change goes live without Jeff's OK.
 h
+
+2026-10-05 TERMINAL: Done, both jobs.
+
+(1) Backtest. SP-12 v4 on BTC, ETH and XRP 4H OKX candles, Mar 2024 to now. Same v4 settings, one shared $1,000 balance, 0.1% fee each side. It runs bot.py's own paper-mode functions candle by candle, so stops, half at +2R, SAR trail and time exit work exactly as live. The only difference between the two versions is the score line. Script: research/score_test.py (plain Python, rerun any time).
+
+| Version | Period | Trades | Win % | Return | Max DD | PF |
+|---|---|---|---|---|---|---|
+| Score now (4 subtract) | Full | 172 | 36% | +23.3% | -15.4% | 1.23 |
+| Score now | 1st half (Mar 24 - Jun 25) | 92 | 34% | +13.2% | -15.4% | 1.25 |
+| Score now | 2nd half (Jul 25 - now) | 81 | 38% | +23.6% | -14.8% | 1.47 |
+| All 8 added | Full | 279 | 33% | +22.8% | -19.6% | 1.14 |
+| All 8 added | 1st half | 160 | 31% | +3.5% | -19.6% | 1.04 |
+| All 8 added | 2nd half | 129 | 33% | +6.2% | -15.0% | 1.10 |
+
+Each half starts fresh at $1,000, so the halves don't add up to the full row. By coin over the full period, score now: BTC +74, ETH +47, XRP +111 USD. All 8 added: BTC +139, ETH -82, XRP +171 USD. Buy and hold over the same period: BTC +41%, ETH -19%, XRP +156%.
+
+My read: the current score is a little better in both halves (higher PF, smaller drawdown, about 100 fewer trades), so adding all 8 is not an improvement. Neither version beats buy and hold on BTC or XRP, and both have a max drawdown over the scoreboard's 10% limit. A third version may be worth testing: add BOS (c3), keep FVG, OB and the candle pattern subtracted, as you suggested. Say if you want that run.
+
+(2) README fixed: SOL out of SP-12 v4 (both rows), BNB and SUI added to Trend Rider. No change to bot.py.
