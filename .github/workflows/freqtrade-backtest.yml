@@ -111,6 +111,8 @@ jobs:
         run: |
           docker run --rm --entrypoint python -v "$GITHUB_WORKSPACE:/repo" $IMG \
             /repo/research/concept_test.py /repo/freqtrade/user_data/data/okx /repo/research/CONCEPTS.md || true
+          docker run --rm --entrypoint python -v "$GITHUB_WORKSPACE:/repo" $IMG \
+            /repo/research/candle_test.py /repo/freqtrade/user_data/data/okx /repo/research/CANDLES.md || true
 
       - name: Save results to the repo
         run: |
