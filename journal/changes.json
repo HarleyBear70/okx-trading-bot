@@ -25,5 +25,14 @@
   "approved_by": "Jeff (pause if repair fails, demo only)",
   "review_on": null,
   "review": "Stays paused unless a new idea passes backtest + skeptic check."
+ },
+ {
+  "date_utc": "2026-10-05",
+  "bots": "SP-12 v4 (v4-okx, demo)",
+  "change": "Coins BTC ETH XRP -> BTC ETH XRP XLM BNB. Kraken paper copy unchanged.",
+  "why": "Job 2d (research/COINS.md): XLM and BNB picked on data to 2021 and passed the 2022-now check. Portfolio 2022-now +20.0% -> +28.4%, PF 1.23 both, max DD -9.9% -> -10.2%.",
+  "approved_by": "Jeff (demo)",
+  "review_on": "2026-10-19",
+  "review": "Per-coin results for XLM and BNB vs backtest; bot DD vs the -10.2% backtest figure."
  }
 ]

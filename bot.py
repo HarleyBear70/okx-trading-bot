@@ -40,7 +40,8 @@ BE_BUFFER = 2 * FEE  # breakeven stop sits just above entry so fees are covered
 
 BOTS = [
     {"id": "v4-okx", "name": "SP-12 v4", "strat": "v4", "venue": "okx", "mode": "demo", "prefix": "gh4",
-     "coins": ["BTC-USDT", "ETH-USDT", "XRP-USDT"], "equity": 1000.0},  # SOL dropped: lost money in backtest
+     "coins": ["BTC-USDT", "ETH-USDT", "XRP-USDT", "XLM-USDT", "BNB-USDT"], "equity": 1000.0},
+    # SOL dropped: lost money in backtest. XLM, BNB added Oct 5 2026 (passed pick + out-of-sample check, research/COINS.md)
     {"id": "v4-kraken", "name": "SP-12 v4 (Kraken paper)", "strat": "v4", "venue": "kraken", "mode": "paper",
      "coins": ["XBTUSD", "ETHUSD", "XRPUSD"], "equity": 1000.0},  # SOL dropped: lost money in backtest
     {"id": "v2-okx", "name": "SP-12 v2", "strat": "v2", "venue": "okx", "mode": "demo", "prefix": "ghS",

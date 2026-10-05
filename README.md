@@ -8,14 +8,14 @@ Jeff's demo trading bots. GitHub runs them every hour for free, so they don't us
 
 | Bot | Where | Coins | Rules |
 |---|---|---|---|
-| SP-12 v4 | OKX demo | BTC, ETH, XRP | 12-check score ≥ 2, EMA 8>21>55, above daily VWAP, 3R target, SAR trail after +1R, 120-candle limit. Risks 0.5% of a $1,000 practice balance |
+| SP-12 v4 | OKX demo | BTC, ETH, XRP, XLM, BNB | 12-check score ≥ 2, EMA 8>21>55, above daily VWAP, 3R target, SAR trail after +1R, 120-candle limit. Risks 0.5% of a $1,000 practice balance |
 | SP-12 v4 (Kraken paper) | Kraken prices | BTC, ETH, XRP | Same as above, paper only |
 | SP-12 v2 (PAUSED Oct 5 2026, no edge in long-history test) | OKX demo | ETH, SOL | 12-check score ≥ 2, stop 1.5–4%, target 2.5R (3–10%), 60-candle limit, risks 0.5% of a $1,000 practice balance |
 | SP-12 v2 (gold paper, PAUSED Oct 5 2026) | OKX live gold price | XAUT | Same as above, paper only (OKX demo gold is frozen) |
 | Trend Rider | OKX demo | BTC, ETH, SOL, BNB, SUI | Daily close > daily 50 EMA, 4H break of structure above 4H 50 EMA, stop under swing low (1–3 ATR), trails at highest close − 3 ATR, risks 0.5% of a $1,000 practice balance |
 | Trend Rider (gold paper, PAUSED Oct 5 2026) | OKX live gold price | XAUT | Same as above with swing strength 3, paper only |
 
-All of them run on 4-hour candles. Every bot: stop moves to breakeven once a trade is up 1R, half is sold at +2R, stops only move up, max 3 trades open. Risk is 0.5% of the current balance per trade (cut from 1% on Oct 5 2026 to keep drawdown under 10%, see research/drawdown_test.py). Stepping risk up as the balance grows (1.25% / 1.5% / 2% at +10% / 25% / 50%) is built in but switched off for now (RISK_STEPS_ON in bot.py). Each bot only sells coins it bought itself. SOL was dropped from SP-12 v4 after it lost money in backtests; BNB and SUI were added to Trend Rider on Oct 5 after passing a backtest.
+All of them run on 4-hour candles. Every bot: stop moves to breakeven once a trade is up 1R, half is sold at +2R, stops only move up, max 3 trades open. Risk is 0.5% of the current balance per trade (cut from 1% on Oct 5 2026 to keep drawdown under 10%, see research/drawdown_test.py). Stepping risk up as the balance grows (1.25% / 1.5% / 2% at +10% / 25% / 50%) is built in but switched off for now (RISK_STEPS_ON in bot.py). Each bot only sells coins it bought itself. SOL was dropped from SP-12 v4 after it lost money in backtests, and XLM and BNB were added to it on Oct 5 after passing a pick + out-of-sample check (the Kraken paper copy stays on BTC, ETH, XRP); BNB and SUI were added to Trend Rider on Oct 5 after passing a backtest.
 
 ## Where to look
 

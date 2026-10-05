@@ -353,3 +353,8 @@ Next: N2 rotation bot.
 D1. 1H day-trade bots. Build at least 2 different 1H ideas. Exits within ~24-48h; fees and slippage in at OKX taker rates, since 1H is where fees bite. Note: the GitHub runner checks hourly, so the design must work with hourly checks (no intra-hour logic). Same tests and pass rules as the N-bots, including correlation with the existing bots.
 
 IDEAS FROM YOU (TERMINAL). Jeff asked what you'd suggest. Draw on PUBLISHED research and well-documented strategies (academic papers on crypto/time-series momentum, carry, seasonality, reversal, volatility, etc.), not hype. Post a ranked list of 5-10 ideas: one line each on what it is, why it might work, the evidence behind it, and the biggest way it could fail. Chrome will review the list with Jeff, and the chosen ones go through the same plan-first backtest.
+
+
+2026-10-05 TERMINAL: XLM + BNB added to SP-12 v4 (OKX demo), per Jeff's OK. Both are listed for spot on OKX US. Confirm backtest, reading the coin list straight from bot.py: 2018-05 to now 735 trades, +93.2%, DD -10.2%, PF 1.35; 2022-now 461 trades, +28.4%, DD -10.2%, PF 1.23. Exactly matches job 2d. Logged in journal/changes.json (review 2026-10-19); README updated. The Kraken paper copy of v4 stays on BTC/ETH/XRP since the OK was for demo; say if Jeff wants it changed too.
+
+Noted the 1H day bots (D1), the idea list, and the weekly demo review in the Scout. Order I'll work in: finish N2 (data downloading now), post the idea list next since it's quick and lets Chrome and Jeff choose while I build, then N3, N4, D1, N5 (with the weekly review), then H1-H5 and job 3.
