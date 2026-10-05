@@ -10,9 +10,12 @@ Exits are copied as closely as Freqtrade allows:
   - SP-12 v4: Parabolic SAR trail after +1R, target removed once trailing
   - Trend Rider: trail at highest close - 3 ATR
   - SP-12 v2 / v4: take-profit target and time exit
-Not copied yet: selling half at +2R, and risk stepping up as the balance grows.
-Every trade risks 1% of the balance.
+  - sell half at +2R, the rest keeps running with its stop (bot.take_half)
+Position size uses bot.risk_pct(): RISK_PCT of the balance, stepping up by RISK_STEPS as the balance
+grows when step-ups are on. Step-ups follow bot.RISK_STEPS_ON unless JEFF_RISK_STEPS=on/off is set,
+so the backtest can be run both ways.
 """
+import os
 import sys
 from datetime import timedelta
 from pathlib import Path
@@ -20,6 +23,7 @@ from pathlib import Path
 from pandas import DataFrame
 
 from freqtrade.exchange import timeframe_to_minutes
+from freqtrade.persistence import Trade
 from freqtrade.strategy import IStrategy, stoploss_from_absolute
 
 REPO = Path(__file__).resolve().parents[3]
@@ -29,7 +33,11 @@ import bot  # noqa: E402  (Jeff's bot.py at the repo root)
 
 FOUR_H = timedelta(hours=4)
 BE_BUFFER = 0.002  # breakeven stop sits just above entry so fees are covered
-RISK = 0.01        # 1% of the balance per trade
+HALF_TAG = "half profit +2R"
+
+_steps = os.environ.get("JEFF_RISK_STEPS", "").strip().lower()
+if _steps in ("on", "off"):
+    bot.RISK_STEPS_ON = _steps == "on"
 
 
 def to_bars(df: DataFrame) -> list:
@@ -51,9 +59,14 @@ class JeffBase(IStrategy):
     use_custom_stoploss = True
     trailing_stop = False
     use_exit_signal = True        # needed so custom_exit (take profit, time exit) runs; exit_long is never set
+    position_adjustment_enable = True  # needed so adjust_trade_position can sell half at +2R
 
     strat = "v4"                  # v4, v2 or tr
     pivot = 5                     # Trend Rider swing strength
+    take_half = True              # sell half at +2R, like the live bots
+
+    def bot_start(self, **kwargs) -> None:
+        self._bs = {}             # balance and peak, the same fields bot.risk_pct() reads
 
     def informative_pairs(self):
         return [(p, "1d") for p in self.dp.current_whitelist()]
@@ -93,7 +106,14 @@ class JeffBase(IStrategy):
         since = df[df["date"] >= opened]
         return df, sig.iloc[-1], since
 
-    # ---------- position size: risk 1% ----------
+    def _two_r(self, trade):
+        _, sig, _ = self._frames(trade.pair, trade)
+        if sig is None:
+            return None
+        entry, sl = trade.open_rate, float(sig["sl"])
+        return entry + 2 * (entry - sl) if entry > sl else None
+
+    # ---------- position size: bot.risk_pct() ----------
     def custom_stake_amount(self, pair, current_time, current_rate, proposed_stake, min_stake,
                             max_stake, leverage, entry_tag, side, **kwargs) -> float:
         df, _ = self.dp.get_analyzed_dataframe(pair, self.timeframe)
@@ -103,8 +123,12 @@ class JeffBase(IStrategy):
         sl = last.get("sl")
         if sl is None or not (current_rate > sl):
             return proposed_stake
-        equity = self.wallets.get_total_stake_amount()
-        stake = equity * RISK / (current_rate - sl) * current_rate
+        start = float(self.config["dry_run_wallet"])
+        equity = (start + Trade.get_total_closed_profit()
+                  + sum(t.realized_profit for t in Trade.get_trades_proxy(is_open=True)))
+        self._bs["equity"] = equity
+        risk = bot.risk_pct({"equity": start}, self._bs)
+        stake = equity * risk / (current_rate - sl) * current_rate
         stake = min(stake, max_stake)
         if min_stake and stake < min_stake:
             return 0
@@ -138,6 +162,18 @@ class JeffBase(IStrategy):
                 stop = be_floor
         return stoploss_from_absolute(stop, current_rate, is_short=trade.is_short)
 
+    # ---------- sell half at +2R ----------
+    def adjust_trade_position(self, trade, current_time, current_rate, current_profit, min_stake,
+                              max_stake, current_entry_rate, current_exit_rate, current_entry_profit,
+                              current_exit_profit, **kwargs):
+        """Keeps a limit sell for half the position resting at +2R until it fills. A stop, target or
+        time exit on the same candle replaces it, so the stop is checked first, as in bot.check_hit."""
+        if not self.take_half or trade.nr_of_successful_exits > 0:
+            return None
+        if self._two_r(trade) is None:
+            return None
+        return -(trade.stake_amount / 2), HALF_TAG
+
     # ---------- target and time exit ----------
     def custom_exit(self, pair, trade, current_time, current_rate, current_profit, **kwargs):
         if self.strat == "tr":
@@ -165,6 +201,10 @@ class JeffBase(IStrategy):
 
     def custom_exit_price(self, pair, trade, current_time, proposed_rate, current_profit, exit_tag,
                           **kwargs):
+        if exit_tag == HALF_TAG:
+            two_r = self._two_r(trade)
+            if two_r is not None:
+                return max(two_r, proposed_rate)
         if exit_tag == "take profit":
             _, sig, _ = self._frames(pair, trade)
             if sig is not None and sig.get("tp") is not None:
@@ -205,6 +245,7 @@ class JeffFixedTP(JeffBase):
     use_custom_stoploss = False
     stoploss = -0.01
     minimal_roi = {"0": 0.025}
+    take_half = False
 
     def custom_stake_amount(self, pair, current_time, current_rate, proposed_stake, min_stake,
                             max_stake, leverage, entry_tag, side, **kwargs) -> float:

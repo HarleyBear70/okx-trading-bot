@@ -31,28 +31,22 @@ jobs:
             --config $CFG --userdir $UD --timeframes 4h 1d --timerange 20231001- \
             --pairs BTC/USDT ETH/USDT SOL/USDT XRP/USDT
 
-      - name: Backtest each strategy
+      - name: Backtest each strategy (risk step-ups off, then on)
         run: |
           mkdir -p freqtrade/results
           run() {
-            name=$1; shift
-            docker run --rm -v "$GITHUB_WORKSPACE:/repo" $IMG backtesting \
+            steps=$1; name=$2; shift 2
+            out=$name; [ "$steps" = on ] && out=${name}_steps
+            docker run --rm -e JEFF_RISK_STEPS=$steps -v "$GITHUB_WORKSPACE:/repo" $IMG backtesting \
               --config $CFG --userdir $UD --strategy $name --timerange $RANGE --fee 0.001 \
-              --export none --pairs "$@" 2>&1 | tee freqtrade/results/$name.txt || true
+              --export none --pairs "$@" 2>&1 | tee freqtrade/results/$out.txt || true
           }
-          run SP12v4 BTC/USDT ETH/USDT XRP/USDT
-          run SP12v2 ETH/USDT SOL/USDT
-          run TrendRider BTC/USDT ETH/USDT SOL/USDT
-          {
-            echo "# Freqtrade backtest results"
-            echo
-            echo "Updated $(date -u '+%Y-%m-%d %H:%M') UTC. OKX prices from March 2024, 1,000 USDT start, 0.1% fee, 1% risk per trade."
-            for s in SP12v4 SP12v2 TrendRider; do
-              echo; echo "## $s"; echo; echo '```'
-              sed -n '/STRATEGY SUMMARY/,/^$/p;/SUMMARY METRICS/,/^$/p' freqtrade/results/$s.txt | sed 's/\x1b\[[0-9;]*m//g'
-              echo '```'
-            done
-          } > freqtrade/results/SUMMARY.md
+          for steps in off on; do
+            run $steps SP12v4 BTC/USDT ETH/USDT XRP/USDT
+            run $steps SP12v2 ETH/USDT SOL/USDT
+            run $steps TrendRider BTC/USDT ETH/USDT SOL/USDT
+          done
+          python3 freqtrade/summary.py SP12v4 SP12v2 TrendRider
 
       - name: Coin scan (which coins the rules work on)
         run: |
