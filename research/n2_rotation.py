@@ -38,13 +38,16 @@ class Data:
         return self.px.get(sym, {}).get(day)
 
 
-def sim(D, lo, hi, lookback, vol_scaled, t0, t1=None):
+def sim(D, lo, hi, lookback, vol_scaled, t0, t1=None, contrib=0.0, start_cash=1000.0):
+    """contrib: dollars added as cash every Monday before the rebalance. Also returns a time-weighted
+    unit-value curve ("nav") so deposits don't count as gains, and the total paid in."""
     t1 = t1 or e.now()
     first = e.ms(t0) // DAY * DAY
     while dt.datetime.fromtimestamp(first / 1000, UTC).weekday() != 0:
         first += DAY
     last_day = min(e.ms(t1), max(D.px["BTC"])) // DAY * DAY
-    cash, units, last_px = 1000.0, {}, {}
+    cash, units, last_px = start_cash, {}, {}
+    nav_units, nav, paid = start_cash, [], start_cash
     episodes, open_ep = [], {}
     curve, skipped, seen = [], 0, 0
     btc = D.px["BTC"]
@@ -62,6 +65,11 @@ def sim(D, lo, hi, lookback, vol_scaled, t0, t1=None):
     while day <= last_day:
         if dt.datetime.fromtimestamp(day / 1000, UTC).weekday() == 0:
             sig = day - DAY  # Sunday close, traded at Monday 00:00
+            if contrib:
+                v = value(sig)
+                nav_units += contrib / (v / nav_units) if v > 0 and nav_units > 0 else contrib
+                cash += contrib
+                paid += contrib
             closes = [btc.get(sig - j * DAY) for j in range(200)]
             on = None not in closes and closes[0] > sum(closes) / 200
             targets = {}
@@ -112,13 +120,14 @@ def sim(D, lo, hi, lookback, vol_scaled, t0, t1=None):
                     units[s_] = units.get(s_, 0.0) + spend / (1 + FEE) / p
                     open_ep.setdefault(s_, {"flow": 0.0})["flow"] -= spend
         curve.append((day, value(day)))
+        nav.append((day, curve[-1][1] / nav_units if nav_units else 1.0))
         day += DAY
     for s_ in list(units):
         proceeds = units.pop(s_) * last_px.get(s_, 0.0) * (1 - FEE)
         cash += proceeds
         episodes.append({"coin": s_, "pnl": open_ep.pop(s_)["flow"] + proceeds})
     r = e._stats(episodes, curve, cash)
-    r["skipped"], r["seen"] = skipped, seen
+    r["skipped"], r["seen"], r["nav"], r["paid"], r["final"] = skipped, seen, nav, paid, cash
     return r
 
 

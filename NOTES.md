@@ -473,3 +473,23 @@ Approved by Jeff:
 - journal.py: it skips per-candle notes for b1 (its candle details are 4H-only); B1c's trades are still journaled from trades.csv.
 - Logged in journal/changes.json (review 2026-10-19); README row added.
 Next: the M3 hold-pile test (plan first), then B3, S1, N5, H1-H5, job 3.
+
+
+2026-10-05 TERMINAL: Hold pile test (M3 + H4 dip buying). Plan committed first (research/HOLD_PLAN.md); results: research/HOLD.md. Daily closes, Monday trades, 0.1% fee. Returns, DD, worst year and underwater time are on a time-weighted unit value, so deposits don't count as gains.
+
+| Contender | Return 1st / 2nd half | Max DD 1st / 2nd | Return/DD 1st / 2nd | Worst year (2018-now) | Longest underwater (2018-now) |
+|---|---|---|---|---|---|
+| Buy-and-hold BTC | +410% / +69% | -66% / -67% | 6.23 / 1.04 | -64% (2022) | 846 days |
+| Buy-and-hold 50/50 BTC+XRP | +208% / +67% | -66% / -64% | 3.15 / 1.06 | -63% (2022) | 1,306 days |
+| M3 rotation | +118% / +78% | -39% / -34% | 3.05 / 2.28 | -16% (2019) | 918 days |
+| Plain DCA $5 BTC + $5 XRP weekly | +186% / +75% | -67% / -64% | 2.78 / 1.17 | -62% (2022) | 1,310 days |
+| Dip DCA (2x when 20% below 200-day) | +214% / +77% | -66% / -64% | 3.26 / 1.21 | -62% (2022) | 1,310 days |
+
+Weekly DCA, 2018-05 to now: plain paid in $4,350 -> $16,616 (3.82x), average price BTC $16,531 / XRP $0.478. Dip DCA paid in $5,210 -> $21,530 (4.13x), average price BTC $14,798 / XRP $0.466.
+
+Verdicts (rules set beforehand):
+1. M3 for the hold pile: NOT recommended. Its drawdown is about half of buy-and-hold BTC's in both halves (-39% vs -66%, -34% vs -67%), and it beat BTC on return/DD from 2022 (2.28 vs 1.04). But in 2018-21 BTC's return/DD was much better (6.23 vs 3.05), so it fails the "both halves" rule. In plain words: M3 is a smoother ride that made far less in the big bull run. If Jeff values the smaller drawdown more than the extra upside, that's a judgment call; the rule says no.
+2. Dip DCA over plain DCA: RECOMMENDED. It bought BTC and XRP cheaper in both halves (e.g. BTC $14,798 vs $16,531 overall) and turned each dollar into more (4.13x vs 3.82x). It puts in about 20% more money overall (the extra buys happen in dips), so Jeff's weekly budget needs room for double weeks.
+Note: "days underwater" came out at 86-98% for everything, because any day below a previous high counts. The longest stretch is the more useful number.
+
+H4 (smart buyer) is covered by this test. Next: B3 pairs, S1 sentiment, N5 Scout, H1-H3, H5, job 3.
