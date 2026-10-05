@@ -7,11 +7,11 @@ OKX 4H candles, BTC, ETH, SOL, XRP, DOGE, SUI, BNB, AVAX, ADA. Bullish (buy) sid
 | Concept | Times seen | Edge 1st half | Edge 2nd half | Up % (all) | Verdict |
 |---|---|---|---|---|---|
 | BOS + daily uptrend | 680 | +0.56% | +0.90% | 50% | **Real** (p=0.00) |
-| Break of structure | 1470 | +0.56% | +0.19% | 48% | Weak (could be luck) (p=0.01) |
-| Discount zone (uptrend) | 1113 | -0.61% | +0.59% | 51% | Mixed (works only part of the time) (p=0.62) |
-| FVG retest | 3251 | +0.11% | -0.32% | 46% | Mixed (works only part of the time) (p=0.83) |
-| Liquidity sweep | 2453 | +0.46% | -0.22% | 54% | Mixed (works only part of the time) (p=0.32) |
-| Market shift | 407 | +1.19% | -0.19% | 49% | Mixed (works only part of the time) (p=0.07) |
+| Break of structure | 1470 | +0.56% | +0.19% | 48% | Weak (could be luck) (p=0.02) |
+| Discount zone (uptrend) | 1113 | -0.61% | +0.59% | 51% | Mixed (works only part of the time) (p=0.60) |
+| FVG retest | 3251 | +0.11% | -0.33% | 46% | Mixed (works only part of the time) (p=0.84) |
+| Liquidity sweep | 2453 | +0.46% | -0.22% | 54% | Mixed (works only part of the time) (p=0.30) |
+| Market shift | 407 | +1.19% | -0.20% | 49% | Mixed (works only part of the time) (p=0.07) |
 | Order block retest | 1044 | -0.14% | -0.10% | 46% | No edge (p=0.73) |
 
 ## Detail by time after the signal
@@ -19,21 +19,21 @@ OKX 4H candles, BTC, ETH, SOL, XRP, DOGE, SUI, BNB, AVAX, ADA. Bullish (buy) sid
 | Concept | Half | +1 day edge | +2 day edge | +4 day edge | Up % at +2 days | Count |
 |---|---|---|---|---|---|---|
 | BOS + daily uptrend | first half | +0.40% | +0.56% | +0.85% | 48% | 405 |
-| BOS + daily uptrend | second half | +0.50% | +0.90% | +1.18% | 52% | 275 |
+| BOS + daily uptrend | second half | +0.47% | +0.90% | +1.18% | 52% | 275 |
 | Break of structure | first half | +0.27% | +0.56% | +0.63% | 49% | 788 |
-| Break of structure | second half | +0.11% | +0.19% | +0.13% | 46% | 682 |
+| Break of structure | second half | +0.10% | +0.19% | +0.12% | 46% | 682 |
 | Discount zone (uptrend) | first half | -0.20% | -0.61% | -0.60% | 49% | 636 |
-| Discount zone (uptrend) | second half | +0.15% | +0.59% | +0.48% | 53% | 477 |
+| Discount zone (uptrend) | second half | +0.15% | +0.59% | +0.50% | 53% | 477 |
 | FVG retest | first half | +0.12% | +0.11% | -0.16% | 49% | 1661 |
-| FVG retest | second half | -0.09% | -0.32% | -0.60% | 44% | 1590 |
+| FVG retest | second half | -0.10% | -0.33% | -0.60% | 44% | 1590 |
 | Liquidity sweep | first half | +0.23% | +0.46% | +0.70% | 56% | 1235 |
 | Liquidity sweep | second half | -0.38% | -0.22% | -0.33% | 51% | 1218 |
 | Market shift | first half | +0.94% | +1.19% | +1.79% | 56% | 216 |
-| Market shift | second half | +0.40% | -0.19% | +0.13% | 42% | 191 |
+| Market shift | second half | +0.40% | -0.20% | +0.13% | 42% | 191 |
 | Order block retest | first half | -0.04% | -0.14% | +0.20% | 45% | 562 |
 | Order block retest | second half | -0.22% | -0.10% | -0.31% | 48% | 482 |
 | *Any candle (baseline)* | first half | | +0.29% avg | | 49% | 26298 |
-| *Any candle (baseline)* | second half | | -0.03% avg | | 48% | 24786 |
+| *Any candle (baseline)* | second half | | -0.02% avg | | 48% | 24822 |
 
 ## By coin (average 2-day move after the concept, full period)
 

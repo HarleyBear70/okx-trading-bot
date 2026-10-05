@@ -1,75 +1,75 @@
-2026-10-05 01:55:17,084 - freqtrade - INFO - freqtrade 2026.9
-2026-10-05 01:55:17,387 - numexpr.utils - INFO - NumExpr defaulting to 2 threads.
-2026-10-05 01:55:19,435 - freqtrade.configuration.load_config - INFO - Using config: /repo/freqtrade/user_data/config.json ...
-2026-10-05 01:55:19,437 - freqtrade.loggers - INFO - Enabling colorized output.
-2026-10-05 01:55:19,438 - freqtrade.loggers - INFO - Logfile configured
-2026-10-05 01:55:19,438 - freqtrade.loggers - INFO - Verbosity set to 0
-2026-10-05 01:55:19,439 - freqtrade.configuration.configuration - INFO - Using max_open_trades: 3 ...
-2026-10-05 01:55:19,439 - freqtrade.configuration.configuration - INFO - Parameter --fee detected, setting fee to: 0.001 ...
-2026-10-05 01:55:19,440 - freqtrade.configuration.configuration - INFO - Parameter --timerange detected: 20250701- ...
-2026-10-05 01:55:19,452 - freqtrade.configuration.configuration - INFO - Using user-data directory: /repo/freqtrade/user_data ...
-2026-10-05 01:55:19,452 - freqtrade.configuration.configuration - INFO - Using data directory: /repo/freqtrade/user_data/data/okx ...
-2026-10-05 01:55:19,453 - freqtrade.configuration.configuration - INFO - Parameter --export detected: none ...
-2026-10-05 01:55:19,453 - freqtrade.configuration.configuration - INFO - Parameter --cache=day detected ...
-2026-10-05 01:55:19,454 - freqtrade.configuration.configuration - INFO - Using pairs ['XAUT/USDT']
-2026-10-05 01:55:19,454 - freqtrade.configuration.configuration - INFO - Filter trades by timerange: 20250701-
-2026-10-05 01:55:19,455 - freqtrade.exchange.check_exchange - INFO - Checking exchange...
-2026-10-05 01:55:19,462 - freqtrade.exchange.check_exchange - INFO - Exchange "okx" is officially supported by the Freqtrade development team.
-2026-10-05 01:55:19,463 - freqtrade.configuration.config_validation - INFO - Validating configuration ...
-2026-10-05 01:55:19,465 - freqtrade.commands.optimize_commands - INFO - Starting freqtrade in Backtesting mode
-2026-10-05 01:55:19,465 - freqtrade.exchange.exchange - INFO - Instance is running with dry_run enabled
-2026-10-05 01:55:19,466 - freqtrade.exchange.exchange - INFO - Using CCXT 4.5.84
-2026-10-05 01:55:19,466 - freqtrade.exchange.exchange - INFO - Applying additional ccxt config: {'hostname': 'us.okx.com'}
-2026-10-05 01:55:19,469 - freqtrade.exchange.exchange - INFO - Applying additional ccxt config: {'hostname': 'us.okx.com'}
-2026-10-05 01:55:19,472 - freqtrade.exchange.exchange - INFO - Using Exchange "OKX"
-2026-10-05 01:55:20,346 - freqtrade.resolvers.exchange_resolver - INFO - Using resolved exchange class 'Okx' ...
-2026-10-05 01:55:20,360 - freqtrade.resolvers.iresolver - INFO - Using resolved strategy TrendRiderGold from '/repo/freqtrade/user_data/strategies/jeff_strategies.py'...
-2026-10-05 01:55:20,360 - freqtrade.strategy.hyper - INFO - Found no parameter file.
-2026-10-05 01:55:20,361 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'timeframe' with value from the configuration: 4h.
-2026-10-05 01:55:20,361 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'stake_currency' with value from the configuration: USDT.
-2026-10-05 01:55:20,362 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'stake_amount' with value from the configuration: unlimited.
-2026-10-05 01:55:20,362 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'max_open_trades' with value from the configuration: 3.
-2026-10-05 01:55:20,363 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using minimal_roi: {'0': 100}
-2026-10-05 01:55:20,363 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using timeframe: 4h
-2026-10-05 01:55:20,364 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using stoploss: -0.15
-2026-10-05 01:55:20,364 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using trailing_stop: False
-2026-10-05 01:55:20,364 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using trailing_stop_positive_offset: 0.0
-2026-10-05 01:55:20,365 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using trailing_only_offset_is_reached: False
-2026-10-05 01:55:20,365 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using use_custom_stoploss: True
-2026-10-05 01:55:20,366 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using process_only_new_candles: True
-2026-10-05 01:55:20,366 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using order_types: {'entry': 'limit', 'exit': 'limit', 'stoploss': 'limit', 'stoploss_on_exchange': False, 
+2026-10-05 17:04:22,230 - freqtrade - INFO - freqtrade 2026.9
+2026-10-05 17:04:22,536 - numexpr.utils - INFO - NumExpr defaulting to 2 threads.
+2026-10-05 17:04:24,587 - freqtrade.configuration.load_config - INFO - Using config: /repo/freqtrade/user_data/config.json ...
+2026-10-05 17:04:24,589 - freqtrade.loggers - INFO - Enabling colorized output.
+2026-10-05 17:04:24,590 - freqtrade.loggers - INFO - Logfile configured
+2026-10-05 17:04:24,590 - freqtrade.loggers - INFO - Verbosity set to 0
+2026-10-05 17:04:24,591 - freqtrade.configuration.configuration - INFO - Using max_open_trades: 3 ...
+2026-10-05 17:04:24,591 - freqtrade.configuration.configuration - INFO - Parameter --fee detected, setting fee to: 0.001 ...
+2026-10-05 17:04:24,592 - freqtrade.configuration.configuration - INFO - Parameter --timerange detected: 20250701- ...
+2026-10-05 17:04:24,604 - freqtrade.configuration.configuration - INFO - Using user-data directory: /repo/freqtrade/user_data ...
+2026-10-05 17:04:24,604 - freqtrade.configuration.configuration - INFO - Using data directory: /repo/freqtrade/user_data/data/okx ...
+2026-10-05 17:04:24,605 - freqtrade.configuration.configuration - INFO - Parameter --export detected: none ...
+2026-10-05 17:04:24,605 - freqtrade.configuration.configuration - INFO - Parameter --cache=day detected ...
+2026-10-05 17:04:24,606 - freqtrade.configuration.configuration - INFO - Using pairs ['XAUT/USDT']
+2026-10-05 17:04:24,606 - freqtrade.configuration.configuration - INFO - Filter trades by timerange: 20250701-
+2026-10-05 17:04:24,607 - freqtrade.exchange.check_exchange - INFO - Checking exchange...
+2026-10-05 17:04:24,614 - freqtrade.exchange.check_exchange - INFO - Exchange "okx" is officially supported by the Freqtrade development team.
+2026-10-05 17:04:24,615 - freqtrade.configuration.config_validation - INFO - Validating configuration ...
+2026-10-05 17:04:24,617 - freqtrade.commands.optimize_commands - INFO - Starting freqtrade in Backtesting mode
+2026-10-05 17:04:24,617 - freqtrade.exchange.exchange - INFO - Instance is running with dry_run enabled
+2026-10-05 17:04:24,618 - freqtrade.exchange.exchange - INFO - Using CCXT 4.5.84
+2026-10-05 17:04:24,618 - freqtrade.exchange.exchange - INFO - Applying additional ccxt config: {'hostname': 'us.okx.com'}
+2026-10-05 17:04:24,621 - freqtrade.exchange.exchange - INFO - Applying additional ccxt config: {'hostname': 'us.okx.com'}
+2026-10-05 17:04:24,624 - freqtrade.exchange.exchange - INFO - Using Exchange "OKX"
+2026-10-05 17:04:25,556 - freqtrade.resolvers.exchange_resolver - INFO - Using resolved exchange class 'Okx' ...
+2026-10-05 17:04:25,573 - freqtrade.resolvers.iresolver - INFO - Using resolved strategy TrendRiderGold from '/repo/freqtrade/user_data/strategies/jeff_strategies.py'...
+2026-10-05 17:04:25,574 - freqtrade.strategy.hyper - INFO - Found no parameter file.
+2026-10-05 17:04:25,574 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'timeframe' with value from the configuration: 4h.
+2026-10-05 17:04:25,575 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'stake_currency' with value from the configuration: USDT.
+2026-10-05 17:04:25,575 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'stake_amount' with value from the configuration: unlimited.
+2026-10-05 17:04:25,576 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'max_open_trades' with value from the configuration: 3.
+2026-10-05 17:04:25,576 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using minimal_roi: {'0': 100}
+2026-10-05 17:04:25,577 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using timeframe: 4h
+2026-10-05 17:04:25,577 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using stoploss: -0.15
+2026-10-05 17:04:25,577 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using trailing_stop: False
+2026-10-05 17:04:25,578 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using trailing_stop_positive_offset: 0.0
+2026-10-05 17:04:25,578 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using trailing_only_offset_is_reached: False
+2026-10-05 17:04:25,579 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using use_custom_stoploss: True
+2026-10-05 17:04:25,579 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using process_only_new_candles: True
+2026-10-05 17:04:25,579 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using order_types: {'entry': 'limit', 'exit': 'limit', 'stoploss': 'limit', 'stoploss_on_exchange': False, 
 'stoploss_on_exchange_interval': 60}
-2026-10-05 01:55:20,367 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using order_time_in_force: {'entry': 'GTC', 'exit': 'GTC'}
-2026-10-05 01:55:20,367 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using stake_currency: USDT
-2026-10-05 01:55:20,367 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using stake_amount: unlimited
-2026-10-05 01:55:20,368 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using startup_candle_count: 200
-2026-10-05 01:55:20,368 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using use_exit_signal: True
-2026-10-05 01:55:20,369 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using exit_profit_only: False
-2026-10-05 01:55:20,369 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using ignore_roi_if_entry_signal: False
-2026-10-05 01:55:20,369 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using exit_profit_offset: 0.0
-2026-10-05 01:55:20,370 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using disable_dataframe_checks: False
-2026-10-05 01:55:20,370 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using ignore_buying_expired_candle_after: 0
-2026-10-05 01:55:20,371 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using position_adjustment_enable: False
-2026-10-05 01:55:20,371 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using max_entry_position_adjustment: -1
-2026-10-05 01:55:20,372 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using max_open_trades: 3
-2026-10-05 01:55:20,372 - freqtrade.configuration.config_validation - INFO - Validating configuration ...
-2026-10-05 01:55:20,377 - freqtrade.resolvers.iresolver - INFO - Using resolved pairlist StaticPairList from '/freqtrade/freqtrade/plugins/pairlist/StaticPairList.py'...
-2026-10-05 01:55:20,382 - freqtrade.optimize.backtesting - INFO - Using fee 0.1000% from config.
-2026-10-05 01:55:20,431 - freqtrade.optimize.backtesting - INFO - Loading data from 2025-05-28 16:00:00 up to 2026-10-04 20:00:00 (494 days).
-2026-10-05 01:55:20,485 - freqtrade.optimize.backtesting - INFO - Dataload complete. Calculating indicators
-2026-10-05 01:55:20,487 - freqtrade.optimize.backtesting - WARNING - Backtest result caching disabled due to use of open-ended timerange.
-2026-10-05 01:55:20,488 - freqtrade.optimize.backtesting - INFO - Running backtesting for Strategy TrendRiderGold
-2026-10-05 01:55:20,490 - freqtrade.data.dataprovider - INFO - Loading data for XAUT/USDT 1d from 2024-12-13 00:00:00 to unbounded
-2026-10-05 01:55:20,542 - freqtrade.optimize.backtesting - INFO - Backtesting with data from 2025-07-01 00:00:00 up to 2026-10-04 20:00:00 (460 days).
+2026-10-05 17:04:25,580 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using order_time_in_force: {'entry': 'GTC', 'exit': 'GTC'}
+2026-10-05 17:04:25,580 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using stake_currency: USDT
+2026-10-05 17:04:25,581 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using stake_amount: unlimited
+2026-10-05 17:04:25,581 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using startup_candle_count: 200
+2026-10-05 17:04:25,581 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using use_exit_signal: True
+2026-10-05 17:04:25,582 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using exit_profit_only: False
+2026-10-05 17:04:25,582 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using ignore_roi_if_entry_signal: False
+2026-10-05 17:04:25,583 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using exit_profit_offset: 0.0
+2026-10-05 17:04:25,583 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using disable_dataframe_checks: False
+2026-10-05 17:04:25,583 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using ignore_buying_expired_candle_after: 0
+2026-10-05 17:04:25,584 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using position_adjustment_enable: True
+2026-10-05 17:04:25,584 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using max_entry_position_adjustment: -1
+2026-10-05 17:04:25,585 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using max_open_trades: 3
+2026-10-05 17:04:25,585 - freqtrade.configuration.config_validation - INFO - Validating configuration ...
+2026-10-05 17:04:25,590 - freqtrade.resolvers.iresolver - INFO - Using resolved pairlist StaticPairList from '/freqtrade/freqtrade/plugins/pairlist/StaticPairList.py'...
+2026-10-05 17:04:25,595 - freqtrade.optimize.backtesting - INFO - Using fee 0.1000% from config.
+2026-10-05 17:04:25,644 - freqtrade.optimize.backtesting - INFO - Loading data from 2025-05-28 16:00:00 up to 2026-10-05 12:00:00 (494 days).
+2026-10-05 17:04:25,697 - freqtrade.optimize.backtesting - INFO - Dataload complete. Calculating indicators
+2026-10-05 17:04:25,698 - freqtrade.optimize.backtesting - WARNING - Backtest result caching disabled due to use of open-ended timerange.
+2026-10-05 17:04:25,699 - freqtrade.optimize.backtesting - INFO - Running backtesting for Strategy TrendRiderGold
+2026-10-05 17:04:25,701 - freqtrade.data.dataprovider - INFO - Loading data for XAUT/USDT 1d from 2024-12-13 00:00:00 to unbounded
+2026-10-05 17:04:25,752 - freqtrade.optimize.backtesting - INFO - Backtesting with data from 2025-07-01 00:00:00 up to 2026-10-05 12:00:00 (461 days).
 backtest ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4/4       100% • 0:00:00 • 0:00:00
-backtest ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2765/2765 100% • 0:00:01 • 0:00:00
+backtest ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2769/2769 100% • 0:00:04 • 0:00:00
 Result for strategy TrendRiderGold
                                                 BACKTESTING REPORT                                                
 ┏━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
 ┃      Pair ┃ Trades ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃     Avg Duration ┃  Win  Draw  Loss  Win% ┃
 ┡━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ XAUT/USDT │     32 │         0.77 │         211.170 │        21.12 │ 3 days, 23:52:00 │   21     0    11  65.6 │
-│     TOTAL │     32 │         0.77 │         211.170 │        21.12 │ 3 days, 23:52:00 │   21     0    11  65.6 │
+│ XAUT/USDT │     32 │          0.8 │         105.236 │        10.52 │ 3 days, 23:52:00 │   21     0    11  65.6 │
+│     TOTAL │     32 │          0.8 │         105.236 │        10.52 │ 3 days, 23:52:00 │   21     0    11  65.6 │
 └───────────┴────────┴──────────────┴─────────────────┴──────────────┴──────────────────┴────────────────────────┘
                                          LEFT OPEN TRADES REPORT                                          
 ┏━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -81,58 +81,58 @@ Result for strategy TrendRiderGold
 ┏━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
 ┃ Enter Tag ┃ Entries ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃     Avg Duration ┃  Win  Draw  Loss  Win% ┃
 ┡━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
-│     OTHER │      32 │         0.77 │         211.170 │        21.12 │ 3 days, 23:52:00 │   21     0    11  65.6 │
-│     TOTAL │      32 │         0.77 │         211.170 │        21.12 │ 3 days, 23:52:00 │   21     0    11  65.6 │
+│     OTHER │      32 │          0.8 │         105.236 │        10.52 │ 3 days, 23:52:00 │   21     0    11  65.6 │
+│     TOTAL │      32 │          0.8 │         105.236 │        10.52 │ 3 days, 23:52:00 │   21     0    11  65.6 │
 └───────────┴─────────┴──────────────┴─────────────────┴──────────────┴──────────────────┴────────────────────────┘
                                                     EXIT REASON STATS                                                     
 ┏━━━━━━━━━━━━━━━━━━━━┳━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
 ┃        Exit Reason ┃ Exits ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃     Avg Duration ┃  Win  Draw  Loss  Win% ┃
 ┡━━━━━━━━━━━━━━━━━━━━╇━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ trailing_stop_loss │    29 │         0.97 │         246.791 │        24.68 │  4 days, 7:43:00 │   21     0     8  72.4 │
-│          stop_loss │     3 │        -1.21 │         -35.622 │        -3.56 │         20:00:00 │    0     0     3     0 │
-│              TOTAL │    32 │         0.77 │         211.170 │        21.12 │ 3 days, 23:52:00 │   21     0    11  65.6 │
+│ trailing_stop_loss │    29 │         1.01 │         124.338 │        12.43 │  4 days, 7:43:00 │   21     0     8  72.4 │
+│          stop_loss │     3 │        -1.21 │         -19.102 │        -1.91 │         20:00:00 │    0     0     3     0 │
+│              TOTAL │    32 │          0.8 │         105.236 │        10.52 │ 3 days, 23:52:00 │   21     0    11  65.6 │
 └────────────────────┴───────┴──────────────┴─────────────────┴──────────────┴──────────────────┴────────────────────────┘
                                                             MIXED TAG STATS                                                            
 ┏━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
 ┃ Enter Tag ┃        Exit Reason ┃ Trades ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃     Avg Duration ┃  Win  Draw  Loss  Win% ┃
 ┡━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
-│           │ trailing_stop_loss │     29 │         0.97 │         246.791 │        24.68 │  4 days, 7:43:00 │   21     0     8  72.4 │
-│           │          stop_loss │      3 │        -1.21 │         -35.622 │        -3.56 │         20:00:00 │    0     0     3     0 │
-│     TOTAL │                    │     32 │         0.77 │         211.170 │        21.12 │ 3 days, 23:52:00 │   21     0    11  65.6 │
+│           │ trailing_stop_loss │     29 │         1.01 │         124.338 │        12.43 │  4 days, 7:43:00 │   21     0     8  72.4 │
+│           │          stop_loss │      3 │        -1.21 │         -19.102 │        -1.91 │         20:00:00 │    0     0     3     0 │
+│     TOTAL │                    │     32 │          0.8 │         105.236 │        10.52 │ 3 days, 23:52:00 │   21     0    11  65.6 │
 └───────────┴────────────────────┴────────┴──────────────┴─────────────────┴──────────────┴──────────────────┴────────────────────────┘
                                    SUMMARY METRICS                                    
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 ┃ Metric                                 ┃ Value                                     ┃
 ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
 │ Backtesting from                       │ 2025-07-01 00:00:00                       │
-│ Backtesting to                         │ 2026-10-04 20:00:00                       │
+│ Backtesting to                         │ 2026-10-05 12:00:00                       │
 │ Trading Mode                           │ Spot                                      │
 │ Max open trades                        │ 1                                         │
 │                                        │                                           │
 │ Total/Daily Avg Trades                 │ 32 / 0.07                                 │
 │ Starting balance                       │ 1000 USDT                                 │
-│ Final balance                          │ 1211.17 USDT                              │
-│ Absolute profit                        │ 211.17 USDT                               │
-│ Total profit %                         │ 21.12%                                    │
-│ CAGR %                                 │ 16.42%                                    │
-│ Sharpe (closed trades)                 │ 0.54                                      │
-│ Sortino (closed trades)                │ 3.35                                      │
-│ Calmar (closed trades)                 │ 26.11                                     │
-│ SQN                                    │ 2.25                                      │
-│ Mean profit p-value                    │ 0.03147                                   │
-│ Profit factor                          │ 2.94                                      │
-│ Expectancy (Ratio)                     │ 6.60 (0.67)                               │
-│ Avg. daily profit                      │ 0.459 USDT                                │
-│ Avg. stake amount                      │ 749.823 USDT                              │
-│ Market change                          │ 24.87%                                    │
-│ Total trade volume                     │ 48296.365 USDT                            │
+│ Final balance                          │ 1105.236 USDT                             │
+│ Absolute profit                        │ 105.236 USDT                              │
+│ Total profit %                         │ 10.52%                                    │
+│ CAGR %                                 │ 8.24%                                     │
+│ Sharpe (closed trades)                 │ 0.62                                      │
+│ Sortino (closed trades)                │ 3.36                                      │
+│ Calmar (closed trades)                 │ 28.67                                     │
+│ SQN                                    │ 2.59                                      │
+│ Mean profit p-value                    │ 0.01461                                   │
+│ Profit factor                          │ 2.99                                      │
+│ Expectancy (Ratio)                     │ 3.29 (0.68)                               │
+│ Avg. daily profit                      │ 0.228 USDT                                │
+│ Avg. stake amount                      │ 277.738 USDT                              │
+│ Market change                          │ 24.66%                                    │
+│ Total trade volume                     │ 24257.357 USDT                            │
 │                                        │                                           │
-│ Best Pair                              │ XAUT/USDT 21.12%                          │
-│ Worst Pair                             │ XAUT/USDT 21.12%                          │
-│ Best trade                             │ XAUT/USDT 5.51%                           │
+│ Best Pair                              │ XAUT/USDT 10.52%                          │
+│ Worst Pair                             │ XAUT/USDT 10.52%                          │
+│ Best trade                             │ XAUT/USDT 4.13%                           │
 │ Worst trade                            │ XAUT/USDT -2.39%                          │
-│ Best day                               │ 47.719 USDT                               │
-│ Worst day                              │ -13.859 USDT                              │
+│ Best day                               │ 16.418 USDT                               │
+│ Worst day                              │ -6.378 USDT                               │
 │ Days win/draw/lose                     │ 21 / 389 / 11                             │
 │ Min/Max/Avg. Duration Winners          │ 0d 20:00 / 12d 00:00 / 4d 23:37           │
 │ Min/Max/Avg. Duration Losers           │ 0d 12:00 / 6d 12:00 / 2d 02:33            │
@@ -140,34 +140,34 @@ Result for strategy TrendRiderGold
 │ Rejected Entry signals                 │ 0                                         │
 │ Entry/Exit Timeouts                    │ 0 / 0                                     │
 │                                        │                                           │
-│ Min/Max balance (closed trades)        │ 990.981 USDT / 1253.266 USDT              │
-│ Max % of account underwater            │ 3.36%                                     │
-│ Absolute drawdown                      │ 42.096 USDT (3.36%)                       │
+│ Min/Max balance (closed trades)        │ 993.622 USDT / 1122.308 USDT              │
+│ Max % of account underwater            │ 1.52%                                     │
+│ Absolute drawdown                      │ 17.072 USDT (1.52%)                       │
 │ Drawdown duration                      │ 190 days 00:00:00                         │
-│ Profit at drawdown start               │ 253.266 USDT                              │
-│ Profit at drawdown end                 │ 211.17 USDT                               │
+│ Profit at drawdown start               │ 122.308 USDT                              │
+│ Profit at drawdown end                 │ 105.236 USDT                              │
 │ Drawdown start                         │ 2026-03-02 16:00:00                       │
 │ Drawdown end                           │ 2026-09-08 16:00:00                       │
 │                                        │                                           │
 │ Wallet based Metrics                   │                                           │
-│ Min/Max balance (wallet balance)       │ 990.981 USDT / 1277.716 USDT              │
-│ Min/Max balance dates (wallet balance) │ 2025-07-15 16:00:00 / 2026-01-29 08:00:00 │
-│ Max % of account underwater (balance)  │ 5.21%                                     │
-│ Absolute drawdown (wallet balance)     │ 66.546 USDT (5.21%)                       │
-│ Drawdown duration                      │ 222 days 12:00:00                         │
-│ Profit at drawdown start               │ 277.716 USDT                              │
-│ Profit at drawdown end                 │ 211.17 USDT                               │
-│ Drawdown start                         │ 2026-01-29 08:00:00                       │
+│ Min/Max balance (wallet balance)       │ 993.622 USDT / 1126.214 USDT              │
+│ Min/Max balance dates (wallet balance) │ 2025-07-15 16:00:00 / 2026-03-02 08:00:00 │
+│ Max % of account underwater (balance)  │ 1.86%                                     │
+│ Absolute drawdown (wallet balance)     │ 20.978 USDT (1.86%)                       │
+│ Drawdown duration                      │ 190 days 12:00:00                         │
+│ Profit at drawdown start               │ 126.214 USDT                              │
+│ Profit at drawdown end                 │ 105.236 USDT                              │
+│ Drawdown start                         │ 2026-03-02 08:00:00                       │
 │ Drawdown end                           │ 2026-09-08 20:00:00                       │
-│ Sharpe (daily wallet balance)          │ 2.00                                      │
-│ Sortino (daily wallet balance)         │ 2.14                                      │
-│ Calmar (daily wallet balance)          │ 16.84                                     │
+│ Sharpe (daily wallet balance)          │ 2.36                                      │
+│ Sortino (daily wallet balance)         │ 2.79                                      │
+│ Calmar (daily wallet balance)          │ 23.41                                     │
 └────────────────────────────────────────┴───────────────────────────────────────────┘
 
-Backtested 2025-07-01 00:00:00 -> 2026-10-04 20:00:00 | Max open trades : 1
+Backtested 2025-07-01 00:00:00 -> 2026-10-05 12:00:00 | Max open trades : 1
                                                               STRATEGY SUMMARY                                                              
 ┏━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┓
 ┃       Strategy ┃ Trades ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃     Avg Duration ┃  Win  Draw  Loss  Win% ┃           Drawdown ┃
 ┡━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━┩
-│ TrendRiderGold │     32 │         0.77 │         211.170 │        21.12 │ 3 days, 23:52:00 │   21     0    11  65.6 │ 42.096 USDT  3.36% │
+│ TrendRiderGold │     32 │         0.80 │         105.236 │        10.52 │ 3 days, 23:52:00 │   21     0    11  65.6 │ 17.072 USDT  1.52% │
 └────────────────┴────────┴──────────────┴─────────────────┴──────────────┴──────────────────┴────────────────────────┴────────────────────┘
