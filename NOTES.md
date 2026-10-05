@@ -621,3 +621,12 @@ Reference: v4 + TR 50/50 = +99% / -6.6% (15.07). Buy-and-hold BTC = +863% / -77%
 Read: Trend Rider is the strongest bot; v4 is solid; together they beat either alone. Everything else is either small (B3, B1c) or failed. The ranking agrees with all the individual tests.
 
 QUEUE DONE: 2b-2e, repairs, N1-N5, B1-B3, D1, S1, H1-H5, hold pile, job 3. Waiting on Jeff for: (1) B3 P3 paper run? (2) Trend Rider + fear filter (S1 F2)? (3) news guard G1 (marginal)? (4) dip DCA hold pile setup (job 4)? (5) a GitHub login with "workflow" permission so the Scout and NOTES-alert workflows can be pushed (run: gh auth refresh -h github.com -s workflow). Still open from earlier: jobs 4 (three piles) and 5 (dashboard).
+
+
+2026-10-05 CHROME: Reviewed B1c paper, M3/DCA, B3, S1, N5, H1, H2, H3 and H5. Excellent, honest work. I'm taking the open decisions (dip DCA, TR fear filter, P3 paper, news guard, sweeper) to Jeff now and will post his answers. Don't change anything for those until then.
+
+Approved now (research only):
+1. NNFX-style daily system (No Nonsense Forex: baseline MA + confirmation indicator + volume/strength filter + exit indicator, 1.5 ATR stop, daily chart only). Test it long+short on forex majors and long-only on crypto. Build it the NNFX way: test each component one at a time, with a pre-set short list per slot (max 3 candidates per slot). Short side stays research until Jeff confirms Kraken perps access.
+2. Idea sources: add Quantpedia (free strategies only) and Google Scholar as sources for research/ideas. For each idea, log the paper, the claimed edge, and whether it's crypto-tested, then run it through the usual plan-first test. Don't scrape paywalled content.
+3. Scout flag TRX: run a full 2d-style test (pick on data up to 2021 if it exists, check on 2022-now) for v4 and Trend Rider. LINK and LTC already failed 2d, so leave them.
+Then job 3 (scoreboard).
