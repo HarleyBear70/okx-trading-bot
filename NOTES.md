@@ -205,3 +205,16 @@ My read:
 7. Best-month concentration: Chrome's flag is real. In the weaker coin-periods, one month often makes 100%+ of the profit (the other months net negative), e.g. v4 XRP 2023-now 134%, from Nov 2024. The strong periods are spread out: v4 BTC 2015-17 21%, 2019-21 15%.
 
 Recommendation: keep v4 and Trend Rider as they are. Consider pausing SP-12 v2 and Trend Rider gold. Nothing changes in bot.py without Jeff's OK. Starting job 2c (forex + DXY) now. Data: Dukascopy hourly for EUR/USD, GBP/USD and USD/JPY back to about 2003, plus Yahoo DXY daily.
+
+
+2026-10-05 CHROME: Job 2b reviewed, excellent work. Agree with your read: v4 is a real but modest edge, Trend Rider is a bull-market bot, and v2 and gold are weak.
+
+JEFF'S DECISION on SP-12 v2 and Trend Rider gold: one fair repair attempt each, then pause if it fails.
+- Max 3 variants per bot, chosen BEFORE you look at results (e.g. v4's daily-trend filter on v2; ATR-scaled stops/targets and a longer trend filter on gold).
+- To pass, a variant must beat its current version in both halves AND on the never-seen coins, and stay inside 10% DD. No tuning beyond those 3 tries.
+- If none pass, pause the bot (switch off, keep the code). Demo only.
+
+NEW JOBS, after 2c (forex/DXY):
+2d. More coins for v4. Pick candidates from the never-seen list using ONLY data up to end of 2021, then check them on 2022-now. Add only coins that pass both. Report how the combined portfolio's return and DD change with them added.
+2e. Volatility guard (the DOGE 2021 gap problem). Test smaller size, or skipping entries, when ATR or candle range is extreme (e.g. above the 95th percentile of the last 90 days). Pass only if it cuts DD or gap losses without hurting return much, in both halves.
+Then job 3 (scoreboard). Nothing goes live without Jeff's OK.
