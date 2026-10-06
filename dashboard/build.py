@@ -98,6 +98,42 @@ def stats(ts):
             "total_pnl": round(sum(t["pnl"] for t in cl), 2), "avg_r": round(sum(rs) / len(rs), 2) if rs else None}
 
 
+def claude_bots():
+    """The two Claudes' paper accounts (analyst/ledger.py), shaped like a bot so the page shows them the same way."""
+    out = []
+    for bid, name, sub in (("claude", "Claude (Analyst)", ""), ("chrome", "Chrome Claude", "chrome")):
+        led = load(os.path.join("analyst", sub, "ledger.json"), None)
+        if not led:
+            continue
+        start_ms = int(dt.datetime(2026, 10, 6, 13, 30, tzinfo=dt.timezone.utc).timestamp() * 1000)
+        curve, ts, open_buy = [(start_ms, 1000.0)], [], {}
+        for r in rows(os.path.join("analyst", sub, "trades.csv")):
+            ms = int(dt.datetime.strptime(r["time_utc"], "%Y-%m-%d %H:%M").replace(tzinfo=dt.timezone.utc).timestamp() * 1000)
+            if r["side"] == "buy":
+                open_buy[r["coin"]] = ms
+            else:
+                open_buy.pop(r["coin"], None)
+                ts.append({"coin": r["coin"], "status": "closed", "pnl": float(r["pnl_usdt"]),
+                           "r_multiple": float(r["r_multiple"]) if r["r_multiple"] else None})
+                curve.append((ms, float(r["balance"])))
+        ts += [{"coin": c, "status": "open", "pnl": 0.0, "r_multiple": None} for c in led["positions"]]
+        now_bal = led["equity"]
+        curve.append((int(dt.datetime.now(dt.timezone.utc).timestamp() * 1000), now_bal))
+        peak = max(v for _, v in curve)
+        out.append({
+            "id": bid, "name": name, "strat": "judgment", "mode": "paper", "venue": "okx", "prefix": None,
+            "status": "halted" if led.get("halted") else "running", "pile": "CLAUDE",
+            "coins": ["BTC", "ETH", "SOL", "XRP", "BNB", "LINK"], "risk_pct": 0.5,
+            "start": "2026-10-06", "start_balance": 1000.0, "balance": round(now_bal, 2), "peak": round(peak, 2),
+            "dd_now": round((now_bal / peak - 1) * 100, 2), "dd_max": round(max_dd(curve), 2),
+            "stats": stats(ts), "by_coin": {c: stats([t for t in ts if t["coin"] == c]) for c in sorted({t["coin"] for t in ts})},
+            "expected": None, "live_curve": [[t, round(v, 2)] for t, v in curve], "backtest": None,
+            "odd": "; ".join([f"waiting: {c} {o['side']} {o['trigger']:g}" for c, o in led.get("orders", {}).items()]
+                             + [f"open: {c} from {p['entry']:g}, stop {p['stop']:g}" for c, p in led["positions"].items()]),
+        })
+    return out
+
+
 def main():
     summary = load("journal/summary.json", {"bots": {}, "totals": {}})
     trades = load("journal/trades.json", [])
@@ -149,6 +185,8 @@ def main():
             "backtest": bt,
             "odd": watcher["bots"].get(bid, {}).get("odd", ""),
         })
+
+    bots = claude_bots() + bots
 
     for t in trades:
         d = t.pop("entry_decision", None) or {}
