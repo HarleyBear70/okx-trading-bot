@@ -81,8 +81,10 @@ BOTS = [
     {"id": "nnfx-okx", "name": "NNFX Aroon", "strat": "nnfx", "venue": "okx", "mode": "demo", "prefix": "ghN",
      "coins": ["BTC-USDT", "ETH-USDT", "XRP-USDT"], "equity": 1000.0},  # Oct 6 2026 (Jeff): passed at the real fee, +45%, DD -7.6% (research/FEES.md)
     {"id": "dc-okx", "name": "Donchian Trend", "strat": "donchian", "venue": "okx", "mode": "demo", "prefix": "ghD",
-     "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "XRP-USDT", "BNB-USDT"], "equity": 1000.0, "risk": 0.0035,
-     "max_open": 5, "half_at_2r": False},  # Oct 6 2026 (Jeff): daily 20-day breakout, passed at the real fee: +123%, DD -9.1% (research/F2.md)
+     "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "XRP-USDT", "BNB-USDT"], "equity": 1000.0, "risk": 0.0032,
+     "max_open": 5, "half_at_2r": False,  # Oct 6 2026 (Jeff): daily 20-day breakout
+     "pyramid": True},  # Oct 6 2026 (Jeff): one add-on at +1R, stop then >= entry; risk 0.35% -> 0.32% (research/F10.md)
+    # Donchian: daily 20-day breakout, passed at the real fee: +123%, DD -9.1% (research/F2.md)
     {"id": "hold-paper", "name": "BTC Protected Hold (paper)", "strat": "hold", "venue": "okx", "mode": "paper",
      "coins": ["BTC-USDT"], "equity": 1000.0, "risk": 1.0, "half_at_2r": False},  # Oct 6 2026 (Jeff): all-in BTC above
     # its 100-day average, cash below. A hold, not a 0.5%-risk bot: drops of 35-40% still happen (research/F2.md, B3)
@@ -791,6 +793,36 @@ def open_position(api, bot, bs, coin, bar, inf, extra):
     log_trade(bot, coin, "buy", got, px, cost, None, None, f"score {inf['score']}", bs["equity"])
 
 
+def add_piece(api, bot, bs, coin, bar):
+    """Pyramid (Turtle style, research/F10.md): the trade is up 1R at a close, so buy one more piece that risks the
+    bot's normal % down to the current stop, then lift the shared stop to at least the first entry. Once per trade."""
+    pos = bs["positions"][coin]
+    pos["added"] = True
+    close = bar["c"]
+    if close <= pos["stop"]:
+        return
+    eq = bs["equity"]
+    in_use = sum(p["cost"] * p.get("pnl_scale", 1.0) for p in bs["positions"].values())
+    qty = min(eq * risk_pct(bot, bs) / (close - pos["stop"]), max(eq - in_use, 0.0) / close)
+    usdt = qty * close
+    if usdt >= 5:
+        if bot["mode"] == "demo":
+            got, px, cost = okx_buy(api, bot, coin, usdt, bar["ts"])
+        else:
+            got, px, cost = qty, close, usdt * (1 + FEE)
+        if got > 0:
+            pos["qty"] += got
+            pos["cost"] += cost
+            pos["add_px"] = px or close
+            log(f"  ADD {coin} {got:.8g} @ {px:.6g} for {cost:.2f} (up 1R) | stop now at least entry {pos['entry_px']:.6g}")
+            log_trade(bot, coin, "buy", got, px, cost, None, None, "add-on +1R", bs["equity"])
+        else:
+            log(f"  {coin}: add-on buy did not fill")
+    else:
+        log(f"  {coin}: up 1R but add-on too small ({usdt:.2f})")
+    pos["stop"] = max(pos["stop"], pos["entry_px"])
+
+
 def close_position(api, bot, bs, coin, reason, paper_px):
     pos = bs["positions"][coin]
     if bot["mode"] == "demo":
@@ -886,6 +918,8 @@ def manage_on_close(api, bot, bs, coin, a, i, bar, bars_in):
     elif bot["strat"] == "donchian":
         if a["trail"][i] is not None:
             pos["stop"] = max(pos["stop"], a["trail"][i])  # trails at the 10-day low, only ever up
+        if bot.get("pyramid") and not pos.get("added") and one_r > 0 and bar["c"] >= pos["entry_px"] + one_r:
+            add_piece(api, bot, bs, coin, bar)
         return False
     elif bot["strat"] == "hold":
         if a["exit"][i]:

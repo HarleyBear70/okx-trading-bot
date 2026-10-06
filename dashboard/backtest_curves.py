@@ -29,7 +29,7 @@ def coins(bid):
 
 def settings(bid):
     b = next(b for b in bot.BOTS if b["id"] == bid)
-    return {k: b[k] for k in ("risk", "half_at_2r", "max_open") if k in b}
+    return {k: b[k] for k in ("risk", "half_at_2r", "max_open", "pyramid") if k in b}
 
 
 def daily(curve):

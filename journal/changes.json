@@ -124,5 +124,14 @@
   "approved_by": "Jeff, in the terminal: 'fix or get rid of bots that not ever going to work and make new ones that will'",
   "review_on": "2026-10-19",
   "review": "Donchian vs win 37% / PF 2.18 / DD -9.1% (2022-now). Hold vs its 100-day rule (paper). Note: a hold can drop 35-40%."
+ },
+ {
+  "date_utc": "2026-10-06",
+  "bots": "Donchian Trend (dc-okx)",
+  "change": "Pyramiding: once a trade's daily close is up 1R, buy one more piece risking the bot's % down to the current stop, then lift the shared stop to at least the first entry. Both pieces exit together on the 10-day-low trail. Once per trade (\"pyramid\": True in bot.py). Risk 0.35% -> 0.32%. journal.py records the add-on as part of the same trade.",
+  "why": "research/F10.md: bot.py replay at the real fee +152% / DD -10.0% / PF 3.06 vs +123% / -9.1% / 2.81 without; better return/DD in both halves and on never-seen coins.",
+  "approved_by": "Jeff, in the terminal: 'yes fix what needs fix'",
+  "review_on": "2026-10-19",
+  "review": "Donchian vs win 30% / PF 2.40 / DD -10.0% (2022-now). Check that add-on buys log as 'add-on +1R' and close with the trade."
  }
 ]

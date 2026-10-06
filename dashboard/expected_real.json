@@ -35,11 +35,11 @@
   "src": "real OKX fees 0.35% a side, 2022-now (research/FEES.md)"
  },
  "dc-okx": {
-  "win": 37,
-  "pf": 2.18,
-  "dd": -9.1,
+  "win": 30,
+  "pf": 2.4,
+  "dd": -10.0,
   "streak": null,
-  "src": "real OKX fees 0.35% a side, 2022-now (research/F2.md)"
+  "src": "pyramid at +1R, 0.32% risk, real fee, 2022-now (research/F10.md)"
  },
  "hold-paper": {
   "win": 18,

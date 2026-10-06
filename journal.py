@@ -379,7 +379,12 @@ def build_trades(api, state):
             continue
         key = (b["id"], row["coin"])
         t = parse_iso(row["time_utc"])
-        if row["side"] == "buy":
+        if row["side"] == "buy" and key in open_by and (row.get("reason") or "").startswith("add-on"):
+            tr = open_by[key]  # pyramid add-on: same trade, one more piece
+            tr["qty"] = (tr.get("qty") or 0) + (fnum(row["qty"]) or 0)
+            tr["cost"] = (tr.get("cost") or 0) + (fnum(row["usdt"]) or 0)
+            tr["add_time"], tr["add_px"] = row["time_utc"], fnum(row["price"])
+        elif row["side"] == "buy":
             tr = {"id": f"{b['id']}|{row['coin']}|{row['time_utc']}", "bot_id": b["id"], "bot": b["name"],
                   "strategy": b["strat"], "mode": row.get("mode") or b["mode"],
                   "coin": row["coin"], "chart_coin": CHART_COIN.get(row["coin"], row["coin"]),

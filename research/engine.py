@@ -91,7 +91,9 @@ def bot_sim(strat, coins, data, analyse, t0, t1=None, extra=None, settings=None)
     trades, open_id = [], {}
 
     def log_trade(_bot, coin, side, qty, px, usdt, pnl, pnl_pct, reason, equity):
-        if side == "buy":
+        if side == "buy" and coin in open_id and str(reason).startswith("add-on"):
+            pass  # pyramid add-on: same trade
+        elif side == "buy":
             open_id[coin] = len(trades)
             trades.append({"coin": coin, "pnl": 0.0})
         else:
