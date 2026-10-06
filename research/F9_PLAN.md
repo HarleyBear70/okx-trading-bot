@@ -16,3 +16,9 @@ Pass: positive in both halves, PF ≥ 1.3, DD ≤ 10%. CC1-CC3 must also beat S0
 
 ## F9b (added after the F9 run, before running this): CC3 robustness
 CC3 (skip Trend Rider buys whose pullback low sits in a low-volume gap) beat S0 in both halves. Same rules on never-seen coins (LTC DOGE ADA LINK BCH AVAX XLM XRP LUNA FTT, i.e. e.UNSEEN minus Trend Rider's coins): CC3 must beat S0 on return/DD in both halves there too before it is proposed for Trend Rider.
+
+## F9c (added before running): pine/sp-12 v4 sar, uploaded after F9
+v3's entry; after +1R the target is dropped and the stop trails at max(first stop, Parabolic SAR 0.02/0.02/0.2) while SAR is below the close; no breakeven step. Same pass rules.
+
+## F9d (added before running): does Trend Rider's breakeven step hurt at the real fee?
+F9c (v4 without breakeven) made +38% vs −2% for bot.py's v4 with it. Trend Rider also moves its stop to breakeven + 0.7% at +1R. Test: Trend Rider as live (bot.py replay, 0.4% risk) with vs without the breakeven step (BE_BUFFER = −1 makes the floor the first stop, so it never applies). Pass: better return/DD in both halves.

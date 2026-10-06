@@ -73,6 +73,33 @@ def v3():
     return lambda t0, t1: e.trade_sim(cs, d, entries, t0, t1, risk=b["risk"], max_open=3, fee=FEE)
 
 
+def v4sar():
+    """pine/sp-12 v4 sar exactly: v3 entry; after +1R (high since entry) the target is dropped and the stop trails at
+    max(first stop, Parabolic SAR) whenever SAR is below the close. No breakeven step (unlike bot.py's v4)."""
+    b = next(b for b in bot.BOTS if b["id"] == "v4-okx")
+    cs = [c.split("-")[0] for c in b["coins"]]
+    d = e.load(cs)
+    cfg = bot.SP_SETTINGS["v4"]
+    sars = {}
+
+    def entries(coin, bars, daily):
+        a = bot.analyse_sp(bars, daily, cfg)
+        sars[id(bars)] = a["sar"]
+        return [{"stop": a["info"][i]["sl"], "target": a["info"][i]["tp"], "max_bars": cfg["max_bars"]} if s_ else None
+                for i, s_ in enumerate(a["signal"])]
+
+    def manage(p, bars, k):
+        one_r = p["entry"] - p.setdefault("sl0", p["stop"])
+        p["hs"] = max(p.get("hs", bars[k]["h"]), bars[k]["h"])
+        if p["hs"] >= p["entry"] + one_r:
+            p["target"] = None
+            s_ = sars[id(bars)][k]
+            if s_ is not None and s_ < bars[k]["c"]:
+                return max(p["sl0"], s_)
+        return None
+    return lambda t0, t1: e.trade_sim(cs, d, entries, t0, t1, risk=b["risk"], max_open=3, fee=FEE, manage=manage)
+
+
 # ───────── Command Center tags on Trend Rider buys ─────────
 def pivots(src, L, high):
     """Pivot index p confirmed at p + L (Pine ta.pivothigh / pivotlow style)."""
@@ -150,7 +177,7 @@ def cc(mode, unseen=False):
 
 def main():
     v = sys.argv[1]
-    sim = {"AMD4": lambda: amd("4H"), "AMD1": lambda: amd("1H"), "V3": v3,
+    sim = {"AMD4": lambda: amd("4H"), "V4SAR": v4sar, "AMD1": lambda: amd("1H"), "V3": v3,
            "S0": lambda: cc("S0"), "CC1": lambda: cc("CC1"), "CC2": lambda: cc("CC2"), "CC3": lambda: cc("CC3"),
            "S0u": lambda: cc("S0", True), "CC3u": lambda: cc("CC3", True)}[v]()
     out = {"variant": v}
