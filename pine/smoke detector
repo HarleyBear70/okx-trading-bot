@@ -1,0 +1,143 @@
+// Jeff's Smoke Detector: a clean chart that only speaks up when something important is happening.
+// Normal candles = nothing to do. Colored candles = look here:
+//   YELLOW = smoke, watch: price is getting close to a key high/low, or squeezing sideways (breakout building),
+//            or a doji at a key level, or a minor pullback low/high broke inside the trend.
+//   ORANGE = trap: a wick took out a swing high/low (liquidity sweep) but the BODY closed back inside.
+//   BRIGHT GREEN / RED = BOS: a candle BODY closed beyond the last swing high/low, trend continues.
+//   PURPLE = MARKET SHIFT: a candle BODY closed through the strong (protected) high/low, the trend flipped.
+// Two lines: SOLID = strong high/low that must hold. DOTTED = weak high/low = the target (liquidity sits there).
+// Corner box: who is in control and whether price is expanding, pulling back or going sideways.
+// Read the daily first, then the 4H. It reads the chart; it is not a buy signal by itself.
+//@version=6
+indicator("Jeff's Smoke Detector", shorttitle="Smoke", overlay=true, max_lines_count=4)
+
+swingLen = input.int(5, "Swing size (candles on each side of a swing high/low)", minval=2, maxval=20)
+nearAtr  = input.float(0.5, "'Getting close' distance (x ATR)", minval=0.1, step=0.1)
+showLns  = input.bool(true, "Show the 2 key lines (solid = must hold, dotted = target)")
+showBox  = input.bool(true, "Show the small corner box")
+
+atr  = ta.atr(14)
+ph   = ta.pivothigh(high, swingLen, swingLen)
+pl   = ta.pivotlow(low, swingLen, swingLen)
+body = math.abs(close - open)
+rng  = high - low
+
+// Squeeze: Bollinger width near its lowest in 100 candles = price coiling sideways
+basis = ta.sma(close, 20)
+bbw   = basis > 0 ? 4 * ta.stdev(close, 20) / basis : na
+bbwLow  = ta.lowest(bbw, 100)
+squeeze = not na(bbw) and not na(bbwLow) and bbw <= bbwLow * 1.10
+
+var float swH    = na     // latest swing high
+var float swL    = na     // latest swing low
+var bool  hDone  = true   // latest swing high already broken?
+var bool  lDone  = true
+var int   trend  = 0      // 1 up, -1 down, 0 not known yet
+var float strong = na     // protected level: a body close through it = market shift
+var float ext    = na     // highest high of the up move / lowest low of the down move
+
+if not na(ph)
+    swH   := ph
+    hDone := false
+if not na(pl)
+    swL   := pl
+    lDone := false
+
+bos      = false
+shift    = false
+trap     = false
+internal = false
+
+if trend == 1
+    ext := math.max(nz(ext, high), high)
+    if not na(strong) and close < strong
+        // body closed through the protected low: buyers lost control
+        shift  := true
+        trend  := -1
+        strong := ext
+        ext    := low
+        lDone  := true
+    else if not hDone and close > swH
+        bos    := true
+        hDone  := true
+        strong := swL
+    else if not lDone and close < swL
+        internal := true   // a pullback low broke, but the protected low still holds
+        lDone    := true
+else if trend == -1
+    ext := math.min(nz(ext, low), low)
+    if not na(strong) and close > strong
+        shift  := true
+        trend  := 1
+        strong := ext
+        ext    := high
+        hDone  := true
+    else if not lDone and close < swL
+        bos    := true
+        lDone  := true
+        strong := swH
+    else if not hDone and close > swH
+        internal := true
+        hDone    := true
+else
+    if not hDone and close > swH
+        bos    := true
+        trend  := 1
+        hDone  := true
+        strong := swL
+        ext    := high
+    else if not lDone and close < swL
+        bos    := true
+        trend  := -1
+        lDone  := true
+        strong := swH
+        ext    := low
+
+// Target = the weak high (uptrend) or weak low (downtrend) not taken yet
+weak = trend == 1 ? (hDone ? na : swH) : trend == -1 ? (lDone ? na : swL) : na
+
+// Trap: wick through a swing high/low, body closed back inside
+trapHigh = not na(swH) and not hDone and high > swH and close <= swH
+trapLow  = not na(swL) and not lDone and low < swL and close >= swL
+trap := (trapHigh or trapLow) and not bos and not shift
+
+// Smoke: close to a key level, squeezing, a doji at a level, or an internal break
+nearWeak   = not na(weak) and math.abs(weak - close) <= nearAtr * atr
+nearStrong = not na(strong) and math.abs(close - strong) <= nearAtr * atr
+dojiLevel  = rng > 0 and body <= 0.1 * rng and (nearWeak or nearStrong)
+smoke = nearWeak or nearStrong or squeeze or dojiLevel or internal
+
+candleCol = shift ? color.rgb(170, 60, 255) : trap ? color.rgb(255, 140, 0) :
+     bos ? (trend == 1 ? color.rgb(0, 230, 118) : color.rgb(255, 50, 50)) :
+     smoke ? color.rgb(255, 214, 0) : na
+barcolor(candleCol)
+
+// The two lines, redrawn on the last candle only
+var line strongLn = na
+var line weakLn   = na
+if barstate.islast and showLns
+    line.delete(strongLn)
+    line.delete(weakLn)
+    if not na(strong)
+        strongLn := line.new(bar_index - 30, strong, bar_index + 10, strong, extend=extend.right,
+             color=trend == 1 ? color.rgb(0, 200, 100) : color.rgb(230, 60, 60), width=2, style=line.style_solid)
+    if not na(weak)
+        weakLn := line.new(bar_index - 30, weak, bar_index + 10, weak, extend=extend.right,
+             color=color.gray, width=1, style=line.style_dotted)
+
+// Corner box
+hi10 = ta.highest(close, 10)[1]
+lo10 = ta.lowest(close, 10)[1]
+expanding = trend == 1 ? close > hi10 : trend == -1 ? close < lo10 : false
+phase = squeeze ? "Sideways: squeeze, breakout coming" : expanding ? "Expanding" : trend != 0 ? "Pulling back" : "Waiting for structure"
+who   = trend == 1 ? "UP: buyers in control" : trend == -1 ? "DOWN: sellers in control" : "No clear trend yet"
+var table tb = table.new(position.top_right, 1, 2, bgcolor=color.new(color.black, 70), border_width=0)
+if barstate.islast and showBox
+    table.cell(tb, 0, 0, who, text_color=trend == 1 ? color.rgb(0, 230, 118) : trend == -1 ? color.rgb(255, 80, 80) : color.silver, text_size=size.small)
+    table.cell(tb, 0, 1, phase, text_color=color.silver, text_size=size.small)
+
+// Phone / app alerts (TradingView: Alert > Condition: Jeff's Smoke Detector)
+alertcondition(shift, "PURPLE: market shift", "Market shift: a body closed through the strong high/low")
+alertcondition(trap, "ORANGE: trap", "Trap: a wick swept a swing high/low and the body closed back inside")
+alertcondition(bos, "BOS", "Break of structure: trend continues")
+alertcondition(smoke and not (shift or trap or bos), "YELLOW: smoke", "Watch: near a key level, squeezing, or a doji at a level")
