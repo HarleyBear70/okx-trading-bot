@@ -151,9 +151,9 @@ expanding = trend == 1 ? close > hi10 : trend == -1 ? close < lo10 : false
 pullback = trend != 0 and not expanding and not squeeze and not na(strong) and
      (trend == 1 ? close > strong : close < strong)
 
-candleCol = shift ? color.rgb(170, 60, 255) : trap ? color.rgb(255, 140, 0) :
-     bos ? (trend == 1 ? color.rgb(0, 230, 118) : color.rgb(255, 50, 50)) :
-     smoke ? color.rgb(255, 214, 0) : pullback ? color.rgb(90, 130, 190) : na
+candleCol = shift ?  color.rgb(170, 60, 255) : trap ?  color.rgb(255, 140, 0) :
+     bos ? (trend == 1 ?  color.rgb(0, 230, 118) :  color.rgb(255, 50, 50)) :
+     smoke ?  color.rgb(255, 214, 0) : pullback ?  color.rgb(90, 130, 190) : na
 barcolor(candleCol)
 
 // The two lines, redrawn on the last candle only
@@ -164,10 +164,10 @@ if barstate.islast and showLns
     line.delete(weakLn)
     if not na(strong)
         strongLn := line.new(bar_index - 30, strong, bar_index + 10, strong, extend=extend.right,
-             color=trend == 1 ? color.rgb(0, 200, 100) : color.rgb(230, 60, 60), width=2, style=line.style_solid)
+             color=trend == 1 ?  color.rgb(0, 200, 100) :  color.rgb(230, 60, 60), width=2, style=line.style_solid)
     if not na(weak)
         weakLn := line.new(bar_index - 30, weak, bar_index + 10, weak, extend=extend.right,
-             color=color.gray, width=1, style=line.style_dotted)
+             color= color.gray, width=1, style=line.style_dotted)
 
 // Trade plan on a breakout (green/red BOS or purple shift): direction, stop past the strong level,
 // target = the nearest untaken liquidity (old swing high for a long, old swing low for a short), else 2R
@@ -202,11 +202,11 @@ if (bos or shift) and not na(strong)
             line.delete(eLn)
             line.delete(sLn)
             line.delete(tLn)
-            eLn := line.new(bar_index, entry, bar_index + 15, entry, color=color.silver, width=1)
-            sLn := line.new(bar_index, sl, bar_index + 15, sl, color=color.rgb(230, 60, 60), width=2)
-            tLn := line.new(bar_index, tp, bar_index + 15, tp, color=color.rgb(0, 200, 100), width=2)
-plotshape(showPlan and (bos or shift) and trend == 1, "Long", shape.triangleup, location.belowbar, color.rgb(0, 200, 100), size=size.tiny)
-plotshape(showPlan and (bos or shift) and trend == -1, "Short", shape.triangledown, location.abovebar, color.rgb(230, 60, 60), size=size.tiny)
+            eLn := line.new(bar_index, entry, bar_index + 15, entry, color= color.silver, width=1)
+            sLn := line.new(bar_index, sl, bar_index + 15, sl, color= color.rgb(230, 60, 60), width=2)
+            tLn := line.new(bar_index, tp, bar_index + 15, tp, color= color.rgb(0, 200, 100), width=2)
+plotshape(showPlan and (bos or shift) and trend == 1, "Long", shape.triangleup, location.belowbar,  color.rgb(0, 200, 100), size=size.tiny)
+plotshape(showPlan and (bos or shift) and trend == -1, "Short", shape.triangledown, location.abovebar,  color.rgb(230, 60, 60), size=size.tiny)
 
 // Corner box
 lvl   = str.tostring(strong, format.mintick)
@@ -214,18 +214,15 @@ phase = squeeze ? "Sideways: squeeze, breakout coming" : expanding ? "Expanding"
      pullback ? "Pullback, loading orders: holds while " + (trend == 1 ? "above " : "below ") + lvl :
      trend != 0 ? "Testing the strong level " + lvl : "Waiting for structure"
 who   = trend == 1 ? "UP: buyers in control" : trend == -1 ? "DOWN: sellers in control" : "No clear trend yet"
-var table tb = table.new(position.top_right, 1, 6, bgcolor=color.new(color.black, 70), border_width=0)
+var table tb = table.new(position.top_right, 1, 6, bgcolor= color.new(color.black, 70), border_width=0)
 if barstate.islast and showBox
-    table.cell(tb, 0, 0, who, text_color=trend == 1 ? color.rgb(0, 230, 118) : trend == -1 ? color.rgb(255, 80, 80) : color.silver, text_size=size.small)
-    table.cell(tb, 0, 1, phase, text_color=color.silver, text_size=size.small)
-    if showKey
-        table.cell(tb, 0, 4, "BLUE loading   YELLOW watch   ORANGE trap", text_color=color.rgb(255, 214, 0), text_size=size.tiny)
-        table.cell(tb, 0, 5, "GREEN/RED break (BOS)   PURPLE trend shift", text_color=color.rgb(200, 150, 255), text_size=size.tiny)
+    table.cell(tb, 0, 0, who, text_color=trend == 1 ?  color.rgb(0, 230, 118) : trend == -1 ?  color.rgb(255, 80, 80) :  color.silver, text_size=size.small)
+    table.cell(tb, 0, 1, phase, text_color= color.silver, text_size=size.small)
     if showPlan and pDir != 0
         rr = math.abs(pTP - pEntry) / math.abs(pEntry - pSL)
         plan = (pDir == 1 ? "Last break: LONG" : "Last break: SHORT") + "  SL " + str.tostring(pSL, format.mintick) +
              "  TP " + str.tostring(pTP, format.mintick) + "  (" + str.tostring(rr, "#.#") + ":1)"
-        table.cell(tb, 0, 2, plan, text_color=pDir == 1 ? color.rgb(0, 230, 118) : color.rgb(255, 80, 80), text_size=size.small)
+        table.cell(tb, 0, 2, plan, text_color=pDir == 1 ?  color.rgb(0, 230, 118) :  color.rgb(255, 80, 80), text_size=size.small)
         // Position size so a stopped-out trade loses about riskPct of the account, fees included
         riskUsd = acct * riskPct / 100
         stopPct = math.abs(pEntry - pSL) / pEntry
@@ -234,10 +231,24 @@ if barstate.islast and showBox
         winUsd  = posUsd * (math.abs(pTP - pEntry) / pEntry - 2 * fee)
         sizeTxt = "Risk $" + str.tostring(riskUsd, "#.##") + " -> buy $" + str.tostring(posUsd, "#.##") +
              " (" + str.tostring(posUsd / pEntry, "#.######") + " coins). Win at TP ~$" + str.tostring(winUsd, "#.##")
-        table.cell(tb, 0, 3, sizeTxt, text_color=winUsd >= 1.5 * riskUsd ? color.silver : color.rgb(255, 214, 0), text_size=size.small)
+        table.cell(tb, 0, 3, sizeTxt, text_color=winUsd >= 1.5 * riskUsd ?  color.silver :  color.rgb(255, 214, 0), text_size=size.small)
 
 // Phone / app alerts (TradingView: Alert > Condition: Jeff's Smoke Detector)
 alertcondition(shift, "PURPLE: market shift", "Market shift: a body closed through the strong high/low")
 alertcondition(trap, "ORANGE: trap", "Trap: a wick swept a swing high/low and closed back inside, or a breakout failed")
 alertcondition(bos, "BOS", "Break of structure: trend continues")
 alertcondition(smoke and not (shift or trap or bos), "YELLOW: smoke", "Watch: near a key level, squeezing, or a doji at a level")
+
+// Color key: big, easy-to-read box in the lower-left corner
+var table keyTb = table.new(position.bottom_left, 2, 6, bgcolor= color.new(color.black, 15), frame_color= color.gray, frame_width=1, border_width=3)
+keyRow(r, c, t) =>
+    table.cell(keyTb, 0, r, "●", text_color=c, text_size=size.large)
+    table.cell(keyTb, 1, r, t, text_color= color.white, text_size=size.normal, text_halign=text.align_left)
+if barstate.islast and showKey
+    keyRow(0, color.rgb(90, 130, 190), "Pullback (loading)")
+    keyRow(1, color.rgb(255, 214, 0), "Watch (getting close)")
+    keyRow(2, color.rgb(255, 140, 0), "Trap (fake-out wick)")
+    keyRow(3, color.rgb(0, 230, 118), "Break UP (BOS)")
+    keyRow(4, color.rgb(255, 50, 50), "Break DOWN (BOS)")
+    keyRow(5, color.rgb(170, 60, 255), "Trend shift (flipped)")
+
