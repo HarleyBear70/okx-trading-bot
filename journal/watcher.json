@@ -56,6 +56,10 @@
   "db-paper": {
    "peak": 1000.0,
    "odd": ""
+  },
+  "cr-paper": {
+   "peak": 1000.0,
+   "odd": ""
   }
  },
  "attention": []
