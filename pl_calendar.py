@@ -15,6 +15,7 @@ Newest month first; every month since the first trade is kept.
 import calendar as cal
 import csv
 import datetime as dt
+import json
 import os
 from collections import defaultdict
 from zoneinfo import ZoneInfo
@@ -148,6 +149,45 @@ def build_cards(rows):
         return ["## Strategy cards", "", f"(cards unavailable this hour: {str(ex)[:150]})", ""]
 
 
+def build_analyst():
+    """Claude (the Analyst): paper trades on judgment (analyst/ledger.py), scored against the active bots."""
+    try:
+        with open(os.path.join(HERE, "analyst", "ledger.json")) as f:
+            led = json.load(f)
+        trades = []
+        tpath = os.path.join(HERE, "analyst", "trades.csv")
+        if os.path.exists(tpath):
+            with open(tpath) as f:
+                trades = [r for r in csv.DictReader(f) if r["side"] == "sell"]
+        with open(os.path.join(HERE, "state.json")) as f:
+            st = json.load(f)["bots"]
+        eq = led["equity"]
+        wins = sum(1 for r in trades if float(r["pnl_usdt"]) > 0)
+        md = ["## Claude (the Analyst) vs the bots", "",
+              "Claude trading on judgment, on paper, since Oct 6 2026: same $1,000 start, same 0.35% fee, risk rules "
+              "enforced in code (0.5% per trade, stop on every trade, max 3 open, 12% guard). Brief, journal and "
+              "lessons: [analyst/](analyst/).", "",
+              "| | Balance | Change | Closed trades |", "|---|---|---|---|",
+              f"| **Claude (Analyst)** | **{eq:,.2f}** | **{eq / 10 - 100:+.2f}%** | {len(trades)}"
+              f"{f' ({wins} won)' if trades else ''} |"]
+        for bid in ("tr-okx", "dc-okx", "nnfx-okx"):
+            b = next((x for x in bot.BOTS if x["id"] == bid), None)
+            if b:
+                e = st.get(bid, {}).get("equity", b["equity"])
+                md.append(f"| {b['name']} | {e:,.2f} | {e / b['equity'] * 100 - 100:+.2f}% | |")
+        md += ["", "Closed P/L only; open trades count when they close.", ""]
+        for c, p in led["positions"].items():
+            md.append(f"- **Open {c}:** bought {p['entry']:g} on {p['opened']} UTC, stop {p['stop']:g}. Why: {p['why']}")
+        for c, o in led.get("orders", {}).items():
+            word = "above" if o["side"] == "above" else "down to"
+            md.append(f"- **Waiting {c}:** buy if price goes {word} {o['trigger']:g}, stop {o['stop']:g}. Why: {o['why']}")
+        if led.get("halted"):
+            md.append(f"- **HALTED:** {led['halted']}")
+        return md + [""]
+    except Exception as ex:
+        return ["## Claude (the Analyst) vs the bots", "", f"(unavailable this hour: {str(ex)[:150]})", ""]
+
+
 def main():
     rows = read_rows()
     os.makedirs(OUT_DIR, exist_ok=True)
@@ -181,6 +221,8 @@ def main():
         md += [f"## {title}" if vid == "combined" else f"### {title}", "",
                f"Closed P/L so far: {money(tot)} · {plural(sum(1 for p, _ in days.values() if p > 0), 'win day')} · "
                f"{plural(sum(1 for p, _ in days.values() if p < 0), 'loss day')}", "", f"![{title}](calendars/{vid}.svg)", ""]
+        if vid == "combined":
+            md += build_analyst()
     with open(os.path.join(HERE, "CALENDAR.md"), "w") as f:
         f.write("\n".join(md) + "\n")
     bot.log(f"[calendar] {len(views)} calendars, {len(months)} months")
