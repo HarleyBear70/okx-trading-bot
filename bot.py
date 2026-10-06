@@ -830,6 +830,103 @@ def okx_sell(api, bot, inst, qty):
     return filled, filled * px + fee
 
 
+# ───────── Exchange-side stop orders (EXCHANGE_STOPS_PLAN.md) ─────────
+# Per-bot switch "exchange_stops": True (demo only for now). OKX then holds a conditional market sell at the stop, so it
+# fires the moment price touches it, 24/7. Rules: cancel the bot's stop before ANY sell the bot makes itself; re-sync
+# (place / amend) at the end of every run; if the exchange stop fired between runs, record OKX's real fill.
+_tick_cache = {}
+
+
+def exch_stops(bot):
+    return bool(bot.get("exchange_stops")) and bot["mode"] == "demo"
+
+
+def tick_size(api, inst):
+    if inst not in _tick_cache:
+        d = api.get("/api/v5/public/instruments", {"instType": "SPOT", "instId": inst})[0]
+        _tick_cache[inst] = float(d["tickSz"])
+    return _tick_cache[inst]
+
+
+def fmt_step(x, step):
+    dec = max(0, -int(math.floor(math.log10(step)))) if step < 1 else 0
+    return f"{floor_to(x, step):.{dec}f}"
+
+
+def stop_place(api, bot, coin, pos):
+    lot, _ = inst_info(api, coin)
+    tick = tick_size(api, coin)
+    sz = floor_to(pos["qty"], lot)
+    body = {"instId": coin, "tdMode": "cash", "side": "sell", "ordType": "conditional", "sz": fmt_step(sz, lot),
+            "slTriggerPx": fmt_step(pos["stop"], tick), "slOrdPx": "-1", "slTriggerPxType": "last",
+            "algoClOrdId": f"{bot['prefix']}X{coin.split('-')[0]}{int(time.time())}"[:32]}
+    d = api.post("/api/v5/trade/order-algo", body)[0]
+    pos["algo_id"], pos["algo_px"], pos["algo_sz"] = d["algoId"], pos["stop"], sz
+    log(f"  {coin}: exchange stop placed at {pos['stop']:.6g} for {sz:.8g} (algo {d['algoId']})")
+
+
+def stop_cancel(api, bot, coin, pos):
+    """Cancel this position's exchange stop before the bot sells by itself (so OKX can't sell the same coins too)."""
+    if not pos.get("algo_id"):
+        return
+    try:
+        api.post("/api/v5/trade/cancel-algos", [{"algoId": pos["algo_id"], "instId": coin}])
+        log(f"  {coin}: exchange stop cancelled (algo {pos['algo_id']})")
+    except Exception as e:
+        log(f"  {coin}: ATTENTION could not cancel exchange stop {pos['algo_id']}: {e}")
+    pos["algo_id"] = None
+
+
+def stop_sync(api, bot, coin, pos):
+    """End of run: make OKX's stop match the bot's (place it if missing, amend if the stop rose or the size changed)."""
+    try:
+        if not pos.get("algo_id"):
+            stop_place(api, bot, coin, pos)
+            return
+        lot, _ = inst_info(api, coin)
+        sz = floor_to(pos["qty"], lot)
+        moved = pos["stop"] > pos["algo_px"] * 1.001
+        resized = abs(sz - pos["algo_sz"]) >= lot
+        if moved or resized:
+            body = {"instId": coin, "algoId": pos["algo_id"], "newSlTriggerPx": fmt_step(pos["stop"], tick_size(api, coin)),
+                    "newSlOrdPx": "-1"}
+            if resized:
+                body["newSz"] = fmt_step(sz, lot)
+            api.post("/api/v5/trade/amend-algos", body)
+            pos["algo_px"], pos["algo_sz"] = pos["stop"], sz
+            log(f"  {coin}: exchange stop moved to {pos['stop']:.6g}" + (f", size {sz:.8g}" if resized else ""))
+    except Exception as e:
+        log(f"  {coin}: ATTENTION exchange stop not in sync ({e}); the hourly check still guards this trade")
+
+
+def stop_check(api, bot, bs, coin):
+    """Start of run: did OKX's stop fire since the last run? If so, record OKX's real fill and return True."""
+    pos = bs["positions"].get(coin)
+    if not pos or not pos.get("algo_id"):
+        return False
+    try:
+        if api.get("/api/v5/trade/orders-algo-pending", {"ordType": "conditional", "algoId": pos["algo_id"]}, private=True):
+            return False
+        h = api.get("/api/v5/trade/orders-algo-history", {"ordType": "conditional", "algoId": pos["algo_id"]}, private=True)
+    except Exception as e:
+        log(f"  {coin}: could not check exchange stop ({e})")
+        return False
+    state = h[0].get("state") if h else None
+    ord_id = (h[0].get("ordId") or (h[0].get("ordIdList") or [None])[0]) if h else None
+    if state == "effective" and ord_id:
+        o = api.get("/api/v5/trade/order", {"instId": coin, "ordId": ord_id}, private=True)[0]
+        filled = float(o.get("accFillSz") or 0)
+        px = float(o.get("avgPx") or 0)
+        fee = float(o.get("fee") or 0)  # negative, in quote
+        if filled > 0:
+            pos["algo_id"] = None
+            close_position(api, bot, bs, coin, "stop (exchange)", px, done=(filled, filled * px + fee))
+            return True
+    log(f"  {coin}: ATTENTION exchange stop {pos['algo_id']} is {state or 'missing'}; it will be placed again")
+    pos["algo_id"] = None
+    return False
+
+
 # ───────── Opening / closing (demo or paper) ─────────
 def risk_pct(bot, bs):
     """The bot's base risk (its "risk" setting, else RISK_PCT). If RISK_STEPS_ON, risk a bit more per trade as the
@@ -873,6 +970,8 @@ def open_position(api, bot, bs, coin, bar, inf, extra):
            "stop": sl, "limit": inf["tp"], "trail": False, "hi": None}
     pos.update(extra)
     bs["positions"][coin] = pos
+    if exch_stops(bot):
+        stop_sync(api, bot, coin, pos)
     tp_txt = f" TP {inf['tp']:.6g}" if inf["tp"] else " (trailing stop)"
     log(f"  BUY {coin} {got:.8g} @ {px:.6g} for {cost:.2f} | SL {sl:.6g}{tp_txt} | {inf['score']}")
     log_trade(bot, coin, "buy", got, px, cost, None, None, f"score {inf['score']}", bs["equity"])
@@ -908,9 +1007,14 @@ def add_piece(api, bot, bs, coin, bar):
     pos["stop"] = max(pos["stop"], pos["entry_px"])
 
 
-def close_position(api, bot, bs, coin, reason, paper_px):
+def close_position(api, bot, bs, coin, reason, paper_px, done=None):
+    """done = (filled, proceeds) when OKX's own stop order already sold (stop_check)."""
     pos = bs["positions"][coin]
-    if bot["mode"] == "demo":
+    if done:
+        filled, proceeds = done
+        px = proceeds / filled
+    elif bot["mode"] == "demo":
+        stop_cancel(api, bot, coin, pos)
         filled, proceeds = okx_sell(api, bot, coin, pos["qty"])
         if filled <= 0:
             log(f"  {coin}: nothing left to sell — clearing position")
@@ -941,6 +1045,7 @@ def take_half(api, bot, bs, coin, paper_px):
     pos = bs["positions"][coin]
     pos["half"] = True
     if bot["mode"] == "demo":
+        stop_cancel(api, bot, coin, pos)
         filled, proceeds = okx_sell(api, bot, coin, pos["qty"] / 2)
         if filled <= 0:
             log(f"  {coin}: +2R reached but half is too small to sell - letting it all run")
@@ -1207,6 +1312,8 @@ def run_bot_coin(api, state, bot, coin, trade=True):
     if not trade:
         return
 
+    if exch_stops(bot) and stop_check(api, bot, bs, coin):
+        log(f"  {coin}: closed by the exchange stop since the last run")
     idx = {b["ts"]: k for k, b in enumerate(bars)}
     last_done = bs["last_bar"].get(coin, 0)
     new_bars = [k for k, b in enumerate(bars) if b["ts"] > last_done]
@@ -1229,6 +1336,8 @@ def run_bot_coin(api, state, bot, coin, trade=True):
 
     if coin in bs["positions"] and forming and forming["ts"] > bs["positions"][coin]["entry_ts"]:
         check_hit(api, bot, bs, coin, forming)
+    if exch_stops(bot) and coin in bs["positions"]:
+        stop_sync(api, bot, coin, bs["positions"][coin])
 
 
 def retired_and_flat(state, bot):

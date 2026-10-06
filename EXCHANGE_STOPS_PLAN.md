@@ -36,7 +36,7 @@ Paper bots keep today's hourly check (no orders). The hourly stop check stays as
 - Rate limits on amend calls across ~15 open positions per run.
 
 ## Steps
-1. Write the OKX helpers (place/amend/cancel/check) with the demo header, plus tests against a fake API.
+1. DONE (Oct 6 2026): helpers in bot.py (stop_place / stop_sync / stop_cancel / stop_check, hooked into open_position, close_position, take_half and run_bot_coin), switch "exchange_stops" OFF for every bot, tests/test_exchange_stops.py (fake OKX: place, amend on a real move only, resize after an add-on, cancel before the bot's own sells, record OKX's fill when the stop fired, nothing happens with the switch off).
 2. Turn it on for one demo bot (Trend Rider: the most trades, so it gets tested soonest) for 1-2 weeks; compare fills with the hourly check.
 3. Turn it on for Donchian and NNFX.
 4. Required before any real-money bot goes live.
