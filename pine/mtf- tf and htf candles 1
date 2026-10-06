@@ -1,0 +1,137 @@
+//@version=5
+// Multi-TF Delta + HTF Candles
+// - Delta (buy volume minus sell volume) printed under each chart candle
+// - 3 higher-timeframe candles drawn to the right of price (PO3 style), forming in real time,
+//   each with its own delta and a countdown showing time left in the candle.
+// Delta is estimated from lower-timeframe bars (up bar = buying, down bar = selling).
+// For viewing only. It does not place trades.
+indicator("Multi-TF Delta + HTF Candles", shorttitle="MTF Delta", overlay=true,
+     max_labels_count=500, max_boxes_count=100, max_lines_count=100)
+
+grpD = "Delta"
+ltfIn    = input.timeframe("1", "Lower timeframe used to measure delta", group=grpD)
+showBar  = input.bool(true, "Show delta under each candle", group=grpD)
+nLabels  = input.int(120, "How many candles get a delta label", minval=10, maxval=400, group=grpD)
+grpH = "Higher-timeframe candles"
+tf1      = input.timeframe("15", "Higher timeframe 1", group=grpH)
+tf2      = input.timeframe("60", "Higher timeframe 2", group=grpH)
+tf3      = input.timeframe("240", "Higher timeframe 3", group=grpH)
+nCandles = input.int(4, "Candles shown per timeframe", minval=1, maxval=8, group=grpH)
+gap      = input.int(5, "Space from price (bars)", minval=1, maxval=50, group=grpH)
+cw       = input.int(2, "Candle width (bars)", minval=1, maxval=5, group=grpH)
+upCol    = input.color(color.teal, "Up color", group=grpH)
+dnCol    = input.color(color.red, "Down color", group=grpH)
+
+// ───────── Delta of each chart candle ─────────
+ltf = timeframe.in_seconds(ltfIn) <= timeframe.in_seconds(timeframe.period) ? ltfIn : timeframe.period
+arr = request.security_lower_tf(syminfo.tickerid, ltf, close > open ? volume : close < open ? -volume : 0.0)
+rng = high - low
+approx = rng > 0 ? nz(volume) * (close - open) / rng : 0.0
+delta = array.size(arr) > 0 ? array.sum(arr) : approx
+
+fmt(float v) =>
+    a = math.abs(v)
+    s = a >= 1e9 ? str.tostring(a / 1e9, "#.##") + "B" : a >= 1e6 ? str.tostring(a / 1e6, "#.##") + "M" : a >= 1e3 ? str.tostring(a / 1e3, "#.#") + "K" : str.tostring(a, "#.##")
+    (v >= 0 ? "+" : "-") + s
+
+var array<label> barLabs = array.new<label>()
+var label liveLab = na
+if showBar
+    if barstate.isconfirmed
+        array.push(barLabs, label.new(bar_index, low, fmt(delta), style=label.style_label_up, color=color.new(color.black, 100), textcolor=delta >= 0 ? upCol : dnCol, size=size.tiny))
+        if array.size(barLabs) > nLabels
+            label.delete(array.shift(barLabs))
+        label.delete(liveLab)
+        liveLab := na
+    else
+        label.delete(liveLab)
+        liveLab := label.new(bar_index, low, fmt(delta), style=label.style_label_up, color=color.new(color.black, 100), textcolor=delta >= 0 ? upCol : dnCol, size=size.tiny)
+
+// ───────── Build higher-timeframe candles from chart bars ─────────
+type Htf
+    string tf
+    array<float> o
+    array<float> h
+    array<float> l
+    array<float> c
+    array<float> d
+
+newHtf(string tf) =>
+    Htf.new(tf, array.new_float(), array.new_float(), array.new_float(), array.new_float(), array.new_float())
+
+method update(Htf x, bool isNew) =>
+    if isNew or array.size(x.o) == 0
+        array.unshift(x.o, open)
+        array.unshift(x.h, high)
+        array.unshift(x.l, low)
+        array.unshift(x.c, close)
+        array.unshift(x.d, delta)
+        if array.size(x.o) > nCandles
+            array.pop(x.o)
+            array.pop(x.h)
+            array.pop(x.l)
+            array.pop(x.c)
+            array.pop(x.d)
+        true
+    else
+        array.set(x.h, 0, math.max(array.get(x.h, 0), high))
+        array.set(x.l, 0, math.min(array.get(x.l, 0), low))
+        array.set(x.c, 0, close)
+        array.set(x.d, 0, array.get(x.d, 0) + delta)
+        true
+
+var Htf h1 = newHtf(tf1)
+var Htf h2 = newHtf(tf2)
+var Htf h3 = newHtf(tf3)
+h1.update(timeframe.change(tf1))
+h2.update(timeframe.change(tf2))
+h3.update(timeframe.change(tf3))
+
+tfName(string tf) =>
+    mins = timeframe.in_seconds(tf) / 60
+    mins < 60 ? str.tostring(mins) + "m" : mins < 1440 ? str.tostring(mins / 60) + "H" : mins < 10080 ? str.tostring(mins / 1440) + "D" : "W"
+
+countdown(string tf) =>
+    ms = time_close(tf) - timenow
+    s = math.max(0, int(ms / 1000))
+    hh = int(s / 3600)
+    mm = int((s % 3600) / 60)
+    ss = s % 60
+    hh > 0 ? str.tostring(hh) + "h " + str.tostring(mm) + "m" : str.tostring(mm) + "m " + str.tostring(ss) + "s"
+
+// ───────── Draw them to the right of price ─────────
+var array<box>   bx = array.new_box()
+var array<line>  ln = array.new_line()
+var array<label> lb = array.new_label()
+
+drawGroup(Htf x, int baseX, string tf) =>
+    n = array.size(x.o)
+    top = array.max(x.h)
+    for k = 0 to n - 1
+        o = array.get(x.o, k)
+        h = array.get(x.h, k)
+        l = array.get(x.l, k)
+        c = array.get(x.c, k)
+        d = array.get(x.d, k)
+        xl = baseX + (n - 1 - k) * (cw + 1)
+        xm = xl + int((cw - 1) / 2)
+        col = c >= o ? upCol : dnCol
+        array.push(ln, line.new(xm, h, xm, l, color=col, width=1))
+        array.push(bx, box.new(xl, math.max(o, c), xl + cw - 1, math.min(o, c), border_color=col, bgcolor=k == 0 ? color.new(col, 40) : col))
+        array.push(lb, label.new(xm, l, fmt(d), style=label.style_label_up, color=color.new(color.black, 100), textcolor=d >= 0 ? upCol : dnCol, size=size.tiny))
+    array.push(lb, label.new(baseX + int((n * (cw + 1)) / 2), top, tfName(tf) + "\n" + countdown(tf), style=label.style_label_down, color=color.new(color.gray, 80), textcolor=chart.fg_color, size=size.small))
+
+if barstate.islast
+    for b in bx
+        box.delete(b)
+    for l in ln
+        line.delete(l)
+    for t in lb
+        label.delete(t)
+    array.clear(bx)
+    array.clear(ln)
+    array.clear(lb)
+    step = nCandles * (cw + 1) + 4
+    drawGroup(h1, bar_index + gap, tf1)
+    drawGroup(h2, bar_index + gap + step, tf2)
+    drawGroup(h3, bar_index + gap + 2 * step, tf3)
