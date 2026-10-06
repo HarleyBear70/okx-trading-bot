@@ -48,6 +48,14 @@
   "hold-paper": {
    "peak": 1000.0,
    "odd": ""
+  },
+  "fl-paper": {
+   "peak": 1000.0,
+   "odd": ""
+  },
+  "db-paper": {
+   "peak": 1000.0,
+   "odd": ""
   }
  },
  "attention": []

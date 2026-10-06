@@ -1,5 +1,5 @@
 {
- "updated_utc": "2026-10-06 04:57",
+ "updated_utc": "2026-10-06 05:25",
  "bots": {
   "v4-okx": {
    "live_now": 1005.0504,
@@ -179,6 +179,40 @@
     "win": null,
     "pf": null,
     "dd": -0.7000000000000117
+   },
+   "replay": {
+    "n": 0,
+    "win": null,
+    "pf": null,
+    "dd": 0.0
+   },
+   "error": null
+  },
+  "fl-paper": {
+   "live_now": 1000.0,
+   "replay_now": 1000.0,
+   "live": {
+    "n": 0,
+    "win": null,
+    "pf": null,
+    "dd": 0.0
+   },
+   "replay": {
+    "n": 0,
+    "win": null,
+    "pf": null,
+    "dd": 0.0
+   },
+   "error": null
+  },
+  "db-paper": {
+   "live_now": 1000.0,
+   "replay_now": 1000.0,
+   "live": {
+    "n": 0,
+    "win": null,
+    "pf": null,
+    "dd": 0.0
    },
    "replay": {
     "n": 0,

@@ -144,6 +144,108 @@
    "start_balance": 1000.0,
    "strategy": "pairs"
   },
+  "db-paper": {
+   "all": {
+    "avg_candles_held": null,
+    "avg_loss": null,
+    "avg_r": null,
+    "avg_win": null,
+    "closed": 0,
+    "losers_that_were_green_first": 0,
+    "losses": 0,
+    "open": 0,
+    "profit_factor": null,
+    "total_pnl": 0,
+    "trades": 0,
+    "win_rate_pct": null,
+    "wins": 0
+   },
+   "balance": 1000.0,
+   "by_coin": {
+    "BNB-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "BTC-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "ETH-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "SOL-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "XRP-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    }
+   },
+   "group": "testing",
+   "mode": "paper",
+   "name": "Double Bottom (paper)",
+   "open_positions": [],
+   "signals_seen": {},
+   "start_balance": 1000.0,
+   "strategy": "dbottom"
+  },
   "dc-okx": {
    "all": {
     "avg_candles_held": null,
@@ -245,6 +347,108 @@
    "signals_seen": {},
    "start_balance": 1000.0,
    "strategy": "donchian"
+  },
+  "fl-paper": {
+   "all": {
+    "avg_candles_held": null,
+    "avg_loss": null,
+    "avg_r": null,
+    "avg_win": null,
+    "closed": 0,
+    "losers_that_were_green_first": 0,
+    "losses": 0,
+    "open": 0,
+    "profit_factor": null,
+    "total_pnl": 0,
+    "trades": 0,
+    "win_rate_pct": null,
+    "wins": 0
+   },
+   "balance": 1000.0,
+   "by_coin": {
+    "BNB-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "BTC-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "ETH-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "SOL-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "XRP-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    }
+   },
+   "group": "testing",
+   "mode": "paper",
+   "name": "Follow Line (paper)",
+   "open_positions": [],
+   "signals_seen": {},
+   "start_balance": 1000.0,
+   "strategy": "followline"
   },
   "hold-paper": {
    "all": {
@@ -1046,6 +1250,24 @@
    "review": "Donchian vs win 31% / PF 2.46 / DD -9.7% (2022-now).",
    "review_on": "2026-10-19",
    "why": "research/F11.md (L2): bot.py replay at the real fee +154% / DD -9.7% / PF 3.30 vs +152% / -10.0% / 3.06; better return/DD in both halves on its own coins and on never-seen coins (+246% / -12.8% vs +236% / -13.6%); 9% fewer trades."
+  },
+  {
+   "approved_by": "Jeff (paper), in the terminal: 'yes'",
+   "bots": "Follow Line (fl-paper), new, paper",
+   "change": "New PAPER bot (no orders): Follow Line quick-flip variant (F13 #5), daily, BTC ETH SOL XRP BNB, buy when the line turns up, sell when it turns down, first stop 2 ATR(14), 0.3% risk, max 5 open.",
+   "date_utc": "2026-10-06",
+   "review": "Forward trades vs PF 2.45 / DD -8.4% (2022-now). Move to demo only after a few months of matching results.",
+   "review_on": "2026-10-19",
+   "why": "research/F13.md: the only one of 14 classic TradingView systems to pass every rule (+260% / DD -10.0% / PF 3.89, positive in both halves and on never-seen coins, correlation 0.75 with Donchian). Paper first because it came out of 14 tests and is not the published script (the original Follow Line failed)."
+  },
+  {
+   "approved_by": "Jeff (paper), in the terminal: 'yes'",
+   "bots": "Double Bottom (db-paper), new, paper",
+   "change": "New PAPER bot: double bottom breakout (F14 P1), daily, BTC ETH SOL XRP BNB, 1% risk, max 5 open, stop under the lower low (1-3 ATR), trail at the 10-day low.",
+   "date_utc": "2026-10-06",
+   "review": "Forward trades vs win 43% / PF 2.17 / DD -7.5% (2022-now).",
+   "review_on": "2026-10-19",
+   "why": "research/F14.md: passed every strict rule: +60% / DD -7.5% / PF 2.77 at 1% risk (+28% and +25% in the halves), +148% / +47% on never-seen coins, correlation 0.77 with Donchian. Rare (about 9 trades a year)."
   }
  ],
  "check_meanings": {},
@@ -1082,5 +1304,5 @@
    "wins": 2
   }
  },
- "updated_utc": "2026-10-06 04:56"
+ "updated_utc": "2026-10-06 05:25"
 }
