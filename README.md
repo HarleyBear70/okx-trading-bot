@@ -9,10 +9,11 @@
 | Pile | What's in it | Mode |
 |---|---|---|
 | HOLD (long-term) | Weekly dip-DCA buyer: $10/week into BTC + XRP, double when a coin is 20%+ below its 200-day average (setting DCA in bot.py). Profit sweeper (25% of wins to this pile) built but OFF until real money | paper |
-| ACTIVE (trading) | Trend Rider (BTC ETH SOL BNB SUI TRX, fear filter on, 0.4% risk) and NNFX Aroon (BTC ETH XRP, daily) | OKX demo |
+| ACTIVE (trading) | Trend Rider (BTC ETH SOL BNB SUI TRX, fear filter on, 0.4% risk), NNFX Aroon (BTC ETH XRP, daily) and Donchian Trend (BTC ETH SOL XRP BNB, daily, 0.35% risk) | OKX demo |
+| HOLD (protected) | BTC Protected Hold: all-in BTC above its 100-day average, cash below (for the BTC coming from Coinbase) | paper |
 | RANGE | None yet: no range bot has passed a test (research/N1_RANGE.md, B2 in research/B_BOXES.md) | - |
 | INCUBATING | B3 pairs | paper |
-| PAUSED | SP-12 v4 and its Kraken copy, B1c (lose money at the real 0.35% fee, Oct 6 2026, research/FEES.md); SP-12 v2, SP-12 v2 gold, Trend Rider gold (failed long-history tests and repairs) | - |
+| RETIRED | SP-12 v4 and its Kraken copy, B1c, SP-12 v2, v2 gold, Trend Rider gold, NNFX paper copy: they lose money at the real 0.35% fee or failed long-history tests ("retired": True in bot.py; skipped once flat, history kept) | - |
 
 All bots risk 0.5% of their own $1,000 practice balance per trade (Trend Rider, SP-12 v4 and its Kraken copy 0.4%). Paper fills and backtests use the real OKX fee, 0.35% per buy and per sell (since Oct 6 2026; it was 0.1%, see research/FEES.md). Nothing uses real money until Jeff says go.
 

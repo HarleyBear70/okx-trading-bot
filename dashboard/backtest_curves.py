@@ -29,7 +29,7 @@ def coins(bid):
 
 def settings(bid):
     b = next(b for b in bot.BOTS if b["id"] == bid)
-    return {k: b[k] for k in ("risk", "half_at_2r") if k in b}
+    return {k: b[k] for k in ("risk", "half_at_2r", "max_open") if k in b}
 
 
 def daily(curve):
@@ -54,6 +54,11 @@ def main():
         "nnfx-okx": lambda t1: e.bot_sim("nnfx", ["BTC", "ETH", "XRP"],
                                          {c: (d, d) for c, (_, d) in e.load(["BTC", "ETH", "XRP"]).items()},
                                          lambda b, d: bot.analyse_nnfx(b), e.START, t1, settings=settings("nnfx-okx")),
+        "dc-okx": lambda t1: e.bot_sim("donchian", coins("dc-okx"),
+                                       {c: (d, d) for c, (_, d) in e.load(coins("dc-okx")).items()},
+                                       lambda b, d: bot.analyse_donchian(b), e.START, t1, settings=settings("dc-okx")),
+        "hold-paper": lambda t1: e.bot_sim("hold", ["BTC"], {c: (d, d) for c, (_, d) in e.load(["BTC"]).items()},
+                                           lambda b, d: bot.analyse_hold(b), e.START, t1, settings=settings("hold-paper")),
         "tr-okx": lambda t1: e.bot_sim("tr", coins("tr-okx"), e.load(coins("tr-okx")), tr, e.START, t1,
                                        extra=lambda x: {"hi": x["c"]}, settings=settings("tr-okx")),
     }

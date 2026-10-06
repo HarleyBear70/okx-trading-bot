@@ -33,11 +33,12 @@ FEE = 0.0035                # 0.35% per side: OKX spot Lv1 market orders, the re
 SAR_START, SAR_INC, SAR_MAX = 0.02, 0.02, 0.2
 H4_MS = 4 * 3600 * 1000
 RISK_PCT = 0.005  # every bot risks 0.5% of its balance per trade (was 1%; changed Oct 5 2026 to keep drawdown under 10%)
+# "retired": True = failed its tests; skipped every hour once it has no open trade (its history stays in trades.csv).
 # Per-bot settings in BOTS: "risk" overrides RISK_PCT; "half_at_2r": False turns off selling half at +2R
 # (the switch: delete it or set True to sell half again). Both since Oct 5 2026, research/upside_test.py.
 RISK_STEPS = [(0.50, 0.02), (0.25, 0.015), (0.10, 0.0125)]  # balance up 50% -> 2%, up 25% -> 1.5%, up 10% -> 1.25%
 RISK_STEPS_ON = False  # stepping risk up is off for now (Oct 5 2026); set True to turn it back on
-MAX_OPEN = 3  # no more than 3 trades open at once per bot
+MAX_OPEN = 3  # no more than 3 trades open at once per bot (per-bot "max_open" overrides; Donchian Trend: 5, as tested)
 FNG_URL = "https://api.alternative.me/fng/?limit=10&format=json"  # Crypto Fear & Greed Index (free, no key)
 # Hold-pile buyer (Jeff, Oct 5 2026): every week buy BTC + XRP; double a coin's buy when its last daily close is
 # 20%+ below its 200-day average. PAPER until Jeff goes live; he sets the real weekly amount then.
@@ -48,19 +49,19 @@ SWEEP = {"on": False, "share": 0.25}
 BE_BUFFER = 2 * FEE  # breakeven stop sits just above entry so fees are covered
 
 BOTS = [
-    {"id": "v4-okx", "name": "SP-12 v4", "strat": "v4", "venue": "okx", "mode": "demo", "prefix": "gh4",
+    {"id": "v4-okx", "retired": True, "name": "SP-12 v4", "strat": "v4", "venue": "okx", "mode": "demo", "prefix": "gh4",
      "coins": ["BTC-USDT", "ETH-USDT", "XRP-USDT", "XLM-USDT", "BNB-USDT"], "equity": 1000.0,
      "risk": 0.004, "half_at_2r": False,  # Oct 5 2026 (Jeff, demo): no half sell, 0.4% keeps the 8-year drop under 10%
      "new_trades": False},  # paused Oct 6 2026: loses money at the real 0.35% fee, all 8 versions (research/FEES.md)
     # SOL dropped: lost money in backtest. XLM, BNB added Oct 5 2026 (passed pick + out-of-sample check, research/COINS.md)
-    {"id": "v4-kraken", "name": "SP-12 v4 (Kraken paper)", "strat": "v4", "venue": "kraken", "mode": "paper",
+    {"id": "v4-kraken", "retired": True, "name": "SP-12 v4 (Kraken paper)", "strat": "v4", "venue": "kraken", "mode": "paper",
      "coins": ["XBTUSD", "ETHUSD", "XRPUSD"], "equity": 1000.0,  # SOL dropped: lost money in backtest
      "risk": 0.004, "half_at_2r": False,  # same change as SP-12 v4 (Oct 5 2026)
      "new_trades": False},  # paused Oct 6 2026 with SP-12 v4 (research/FEES.md)
-    {"id": "v2-okx", "name": "SP-12 v2", "strat": "v2", "venue": "okx", "mode": "demo", "prefix": "ghS",
+    {"id": "v2-okx", "retired": True, "name": "SP-12 v2", "strat": "v2", "venue": "okx", "mode": "demo", "prefix": "ghS",
      "coins": ["ETH-USDT", "SOL-USDT"], "equity": 1000.0,
      "new_trades": False},  # paused Oct 5 2026: no edge in long-history test, repair failed (research/REPAIR_v2.md)
-    {"id": "v2-gold", "name": "SP-12 v2 (gold paper)", "strat": "v2", "venue": "okx", "mode": "paper",
+    {"id": "v2-gold", "retired": True, "name": "SP-12 v2 (gold paper)", "strat": "v2", "venue": "okx", "mode": "paper",
      "coins": ["XAUT-USDT"], "equity": 1000.0, "new_trades": False},  # paused Oct 5 2026 with SP-12 v2
     {"id": "tr-okx", "name": "Trend Rider", "strat": "tr", "venue": "okx", "mode": "demo", "prefix": "ghT",
      "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "BNB-USDT", "SUI-USDT", "TRX-USDT"], "equity": 1000.0, "pivot": 5,
@@ -68,18 +69,24 @@ BOTS = [
      "half_at_2r": False,  # Oct 5 2026 (Jeff, demo): no half sell at +2R, the trailing stop handles the exit
      "fear_skip_at_or_below": 25},  # no new buys when Fear & Greed <= 25 (Oct 5 2026, research/S1_SENTIMENT.md)
     # Trend Rider coins: BNB, SUI added Oct 5 (passed backtest); TRX added Oct 5 (research/TRX.md)
-    {"id": "b1-paper", "name": "B1c breakout retest (paper)", "strat": "b1", "venue": "okx", "mode": "paper",
+    {"id": "b1-paper", "retired": True, "name": "B1c breakout retest (paper)", "strat": "b1", "venue": "okx", "mode": "paper",
      "coins": ["BTC-USDT", "ETH-USDT", "XRP-USDT"], "equity": 1000.0,  # forward test from Oct 5 2026 (research/B_BOXES.md)
      "new_trades": False},  # paused Oct 6 2026: loses money at the real 0.35% fee (research/FEES.md)
     {"id": "b3-paper", "name": "B3 pairs (paper)", "strat": "pairs", "venue": "okx", "mode": "paper",
      "coins": ["ETH-USDT", "XRP-USDT", "BTC-USDT"], "equity": 1000.0,
      "pairs": ["ETH-USDT", "XRP-USDT"]},  # forward test from Oct 5 2026 (research/B3_PAIRS.md, variant P3)
-    {"id": "nnfx-paper", "name": "NNFX Aroon (paper)", "strat": "nnfx", "venue": "okx", "mode": "paper",
+    {"id": "nnfx-paper", "retired": True, "name": "NNFX Aroon (paper)", "strat": "nnfx", "venue": "okx", "mode": "paper",
      "coins": ["BTC-USDT", "ETH-USDT", "XRP-USDT"], "equity": 1000.0,  # backup candidate from Oct 5 2026 (research/NNFX.md)
      "new_trades": False},  # moved to OKX demo as nnfx-okx on Oct 6 2026
     {"id": "nnfx-okx", "name": "NNFX Aroon", "strat": "nnfx", "venue": "okx", "mode": "demo", "prefix": "ghN",
      "coins": ["BTC-USDT", "ETH-USDT", "XRP-USDT"], "equity": 1000.0},  # Oct 6 2026 (Jeff): passed at the real fee, +45%, DD -7.6% (research/FEES.md)
-    {"id": "tr-gold", "name": "Trend Rider (gold paper)", "strat": "tr", "venue": "okx", "mode": "paper",
+    {"id": "dc-okx", "name": "Donchian Trend", "strat": "donchian", "venue": "okx", "mode": "demo", "prefix": "ghD",
+     "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "XRP-USDT", "BNB-USDT"], "equity": 1000.0, "risk": 0.0035,
+     "max_open": 5, "half_at_2r": False},  # Oct 6 2026 (Jeff): daily 20-day breakout, passed at the real fee: +123%, DD -9.1% (research/F2.md)
+    {"id": "hold-paper", "name": "BTC Protected Hold (paper)", "strat": "hold", "venue": "okx", "mode": "paper",
+     "coins": ["BTC-USDT"], "equity": 1000.0, "risk": 1.0, "half_at_2r": False},  # Oct 6 2026 (Jeff): all-in BTC above
+    # its 100-day average, cash below. A hold, not a 0.5%-risk bot: drops of 35-40% still happen (research/F2.md, B3)
+    {"id": "tr-gold", "retired": True, "name": "Trend Rider (gold paper)", "strat": "tr", "venue": "okx", "mode": "paper",
      "coins": ["XAUT-USDT"], "equity": 1000.0, "pivot": 3, "half_at_2r": False,  # same change as Trend Rider
      "new_trades": False},  # paused Oct 5 2026: weak in long-history test, repair failed (research/REPAIR_gold.md)
 ]
@@ -560,6 +567,43 @@ def analyse_nnfx(bars):
     return {"signal": signal, "info": info, "exit": [x == -1 for x in d]}
 
 
+# ───────── Donchian Trend and BTC Protected Hold (Oct 6 2026, research/F2.md) ─────────
+DONCHIAN_SETTINGS = {"entry": 20, "exit": 10, "stop_atr": 2.0, "atr": 20}
+HOLD_SETTINGS = {"sma": 100}
+
+
+def analyse_donchian(bars):
+    """Daily, long only: buy on a close above the prior 20-day high; first stop 2 ATR(20) under the close, then the
+    stop trails at the lowest low of the last 10 days (a["trail"]). No target, no half sell, no breakeven step."""
+    cfg = DONCHIAN_SETTINGS
+    h, l, c = [b["h"] for b in bars], [b["l"] for b in bars], [b["c"] for b in bars]
+    a = atr(h, l, c, cfg["atr"])
+    n = len(bars)
+    signal, info, trail = [False] * n, [None] * n, [None] * n
+    for k in range(n):
+        if k >= cfg["exit"] - 1:
+            trail[k] = min(l[k - cfg["exit"] + 1:k + 1])
+        if k >= cfg["entry"] and a[k] is not None and c[k] > max(h[k - cfg["entry"]:k]):
+            sl = c[k] - cfg["stop_atr"] * a[k]
+            signal[k] = True
+            info[k] = {"score": f"{cfg['entry']}-day high", "raw_risk": (c[k] - sl) / c[k] * 100, "sl": sl, "tp": None}
+    return {"signal": signal, "info": info, "trail": trail}
+
+
+def analyse_hold(bars):
+    """Daily: in BTC while the close is above its 100-day average, out (cash) when it closes below (a["exit"]).
+    The 1%-of-price "stop" is never meant to be hit; with risk 1.0 the bot buys with all of its free balance."""
+    c = [b["c"] for b in bars]
+    m = sma(c, HOLD_SETTINGS["sma"])
+    n = len(bars)
+    signal, info = [False] * n, [None] * n
+    for k in range(n):
+        if m[k] is not None and c[k] > m[k]:
+            signal[k] = True
+            info[k] = {"score": f"above {HOLD_SETTINGS['sma']}-day average", "raw_risk": 99.0, "sl": c[k] * 0.01, "tp": None}
+    return {"signal": signal, "info": info, "exit": [m[k] is not None and c[k] < m[k] for k in range(n)]}
+
+
 # ───────── Trend Rider ─────────
 def analyse_tr(bars, daily, L):
     h = [b["h"] for b in bars]; l = [b["l"] for b in bars]; c = [b["c"] for b in bars]; n = len(bars)
@@ -719,8 +763,9 @@ def open_position(api, bot, bs, coin, bar, inf, extra):
     sl = inf["sl"]
     if close <= sl:
         return
-    if len(bs["positions"]) >= MAX_OPEN:
-        log(f"  {coin}: signal but {MAX_OPEN} trades already open")
+    max_open = bot.get("max_open", MAX_OPEN)
+    if len(bs["positions"]) >= max_open:
+        log(f"  {coin}: signal but {max_open} trades already open")
         return
     eq = bs["equity"]
     in_use = sum(p["cost"] * p.get("pnl_scale", 1.0) for p in bs["positions"].values())
@@ -836,6 +881,15 @@ def manage_on_close(api, bot, bs, coin, a, i, bar, bars_in):
     elif bot["strat"] == "nnfx":
         if a["exit"][i]:
             close_position(api, bot, bs, coin, "Aroon flipped down", bar["c"])
+            return True
+        return False
+    elif bot["strat"] == "donchian":
+        if a["trail"][i] is not None:
+            pos["stop"] = max(pos["stop"], a["trail"][i])  # trails at the 10-day low, only ever up
+        return False
+    elif bot["strat"] == "hold":
+        if a["exit"][i]:
+            close_position(api, bot, bs, coin, f"closed below the {HOLD_SETTINGS['sma']}-day average", bar["c"])
             return True
         return False
     elif bot["strat"] == "pairs":
@@ -966,7 +1020,7 @@ def get_data(api, venue, coin, tf="4H"):
 
 
 def bot_tf(bot):
-    return {"b1": "1H", "pairs": "1D", "nnfx": "1D"}.get(bot["strat"], "4H")
+    return {"b1": "1H", "pairs": "1D", "nnfx": "1D", "donchian": "1D", "hold": "1D"}.get(bot["strat"], "4H")
 
 
 def analyse_for(api, bot, coin):
@@ -977,6 +1031,10 @@ def analyse_for(api, bot, coin):
         a = analyse_b1(bars)
     elif bot["strat"] == "nnfx":
         a = analyse_nnfx(bars)
+    elif bot["strat"] == "donchian":
+        a = analyse_donchian(bars)
+    elif bot["strat"] == "hold":
+        a = analyse_hold(bars)
     elif bot["strat"] == "pairs":
         btc = get_data(api, bot["venue"], "BTC-USDT", "1D")[0]
         a = analyse_pairs(coin, bars, btc, {alt: get_data(api, bot["venue"], alt, "1D")[0] for alt in bot["pairs"]})
@@ -997,6 +1055,8 @@ def entry_extra(bot, bar, inf):
         return {"no_half": True, "tag": inf["tag"]}
     if bot["strat"] == "nnfx":
         return {"half_at": inf["half_at"], "be_after_half": True}
+    if bot["strat"] in ("donchian", "hold"):
+        return {"no_half": True}
     return {}
 
 
@@ -1036,6 +1096,11 @@ def run_bot_coin(api, state, bot, coin, trade=True):
         check_hit(api, bot, bs, coin, forming)
 
 
+def retired_and_flat(state, bot):
+    """A retired bot keeps running only until its last open trade is closed."""
+    return bool(bot.get("retired")) and not state["bots"].get(bot["id"], {}).get("positions")
+
+
 def main():
     mode = (sys.argv[1] if len(sys.argv) > 1 else "run").lower()
     key, sec, pw = (os.environ.get(k, "") for k in ("OKX_API_KEY", "OKX_API_SECRET", "OKX_API_PASSPHRASE"))
@@ -1045,6 +1110,8 @@ def main():
 
     if mode == "check":
         for bot in BOTS:
+            if retired_and_flat(state, bot):
+                continue
             for coin in bot["coins"]:
                 try:
                     run_bot_coin(api, state, bot, coin, trade=False)
@@ -1063,6 +1130,8 @@ def main():
     save_state(state)
     errors = total = 0
     for bot in BOTS:
+        if retired_and_flat(state, bot):
+            continue
         if bot["mode"] == "demo" and not have_keys:
             log(f"[{bot['name']}] waiting for OKX API key secrets — skipped")
             continue

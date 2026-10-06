@@ -22,7 +22,7 @@ sys.path.insert(0, ROOT)
 import bot  # noqa: E402
 import cards  # noqa: E402
 
-PILE = {bid: name.split(" ")[0] for name, ids in cards.PILES for bid in ids}  # ACTIVE / INCUBATING / PAUSED
+PILE = {bid: name.split(" ")[0] for name, ids in cards.PILES for bid in ids}  # ACTIVE / HOLD / INCUBATING / RETIRED
 REAL_FEE = 0.0035  # what OKX really charges per buy / sell (spot Lv1 market orders); paper bots log bot.FEE
 STOP_DD = 10.0  # scoreboard rule 3: stop any bot 10% below its best balance
 VERDICT_AT = 30  # scoreboard rule 1: no verdict before about 30 closed trades
@@ -134,8 +134,8 @@ def main():
         st = stats(mine)
         by_coin = {c: stats([t for t in mine if t["coin"] == c]) for c in sorted({t["coin"] for t in mine})}
         bots.append({
-            "id": bid, "name": b["name"], "mode": b["mode"], "venue": b["venue"], "prefix": b.get("prefix"),
-            "status": "paused" if b.get("new_trades") is False else "running",
+            "id": bid, "name": b["name"], "strat": b["strat"], "mode": b["mode"], "venue": b["venue"], "prefix": b.get("prefix"),
+            "status": "retired" if b.get("retired") else "paused" if b.get("new_trades") is False else "running",
             "pile": PILE.get(bid, ""),
             "coins": [c.replace("-USDT", "").replace("USD", "").replace("XBT", "BTC") for c in b["coins"]],
             "risk_pct": round(b.get("risk", bot.RISK_PCT) * 100, 2),

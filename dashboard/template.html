@@ -311,8 +311,8 @@ $("#kpis").innerHTML = [
 }
 
 /* ---------- equity chart ---------- */
-const PILE_ORDER = { ACTIVE: 0, INCUBATING: 1, PAUSED: 2 };
-const chartable = bots.filter((b) => b.backtest || b.live_curve.length > 1 || b.status === "running").sort((a, b) => (PILE_ORDER[a.pile] ?? 3) - (PILE_ORDER[b.pile] ?? 3));
+const PILE_ORDER = { ACTIVE: 0, HOLD: 1, INCUBATING: 2, PAUSED: 3, RETIRED: 4 };
+const chartable = bots.filter((b) => b.status !== "retired" && (b.backtest || b.live_curve.length > 1 || b.status === "running")).sort((a, b) => (PILE_ORDER[a.pile] ?? 3) - (PILE_ORDER[b.pile] ?? 3));
 let sel = (chartable.find((b) => b.id === "tr-okx") || chartable[0]).id;
 let range = "all";
 const SVGNS = "http://www.w3.org/2000/svg";
@@ -444,7 +444,9 @@ new MutationObserver(() => { drawChart(); calendar(); weekdayChart(); }).observe
 /* ---------- verdict: the scoreboard rules ---------- */
 function verdict(b) {
   const s = b.stats || {}, n = s.closed || 0, pf = s.profit_factor;
+  if (b.status === "retired") return { html: `<span class="flag wait">Retired</span>`, why: "Failed its tests. Its trades stay in the history." };
   if (b.status === "paused") return { html: `<span class="flag wait">Paused</span>`, why: "Not taking new trades." };
+  if (b.strat === "hold") return { html: `<span class="flag wait">Hold · ${n} trades</span>`, why: "A hold, not a trading bot: drops of 35-40% are normal for it. Judge it against just holding BTC." };
   if (b.dd_now <= -D.rules.stop_dd) return { html: `<span class="flag bad">Stop it</span>`, why: `${pct(b.dd_now)} from its best balance. Rule: stop at −${D.rules.stop_dd}%.` };
   if (b.dd_now <= -8) return { html: `<span class="flag warnf">Watch closely</span>`, why: `${pct(b.dd_now)} from its best balance, near the −${D.rules.stop_dd}% stop.` };
   if (n < D.rules.verdict_at) return { html: `<span class="flag wait">Too early · ${n}/${D.rules.verdict_at}</span>`, why: `Win % and PF are mostly luck under ${D.rules.verdict_at} closed trades.` };
@@ -455,8 +457,8 @@ function verdict(b) {
 
 /* ---------- bots table ---------- */
 function botsTable() {
-  const order = { ACTIVE: 0, INCUBATING: 1, PAUSED: 2 };
-  const list = [...bots].sort((a, b) => (order[a.pile] ?? 3) - (order[b.pile] ?? 3));
+  const list = bots.filter((b) => b.status !== "retired" || (b.stats && b.stats.open)).sort((a, b) => (PILE_ORDER[a.pile] ?? 5) - (PILE_ORDER[b.pile] ?? 5));
+  const gone = bots.filter((b) => !list.includes(b));
   $("#bots-table").innerHTML = `<thead><tr><th>Bot</th><th>Pile</th><th>Mode</th><th>Coins</th><th class="r">Balance</th><th class="r">P/L</th><th class="r">W / L</th><th class="r">Win %</th><th class="r">PF</th><th class="r">Avg R</th><th>Drop from best</th><th>Verdict</th></tr></thead><tbody>` +
     list.map((b) => {
       const s = b.stats || {}, pl = b.balance - b.start_balance, ddw = Math.min(100, Math.abs(b.dd_now) / D.rules.stop_dd * 100);
@@ -467,7 +469,7 @@ function botsTable() {
         <td class="r num">${s.profit_factor == null ? (s.wins ? "all wins" : "–") : fx(s.profit_factor)}</td><td class="r num">${s.avg_r == null ? "–" : fx(s.avg_r)}</td>
         <td><span class="bar" title="${pct(b.dd_now)} of the −${D.rules.stop_dd}% stop"><span style="width:${ddw}%;background:${ddc}"></span></span> <span class="num small">${pct(b.dd_now)}</span></td>
         <td>${verdict(b).html}</td></tr>`;
-    }).join("") + "</tbody>";
+    }).join("") + (gone.length ? `<tr><td colspan="12" class="small muted" style="white-space:normal">Retired (failed at real fees or long-history tests; their trades stay in the history below): ${gone.map((b) => esc(b.name)).join(", ")}</td></tr>` : "") + "</tbody>";
 }
 $("#bots-table").addEventListener("click", (ev) => {
   const id = ev.target.closest("tr[data-id]")?.dataset.id;

@@ -33,5 +33,19 @@
   "dd": -6.1,
   "streak": null,
   "src": "real OKX fees 0.35% a side, 2022-now (research/FEES.md)"
+ },
+ "dc-okx": {
+  "win": 37,
+  "pf": 2.18,
+  "dd": -9.1,
+  "streak": null,
+  "src": "real OKX fees 0.35% a side, 2022-now (research/F2.md)"
+ },
+ "hold-paper": {
+  "win": 18,
+  "pf": 1.91,
+  "dd": -38.6,
+  "streak": null,
+  "src": "100-day protected hold, real fee, 2022-now (research/F2.md)"
  }
 }

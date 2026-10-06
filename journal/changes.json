@@ -115,5 +115,14 @@
   "approved_by": "Jeff (demo), in the terminal: 'change what ever on the bots to make money'",
   "review_on": "2026-10-19",
   "review": "Trend Rider vs win 33% / PF 1.66 / DD -9.6%; NNFX vs win 59% / PF 1.89 / DD -6.1% (2022-now at real fees). Demo P/L already includes OKX's real fee."
+ },
+ {
+  "date_utc": "2026-10-06",
+  "bots": "Donchian Trend (dc-okx, new, demo), BTC Protected Hold (hold-paper, new, paper); retired: SP-12 v4, its Kraken copy, SP-12 v2, v2 gold, Trend Rider gold, B1c, NNFX paper copy",
+  "change": "New Donchian Trend on OKX demo: daily, BTC ETH SOL XRP BNB, buy on a close above the prior 20-day high, first stop 2 ATR(20), trail at the 10-day low, no half sell / breakeven / target, 0.35% risk, max 5 open (per-bot max_open). New BTC Protected Hold (paper): all of its $1,000 in BTC while the daily close is above the 100-day average, cash below. Retired bots are skipped every hour once they have no open trade (the Kraken copy still manages its open ETH paper trade).",
+  "why": "research/F2.md at the real 0.35% fee, checked with bot.py's own code: Donchian +123% / DD -9.1% / PF 2.81 (2018-now), +63% and +37% in the halves, positive on never-seen coins; correlation with Trend Rider 0.60. Protected hold +1893% / DD -41% vs buy-and-hold +847% / DD -77%. The retired bots lose money at real fees or failed long-history tests.",
+  "approved_by": "Jeff, in the terminal: 'fix or get rid of bots that not ever going to work and make new ones that will'",
+  "review_on": "2026-10-19",
+  "review": "Donchian vs win 37% / PF 2.18 / DD -9.1% (2022-now). Hold vs its 100-day rule (paper). Note: a hold can drop 35-40%."
  }
 ]
