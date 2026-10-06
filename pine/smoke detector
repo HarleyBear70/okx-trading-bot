@@ -8,15 +8,19 @@
 //   BRIGHT GREEN / RED = BOS: a candle BODY closed beyond the last swing high/low, trend continues.
 //   PURPLE = MARKET SHIFT: a candle BODY closed through the strong (protected) high/low, the trend flipped.
 // Two lines: SOLID = strong high/low that must hold. DOTTED = weak high/low = the target (liquidity sits there).
+// Trade plan: every green/red/purple candle gets a tiny arrow (direction) and 3 short lines: entry (grey), stop loss
+// (red, just past the strong level) and take profit (green, the nearest untaken liquidity, else 2x the risk).
 // Corner box: who is in control and whether price is expanding, pulling back or going sideways.
 // Read the daily first, then the 4H. It reads the chart; it is not a buy signal by itself.
 //@version=6
-indicator("Jeff's Smoke Detector", shorttitle="Smoke", overlay=true, max_lines_count=4)
+indicator("Jeff's Smoke Detector", shorttitle="Smoke", overlay=true, max_lines_count=10)
 
 swingLen = input.int(5, "Swing size (candles on each side of a swing high/low)", minval=2, maxval=20)
 nearAtr  = input.float(0.5, "'Getting close' distance (x ATR)", minval=0.1, step=0.1)
 showLns  = input.bool(true, "Show the 2 key lines (solid = must hold, dotted = target)")
 showBox  = input.bool(true, "Show the small corner box")
+showPlan = input.bool(true, "Show the trade plan on breakouts (entry, SL, TP)")
+slBuf    = input.float(0.25, "Stop buffer beyond the strong level (x ATR)", minval=0, step=0.05)
 
 atr  = ta.atr(14)
 ph   = ta.pivothigh(high, swingLen, swingLen)
@@ -38,12 +42,20 @@ var int   trend  = 0      // 1 up, -1 down, 0 not known yet
 var float strong = na     // protected level: a body close through it = market shift
 var float ext    = na     // highest high of the up move / lowest low of the down move
 
+var array<float> pastHighs = array.new<float>()   // swing highs = liquidity above
+var array<float> pastLows  = array.new<float>()   // swing lows = liquidity below
 if not na(ph)
     swH   := ph
     hDone := false
+    array.push(pastHighs, ph)
+    if array.size(pastHighs) > 30
+        array.shift(pastHighs)
 if not na(pl)
     swL   := pl
     lDone := false
+    array.push(pastLows, pl)
+    if array.size(pastLows) > 30
+        array.shift(pastLows)
 
 bos      = false
 shift    = false
@@ -134,16 +146,60 @@ if barstate.islast and showLns
         weakLn := line.new(bar_index - 30, weak, bar_index + 10, weak, extend=extend.right,
              color=color.gray, width=1, style=line.style_dotted)
 
+// Trade plan on a breakout (green/red BOS or purple shift): direction, stop past the strong level,
+// target = the nearest untaken liquidity (old swing high for a long, old swing low for a short), else 2R
+var float pEntry = na
+var float pSL    = na
+var float pTP    = na
+var int   pDir   = 0
+var line  eLn = na
+var line  sLn = na
+var line  tLn = na
+if (bos or shift) and not na(strong)
+    dir   = trend
+    entry = close
+    sl    = dir == 1 ? strong - slBuf * atr : strong + slBuf * atr
+    risk  = math.abs(entry - sl)
+    if risk > 0.2 * atr and (dir == 1 ? sl < entry : sl > entry)
+        float tp = na
+        src = dir == 1 ? pastHighs : pastLows
+        if array.size(src) > 0
+            for i = 0 to array.size(src) - 1
+                lv = array.get(src, i)
+                ok = dir == 1 ? lv >= entry + risk : lv <= entry - risk
+                if ok and (na(tp) or math.abs(lv - entry) < math.abs(tp - entry))
+                    tp := lv
+        if na(tp)
+            tp := entry + dir * 2 * risk
+        pEntry := entry
+        pSL    := sl
+        pTP    := tp
+        pDir   := dir
+        if showPlan
+            line.delete(eLn)
+            line.delete(sLn)
+            line.delete(tLn)
+            eLn := line.new(bar_index, entry, bar_index + 15, entry, color=color.silver, width=1)
+            sLn := line.new(bar_index, sl, bar_index + 15, sl, color=color.rgb(230, 60, 60), width=2)
+            tLn := line.new(bar_index, tp, bar_index + 15, tp, color=color.rgb(0, 200, 100), width=2)
+plotshape(showPlan and (bos or shift) and trend == 1, "Long", shape.triangleup, location.belowbar, color.rgb(0, 200, 100), size=size.tiny)
+plotshape(showPlan and (bos or shift) and trend == -1, "Short", shape.triangledown, location.abovebar, color.rgb(230, 60, 60), size=size.tiny)
+
 // Corner box
 lvl   = str.tostring(strong, format.mintick)
 phase = squeeze ? "Sideways: squeeze, breakout coming" : expanding ? "Expanding" :
      pullback ? "Pullback, loading orders: holds while " + (trend == 1 ? "above " : "below ") + lvl :
      trend != 0 ? "Testing the strong level " + lvl : "Waiting for structure"
 who   = trend == 1 ? "UP: buyers in control" : trend == -1 ? "DOWN: sellers in control" : "No clear trend yet"
-var table tb = table.new(position.top_right, 1, 2, bgcolor=color.new(color.black, 70), border_width=0)
+var table tb = table.new(position.top_right, 1, 3, bgcolor=color.new(color.black, 70), border_width=0)
 if barstate.islast and showBox
     table.cell(tb, 0, 0, who, text_color=trend == 1 ? color.rgb(0, 230, 118) : trend == -1 ? color.rgb(255, 80, 80) : color.silver, text_size=size.small)
     table.cell(tb, 0, 1, phase, text_color=color.silver, text_size=size.small)
+    if showPlan and pDir != 0
+        rr = math.abs(pTP - pEntry) / math.abs(pEntry - pSL)
+        plan = (pDir == 1 ? "Last break: LONG" : "Last break: SHORT") + "  SL " + str.tostring(pSL, format.mintick) +
+             "  TP " + str.tostring(pTP, format.mintick) + "  (" + str.tostring(rr, "#.#") + ":1)"
+        table.cell(tb, 0, 2, plan, text_color=pDir == 1 ? color.rgb(0, 230, 118) : color.rgb(255, 80, 80), text_size=size.small)
 
 // Phone / app alerts (TradingView: Alert > Condition: Jeff's Smoke Detector)
 alertcondition(shift, "PURPLE: market shift", "Market shift: a body closed through the strong high/low")
