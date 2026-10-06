@@ -60,3 +60,8 @@ Generated 2026-10-06 07:12 UTC by .github/workflows/freqtrade-community.yml. Eve
 | SmoothScalp | - | - | - | - | - | - | - | did not run (see results/community/SmoothScalp_0.0035.txt) |
 | TWAPStrategy | - | - | - | - | - | - | - | did not run (see results/community/TWAPStrategy_0.0035.txt) |
 | multi_tf | - | - | - | - | - | - | - | did not run (see results/community/multi_tf_0.0035.txt) |
+
+## Notes (Terminal, 2026-10-06)
+- 43 of 56 strategies ran. Only **MultiMa** (4h) made money at the real 0.35% fee: +26.7% since 2022 with a 31% drop, which fails the 10% drop rule and is far behind Trend Rider / Donchian (about +57-63% since 2022 with ~10% drops). At 0.1% fees 9 of them were positive; at 0.35% most lose 90-99%, mostly 5m/15m/1h strategies trading 1-3 times a day.
+- The 13 that didn't run: short-only (AlmgrenChriss, TWAP: OKX US spot can't short), 1-minute strategies with no 1m data downloaded (BinHV45, CCIStrategy, Low_BB, Scalp and the other scalpers; these would do even worse at 0.35%), or code errors in the current Freqtrade (GodStra, Heracles, multi_tf, BreakEven).
+- Nothing added. The community's own "TrendRiderStrategy" (1h, different rules from Jeff's bot) lost 99.9%.
