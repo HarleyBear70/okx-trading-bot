@@ -3,63 +3,78 @@
  "bots": {
   "v4-okx": {
    "peak": 1006.89,
-   "odd": ""
+   "odd": "",
+   "halt_flag": false
   },
   "v4-kraken": {
    "peak": 1010.090938477696,
-   "odd": ""
+   "odd": "",
+   "halt_flag": false
   },
   "v2-okx": {
    "peak": 1000.0,
-   "odd": ""
+   "odd": "",
+   "halt_flag": false
   },
   "v2-gold": {
    "peak": 1000.0,
-   "odd": ""
+   "odd": "",
+   "halt_flag": false
   },
   "tr-okx": {
    "peak": 1000.0,
-   "odd": ""
+   "odd": "",
+   "halt_flag": false
   },
   "b1-paper": {
    "peak": 1000.0,
-   "odd": ""
+   "odd": "",
+   "halt_flag": false
   },
   "b3-paper": {
    "peak": 1000.0,
-   "odd": ""
+   "odd": "",
+   "halt_flag": false
   },
   "nnfx-paper": {
    "peak": 1000.0,
-   "odd": ""
+   "odd": "",
+   "halt_flag": false
   },
   "tr-gold": {
    "peak": 1000.0,
-   "odd": ""
+   "odd": "",
+   "halt_flag": false
   },
   "nnfx-okx": {
    "peak": 1000.0,
-   "odd": ""
+   "odd": "",
+   "halt_flag": false
   },
   "dc-okx": {
    "peak": 1000.0,
-   "odd": ""
+   "odd": "",
+   "halt_flag": false
   },
   "hold-paper": {
    "peak": 1000.0,
-   "odd": ""
+   "odd": "",
+   "halt_flag": false
   },
   "fl-paper": {
    "peak": 1000.0,
-   "odd": ""
+   "odd": "",
+   "halt_flag": false
   },
   "db-paper": {
    "peak": 1000.0,
-   "odd": ""
+   "odd": "",
+   "halt_flag": false
   },
   "cr-paper": {
    "peak": 1000.0,
-   "odd": ""
+   "odd": "",
+   "halt_flag": false
   }
  },
  "attention": []
