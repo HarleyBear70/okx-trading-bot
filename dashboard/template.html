@@ -311,7 +311,8 @@ $("#kpis").innerHTML = [
 }
 
 /* ---------- equity chart ---------- */
-const chartable = bots.filter((b) => b.backtest || b.live_curve.length > 1 || b.status === "running");
+const PILE_ORDER = { ACTIVE: 0, INCUBATING: 1, PAUSED: 2 };
+const chartable = bots.filter((b) => b.backtest || b.live_curve.length > 1 || b.status === "running").sort((a, b) => (PILE_ORDER[a.pile] ?? 3) - (PILE_ORDER[b.pile] ?? 3));
 let sel = (chartable.find((b) => b.id === "tr-okx") || chartable[0]).id;
 let range = "all";
 const SVGNS = "http://www.w3.org/2000/svg";
