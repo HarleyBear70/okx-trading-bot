@@ -40,6 +40,14 @@
   "nnfx-okx": {
    "peak": 1000.0,
    "odd": ""
+  },
+  "dc-okx": {
+   "peak": 1000.0,
+   "odd": ""
+  },
+  "hold-paper": {
+   "peak": 1000.0,
+   "odd": ""
   }
  },
  "attention": []

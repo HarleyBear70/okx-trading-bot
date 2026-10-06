@@ -1,6 +1,6 @@
 # P/L calendar and strategy cards
 
-Updated automatically every hour (2026-10-05 22:56 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
+Updated automatically every hour (2026-10-05 23:16 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
 
 ## Combined OKX demo account
 
@@ -11,14 +11,15 @@ Closed P/L so far: +$1.73 · 1 win day · 1 loss day
 ## The three piles
 
 - HOLD (long-term, PAPER): weekly dip-DCA buyer, $10/week into BTC + XRP, double when 20%+ below the 200-day average. Paid $10.00, worth $9.90. Profit sweeper (25% of wins into this pile): OFF until real money. Buys: hold_pile.csv.
-- ACTIVE (trading, OKX demo): Trend Rider, NNFX Aroon
+- ACTIVE (trading, OKX demo): Trend Rider, NNFX Aroon, Donchian Trend
+- HOLD (BTC protected hold, paper): BTC Protected Hold (paper)
 - INCUBATING (paper forward tests): B3 pairs (paper)
 - RANGE: none yet. No range bot has passed a test (research/N1_RANGE.md, B2), so this pile stays empty until one does.
-- PAUSED: SP-12 v4, SP-12 v4 (Kraken paper), B1c breakout retest (paper), NNFX Aroon (paper), SP-12 v2, SP-12 v2 (gold paper), Trend Rider (gold paper)
+- RETIRED (failed at real fees or long history): SP-12 v4, SP-12 v4 (Kraken paper), B1c breakout retest (paper), NNFX Aroon (paper), SP-12 v2, SP-12 v2 (gold paper), Trend Rider (gold paper)
 
 ## Growth: demo vs paper
 
-Average balance per bot, each bot starting at $1,000: the active demo bots (2, solid) vs the paper bots (1, dashed). Demo now $999.04 (-0.10%), paper now $1,000.00 (+0.00%).
+Average balance per bot, each bot starting at $1,000: the active demo bots (3, solid) vs the paper bots (2, dashed). Demo now $999.36 (-0.06%), paper now $1,000.00 (+0.00%).
 
 ![Demo vs paper growth](calendars/cards/growth.svg)
 
@@ -134,6 +135,30 @@ OKX · BTC ETH XRP · daily candles · started 2026-10-06 · balance now 1,000.0
 | Backtest replay since start | 0 | - | - | 0.0% |
 | Live (demo) since start | 0 | - | - | 0.0% |
 
+### Donchian Trend  ·  DEMO
+
+OKX · BTC ETH SOL XRP BNB · daily candles · started 2026-10-06 · balance now 1,000.00
+
+![Donchian Trend live vs backtest](calendars/cards/dc-okx.svg)
+
+| | Trades | Win % | PF | Max DD |
+|---|---|---|---|---|
+| Backtest, long run (research, 2022-now) | - | 37% | 2.18 | -9.1% |
+| Backtest replay since start | 0 | - | - | 0.0% |
+| Live (demo) since start | 0 | - | - | 0.0% |
+
+### BTC Protected Hold (paper)  ·  PAPER
+
+OKX · BTC · daily candles · started 2026-10-06 · balance now 1,000.00
+
+![BTC Protected Hold (paper) live vs backtest](calendars/cards/hold-paper.svg)
+
+| | Trades | Win % | PF | Max DD |
+|---|---|---|---|---|
+| Backtest, long run (research, 2022-now) | - | 18% | 1.91 | -38.6% |
+| Backtest replay since start | 0 | - | - | 0.0% |
+| Live (paper) since start | 0 | - | - | 0.0% |
+
 ### Trend Rider (gold paper)  ·  PAUSED
 
 OKX · XAUT · 4-hour candles · started 2026-10-04 · balance now 1,000.00
@@ -165,4 +190,16 @@ Closed P/L so far: +$0.00 · 0 win days · 0 loss days
 Closed P/L so far: +$0.00 · 0 win days · 0 loss days
 
 ![NNFX Aroon](calendars/nnfx-okx.svg)
+
+### Donchian Trend
+
+Closed P/L so far: +$0.00 · 0 win days · 0 loss days
+
+![Donchian Trend](calendars/dc-okx.svg)
+
+### BTC Protected Hold (paper)
+
+Closed P/L so far: +$0.00 · 0 win days · 0 loss days
+
+![BTC Protected Hold (paper)](calendars/hold-paper.svg)
 
