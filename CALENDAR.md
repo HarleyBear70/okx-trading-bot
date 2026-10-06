@@ -1,6 +1,6 @@
 # P/L calendar and strategy cards
 
-Updated automatically every hour (2026-10-06 00:26 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
+Updated automatically every hour (2026-10-06 00:56 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
 
 ## Combined OKX demo account
 
@@ -143,7 +143,7 @@ OKX · BTC ETH SOL XRP BNB · daily candles · started 2026-10-06 · balance now
 
 | | Trades | Win % | PF | Max DD |
 |---|---|---|---|---|
-| Backtest, long run (research, 2022-now) | - | 37% | 2.18 | -9.1% |
+| Backtest, long run (research, 2022-now) | - | 31% | 2.46 | -9.7% |
 | Backtest replay since start | 0 | - | - | 0.0% |
 | Live (demo) since start | 0 | - | - | 0.0% |
 
