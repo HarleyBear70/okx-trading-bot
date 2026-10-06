@@ -2,7 +2,33 @@
  "equity": 1000.0,
  "peak": 1000.0,
  "positions": {},
- "orders": {},
- "last_check": null,
- "halted": null
+ "orders": {
+  "BTC": {
+   "side": "above",
+   "trigger": 87300.0,
+   "stop": 84950.0,
+   "target": null,
+   "risk": 0.5,
+   "why": "higher lows since the Oct 2 dip to 83.9k, coiling in an 85k-87k range; a break over the Oct 3 high (87.2k) opens a move up",
+   "wrong": "falls back under the Oct 5 low (~84.98k)",
+   "placed": "2026-10-06 14:13",
+   "placed_ms": 1791296038510,
+   "expires_ms": 1791468838511
+  },
+  "SOL": {
+   "side": "above",
+   "trigger": 122.4,
+   "stop": 118.8,
+   "target": null,
+   "risk": 0.5,
+   "why": "holding a 119-122 range after the Oct 2 low at 117.1; a break over 122.3 clears the last two days' highs",
+   "wrong": "loses today's low (~118.86)",
+   "placed": "2026-10-06 14:13",
+   "placed_ms": 1791296038800,
+   "expires_ms": 1791468838800
+  }
+ },
+ "last_check": "2026-10-06 14:13",
+ "halted": null,
+ "last_check_ms": 1791296039591
 }

@@ -12,3 +12,5 @@ Coins: BTC ETH SOL XRP BNB LINK. Every BUY/ORDER needs "| why: ... | wrong: ..."
     - [ ] CANCEL SOL
 
 ## Requests
+- [x] ORDER BTC above 87300 stop 84950 hours 48 | why: higher lows since the Oct 2 dip to 83.9k, coiling in an 85k-87k range; a break over the Oct 3 high (87.2k) opens a move up | wrong: falls back under the Oct 5 low (~84.98k) -> 2026-10-06 14:13 UTC: ORDER BTC: buy if price goes above 87300, stop 84950, expires in 48h
+- [x] ORDER SOL above 122.4 stop 118.8 hours 48 | why: holding a 119-122 range after the Oct 2 low at 117.1; a break over 122.3 clears the last two days' highs | wrong: loses today's low (~118.86) -> 2026-10-06 14:13 UTC: ORDER SOL: buy if price goes above 122.4, stop 118.8, expires in 48h
