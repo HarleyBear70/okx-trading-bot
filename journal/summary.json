@@ -144,6 +144,78 @@
    "start_balance": 1000.0,
    "strategy": "pairs"
   },
+  "nnfx-okx": {
+   "all": {
+    "avg_candles_held": null,
+    "avg_loss": null,
+    "avg_r": null,
+    "avg_win": null,
+    "closed": 0,
+    "losers_that_were_green_first": 0,
+    "losses": 0,
+    "open": 0,
+    "profit_factor": null,
+    "total_pnl": 0,
+    "trades": 0,
+    "win_rate_pct": null,
+    "wins": 0
+   },
+   "balance": 1000.0,
+   "by_coin": {
+    "BTC-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "ETH-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "XRP-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    }
+   },
+   "group": "testing",
+   "mode": "demo",
+   "name": "NNFX Aroon",
+   "open_positions": [],
+   "signals_seen": {},
+   "start_balance": 1000.0,
+   "strategy": "nnfx"
+  },
   "nnfx-paper": {
    "all": {
     "avg_candles_held": null,
@@ -792,6 +864,15 @@
    "review": "Live vs replay and the Scout's new expectations: v4 win 34% / PF 1.40 / DD -9.6%; Kraken copy 33% / 1.46 / -9.5%; Trend Rider 40% / 2.33 / -10.6%. Watch Trend Rider's drop against the 10% rule. Jeff decision (Oct 5 2026, NOTES.md): Trend Rider stays at 0.5% risk; he knows its 2022-now drop with the fear filter is 10.6%, just over the 10% rule, and accepts that risk. No other bot.py changes before this review.",
    "review_on": "2026-10-19",
    "why": "reports/upside-2026-10-05 + 8-year confirm (2018-now): v4 +93% -> +124%, drop 10.2% -> 9.6%; Kraken copy +55% -> +85%, drop 9.9% -> 9.5%; Trend Rider +195% -> +336%, drop 8.4% -> 9.8% (10.6% with the fear filter, 2022-now; 0.45% risk would give 9.6%); v4+TR 50/50 +144% -> +230%, drop 7.4% -> 8.7%. Better in both halves; Freqtrade 2024-now agrees. Fixed 1-1.5% stops tested and rejected (all 24 combos lose)."
+  },
+  {
+   "approved_by": "Jeff (demo), in the terminal: 'change what ever on the bots to make money'",
+   "bots": "SP-12 v4 (v4-okx), SP-12 v4 Kraken paper (v4-kraken), B1c (b1-paper), NNFX (nnfx-paper -> nnfx-okx), Trend Rider (tr-okx), all paper bots (FEE)",
+   "change": "FEE 0.1% -> 0.35% per side (OKX spot Lv1 market orders), so paper fills and the breakeven buffer (now 0.7%) match the real cost. Paused (no new buys): SP-12 v4, its Kraken copy, B1c. NNFX Aroon moved from paper to OKX demo as a new bot (nnfx-okx, prefix ghN, 0.5% risk); the paper copy is paused. Trend Rider risk 0.5% -> 0.4%.",
+   "date_utc": "2026-10-06",
+   "review": "Trend Rider vs win 33% / PF 1.66 / DD -9.6%; NNFX vs win 59% / PF 1.89 / DD -6.1% (2022-now at real fees). Demo P/L already includes OKX's real fee.",
+   "review_on": "2026-10-19",
+   "why": "research/FEES.md: the account pays 0.35% taker / 0.20% maker (Kraken 0.80% / 0.40%). At 0.35%: v4 -2% over 2018-now (all 8 versions fail), B1c -9%; Trend Rider +185% but DD -11.8% at 0.5%, +134% / DD -9.6% at 0.4%; NNFX +45% / DD -7.6% / PF 2.0, positive in both halves."
   }
  ],
  "check_meanings": {},
@@ -828,5 +909,5 @@
    "wins": 2
   }
  },
- "updated_utc": "2026-10-06 02:48"
+ "updated_utc": "2026-10-06 02:56"
 }
