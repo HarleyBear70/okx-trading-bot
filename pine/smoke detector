@@ -1,5 +1,7 @@
 // Jeff's Smoke Detector: a clean chart that only speaks up when something important is happening.
 // Normal candles = nothing to do. Colored candles = look here:
+//   STEEL BLUE = pullback / loading: price is moving against the trend but the strong level still holds. It's
+//            gathering orders before the next big move, not a breakout and not a reversal. Stay calm, don't chase.
 //   YELLOW = smoke, watch: price is getting close to a key high/low, or squeezing sideways (breakout building),
 //            or a doji at a key level, or a minor pullback low/high broke inside the trend.
 //   ORANGE = trap: a wick took out a swing high/low (liquidity sweep) but the BODY closed back inside.
@@ -107,9 +109,16 @@ nearStrong = not na(strong) and math.abs(close - strong) <= nearAtr * atr
 dojiLevel  = rng > 0 and body <= 0.1 * rng and (nearWeak or nearStrong)
 smoke = nearWeak or nearStrong or squeeze or dojiLevel or internal
 
+hi10 = ta.highest(close, 10)[1]
+lo10 = ta.lowest(close, 10)[1]
+expanding = trend == 1 ? close > hi10 : trend == -1 ? close < lo10 : false
+// Pullback / loading: in a trend, not making new extremes, not squeezing, strong level intact
+pullback = trend != 0 and not expanding and not squeeze and not na(strong) and
+     (trend == 1 ? close > strong : close < strong)
+
 candleCol = shift ? color.rgb(170, 60, 255) : trap ? color.rgb(255, 140, 0) :
      bos ? (trend == 1 ? color.rgb(0, 230, 118) : color.rgb(255, 50, 50)) :
-     smoke ? color.rgb(255, 214, 0) : na
+     smoke ? color.rgb(255, 214, 0) : pullback ? color.rgb(90, 130, 190) : na
 barcolor(candleCol)
 
 // The two lines, redrawn on the last candle only
@@ -126,10 +135,10 @@ if barstate.islast and showLns
              color=color.gray, width=1, style=line.style_dotted)
 
 // Corner box
-hi10 = ta.highest(close, 10)[1]
-lo10 = ta.lowest(close, 10)[1]
-expanding = trend == 1 ? close > hi10 : trend == -1 ? close < lo10 : false
-phase = squeeze ? "Sideways: squeeze, breakout coming" : expanding ? "Expanding" : trend != 0 ? "Pulling back" : "Waiting for structure"
+lvl   = str.tostring(strong, format.mintick)
+phase = squeeze ? "Sideways: squeeze, breakout coming" : expanding ? "Expanding" :
+     pullback ? "Pullback, loading orders: holds while " + (trend == 1 ? "above " : "below ") + lvl :
+     trend != 0 ? "Testing the strong level " + lvl : "Waiting for structure"
 who   = trend == 1 ? "UP: buyers in control" : trend == -1 ? "DOWN: sellers in control" : "No clear trend yet"
 var table tb = table.new(position.top_right, 1, 2, bgcolor=color.new(color.black, 70), border_width=0)
 if barstate.islast and showBox
