@@ -1268,6 +1268,15 @@
    "review": "Forward trades vs win 43% / PF 2.17 / DD -7.5% (2022-now).",
    "review_on": "2026-10-19",
    "why": "research/F14.md: passed every strict rule: +60% / DD -7.5% / PF 2.77 at 1% risk (+28% and +25% in the halves), +148% / +47% on never-seen coins, correlation 0.77 with Donchian. Rare (about 9 trades a year)."
+  },
+  {
+   "approved_by": "Jeff (demo)",
+   "bots": "Trend Rider (tr-okx)",
+   "change": "Exchange-side stops ON (demo): after each buy OKX holds a conditional market sell at the bot's stop; the bot moves it as the stop rises, cancels it before selling by itself, and records OKX's fill if it fires between runs. Entries and rules unchanged.",
+   "date_utc": "2026-10-06",
+   "review": "Every open Trend Rider trade has a live OKX stop; stop fills vs stop price (slip_pct in executions log); any 'stop_problem' lines; whether pending stops lock coins.",
+   "review_on": "2026-10-19",
+   "why": "EXCHANGE_STOPS_PLAN.md step 2: test before any real money, and collect real stop slippage data (journal/executions-*.jsonl). Jeff: 'yes just more data'."
   }
  ],
  "check_meanings": {},
@@ -1304,5 +1313,5 @@
    "wins": 2
   }
  },
- "updated_utc": "2026-10-06 05:51"
+ "updated_utc": "2026-10-06 06:30"
 }
