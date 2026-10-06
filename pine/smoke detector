@@ -240,7 +240,7 @@ alertcondition(bos, "BOS", "Break of structure: trend continues")
 alertcondition(smoke and not (shift or trap or bos), "YELLOW: smoke", "Watch: near a key level, squeezing, or a doji at a level")
 
 // Color key: big, easy-to-read box in the lower-left corner
-var table keyTb = table.new(position.bottom_left, 2, 6, bgcolor= color.new(color.black, 15), frame_color= color.gray, frame_width=1, border_width=3)
+var table keyTb = table.new(position.bottom_left, 2, 7, bgcolor= color.new(color.black, 15), frame_color= color.gray, frame_width=1, border_width=3)
 keyRow(r, c, t) =>
     table.cell(keyTb, 0, r, "●", text_color=c, text_size=size.large)
     table.cell(keyTb, 1, r, t, text_color= color.white, text_size=size.normal, text_halign=text.align_left)
@@ -251,4 +251,4 @@ if barstate.islast and showKey
     keyRow(3, color.rgb(0, 230, 118), "Break UP (BOS)")
     keyRow(4, color.rgb(255, 50, 50), "Break DOWN (BOS)")
     keyRow(5, color.rgb(170, 60, 255), "Trend shift (flipped)")
-
+    keyRow(6, color.gray, "White/black = normal, nothing to do")
