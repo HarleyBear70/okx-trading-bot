@@ -151,11 +151,18 @@ def main():
             attention.append((f"dd:{bid}", f"{name} {dd:.1f}% below its best balance"))
             if not bm.get("dd_flag"):
                 events.append((now, f"{name} is {dd:.1f}% below its best balance ({now_bal:.2f} vs {peak:.2f}). "
-                                    f"Rule: stop the bot at 10%"))
+                                    f"The guard halts new buys at {bot.GUARD['max_dd'] * 100:.0f}%"))
             bm["dd_flag"] = True
         elif bm.get("dd_flag"):
             events.append((now, f"{name} back above 8% drawdown line: {dd:.1f}% below its best"))
             bm["dd_flag"] = False
+        if bs.get("halted"):
+            attention.append((f"halted:{bid}", f"{name} HALTED by the guard, no new buys until Jeff says resume"))
+            if not bm.get("halt_flag"):
+                events.append((now, f"{name} halted by the guard: {bs['halted']}"))
+            bm["halt_flag"] = True
+        else:
+            bm["halt_flag"] = False
 
         # ---- 3. losing streak ----
         pnls, open_csv = closed_trades(rows, name)

@@ -46,6 +46,10 @@ DCA = {"on": True, "mode": "paper", "weekly_usd": 10.0, "coins": {"BTC-USDT": 0.
        "dip_below_200d": 0.20, "dip_mult": 2.0}
 # Profit sweeper (Jeff, Oct 5 2026): a share of every winning sale moves to the hold pile. OFF until real money.
 SWEEP = {"on": False, "share": 0.25}
+# Guard (Jeff, Oct 6 2026: Claude "hired" as risk manager). It can only block buys, never add risk or restart a bot.
+# A bot whose closed balance falls max_dd below its best is halted: no new buys, open trades keep their stops.
+# The halt sticks (state.json "halted") until Jeff says resume. Live BOTS only, so backtests are unaffected.
+GUARD = {"on": True, "max_dd": 0.12, "skip_strats": ("hold",)}
 BE_BUFFER = 2 * FEE  # breakeven stop sits just above entry so fees are covered
 
 BOTS = [
@@ -1017,10 +1021,30 @@ def risk_pct(bot, bs):
             return pct
     return base
 
+def guard_block(bot, bs):
+    """GUARD: reason this live bot may not buy, or None. Sets the sticky bs["halted"] on a drawdown breach."""
+    if not GUARD["on"] or bot.get("strat") in GUARD["skip_strats"] or bot.get("id") not in {b["id"] for b in BOTS}:
+        return None
+    if bs.get("halted"):
+        return bs["halted"]
+    eq = bs["equity"]
+    bs["peak"] = max(bs.get("peak", eq), eq)
+    if eq < bs["peak"] * (1 - GUARD["max_dd"]):
+        bs["halted"] = (f"guard: balance {eq:.2f} is {(1 - eq / bs['peak']) * 100:.1f}% below its best {bs['peak']:.2f} "
+                        f"(limit {GUARD['max_dd'] * 100:.0f}%) - halted {ts_iso(time.time() * 1000)}")
+        log(f"  GUARD halted {bot['name']}: {bs['halted']}")
+        return bs["halted"]
+    return None
+
 def open_position(api, bot, bs, coin, bar, inf, extra):
     close = bar["c"]
     sl = inf["sl"]
     if close <= sl:
+        return
+    why = guard_block(bot, bs)
+    if why:
+        log(f"  {coin}: signal but {bot['name']} is halted ({why})")
+        record("skip", bot, coin, why="halted by guard", detail=why, signal_px=close)
         return
     max_open = bot.get("max_open", MAX_OPEN)
     if len(bs["positions"]) >= max_open:

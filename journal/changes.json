@@ -178,5 +178,14 @@
   "approved_by": "Jeff (paper)",
   "review_on": "2026-10-19",
   "review": "Signals and trades vs research/scout.py EXPECTED (win 41%, PF 2.84, DD -5.7%); overlap with Donchian's trades."
+ },
+ {
+  "date_utc": "2026-10-06",
+  "bots": "all live demo and paper bots except BTC Protected Hold",
+  "change": "Guard added (bot.py GUARD / guard_block): a bot whose closed balance falls 12% below its best is halted - no new buys, open trades keep their stops. The halt is sticky (state.json 'halted') until Jeff says resume; the guard can never add risk or restart a bot. Watcher shows ATTENTION while a bot is halted. Backtests unaffected (live bot ids only).",
+  "why": "Jeff hired Claude as risk manager ('program yourself to trade'). 12% is past every bot's 8-year backtest worst (about 10%), so it only fires when a bot behaves worse than ever tested.",
+  "approved_by": "Jeff",
+  "review_on": "2026-10-19",
+  "review": "Did the guard fire? If so, was it a real breakdown or normal variance?"
  }
 ]
