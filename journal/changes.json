@@ -151,5 +151,14 @@
   "approved_by": "Jeff (paper), in the terminal: 'yes'",
   "review_on": "2026-10-19",
   "review": "Forward trades vs PF 2.45 / DD -8.4% (2022-now). Move to demo only after a few months of matching results."
+ },
+ {
+  "date_utc": "2026-10-06",
+  "bots": "Double Bottom (db-paper), new, paper",
+  "change": "New PAPER bot: double bottom breakout (F14 P1), daily, BTC ETH SOL XRP BNB, 1% risk, max 5 open, stop under the lower low (1-3 ATR), trail at the 10-day low.",
+  "why": "research/F14.md: passed every strict rule: +60% / DD -7.5% / PF 2.77 at 1% risk (+28% and +25% in the halves), +148% / +47% on never-seen coins, correlation 0.77 with Donchian. Rare (about 9 trades a year).",
+  "approved_by": "Jeff (paper), in the terminal: 'yes'",
+  "review_on": "2026-10-19",
+  "review": "Forward trades vs win 43% / PF 2.17 / DD -7.5% (2022-now)."
  }
 ]

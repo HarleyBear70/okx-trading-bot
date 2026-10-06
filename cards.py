@@ -25,12 +25,12 @@ OUT = os.path.join(HERE, "calendars", "cards")
 START = {"v4-okx": "2026-10-04", "v4-kraken": "2026-10-04", "v2-okx": "2026-10-04", "v2-gold": "2026-10-04",
          "tr-okx": "2026-10-04", "tr-gold": "2026-10-04", "b1-paper": "2026-10-05", "b3-paper": "2026-10-05",
          "nnfx-paper": "2026-10-05", "nnfx-okx": "2026-10-06", "dc-okx": "2026-10-06",
-         "hold-paper": "2026-10-06", "fl-paper": "2026-10-06"}
+         "hold-paper": "2026-10-06", "fl-paper": "2026-10-06", "db-paper": "2026-10-06"}
 W, H, PADL, PADR, PADT, PADB = 330, 130, 44, 10, 12, 22
 # The three piles (job 4). RANGE is empty: no range bot has passed (research/N1_RANGE.md).
 PILES = [("ACTIVE (trading, OKX demo)", ["tr-okx", "nnfx-okx", "dc-okx"]),
          ("HOLD (BTC protected hold, paper)", ["hold-paper"]),
-         ("INCUBATING (paper forward tests)", ["fl-paper", "b3-paper"]),
+         ("INCUBATING (paper forward tests)", ["fl-paper", "db-paper", "b3-paper"]),
          ("RANGE", []),
          ("RETIRED (failed at real fees or long history)", ["v4-okx", "v4-kraken", "b1-paper", "nnfx-paper", "v2-okx",
                                                            "v2-gold", "tr-gold"])]

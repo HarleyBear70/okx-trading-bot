@@ -54,5 +54,12 @@
   "dd": -8.4,
   "streak": null,
   "src": "F13 #5 at 0.3% risk, real fee, 2022-now (research/F13.md)"
+ },
+ "db-paper": {
+  "win": 43,
+  "pf": 2.17,
+  "dd": -7.5,
+  "streak": null,
+  "src": "F14 P1 at 1% risk, real fee, 2022-now (research/F14.md)"
  }
 }
