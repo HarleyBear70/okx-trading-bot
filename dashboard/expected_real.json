@@ -47,5 +47,12 @@
   "dd": -38.6,
   "streak": null,
   "src": "100-day protected hold, real fee, 2022-now (research/F2.md)"
+ },
+ "fl-paper": {
+  "win": null,
+  "pf": 2.45,
+  "dd": -8.4,
+  "streak": null,
+  "src": "F13 #5 at 0.3% risk, real fee, 2022-now (research/F13.md)"
  }
 }

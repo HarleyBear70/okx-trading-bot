@@ -12,7 +12,7 @@
 | ACTIVE (trading) | Trend Rider (BTC ETH SOL BNB SUI TRX, fear filter on, 0.4% risk), NNFX Aroon (BTC ETH XRP, daily) and Donchian Trend (BTC ETH SOL XRP BNB, daily, 0.32% risk, adds one piece at +1R, altcoins only buy while BTC is above its daily 50 EMA) | OKX demo |
 | HOLD (protected) | BTC Protected Hold: all-in BTC above its 100-day average, cash below (for the BTC coming from Coinbase) | paper |
 | RANGE | None yet: no range bot has passed a test (research/N1_RANGE.md, B2 in research/B_BOXES.md) | - |
-| INCUBATING | B3 pairs | paper |
+| INCUBATING | Follow Line (quick-flip variant, daily, research/F13.md) and B3 pairs | paper |
 | RETIRED | SP-12 v4 and its Kraken copy, B1c, SP-12 v2, v2 gold, Trend Rider gold, NNFX paper copy: they lose money at the real 0.35% fee or failed long-history tests ("retired": True in bot.py; skipped once flat, history kept) | - |
 
 All bots risk 0.5% of their own $1,000 practice balance per trade (Trend Rider, SP-12 v4 and its Kraken copy 0.4%). Paper fills and backtests use the real OKX fee, 0.35% per buy and per sell (since Oct 6 2026; it was 0.1%, see research/FEES.md). Nothing uses real money until Jeff says go.

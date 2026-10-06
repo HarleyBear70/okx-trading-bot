@@ -89,6 +89,9 @@ BOTS = [
     {"id": "hold-paper", "name": "BTC Protected Hold (paper)", "strat": "hold", "venue": "okx", "mode": "paper",
      "coins": ["BTC-USDT"], "equity": 1000.0, "risk": 1.0, "half_at_2r": False},  # Oct 6 2026 (Jeff): all-in BTC above
     # its 100-day average, cash below. A hold, not a 0.5%-risk bot: drops of 35-40% still happen (research/F2.md, B3)
+    {"id": "fl-paper", "name": "Follow Line (paper)", "strat": "followline", "venue": "okx", "mode": "paper",
+     "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "XRP-USDT", "BNB-USDT"], "equity": 1000.0, "risk": 0.003,
+     "max_open": 5, "half_at_2r": False},  # Oct 6 2026 (Jeff): forward test of F13 #5 (+260% / DD -10.0%, research/F13.md)
     {"id": "tr-gold", "retired": True, "name": "Trend Rider (gold paper)", "strat": "tr", "venue": "okx", "mode": "paper",
      "coins": ["XAUT-USDT"], "equity": 1000.0, "pivot": 3, "half_at_2r": False,  # same change as Trend Rider
      "new_trades": False},  # paused Oct 5 2026: weak in long-history test, repair failed (research/REPAIR_gold.md)
@@ -604,6 +607,36 @@ def btc_leash(bars, btc_daily, coin):
     return [up.get(day_of(b["ts"]), False) for b in bars]
 
 
+def analyse_followline(bars):
+    """Follow Line, quick-flip variant (research/F13.md #5), daily, long only. A trend line from Bollinger(21, 1) and
+    ATR(5): above the upper band it sits at low - ATR (and only rises while the trend is up), below the lower band at
+    high + ATR (only falls while down). Buy when it turns up; a["exit"] when it turns down. First stop 2 ATR(14)."""
+    import math
+    h, l, c = [b["h"] for b in bars], [b["l"] for b in bars], [b["c"] for b in bars]
+    a5, a14, m = atr(h, l, c, 5), atr(h, l, c, 14), sma(c, 21)
+    n = len(bars)
+    line, trend = [None] * n, [0] * n
+    signal, info, ex = [False] * n, [None] * n, [False] * n
+    for k in range(21, n):
+        if a5[k] is None or m[k] is None:
+            continue
+        sd = math.sqrt(sum((x - m[k]) ** 2 for x in c[k - 20:k + 1]) / 21)
+        prev = line[k - 1] if line[k - 1] is not None else c[k]
+        if c[k] > m[k] + sd:
+            line[k] = max(l[k] - a5[k], prev) if trend[k - 1] == 1 else l[k] - a5[k]
+        elif c[k] < m[k] - sd:
+            line[k] = min(h[k] + a5[k], prev) if trend[k - 1] == -1 else h[k] + a5[k]
+        else:
+            line[k] = prev
+        trend[k] = 1 if line[k] > prev else -1 if line[k] < prev else trend[k - 1]
+        ex[k] = trend[k] == -1 and trend[k - 1] == 1
+        if trend[k] == 1 and trend[k - 1] != 1 and a14[k]:
+            sl = c[k] - 2 * a14[k]
+            signal[k] = True
+            info[k] = {"score": "Follow Line turned up", "raw_risk": (c[k] - sl) / c[k] * 100, "sl": sl, "tp": None}
+    return {"signal": signal, "info": info, "exit": ex}
+
+
 def analyse_hold(bars):
     """Daily: in BTC while the close is above its 100-day average, out (cash) when it closes below (a["exit"]).
     The 1%-of-price "stop" is never meant to be hit; with risk 1.0 the bot buys with all of its free balance."""
@@ -933,6 +966,11 @@ def manage_on_close(api, bot, bs, coin, a, i, bar, bars_in):
         if bot.get("pyramid") and not pos.get("added") and one_r > 0 and bar["c"] >= pos["entry_px"] + one_r:
             add_piece(api, bot, bs, coin, bar)
         return False
+    elif bot["strat"] == "followline":
+        if a["exit"][i]:
+            close_position(api, bot, bs, coin, "Follow Line turned down", bar["c"])
+            return True
+        return False
     elif bot["strat"] == "hold":
         if a["exit"][i]:
             close_position(api, bot, bs, coin, f"closed below the {HOLD_SETTINGS['sma']}-day average", bar["c"])
@@ -1066,7 +1104,7 @@ def get_data(api, venue, coin, tf="4H"):
 
 
 def bot_tf(bot):
-    return {"b1": "1H", "pairs": "1D", "nnfx": "1D", "donchian": "1D", "hold": "1D"}.get(bot["strat"], "4H")
+    return {"b1": "1H", "pairs": "1D", "nnfx": "1D", "donchian": "1D", "hold": "1D", "followline": "1D"}.get(bot["strat"], "4H")
 
 
 def analyse_for(api, bot, coin):
@@ -1084,6 +1122,8 @@ def analyse_for(api, bot, coin):
             a["signal"] = [s and o for s, o in zip(a["signal"], ok)]
     elif bot["strat"] == "hold":
         a = analyse_hold(bars)
+    elif bot["strat"] == "followline":
+        a = analyse_followline(bars)
     elif bot["strat"] == "pairs":
         btc = get_data(api, bot["venue"], "BTC-USDT", "1D")[0]
         a = analyse_pairs(coin, bars, btc, {alt: get_data(api, bot["venue"], alt, "1D")[0] for alt in bot["pairs"]})
@@ -1104,7 +1144,7 @@ def entry_extra(bot, bar, inf):
         return {"no_half": True, "tag": inf["tag"]}
     if bot["strat"] == "nnfx":
         return {"half_at": inf["half_at"], "be_after_half": True}
-    if bot["strat"] in ("donchian", "hold"):
+    if bot["strat"] in ("donchian", "hold", "followline"):
         return {"no_half": True}
     return {}
 

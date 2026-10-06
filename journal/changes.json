@@ -142,5 +142,14 @@
   "approved_by": "Jeff, in the terminal: 'yes makeing moeny is my goal'",
   "review_on": "2026-10-19",
   "review": "Donchian vs win 31% / PF 2.46 / DD -9.7% (2022-now)."
+ },
+ {
+  "date_utc": "2026-10-06",
+  "bots": "Follow Line (fl-paper), new, paper",
+  "change": "New PAPER bot (no orders): Follow Line quick-flip variant (F13 #5), daily, BTC ETH SOL XRP BNB, buy when the line turns up, sell when it turns down, first stop 2 ATR(14), 0.3% risk, max 5 open.",
+  "why": "research/F13.md: the only one of 14 classic TradingView systems to pass every rule (+260% / DD -10.0% / PF 3.89, positive in both halves and on never-seen coins, correlation 0.75 with Donchian). Paper first because it came out of 14 tests and is not the published script (the original Follow Line failed).",
+  "approved_by": "Jeff (paper), in the terminal: 'yes'",
+  "review_on": "2026-10-19",
+  "review": "Forward trades vs PF 2.45 / DD -8.4% (2022-now). Move to demo only after a few months of matching results."
  }
 ]

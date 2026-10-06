@@ -38,6 +38,7 @@ EXPECTED = {
     "b3-paper": {"win": 44, "pf": 1.52, "dd": -5.1, "streak": 10, "src": "research/B3_PAIRS.md (P3)"},
     "dc-okx": {"win": 31, "pf": 2.46, "dd": -9.7, "streak": None, "src": "pyramid + BTC leash, 0.32% risk, real fee, 2022-now (research/F11.md)"},
     "hold-paper": {"win": 18, "pf": 1.91, "dd": -38.6, "streak": None, "src": "100-day hold, real fee, 2022-now (research/F2.md)"},
+    "fl-paper": {"win": None, "pf": 2.45, "dd": -8.4, "streak": None, "src": "F13 #5 at 0.3% risk, real fee, 2022-now (research/F13.md)"},
     "nnfx-okx": {"win": 59, "pf": 1.89, "dd": -6.1, "streak": None, "src": "real 0.35% fee, 2022-now (research/FEES.md)"},
     "nnfx-paper": {"win": 61, "pf": 2.20, "dd": -5.4, "streak": None, "src": "research/NNFX.md (2022-now)"},
     "b1-paper": {"win": 46, "pf": 1.17, "dd": -5.8, "streak": None, "src": "research/B_BOXES.md"},
