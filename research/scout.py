@@ -40,6 +40,7 @@ EXPECTED = {
     "hold-paper": {"win": 18, "pf": 1.91, "dd": -38.6, "streak": None, "src": "100-day hold, real fee, 2022-now (research/F2.md)"},
     "db-paper": {"win": 43, "pf": 2.17, "dd": -7.5, "streak": None, "src": "F14 P1 at 1% risk, real fee, 2022-now (research/F14.md)"},
     "fl-paper": {"win": 34, "pf": 2.45, "dd": -8.4, "streak": None, "src": "F13 #5 at 0.3% risk, real fee, 2022-now (research/F13.md)"},
+    "cr-paper": {"win": 41, "pf": 2.84, "dd": -5.7, "streak": None, "src": "F24 B1 at 0.4% risk, real fee, 2018-now (research/F24.md)"},
     "nnfx-okx": {"win": 59, "pf": 1.89, "dd": -6.1, "streak": None, "src": "real 0.35% fee, 2022-now (research/FEES.md)"},
     "nnfx-paper": {"win": 61, "pf": 2.20, "dd": -5.4, "streak": None, "src": "research/NNFX.md (2022-now)"},
     "b1-paper": {"win": 46, "pf": 1.17, "dd": -5.8, "streak": None, "src": "research/B_BOXES.md"},

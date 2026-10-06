@@ -96,6 +96,10 @@ BOTS = [
     {"id": "db-paper", "name": "Double Bottom (paper)", "strat": "dbottom", "venue": "okx", "mode": "paper",
      "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "XRP-USDT", "BNB-USDT"], "equity": 1000.0, "risk": 0.01,
      "max_open": 5, "half_at_2r": False},  # Oct 6 2026 (Jeff): forward test of F14 P1 (+60% / DD -7.5%, research/F14.md)
+    {"id": "cr-paper", "name": "Confluence Rank (paper)", "strat": "confluence", "venue": "okx", "mode": "paper",
+     "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "XRP-USDT", "BNB-USDT"], "equity": 1000.0, "risk": 0.004,
+     "max_open": 5, "half_at_2r": False},  # Oct 6 2026 (Jeff): forward test of his "my strat 2", F24 B1
+    # (+37% / DD -5.7%; with Donchian return/DD 12.9 -> 16.6, research/F24.md)
     {"id": "tr-gold", "retired": True, "name": "Trend Rider (gold paper)", "strat": "tr", "venue": "okx", "mode": "paper",
      "coins": ["XAUT-USDT"], "equity": 1000.0, "pivot": 3, "half_at_2r": False,  # same change as Trend Rider
      "new_trades": False},  # paused Oct 5 2026: weak in long-history test, repair failed (research/REPAIR_gold.md)
@@ -641,6 +645,43 @@ def analyse_followline(bars):
     return {"signal": signal, "info": info, "exit": ex}
 
 
+def analyse_confluence(bars):
+    """Confluence Rank Trend (Jeff's "my strat 2", research/F24.md B1), daily, long only. A 0-100 score from five
+    20-point parts: trend (close and EMA 55 vs EMA 233), RSI(14) from 50 to 70, efficiency ratio (20 days, full at
+    0.40), ATR(14) percentile over 200 days (full between 20 and 85) and up-day volume vs its 20-day average.
+    Buy when the score crosses up through 85; stop 3 ATR(14) under the close, trailing 3 ATR under each close
+    (a["trail"]); a["exit"] when the score falls below 35. Needs ~800 daily candles (EMA 233 + 200-day rank)."""
+    o, h, l, c, v = ([b[f] for b in bars] for f in "ohlcv")
+    ef, es, r, a = ema(c, 55), ema(c, 233), rsi(c, 14), atr(h, l, c, 14)
+    vm = sma(v, 20)
+    n = len(bars)
+    score = [None] * n
+    signal, info, ex, trail = [False] * n, [None] * n, [False] * n, [None] * n
+    clamp = lambda x: max(0.0, min(1.0, x))  # noqa: E731
+    for k in range(234, n):
+        if a[k] is not None:
+            trail[k] = c[k] - 3 * a[k]
+        if None in (es[k], r[k], a[k], vm[k]) or any(x is None for x in a[k - 200:k]):
+            continue
+        pr = sum(a[k - j] <= a[k] for j in range(1, 201)) / 2
+        chg = c[k] - c[k - 20]
+        path = sum(abs(c[i] - c[i - 1]) for i in range(k - 19, k + 1))
+        er = abs(chg) / path if path > 0 else 0.0
+        trend = (10 if c[k] > es[k] else 0) + (10 if ef[k] > es[k] else 0)
+        mom = 20 * clamp((r[k] - 50) / 20)
+        eff = 20 * clamp(er / 0.4) if chg > 0 else 0.0
+        vol = pr if pr < 20 else 20 * clamp((100 - pr) / 15) if pr > 85 else 20.0
+        part = (20 * clamp(v[k] / vm[k] - 0.5) if c[k] > o[k] else 0.0) if vm[k] > 0 else 10.0
+        score[k] = trend + mom + eff + vol + part
+        ex[k] = score[k] < 35
+        if score[k - 1] is not None and score[k] >= 85 > score[k - 1]:
+            sl = c[k] - 3 * a[k]
+            signal[k] = True
+            info[k] = {"score": f"Confluence score {score[k]:.0f}", "raw_risk": (c[k] - sl) / c[k] * 100, "sl": sl,
+                       "tp": None}
+    return {"signal": signal, "info": info, "exit": ex, "trail": trail, "score": score}
+
+
 def analyse_dbottom(bars):
     """Double bottom breakout (research/F14.md P1), daily, long only. Two swing lows (lowest of 5 days each side)
     within 3% of each other, 10-60 days apart, with a peak between them 5%+ above the higher low (the neckline).
@@ -1178,6 +1219,13 @@ def manage_on_close(api, bot, bs, coin, a, i, bar, bars_in):
         if a["trail"][i] is not None:
             pos["stop"] = max(pos["stop"], a["trail"][i])  # trails at the 10-day low, only ever up
         return False
+    elif bot["strat"] == "confluence":
+        if a["exit"][i]:
+            close_position(api, bot, bs, coin, f"score faded below 35 ({a['score'][i]:.0f})", bar["c"])
+            return True
+        if a["trail"][i] is not None:
+            pos["stop"] = max(pos["stop"], a["trail"][i])  # 3 ATR under each close, only ever up
+        return False
     elif bot["strat"] == "followline":
         if a["exit"][i]:
             close_position(api, bot, bs, coin, "Follow Line turned down", bar["c"])
@@ -1300,8 +1348,8 @@ def get_data(api, venue, coin, tf="4H"):
     if key not in _data:
         if tf == "1H":
             raw4, rawd = api.candles(coin, "1H", 400), []
-        elif tf == "1D":
-            raw4 = api.candles(coin, "1Dutc", 220)
+        elif tf in ("1D", "1DL"):  # 1DL: long daily history for Confluence Rank's 233 EMA + 200-day rank
+            raw4 = api.candles(coin, "1Dutc", 800 if tf == "1DL" else 220)
             rawd = raw4
         elif venue == "kraken":
             raw4, rawd = kraken_candles(coin, 240), kraken_candles(coin, 1440)
@@ -1316,7 +1364,8 @@ def get_data(api, venue, coin, tf="4H"):
 
 
 def bot_tf(bot):
-    return {"b1": "1H", "pairs": "1D", "nnfx": "1D", "donchian": "1D", "hold": "1D", "followline": "1D", "dbottom": "1D"}.get(bot["strat"], "4H")
+    return {"b1": "1H", "pairs": "1D", "nnfx": "1D", "donchian": "1D", "hold": "1D", "followline": "1D", "dbottom": "1D",
+            "confluence": "1DL"}.get(bot["strat"], "4H")
 
 
 def analyse_for(api, bot, coin):
@@ -1339,6 +1388,8 @@ def analyse_for(api, bot, coin):
         a = analyse_followline(bars)
     elif bot["strat"] == "dbottom":
         a = analyse_dbottom(bars)
+    elif bot["strat"] == "confluence":
+        a = analyse_confluence(bars)
     elif bot["strat"] == "pairs":
         btc = get_data(api, bot["venue"], "BTC-USDT", "1D")[0]
         a = analyse_pairs(coin, bars, btc, {alt: get_data(api, bot["venue"], alt, "1D")[0] for alt in bot["pairs"]})
@@ -1359,7 +1410,7 @@ def entry_extra(bot, bar, inf):
         return {"no_half": True, "tag": inf["tag"]}
     if bot["strat"] == "nnfx":
         return {"half_at": inf["half_at"], "be_after_half": True}
-    if bot["strat"] in ("donchian", "hold", "followline", "dbottom"):
+    if bot["strat"] in ("donchian", "hold", "followline", "dbottom", "confluence"):
         return {"no_half": True}
     return {}
 
