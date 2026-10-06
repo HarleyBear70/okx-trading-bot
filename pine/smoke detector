@@ -4,7 +4,8 @@
 //            gathering orders before the next big move, not a breakout and not a reversal. Stay calm, don't chase.
 //   YELLOW = smoke, watch: price is getting close to a key high/low, or squeezing sideways (breakout building),
 //            or a doji at a key level, or a minor pullback low/high broke inside the trend.
-//   ORANGE = trap: a wick took out a swing high/low (liquidity sweep) but the BODY closed back inside.
+//   ORANGE = trap: a wick took out a swing high/low (liquidity sweep) but the BODY closed back inside,
+//            OR a failed breakout: a BOS whose broken level is lost again on a body close within 3 candles.
 //   BRIGHT GREEN / RED = BOS: a candle BODY closed beyond the last swing high/low, trend continues.
 //   PURPLE = MARKET SHIFT: a candle BODY closed through the strong (protected) high/low, the trend flipped.
 // Two lines: SOLID = strong high/low that must hold. DOTTED = weak high/low = the target (liquidity sits there).
@@ -112,13 +113,29 @@ else
         strong := swH
         ext    := low
 
+// Failed breakout (invalid BOS): within 3 candles of a BOS, a body closes back through the level it broke
+var float bosLevel = na
+var int   bosBar   = na
+var int   bosDir   = 0
+failedBos = false
+if bos
+    bosLevel := trend == 1 ? swH : swL
+    bosBar   := bar_index
+    bosDir   := trend
+else if not na(bosLevel) and bar_index - bosBar <= 3 and not shift
+    if (bosDir == 1 and close < bosLevel) or (bosDir == -1 and close > bosLevel)
+        failedBos := true
+        bosLevel  := na
+if not na(bosBar) and bar_index - bosBar > 3
+    bosLevel := na
+
 // Target = the weak high (uptrend) or weak low (downtrend) not taken yet
 weak = trend == 1 ? (hDone ? na : swH) : trend == -1 ? (lDone ? na : swL) : na
 
 // Trap: wick through a swing high/low, body closed back inside
 trapHigh = not na(swH) and not hDone and high > swH and close <= swH
 trapLow  = not na(swL) and not lDone and low < swL and close >= swL
-trap := (trapHigh or trapLow) and not bos and not shift
+trap := ((trapHigh or trapLow) or failedBos) and not bos and not shift
 
 // Smoke: close to a key level, squeezing, a doji at a level, or an internal break
 nearWeak   = not na(weak) and math.abs(weak - close) <= nearAtr * atr
@@ -217,6 +234,6 @@ if barstate.islast and showBox
 
 // Phone / app alerts (TradingView: Alert > Condition: Jeff's Smoke Detector)
 alertcondition(shift, "PURPLE: market shift", "Market shift: a body closed through the strong high/low")
-alertcondition(trap, "ORANGE: trap", "Trap: a wick swept a swing high/low and the body closed back inside")
+alertcondition(trap, "ORANGE: trap", "Trap: a wick swept a swing high/low and closed back inside, or a breakout failed")
 alertcondition(bos, "BOS", "Break of structure: trend continues")
 alertcondition(smoke and not (shift or trap or bos), "YELLOW: smoke", "Watch: near a key level, squeezing, or a doji at a level")
