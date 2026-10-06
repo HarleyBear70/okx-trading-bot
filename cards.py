@@ -24,13 +24,13 @@ OUT = os.path.join(HERE, "calendars", "cards")
 # when each bot started trading with roughly its current rules (journal/changes.json has the details)
 START = {"v4-okx": "2026-10-04", "v4-kraken": "2026-10-04", "v2-okx": "2026-10-04", "v2-gold": "2026-10-04",
          "tr-okx": "2026-10-04", "tr-gold": "2026-10-04", "b1-paper": "2026-10-05", "b3-paper": "2026-10-05",
-         "nnfx-paper": "2026-10-05"}
+         "nnfx-paper": "2026-10-05", "nnfx-okx": "2026-10-06"}
 W, H, PADL, PADR, PADT, PADB = 330, 130, 44, 10, 12, 22
 # The three piles (job 4). RANGE is empty: no range bot has passed (research/N1_RANGE.md).
-PILES = [("ACTIVE (trading, OKX demo)", ["v4-okx", "tr-okx"]),
-         ("INCUBATING (paper forward tests)", ["b1-paper", "b3-paper", "nnfx-paper", "v4-kraken"]),
+PILES = [("ACTIVE (trading, OKX demo)", ["tr-okx", "nnfx-okx"]),
+         ("INCUBATING (paper forward tests)", ["b3-paper"]),
          ("RANGE", []),
-         ("PAUSED", ["v2-okx", "v2-gold", "tr-gold"])]
+         ("PAUSED", ["v4-okx", "v4-kraken", "b1-paper", "nnfx-paper", "v2-okx", "v2-gold", "tr-gold"])]
 
 
 def expected():

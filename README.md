@@ -9,12 +9,14 @@
 | Pile | What's in it | Mode |
 |---|---|---|
 | HOLD (long-term) | Weekly dip-DCA buyer: $10/week into BTC + XRP, double when a coin is 20%+ below its 200-day average (setting DCA in bot.py). Profit sweeper (25% of wins to this pile) built but OFF until real money | paper |
-| ACTIVE (trading) | SP-12 v4 (BTC ETH XRP XLM BNB) and Trend Rider (BTC ETH SOL BNB SUI TRX, fear filter on) | OKX demo |
+| ACTIVE (trading) | Trend Rider (BTC ETH SOL BNB SUI TRX, fear filter on, 0.4% risk) and NNFX Aroon (BTC ETH XRP, daily) | OKX demo |
 | RANGE | None yet: no range bot has passed a test (research/N1_RANGE.md, B2 in research/B_BOXES.md) | - |
-| INCUBATING | B1c breakout retest, B3 pairs, NNFX Aroon, and the Kraken-price copy of v4 | paper |
-| PAUSED | SP-12 v2, SP-12 v2 gold, Trend Rider gold (failed long-history tests and repairs) | - |
+| INCUBATING | B3 pairs | paper |
+| PAUSED | SP-12 v4 and its Kraken copy, B1c (lose money at the real 0.35% fee, Oct 6 2026, research/FEES.md); SP-12 v2, SP-12 v2 gold, Trend Rider gold (failed long-history tests and repairs) | - |
 
-All bots risk 0.5% of their own $1,000 practice balance per trade (SP-12 v4 and its Kraken copy 0.4%, since Oct 5 2026). Nothing uses real money until Jeff says go.
+All bots risk 0.5% of their own $1,000 practice balance per trade (Trend Rider, SP-12 v4 and its Kraken copy 0.4%). Paper fills and backtests use the real OKX fee, 0.35% per buy and per sell (since Oct 6 2026; it was 0.1%, see research/FEES.md). Nothing uses real money until Jeff says go.
+
+**Dashboard:** one page with every bot, the P/L calendar and live OKX data: built by `python dashboard/build.py` (dashboard/). Kraken account data (read-only) is saved hourly to journal/kraken.json by kraken_sync.py.
 
 Jeff's demo trading bots. GitHub runs them every hour for free, so they don't use any Claude usage.
 

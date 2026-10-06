@@ -29,7 +29,7 @@ import urllib.request
 
 BASE_URL = os.environ.get("OKX_BASE_URL", "").strip() or "https://us.okx.com"
 KRAKEN_URL = "https://api.kraken.com"
-FEE = 0.001                 # 0.1% per side for paper trades (same as the backtests)
+FEE = 0.0035                # 0.35% per side: OKX spot Lv1 market orders, the real rate (was 0.1% until Oct 6 2026, research/FEES.md)
 SAR_START, SAR_INC, SAR_MAX = 0.02, 0.02, 0.2
 H4_MS = 4 * 3600 * 1000
 RISK_PCT = 0.005  # every bot risks 0.5% of its balance per trade (was 1%; changed Oct 5 2026 to keep drawdown under 10%)
@@ -50,11 +50,13 @@ BE_BUFFER = 2 * FEE  # breakeven stop sits just above entry so fees are covered
 BOTS = [
     {"id": "v4-okx", "name": "SP-12 v4", "strat": "v4", "venue": "okx", "mode": "demo", "prefix": "gh4",
      "coins": ["BTC-USDT", "ETH-USDT", "XRP-USDT", "XLM-USDT", "BNB-USDT"], "equity": 1000.0,
-     "risk": 0.004, "half_at_2r": False},  # Oct 5 2026 (Jeff, demo): no half sell, 0.4% keeps the 8-year drop under 10%
+     "risk": 0.004, "half_at_2r": False,  # Oct 5 2026 (Jeff, demo): no half sell, 0.4% keeps the 8-year drop under 10%
+     "new_trades": False},  # paused Oct 6 2026: loses money at the real 0.35% fee, all 8 versions (research/FEES.md)
     # SOL dropped: lost money in backtest. XLM, BNB added Oct 5 2026 (passed pick + out-of-sample check, research/COINS.md)
     {"id": "v4-kraken", "name": "SP-12 v4 (Kraken paper)", "strat": "v4", "venue": "kraken", "mode": "paper",
      "coins": ["XBTUSD", "ETHUSD", "XRPUSD"], "equity": 1000.0,  # SOL dropped: lost money in backtest
-     "risk": 0.004, "half_at_2r": False},  # same change as SP-12 v4 (Oct 5 2026)
+     "risk": 0.004, "half_at_2r": False,  # same change as SP-12 v4 (Oct 5 2026)
+     "new_trades": False},  # paused Oct 6 2026 with SP-12 v4 (research/FEES.md)
     {"id": "v2-okx", "name": "SP-12 v2", "strat": "v2", "venue": "okx", "mode": "demo", "prefix": "ghS",
      "coins": ["ETH-USDT", "SOL-USDT"], "equity": 1000.0,
      "new_trades": False},  # paused Oct 5 2026: no edge in long-history test, repair failed (research/REPAIR_v2.md)
@@ -62,16 +64,21 @@ BOTS = [
      "coins": ["XAUT-USDT"], "equity": 1000.0, "new_trades": False},  # paused Oct 5 2026 with SP-12 v2
     {"id": "tr-okx", "name": "Trend Rider", "strat": "tr", "venue": "okx", "mode": "demo", "prefix": "ghT",
      "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "BNB-USDT", "SUI-USDT", "TRX-USDT"], "equity": 1000.0, "pivot": 5,
+     "risk": 0.004,  # Oct 6 2026 (Jeff): 0.4% keeps the 8-year drop under 10% at the real 0.35% fee (research/FEES.md)
      "half_at_2r": False,  # Oct 5 2026 (Jeff, demo): no half sell at +2R, the trailing stop handles the exit
      "fear_skip_at_or_below": 25},  # no new buys when Fear & Greed <= 25 (Oct 5 2026, research/S1_SENTIMENT.md)
     # Trend Rider coins: BNB, SUI added Oct 5 (passed backtest); TRX added Oct 5 (research/TRX.md)
     {"id": "b1-paper", "name": "B1c breakout retest (paper)", "strat": "b1", "venue": "okx", "mode": "paper",
-     "coins": ["BTC-USDT", "ETH-USDT", "XRP-USDT"], "equity": 1000.0},  # forward test from Oct 5 2026 (research/B_BOXES.md)
+     "coins": ["BTC-USDT", "ETH-USDT", "XRP-USDT"], "equity": 1000.0,  # forward test from Oct 5 2026 (research/B_BOXES.md)
+     "new_trades": False},  # paused Oct 6 2026: loses money at the real 0.35% fee (research/FEES.md)
     {"id": "b3-paper", "name": "B3 pairs (paper)", "strat": "pairs", "venue": "okx", "mode": "paper",
      "coins": ["ETH-USDT", "XRP-USDT", "BTC-USDT"], "equity": 1000.0,
      "pairs": ["ETH-USDT", "XRP-USDT"]},  # forward test from Oct 5 2026 (research/B3_PAIRS.md, variant P3)
     {"id": "nnfx-paper", "name": "NNFX Aroon (paper)", "strat": "nnfx", "venue": "okx", "mode": "paper",
-     "coins": ["BTC-USDT", "ETH-USDT", "XRP-USDT"], "equity": 1000.0},  # backup candidate from Oct 5 2026 (research/NNFX.md)
+     "coins": ["BTC-USDT", "ETH-USDT", "XRP-USDT"], "equity": 1000.0,  # backup candidate from Oct 5 2026 (research/NNFX.md)
+     "new_trades": False},  # moved to OKX demo as nnfx-okx on Oct 6 2026
+    {"id": "nnfx-okx", "name": "NNFX Aroon", "strat": "nnfx", "venue": "okx", "mode": "demo", "prefix": "ghN",
+     "coins": ["BTC-USDT", "ETH-USDT", "XRP-USDT"], "equity": 1000.0},  # Oct 6 2026 (Jeff): passed at the real fee, +45%, DD -7.6% (research/FEES.md)
     {"id": "tr-gold", "name": "Trend Rider (gold paper)", "strat": "tr", "venue": "okx", "mode": "paper",
      "coins": ["XAUT-USDT"], "equity": 1000.0, "pivot": 3, "half_at_2r": False,  # same change as Trend Rider
      "new_trades": False},  # paused Oct 5 2026: weak in long-history test, repair failed (research/REPAIR_gold.md)
