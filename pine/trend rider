@@ -1,0 +1,69 @@
+
+// This Pine Script® code is subject to the terms of the Mozilla Public License 2.0
+//@version=5
+strategy("Trend Rider", shorttitle="TR", overlay=true,
+     initial_capital=1000, currency=currency.USD,
+     commission_type=strategy.commission.percent, commission_value=0.1,
+     pyramiding=0, process_orders_on_close=true)
+
+// ───────── Settings ─────────
+grpE = "Entry"
+pivotLen  = input.int(3, "Swing strength (candles each side)", minval=2, maxval=10, group=grpE)
+emaLen    = input.int(50, "Trend EMA length (this timeframe)", minval=10, maxval=200, group=grpE)
+useDaily  = input.bool(true, "Only trade when the daily trend is up (close > daily 50 EMA)", group=grpE)
+grpR = "Risk and exit"
+riskPct   = input.float(1.0, "Risk per trade (% of account)", minval=0.1, maxval=5, step=0.1, group=grpR)
+atrLen    = input.int(14, "ATR length", minval=5, maxval=50, group=grpR)
+trailMult = input.float(3.0, "Trailing stop distance (× ATR)", minval=1, maxval=6, step=0.5, group=grpR)
+maxStopAtr= input.float(3.0, "First stop at most (× ATR)", minval=1, maxval=6, step=0.5, group=grpR)
+minStopAtr= input.float(1.0, "First stop at least (× ATR)", minval=0.5, maxval=3, step=0.5, group=grpR)
+exitOnEma = input.bool(false, "Also exit on a close below the trend EMA", group=grpR)
+
+// ───────── Trend filters ─────────
+dClose = request.security(syminfo.tickerid, "D", close[1], lookahead=barmerge.lookahead_on)
+dEma   = request.security(syminfo.tickerid, "D", ta.ema(close, 50)[1], lookahead=barmerge.lookahead_on)
+dailyOk = not useDaily or dClose > dEma
+ema = ta.ema(close, emaLen)
+atr = ta.atr(atrLen)
+
+// ───────── Structure ─────────
+ph = ta.pivothigh(high, pivotLen, pivotLen)
+pl = ta.pivotlow(low, pivotLen, pivotLen)
+var float lastPH = na
+var float lastPL = na
+if not na(ph)
+    lastPH := ph
+if not na(pl)
+    lastPL := pl
+bos = not na(lastPH) and close > lastPH and close[1] <= lastPH
+
+// ───────── Entry ─────────
+var float trail  = na
+var float hiClose = na
+longSignal = bos and close > ema and dailyOk and strategy.position_size == 0 and barstate.isconfirmed and not na(atr)
+
+if longSignal
+    s = na(lastPL) ? close - 2 * atr : lastPL * 0.998
+    s := math.max(s, close - maxStopAtr * atr)
+    s := math.min(s, close - minStopAtr * atr)
+    qty = math.min(strategy.equity * riskPct / 100 / (close - s), strategy.equity / close)
+    trail   := s
+    hiClose := close
+    strategy.entry("Long", strategy.long, qty=qty,
+         alert_message='{"action":"buy","ticker":"' + syminfo.ticker + '","price":' + str.tostring(close) + ',"stop":' + str.tostring(s) + '}')
+    strategy.exit("Trail", "Long", stop=trail, alert_message='{"action":"sell","ticker":"' + syminfo.ticker + '"}')
+    alert("Trend Rider BUY " + syminfo.ticker + " at " + str.tostring(close) + ", first stop " + str.tostring(s), alert.freq_once_per_bar_close)
+else if strategy.position_size > 0
+    hiClose := math.max(hiClose, close)
+    trail   := math.max(trail, hiClose - trailMult * atr)
+    strategy.exit("Trail", "Long", stop=trail, alert_message='{"action":"sell","ticker":"' + syminfo.ticker + '"}')
+    if exitOnEma and close < ema
+        strategy.close("Long", comment="Below EMA", alert_message='{"action":"sell","ticker":"' + syminfo.ticker + '"}')
+
+// ───────── Chart ─────────
+plot(ema, "Trend EMA", color=color.new(color.orange, 0), linewidth=2)
+plot(strategy.position_size > 0 ? trail : na, "Trailing stop", color=color.red, style=plot.style_linebr, linewidth=2)
+plot(lastPH, "Last swing high", color=color.new(color.blue, 50), style=plot.style_stepline)
+plot(lastPL, "Last swing low", color=color.new(color.purple, 50), style=plot.style_stepline)
+plotshape(bos, "Break of structure", shape.labelup, location.belowbar, color.new(color.blue, 20), text="BOS", textcolor=color.white, size=size.tiny)
+bgcolor(dailyOk ? color.new(color.green, 95) : color.new(color.red, 95), title="Daily trend")
