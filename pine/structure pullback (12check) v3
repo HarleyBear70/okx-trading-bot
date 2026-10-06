@@ -1,0 +1,206 @@
+// This Pine Script® code is subject to the terms of the Mozilla Public License 2.0
+//@version=5
+// SP-12 v3 — SP-12 v2 (same 12 checks, Tuned scoring) + trend/volume filters picked by backtest
+// (11 OKX coins, 4H, Aug 2024 - Oct 2026, 0.1% fees). Defaults = best all-round result:
+//   Propulsion trend filter (EMA 8 > 21 > 55) + price above daily VWAP, swing 7, wider targets, 120-candle time stop.
+// Other filters you can switch on: 34/89 EMA wave trend, TTM-squeeze momentum rising.
+strategy("Structure Pullback (12-Check) v3", shorttitle="SP-12 v3", overlay=true,
+     initial_capital=1000, currency=currency.USD,
+     commission_type=strategy.commission.percent, commission_value=0.1,
+     pyramiding=0, process_orders_on_close=true, calc_on_every_tick=false,
+     max_labels_count=300, max_lines_count=300)
+
+// ───────── Settings ─────────
+grpS = "Signal"
+scoring    = input.string("Tuned", "Scoring", options=["Tuned", "Original"], group=grpS)
+minScore   = input.int(7, "Original: minimum checks to enter", minval=3, maxval=12, group=grpS)
+minTuned   = input.int(2, "Tuned: minimum net score", minval=-4, maxval=4, group=grpS)
+pivotLen   = input.int(7, "Swing strength (candles each side)", minval=2, maxval=15, group=grpS)
+momentum   = input.bool(false, "Original: momentum mode (don't count discount + sweep)", group=grpS)
+reqRsiBos  = input.bool(false, "Require RSI healthy + recent BOS", group=grpS)
+grpT = "Trend filters (v3)"
+trendF     = input.string("Propulsion 8/21/55", "Trend filter", options=["None", "Propulsion 8/21/55", "EMA wave 34/89"], group=grpT)
+useVwap    = input.bool(true, "Only buy above daily VWAP", group=grpT)
+useSqz     = input.bool(false, "Only buy when squeeze momentum is positive and rising", group=grpT)
+grpR = "Risk"
+riskPct    = input.float(1.0, "Risk per trade (% of account)", minval=0.1, maxval=5, step=0.1, group=grpR)
+maxRisk    = input.float(4.0, "Max stop-loss distance %", minval=0.3, maxval=10, step=0.1, group=grpR)
+minRisk    = input.float(1.0, "Min stop-loss distance %", minval=0.1, maxval=5, step=0.1, group=grpR)
+rr         = input.float(3.0, "Reward : risk", minval=1, maxval=6, step=0.5, group=grpR)
+tpMin      = input.float(2.0, "Take profit at least %", minval=0.5, maxval=20, step=0.1, group=grpR)
+tpMax      = input.float(15.0, "Take profit at most %", minval=0.5, maxval=30, step=0.1, group=grpR)
+maxBars    = input.int(120, "Close trade after N candles", minval=5, maxval=500, group=grpR)
+grpV = "Display"
+showMarks  = input.bool(true, "Show BOS / sweep / FVG marks", group=grpV)
+showScore  = input.bool(true, "Show score on signals", group=grpV)
+
+// ───────── Higher timeframes (completed candles only, no repaint) ─────────
+supertrendDir() =>
+    [_st, _d] = ta.supertrend(3, 10)
+    _d[1]
+
+dClose  = request.security(syminfo.tickerid, "D",   close[1], lookahead=barmerge.lookahead_on)
+dEma    = request.security(syminfo.tickerid, "D",   ta.ema(close, 20)[1], lookahead=barmerge.lookahead_on)
+dEmaP   = request.security(syminfo.tickerid, "D",   ta.ema(close, 20)[2], lookahead=barmerge.lookahead_on)
+h4Close = request.security(syminfo.tickerid, "240", close[1], lookahead=barmerge.lookahead_on)
+h4Ema   = request.security(syminfo.tickerid, "240", ta.ema(close, 50)[1], lookahead=barmerge.lookahead_on)
+h4Dir   = request.security(syminfo.tickerid, "240", supertrendDir(), lookahead=barmerge.lookahead_on)
+
+dailyUp = dClose > dEma and dEma > dEmaP
+h4Up    = h4Close > h4Ema and h4Dir < 0
+
+// ───────── v3 filters ─────────
+e8  = ta.ema(close, 8)
+e21 = ta.ema(close, 21)
+e55 = ta.ema(close, 55)
+w34 = ta.ema(close, 34)
+w89 = ta.ema(close, 89)
+propUp = e8 > e21 and e21 > e55
+waveUp = w34 > w89 and w34 > w34[1]
+trendOk = trendF == "None" ? true : trendF == "Propulsion 8/21/55" ? propUp : waveUp
+vwapD  = ta.vwap(hlc3)
+vwapOk = not useVwap or close > vwapD
+sqzMom = ta.linreg(close - math.avg(math.avg(ta.highest(high, 20), ta.lowest(low, 20)), ta.sma(close, 20)), 20, 0)
+sqzOk  = not useSqz or (sqzMom > 0 and sqzMom > sqzMom[1])
+filtOk = trendOk and vwapOk and sqzOk
+
+// ───────── Entry-timeframe structure ─────────
+ph = ta.pivothigh(high, pivotLen, pivotLen)
+pl = ta.pivotlow(low, pivotLen, pivotLen)
+var float lastPH = na
+var float lastPL = na
+if not na(ph)
+    lastPH := ph
+if not na(pl)
+    lastPL := pl
+
+var int   bosBar   = na
+var int   sweepBar = na
+var float obTop    = na
+var float obBot    = na
+var int   obBar    = na
+var float fvgTop   = na
+var float fvgBot   = na
+var int   fvgBar   = na
+
+bosUp = not na(lastPH) and close > lastPH and close[1] <= lastPH
+if bosUp
+    bosBar := bar_index
+    obTop := na
+    obBot := na
+    for k = 1 to 10
+        if close[k] < open[k]
+            obTop := high[k]
+            obBot := low[k]
+            obBar := bar_index
+            break
+
+newFvg = low > high[2]
+if newFvg
+    fvgTop := low
+    fvgBot := high[2]
+    fvgBar := bar_index
+
+swept = not na(lastPL) and low < lastPL and close > lastPL
+if swept
+    sweepBar := bar_index
+
+// ───────── The 12 checks ─────────
+rangeHigh = ta.highest(high, 30)
+rangeLow  = ta.lowest(low, 30)
+eq        = (rangeHigh + rangeLow) / 2
+
+r = ta.rsi(close, 14)
+[stLine, stDir] = ta.supertrend(3, 10)
+[macdLine, sigLine, hist] = ta.macd(close, 12, 26, 9)
+volAvg = ta.sma(volume, 20)
+
+body   = math.abs(close - open)
+lowerW = math.min(close, open) - low
+upperW = high - math.max(close, open)
+engulf = close > open and close[1] < open[1] and close >= open[1] and open <= close[1]
+hammer = body > 0 and lowerW >= 2 * body and upperW <= body
+
+c1  = dailyUp
+c2  = h4Up
+c3  = not na(bosBar) and bar_index - bosBar <= 20
+c4  = close <= eq
+c5  = not na(fvgBar) and bar_index > fvgBar and bar_index - fvgBar <= 30 and low <= fvgTop and close >= fvgBot
+c6  = not na(obBar) and bar_index > obBar and bar_index - obBar <= 30 and low <= obTop and close >= obBot
+c7  = not na(sweepBar) and bar_index - sweepBar <= 10
+c8  = r > 40 and r < 65 and r > r[1]
+c9  = volume > volAvg
+c10 = engulf or hammer
+c11 = stDir < 0
+c12 = hist > hist[1]
+
+b(x) => x ? 1 : 0
+scoreOrig = b(c1) + b(c2) + b(c3) + (c4 and not momentum ? 1 : 0) + b(c5) + b(c6) +
+     (c7 and not momentum ? 1 : 0) + b(c8) + b(c9) + b(c10) + b(c11) + b(c12)
+scoreTuned = b(c1) + b(c7) + b(c11) + b(c12) - b(c3) - b(c5) - b(c6) - b(c10)
+tuned = scoring == "Tuned"
+score = tuned ? scoreTuned : scoreOrig
+scoreOk = tuned ? scoreTuned >= minTuned : scoreOrig >= minScore
+reqOk = not reqRsiBos or (c3 and c8)
+
+// ───────── Stops, targets, size ─────────
+swingStop = ta.lowest(low, 10) * (1 - 0.001)
+rawRisk   = (close - swingStop) / close * 100
+riskUse   = math.max(rawRisk, minRisk)
+tpPct     = math.min(math.max(rr * riskUse, tpMin), tpMax)
+
+longSignal = c2 and filtOk and reqOk and scoreOk and rawRisk <= maxRisk and strategy.position_size == 0 and barstate.isconfirmed
+
+var float slPrice  = na
+var float tpPrice  = na
+var int   entryBar = na
+
+if longSignal
+    slPrice  := close * (1 - riskUse / 100)
+    tpPrice  := close * (1 + tpPct / 100)
+    entryBar := bar_index
+    riskCash = strategy.equity * riskPct / 100
+    qty      = math.min(riskCash / (close - slPrice), strategy.equity / close)
+    msg = '{"action":"buy","ticker":"' + syminfo.ticker + '","price":' + str.tostring(close) +
+         ',"sl":' + str.tostring(slPrice) + ',"tp":' + str.tostring(tpPrice) +
+         ',"score":' + str.tostring(score) + '}'
+    strategy.entry("Long", strategy.long, qty=qty, alert_message=msg)
+    if showScore
+        label.new(bar_index, low, "BUY " + (tuned ? "net " + str.tostring(score) : str.tostring(score) + "/12") + "\nSL " + str.tostring(riskUse, "#.##") + "%  TP " + str.tostring(tpPct, "#.##") + "%",
+             style=label.style_label_up, color=color.new(color.green, 10), textcolor=color.white, size=size.small)
+
+if strategy.position_size > 0
+    strategy.exit("Exit", "Long", stop=slPrice, limit=tpPrice,
+         alert_message='{"action":"sell","ticker":"' + syminfo.ticker + '"}')
+    if not na(entryBar) and bar_index - entryBar >= maxBars
+        strategy.close("Long", comment="Time exit", alert_message='{"action":"sell","ticker":"' + syminfo.ticker + '","reason":"time"}')
+
+// ───────── Chart marks ─────────
+plot(strategy.position_size > 0 ? slPrice : na, "Stop-loss", color=color.red, style=plot.style_linebr, linewidth=2)
+plot(strategy.position_size > 0 ? tpPrice : na, "Take profit", color=color.green, style=plot.style_linebr, linewidth=2)
+plot(vwapD, "Daily VWAP", color=color.new(color.orange, 30), linewidth=1)
+plot(trendF == "Propulsion 8/21/55" ? e21 : trendF == "EMA wave 34/89" ? w34 : na, "Trend EMA", color=trendOk ? color.teal : color.maroon, linewidth=1)
+plotshape(showMarks and bosUp,  "BOS up",   shape.labelup,   location.belowbar, color.new(color.blue, 20),   text="BOS", textcolor=color.white, size=size.tiny)
+plotshape(showMarks and swept,  "Sweep",    shape.triangleup, location.belowbar, color.new(color.orange, 0), text="sweep", textcolor=color.orange, size=size.tiny)
+plotshape(showMarks and newFvg, "Bull FVG", shape.square,     location.belowbar, color.new(color.purple, 40), size=size.tiny)
+bgcolor(h4Up and filtOk ? color.new(color.green, 94) : color.new(color.red, 96), title="Trend + filters OK")
+
+var table t = table.new(position.top_right, 3, 15, border_width=1)
+if barstate.islast
+    names = array.from("Daily trend up", "4H trend up*", "Recent BOS", "In discount", "Tapped FVG", "Tapped order block", "Liquidity sweep", "RSI healthy", "Volume > avg", "Bull candle", "Supertrend up", "MACD rising")
+    vals  = array.from(c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12)
+    wts   = array.from("+1", "req", "-1", "0", "-1", "-1", "+1", "0", "0", "-1", "+1", "+1")
+    table.cell(t, 0, 0, "Check", text_color=color.white, bgcolor=color.new(color.gray, 20))
+    table.cell(t, 1, 0, tuned ? "net " + str.tostring(score) : str.tostring(score) + "/12", text_color=color.white, bgcolor=color.new(color.gray, 20))
+    table.cell(t, 2, 0, "Tuned", text_color=color.white, bgcolor=color.new(color.gray, 20))
+    for i = 0 to 11
+        ok = array.get(vals, i)
+        table.cell(t, 0, i + 1, array.get(names, i), text_color=color.white, bgcolor=color.new(color.black, 30), text_size=size.small)
+        table.cell(t, 1, i + 1, ok ? "Y" : "N", text_color=ok ? color.lime : color.red, bgcolor=color.new(color.black, 30), text_size=size.small)
+        table.cell(t, 2, i + 1, array.get(wts, i), text_color=color.gray, bgcolor=color.new(color.black, 30), text_size=size.small)
+    table.cell(t, 0, 13, "v3 filters (" + trendF + (useVwap ? " + VWAP" : "") + (useSqz ? " + squeeze" : "") + ")", text_color=color.white, bgcolor=color.new(color.black, 30), text_size=size.small)
+    table.cell(t, 1, 13, filtOk ? "Y" : "N", text_color=filtOk ? color.lime : color.red, bgcolor=color.new(color.black, 30), text_size=size.small)
+    table.cell(t, 2, 13, "req", text_color=color.gray, bgcolor=color.new(color.black, 30), text_size=size.small)
+
+if longSignal
+    alert("SP-12 v3 buy signal on " + syminfo.ticker + " at " + str.tostring(close) + " (score " + str.tostring(score) + ")", alert.freq_once_per_bar_close)
