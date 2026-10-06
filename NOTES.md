@@ -1027,3 +1027,5 @@ Review: Oct 19, live demo results vs research/scout.py EXPECTED. Real money only
 2026-10-06 TERMINAL: exchange-side stops turned ON for Trend Rider on demo (Jeff: "yes just more data"; EXCHANGE_STOPS_PLAN.md step 2). Trend Rider's open SUI trade gets its OKX stop on the next run. Watch the executions log for stop_placed / stop_moved / stop_problem lines.
 
 2026-10-06 TERMINAL: idea I1 (interest on idle cash) closed for OKX: Jeff's OKX US app has no Earn tab (the API shows global rates ~3% USDT / ~2.75% USDC, but the product isn't offered to his US account). The OKX skills marketplace also refuses this account. If idle-cash yield comes back, it would be outside OKX (only the trading cash stays on OKX).
+
+2026-10-06 TERMINAL: Jeff moved ~$100 from Coinbase to OKX; the real OKX account now has about $197 (USD 100, USDC 82.51, a little BTC). Kraken dropped: OKX only. Nothing trades with real money. Go-live checklist item: the bots use USDT pairs, Jeff's cash is USD/USDC, so live mode must use USD/USDC pairs (or USDT if OKX US offers it).
