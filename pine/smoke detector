@@ -10,6 +10,8 @@
 // Two lines: SOLID = strong high/low that must hold. DOTTED = weak high/low = the target (liquidity sits there).
 // Trade plan: every green/red/purple candle gets a tiny arrow (direction) and 3 short lines: entry (grey), stop loss
 // (red, just past the strong level) and take profit (green, the nearest untaken liquidity, else 2x the risk).
+// Position size: the box says how much to buy so a stopped-out trade loses about your risk % (fees included),
+// and roughly what a win at TP pays after fees (yellow when the win is under 1.5x the risk: weak trade).
 // Corner box: who is in control and whether price is expanding, pulling back or going sideways.
 // Read the daily first, then the 4H. It reads the chart; it is not a buy signal by itself.
 //@version=6
@@ -21,6 +23,9 @@ showLns  = input.bool(true, "Show the 2 key lines (solid = must hold, dotted = t
 showBox  = input.bool(true, "Show the small corner box")
 showPlan = input.bool(true, "Show the trade plan on breakouts (entry, SL, TP)")
 slBuf    = input.float(0.25, "Stop buffer beyond the strong level (x ATR)", minval=0, step=0.05)
+acct     = input.float(197, "My account size ($)", minval=1)
+riskPct  = input.float(0.5, "Risk per trade (% of account)", minval=0.05, maxval=5, step=0.05)
+feePct   = input.float(0.35, "Fee per buy or sell (%)", minval=0, step=0.01)
 
 atr  = ta.atr(14)
 ph   = ta.pivothigh(high, swingLen, swingLen)
@@ -191,7 +196,7 @@ phase = squeeze ? "Sideways: squeeze, breakout coming" : expanding ? "Expanding"
      pullback ? "Pullback, loading orders: holds while " + (trend == 1 ? "above " : "below ") + lvl :
      trend != 0 ? "Testing the strong level " + lvl : "Waiting for structure"
 who   = trend == 1 ? "UP: buyers in control" : trend == -1 ? "DOWN: sellers in control" : "No clear trend yet"
-var table tb = table.new(position.top_right, 1, 3, bgcolor=color.new(color.black, 70), border_width=0)
+var table tb = table.new(position.top_right, 1, 4, bgcolor=color.new(color.black, 70), border_width=0)
 if barstate.islast and showBox
     table.cell(tb, 0, 0, who, text_color=trend == 1 ? color.rgb(0, 230, 118) : trend == -1 ? color.rgb(255, 80, 80) : color.silver, text_size=size.small)
     table.cell(tb, 0, 1, phase, text_color=color.silver, text_size=size.small)
@@ -200,6 +205,15 @@ if barstate.islast and showBox
         plan = (pDir == 1 ? "Last break: LONG" : "Last break: SHORT") + "  SL " + str.tostring(pSL, format.mintick) +
              "  TP " + str.tostring(pTP, format.mintick) + "  (" + str.tostring(rr, "#.#") + ":1)"
         table.cell(tb, 0, 2, plan, text_color=pDir == 1 ? color.rgb(0, 230, 118) : color.rgb(255, 80, 80), text_size=size.small)
+        // Position size so a stopped-out trade loses about riskPct of the account, fees included
+        riskUsd = acct * riskPct / 100
+        stopPct = math.abs(pEntry - pSL) / pEntry
+        fee     = feePct / 100
+        posUsd  = math.min(riskUsd / (stopPct + 2 * fee), acct)
+        winUsd  = posUsd * (math.abs(pTP - pEntry) / pEntry - 2 * fee)
+        sizeTxt = "Risk $" + str.tostring(riskUsd, "#.##") + " -> buy $" + str.tostring(posUsd, "#.##") +
+             " (" + str.tostring(posUsd / pEntry, "#.######") + " coins). Win at TP ~$" + str.tostring(winUsd, "#.##")
+        table.cell(tb, 0, 3, sizeTxt, text_color=winUsd >= 1.5 * riskUsd ? color.silver : color.rgb(255, 214, 0), text_size=size.small)
 
 // Phone / app alerts (TradingView: Alert > Condition: Jeff's Smoke Detector)
 alertcondition(shift, "PURPLE: market shift", "Market shift: a body closed through the strong high/low")
