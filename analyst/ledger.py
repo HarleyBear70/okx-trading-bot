@@ -31,6 +31,7 @@ import bot  # noqa: E402
 
 LEDGER = os.path.join(HERE, "ledger.json")
 TRADES = os.path.join(HERE, "trades.csv")
+ACCOUNTS = {"claude": HERE, "chrome": os.path.join(HERE, "chrome")}  # same rules, separate balances
 COINS = ["BTC", "ETH", "SOL", "XRP", "BNB", "LINK"]
 FEE = 0.0035
 MAX_RISK = 0.005
@@ -148,6 +149,8 @@ def cmd_order(led, a):
     coin = a.coin.upper()
     if coin not in COINS:
         sys.exit(f"REFUSED: {coin} is not on the list {COINS}")
+    if not a.why or not a.wrong:
+        sys.exit("REFUSED: every trade needs a why and a wrong (what would prove it wrong)")
     if (a.above is None) == (a.below is None):
         sys.exit("REFUSED: give exactly one of --above or --below")
     trig = a.above if a.above is not None else a.below
@@ -240,9 +243,87 @@ def cmd_check(led, _a):
     save(led)
 
 
+def cmd_requests(led, _a):
+    """Chrome Claude can't run Python: it writes lines in chrome/requests.md, and the hourly run carries them out.
+    Pending lines start with "- [ ] ", for example:
+      - [ ] ORDER SOL above 125.3 stop 118.5 hours 72 | why: ... | wrong: ...
+      - [ ] ORDER LINK below 13.55 stop 12.85 | why: ... | wrong: ...
+      - [ ] BUY BTC stop 84000 | why: ... | wrong: ...
+      - [ ] STOP SOL 121.5
+      - [ ] SELL SOL | why: ...
+      - [ ] CANCEL SOL
+    Each becomes "- [x] ... -> result" (done) or "- [!] ... -> REFUSED: reason"."""
+    path = os.path.join(os.path.dirname(LEDGER), "requests.md")
+    if not os.path.exists(path):
+        return
+    with open(path) as f:
+        lines = f.read().split("\n")
+    for i, line in enumerate(lines):
+        if not line.startswith("- [ ] "):
+            continue
+        body, why, wrong = line[6:], None, None
+        parts = [x.strip() for x in body.split("|")]
+        for x in parts[1:]:
+            if x.lower().startswith("why:"):
+                why = x[4:].strip()
+            elif x.lower().startswith("wrong:"):
+                wrong = x[6:].strip()
+        w = parts[0].split()
+        out = []
+        sys_out = sys.stdout
+
+        class Cap:
+            def write(self, t):
+                out.append(t)
+
+            def flush(self):
+                pass
+        sys.stdout = Cap()
+        try:
+            act = w[0].upper()
+            kv = {w[j].lower(): w[j + 1] for j in range(2, len(w) - 1, 2)}
+            ns = argparse.Namespace(coin=w[1], why=why, wrong=wrong, risk=float(kv.get("risk", 0.5)),
+                                    target=float(kv["target"]) if "target" in kv else None)
+            if act == "BUY":
+                ns.stop = float(kv["stop"])
+                cmd_buy(led, ns)
+            elif act == "ORDER":
+                ns.above = float(w[3]) if w[2].lower() == "above" else None
+                ns.below = float(w[3]) if w[2].lower() == "below" else None
+                kv = {w[j].lower(): w[j + 1] for j in range(4, len(w) - 1, 2)}
+                ns.stop, ns.hours = float(kv["stop"]), float(kv.get("hours", 72))
+                ns.target = float(kv["target"]) if "target" in kv else None
+                ns.risk = float(kv.get("risk", 0.5))
+                cmd_order(led, ns)
+            elif act == "STOP":
+                ns.price = float(w[2])
+                cmd_stop(led, ns)
+            elif act == "SELL":
+                cmd_sell(led, ns)
+            elif act == "CANCEL":
+                cmd_cancel(led, ns)
+            else:
+                raise SystemExit(f"REFUSED: unknown action {act}")
+            mark, res = "- [x] ", "".join(out).strip().replace("\n", " / ")
+        except SystemExit as e:
+            mark, res = "- [!] ", str(e)
+        except Exception as e:
+            mark, res = "- [!] ", f"REFUSED: could not read the line ({type(e).__name__}: {e})"
+        finally:
+            sys.stdout = sys_out
+        led = load()  # commands save as they go
+        lines[i] = f"{mark}{body} -> {now_iso()} UTC: {res}"
+        print(lines[i])
+    with open(path, "w") as f:
+        f.write("\n".join(lines))
+
+
 def main():
+    global LEDGER, TRADES
     ap = argparse.ArgumentParser()
+    ap.add_argument("--account", choices=sorted(ACCOUNTS), default="claude")
     sub = ap.add_subparsers(dest="cmd", required=True)
+    sub.add_parser("requests")
     sub.add_parser("status")
     sub.add_parser("check")
     b = sub.add_parser("buy")
@@ -271,9 +352,11 @@ def main():
     se.add_argument("coin")
     se.add_argument("--why")
     a = ap.parse_args()
+    LEDGER = os.path.join(ACCOUNTS[a.account], "ledger.json")
+    TRADES = os.path.join(ACCOUNTS[a.account], "trades.csv")
     led = load()
     {"status": cmd_status, "check": cmd_check, "buy": cmd_buy, "order": cmd_order, "cancel": cmd_cancel,
-     "stop": cmd_stop, "sell": cmd_sell}[a.cmd](led, a)
+     "stop": cmd_stop, "sell": cmd_sell, "requests": cmd_requests}[a.cmd](led, a)
 
 
 if __name__ == "__main__":

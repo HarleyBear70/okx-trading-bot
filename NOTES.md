@@ -1029,3 +1029,18 @@ Review: Oct 19, live demo results vs research/scout.py EXPECTED. Real money only
 2026-10-06 TERMINAL: idea I1 (interest on idle cash) closed for OKX: Jeff's OKX US app has no Earn tab (the API shows global rates ~3% USDT / ~2.75% USDC, but the product isn't offered to his US account). The OKX skills marketplace also refuses this account. If idle-cash yield comes back, it would be outside OKX (only the trading cash stays on OKX).
 
 2026-10-06 TERMINAL: Jeff moved ~$100 from Coinbase to OKX; the real OKX account now has about $197 (USD 100, USDC 82.51, a little BTC). Kraken dropped: OKX only. Nothing trades with real money. Go-live checklist item: the bots use USDT pairs, Jeff's cash is USD/USDC, so live mode must use USD/USDC pairs (or USDT if OKX US offers it).
+
+2026-10-06 TERMINAL: Jeff's request: "bring the other Claude into this, same rules." You now have your own PAPER trading account ("Chrome Claude", $1,000) next to mine ("Claude (Analyst)"), both scored against Trend Rider, Donchian and NNFX on the dashboard (CALENDAR.md, section "The Claudes vs the bots"). Goal: find out whether judgment beats the rule-based bots. Paper only, no real money, nothing touches any OKX account.
+
+SAME RULES (enforced in code by analyst/ledger.py, so a request that breaks one is refused): coins BTC ETH SOL XRP BNB LINK (OKX USDT prices); long only, no leverage; risk 0.5% of balance per trade (the ledger sizes the trade from your stop); every trade needs a stop below the price, a why and a wrong (what would prove it wrong); max 3 open, one per coin; stops only move up; 0.35% fee each side; 12% below your best balance = halted until Jeff says resume.
+
+HOW YOU TRADE (you can't run Python): add a line at the bottom of analyst/chrome/requests.md, starting with "- [ ] ". The hourly bot run (:07 UTC) carries it out and rewrites it as "- [x] ... -> result" or "- [!] ... -> REFUSED: reason". Formats:
+  - [ ] ORDER SOL above 125.3 stop 118.5 hours 72 | why: ... | wrong: ...   (buy only if price breaks above)
+  - [ ] ORDER LINK below 13.55 stop 12.85 | why: ... | wrong: ...           (buy if price dips to)
+  - [ ] BUY BTC stop 84000 | why: ... | wrong: ...                          (buy now, at the next hourly run's price)
+  - [ ] STOP SOL 121.5      - [ ] SELL SOL | why: ...      - [ ] CANCEL SOL
+Fills and stops are checked hourly from 1H candles. Your balance, open trades and orders: analyst/chrome/ledger.json and analyst/chrome/trades.csv. Keep your own reasoning in analyst/chrome/journal.md (create it).
+
+YOUR EDGE: you can see the TradingView charts. Read them with Jeff's playbook in analyst/lessons.md (section "Jeff's chart-reading playbook"): market structure first (daily > 4H > 1H), then POIs (order blocks, supply/demand, flip zones, FVG/imbalance), premium vs discount, liquidity and inducement, and candles (body vs wick, size = momentum) only at a POI with structure behind them. The research caution is in the same file: as rigid rules, the 50% discount wait and full SMC checklists missed the biggest breakouts and lost to fees, so use them to judge setups and place stops, not to skip every strong breakout.
+
+My first session (analyst/briefs/2026-10-06.md): resting orders BTC above 87,500 (stop 84,900), SOL above 125.3 (stop 118.5), LINK dip to 13.55 (stop 12.85); no market buys (prices pinned under highs, fading volume, Fear & Greed 73, Fed minutes Wed 2 PM ET). You don't have to agree; make your own calls. I run a daily session at 8:30 PM ET.

@@ -48,7 +48,10 @@ jobs:
         continue-on-error: true
         env:
           OKX_BASE_URL: ${{ vars.OKX_BASE_URL }}
-        run: python analyst/ledger.py check
+        run: |
+          python analyst/ledger.py check
+          python analyst/ledger.py --account chrome requests
+          python analyst/ledger.py --account chrome check
       - name: Update the P/L calendar (read-only, never trades)
         if: always()
         continue-on-error: true
@@ -78,6 +81,7 @@ jobs:
           if [ -f BOT_NOTES.md ]; then git add BOT_NOTES.md; fi
           git add analyst/ledger.json 2>/dev/null || true
           if [ -f analyst/trades.csv ]; then git add analyst/trades.csv; fi
+          git add analyst/chrome 2>/dev/null || true
           git diff --cached --quiet && exit 0
           git commit -m "bot: update state"
           # someone may have pushed during the run (research, dashboard): rebase onto it and retry

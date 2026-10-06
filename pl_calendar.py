@@ -150,42 +150,50 @@ def build_cards(rows):
 
 
 def build_analyst():
-    """Claude (the Analyst): paper trades on judgment (analyst/ledger.py), scored against the active bots."""
+    """The two Claudes trading on judgment (analyst/ledger.py, paper), scored against the active bots."""
     try:
-        with open(os.path.join(HERE, "analyst", "ledger.json")) as f:
-            led = json.load(f)
-        trades = []
-        tpath = os.path.join(HERE, "analyst", "trades.csv")
-        if os.path.exists(tpath):
-            with open(tpath) as f:
-                trades = [r for r in csv.DictReader(f) if r["side"] == "sell"]
         with open(os.path.join(HERE, "state.json")) as f:
             st = json.load(f)["bots"]
-        eq = led["equity"]
-        wins = sum(1 for r in trades if float(r["pnl_usdt"]) > 0)
-        md = ["## Claude (the Analyst) vs the bots", "",
-              "Claude trading on judgment, on paper, since Oct 6 2026: same $1,000 start, same 0.35% fee, risk rules "
-              "enforced in code (0.5% per trade, stop on every trade, max 3 open, 12% guard). Brief, journal and "
-              "lessons: [analyst/](analyst/).", "",
-              "| | Balance | Change | Closed trades |", "|---|---|---|---|",
-              f"| **Claude (Analyst)** | **{eq:,.2f}** | **{eq / 10 - 100:+.2f}%** | {len(trades)}"
-              f"{f' ({wins} won)' if trades else ''} |"]
+        md = ["## The Claudes vs the bots", "",
+              "Both Claudes trade on judgment, on paper, since Oct 6 2026: same $1,000 start, same 0.35% fee, same risk "
+              "rules enforced in code (0.5% per trade, stop on every trade, max 3 open, 12% guard). Claude (terminal) "
+              "writes briefs, journal and lessons in [analyst/](analyst/); Chrome Claude trades through "
+              "[analyst/chrome/requests.md](analyst/chrome/requests.md).", "",
+              "| | Balance | Change | Closed trades |", "|---|---|---|---|"]
+        notes = []
+        for label, sub in (("Claude (Analyst)", ""), ("Chrome Claude", "chrome")):
+            folder = os.path.join(HERE, "analyst", sub)
+            path = os.path.join(folder, "ledger.json")
+            if not os.path.exists(path):
+                continue
+            with open(path) as f:
+                led = json.load(f)
+            trades = []
+            tpath = os.path.join(folder, "trades.csv")
+            if os.path.exists(tpath):
+                with open(tpath) as f:
+                    trades = [r for r in csv.DictReader(f) if r["side"] == "sell"]
+            eq = led["equity"]
+            wins = sum(1 for r in trades if float(r["pnl_usdt"]) > 0)
+            md.append(f"| **{label}** | **{eq:,.2f}** | **{eq / 10 - 100:+.2f}%** | {len(trades)}"
+                      f"{f' ({wins} won)' if trades else ''} |")
+            for c, p in led["positions"].items():
+                notes.append(f"- **{label}, open {c}:** bought {p['entry']:g} on {p['opened']} UTC, stop {p['stop']:g}. "
+                             f"Why: {p['why']}")
+            for c, o in led.get("orders", {}).items():
+                word = "above" if o["side"] == "above" else "down to"
+                notes.append(f"- **{label}, waiting {c}:** buy if price goes {word} {o['trigger']:g}, stop {o['stop']:g}. "
+                             f"Why: {o['why']}")
+            if led.get("halted"):
+                notes.append(f"- **{label} HALTED:** {led['halted']}")
         for bid in ("tr-okx", "dc-okx", "nnfx-okx"):
             b = next((x for x in bot.BOTS if x["id"] == bid), None)
             if b:
                 e = st.get(bid, {}).get("equity", b["equity"])
                 md.append(f"| {b['name']} | {e:,.2f} | {e / b['equity'] * 100 - 100:+.2f}% | |")
-        md += ["", "Closed P/L only; open trades count when they close.", ""]
-        for c, p in led["positions"].items():
-            md.append(f"- **Open {c}:** bought {p['entry']:g} on {p['opened']} UTC, stop {p['stop']:g}. Why: {p['why']}")
-        for c, o in led.get("orders", {}).items():
-            word = "above" if o["side"] == "above" else "down to"
-            md.append(f"- **Waiting {c}:** buy if price goes {word} {o['trigger']:g}, stop {o['stop']:g}. Why: {o['why']}")
-        if led.get("halted"):
-            md.append(f"- **HALTED:** {led['halted']}")
-        return md + [""]
+        return md + ["", "Closed P/L only; open trades count when they close.", ""] + notes + [""]
     except Exception as ex:
-        return ["## Claude (the Analyst) vs the bots", "", f"(unavailable this hour: {str(ex)[:150]})", ""]
+        return ["## The Claudes vs the bots", "", f"(unavailable this hour: {str(ex)[:150]})", ""]
 
 
 def main():
