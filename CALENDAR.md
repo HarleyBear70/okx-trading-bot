@@ -1,6 +1,6 @@
 # P/L calendar and strategy cards
 
-Updated automatically every hour (2026-10-05 19:22 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
+Updated automatically every hour (2026-10-05 20:35 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
 
 ## Combined OKX demo account
 
@@ -10,7 +10,7 @@ Closed P/L so far: +$1.73 · 1 win day · 1 loss day
 
 ## The three piles
 
-- HOLD (long-term, PAPER): weekly dip-DCA buyer, $10/week into BTC + XRP, double when 20%+ below the 200-day average. Paid $10.00, worth $9.99. Profit sweeper (25% of wins into this pile): OFF until real money. Buys: hold_pile.csv.
+- HOLD (long-term, PAPER): weekly dip-DCA buyer, $10/week into BTC + XRP, double when 20%+ below the 200-day average. Paid $10.00, worth $9.90. Profit sweeper (25% of wins into this pile): OFF until real money. Buys: hold_pile.csv.
 - ACTIVE (trading, OKX demo): SP-12 v4, Trend Rider
 - INCUBATING (paper forward tests): B1c breakout retest (paper), B3 pairs (paper), NNFX Aroon (paper), SP-12 v4 (Kraken paper)
 - RANGE: none yet. No range bot has passed a test (research/N1_RANGE.md, B2), so this pile stays empty until one does.
@@ -18,7 +18,7 @@ Closed P/L so far: +$1.73 · 1 win day · 1 loss day
 
 ## Growth: demo vs paper
 
-Average balance per bot, each bot starting at $1,000: the active demo bots (2, solid) vs the paper bots (4, dashed). Demo now $1,001.23 (+0.12%), paper now $1,002.48 (+0.25%).
+Average balance per bot, each bot starting at $1,000: the active demo bots (2, solid) vs the paper bots (4, dashed). Demo now $1,001.70 (+0.17%), paper now $1,002.52 (+0.25%).
 
 ![Demo vs paper growth](calendars/cards/growth.svg)
 
@@ -40,7 +40,7 @@ OKX · BTC ETH XRP XLM BNB · 4-hour candles · started 2026-10-04 · balance no
 
 ### SP-12 v4 (Kraken paper)  ·  PAPER
 
-Kraken · XBTUSD ETHUSD XRPUSD · 4-hour candles · started 2026-10-04 · balance now 1,009.90
+Kraken · XBTUSD ETHUSD XRPUSD · 4-hour candles · started 2026-10-04 · balance now 1,010.09
 
 ![SP-12 v4 (Kraken paper) live vs backtest](calendars/cards/v4-kraken.svg)
 
@@ -76,7 +76,7 @@ OKX · XAUT · 4-hour candles · started 2026-10-04 · balance now 1,000.00
 
 ### Trend Rider  ·  DEMO
 
-OKX · BTC ETH SOL BNB SUI TRX · 4-hour candles · started 2026-10-04 · balance now 997.41
+OKX · BTC ETH SOL BNB SUI TRX · 4-hour candles · started 2026-10-04 · balance now 998.35
 
 ![Trend Rider live vs backtest](calendars/cards/tr-okx.svg)
 
@@ -84,7 +84,7 @@ OKX · BTC ETH SOL BNB SUI TRX · 4-hour candles · started 2026-10-04 · balanc
 |---|---|---|---|---|
 | Backtest, long run (research, 2022-now) | - | 40% | 2.33 | -10.6% |
 | Backtest replay since start | 0 | - | - | -0.3% |
-| Live (demo) since start | 0 | - | - | -0.3% |
+| Live (demo) since start | 0 | - | - | -0.2% |
 
 ### B1c breakout retest (paper)  ·  PAPER
 
