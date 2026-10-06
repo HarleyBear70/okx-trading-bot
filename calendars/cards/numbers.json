@@ -1,5 +1,5 @@
 {
- "updated_utc": "2026-10-06 08:27",
+ "updated_utc": "2026-10-06 11:25",
  "bots": {
   "v4-okx": {
    "live_now": 1005.0504,
@@ -206,6 +206,23 @@
    "error": null
   },
   "db-paper": {
+   "live_now": 1000.0,
+   "replay_now": 1000.0,
+   "live": {
+    "n": 0,
+    "win": null,
+    "pf": null,
+    "dd": 0.0
+   },
+   "replay": {
+    "n": 0,
+    "win": null,
+    "pf": null,
+    "dd": 0.0
+   },
+   "error": null
+  },
+  "cr-paper": {
    "live_now": 1000.0,
    "replay_now": 1000.0,
    "live": {
