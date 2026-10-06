@@ -8,10 +8,10 @@
  },
  "tr-okx": {
   "win": 33,
-  "pf": 1.65,
-  "dd": -11.8,
+  "pf": 1.66,
+  "dd": -9.6,
   "streak": null,
-  "src": "real OKX fees 0.35% a side, 2022-now (research/FEES.md)"
+  "src": "0.4% risk, real OKX fees 0.35% a side, 2022-now (research/FEES.md)"
  },
  "v4-okx": {
   "win": 27,
@@ -24,6 +24,13 @@
   "win": 27,
   "pf": 0.76,
   "dd": -28.4,
+  "streak": null,
+  "src": "real OKX fees 0.35% a side, 2022-now (research/FEES.md)"
+ },
+ "nnfx-okx": {
+  "win": 59,
+  "pf": 1.89,
+  "dd": -6.1,
   "streak": null,
   "src": "real OKX fees 0.35% a side, 2022-now (research/FEES.md)"
  }

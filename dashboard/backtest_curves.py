@@ -51,6 +51,9 @@ def main():
                                        settings=settings("v4-okx")),
         "v4-kraken": lambda t1: e.bot_sim("v4", ["BTC", "ETH", "XRP"], e.load(["BTC", "ETH", "XRP"]), sp, e.START, t1,
                                           settings=settings("v4-kraken")),
+        "nnfx-okx": lambda t1: e.bot_sim("nnfx", ["BTC", "ETH", "XRP"],
+                                         {c: (d, d) for c, (_, d) in e.load(["BTC", "ETH", "XRP"]).items()},
+                                         lambda b, d: bot.analyse_nnfx(b), e.START, t1, settings=settings("nnfx-okx")),
         "tr-okx": lambda t1: e.bot_sim("tr", coins("tr-okx"), e.load(coins("tr-okx")), tr, e.START, t1,
                                        extra=lambda x: {"hi": x["c"]}, settings=settings("tr-okx")),
     }
