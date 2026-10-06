@@ -19,7 +19,7 @@ import engine as e  # noqa: E402
 FEE = 0.0035
 
 
-def prepare(kind, trail_mult, unseen=False):
+def prepare(kind, trail_mult, unseen=False, leash=False):
     """Per coin: bars, entries {k: first stop}, trail(k, pos) -> new stop or None. unseen: never-seen coins (F10b)."""
     if kind == "TR":
         cs = [c.split("-")[0] for c in next(b for b in bot.BOTS if b["id"] == "tr-okx")["coins"]]
@@ -38,8 +38,11 @@ def prepare(kind, trail_mult, unseen=False):
         cs = [c for c in e.UNSEEN if c not in cs]
     data = {c: d for c, (_, d) in e.load(cs).items()}
     per = {}
+    btc_d = e.load(["BTC"])["BTC"][1] if leash else None
     for c, bars in data.items():
         a = bot.analyse_donchian(bars)
+        if leash:  # F18c: the live BTC leash
+            a["signal"] = [s and o for s, o in zip(a["signal"], bot.btc_leash(bars, btc_d, c))]
         ent = {i: a["info"][i]["sl"] for i, s in enumerate(a["signal"]) if s}
         per[c] = (bars, ent, lambda k, p, tr=a["trail"]: tr[k])
     return cs, per, 0.0035, 5
@@ -86,7 +89,9 @@ def sim(cs, per, risk, max_open, pyramid, t0, t1=None, sizing="risk", size_arg=N
                             p["units"].append({"qty": qty, "cost": qty * x["c"] * (1 + FEE)})
                     if pyramid and not p["added"] and x["c"] >= p["entry"] + one_r and x["c"] > p["stop"]:
                         in_use = sum(u["cost"] for q in pos.values() for u in q["units"])
-                        qty = min(eq * risk / (x["c"] - p["stop"]), max(eq - in_use, 0.0) / x["c"])
+                        want = {"risk": eq * risk / (x["c"] - p["stop"]), "usd": (size_arg or 0) / x["c"],
+                                "pct": eq * (size_arg or 0) / x["c"]}[sizing]
+                        qty = min(want, max(eq - in_use, 0.0) / x["c"])
                         if qty * x["c"] >= 5:
                             p["units"].append({"qty": qty, "cost": qty * x["c"] * (1 + FEE)})
                         p["added"] = True

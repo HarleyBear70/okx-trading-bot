@@ -12,3 +12,6 @@ Compared with Z0 on return/DD in both halves (Z1 compounds less, so return/DD is
 
 ## F18b (added after the F18 run, before running these)
 Z1/Z2 at the first sizes bet far more than Z0 (25% of the account per trade vs about 7-13%), so their drops (19-44%) aren't comparable. Same rules, scaled so the drop is near the bots' 10%: Trend Rider Z1 $100, Z2 6%; Donchian Z1 $80, Z2 6%. Compared with Z0 on return and DD in both halves.
+
+## F18c (added before running): Donchian as live (pyramid + BTC leash) with fixed-% sizing
+Each first piece and the add-on buy X% of the current balance (instead of 0.32% risk ÷ stop distance). X = 3%, 4%, 5% on its own coins; the largest X with a drop ≤ 10% then runs on never-seen coins. Compared with the live risk-based version (same engine). Pass: better return/DD in both halves on both coin sets, DD ≤ 10% on own coins.
