@@ -1,23 +1,27 @@
-
 // This Pine Script® code is subject to the terms of the Mozilla Public License 2.0
 //@version=5
+// Matches the GitHub bot (bot.py, Oct 6 2026): swing 5, 0.4% risk, OKX's real 0.35% fee, breakeven step at +1R.
+// Not in this script: the bot's Fear & Greed filter (no new buys when the index was 25 or lower the day before),
+// because TradingView can't read that index. On those days the chart can show a BUY the bot skips.
 strategy("Trend Rider", shorttitle="TR", overlay=true,
      initial_capital=1000, currency=currency.USD,
-     commission_type=strategy.commission.percent, commission_value=0.1,
+     commission_type=strategy.commission.percent, commission_value=0.35,
      pyramiding=0, process_orders_on_close=true)
 
 // ───────── Settings ─────────
 grpE = "Entry"
-pivotLen  = input.int(3, "Swing strength (candles each side)", minval=2, maxval=10, group=grpE)
+pivotLen  = input.int(5, "Swing strength (candles each side)", minval=2, maxval=10, group=grpE)
 emaLen    = input.int(50, "Trend EMA length (this timeframe)", minval=10, maxval=200, group=grpE)
 useDaily  = input.bool(true, "Only trade when the daily trend is up (close > daily 50 EMA)", group=grpE)
 grpR = "Risk and exit"
-riskPct   = input.float(1.0, "Risk per trade (% of account)", minval=0.1, maxval=5, step=0.1, group=grpR)
+riskPct   = input.float(0.4, "Risk per trade (% of account)", minval=0.1, maxval=5, step=0.1, group=grpR)
 atrLen    = input.int(14, "ATR length", minval=5, maxval=50, group=grpR)
 trailMult = input.float(3.0, "Trailing stop distance (× ATR)", minval=1, maxval=6, step=0.5, group=grpR)
 maxStopAtr= input.float(3.0, "First stop at most (× ATR)", minval=1, maxval=6, step=0.5, group=grpR)
 minStopAtr= input.float(1.0, "First stop at least (× ATR)", minval=0.5, maxval=3, step=0.5, group=grpR)
 exitOnEma = input.bool(false, "Also exit on a close below the trend EMA", group=grpR)
+useBE     = input.bool(true, "Breakeven step: once up 1R, the stop never goes below entry + buffer", group=grpR)
+beBuffer  = input.float(0.7, "Breakeven buffer % (covers the 0.35% fee each way)", minval=0, maxval=3, step=0.05, group=grpR)
 
 // ───────── Trend filters ─────────
 dClose = request.security(syminfo.tickerid, "D", close[1], lookahead=barmerge.lookahead_on)
@@ -27,8 +31,24 @@ ema = ta.ema(close, emaLen)
 atr = ta.atr(atrLen)
 
 // ───────── Structure ─────────
-ph = ta.pivothigh(high, pivotLen, pivotLen)
-pl = ta.pivotlow(low, pivotLen, pivotLen)
+// Swing points the bot's way (bot.py pivots_ge): the middle candle's high is >= every candle within pivotLen
+// on each side (ties count), confirmed pivotLen candles later.
+isPH() =>
+    ok = true
+    for k = 0 to 2 * pivotLen
+        if high[k] > high[pivotLen]
+            ok := false
+    ok
+isPL() =>
+    ok = true
+    for k = 0 to 2 * pivotLen
+        if low[k] < low[pivotLen]
+            ok := false
+    ok
+phOk = isPH()
+plOk = isPL()
+ph = bar_index >= 2 * pivotLen and phOk ? high[pivotLen] : na
+pl = bar_index >= 2 * pivotLen and plOk ? low[pivotLen] : na
 var float lastPH = na
 var float lastPL = na
 if not na(ph)
@@ -40,6 +60,9 @@ bos = not na(lastPH) and close > lastPH and close[1] <= lastPH
 // ───────── Entry ─────────
 var float trail  = na
 var float hiClose = na
+var float entryPx = na
+var float firstStop = na
+var bool  beOn = false
 longSignal = bos and close > ema and dailyOk and strategy.position_size == 0 and barstate.isconfirmed and not na(atr)
 
 if longSignal
@@ -49,13 +72,19 @@ if longSignal
     qty = math.min(strategy.equity * riskPct / 100 / (close - s), strategy.equity / close)
     trail   := s
     hiClose := close
+    entryPx := close
+    firstStop := s
+    beOn := false
     strategy.entry("Long", strategy.long, qty=qty,
          alert_message='{"action":"buy","ticker":"' + syminfo.ticker + '","price":' + str.tostring(close) + ',"stop":' + str.tostring(s) + '}')
     strategy.exit("Trail", "Long", stop=trail, alert_message='{"action":"sell","ticker":"' + syminfo.ticker + '"}')
     alert("Trend Rider BUY " + syminfo.ticker + " at " + str.tostring(close) + ", first stop " + str.tostring(s), alert.freq_once_per_bar_close)
 else if strategy.position_size > 0
     hiClose := math.max(hiClose, close)
-    trail   := math.max(trail, hiClose - trailMult * atr)
+    if useBE and high >= entryPx + (entryPx - firstStop)
+        beOn := true
+    beFloor = beOn ? math.max(firstStop, entryPx * (1 + beBuffer / 100)) : firstStop
+    trail   := math.max(trail, beFloor, hiClose - trailMult * atr)
     strategy.exit("Trail", "Long", stop=trail, alert_message='{"action":"sell","ticker":"' + syminfo.ticker + '"}')
     if exitOnEma and close < ema
         strategy.close("Long", comment="Below EMA", alert_message='{"action":"sell","ticker":"' + syminfo.ticker + '"}')
