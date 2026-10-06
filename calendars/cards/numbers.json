@@ -1,5 +1,5 @@
 {
- "updated_utc": "2026-10-06 03:16",
+ "updated_utc": "2026-10-06 04:26",
  "bots": {
   "v4-okx": {
    "live_now": 1005.0504,
@@ -19,13 +19,13 @@
    "error": null
   },
   "v4-kraken": {
-   "live_now": 1008.6070521819025,
+   "live_now": 1006.2689910315847,
    "replay_now": 1000.0,
    "live": {
     "n": 1,
     "win": 100.0,
     "pf": Infinity,
-    "dd": -0.057763931281273884
+    "dd": -0.2894409346520743
    },
    "replay": {
     "n": 0,
@@ -70,13 +70,13 @@
    "error": null
   },
   "tr-okx": {
-   "live_now": 998.0802506424709,
-   "replay_now": 998.1957554281138,
+   "live_now": 995.8691480793024,
+   "replay_now": 997.290363002515,
    "live": {
     "n": 0,
     "win": null,
     "pf": null,
-    "dd": -0.19197493575291436
+    "dd": -0.413085192069762
    },
    "replay": {
     "n": 0,
@@ -172,13 +172,13 @@
    "error": null
   },
   "hold-paper": {
-   "live_now": 1000.0,
+   "live_now": 992.9999999999999,
    "replay_now": 1000.0,
    "live": {
     "n": 0,
     "win": null,
     "pf": null,
-    "dd": 0.0
+    "dd": -0.7000000000000117
    },
    "replay": {
     "n": 0,
