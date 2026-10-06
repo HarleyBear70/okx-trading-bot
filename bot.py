@@ -799,6 +799,30 @@ def wait_fill(api, inst, cl_id):
     return o
 
 
+# ───────── Execution log (journal/executions-YYYY-MM.jsonl): data only, never changes a trade ─────────
+_last_fill = {}
+RECORD = False  # main() turns it on for a real "run"; backtests, replays and tests that reuse these functions never write
+
+
+def record(kind, bot=None, coin=None, **fields):
+    """One JSON line per event: buy / sell / half / add / skip / stop_* / run. Failures here never stop trading."""
+    if not RECORD:
+        return
+    try:
+        rec = {"utc": now_iso(), "kind": kind, **({"bot_id": bot["id"], "bot": bot["name"], "mode": bot["mode"]} if bot else {}),
+               **({"coin": coin} if coin else {}), **fields}
+        jdir = os.path.join(HERE, "journal")
+        os.makedirs(jdir, exist_ok=True)
+        with open(os.path.join(jdir, f"executions-{dt.datetime.now(dt.timezone.utc):%Y-%m}.jsonl"), "a") as f:
+            f.write(json.dumps(rec, sort_keys=True, separators=(",", ":"), default=str) + "\n")
+    except Exception as e:
+        log(f"  (execution log failed: {e})")
+
+
+def pct_diff(a, b):
+    return round((a / b - 1) * 100, 4) if a and b else None
+
+
 def okx_buy(api, bot, inst, usdt, bar_ts):
     cl_id = f"{bot['prefix']}B{inst.split('-')[0]}{bar_ts // 1000}"[:32]
     api.post("/api/v5/trade/order", {"instId": inst, "tdMode": "cash", "side": "buy", "ordType": "market",
@@ -808,6 +832,8 @@ def okx_buy(api, bot, inst, usdt, bar_ts):
     fee = float(o.get("fee") or 0)  # negative
     qty = filled + fee if o.get("feeCcy") == inst.split("-")[0] else filled
     px = float(o.get("avgPx") or 0)
+    _last_fill.update({"avg_px": px, "fee_usdt": round(abs(fee) * (px if o.get("feeCcy") == inst.split("-")[0] else 1), 6),
+                       "fee_ccy": o.get("feeCcy"), "ord_id": o.get("ordId"), "state": o.get("state")})
     return qty, px, filled * px
 
 
@@ -827,6 +853,8 @@ def okx_sell(api, bot, inst, qty):
     filled = float(o.get("accFillSz") or 0)
     px = float(o.get("avgPx") or 0)
     fee = float(o.get("fee") or 0)  # negative, in quote
+    _last_fill.update({"avg_px": px, "fee_usdt": round(abs(fee), 6), "fee_ccy": o.get("feeCcy"), "ord_id": o.get("ordId"),
+                       "state": o.get("state")})
     return filled, filled * px + fee
 
 
@@ -863,6 +891,7 @@ def stop_place(api, bot, coin, pos):
     d = api.post("/api/v5/trade/order-algo", body)[0]
     pos["algo_id"], pos["algo_px"], pos["algo_sz"] = d["algoId"], pos["stop"], sz
     log(f"  {coin}: exchange stop placed at {pos['stop']:.6g} for {sz:.8g} (algo {d['algoId']})")
+    record("stop_placed", bot, coin, stop=pos["stop"], qty=sz, algo_id=d["algoId"])
 
 
 def stop_cancel(api, bot, coin, pos):
@@ -872,6 +901,7 @@ def stop_cancel(api, bot, coin, pos):
     try:
         api.post("/api/v5/trade/cancel-algos", [{"algoId": pos["algo_id"], "instId": coin}])
         log(f"  {coin}: exchange stop cancelled (algo {pos['algo_id']})")
+        record("stop_cancelled", bot, coin, algo_id=pos["algo_id"])
     except Exception as e:
         log(f"  {coin}: ATTENTION could not cancel exchange stop {pos['algo_id']}: {e}")
     pos["algo_id"] = None
@@ -895,6 +925,7 @@ def stop_sync(api, bot, coin, pos):
             api.post("/api/v5/trade/amend-algos", body)
             pos["algo_px"], pos["algo_sz"] = pos["stop"], sz
             log(f"  {coin}: exchange stop moved to {pos['stop']:.6g}" + (f", size {sz:.8g}" if resized else ""))
+            record("stop_moved", bot, coin, stop=pos["stop"], qty=sz, algo_id=pos["algo_id"])
     except Exception as e:
         log(f"  {coin}: ATTENTION exchange stop not in sync ({e}); the hourly check still guards this trade")
 
@@ -920,9 +951,11 @@ def stop_check(api, bot, bs, coin):
         fee = float(o.get("fee") or 0)  # negative, in quote
         if filled > 0:
             pos["algo_id"] = None
-            close_position(api, bot, bs, coin, "stop (exchange)", px, done=(filled, filled * px + fee))
+            _last_fill.update({"avg_px": px, "fee_usdt": round(abs(fee), 6), "ord_id": h[0].get("ordId")})
+            close_position(api, bot, bs, coin, "stop (exchange)", pos["stop"], done=(filled, filled * px + fee))
             return True
     log(f"  {coin}: ATTENTION exchange stop {pos['algo_id']} is {state or 'missing'}; it will be placed again")
+    record("stop_problem", bot, coin, algo_id=pos["algo_id"], state=state)
     pos["algo_id"] = None
     return False
 
@@ -950,6 +983,7 @@ def open_position(api, bot, bs, coin, bar, inf, extra):
     max_open = bot.get("max_open", MAX_OPEN)
     if len(bs["positions"]) >= max_open:
         log(f"  {coin}: signal but {max_open} trades already open")
+        record("skip", bot, coin, why="max open trades", open=len(bs["positions"]), signal_px=close)
         return
     eq = bs["equity"]
     in_use = sum(p["cost"] * p.get("pnl_scale", 1.0) for p in bs["positions"].values())
@@ -958,18 +992,32 @@ def open_position(api, bot, bs, coin, bar, inf, extra):
     usdt = qty * close
     if usdt < 5:
         log(f"  {coin}: signal but order too small ({usdt:.2f})")
+        record("skip", bot, coin, why="order too small", usdt=round(usdt, 2), signal_px=close)
         return
     if bot["mode"] == "demo":
         got, px, cost = okx_buy(api, bot, coin, usdt, bar["ts"])
         if got <= 0:
             log(f"  {coin}: buy did not fill")
+            record("skip", bot, coin, why="buy did not fill", usdt=round(usdt, 2), signal_px=close)
             return
     else:
         got, px, cost = qty, close, usdt * (1 + FEE)
     pos = {"entry_ts": bar["ts"], "entry_px": px or close, "qty": got, "cost": cost, "sl": sl, "tp": inf["tp"],
            "stop": sl, "limit": inf["tp"], "trail": False, "hi": None}
     pos.update(extra)
+    pos["risk_usd"] = round(got * ((px or close) - sl), 4)
     bs["positions"][coin] = pos
+    fg = None
+    try:
+        fg = fear_greed().get(day_of(bar["ts"]) - 1)
+    except Exception:
+        pass
+    record("buy", bot, coin, signal_px=close, fill_px=px or close, slip_pct=pct_diff(px or close, close), qty=got,
+           cost=round(cost, 4), fee_usdt=_last_fill.get("fee_usdt") if bot["mode"] == "demo" else round(usdt * FEE, 4),
+           stop=sl, stop_dist_pct=round((close - sl) / close * 100, 3), target=inf["tp"], score=inf["score"],
+           risk_pct=round(risk_pct(bot, bs) * 100, 3), risk_usd=pos["risk_usd"], equity=bs["equity"],
+           open_after=len(bs["positions"]), candle_utc=ts_iso(bar["ts"]), fear_greed=fg,
+           order_id=_last_fill.get("ord_id") if bot["mode"] == "demo" else None)
     if exch_stops(bot):
         stop_sync(api, bot, coin, pos)
     tp_txt = f" TP {inf['tp']:.6g}" if inf["tp"] else " (trailing stop)"
@@ -1000,6 +1048,10 @@ def add_piece(api, bot, bs, coin, bar):
             pos["add_px"] = px or close
             log(f"  ADD {coin} {got:.8g} @ {px:.6g} for {cost:.2f} (up 1R) | stop now at least entry {pos['entry_px']:.6g}")
             log_trade(bot, coin, "buy", got, px, cost, None, None, "add-on +1R", bs["equity"])
+            pos["risk_usd"] = round(pos.get("risk_usd", 0) + got * ((px or close) - pos["stop"]), 4)
+            record("add", bot, coin, signal_px=close, fill_px=px or close, slip_pct=pct_diff(px or close, close), qty=got,
+                   cost=round(cost, 4), stop=pos["stop"], entry_px=pos["entry_px"],
+                   fee_usdt=_last_fill.get("fee_usdt") if bot["mode"] == "demo" else round(usdt * FEE, 4))
         else:
             log(f"  {coin}: add-on buy did not fill")
     else:
@@ -1029,6 +1081,14 @@ def close_position(api, bot, bs, coin, reason, paper_px, done=None):
     pct = (proceeds - pos["cost"]) / pos["cost"] * 100 if pos["cost"] else 0
     log(f"  SELL {coin} {filled:.8g} @ {px:.6g} ({reason}) P/L {pnl:+.2f} ({pct:+.2f}%)")
     log_trade(bot, coin, "sell", filled, px, proceeds, pnl, pct, reason, bs["equity"])
+    gross = _last_fill.get("avg_px") if bot["mode"] == "demo" else paper_px  # price before fees
+    record("sell", bot, coin, reason=reason, by="exchange stop" if done else "bot", intended_px=paper_px, fill_px=gross,
+           slip_pct=pct_diff(gross, paper_px), qty=filled, proceeds=round(proceeds, 4),
+           fee_usdt=_last_fill.get("fee_usdt") if bot["mode"] == "demo" else round(filled * px * FEE, 4),
+           entry_px=pos["entry_px"], stop=pos["stop"], first_stop=pos["sl"], pnl=round(pnl, 4), pnl_pct=round(pct, 3),
+           r_multiple=round(pnl / pos["risk_usd"], 3) if pos.get("risk_usd") else None,
+           held_hours=round((time.time() * 1000 - pos["entry_ts"]) / 3600000, 1), added=bool(pos.get("added")),
+           half=bool(pos.get("half")), equity_after=bs["equity"])
     bs["positions"].pop(coin)
     sweep_profit(api, bot, bs, pnl)
 
@@ -1061,6 +1121,8 @@ def take_half(api, bot, bs, coin, paper_px):
     pos["qty"] -= filled
     pos["cost"] -= part_cost
     log(f"  HALF {coin} {filled:.8g} @ {px:.6g} (+2R) P/L {pnl:+.2f} ({pct:+.2f}%)")
+    record("half", bot, coin, intended_px=paper_px, fill_px=px, slip_pct=pct_diff(px, paper_px), qty=filled,
+           pnl=round(pnl, 4), fee_usdt=_last_fill.get("fee_usdt") if bot["mode"] == "demo" else round(filled * px * FEE, 4))
     log_trade(bot, coin, "sell", filled, px, proceeds, pnl, pct, "half profit +2R", bs["equity"])
     sweep_profit(api, bot, bs, pnl)
 
@@ -1268,6 +1330,7 @@ def analyse_for(api, bot, coin):
         a = analyse_donchian(bars)
         if bot.get("btc_leash"):
             ok = btc_leash(bars, get_data(api, bot["venue"], "BTC-USDT", "1D")[0], coin)
+            a["leash_blocked"] = [s and not o for s, o in zip(a["signal"], ok)]
             a["signal"] = [s and o for s, o in zip(a["signal"], ok)]
     elif bot["strat"] == "hold":
         a = analyse_hold(bars)
@@ -1330,8 +1393,12 @@ def run_bot_coin(api, state, bot, coin, trade=True):
         if coin not in bs["positions"] and a["signal"][k] and k == i_last and bot.get("new_trades", True):
             if fear_blocks(bot, b):
                 log(f"  {coin}: signal skipped - Fear & Greed at or below {bot['fear_skip_at_or_below']} (or unavailable)")
+                record("skip", bot, coin, why="fear filter", signal_px=b["c"], candle_utc=ts_iso(b["ts"]),
+                       fear_greed=fear_greed().get(day_of(b["ts"]) - 1))
             else:
                 open_position(api, bot, bs, coin, b, a["info"][k], entry_extra(bot, b, a["info"][k]))
+        if a.get("leash_blocked") and a["leash_blocked"][k] and k == i_last and coin not in bs["positions"]:
+            record("skip", bot, coin, why="BTC leash (BTC below its daily 50 EMA)", signal_px=b["c"], candle_utc=ts_iso(b["ts"]))
         bs["last_bar"][coin] = b["ts"]
 
     if coin in bs["positions"] and forming and forming["ts"] > bs["positions"][coin]["entry_ts"]:
@@ -1366,6 +1433,8 @@ def main():
         return
 
     have_keys = bool(key and sec and pw)
+    global RECORD
+    RECORD = True
     _hold_ctx["_state"] = state
     try:
         run_dca(api, state)
@@ -1387,10 +1456,22 @@ def main():
                 errors += 1
                 log(f"[{bot['name']}] {coin}: ERROR {e}")
             save_state(state)
+    snap = {}
     for bot in BOTS:
         bs = state["bots"].get(bot["id"])
         if bs:
             log(f"{bot['name']}: balance {bs['equity']:.2f} | open: {', '.join(bs['positions']) or 'none'}")
+            if not bot.get("retired") or bs["positions"]:
+                snap[bot["id"]] = {"equity": bs["equity"], "open": {c: {"entry": p["entry_px"], "stop": p["stop"], "qty": p["qty"]}
+                                                                    for c, p in bs["positions"].items()}}
+    usdt = None
+    if have_keys:
+        try:
+            d = api.get("/api/v5/account/balance", {"ccy": "USDT"}, private=True)[0]["details"]
+            usdt = float(d[0]["availBal"]) if d else 0.0
+        except Exception:
+            pass
+    record("run", bots=snap, demo_usdt_available=usdt, errors=errors, coin_runs=total)
     if total and errors == total:
         sys.exit(1)
 

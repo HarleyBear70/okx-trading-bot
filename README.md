@@ -43,6 +43,7 @@ All of them run on 4-hour candles. Every bot: stop moves to breakeven once a tra
 ## Where to look
 
 - **trades.csv**: every buy and sell, with profit or loss and each bot's practice balance
+- **journal/executions-YYYY-MM.jsonl** (since Oct 6 2026): one line per buy / sell / half / add-on with the price the bot wanted vs the price it got (slippage), the exact OKX fee, the stop, R multiple and hours held; every skipped signal and why (max open, too small, fear filter, BTC leash); exchange-stop events; and a snapshot of every bot's balance and open trades each hourly run. Data only: it never changes a trade.
 - **state.json**: the bots' memory (open trades and stops)
 - **Actions tab**: a log for every hourly run
 
