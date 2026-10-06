@@ -66,6 +66,7 @@ BOTS = [
     {"id": "tr-okx", "name": "Trend Rider", "strat": "tr", "venue": "okx", "mode": "demo", "prefix": "ghT",
      "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "BNB-USDT", "SUI-USDT", "TRX-USDT"], "equity": 1000.0, "pivot": 5,
      "risk": 0.004,  # Oct 6 2026 (Jeff): 0.4% keeps the 8-year drop under 10% at the real 0.35% fee (research/FEES.md)
+     "exchange_stops": True,  # Oct 6 2026 (Jeff): OKX holds the stop (EXCHANGE_STOPS_PLAN.md step 2, demo test)
      "half_at_2r": False,  # Oct 5 2026 (Jeff, demo): no half sell at +2R, the trailing stop handles the exit
      "fear_skip_at_or_below": 25},  # no new buys when Fear & Greed <= 25 (Oct 5 2026, research/S1_SENTIMENT.md)
     # Trend Rider coins: BNB, SUI added Oct 5 (passed backtest); TRX added Oct 5 (research/TRX.md)

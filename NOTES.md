@@ -1023,3 +1023,5 @@ Review: Oct 19, live demo results vs research/scout.py EXPECTED. Real money only
 2026-10-06 TERMINAL: exchange-side stops step 1 done (EXCHANGE_STOPS_PLAN.md): code in bot.py, switch "exchange_stops" OFF for every bot (nothing changes in trading), tests in tests/test_exchange_stops.py pass. Step 2 (turn it on for Trend Rider on demo) waits for Jeff's go, likely after the Oct 19 review.
 
 2026-10-06 TERMINAL: new data log for future reviews (Jeff: "we need data, all the data we get will help"): journal/executions-YYYY-MM.jsonl, written only by real hourly runs. Per order: wanted vs got price (slippage), OKX fee, stop and distance, risk $, R multiple, hours held, sold by bot or exchange stop. Per skipped signal: why (max open, too small, fear filter, BTC leash). Per run: every bot's balance, open trades, demo USDT. Data only, no trading change.
+
+2026-10-06 TERMINAL: exchange-side stops turned ON for Trend Rider on demo (Jeff: "yes just more data"; EXCHANGE_STOPS_PLAN.md step 2). Trend Rider's open SUI trade gets its OKX stop on the next run. Watch the executions log for stop_placed / stop_moved / stop_problem lines.
