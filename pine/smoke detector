@@ -22,6 +22,7 @@ swingLen = input.int(5, "Swing size (candles on each side of a swing high/low)",
 nearAtr  = input.float(0.5, "'Getting close' distance (x ATR)", minval=0.1, step=0.1)
 showLns  = input.bool(true, "Show the 2 key lines (solid = must hold, dotted = target)")
 showBox  = input.bool(true, "Show the small corner box")
+showKey  = input.bool(true, "Show the color key in the box")
 showPlan = input.bool(true, "Show the trade plan on breakouts (entry, SL, TP)")
 slBuf    = input.float(0.25, "Stop buffer beyond the strong level (x ATR)", minval=0, step=0.05)
 acct     = input.float(197, "My account size ($)", minval=1)
@@ -213,10 +214,13 @@ phase = squeeze ? "Sideways: squeeze, breakout coming" : expanding ? "Expanding"
      pullback ? "Pullback, loading orders: holds while " + (trend == 1 ? "above " : "below ") + lvl :
      trend != 0 ? "Testing the strong level " + lvl : "Waiting for structure"
 who   = trend == 1 ? "UP: buyers in control" : trend == -1 ? "DOWN: sellers in control" : "No clear trend yet"
-var table tb = table.new(position.top_right, 1, 4, bgcolor=color.new(color.black, 70), border_width=0)
+var table tb = table.new(position.top_right, 1, 6, bgcolor=color.new(color.black, 70), border_width=0)
 if barstate.islast and showBox
     table.cell(tb, 0, 0, who, text_color=trend == 1 ? color.rgb(0, 230, 118) : trend == -1 ? color.rgb(255, 80, 80) : color.silver, text_size=size.small)
     table.cell(tb, 0, 1, phase, text_color=color.silver, text_size=size.small)
+    if showKey
+        table.cell(tb, 0, 4, "BLUE loading   YELLOW watch   ORANGE trap", text_color=color.rgb(255, 214, 0), text_size=size.tiny)
+        table.cell(tb, 0, 5, "GREEN/RED break (BOS)   PURPLE trend shift", text_color=color.rgb(200, 150, 255), text_size=size.tiny)
     if showPlan and pDir != 0
         rr = math.abs(pTP - pEntry) / math.abs(pEntry - pSL)
         plan = (pDir == 1 ? "Last break: LONG" : "Last break: SHORT") + "  SL " + str.tostring(pSL, format.mintick) +
