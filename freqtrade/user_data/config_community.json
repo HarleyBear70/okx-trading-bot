@@ -1,0 +1,46 @@
+{
+  "max_open_trades": 3,
+  "stake_currency": "USDT",
+  "stake_amount": "unlimited",
+  "tradable_balance_ratio": 0.99,
+  "dry_run": true,
+  "dry_run_wallet": 1000,
+  "trading_mode": "spot",
+  "exchange": {
+    "name": "okx",
+    "key": "",
+    "secret": "",
+    "ccxt_config": {
+      "hostname": "us.okx.com"
+    },
+    "ccxt_async_config": {
+      "hostname": "us.okx.com"
+    },
+    "pair_whitelist": [
+      "BTC/USDT",
+      "ETH/USDT",
+      "SOL/USDT",
+      "XRP/USDT"
+    ]
+  },
+  "pairlists": [
+    {
+      "method": "StaticPairList"
+    }
+  ],
+  "entry_pricing": {
+    "price_side": "same",
+    "use_order_book": false,
+    "order_book_top": 1,
+    "price_last_balance": 0.0
+  },
+  "exit_pricing": {
+    "price_side": "same",
+    "use_order_book": false,
+    "order_book_top": 1
+  },
+  "bot_name": "jeff-community-scan",
+  "internals": {
+    "process_throttle_secs": 5
+  }
+}
