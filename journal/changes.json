@@ -133,5 +133,14 @@
   "approved_by": "Jeff, in the terminal: 'yes fix what needs fix'",
   "review_on": "2026-10-19",
   "review": "Donchian vs win 30% / PF 2.40 / DD -10.0% (2022-now). Check that add-on buys log as 'add-on +1R' and close with the trade."
+ },
+ {
+  "date_utc": "2026-10-06",
+  "bots": "Donchian Trend (dc-okx)",
+  "change": "BTC leash: new buys on ETH SOL XRP BNB only when BTC's daily close (same day) is above BTC's daily 50 EMA (\"btc_leash\": True; bot.btc_leash in analyse_for). BTC itself is unaffected. Exits unchanged.",
+  "why": "research/F11.md (L2): bot.py replay at the real fee +154% / DD -9.7% / PF 3.30 vs +152% / -10.0% / 3.06; better return/DD in both halves on its own coins and on never-seen coins (+246% / -12.8% vs +236% / -13.6%); 9% fewer trades.",
+  "approved_by": "Jeff, in the terminal: 'yes makeing moeny is my goal'",
+  "review_on": "2026-10-19",
+  "review": "Donchian vs win 31% / PF 2.46 / DD -9.7% (2022-now)."
  }
 ]

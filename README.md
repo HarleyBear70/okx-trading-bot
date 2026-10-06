@@ -9,7 +9,7 @@
 | Pile | What's in it | Mode |
 |---|---|---|
 | HOLD (long-term) | Weekly dip-DCA buyer: $10/week into BTC + XRP, double when a coin is 20%+ below its 200-day average (setting DCA in bot.py). Profit sweeper (25% of wins to this pile) built but OFF until real money | paper |
-| ACTIVE (trading) | Trend Rider (BTC ETH SOL BNB SUI TRX, fear filter on, 0.4% risk), NNFX Aroon (BTC ETH XRP, daily) and Donchian Trend (BTC ETH SOL XRP BNB, daily, 0.32% risk, adds one piece at +1R) | OKX demo |
+| ACTIVE (trading) | Trend Rider (BTC ETH SOL BNB SUI TRX, fear filter on, 0.4% risk), NNFX Aroon (BTC ETH XRP, daily) and Donchian Trend (BTC ETH SOL XRP BNB, daily, 0.32% risk, adds one piece at +1R, altcoins only buy while BTC is above its daily 50 EMA) | OKX demo |
 | HOLD (protected) | BTC Protected Hold: all-in BTC above its 100-day average, cash below (for the BTC coming from Coinbase) | paper |
 | RANGE | None yet: no range bot has passed a test (research/N1_RANGE.md, B2 in research/B_BOXES.md) | - |
 | INCUBATING | B3 pairs | paper |

@@ -83,7 +83,8 @@ BOTS = [
     {"id": "dc-okx", "name": "Donchian Trend", "strat": "donchian", "venue": "okx", "mode": "demo", "prefix": "ghD",
      "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "XRP-USDT", "BNB-USDT"], "equity": 1000.0, "risk": 0.0032,
      "max_open": 5, "half_at_2r": False,  # Oct 6 2026 (Jeff): daily 20-day breakout
-     "pyramid": True},  # Oct 6 2026 (Jeff): one add-on at +1R, stop then >= entry; risk 0.35% -> 0.32% (research/F10.md)
+     "pyramid": True,  # Oct 6 2026 (Jeff): one add-on at +1R, stop then >= entry; risk 0.35% -> 0.32% (research/F10.md)
+     "btc_leash": True},  # Oct 6 2026 (Jeff): ETH SOL XRP BNB buy only when BTC's daily close > its daily 50 EMA (research/F11.md)
     # Donchian: daily 20-day breakout, passed at the real fee: +123%, DD -9.1% (research/F2.md)
     {"id": "hold-paper", "name": "BTC Protected Hold (paper)", "strat": "hold", "venue": "okx", "mode": "paper",
      "coins": ["BTC-USDT"], "equity": 1000.0, "risk": 1.0, "half_at_2r": False},  # Oct 6 2026 (Jeff): all-in BTC above
@@ -592,6 +593,17 @@ def analyse_donchian(bars):
     return {"signal": signal, "info": info, "trail": trail}
 
 
+def btc_leash(bars, btc_daily, coin):
+    """BTC leash (research/F11.md, L2): for a non-BTC coin, a daily signal counts only if BTC's close on the same day
+    is above BTC's daily 50 EMA. Returns a list of True/False per bar (all True for BTC itself)."""
+    if coin.startswith("BTC"):
+        return [True] * len(bars)
+    c = [d["c"] for d in btc_daily]
+    e50 = ema(c, 50)
+    up = {day_of(d["ts"]): e50[k] is not None and c[k] > e50[k] for k, d in enumerate(btc_daily)}
+    return [up.get(day_of(b["ts"]), False) for b in bars]
+
+
 def analyse_hold(bars):
     """Daily: in BTC while the close is above its 100-day average, out (cash) when it closes below (a["exit"]).
     The 1%-of-price "stop" is never meant to be hit; with risk 1.0 the bot buys with all of its free balance."""
@@ -1067,6 +1079,9 @@ def analyse_for(api, bot, coin):
         a = analyse_nnfx(bars)
     elif bot["strat"] == "donchian":
         a = analyse_donchian(bars)
+        if bot.get("btc_leash"):
+            ok = btc_leash(bars, get_data(api, bot["venue"], "BTC-USDT", "1D")[0], coin)
+            a["signal"] = [s and o for s, o in zip(a["signal"], ok)]
     elif bot["strat"] == "hold":
         a = analyse_hold(bars)
     elif bot["strat"] == "pairs":

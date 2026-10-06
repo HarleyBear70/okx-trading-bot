@@ -46,6 +46,14 @@ def main():
     bot.FEE, bot.BE_BUFFER = REAL_FEE, 2 * REAL_FEE
     sp = lambda b, d: bot.analyse_sp(b, d, bot.SP_SETTINGS["v4"])  # noqa: E731
     tr = lambda b, d: bot.analyse_tr(b, d, 5)  # noqa: E731
+    btc_d = e.load(["BTC"])["BTC"][1]
+    dc_data = {c: (d, d) for c, (_, d) in e.load(coins("dc-okx")).items()}
+    dc_coin = {id(v[0]): c for c, v in dc_data.items()}
+
+    def leashed(b, d):  # Donchian as live: BTC leash on the non-BTC coins
+        a = bot.analyse_donchian(b)
+        ok = bot.btc_leash(b, btc_d, dc_coin.get(id(b), "BTC"))
+        return {**a, "signal": [s and o for s, o in zip(a["signal"], ok)]}
     jobs = {
         "v4-okx": lambda t1: e.bot_sim("v4", coins("v4-okx"), e.load(coins("v4-okx")), sp, e.START, t1,
                                        settings=settings("v4-okx")),
@@ -54,9 +62,8 @@ def main():
         "nnfx-okx": lambda t1: e.bot_sim("nnfx", ["BTC", "ETH", "XRP"],
                                          {c: (d, d) for c, (_, d) in e.load(["BTC", "ETH", "XRP"]).items()},
                                          lambda b, d: bot.analyse_nnfx(b), e.START, t1, settings=settings("nnfx-okx")),
-        "dc-okx": lambda t1: e.bot_sim("donchian", coins("dc-okx"),
-                                       {c: (d, d) for c, (_, d) in e.load(coins("dc-okx")).items()},
-                                       lambda b, d: bot.analyse_donchian(b), e.START, t1, settings=settings("dc-okx")),
+        "dc-okx": lambda t1: e.bot_sim("donchian", coins("dc-okx"), dc_data, leashed, e.START, t1,
+                                       settings=settings("dc-okx")),
         "hold-paper": lambda t1: e.bot_sim("hold", ["BTC"], {c: (d, d) for c, (_, d) in e.load(["BTC"]).items()},
                                            lambda b, d: bot.analyse_hold(b), e.START, t1, settings=settings("hold-paper")),
         "tr-okx": lambda t1: e.bot_sim("tr", coins("tr-okx"), e.load(coins("tr-okx")), tr, e.START, t1,
