@@ -54,6 +54,13 @@ jobs:
         env:
           BOT_OUTCOME: ${{ steps.bot.outcome }}
         run: python watcher.py
+      - name: Read the Kraken account for the dashboard (read-only, never trades; writes journal/kraken.json)
+        if: always()
+        continue-on-error: true
+        env:
+          KRAKEN_API_KEY: ${{ secrets.KRAKEN_API_KEY }}
+          KRAKEN_PRIVATE_KEY: ${{ secrets.KRAKEN_PRIVATE_KEY }}
+        run: python kraken_sync.py
       - name: Save bot memory (state.json, trades.csv, hold_pile.csv, journal, calendar)
         if: always()
         run: |

@@ -1,0 +1,777 @@
+<title>OKX Bot Desk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one scrolling trading desk. Summary strip, then the backtest -> demo -> real-money chart, then bots, open trades, coins, history. */
+:root {
+  --bg: #f4f6f8; --panel: #ffffff; --panel-2: #eef1f4; --line: #dde2e8; --fg: #121820; --fg-2: #4a5462; --muted: #6b7584;
+  --accent: #2a78d6;
+  --s-back: #2a78d6; --s-demo: #12935f; --s-real: #4a3aa7;
+  --up: #0f7f4f; --down: #c93c3c; --warn: #a86a00;
+  --up-bg: #e3f4ec; --down-bg: #fbe7e7; --warn-bg: #fbf0d9; --grid: #e7ebef; --flat: #e9edf1; --gain-1: #c4ead5; --gain-2: #7fd1a6; --gain-3: #2fae6e; --gain-4: #0f7a49; --loss-1: #f6cccc; --loss-2: #ec9393; --loss-3: #dc5454; --loss-4: #a92424;
+  --display: "Barlow Semi Condensed", "Arial Narrow", system-ui, sans-serif;
+  --body: "Barlow", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0d1117; --panel: #141a22; --panel-2: #1b222c; --line: #263040; --fg: #e8edf3; --fg-2: #b4bfcc; --muted: #8592a3;
+  --accent: #3987e5; --s-back: #3987e5; --s-demo: #2fbf85; --s-real: #9085e9;
+  --up: #3fcf8e; --down: #f0716f; --warn: #e3a72f;
+  --up-bg: #12301f; --down-bg: #3a1a1c; --warn-bg: #352812; --grid: #1e2733; --flat: #1e2733; --gain-1: #14402b; --gain-2: #1d7049; --gain-3: #2fae6e; --gain-4: #5fe3a2; --loss-1: #4a1c1c; --loss-2: #8a2a2a; --loss-3: #d34848; --loss-4: #ff8a8a; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0d1117; --panel: #141a22; --panel-2: #1b222c; --line: #263040; --fg: #e8edf3; --fg-2: #b4bfcc; --muted: #8592a3;
+  --accent: #3987e5; --s-back: #3987e5; --s-demo: #2fbf85; --s-real: #9085e9;
+  --up: #3fcf8e; --down: #f0716f; --warn: #e3a72f;
+  --up-bg: #12301f; --down-bg: #3a1a1c; --warn-bg: #352812; --grid: #1e2733; --flat: #1e2733; --gain-1: #14402b; --gain-2: #1d7049; --gain-3: #2fae6e; --gain-4: #5fe3a2; --loss-1: #4a1c1c; --loss-2: #8a2a2a; --loss-3: #d34848; --loss-4: #ff8a8a; color-scheme: dark; }
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font: 15px/1.45 var(--body); }
+.wrap { max-width: 1240px; margin: 0 auto; padding-inline: 16px; padding-block: 18px 48px; display: grid; gap: 18px; }
+h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; letter-spacing: .01em; }
+h1 { font-size: 28px; font-weight: 700; }
+h2 { font-size: 20px; font-weight: 600; }
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+.up { color: var(--up); } .down { color: var(--down); } .warn { color: var(--warn); }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+header.top { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; justify-content: space-between; }
+.top .title { display: flex; flex-direction: column; gap: 2px; }
+.pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600;
+  letter-spacing: .04em; text-transform: uppercase; background: var(--panel-2); color: var(--fg-2); border: 1px solid var(--line); white-space: nowrap; }
+.pill .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.pill.ok { background: var(--up-bg); color: var(--up); border-color: transparent; }
+.pill.bad { background: var(--down-bg); color: var(--down); border-color: transparent; }
+.pill.wait { background: var(--warn-bg); color: var(--warn); border-color: transparent; }
+
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px; min-width: 0; }
+.panel-head { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; justify-content: space-between; margin-bottom: 12px; }
+
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: var(--line);
+  border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.kpi { background: var(--panel); padding: 12px 14px; display: grid; gap: 2px; min-width: 0; }
+.kpi .lab { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.kpi .val { font-family: var(--mono); font-size: 22px; font-variant-numeric: tabular-nums; }
+.kpi .sub { font-size: 12px; color: var(--muted); }
+
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { border: 1px solid var(--line); background: var(--panel-2); border-radius: 999px; padding: 5px 12px; cursor: pointer; font-size: 13px; }
+.chip[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.chip:hover { border-color: var(--fg-2); }
+.controls { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; color: var(--fg-2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 18px; height: 3px; border-radius: 2px; display: inline-block; }
+.legend i.dash { background: none !important; border-top: 3px dashed; height: 0; }
+
+.chart-box { position: relative; }
+#chart { width: 100%; height: 340px; display: block; }
+#chart text { fill: var(--muted); font: 11px var(--mono); }
+.tip { position: absolute; pointer-events: none; background: var(--panel); border: 1px solid var(--line); border-radius: 8px;
+  padding: 8px 10px; font-size: 13px; box-shadow: 0 4px 16px rgb(0 0 0 / .18); min-width: 160px; }
+.tip b { font-family: var(--mono); font-weight: 500; }
+.compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; margin-top: 12px; }
+.cmp { border-top: 1px solid var(--line); padding-top: 10px; display: grid; gap: 4px; }
+.cmp .row { display: flex; justify-content: space-between; gap: 8px; font-size: 14px; }
+.chart-note { font-size: 13px; color: var(--muted); margin: 8px 0 0; max-width: 90ch; }
+
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th { text-align: left; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted);
+  padding: 8px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+td { padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: middle; white-space: nowrap; }
+td.r, th.r { text-align: right; }
+td .num, td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+tr.click { cursor: pointer; }
+tr.click:hover td { background: var(--panel-2); }
+tr.detail td { white-space: normal; background: var(--panel-2); font-size: 14px; }
+.botname { font-weight: 600; }
+.bar { position: relative; height: 6px; width: 90px; background: var(--grid); border-radius: 3px; overflow: hidden; display: inline-block; vertical-align: middle; }
+.bar > span { position: absolute; inset: 0 auto 0 0; border-radius: 3px; }
+.flag { font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 6px; white-space: nowrap; }
+.flag.ok { background: var(--up-bg); color: var(--up); }
+.flag.bad { background: var(--down-bg); color: var(--down); }
+.flag.wait { background: var(--panel-2); color: var(--fg-2); }
+.flag.warnf { background: var(--warn-bg); color: var(--warn); }
+
+.opens { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.open { border: 1px solid var(--line); border-radius: 10px; padding: 12px; display: grid; gap: 8px; min-width: 0; }
+.open .hd { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.open .coin { font-family: var(--display); font-size: 20px; font-weight: 700; }
+.open dl { display: grid; grid-template-columns: auto 1fr; gap: 3px 12px; margin: 0; font-size: 13px; }
+.open dt { color: var(--muted); } .open dd { margin: 0; text-align: right; font-family: var(--mono); }
+.ladder { position: relative; height: 26px; }
+.ladder .track { position: absolute; left: 0; right: 0; top: 11px; height: 4px; background: var(--grid); border-radius: 2px; }
+.ladder .mk { position: absolute; top: 4px; width: 2px; height: 18px; border-radius: 1px; }
+.ladder .lb { position: absolute; top: -2px; font-size: 10px; font-family: var(--mono); color: var(--muted); transform: translateX(-50%); }
+.empty { color: var(--muted); font-size: 14px; padding: 6px 0; }
+
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+select { font: inherit; font-size: 14px; padding: 5px 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--panel-2); color: var(--fg); }
+.checks { display: grid; gap: 2px; margin: 6px 0 0; padding: 0; list-style: none; font-size: 13px; }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; }
+.livedot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); display: inline-block; }
+.livedot.on { background: var(--up); box-shadow: 0 0 0 3px var(--up-bg); }
+.livedot.err { background: var(--down); }
+.notice { border: 1px solid var(--line); background: var(--panel); border-radius: 10px; padding: 10px 14px; font-size: 14px; }
+.notice.err { border-color: var(--down); background: var(--down-bg); }
+.cal { display: grid; grid-template-columns: 28px repeat(54, 14px); grid-auto-rows: 14px; gap: 3px; width: max-content; padding-bottom: 4px; }
+.cal .ml { font-size: 11px; color: var(--muted); grid-row: 1; white-space: nowrap; }
+.cal .wl { font-size: 10px; color: var(--muted); grid-column: 1; line-height: 14px; }
+.day { width: 14px; height: 14px; border-radius: 3px; background: var(--flat); border: 0; padding: 0; cursor: pointer; }
+.day.vol { box-shadow: inset 0 0 0 2px var(--accent); }
+.day.today { outline: 2px solid var(--fg); outline-offset: 1px; }
+.day.sel { outline: 2px solid var(--accent); outline-offset: 1px; }
+.day.g1 { background: var(--gain-1); } .day.g2 { background: var(--gain-2); } .day.g3 { background: var(--gain-3); } .day.g4 { background: var(--gain-4); }
+.day.l1 { background: var(--loss-1); } .day.l2 { background: var(--loss-2); } .day.l3 { background: var(--loss-3); } .day.l4 { background: var(--loss-4); }
+.legend i.sq { width: 12px; height: 12px; border-radius: 3px; }
+.daydetail { border-top: 1px solid var(--line); margin-top: 12px; padding-top: 12px; font-size: 14px; display: grid; gap: 6px; }
+.sub-h { font-size: 16px; margin: 16px 0 6px; }
+.mcal { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+.mcal .dow { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); text-align: center; }
+.mday { min-height: 62px; border: 1px solid var(--line); border-radius: 6px; padding: 4px 6px; background: var(--panel-2); display: flex; flex-direction: column; justify-content: space-between; min-width: 0; cursor: pointer; text-align: left; font: inherit; color: inherit; }
+.mday.blank { background: none; border-color: transparent; cursor: default; }
+.mday .d { font-size: 12px; color: var(--muted); }
+.mday .p { font: 500 12px var(--mono); font-variant-numeric: tabular-nums; text-align: right; overflow: hidden; text-overflow: ellipsis; }
+.mday.g { background: var(--up-bg); border-color: var(--up); } .mday.l { background: var(--down-bg); border-color: var(--down); }
+.mday.b { box-shadow: inset 0 0 0 2px var(--accent); }
+.mday.today { outline: 2px solid var(--fg); outline-offset: -2px; } .mday.sel { outline: 2px solid var(--accent); outline-offset: 1px; }
+@media (max-width: 480px) { .mday { min-height: 46px; } .mday .p { font-size: 10px; } }
+#wkchart { width: 100%; height: 190px; display: block; }
+#wkchart text { fill: var(--muted); font: 11px var(--mono); }
+#daychart { width: 100%; height: 220px; display: block; }
+#daychart text { fill: var(--muted); font: 11px var(--mono); }
+tr.newrow td { background: var(--warn-bg); }
+footer { font-size: 13px; color: var(--muted); max-width: 90ch; }
+@media (max-width: 520px) { #chart { height: 260px; } h1 { font-size: 24px; } .kpi .val { font-size: 19px; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="title">
+      <h1>OKX Bot Desk</h1>
+      <div class="small muted" id="updated"></div>
+    </div>
+    <div class="pills" id="status-pills"></div>
+  </header>
+
+  <div class="notice" id="live-note" hidden></div>
+  <section class="kpis" id="kpis" aria-label="Summary"></section>
+  <section class="panel" id="new-panel" aria-labelledby="new-h" hidden>
+    <div class="panel-head"><h2 id="new-h">New on OKX since the last bot run</h2><span class="small muted">Straight from your demo account. Reasons and exact P/L arrive after the next hourly run.</span></div>
+    <div class="scroll"><table id="new-table"></table></div>
+  </section>
+
+  <section class="panel" aria-labelledby="eq-h">
+    <div class="panel-head">
+      <h2 id="eq-h">Equity curve: backtest, then demo, then real money</h2>
+      <span class="small muted" id="eq-sub"></span>
+    </div>
+    <div class="controls">
+      <div class="chips" id="bot-chips" role="group" aria-label="Bot"></div>
+      <div class="chips" id="range-chips" role="group" aria-label="Time range"></div>
+    </div>
+    <div class="legend" id="legend"></div>
+    <div class="chart-box">
+      <svg id="chart" role="img" aria-label="Balance over time"></svg>
+      <div class="tip" id="tip" hidden></div>
+    </div>
+    <p class="chart-note" id="chart-note"></p>
+    <div class="compare" id="compare"></div>
+  </section>
+
+  <section class="panel" aria-labelledby="bots-h">
+    <div class="panel-head"><h2 id="bots-h">Every bot</h2>
+      <span class="small muted">Click a bot to put it on the chart. Rules: stop at 10% below best balance · verdict after 30 closed trades · shortlist at PF 1.3+</span></div>
+    <div class="scroll"><table id="bots-table"></table></div>
+  </section>
+
+  <section class="panel" aria-labelledby="open-h">
+    <div class="panel-head"><h2 id="open-h">Open trades</h2><span class="small muted" id="open-sub"></span></div>
+    <div class="opens" id="opens"></div>
+  </section>
+
+  <section class="panel" aria-labelledby="cal-h">
+    <div class="panel-head"><h2 id="cal-h">Profit &amp; loss calendar</h2>
+      <div class="legend small">
+        <span>Loss <i class="sq" style="background:var(--loss-4)"></i><i class="sq" style="background:var(--loss-2)"></i></span>
+        <span><i class="sq" style="background:var(--flat)"></i> No closed trades</span>
+        <span><i class="sq" style="background:var(--gain-2)"></i><i class="sq" style="background:var(--gain-4)"></i> Profit</span>
+        <span><i class="sq" style="background:var(--flat);box-shadow:inset 0 0 0 2px var(--accent)"></i> Bought only</span>
+      </div></div>
+    <div class="controls">
+      <div class="filters"><select id="cal-mode" aria-label="Calendar account"></select><select id="cal-year" aria-label="Year"></select></div>
+      <div class="chips" role="group" aria-label="Calendar view"><button class="chip" id="cv-month" aria-pressed="true">Month</button><button class="chip" id="cv-year" aria-pressed="false">Whole year</button>
+        <button class="chip" id="cm-prev" aria-label="Previous month">‹</button><button class="chip" id="cm-next" aria-label="Next month">›</button></div></div>
+    <h3 class="sub-h" id="cm-title"></h3>
+    <div class="mcal" id="mcal"></div>
+    <div class="scroll" id="ycal-wrap" hidden><div class="cal" id="cal"></div></div>
+    <h3 class="sub-h">Month by month</h3>
+    <div class="scroll"><table id="month-table"></table></div>
+    <div class="daydetail" id="day-detail"></div>
+    <h3 class="sub-h">Daily P/L and running total</h3>
+    <div class="chart-box"><svg id="daychart" role="img" aria-label="Daily profit and loss bars with running total line"></svg><div class="tip" id="daytip" hidden></div></div>
+  </section>
+
+  <div class="two">
+    <section class="panel" aria-labelledby="coin-h">
+      <div class="panel-head"><h2 id="coin-h">Coins</h2><span class="small muted">Closed trades per bot and coin</span></div>
+      <div class="scroll"><table id="coin-table"></table></div>
+    </section>
+    <section class="panel" aria-labelledby="wk-h">
+      <div class="panel-head"><h2 id="wk-h">Trades per weekday</h2><span class="small muted">Buys by day of the week, Eastern time</span></div>
+      <svg id="wkchart" role="img" aria-label="Number of buys on each weekday"></svg>
+    </section>
+  </div>
+
+  <section class="panel" aria-labelledby="hist-h">
+    <div class="panel-head"><h2 id="hist-h">Trade history</h2><span class="small muted">Every buy and sell, newest first. Click a row for the reasons.</span></div>
+    <div class="filters">
+      <select id="f-bot" aria-label="Filter by bot"></select>
+      <select id="f-coin" aria-label="Filter by coin"></select>
+      <select id="f-res" aria-label="Filter by result"></select>
+      <select id="f-mode" aria-label="Filter by mode"></select>
+    </div>
+    <div class="scroll"><table id="hist-table"></table></div>
+  </section>
+
+  <section class="panel" aria-labelledby="kr-h">
+    <div class="panel-head"><h2 id="kr-h">Kraken account</h2><span class="small muted" id="kr-sub"></span></div>
+    <div id="kraken"></div>
+  </section>
+
+  <div class="two">
+    <section class="panel" aria-labelledby="hold-h">
+      <div class="panel-head"><h2 id="hold-h">Hold pile</h2><span class="small muted">Weekly dip-DCA buyer (paper)</span></div>
+      <div class="scroll"><table id="hold-table"></table></div>
+    </section>
+    <section class="panel" aria-labelledby="mkt-h">
+      <div class="panel-head"><h2 id="mkt-h">Market check</h2><span class="small muted">Bitcoin, from the last hourly run</span></div>
+      <div id="mkt"></div>
+    </section>
+  </div>
+
+  <footer id="foot"></footer>
+</div>
+
+<script>
+const D = /*DATA*/null;
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const money = (v, sign) => v == null ? "–" : (sign && v > 0 ? "+" : v < 0 ? "−" : "") + "$" + Math.abs(v).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const pct = (v, d = 1, sign = true) => v == null ? "–" : (sign && v > 0 ? "+" : v < 0 ? "−" : "") + Math.abs(v).toFixed(d) + "%";
+const cls = (v) => v > 0 ? "up" : v < 0 ? "down" : "";
+const fx = (v, d = 2) => v == null ? "–" : Number(v).toFixed(d);
+const price = (v) => v == null ? "–" : v >= 100 ? v.toLocaleString("en-US", { maximumFractionDigits: 2 }) : v >= 1 ? v.toFixed(4) : v.toPrecision(4);
+const ET = (s) => { if (!s) return "–"; const d = new Date(s.replace(" ", "T") + "Z");
+  return d.toLocaleString("en-US", { timeZone: "America/New_York", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }); };
+const opts = (el, label, vals) => { el.innerHTML = `<option value="">${label}</option>` + vals.map((v) => `<option value="${esc(v[0])}">${esc(v[1])}</option>`).join(""); };
+const MODE = { demo: "Demo", paper: "Paper", live: "Real money" };
+const coinOf = (c) => String(c).replace("-USDT", "").replace(/USD$/, "").replace("XBT", "BTC");
+
+const SERVER = "OKX Trading";
+const LIVE = { orders: [], acct: null, px: {}, errs: {}, at: null, state: "connecting" };
+const bots = D.bots;
+const byId = Object.fromEntries(bots.map((b) => [b.id, b]));
+const closed = D.trades.filter((t) => t.status !== "open");
+const opens = D.trades.filter((t) => t.status === "open");
+
+/* ---------- header + KPIs ---------- */
+$("#updated").textContent = `Bots last ran ${ET(D.updated_utc)} ET · page built ${ET(D.built_utc)} ET`;
+const running = bots.filter((b) => b.status === "running");
+const ddWorst = running.reduce((m, b) => Math.min(m, b.dd_now), 0);
+const alerts = (D.attention || []).length;
+$("#status-pills").innerHTML = [
+  alerts ? `<span class="pill bad"><span class="dot"></span>${alerts} need attention</span>` : `<span class="pill ok"><span class="dot"></span>All normal</span>`,
+  `<span class="pill" id="live-pill"></span>`,
+  bots.some((b) => b.mode === "live") ? `<span class="pill bad">Real money on</span>` : `<span class="pill">No real money · demo and paper only</span>`,
+].join("");
+
+const demoBots = bots.filter((b) => b.mode === "demo" && b.status === "running");
+const demoBal = demoBots.reduce((s, b) => s + b.balance, 0), demoStart = demoBots.reduce((s, b) => s + b.start_balance, 0);
+const wins = closed.filter((t) => t.pnl > 0).length, losses = closed.filter((t) => t.pnl <= 0).length;
+const pnlAll = closed.reduce((s, t) => s + (t.pnl || 0), 0);
+const gw = closed.filter((t) => t.pnl > 0).reduce((s, t) => s + t.pnl, 0), gl = -closed.filter((t) => t.pnl < 0).reduce((s, t) => s + t.pnl, 0);
+const kpi = (lab, val, sub, c = "") => `<div class="kpi"><span class="lab">${lab}</span><span class="val ${c}">${val}</span><span class="sub">${sub}</span></div>`;
+function renderKpis() {
+const openPL = opens.reduce((s, t) => s + (t.qty * (t.price_now - t.entry_px) || 0), 0);
+$("#kpis").innerHTML = [
+  kpi("Active demo bots", money(demoBal), `${pct((demoBal / demoStart - 1) * 100, 2)} on ${money(demoStart)} · ${demoBots.length} bots`, cls(demoBal - demoStart)),
+  kpi("Closed P/L, all bots", money(pnlAll, true), `${closed.length} closed trades`, cls(pnlAll)),
+  kpi("Wins / losses", `${wins} / ${losses}`, closed.length ? `${Math.round(wins / closed.length * 100)}% win rate` : "no closed trades yet"),
+  kpi("Profit factor", gl ? fx(gw / gl) : gw ? "all wins" : "–", "$ won per $ lost (1.3+ is decent)"),
+  kpi("Open trades", opens.length, `${money(openPL, true)} open P/L`, cls(openPL)),
+  kpi("Worst drop now", pct(ddWorst, 1), `from a bot's best · stop at −${D.rules.stop_dd}%`, ddWorst <= -8 ? "down" : ddWorst <= -5 ? "warn" : ""),
+  kpi("OKX demo account", LIVE.acct == null ? "–" : money(LIVE.acct), LIVE.acct == null ? (LIVE.state === "off" ? "live data needs claude.ai" : "connecting to OKX…") : "all coins, live from OKX"),
+].join("");
+}
+
+/* ---------- equity chart ---------- */
+const chartable = bots.filter((b) => b.backtest || b.live_curve.length > 1 || b.status === "running");
+let sel = (chartable.find((b) => b.id === "tr-okx") || chartable[0]).id;
+let range = "all";
+const SVGNS = "http://www.w3.org/2000/svg";
+const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+function series(b) {
+  // backtest daily points, then the bot's own balance after its start, chained on so the line continues (like the video's chart)
+  const out = [];
+  let scale = 1;
+  if (b.backtest && range === "all") {
+    for (const [d, v] of b.backtest.curve) out.push({ t: Date.parse(d + "T00:00:00Z"), v, phase: "backtest" });
+    scale = b.backtest.curve.at(-1)[1] / b.start_balance;
+  }
+  const ph = b.mode === "live" ? "real" : b.mode;
+  b.live_curve.forEach(([t, v], i) => out.push({ t, v: v * scale, raw: v, phase: ph}));
+  return { pts: out, scale };
+}
+
+function niceTicks(lo, hi, n) {
+  const span = hi - lo || 1, step0 = span / n, mag = 10 ** Math.floor(Math.log10(step0));
+  const step = [1, 2, 2.5, 5, 10].map((m) => m * mag).find((s) => s >= step0);
+  const ticks = []; for (let v = Math.ceil(lo / step) * step; v <= hi + 1e-9; v += step) ticks.push(v);
+  return ticks;
+}
+
+function drawChart() {
+  const b = byId[sel];
+  const { pts, scale } = series(b);
+  const svg = $("#chart"); svg.innerHTML = "";
+  const W = svg.clientWidth || 800, H = svg.clientHeight || 340;
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  const L = 64, R = 16, T = 14, B = 26;
+  if (pts.length < 2) { const tx = document.createElementNS(SVGNS, "text"); tx.setAttribute("x", W / 2); tx.setAttribute("y", H / 2); tx.setAttribute("text-anchor", "middle"); tx.textContent = "No balance history yet"; svg.append(tx); return; }
+  const t0 = pts[0].t, t1 = pts.at(-1).t;
+  let lo = Math.min(...pts.map((p) => p.v)), hi = Math.max(...pts.map((p) => p.v));
+  const pad = (hi - lo) * 0.08 || hi * 0.004; lo -= pad; hi += pad;
+  const X = (t) => L + (t - t0) / ((t1 - t0) || 1) * (W - L - R), Y = (v) => T + (1 - (v - lo) / (hi - lo)) * (H - T - B);
+  const el = (n, a) => { const e = document.createElementNS(SVGNS, n); for (const k in a) e.setAttribute(k, a[k]); svg.append(e); return e; };
+  for (const v of niceTicks(lo, hi, 5)) {
+    el("line", { x1: L, x2: W - R, y1: Y(v), y2: Y(v), stroke: css("--grid"), "stroke-width": 1 });
+    el("text", { x: L - 8, y: Y(v) + 4, "text-anchor": "end" }).textContent = "$" + Math.round(v).toLocaleString("en-US");
+  }
+  const spanDays = (t1 - t0) / 864e5;
+  const xt = [];
+  if (spanDays > 400) { for (let y = new Date(t0).getUTCFullYear() + 1; Date.UTC(y, 0, 1) <= t1; y++) xt.push([Date.UTC(y, 0, 1), String(y)]); }
+  else { const step = Math.max(864e5 / 4, Math.ceil(spanDays / 6) * 864e5 / (spanDays < 3 ? 4 : 1)); for (let t = Math.ceil(t0 / step) * step; t <= t1; t += step) xt.push([t, new Date(t).toLocaleString("en-US", { timeZone: "America/New_York", month: "short", day: "numeric", ...(spanDays < 3 ? { hour: "numeric" } : {}) })]); }
+  const minGap = 46; let lastX = -1e9;
+  for (const [t, lab] of xt) { const x = X(t); if (x - lastX < minGap || x > W - R - 10) continue; lastX = x; el("text", { x, y: H - 8, "text-anchor": "middle" }).textContent = lab; }
+  // start-of-demo marker
+  const firstLive = pts.findIndex((p) => p.phase !== "backtest");
+  if (firstLive > 0) {
+    const x = X(pts[firstLive].t);
+    el("line", { x1: x, x2: x, y1: T, y2: H - B, stroke: css("--muted"), "stroke-dasharray": "3 4", "stroke-width": 1 });
+    el("text", { x: x - 6, y: T + 10, "text-anchor": "end" }).textContent = "demo starts";
+  }
+  // one path per phase run
+  const color = { backtest: css("--s-back"), demo: css("--s-demo"), paper: css("--s-demo"), real: css("--s-real") };
+  let run = [pts[0]];
+  const flush = () => {
+    if (run.length < 2) return;
+    const ph = run.at(-1).phase;
+    const d = run.map((p, i) => `${i ? "L" : "M"}${X(p.t).toFixed(1)},${Y(p.v).toFixed(1)}`).join("");
+    if (ph === "backtest") el("path", { d: d + `L${X(run.at(-1).t)},${H - B}L${X(run[0].t)},${H - B}Z`, fill: color[ph], opacity: 0.08 });
+    el("path", { d, fill: "none", stroke: color[ph], "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round", ...(ph === "paper" ? { "stroke-dasharray": "6 4" } : {}) });
+  };
+  for (let i = 1; i < pts.length; i++) {
+    if (pts[i].phase !== run.at(-1).phase) { flush(); run = [{ ...pts[i - 1], phase: pts[i].phase }]; }
+    run.push(pts[i]);
+  }
+  flush();
+  const end = pts.at(-1);
+  el("circle", { cx: X(end.t), cy: Y(end.v), r: 4.5, fill: color[end.phase], stroke: css("--panel"), "stroke-width": 2 });
+  // hover
+  const cross = el("line", { y1: T, y2: H - B, stroke: css("--fg-2"), "stroke-width": 1, opacity: 0 });
+  const dot = el("circle", { r: 4, fill: css("--panel"), "stroke-width": 2, opacity: 0 });
+  const hit = el("rect", { x: L, y: T, width: W - L - R, height: H - T - B, fill: "transparent" });
+  const tip = $("#tip");
+  const move = (ev) => {
+    const r = svg.getBoundingClientRect(), mx = (ev.clientX - r.left) * (W / r.width);
+    let best = 0, bd = Infinity; for (let i = 0; i < pts.length; i++) { const d = Math.abs(X(pts[i].t) - mx); if (d < bd) { bd = d; best = i; } }
+    const p = pts[best], x = X(p.t), y = Y(p.v);
+    cross.setAttribute("x1", x); cross.setAttribute("x2", x); cross.setAttribute("opacity", 0.5);
+    dot.setAttribute("cx", x); dot.setAttribute("cy", y); dot.setAttribute("stroke", color[p.phase]); dot.setAttribute("opacity", 1);
+    const label = { backtest: "Backtest", demo: "Demo", paper: "Paper", real: "Real money" }[p.phase];
+    const when = new Date(p.t).toLocaleString("en-US", { timeZone: "America/New_York", year: "numeric", month: "short", day: "numeric", ...(p.phase === "backtest" ? {} : { hour: "numeric", minute: "2-digit" }) });
+    tip.innerHTML = `<div class="muted small">${when}</div><div><span style="color:${color[p.phase]}">●</span> ${label}: <b>${money(p.v)}</b></div>` +
+      (p.raw != null && scale !== 1 ? `<div class="muted small">Bot balance ${money(p.raw)}</div>` : "") +
+      `<div class="muted small">${pct((p.v / pts[0].v - 1) * 100, 1)} since ${new Date(pts[0].t).getUTCFullYear()}</div>`;
+    tip.hidden = false;
+    const bx = svg.parentElement.getBoundingClientRect(), px = ev.clientX - bx.left;
+    tip.style.left = Math.min(Math.max(px + 14, 0), bx.width - tip.offsetWidth - 4) + "px";
+    tip.style.top = Math.max(y * (r.height / H) - tip.offsetHeight - 10, 0) + "px";
+  };
+  hit.addEventListener("pointermove", move);
+  hit.addEventListener("pointerleave", () => { tip.hidden = true; cross.setAttribute("opacity", 0); dot.setAttribute("opacity", 0); });
+}
+
+function chartPanel() {
+  const b = byId[sel];
+  $("#bot-chips").innerHTML = chartable.map((x) => `<button class="chip" aria-pressed="${x.id === sel}" data-id="${x.id}">${esc(x.name)}</button>`).join("");
+  $("#range-chips").innerHTML = [["all", b.backtest ? "Backtest + demo (since 2018)" : "Since start"], ["live", "Demo only"]]
+    .filter(([k]) => b.backtest || k === "all").map(([k, l]) => `<button class="chip" aria-pressed="${range === k || !b.backtest}" data-range="${k}">${l}</button>`).join("");
+  const ph = b.mode === "live" ? "real" : b.mode;
+  $("#legend").innerHTML = [
+    b.backtest && range === "all" ? `<span><i style="background:var(--s-back)"></i>Backtest (8 years, live settings)</span>` : "",
+    `<span><i class="${ph === "paper" ? "dash" : ""}" style="background:var(--s-demo);border-color:var(--s-demo)"></i>${ph === "paper" ? "Paper (no orders)" : "Demo (OKX practice account)"}</span>`,
+    `<span><i style="background:var(--s-real)"></i>Real money ${b.mode === "live" ? "" : "(not started)"}</span>`,
+  ].join("");
+  $("#eq-sub").textContent = `${b.name} · ${b.coins.join(" ")} · risk ${b.risk_pct}% per trade`;
+  const bt = b.backtest;
+  $("#chart-note").textContent = bt && range === "all"
+    ? `Blue is bot.py replayed on ${bt.curve[0][0]} to ${bt.until} candles with today's settings and your real OKX fees (${D.fee_pct}% per buy and per sell), from $1,000. The green part continues from where the backtest ended, by the bot's real demo % gain or loss. Hover for the bot's actual balance.${b.id === "tr-okx" ? " Trend Rider's backtest line has no fear filter." : ""} A backtest is the best case: if green keeps falling below the pace of blue, that is the warning sign.`
+    : `The bot's own balance since ${b.start}: closed trades plus open trades valued at the last run.`;
+  const e = b.expected, s = b.stats || {};
+  const row = (k, a, c = "") => `<div class="row"><span class="muted">${k}</span><span class="num ${c}">${a}</span></div>`;
+  $("#compare").innerHTML = [
+    `<div class="cmp"><h3>Backtest expects</h3>${e ? row("Win rate", e.win + "%") + row("Profit factor", fx(e.pf)) + row("Worst drop", pct(e.dd)) + row("Worst losing streak", e.streak ?? "–") + `<span class="small muted">${esc(e.src)}</span>` : `<span class="small muted">No backtest numbers for this bot.</span>`}</div>`,
+    `<div class="cmp"><h3>${MODE[b.mode]} so far</h3>${b.mode === "paper" ? `<span class="small muted">Paper P/L re-priced at the real ${b.venue === "kraken" && D.kraken_fee_pct ? D.kraken_fee_pct + "% Kraken" : D.fee_pct + "% OKX"} fee (the bot logs ${D.paper_fee_pct}%).</span>` : ""}${row("Closed trades", `${s.closed ?? 0} of ${D.rules.verdict_at} for a verdict`) + row("Win rate", s.win_rate_pct == null ? "–" : Math.round(s.win_rate_pct) + "%") + row("Profit factor", s.profit_factor == null ? (s.wins ? "all wins" : "–") : fx(s.profit_factor)) + row("Worst drop", pct(b.dd_max), cls(b.dd_max)) + row("P/L", money(b.balance - b.start_balance, true), cls(b.balance - b.start_balance))}</div>`,
+    `<div class="cmp"><h3>Verdict</h3>${verdict(b).html}<span class="small muted">${esc(verdict(b).why)}</span></div>`,
+  ].join("");
+  drawChart();
+}
+$("#bot-chips").addEventListener("click", (ev) => { const id = ev.target.closest("[data-id]")?.dataset.id; if (id) { sel = id; chartPanel(); } });
+$("#range-chips").addEventListener("click", (ev) => { const r = ev.target.closest("[data-range]")?.dataset.range; if (r) { range = r; chartPanel(); } });
+addEventListener("resize", () => { drawChart(); calendar(); weekdayChart(); });
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { drawChart(); calendar(); weekdayChart(); });
+new MutationObserver(() => { drawChart(); calendar(); weekdayChart(); }).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+/* ---------- verdict: the scoreboard rules ---------- */
+function verdict(b) {
+  const s = b.stats || {}, n = s.closed || 0, pf = s.profit_factor;
+  if (b.status === "paused") return { html: `<span class="flag wait">Paused</span>`, why: "Not taking new trades." };
+  if (b.dd_now <= -D.rules.stop_dd) return { html: `<span class="flag bad">Stop it</span>`, why: `${pct(b.dd_now)} from its best balance. Rule: stop at −${D.rules.stop_dd}%.` };
+  if (b.dd_now <= -8) return { html: `<span class="flag warnf">Watch closely</span>`, why: `${pct(b.dd_now)} from its best balance, near the −${D.rules.stop_dd}% stop.` };
+  if (n < D.rules.verdict_at) return { html: `<span class="flag wait">Too early · ${n}/${D.rules.verdict_at}</span>`, why: `Win % and PF are mostly luck under ${D.rules.verdict_at} closed trades.` };
+  if (b.balance < b.start_balance) return { html: `<span class="flag bad">Cut it</span>`, why: `Losing money after ${n} trades.` };
+  if ((pf ?? 0) >= D.rules.pf_shortlist && b.dd_max > -D.rules.stop_dd) return { html: `<span class="flag ok">Shortlist</span>`, why: `PF ${fx(pf)} and worst drop ${pct(b.dd_max)}. Check it beats holding the coins before going live small.` };
+  return { html: `<span class="flag warnf">Keep testing</span>`, why: `Making money but PF ${fx(pf)} is under ${D.rules.pf_shortlist}.` };
+}
+
+/* ---------- bots table ---------- */
+function botsTable() {
+  const order = { ACTIVE: 0, INCUBATING: 1, PAUSED: 2 };
+  const list = [...bots].sort((a, b) => (order[a.pile] ?? 3) - (order[b.pile] ?? 3));
+  $("#bots-table").innerHTML = `<thead><tr><th>Bot</th><th>Pile</th><th>Mode</th><th>Coins</th><th class="r">Balance</th><th class="r">P/L</th><th class="r">W / L</th><th class="r">Win %</th><th class="r">PF</th><th class="r">Avg R</th><th>Drop from best</th><th>Verdict</th></tr></thead><tbody>` +
+    list.map((b) => {
+      const s = b.stats || {}, pl = b.balance - b.start_balance, ddw = Math.min(100, Math.abs(b.dd_now) / D.rules.stop_dd * 100);
+      const ddc = b.dd_now <= -8 ? "var(--down)" : b.dd_now <= -5 ? "var(--warn)" : "var(--up)";
+      return `<tr class="click" data-id="${b.id}"><td class="botname">${esc(b.name)}</td><td><span class="pill">${esc(b.pile || "–")}</span></td><td>${MODE[b.mode]}</td>
+        <td class="small">${b.coins.join(" ")}</td><td class="r num">${money(b.balance)}</td><td class="r num ${cls(pl)}">${money(pl, true)}</td>
+        <td class="r num">${s.wins ?? 0} / ${s.losses ?? 0}</td><td class="r num">${s.win_rate_pct == null ? "–" : Math.round(s.win_rate_pct) + "%"}</td>
+        <td class="r num">${s.profit_factor == null ? (s.wins ? "all wins" : "–") : fx(s.profit_factor)}</td><td class="r num">${s.avg_r == null ? "–" : fx(s.avg_r)}</td>
+        <td><span class="bar" title="${pct(b.dd_now)} of the −${D.rules.stop_dd}% stop"><span style="width:${ddw}%;background:${ddc}"></span></span> <span class="num small">${pct(b.dd_now)}</span></td>
+        <td>${verdict(b).html}</td></tr>`;
+    }).join("") + "</tbody>";
+}
+$("#bots-table").addEventListener("click", (ev) => {
+  const id = ev.target.closest("tr[data-id]")?.dataset.id;
+  if (id && chartable.some((b) => b.id === id)) { sel = id; chartPanel(); $("#eq-h").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); }
+});
+
+/* ---------- open trades ---------- */
+function openTrades() {
+  $("#open-sub").textContent = opens.length ? `${opens.length} open · prices from the last hourly run` : "";
+  $("#opens").innerHTML = opens.length ? opens.map((t) => {
+    const pl = t.qty * (t.price_now - t.entry_px), r = (t.entry_px - t.planned_stop) || 1, nowR = (t.price_now - t.entry_px) / r;
+    const pts = [t.stop_now ?? t.planned_stop, t.entry_px, t.price_now, t.planned_target].filter((v) => v != null);
+    const lo = Math.min(...pts), hi = Math.max(...pts), P = (v) => ((v - lo) / ((hi - lo) || 1)) * 92 + 4;
+    const mk = (v, c, l) => v == null ? "" : `<span class="mk" style="left:${P(v)}%;background:${c}"></span><span class="lb" style="left:${P(v)}%">${l}</span>`;
+    return `<article class="open"><div class="hd"><span class="coin">${coinOf(t.coin)}</span><span class="pill">${esc(t.bot)}</span></div>
+      <div class="ladder" aria-label="Stop, entry, price now and target"><span class="track"></span>${mk(t.stop_now ?? t.planned_stop, "var(--down)", "stop")}${mk(t.entry_px, "var(--fg-2)", "entry")}${mk(t.planned_target, "var(--up)", "target")}${mk(t.price_now, "var(--accent)", "now")}</div>
+      <dl><dt>Open P/L</dt><dd class="${cls(pl)}">${money(pl, true)} (${pct(t.unrealized_pct, 2)})</dd><dt>In R</dt><dd class="${cls(nowR)}">${nowR >= 0 ? "+" : ""}${nowR.toFixed(2)}R · best ${fx(t.best_r)}R</dd>
+      <dt>Entry</dt><dd>${price(t.entry_px)}</dd><dt>Now</dt><dd>${price(t.price_now)}</dd><dt>Stop</dt><dd>${price(t.stop_now ?? t.planned_stop)}${t.trailing_on ? " (trailing)" : ""}</dd>
+      <dt>Target</dt><dd>${t.planned_target ? price(t.planned_target) : "trailing stop"}</dd><dt>Opened</dt><dd>${ET(t.entry_time)} ET</dd><dt>Size</dt><dd>${money(t.cost)}</dd></dl></article>`;
+  }).join("") : `<p class="empty">No open trades right now.</p>`;
+}
+
+/* ---------- coins ---------- */
+function coinTable() {
+  const rows = [];
+  for (const b of bots) for (const [c, s] of Object.entries(b.by_coin || {})) if ((s.closed || 0) + (s.open || 0) > 0) rows.push([b, c, s]);
+  rows.sort((a, b) => (b[2].total_pnl || 0) - (a[2].total_pnl || 0));
+  $("#coin-table").innerHTML = rows.length ? `<thead><tr><th>Coin</th><th>Bot</th><th class="r">Closed</th><th class="r">Open</th><th class="r">W / L</th><th class="r">P/L</th><th class="r">Avg R</th></tr></thead><tbody>` +
+    rows.map(([b, c, s]) => `<tr><td class="botname">${coinOf(c)}</td><td>${esc(b.name)}</td><td class="r num">${s.closed}</td><td class="r num">${s.open}</td><td class="r num">${s.wins} / ${s.losses}</td><td class="r num ${cls(s.total_pnl)}">${money(s.total_pnl, true)}</td><td class="r num">${s.avg_r == null ? "–" : fx(s.avg_r)}</td></tr>`).join("") + "</tbody>"
+    : `<tbody><tr><td class="empty">No trades yet.</td></tr></tbody>`;
+}
+
+/* ---------- P&L calendar (like the OKX Trade Ledger) ---------- */
+const etDay = (ms) => new Date(ms).toLocaleDateString("en-CA", { timeZone: "America/New_York" });
+const msOf = (s) => Date.parse(s.replace(" ", "T") + "Z");
+const prettyDay = (k) => new Date(k + "T12:00:00Z").toLocaleDateString("en-US", { timeZone: "UTC", weekday: "short", month: "short", day: "numeric", year: "numeric" });
+let calSel = null;
+function calEvents() {
+  // closed sells give P/L on their exit day; buys mark a day as "bought only"; live OKX sells (since the last run) are added
+  const m = $("#cal-mode").value, ok = (mode) => m === "all" ? mode !== "live" : mode === m;
+  const ev = [];
+  for (const t of D.trades) {
+    if (!ok(t.mode)) continue;
+    ev.push({ day: etDay(msOf(t.entry_time)), kind: "buy", t });
+    if (t.status !== "open") ev.push({ day: etDay(msOf(t.exit_time)), kind: "sell", pnl: t.pnl, t });
+  }
+  for (const o of LIVE.orders) if (ok("demo") && o.side === "sell" && o.pnl != null) ev.push({ day: etDay(o.ts), kind: "sell", pnl: o.pnl, live: o });
+  return ev;
+}
+let calView = "month", calMonth = null;
+function calendar() {
+  const ev = calEvents(), y = +$("#cal-year").value, days = {};
+  for (const e of ev) {
+    const d = (days[e.day] ||= { pnl: 0, closed: 0, wins: 0, buys: 0, items: [] });
+    if (e.kind === "sell") { d.pnl += e.pnl; d.closed++; if (e.pnl > 0) d.wins++; } else d.buys++;
+    d.items.push(e);
+  }
+  const today = etDay(Date.now());
+  if (!calMonth || calMonth.y !== y) { const last = Object.keys(days).sort().at(-1); calMonth = { y, m: y === +today.slice(0, 4) ? +today.slice(5, 7) - 1 : last && +last.slice(0, 4) === y ? +last.slice(5, 7) - 1 : 0 }; }
+  $("#cv-month").setAttribute("aria-pressed", calView === "month"); $("#cv-year").setAttribute("aria-pressed", calView === "year");
+  $("#cm-prev").hidden = $("#cm-next").hidden = calView !== "month";
+  $("#mcal").hidden = calView !== "month"; $("#ycal-wrap").hidden = calView !== "year";
+  // whole-year strip (OKX Trade Ledger style)
+  const max = Math.max(0, ...Object.values(days).map((d) => Math.abs(d.pnl)));
+  const shade = (v) => { const r = Math.abs(v) / (max || 1); return (v >= 0 ? "g" : "l") + (r > .75 ? 4 : r > .4 ? 3 : r > .15 ? 2 : 1); };
+  const jan1 = Date.UTC(y, 0, 1), dow0 = new Date(jan1).getUTCDay();
+  let h = ["Mon", "Wed", "Fri"].map((n, i) => `<div class="wl" style="grid-row:${3 + i * 2}">${n}</div>`).join("");
+  for (let m = 0; m < 12; m++) { const doy = (Date.UTC(y, m, 1) - jan1) / 864e5; h += `<div class="ml" style="grid-column:${2 + Math.floor((doy + dow0) / 7)}">${new Date(Date.UTC(y, m, 1)).toLocaleDateString("en-US", { timeZone: "UTC", month: "short" })}</div>`; }
+  const n = (Date.UTC(y + 1, 0, 1) - jan1) / 864e5;
+  for (let i = 0; i < n; i++) {
+    const dt = new Date(jan1 + i * 864e5), k = dt.toISOString().slice(0, 10), d = days[k];
+    const c = ["day", d ? (d.closed ? shade(d.pnl) : "vol") : "", k === today ? "today" : "", k === calSel ? "sel" : ""].join(" ");
+    const lab = prettyDay(k) + (d ? (d.closed ? ` · P/L ${money(d.pnl, true)} · ${d.closed} closed` : " · bought only") : " · no trades");
+    h += `<button type="button" class="${c}" data-day="${k}" style="grid-column:${2 + Math.floor((i + dow0) / 7)};grid-row:${2 + dt.getUTCDay()}" title="${lab}" aria-label="${lab}"></button>`;
+  }
+  $("#cal").innerHTML = h;
+  // month grid with $ per day (Bot Desk style)
+  const { m } = calMonth, first = (new Date(Date.UTC(y, m, 1)).getUTCDay() + 6) % 7, nd = new Date(Date.UTC(y, m + 1, 0)).getUTCDate();
+  let g = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((x) => `<div class="dow">${x}</div>`).join("") + '<div class="mday blank"></div>'.repeat(first), msum = 0, mcl = 0;
+  for (let dd = 1; dd <= nd; dd++) {
+    const k = `${y}-${String(m + 1).padStart(2, "0")}-${String(dd).padStart(2, "0")}`, d = days[k];
+    if (d) { msum += d.pnl; mcl += d.closed; }
+    const c = ["mday", d ? (d.closed ? (d.pnl >= 0 ? "g" : "l") : "b") : "", k === today ? "today" : "", k === calSel ? "sel" : ""].join(" ");
+    g += `<button type="button" class="${c}" data-day="${k}" aria-label="${prettyDay(k)}"><span class="d">${dd}</span><span class="p ${d && d.closed ? cls(d.pnl) : ""}">${d ? (d.closed ? money(d.pnl, true) : d.buys + " buy" + (d.buys > 1 ? "s" : "")) : ""}</span></button>`;
+  }
+  $("#mcal").innerHTML = g;
+  $("#cm-title").innerHTML = calView === "month" ? `${new Date(Date.UTC(y, m, 1)).toLocaleDateString("en-US", { timeZone: "UTC", month: "long", year: "numeric" })} · <span class="num ${cls(msum)}">${mcl ? money(msum, true) : "no closed trades"}</span>` : `${y}`;
+  // month-by-month table, % of the starting balance of the bots shown
+  const md = $("#cal-mode").value, base = bots.filter((b) => md === "all" ? b.mode !== "live" : b.mode === md).reduce((s, b) => s + b.start_balance, 0) || 1;
+  const years = [...new Set(Object.keys(days).map((k) => +k.slice(0, 4)))].sort((a, b) => b - a);
+  const mn = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  $("#month-table").innerHTML = years.length ? `<thead><tr><th>Year</th>${mn.map((x) => `<th class="r">${x}</th>`).join("")}<th class="r">Year</th></tr></thead><tbody>` + years.map((yr) => {
+    let tot = 0, any = false;
+    const cells = mn.map((_, i) => { const ks = Object.keys(days).filter((k) => k.startsWith(`${yr}-${String(i + 1).padStart(2, "0")}`) && days[k].closed);
+      if (!ks.length) return `<td class="r muted">–</td>`; const v = ks.reduce((s, k) => s + days[k].pnl, 0); tot += v; any = true;
+      return `<td class="r num ${cls(v)}">${pct(v / base * 100, 2)}<br><span class="small muted">${money(v, true)}</span></td>`; }).join("");
+    return `<tr><td class="botname">${yr}</td>${cells}<td class="r num ${cls(tot)}"><b>${any ? pct(tot / base * 100, 2) : "–"}</b></td></tr>`;
+  }).join("") + `</tbody>` : `<tbody><tr><td class="empty">No trades yet.</td></tr></tbody>`;
+  const d = calSel && days[calSel];
+  $("#day-detail").innerHTML = !calSel ? `<span class="muted">Tap a day to see what happened.</span>` : !d ? `<b>${prettyDay(calSel)}</b><span class="muted">No trades this day.</span>` :
+    `<b>${prettyDay(calSel)}</b><span>P/L <span class="num ${cls(d.pnl)}">${d.closed ? money(d.pnl, true) : "none (no sells)"}</span> · ${d.closed} closed · ${d.buys} bought</span>` +
+    `<div class="scroll"><table><tbody>${d.items.map((e) => e.live
+      ? `<tr class="newrow"><td>${new Date(e.live.ts).toLocaleTimeString("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit" })}</td><td>${esc(e.live.bot)}</td><td class="botname">${coinOf(e.live.instId)}</td><td>Sold (live, P/L approx.)</td><td class="r num ${cls(e.pnl)}">${money(e.pnl, true)}</td></tr>`
+      : `<tr><td>${ET(e.kind === "buy" ? e.t.entry_time : e.t.exit_time).split(", ").pop()}</td><td>${esc(e.t.bot)}</td><td class="botname">${coinOf(e.t.coin)}</td><td>${e.kind === "buy" ? "Bought" : "Sold · " + esc(e.t.exit_reason)}</td><td class="r num ${e.kind === "sell" ? cls(e.pnl) : ""}">${e.kind === "sell" ? money(e.pnl, true) : money(e.t.cost)}</td></tr>`).join("")}</tbody></table></div>`;
+  dayChart(days, y);
+}
+function dayChart(days, y) {
+  const svg = $("#daychart"), ks = Object.keys(days).filter((k) => k.startsWith(String(y)) && days[k].closed).sort();
+  const W = svg.clientWidth || 800, H = svg.clientHeight || 220, L = 64, R = 16, T = 12, B = 26;
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`); svg.innerHTML = "";
+  const el = (n, a) => { const e = document.createElementNS(SVGNS, n); for (const k in a) e.setAttribute(k, a[k]); svg.append(e); return e; };
+  if (!ks.length) { el("text", { x: W / 2, y: H / 2, "text-anchor": "middle" }).textContent = "No closed trades this year yet"; return; }
+  let run = 0; const rows = ks.map((k) => ({ k, v: days[k].pnl, c: (run += days[k].pnl) }));
+  let lo = Math.min(0, ...rows.map((r) => Math.min(r.v, r.c))), hi = Math.max(0, ...rows.map((r) => Math.max(r.v, r.c)));
+  const pad = (hi - lo) * 0.1 || 1; lo -= pad; hi += pad;
+  const Y = (v) => T + (1 - (v - lo) / (hi - lo)) * (H - T - B), slot = (W - L - R) / rows.length, X = (i) => L + slot * (i + 0.5);
+  for (const v of niceTicks(lo, hi, 4)) { el("line", { x1: L, x2: W - R, y1: Y(v), y2: Y(v), stroke: css(v === 0 ? "--muted" : "--grid"), "stroke-width": 1 }); el("text", { x: L - 8, y: Y(v) + 4, "text-anchor": "end" }).textContent = money(v).replace(".00", ""); }
+  const bw = Math.max(3, Math.min(28, slot - 4));
+  rows.forEach((r, i) => el("rect", { x: X(i) - bw / 2, y: Math.min(Y(r.v), Y(0)), width: bw, height: Math.max(1, Math.abs(Y(r.v) - Y(0))), rx: 3, fill: css(r.v >= 0 ? "--up" : "--down") }));
+  el("path", { d: rows.map((r, i) => `${i ? "L" : "M"}${X(i)},${Y(r.c)}`).join(""), fill: "none", stroke: css("--accent"), "stroke-width": 2, "stroke-linejoin": "round" });
+  el("circle", { cx: X(rows.length - 1), cy: Y(run), r: 4, fill: css("--accent"), stroke: css("--panel"), "stroke-width": 2 });
+  let lastX = -1e9;
+  rows.forEach((r, i) => { if (X(i) - lastX < 56) return; lastX = X(i); el("text", { x: X(i), y: H - 8, "text-anchor": "middle" }).textContent = new Date(r.k + "T12:00:00Z").toLocaleDateString("en-US", { timeZone: "UTC", month: "short", day: "numeric" }); });
+  const tip = $("#daytip"), hit = el("rect", { x: L, y: T, width: W - L - R, height: H - T - B, fill: "transparent" });
+  hit.addEventListener("pointermove", (ev) => {
+    const b = svg.getBoundingClientRect(), i = Math.max(0, Math.min(rows.length - 1, Math.floor(((ev.clientX - b.left) * (W / b.width) - L) / slot))), r = rows[i];
+    tip.innerHTML = `<div class="muted small">${prettyDay(r.k)}</div><div>Day: <b class="${cls(r.v)}">${money(r.v, true)}</b></div><div>Running total: <b class="${cls(r.c)}">${money(r.c, true)}</b></div>`;
+    tip.hidden = false; tip.style.left = Math.min(Math.max(ev.clientX - b.left + 14, 0), b.width - tip.offsetWidth - 4) + "px"; tip.style.top = "8px";
+  });
+  hit.addEventListener("pointerleave", () => { tip.hidden = true; });
+}
+opts($("#cal-mode"), "Demo + paper", [["demo", "Demo only"], ["paper", "Paper only"], ["live", "Real money"]]);
+$("#cal-mode").options[0].value = "all";
+{ const ys = new Set([new Date().getFullYear(), ...D.trades.map((t) => +t.entry_time.slice(0, 4))]);
+  opts($("#cal-year"), String(Math.max(...ys)), [...ys].sort((a, b) => b - a).slice(1).map((v) => [v, v])); $("#cal-year").options[0].value = String(Math.max(...ys)); }
+$("#cal-mode").addEventListener("change", calendar); $("#cal-year").addEventListener("change", calendar);
+for (const id of ["#cal", "#mcal"]) $(id).addEventListener("click", (ev) => { const k = ev.target.closest("[data-day]")?.dataset.day; if (k) { calSel = calSel === k ? null : k; calendar(); } });
+$("#cv-month").addEventListener("click", () => { calView = "month"; calendar(); });
+$("#cv-year").addEventListener("click", () => { calView = "year"; calendar(); });
+$("#cm-prev").addEventListener("click", () => { if (calMonth.m > 0) { calMonth.m--; calendar(); } });
+$("#cm-next").addEventListener("click", () => { if (calMonth.m < 11) { calMonth.m++; calendar(); } });
+
+/* ---------- trades per weekday ---------- */
+function weekdayChart() {
+  const svg = $("#wkchart"), n = [0, 0, 0, 0, 0, 0, 0], names = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  for (const t of D.trades) { const wd = new Date(msOf(t.entry_time)).toLocaleDateString("en-US", { timeZone: "America/New_York", weekday: "short" }); n[names.indexOf(wd)]++; }
+  const W = svg.clientWidth || 400, H = svg.clientHeight || 190, B = 22, T = 18, max = Math.max(1, ...n), bw = (W - 20) / 7;
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  svg.innerHTML = n.map((v, i) => { const h = (H - B - T) * v / max, x = 10 + i * bw + bw * .2, y = H - B - h;
+    return `<rect x="${x}" y="${y}" width="${bw * .6}" height="${Math.max(h, 1)}" rx="3" fill="${css("--accent")}"/><text x="${x + bw * .3}" y="${H - 6}" text-anchor="middle">${names[i]}</text>` +
+      (v ? `<text x="${x + bw * .3}" y="${y - 5}" text-anchor="middle" style="fill:${css("--fg")}">${v}</text>` : ""); }).join("");
+}
+
+/* ---------- trade history ---------- */
+opts($("#f-bot"), "All bots", [...new Set(D.trades.map((t) => t.bot))].map((v) => [v, v]));
+opts($("#f-coin"), "All coins", [...new Set(D.trades.map((t) => coinOf(t.coin)))].sort().map((v) => [v, v]));
+opts($("#f-res"), "Wins, losses and open", [["win", "Wins"], ["loss", "Losses"], ["open", "Open"]]);
+opts($("#f-mode"), "Demo and paper", [["demo", "Demo"], ["paper", "Paper"], ["live", "Real money"]]);
+let openRow = null;
+function histTable() {
+  const fb = $("#f-bot").value, fc = $("#f-coin").value, fr = $("#f-res").value, fm = $("#f-mode").value;
+  const list = D.trades.filter((t) => (!fb || t.bot === fb) && (!fc || coinOf(t.coin) === fc) && (!fm || t.mode === fm) &&
+    (!fr || (fr === "open" ? t.status === "open" : fr === "win" ? t.status !== "open" && t.pnl > 0 : t.status !== "open" && t.pnl <= 0)))
+    .sort((a, b) => (b.entry_ms || 0) - (a.entry_ms || 0));
+  $("#hist-table").innerHTML = `<thead><tr><th>Opened (ET)</th><th>Bot</th><th>Coin</th><th>Mode</th><th class="r">Entry</th><th class="r">Exit</th><th class="r">Size</th><th class="r">P/L</th><th class="r">R</th><th>Result</th><th>Closed (ET)</th></tr></thead><tbody>` +
+    (list.length ? list.map((t) => {
+      const isOpen = t.status === "open", res = isOpen ? `<span class="flag wait">Open</span>` : t.pnl > 0 ? `<span class="flag ok">Win</span>` : `<span class="flag bad">Loss</span>`;
+      const pl = isOpen ? t.qty * (t.price_now - t.entry_px) : t.pnl;
+      const main = `<tr class="click" data-id="${esc(t.id)}"><td>${ET(t.entry_time)}</td><td>${esc(t.bot)}</td><td class="botname">${coinOf(t.coin)}</td><td>${MODE[t.mode] || t.mode}</td>
+        <td class="r num">${price(t.entry_px)}</td><td class="r num">${isOpen ? "now " + price(t.price_now) : price(t.exit_px)}</td><td class="r num">${money(t.cost)}</td>
+        <td class="r num ${cls(pl)}">${money(pl, true)}</td><td class="r num">${isOpen ? "–" : (t.r_multiple >= 0 ? "+" : "") + fx(t.r_multiple)}</td><td>${res}</td><td>${isOpen ? "–" : ET(t.exit_time)}</td></tr>`;
+      if (openRow !== t.id) return main;
+      const checks = (t.checks || []).map((c) => `<li>${c.passed ? "✓" : "·"} ${esc(c.plain)}${c.points != null ? ` <span class="muted">(${c.points > 0 ? "+" : ""}${c.points})</span>` : ""}</li>`).join("");
+      return main + `<tr class="detail"><td colspan="11"><p><b>Why it bought:</b> ${esc(t.why_entry)}</p>
+        ${t.half_time ? `<p><b>Half sold</b> ${ET(t.half_time)} ET at ${price(t.half_px)} for ${money(t.half_pnl, true)}.</p>` : ""}
+        ${isOpen ? `<p><b>Now:</b> stop at ${price(t.stop_now)}, best so far ${fx(t.best_r)}R (${pct(t.best_pct, 2)}), worst ${pct(t.worst_pct, 2)}.</p>` :
+          `<p><b>Why it sold:</b> ${esc(t.exit_reason)}. ${esc(t.exit_plain)} ${esc(t.note || "")}</p>${t.pnl_logged != null ? `<p class="muted small">Paper trade: P/L re-priced at your real ${D.fee_pct}% fee. The bot logged ${money(t.pnl_logged, true)} at ${D.paper_fee_pct}%.</p>` : ""}<p class="muted small">Best point ${fx(t.best_r)}R (${pct(t.best_pct, 2)}) · held ${t.candles_held} four-hour candles · planned stop ${price(t.planned_stop)} · target ${t.planned_target ? price(t.planned_target) : "trailing"}</p>`}
+        ${checks ? `<details><summary class="small">Entry checks</summary><ul class="checks">${checks}</ul></details>` : ""}</td></tr>`;
+    }).join("") : `<tr><td colspan="11" class="empty">No trades match these filters.</td></tr>`) + "</tbody>";
+}
+["#f-bot", "#f-coin", "#f-res", "#f-mode"].forEach((s) => $(s).addEventListener("change", histTable));
+$("#hist-table").addEventListener("click", (ev) => { const id = ev.target.closest("tr[data-id]")?.dataset.id; if (id) { openRow = openRow === id ? null : id; histTable(); } });
+
+/* ---------- hold pile + market ---------- */
+function holdAndMarket() {
+  const h = D.hold, coins = Object.keys(h.spent || {});
+  const last = {}; for (const r of h.buys || []) last[r.coin] = r;
+  $("#hold-table").innerHTML = coins.length ? `<thead><tr><th>Coin</th><th class="r">Paid</th><th class="r">Units</th><th class="r">Avg price</th><th class="r">Last buy</th><th class="r">Dip buys</th></tr></thead><tbody>` +
+    coins.map((c) => { const u = h.units[c], sp = h.spent[c]; const dips = (h.buys || []).filter((r) => r.coin === c && r.dip === "True").length;
+      return `<tr><td class="botname">${coinOf(c)}</td><td class="r num">${money(sp)}</td><td class="r num">${u.toPrecision(5)}</td><td class="r num">${price(sp / u)}</td><td class="r">${last[c] ? ET(last[c].time_utc) : "–"}</td><td class="r num">${dips}</td></tr>`; }).join("") + "</tbody>"
+    : `<tbody><tr><td class="empty">No buys yet.</td></tr></tbody>`;
+  const b = D.btc || {};
+  const yes = (v, a, n) => v ? `<span class="up">${a}</span>` : `<span class="down">${n}</span>`;
+  $("#mkt").innerHTML = `<table><tbody>
+    <tr><td>BTC price</td><td class="r num">${b.btc_close ? "$" + b.btc_close.toLocaleString("en-US") : "–"}</td></tr>
+    <tr><td>Daily trend (50 EMA)</td><td class="r">${yes(b.btc_above_daily_ema50, "Above: uptrend", "Below: downtrend")}</td></tr>
+    <tr><td>4-hour trend (50 EMA)</td><td class="r">${yes(b.btc_above_4h_ema50, "Above", "Below")}</td></tr>
+    <tr><td>4-hour Supertrend</td><td class="r">${esc(b.btc_4h_supertrend || "–")}</td></tr>
+    <tr><td>RSI 14</td><td class="r num">${fx(b.btc_rsi14, 1)}</td></tr></tbody></table>
+    <p class="small muted">Your bots only buy in uptrends, so a market below its daily 50 EMA means fewer trades. That is expected, not broken.</p>`;
+}
+
+$("#foot").innerHTML = `Read-only page: it shows what the bots did and never places or changes trades. The OKX account value, open-trade prices and the “New on OKX” list refresh from your demo account every minute while the page is open; everything else is from the bots' last run when the page was built. Built from journal/*.json, trades.csv and state.json in okx-trading-bot by dashboard/build.py. The backtest lines come from dashboard/backtest_curves.py (made ${ET(D.backtest_made)} ET). P/L counts closed trades; balances include open trades at the last hourly price. Fees: demo trades show what OKX actually charged; paper trades and backtests are re-priced at your real OKX fee (${D.fee_pct}% per buy and per sell).`;
+
+/* ---------- Kraken account (read-only, from journal/kraken.json written by the hourly run) ---------- */
+function krakenPanel() {
+  const k = D.kraken, box = $("#kraken");
+  if (!k) { box.innerHTML = `<p class="empty">No Kraken data yet. It appears after the next hourly run reads your account with the key in GitHub (KRAKEN_API_KEY, KRAKEN_PRIVATE_KEY).</p>`; return; }
+  $("#kr-sub").textContent = `Read ${ET(k.updated_utc)} ET · read-only key, never trades`;
+  const PERM = { Balance: "Query Funds", TradeVolume: "Query Funds", TradesHistory: "Query Closed Orders & Trades", OpenOrders: "Query Open Orders & Trades" };
+  const errs = Object.entries(k.errors || {});
+  let h = errs.length ? `<div class="notice err">${errs.map(([m, e]) => m === "setup" ? "The Kraken key isn't set in GitHub secrets." :
+    /permission/i.test(e) ? `Kraken refused "${esc(m)}": turn on <b>${PERM[m] || m}</b> for this key at kraken.com → Settings → API (keep trading and withdrawals off).` :
+    /invalid key|invalid signature|invalid nonce/i.test(e) ? `Kraken rejected the key (${esc(e)}). Check that both GitHub secrets hold the current key and private key.` : `${esc(m)}: ${esc(e)}`).join("<br>")}</div>` : "";
+  const f = k.fees;
+  const kpis = [];
+  if (k.total_usd != null) kpis.push(kpi("Account value", money(k.total_usd), `${(k.balances || []).length} coins · USD`));
+  if (f) { const t = Object.values(f.taker || {}), m = Object.values(f.maker || {});
+    kpis.push(kpi("Fee, market orders", t.length ? Math.max(...t).toFixed(2) + "%" : "–", "per buy or sell"));
+    kpis.push(kpi("Fee, limit orders", m.length ? Math.max(...m).toFixed(2) + "%" : "–", `30-day volume ${money(f.volume_30d_usd)}`)); }
+  if (k.trades_count != null) kpis.push(kpi("Trades on record", k.trades_count, "all time"));
+  if (kpis.length) h += `<div class="kpis" style="margin-bottom:12px">${kpis.join("")}</div>`;
+  if ((k.balances || []).length) h += `<div class="scroll"><table><thead><tr><th>Coin</th><th class="r">Amount</th><th class="r">Value (USD)</th></tr></thead><tbody>` +
+    k.balances.map((b) => `<tr><td class="botname">${esc(b.coin)}</td><td class="r num">${b.amount.toPrecision(6)}</td><td class="r num">${b.priced ? money(b.usd) : "no USD price"}</td></tr>`).join("") + `</tbody></table></div>`;
+  if ((k.open_orders || []).length) h += `<h3 class="sub-h">Open orders</h3><div class="scroll"><table><thead><tr><th>Pair</th><th>Side</th><th>Type</th><th class="r">Price</th><th class="r">Amount</th><th>Placed (ET)</th></tr></thead><tbody>` +
+    k.open_orders.map((o) => `<tr><td class="botname">${esc(o.pair)}</td><td>${esc(o.side)}</td><td>${esc(o.type)}</td><td class="r num">${esc(o.price)}</td><td class="r num">${o.vol}</td><td>${new Date(o.opened * 1000).toLocaleString("en-US", { timeZone: "America/New_York", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}</td></tr>`).join("") + `</tbody></table></div>`;
+  if ((k.trades || []).length) h += `<h3 class="sub-h">Recent trades</h3><div class="scroll"><table><thead><tr><th>Time (ET)</th><th>Pair</th><th>Side</th><th>Order</th><th class="r">Price</th><th class="r">Value</th><th class="r">Fee</th><th class="r">Fee %</th></tr></thead><tbody>` +
+    k.trades.slice(0, 50).map((t) => `<tr><td>${new Date(t.time * 1000).toLocaleString("en-US", { timeZone: "America/New_York", month: "short", day: "numeric", year: "2-digit", hour: "numeric", minute: "2-digit" })}</td><td class="botname">${esc(t.pair)}</td><td>${t.side === "buy" ? "Bought" : "Sold"}</td><td>${esc(t.type)}</td>
+      <td class="r num">${price(t.price)}</td><td class="r num">${money(t.cost)}</td><td class="r num">${money(t.fee)}</td><td class="r num">${t.cost ? (t.fee / t.cost * 100).toFixed(2) + "%" : "–"}</td></tr>`).join("") + `</tbody></table></div>`;
+  else if (k.trades) h += `<p class="empty">No trades on this Kraken account yet.</p>`;
+  box.innerHTML = h;
+}
+renderKpis(); setLive(); krakenPanel(); chartPanel(); botsTable(); openTrades(); coinTable(); calendar(); weekdayChart(); histTable(); holdAndMarket();
+/* ---------- live layer: your OKX demo account, refreshed every minute while the page is open ---------- */
+const snapMs = msOf(D.updated_utc);
+const DENY = ["needs_reauth", "server_not_connected", "blocked_by_policy", "approval_required", "not_in_manifest", "consent_required", "selection_required", "not_granted", "capability_disabled"];
+function okxData(res) {
+  const p = res && res.payload;
+  if (p && typeof p === "object" && "code" in p && String(p.code) !== "0") throw { code: "okx_error", message: p.msg || "OKX error " + p.code };
+  return p && Array.isArray(p.data) ? p.data : [];
+}
+function liveMsg(e) {
+  const c = e && e.code;
+  if (c === "needs_reauth") return "Your OKX connection needs reconnecting: claude.ai Settings → Connectors → OKX Trading.";
+  if (c === "server_not_connected") return "OKX Trading isn't connected to your Claude account. Add it in claude.ai Settings → Connectors.";
+  if (c === "not_in_manifest" || c === "consent_required") return "This page isn't allowed to read OKX yet. Reload and choose Allow when Claude asks.";
+  if (c === "selection_required") return "You have more than one OKX connection. Pick one in the prompt Claude shows, then reload.";
+  if (c === "blocked_by_policy" || c === "approval_required") return "Your account settings block this page from reading OKX.";
+  if (c === "server_unavailable") return "OKX didn't answer just now. It tries again in a minute.";
+  if (c === "okx_error") return "OKX said: " + e.message;
+  return "Couldn't load live data from OKX" + (e && e.message ? ": " + e.message : ".");
+}
+function setLive() {
+  const errs = Object.values(LIVE.errs), note = $("#live-note");
+  let dot = "", txt;
+  if (LIVE.state === "off") { txt = "Snapshot · open in claude.ai for live OKX data"; }
+  else if (errs.length) { dot = "err"; const e = errs.find((x) => DENY.includes(x && x.code)) || errs[0]; note.hidden = false; note.className = "notice err"; note.textContent = liveMsg(e); txt = "Live data paused"; }
+  else if (LIVE.at) { dot = "on"; note.hidden = true; txt = "Live from OKX · " + new Date(LIVE.at).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }); }
+  else txt = "Connecting to OKX…";
+  $("#live-pill").innerHTML = `<span class="livedot ${dot}"></span>${txt}`;
+}
+function botFor(clOrdId) {
+  const b = bots.find((x) => x.prefix && String(clOrdId || "").startsWith(x.prefix));
+  return b ? { id: b.id, name: b.name } : { id: null, name: "Not a bot (manual)" };
+}
+function groupFills(fills) {
+  const by = {};
+  for (const f of fills) {
+    const ts = +(f.ts || f.fillTime); if (!(ts > snapMs)) continue;
+    const o = (by[f.ordId] ||= { ordId: f.ordId, instId: f.instId, side: f.side, ts, sz: 0, val: 0, fee: 0, ...(() => { const b = botFor(f.clOrdId); return { bot: b.name, bot_id: b.id }; })() });
+    const px = +f.fillPx, sz = +f.fillSz, fee = +(f.fee || 0);
+    o.ts = Math.min(o.ts, ts); o.sz += sz; o.val += px * sz; o.fee += f.feeCcy === "USDT" ? fee : fee * px;
+  }
+  return Object.values(by).map((o) => {
+    o.px = o.val / o.sz;
+    const t = opens.find((x) => x.bot_id === o.bot_id && x.coin === o.instId);
+    o.pnl = o.side === "sell" && t ? o.sz * (o.px - t.entry_px) + o.fee : null;
+    return o;
+  }).sort((a, b) => b.ts - a.ts);
+}
+function renderNew() {
+  const list = LIVE.orders;
+  $("#new-panel").hidden = !list.length;
+  $("#new-table").innerHTML = list.length ? `<thead><tr><th>Time (ET)</th><th>Bot</th><th>Coin</th><th>Side</th><th class="r">Price</th><th class="r">Value</th><th class="r">Fee</th><th class="r">P/L (approx.)</th></tr></thead><tbody>` +
+    list.map((o) => `<tr class="newrow"><td>${new Date(o.ts).toLocaleString("en-US", { timeZone: "America/New_York", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}</td><td>${esc(o.bot)}</td><td class="botname">${coinOf(o.instId)}</td>
+      <td>${o.side === "buy" ? "Bought" : "Sold"}</td><td class="r num">${price(o.px)}</td><td class="r num">${money(o.val)}</td><td class="r num">${money(o.fee)}</td><td class="r num ${cls(o.pnl)}">${o.pnl == null ? "–" : money(o.pnl, true)}</td></tr>`).join("") + "</tbody>" : "";
+}
+function applyPx() {
+  for (const t of opens) { const p = LIVE.px[t.chart_coin || t.coin]; if (p) { t.price_now = p; t.unrealized_pct = (p / t.entry_px - 1) * 100; } }
+  openTrades(); renderKpis();
+  if (Object.keys(LIVE.px).length) $("#open-sub").textContent = `${opens.length} open · live prices from OKX`;
+}
+(async () => {
+  const mcp = await window.claude?.use?.("mcp");
+  if (!mcp) { LIVE.state = "off"; setLive(); renderKpis(); return; }
+  LIVE.state = "on";
+  const watch = (tool, input, key, fn) => mcp.watchTool(SERVER, tool, input, (ev) => {
+    if (ev.type === "data") {
+      try { fn(okxData(ev.result)); delete LIVE.errs[key]; LIVE.at = Math.max(LIVE.at || 0, ev.result.cache?.storedAt || Date.now()); } catch (e) { LIVE.errs[key] = e; }
+    } else { LIVE.errs[key] = ev.error; if (DENY.includes(ev.error?.code)) fn(null); }
+    setLive();
+  }, { refetchInterval: 60000 });
+  watch("account_get_balance", { simulatedTrading: true }, "bal", (d) => { LIVE.acct = d && d[0] ? +d[0].totalEq : null; renderKpis(); });
+  watch("spot_get_fills", { simulatedTrading: true, limit: 100 }, "fills", (d) => { LIVE.orders = d ? groupFills(d) : []; renderNew(); calendar(); });
+  for (const inst of new Set(opens.map((t) => t.chart_coin || t.coin))) watch("market_get_ticker", { instId: inst }, "px:" + inst, (d) => { if (d && d[0]) LIVE.px[inst] = +d[0].last; else delete LIVE.px[inst]; applyPx(); });
+})();
+
+</script>
