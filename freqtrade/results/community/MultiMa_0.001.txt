@@ -1,0 +1,185 @@
+2026-10-06 06:38:39,814 - freqtrade - INFO - freqtrade 2026.9
+2026-10-06 06:38:40,015 - numexpr.utils - INFO - NumExpr defaulting to 2 threads.
+2026-10-06 06:38:41,257 - freqtrade.configuration.load_config - INFO - Using config: /repo/freqtrade/user_data/config_community.json ...
+2026-10-06 06:38:41,259 - freqtrade.loggers - INFO - Enabling colorized output.
+2026-10-06 06:38:41,259 - freqtrade.loggers - INFO - Logfile configured
+2026-10-06 06:38:41,259 - freqtrade.loggers - INFO - Verbosity set to 0
+2026-10-06 06:38:41,260 - freqtrade.configuration.configuration - INFO - Using additional Strategy lookup path: /repo/community
+2026-10-06 06:38:41,260 - freqtrade.configuration.configuration - INFO - Using max_open_trades: 3 ...
+2026-10-06 06:38:41,260 - freqtrade.configuration.configuration - INFO - Parameter --fee detected, setting fee to: 0.001 ...
+2026-10-06 06:38:41,260 - freqtrade.configuration.configuration - INFO - Parameter --timerange detected: 20220101- ...
+2026-10-06 06:38:41,269 - freqtrade.configuration.configuration - INFO - Using user-data directory: /repo/freqtrade/user_data ...
+2026-10-06 06:38:41,270 - freqtrade.configuration.configuration - INFO - Using data directory: /repo/freqtrade/user_data/data/okx ...
+2026-10-06 06:38:41,270 - freqtrade.configuration.configuration - INFO - Parameter --export detected: none ...
+2026-10-06 06:38:41,270 - freqtrade.configuration.configuration - INFO - Parameter --cache=day detected ...
+2026-10-06 06:38:41,270 - freqtrade.configuration.configuration - INFO - Filter trades by timerange: 20220101-
+2026-10-06 06:38:41,271 - freqtrade.exchange.check_exchange - INFO - Checking exchange...
+2026-10-06 06:38:41,275 - freqtrade.exchange.check_exchange - INFO - Exchange "okx" is officially supported by the Freqtrade development team.
+2026-10-06 06:38:41,275 - freqtrade.configuration.configuration - INFO - Using pairlist from configuration.
+2026-10-06 06:38:41,276 - freqtrade.configuration.config_validation - INFO - Validating configuration ...
+2026-10-06 06:38:41,277 - freqtrade.commands.optimize_commands - INFO - Starting freqtrade in Backtesting mode
+2026-10-06 06:38:41,277 - freqtrade.exchange.exchange - INFO - Instance is running with dry_run enabled
+2026-10-06 06:38:41,277 - freqtrade.exchange.exchange - INFO - Using CCXT 4.5.84
+2026-10-06 06:38:41,278 - freqtrade.exchange.exchange - INFO - Applying additional ccxt config: {'hostname': 'us.okx.com'}
+2026-10-06 06:38:41,279 - freqtrade.exchange.exchange - INFO - Applying additional ccxt config: {'hostname': 'us.okx.com'}
+2026-10-06 06:38:41,281 - freqtrade.exchange.exchange - INFO - Using Exchange "OKX"
+2026-10-06 06:38:41,964 - freqtrade.resolvers.exchange_resolver - INFO - Using resolved exchange class 'Okx' ...
+/repo/community/MultiMa.py:13: FutureWarning: 'freqtrade.vendor.qtpylib.indicators' is deprecated and will be removed in a future release. Import from technical instead - either the module (`from technical import qtpylib`) or a single function (`from technical.qtpylib import crossed_above`).
+  import freqtrade.vendor.qtpylib.indicators as qtpylib
+2026-10-06 06:38:41,975 - freqtrade.resolvers.iresolver - INFO - Using resolved strategy MultiMa from '/repo/community/MultiMa.py'...
+2026-10-06 06:38:41,975 - freqtrade.strategy.hyper - INFO - Found no parameter file.
+2026-10-06 06:38:41,976 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'stake_currency' with value from the configuration: USDT.
+2026-10-06 06:38:41,976 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'stake_amount' with value from the configuration: unlimited.
+2026-10-06 06:38:41,976 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'max_open_trades' with value from the configuration: 3.
+2026-10-06 06:38:41,976 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using minimal_roi: {'0': 0.523, '1553': 0.123, '2332': 0.076, '3169': 0}
+2026-10-06 06:38:41,976 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using timeframe: 4h
+2026-10-06 06:38:41,977 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using stoploss: -0.345
+2026-10-06 06:38:41,977 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using trailing_stop: False
+2026-10-06 06:38:41,977 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using trailing_stop_positive_offset: 0.0
+2026-10-06 06:38:41,977 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using trailing_only_offset_is_reached: False
+2026-10-06 06:38:41,977 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using use_custom_stoploss: False
+2026-10-06 06:38:41,978 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using process_only_new_candles: True
+2026-10-06 06:38:41,978 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using order_types: {'entry': 'limit', 'exit': 'limit', 'stoploss': 'limit', 'stoploss_on_exchange': False, 
+'stoploss_on_exchange_interval': 60}
+2026-10-06 06:38:41,978 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using order_time_in_force: {'entry': 'GTC', 'exit': 'GTC'}
+2026-10-06 06:38:41,978 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using stake_currency: USDT
+2026-10-06 06:38:41,978 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using stake_amount: unlimited
+2026-10-06 06:38:41,979 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using startup_candle_count: 0
+2026-10-06 06:38:41,979 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using use_exit_signal: True
+2026-10-06 06:38:41,979 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using exit_profit_only: False
+2026-10-06 06:38:41,979 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using ignore_roi_if_entry_signal: False
+2026-10-06 06:38:41,979 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using exit_profit_offset: 0.0
+2026-10-06 06:38:41,979 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using disable_dataframe_checks: False
+2026-10-06 06:38:41,980 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using ignore_buying_expired_candle_after: 0
+2026-10-06 06:38:41,980 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using position_adjustment_enable: False
+2026-10-06 06:38:41,980 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using max_entry_position_adjustment: -1
+2026-10-06 06:38:41,980 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using max_open_trades: 3
+2026-10-06 06:38:41,980 - freqtrade.configuration.config_validation - INFO - Validating configuration ...
+2026-10-06 06:38:41,983 - freqtrade.resolvers.iresolver - INFO - Using resolved pairlist StaticPairList from '/freqtrade/freqtrade/plugins/pairlist/StaticPairList.py'...
+2026-10-06 06:38:41,988 - freqtrade.optimize.backtesting - INFO - Using fee 0.1000% from config.
+2026-10-06 06:38:42,062 - freqtrade.optimize.backtesting - INFO - Loading data from 2022-01-01 00:00:00 up to 2026-10-06 00:00:00 (1739 days).
+2026-10-06 06:38:42,283 - freqtrade.optimize.backtesting - INFO - Dataload complete. Calculating indicators
+2026-10-06 06:38:42,284 - freqtrade.optimize.backtesting - WARNING - Backtest result caching disabled due to use of open-ended timerange.
+2026-10-06 06:38:42,284 - freqtrade.optimize.backtesting - INFO - Running backtesting for Strategy MultiMa
+2026-10-06 06:38:42,285 - freqtrade.strategy.hyper - INFO - Strategy Parameter: buy_ma_count = 4
+2026-10-06 06:38:42,285 - freqtrade.strategy.hyper - INFO - Strategy Parameter: buy_ma_gap = 15
+2026-10-06 06:38:42,285 - freqtrade.strategy.hyper - INFO - Strategy Parameter: sell_ma_count = 12
+2026-10-06 06:38:42,285 - freqtrade.strategy.hyper - INFO - Strategy Parameter: sell_ma_gap = 68
+/repo/community/MultiMa.py:66: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  dataframe[count*gap] = ta.TEMA(
+2026-10-06 06:38:43,153 - freqtrade.optimize.backtesting - INFO - Backtesting with data from 2022-01-01 00:00:00 up to 2026-10-06 00:00:00 (1739 days).
+backtest ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4/4         100% • 0:00:01 • 0:00:00
+backtest ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10434/10434 100% • 0:00:01 • 0:00:00
+  BTC/USDT	  ETH/USDT	  SOL/USDT	  XRP/USDT	Result for strategy MultiMa
+                                               BACKTESTING REPORT                                                
+┏━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃     Pair ┃ Trades ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃     Avg Duration ┃  Win  Draw  Loss  Win% ┃
+┡━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ XRP/USDT │     30 │         2.45 │         319.334 │        31.93 │  4 days, 3:20:00 │   20     0    10  66.7 │
+│ ETH/USDT │     35 │         1.98 │         251.090 │        25.11 │ 2 days, 23:26:00 │   27     0     8  77.1 │
+│ BTC/USDT │     30 │         0.73 │          70.932 │         7.09 │  3 days, 1:04:00 │   21     0     9  70.0 │
+│ SOL/USDT │     49 │         0.11 │         -23.192 │        -2.32 │ 2 days, 19:11:00 │   28     0    21  57.1 │
+│    TOTAL │    144 │         1.18 │         618.163 │        61.82 │  3 days, 4:08:00 │   96     0    48  66.7 │
+└──────────┴────────┴──────────────┴─────────────────┴──────────────┴──────────────────┴────────────────────────┘
+                                         LEFT OPEN TRADES REPORT                                          
+┏━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃  Pair ┃ Trades ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃ Avg Duration ┃  Win  Draw  Loss  Win% ┃
+┡━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ TOTAL │      0 │          0.0 │           0.000 │          0.0 │         0:00 │    0     0     0     0 │
+└───────┴────────┴──────────────┴─────────────────┴──────────────┴──────────────┴────────────────────────┘
+                                                 ENTER TAG STATS                                                  
+┏━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Enter Tag ┃ Entries ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃    Avg Duration ┃  Win  Draw  Loss  Win% ┃
+┡━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
+│     OTHER │     144 │         1.18 │         618.163 │        61.82 │ 3 days, 4:08:00 │   96     0    48  66.7 │
+│     TOTAL │     144 │         1.18 │         618.163 │        61.82 │ 3 days, 4:08:00 │   96     0    48  66.7 │
+└───────────┴─────────┴──────────────┴─────────────────┴──────────────┴─────────────────┴────────────────────────┘
+                                                 EXIT REASON STATS                                                 
+┏━━━━━━━━━━━━━┳━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Exit Reason ┃ Exits ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃     Avg Duration ┃  Win  Draw  Loss  Win% ┃
+┡━━━━━━━━━━━━━╇━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
+│         roi │   114 │         4.09 │        1787.817 │       178.78 │ 2 days, 18:15:00 │   96     0    18  84.2 │
+│   stop_loss │     1 │       -34.63 │        -137.445 │       -13.74 │ 3 days, 20:00:00 │    0     0     1     0 │
+│ exit_signal │    29 │        -9.02 │       -1032.208 │      -103.22 │ 4 days, 18:29:00 │    0     0    29     0 │
+│       TOTAL │   144 │         1.18 │         618.163 │        61.82 │  3 days, 4:08:00 │   96     0    48  66.7 │
+└─────────────┴───────┴──────────────┴─────────────────┴──────────────┴──────────────────┴────────────────────────┘
+                                                        MIXED TAG STATS                                                         
+┏━━━━━━━━━━━┳━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Enter Tag ┃ Exit Reason ┃ Trades ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃     Avg Duration ┃  Win  Draw  Loss  Win% ┃
+┡━━━━━━━━━━━╇━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
+│           │         roi │    114 │         4.09 │        1787.817 │       178.78 │ 2 days, 18:15:00 │   96     0    18  84.2 │
+│           │   stop_loss │      1 │       -34.63 │        -137.445 │       -13.74 │ 3 days, 20:00:00 │    0     0     1     0 │
+│           │ exit_signal │     29 │        -9.02 │       -1032.208 │      -103.22 │ 4 days, 18:29:00 │    0     0    29     0 │
+│     TOTAL │             │    144 │         1.18 │         618.163 │        61.82 │  3 days, 4:08:00 │   96     0    48  66.7 │
+└───────────┴─────────────┴────────┴──────────────┴─────────────────┴──────────────┴──────────────────┴────────────────────────┘
+                                   SUMMARY METRICS                                    
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Metric                                 ┃ Value                                     ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Backtesting from                       │ 2022-01-01 00:00:00                       │
+│ Backtesting to                         │ 2026-10-06 00:00:00                       │
+│ Trading Mode                           │ Spot                                      │
+│ Max open trades                        │ 3                                         │
+│                                        │                                           │
+│ Total/Daily Avg Trades                 │ 144 / 0.08                                │
+│ Starting balance                       │ 1000 USDT                                 │
+│ Final balance                          │ 1618.163 USDT                             │
+│ Absolute profit                        │ 618.163 USDT                              │
+│ Total profit %                         │ 61.82%                                    │
+│ CAGR %                                 │ 10.63%                                    │
+│ Sharpe (closed trades)                 │ 0.22                                      │
+│ Sortino (closed trades)                │ 0.23                                      │
+│ Calmar (closed trades)                 │ 2.10                                      │
+│ SQN                                    │ 1.66                                      │
+│ Mean profit p-value                    │ 0.09839                                   │
+│ Profit factor                          │ 1.53                                      │
+│ Expectancy (Ratio)                     │ 4.29 (0.18)                               │
+│ Avg. daily profit                      │ 0.355 USDT                                │
+│ Avg. stake amount                      │ 397.839 USDT                              │
+│ Market change                          │ 25.68%                                    │
+│ Total trade volume                     │ 115426.417 USDT                           │
+│                                        │                                           │
+│ Best Pair                              │ XRP/USDT 31.93%                           │
+│ Worst Pair                             │ SOL/USDT -2.32%                           │
+│ Best trade                             │ XRP/USDT 24.26%                           │
+│ Worst trade                            │ SOL/USDT -34.63%                          │
+│ Best day                               │ 113.972 USDT                              │
+│ Worst day                              │ -170.339 USDT                             │
+│ Days win/draw/lose                     │ 75 / 1560 / 42                            │
+│ Min/Max/Avg. Duration Winners          │ 1d 04:00 / 41d 12:00 / 2d 15:48           │
+│ Min/Max/Avg. Duration Losers           │ 0d 20:00 / 23d 08:00 / 4d 04:50           │
+│ Max Consecutive Wins / Loss            │ 10 / 5                                    │
+│ Rejected Entry signals                 │ 131                                       │
+│ Entry/Exit Timeouts                    │ 0 / 0                                     │
+│                                        │                                           │
+│ Min/Max balance (closed trades)        │ 856.099 USDT / 1621.409 USDT              │
+│ Max % of account underwater            │ 32.33%                                    │
+│ Absolute drawdown                      │ 408.987 USDT (32.33%)                     │
+│ Drawdown duration                      │ 133 days 08:00:00                         │
+│ Profit at drawdown start               │ 265.086 USDT                              │
+│ Profit at drawdown end                 │ -143.901 USDT                             │
+│ Drawdown start                         │ 2022-03-02 12:00:00                       │
+│ Drawdown end                           │ 2022-07-13 20:00:00                       │
+│                                        │                                           │
+│ Wallet based Metrics                   │                                           │
+│ Min/Max balance (wallet balance)       │ 812.571 USDT / 1680.781 USDT              │
+│ Min/Max balance dates (wallet balance) │ 2022-07-13 00:00:00 / 2026-08-22 04:00:00 │
+│ Max % of account underwater (balance)  │ 36.17%                                    │
+│ Absolute drawdown (wallet balance)     │ 460.472 USDT (36.17%)                     │
+│ Drawdown duration                      │ 154 days 16:00:00                         │
+│ Profit at drawdown start               │ 273.043 USDT                              │
+│ Profit at drawdown end                 │ -187.429 USDT                             │
+│ Drawdown start                         │ 2022-02-08 08:00:00                       │
+│ Drawdown end                           │ 2022-07-13 00:00:00                       │
+│ Sharpe (daily wallet balance)          │ 0.62                                      │
+│ Sortino (daily wallet balance)         │ 0.40                                      │
+│ Calmar (daily wallet balance)          │ 1.88                                      │
+└────────────────────────────────────────┴───────────────────────────────────────────┘
+
+Backtested 2022-01-01 00:00:00 -> 2026-10-06 00:00:00 | Max open trades : 3
+                                                           STRATEGY SUMMARY                                                            
+┏━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Strategy ┃ Trades ┃ Avg Profit % ┃ Tot Profit USDT ┃ Tot Profit % ┃    Avg Duration ┃  Win  Draw  Loss  Win% ┃             Drawdown ┃
+┡━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━┩
+│  MultiMa │    144 │         1.18 │         618.163 │        61.82 │ 3 days, 4:08:00 │   96     0    48  66.7 │ 408.987 USDT  32.33% │
+└──────────┴────────┴──────────────┴─────────────────┴──────────────┴─────────────────┴────────────────────────┴──────────────────────┘

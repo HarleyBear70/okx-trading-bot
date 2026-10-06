@@ -1,0 +1,66 @@
+2026-10-06 06:48:03,650 - freqtrade - INFO - freqtrade 2026.9
+2026-10-06 06:48:03,848 - numexpr.utils - INFO - NumExpr defaulting to 2 threads.
+2026-10-06 06:48:05,144 - freqtrade.configuration.load_config - INFO - Using config: /repo/freqtrade/user_data/config_community.json ...
+2026-10-06 06:48:05,146 - freqtrade.loggers - INFO - Enabling colorized output.
+2026-10-06 06:48:05,146 - freqtrade.loggers - INFO - Logfile configured
+2026-10-06 06:48:05,146 - freqtrade.loggers - INFO - Verbosity set to 0
+2026-10-06 06:48:05,147 - freqtrade.configuration.configuration - INFO - Using additional Strategy lookup path: /repo/community
+2026-10-06 06:48:05,147 - freqtrade.configuration.configuration - INFO - Using max_open_trades: 3 ...
+2026-10-06 06:48:05,147 - freqtrade.configuration.configuration - INFO - Parameter --fee detected, setting fee to: 0.0035 ...
+2026-10-06 06:48:05,147 - freqtrade.configuration.configuration - INFO - Parameter --timerange detected: 20220101- ...
+2026-10-06 06:48:05,157 - freqtrade.configuration.configuration - INFO - Using user-data directory: /repo/freqtrade/user_data ...
+2026-10-06 06:48:05,157 - freqtrade.configuration.configuration - INFO - Using data directory: /repo/freqtrade/user_data/data/okx ...
+2026-10-06 06:48:05,158 - freqtrade.configuration.configuration - INFO - Parameter --export detected: none ...
+2026-10-06 06:48:05,158 - freqtrade.configuration.configuration - INFO - Parameter --cache=day detected ...
+2026-10-06 06:48:05,158 - freqtrade.configuration.configuration - INFO - Filter trades by timerange: 20220101-
+2026-10-06 06:48:05,159 - freqtrade.exchange.check_exchange - INFO - Checking exchange...
+2026-10-06 06:48:05,163 - freqtrade.exchange.check_exchange - INFO - Exchange "okx" is officially supported by the Freqtrade development team.
+2026-10-06 06:48:05,163 - freqtrade.configuration.configuration - INFO - Using pairlist from configuration.
+2026-10-06 06:48:05,164 - freqtrade.configuration.config_validation - INFO - Validating configuration ...
+2026-10-06 06:48:05,165 - freqtrade.commands.optimize_commands - INFO - Starting freqtrade in Backtesting mode
+2026-10-06 06:48:05,165 - freqtrade.exchange.exchange - INFO - Instance is running with dry_run enabled
+2026-10-06 06:48:05,166 - freqtrade.exchange.exchange - INFO - Using CCXT 4.5.84
+2026-10-06 06:48:05,166 - freqtrade.exchange.exchange - INFO - Applying additional ccxt config: {'hostname': 'us.okx.com'}
+2026-10-06 06:48:05,168 - freqtrade.exchange.exchange - INFO - Applying additional ccxt config: {'hostname': 'us.okx.com'}
+2026-10-06 06:48:05,170 - freqtrade.exchange.exchange - INFO - Using Exchange "OKX"
+2026-10-06 06:48:05,856 - freqtrade.resolvers.exchange_resolver - INFO - Using resolved exchange class 'Okx' ...
+/repo/community/SmoothScalp.py:8: FutureWarning: 'freqtrade.vendor.qtpylib.indicators' is deprecated and will be removed in a future release. Import from technical instead - either the module (`from technical import qtpylib`) or a single function (`from technical.qtpylib import crossed_above`).
+  import freqtrade.vendor.qtpylib.indicators as qtpylib
+2026-10-06 06:48:05,867 - freqtrade.resolvers.iresolver - INFO - Using resolved strategy SmoothScalp from '/repo/community/SmoothScalp.py'...
+2026-10-06 06:48:05,867 - freqtrade.strategy.hyper - INFO - Found no parameter file.
+2026-10-06 06:48:05,868 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'stake_currency' with value from the configuration: USDT.
+2026-10-06 06:48:05,868 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'stake_amount' with value from the configuration: unlimited.
+2026-10-06 06:48:05,868 - freqtrade.resolvers.strategy_resolver - INFO - Override strategy 'max_open_trades' with value from the configuration: 3.
+2026-10-06 06:48:05,868 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using minimal_roi: {'0': 0.01}
+2026-10-06 06:48:05,869 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using timeframe: 1m
+2026-10-06 06:48:05,869 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using stoploss: -0.5
+2026-10-06 06:48:05,869 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using trailing_stop: False
+2026-10-06 06:48:05,869 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using trailing_stop_positive_offset: 0.0
+2026-10-06 06:48:05,869 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using trailing_only_offset_is_reached: False
+2026-10-06 06:48:05,870 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using use_custom_stoploss: False
+2026-10-06 06:48:05,870 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using process_only_new_candles: True
+2026-10-06 06:48:05,870 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using order_types: {'entry': 'limit', 'exit': 'limit', 'stoploss': 'limit', 'stoploss_on_exchange': False, 
+'stoploss_on_exchange_interval': 60}
+2026-10-06 06:48:05,870 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using order_time_in_force: {'entry': 'GTC', 'exit': 'GTC'}
+2026-10-06 06:48:05,870 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using stake_currency: USDT
+2026-10-06 06:48:05,870 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using stake_amount: unlimited
+2026-10-06 06:48:05,871 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using startup_candle_count: 0
+2026-10-06 06:48:05,871 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using use_exit_signal: True
+2026-10-06 06:48:05,871 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using exit_profit_only: False
+2026-10-06 06:48:05,871 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using ignore_roi_if_entry_signal: False
+2026-10-06 06:48:05,871 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using exit_profit_offset: 0.0
+2026-10-06 06:48:05,872 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using disable_dataframe_checks: False
+2026-10-06 06:48:05,872 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using ignore_buying_expired_candle_after: 0
+2026-10-06 06:48:05,872 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using position_adjustment_enable: False
+2026-10-06 06:48:05,872 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using max_entry_position_adjustment: -1
+2026-10-06 06:48:05,872 - freqtrade.resolvers.strategy_resolver - INFO - Strategy using max_open_trades: 3
+2026-10-06 06:48:05,873 - freqtrade.configuration.config_validation - INFO - Validating configuration ...
+2026-10-06 06:48:05,876 - freqtrade.resolvers.iresolver - INFO - Using resolved pairlist StaticPairList from '/freqtrade/freqtrade/plugins/pairlist/StaticPairList.py'...
+2026-10-06 06:48:05,880 - freqtrade.optimize.backtesting - INFO - Using fee 0.3500% from config.
+2026-10-06 06:48:05,896 - freqtrade.data.history.datahandlers.idatahandler - WARNING - No history for BTC/USDT, spot, 1m found. Use `freqtrade download-data` to download the data
+2026-10-06 06:48:05,898 - freqtrade.data.history.datahandlers.idatahandler - WARNING - No history for ETH/USDT, spot, 1m found. Use `freqtrade download-data` to download the data
+2026-10-06 06:48:05,899 - freqtrade.data.history.datahandlers.idatahandler - WARNING - No history for SOL/USDT, spot, 1m found. Use `freqtrade download-data` to download the data
+2026-10-06 06:48:05,899 - freqtrade.data.history.datahandlers.idatahandler - WARNING - No history for XRP/USDT, spot, 1m found. Use `freqtrade download-data` to download the data
+dataload ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸                                                                                                                          1/4  25% • 0:00:00 • -:--:--
+dataload                                                                                                                                                                    0/1   0% • 0:00:00 • -:--:--
+2026-10-06 06:48:05,903 - freqtrade - ERROR - No data found. Terminating.
