@@ -45,7 +45,9 @@ def prepare(kind, trail_mult, unseen=False):
     return cs, per, 0.0035, 5
 
 
-def sim(cs, per, risk, max_open, pyramid, t0, t1=None):
+def sim(cs, per, risk, max_open, pyramid, t0, t1=None, sizing="risk", size_arg=None, avg_down=False):
+    """sizing (F18): "risk" = balance x risk / stop distance (live); "usd" = fixed $ size_arg per trade;
+    "pct" = size_arg x balance per trade. avg_down (F18): add an equal piece once if the close falls to entry - 0.5R."""
     t1 = t1 or e.now()
     idx = {c: {x["ts"]: k for k, x in enumerate(per[c][0])} for c in cs}
     times = sorted({x["ts"] for c in cs for x in per[c][0] if e.ms(t0) <= x["ts"] < e.ms(t1)})
@@ -75,6 +77,13 @@ def sim(cs, per, risk, max_open, pyramid, t0, t1=None):
                     if new is not None:
                         p["stop"] = max(p["stop"], new)
                     one_r = p["entry"] - p["sl0"]
+                    if avg_down and not p.get("avg") and p["hi"] < p["entry"] + one_r and x["c"] <= p["entry"] - 0.5 * one_r \
+                            and x["c"] > p["stop"]:
+                        p["avg"] = True
+                        in_use = sum(u["cost"] for q in pos.values() for u in q["units"])
+                        qty = min(p["units"][0]["qty"], max(eq - in_use, 0.0) / x["c"])
+                        if qty * x["c"] >= 5:
+                            p["units"].append({"qty": qty, "cost": qty * x["c"] * (1 + FEE)})
                     if pyramid and not p["added"] and x["c"] >= p["entry"] + one_r and x["c"] > p["stop"]:
                         in_use = sum(u["cost"] for q in pos.values() for u in q["units"])
                         qty = min(eq * risk / (x["c"] - p["stop"]), max(eq - in_use, 0.0) / x["c"])
@@ -84,7 +93,9 @@ def sim(cs, per, risk, max_open, pyramid, t0, t1=None):
                         p["stop"] = max(p["stop"], p["entry"])
             if c not in pos and k in ent and len(pos) < max_open and x["c"] > ent[k]:
                 in_use = sum(u["cost"] for q in pos.values() for u in q["units"])
-                qty = min(eq * risk / (x["c"] - ent[k]), max(eq - in_use, 0.0) / x["c"])
+                want = {"risk": eq * risk / (x["c"] - ent[k]), "usd": (size_arg or 0) / x["c"],
+                        "pct": eq * (size_arg or 0) / x["c"]}[sizing]
+                qty = min(want, max(eq - in_use, 0.0) / x["c"])
                 if qty * x["c"] >= 5:
                     pos[c] = {"units": [{"qty": qty, "cost": qty * x["c"] * (1 + FEE)}], "stop": ent[k],
                               "sl0": ent[k], "entry": x["c"], "hi": x["c"], "added": False}
