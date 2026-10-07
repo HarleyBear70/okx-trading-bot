@@ -1,22 +1,17 @@
 {
- "updated_utc": "2026-10-07 03:26",
+ "updated_utc": "2026-10-07 04:27",
  "bots": {
   "v4-okx": {
    "live_now": 1005.0504,
-   "replay_now": 1000.0,
+   "replay_now": null,
    "live": {
     "n": 2,
     "win": 50.0,
     "pf": 7.011904761904762,
     "dd": -0.18274091509500323
    },
-   "replay": {
-    "n": 0,
-    "win": null,
-    "pf": null,
-    "dd": 0.0
-   },
-   "error": null
+   "replay": null,
+   "error": "<urlopen error [Errno 104] Connection reset by peer>"
   },
   "v4-kraken": {
    "live_now": 996.5594,
@@ -37,20 +32,15 @@
   },
   "v2-okx": {
    "live_now": 996.6773,
-   "replay_now": 1000.0,
+   "replay_now": null,
    "live": {
     "n": 1,
     "win": 0.0,
     "pf": 0.0,
     "dd": -0.3322700000000012
    },
-   "replay": {
-    "n": 0,
-    "win": null,
-    "pf": null,
-    "dd": 0.0
-   },
-   "error": null
+   "replay": null,
+   "error": "<urlopen error [Errno 104] Connection reset by peer>"
   },
   "v2-gold": {
    "live_now": 1000.0,
@@ -71,20 +61,15 @@
   },
   "tr-okx": {
    "live_now": 1000.0,
-   "replay_now": 996.9095233314299,
+   "replay_now": null,
    "live": {
     "n": 0,
     "win": null,
     "pf": null,
     "dd": 0.0
    },
-   "replay": {
-    "n": 0,
-    "win": null,
-    "pf": null,
-    "dd": -0.3090476668570097
-   },
-   "error": null
+   "replay": null,
+   "error": "<urlopen error [Errno 104] Connection reset by peer>"
   },
   "b1-paper": {
    "live_now": 1000.0,
@@ -224,20 +209,15 @@
   },
   "cr-paper": {
    "live_now": 1000.0,
-   "replay_now": 1000.0,
+   "replay_now": null,
    "live": {
     "n": 0,
     "win": null,
     "pf": null,
     "dd": 0.0
    },
-   "replay": {
-    "n": 0,
-    "win": null,
-    "pf": null,
-    "dd": 0.0
-   },
-   "error": null
+   "replay": null,
+   "error": "<urlopen error [Errno 104] Connection reset by peer>"
   },
   "tr-gold": {
    "live_now": 1000.0,
