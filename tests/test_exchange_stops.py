@@ -15,6 +15,7 @@ class FakeOKX:
 
     def __init__(self):
         self.calls, self.algos, self.coin_bal, self.next_id = [], {}, 0.0, 1
+        self.pending_raises, self.fills = False, []
 
     def get(self, path, params=None, private=False):
         self.calls.append(("GET", path, params))
@@ -28,7 +29,11 @@ class FakeOKX:
             return [{"state": "filled", "accFillSz": "0.0100", "avgPx": "100.0", "fee": "0"}]
         if path == "/api/v5/trade/orders-algo-pending":
             a = self.algos.get(params["algoId"])
+            if self.pending_raises and not (a and a["state"] == "live"):
+                raise RuntimeError('OKX error: {"code":"51603","msg":"Order does not exist"}')
             return [a] if a and a["state"] == "live" else []
+        if path == "/api/v5/trade/fills":
+            return self.fills
         if path == "/api/v5/trade/orders-algo-history":
             a = self.algos.get(params["algoId"])
             return [a] if a and a["state"] != "live" else []
@@ -87,6 +92,35 @@ def test_place_amend_and_exchange_fill():
     assert "BTC-USDT" not in bs["positions"]
     sell = rows[-1]
     assert sell[2] == "sell" and sell[8] == "stop (exchange)" and abs(sell[4] - (0.01 * 95 - 0.0033) / 0.01) < 1e-9, sell
+
+
+def test_fired_stop_found_when_pending_lookup_errors():
+    """Oct 7 2026: OKX answered the pending lookup with an error after the stop fired; the trade must still be recorded."""
+    api, b, bs, rows = setup()
+    aid = bs["positions"]["BTC-USDT"]["algo_id"]
+    api.pending_raises = True
+    api.algos[aid].update({"state": "effective", "ordId": "O9"})
+    assert bot.stop_check(api, b, bs, "BTC-USDT") is True
+    assert "BTC-USDT" not in bs["positions"] and rows[-1][8] == "stop (exchange)", rows[-1]
+
+
+def test_nothing_left_to_sell_records_okx_sale():
+    """If the bot finds no coins to sell, it records OKX's actual sale instead of dropping the trade."""
+    api, b, bs, rows = setup()
+    pos = bs["positions"]["BTC-USDT"]
+    pos["algo_id"] = None
+    api.coin_bal = 0.0  # already sold on OKX
+    real_sell, bot.okx_sell = bot.okx_sell, lambda api_, bot_, coin, qty: (0.0, 0.0)
+    api.fills = [{"side": "sell", "ts": "5", "fillSz": "0.0100", "fillPx": "97.0", "fee": "-0.0034", "feeCcy": "USDT",
+                  "ordId": "S1"}]
+    eq0 = bs["equity"]
+    try:
+        bot.close_position(api, b, bs, "BTC-USDT", "stop", 96.0)
+    finally:
+        bot.okx_sell = real_sell
+    sell = rows[-1]
+    assert "BTC-USDT" not in bs["positions"] and sell[2] == "sell" and sell[8] == "stop (exchange, found late)", sell
+    assert abs(bs["equity"] - (eq0 + (0.97 - 0.0034 - pos["cost"]))) < 1e-6, bs["equity"]
 
 
 def test_bot_exit_cancels_first():

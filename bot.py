@@ -976,14 +976,40 @@ def stop_sync(api, bot, coin, pos):
         log(f"  {coin}: ATTENTION exchange stop not in sync ({e}); the hourly check still guards this trade")
 
 
+def exchange_sold_since(api, coin, since_ms):
+    """OKX sells of this coin since since_ms (e.g. a fired exchange stop the bot missed): (qty, proceeds net of fees)
+    or None. Proceeds are in USDT; sell fees are charged in USDT (negative)."""
+    try:
+        fills = api.get("/api/v5/trade/fills", {"instType": "SPOT", "instId": coin}, private=True)
+    except Exception as e:
+        log(f"  {coin}: could not read OKX fills ({e})")
+        return None
+    sells = [f for f in fills if f.get("side") == "sell" and int(f.get("ts", 0)) >= since_ms]
+    qty = sum(float(f["fillSz"]) for f in sells)
+    if qty <= 0:
+        return None
+    gross = sum(float(f["fillSz"]) * float(f["fillPx"]) for f in sells)
+    fees = sum(float(f.get("fee") or 0) for f in sells if f.get("feeCcy", "USDT") != coin.split("-")[0])
+    _last_fill.update({"avg_px": gross / qty, "fee_usdt": round(abs(fees), 6), "ord_id": sells[0].get("ordId")})
+    return qty, gross + fees
+
+
 def stop_check(api, bot, bs, coin):
     """Start of run: did OKX's stop fire since the last run? If so, record OKX's real fill and return True."""
     pos = bs["positions"].get(coin)
     if not pos or not pos.get("algo_id"):
         return False
     try:
-        if api.get("/api/v5/trade/orders-algo-pending", {"ordType": "conditional", "algoId": pos["algo_id"]}, private=True):
-            return False
+        pending = api.get("/api/v5/trade/orders-algo-pending", {"ordType": "conditional", "algoId": pos["algo_id"]},
+                          private=True)
+    except Exception as e:
+        # Once a stop has fired, OKX can answer "order does not exist" here instead of an empty list (Oct 7 2026:
+        # Trend Rider's SUI stop filled, this raised, and the trade was dropped unrecorded). Go on to the history.
+        log(f"  {coin}: exchange stop not pending ({str(e)[:120]}); checking its history")
+        pending = None
+    if pending:
+        return False
+    try:
         h = api.get("/api/v5/trade/orders-algo-history", {"ordType": "conditional", "algoId": pos["algo_id"]}, private=True)
     except Exception as e:
         log(f"  {coin}: could not check exchange stop ({e})")
@@ -1135,9 +1161,17 @@ def close_position(api, bot, bs, coin, reason, paper_px, done=None):
         stop_cancel(api, bot, coin, pos)
         filled, proceeds = okx_sell(api, bot, coin, pos["qty"])
         if filled <= 0:
-            log(f"  {coin}: nothing left to sell — clearing position")
-            bs["positions"].pop(coin)
-            return
+            # Nothing left to sell: something already sold these coins (almost always the exchange stop). Record
+            # OKX's real sale instead of dropping the trade, so trades.csv, state.json and the balance stay right.
+            got = exchange_sold_since(api, coin, pos["entry_ts"])
+            if not got:
+                log(f"  {coin}: ATTENTION nothing left to sell and no OKX sale found — clearing position unrecorded")
+                record("vanished", bot, coin, entry_px=pos["entry_px"], qty=pos["qty"], stop=pos["stop"])
+                bs["positions"].pop(coin)
+                return
+            filled, proceeds = got
+            reason = "stop (exchange, found late)"
+            log(f"  {coin}: coins were already sold on OKX ({filled:.8g} for {proceeds:.6g}) - recording that sale")
         px = proceeds / filled
     else:
         filled, px = pos["qty"], paper_px
