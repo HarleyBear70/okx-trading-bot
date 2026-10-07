@@ -109,6 +109,12 @@ BOTS = [
     {"id": "rsi2-bnus", "name": "RSI(2) snap-back (Binance.US paper)", "strat": "rsi2", "venue": "binanceus",
      "mode": "paper", "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "XRP-USDT", "BNB-USDT"], "equity": 1000.0,
      "risk": 0.005, "max_open": 5, "half_at_2r": False, "fee": BINANCEUS_FEE},
+    # Retired at OKX fees, back to life at Binance.US fees (research/F42.md): same settings as their OKX versions, paper.
+    {"id": "v4-bnus", "name": "SP-12 v4 (Binance.US paper)", "strat": "v4", "venue": "binanceus", "mode": "paper",
+     "coins": ["BTC-USDT", "ETH-USDT", "XRP-USDT", "XLM-USDT", "BNB-USDT"], "equity": 1000.0, "risk": 0.004,
+     "half_at_2r": False, "fee": BINANCEUS_FEE},
+    {"id": "b1-bnus", "name": "B1c breakout retest (Binance.US paper)", "strat": "b1", "venue": "binanceus",
+     "mode": "paper", "coins": ["BTC-USDT", "ETH-USDT", "XRP-USDT"], "equity": 1000.0, "fee": BINANCEUS_FEE},
     {"id": "hold-paper", "name": "BTC Protected Hold (paper)", "strat": "hold", "venue": "okx", "mode": "paper",
      "coins": ["BTC-USDT"], "equity": 1000.0, "risk": 1.0, "half_at_2r": False},  # Oct 6 2026 (Jeff): all-in BTC above
     # its 100-day average, cash below. A hold, not a 0.5%-risk bot: drops of 35-40% still happen (research/F2.md, B3)

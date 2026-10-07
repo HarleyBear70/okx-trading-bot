@@ -27,11 +27,12 @@ START = {"v4-okx": "2026-10-04", "v4-kraken": "2026-10-04", "v2-okx": "2026-10-0
          "nnfx-paper": "2026-10-05", "nnfx-okx": "2026-10-06", "dc-okx": "2026-10-06",
          "hold-paper": "2026-10-06", "fl-paper": "2026-10-06", "db-paper": "2026-10-06", "cr-paper": "2026-10-06",
          "tr-bnus": "2026-10-07", "dc-bnus": "2026-10-07", "nnfx-bnus": "2026-10-07",
-         "turtle-bnus": "2026-10-07", "rsi2-bnus": "2026-10-07"}
+         "turtle-bnus": "2026-10-07", "rsi2-bnus": "2026-10-07",
+         "v4-bnus": "2026-10-07", "b1-bnus": "2026-10-07"}
 W, H, PADL, PADR, PADT, PADB = 330, 130, 44, 10, 12, 22
 # The three piles (job 4). RANGE is empty: no range bot has passed (research/N1_RANGE.md).
 PILES = [("ACTIVE (trading, OKX demo)", ["tr-okx", "nnfx-okx", "dc-okx"]),
-         ("BINANCE.US (same bots, paper, 0.02% fee)", ["tr-bnus", "dc-bnus", "nnfx-bnus", "turtle-bnus", "rsi2-bnus"]),
+         ("BINANCE.US (same bots, paper, 0.02% fee)", ["tr-bnus", "dc-bnus", "nnfx-bnus", "turtle-bnus", "rsi2-bnus", "v4-bnus", "b1-bnus"]),
          ("HOLD (BTC protected hold, paper)", ["hold-paper"]),
          ("INCUBATING (paper forward tests)", ["fl-paper", "db-paper", "cr-paper", "b3-paper"]),
          ("RANGE", []),
