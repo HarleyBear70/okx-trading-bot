@@ -327,7 +327,7 @@ $("#kpis").innerHTML = [
 }
 
 /* ---------- equity chart ---------- */
-const PILE_ORDER = { CLAUDE: -1, ACTIVE: 0, "BINANCE.US": 0.5, HOLD: 1, INCUBATING: 2, PAUSED: 3, RETIRED: 4 };
+const PILE_ORDER = { LIVE: -2, CLAUDE: -1, ACTIVE: 0, "BINANCE.US": 0.5, HOLD: 1, INCUBATING: 2, PAUSED: 3, RETIRED: 4 };
 const chartable = bots.filter((b) => b.status !== "retired" && (b.backtest || b.live_curve.length > 1 || b.status === "running")).sort((a, b) => (PILE_ORDER[a.pile] ?? 3) - (PILE_ORDER[b.pile] ?? 3));
 let sel = (chartable.find((b) => b.id === "tr-okx") || chartable[0]).id;
 let range = "all";

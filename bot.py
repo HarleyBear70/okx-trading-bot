@@ -52,6 +52,9 @@ SWEEP = {"on": False, "share": 0.25}
 GUARD = {"on": True, "max_dd": 0.12, "skip_strats": ("hold",)}
 BE_BUFFER = 2 * FEE  # breakeven stop sits just above entry so fees are covered
 BINANCEUS_FEE = 0.0002  # Binance.US spot: 0% maker / 0.02% taker on all pairs (binance.us/fees, checked Oct 7 2026)
+# REAL MONEY (Jeff, Oct 7 2026: "go live"): bots with mode "live" place real Binance.US orders (keys BINANCEBOTAPI /
+# BINACEBOTSECRET, withdrawals disabled on the key). "on": False = live bots make no new buys; their stops keep working.
+LIVE = {"on": True, "max_order_usd": 60.0}
 
 BOTS = [
     {"id": "v4-okx", "retired": True, "name": "SP-12 v4", "strat": "v4", "venue": "okx", "mode": "demo", "prefix": "gh4",
@@ -115,6 +118,16 @@ BOTS = [
      "half_at_2r": False, "fee": BINANCEUS_FEE},
     {"id": "b1-bnus", "name": "B1c breakout retest (Binance.US paper)", "strat": "b1", "venue": "binanceus",
      "mode": "paper", "coins": ["BTC-USDT", "ETH-USDT", "XRP-USDT"], "equity": 1000.0, "fee": BINANCEUS_FEE},
+    # REAL MONEY on Binance.US from Oct 7 2026 (Jeff: "go live"): $50 each of the $100 deposit, 0.5% risk, the stop sits on
+    # the exchange. Same rules as their paper copies above (tr-bnus, turtle-bnus).
+    {"id": "tr-live", "name": "Trend Rider (LIVE Binance.US)", "strat": "tr", "venue": "binanceus", "mode": "live",
+     "prefix": "lvT", "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "BNB-USDT", "SUI-USDT", "TRX-USDT"], "equity": 50.0,
+     "pivot": 5, "risk": 0.005, "half_at_2r": False, "fear_skip_at_or_below": 25, "fee": BINANCEUS_FEE,
+     "exchange_stops": True, "min_usd": 2.0},
+    {"id": "turtle-live", "name": "Turtle 55/20 (LIVE Binance.US)", "strat": "donchian", "venue": "binanceus",
+     "mode": "live", "prefix": "lvU", "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "XRP-USDT", "BNB-USDT"],
+     "equity": 50.0, "risk": 0.005, "max_open": 5, "half_at_2r": False, "dc": {"entry": 55, "exit": 20},
+     "fee": BINANCEUS_FEE, "exchange_stops": True, "min_usd": 2.0},
     {"id": "hold-paper", "name": "BTC Protected Hold (paper)", "strat": "hold", "venue": "okx", "mode": "paper",
      "coins": ["BTC-USDT"], "equity": 1000.0, "risk": 1.0, "half_at_2r": False},  # Oct 6 2026 (Jeff): all-in BTC above
     # its 100-day average, cash below. A hold, not a 0.5%-risk bot: drops of 35-40% still happen (research/F2.md, B3)
@@ -959,6 +972,8 @@ def pct_diff(a, b):
 
 
 def okx_buy(api, bot, inst, usdt, bar_ts):
+    if bot["venue"] == "binanceus":
+        return bnus_buy(bot, inst, usdt, bar_ts)
     cl_id = f"{bot['prefix']}B{inst.split('-')[0]}{bar_ts // 1000}"[:32]
     api.post("/api/v5/trade/order", {"instId": inst, "tdMode": "cash", "side": "buy", "ordType": "market",
                                      "tgtCcy": "quote_ccy", "sz": f"{usdt:.2f}", "clOrdId": cl_id})
@@ -973,6 +988,8 @@ def okx_buy(api, bot, inst, usdt, bar_ts):
 
 
 def okx_sell(api, bot, inst, qty):
+    if bot["venue"] == "binanceus":
+        return bnus_sell(bot, inst, qty)
     base = inst.split("-")[0]
     lot, min_sz = inst_info(api, inst)
     bal = api.get("/api/v5/account/balance", {"ccy": base}, private=True)[0]["details"]
@@ -1001,7 +1018,7 @@ _tick_cache = {}
 
 
 def exch_stops(bot):
-    return bool(bot.get("exchange_stops")) and bot["mode"] == "demo"
+    return bool(bot.get("exchange_stops")) and real_orders(bot)
 
 
 def tick_size(api, inst):
@@ -1017,6 +1034,8 @@ def fmt_step(x, step):
 
 
 def stop_place(api, bot, coin, pos):
+    if bot["venue"] == "binanceus":
+        return bnus_stop_place(bot, coin, pos)
     lot, _ = inst_info(api, coin)
     tick = tick_size(api, coin)
     sz = floor_to(pos["qty"], lot)
@@ -1031,6 +1050,8 @@ def stop_place(api, bot, coin, pos):
 
 def stop_cancel(api, bot, coin, pos):
     """Cancel this position's exchange stop before the bot sells by itself (so OKX can't sell the same coins too)."""
+    if bot["venue"] == "binanceus":
+        return bnus_stop_cancel(bot, coin, pos)
     if not pos.get("algo_id"):
         return
     try:
@@ -1044,6 +1065,8 @@ def stop_cancel(api, bot, coin, pos):
 
 def stop_sync(api, bot, coin, pos):
     """End of run: make OKX's stop match the bot's (place it if missing, amend if the stop rose or the size changed)."""
+    if bot["venue"] == "binanceus":
+        return bnus_stop_sync(bot, coin, pos)
     try:
         if not pos.get("algo_id"):
             stop_place(api, bot, coin, pos)
@@ -1065,9 +1088,11 @@ def stop_sync(api, bot, coin, pos):
         log(f"  {coin}: ATTENTION exchange stop not in sync ({e}); the hourly check still guards this trade")
 
 
-def exchange_sold_since(api, coin, since_ms):
+def exchange_sold_since(api, coin, since_ms, bot=None):
     """OKX sells of this coin since since_ms (e.g. a fired exchange stop the bot missed): (qty, proceeds net of fees)
     or None. Proceeds are in USDT; sell fees are charged in USDT (negative)."""
+    if bot and bot["venue"] == "binanceus":
+        return bnus_sold_since(coin, since_ms)
     try:
         fills = api.get("/api/v5/trade/fills", {"instType": "SPOT", "instId": coin}, private=True)
     except Exception as e:
@@ -1085,6 +1110,8 @@ def exchange_sold_since(api, coin, since_ms):
 
 def stop_check(api, bot, bs, coin):
     """Start of run: did OKX's stop fire since the last run? If so, record OKX's real fill and return True."""
+    if bot["venue"] == "binanceus":
+        return bnus_stop_check(bot, bs, coin)
     pos = bs["positions"].get(coin)
     if not pos or not pos.get("algo_id"):
         return False
@@ -1121,7 +1148,163 @@ def stop_check(api, bot, bs, coin):
     return False
 
 
-# ───────── Opening / closing (demo or paper) ─────────
+# ───────── Binance.US real-money orders (mode "live"; the okx_* / stop_* functions hand live bots to these) ─────────
+_bnus = None
+_bnus_rules = {}
+
+
+def real_orders(bot):
+    """True when the bot places real exchange orders (OKX demo, or Binance.US live); False = paper fills."""
+    return bot["mode"] in ("demo", "live")
+
+
+def bnus():
+    global _bnus
+    if _bnus is None:
+        sys.path.insert(0, os.path.join(HERE, "tools"))
+        from binanceus_live import BinanceUS
+        _bnus = BinanceUS(os.environ.get("BINANCEUS_KEY", ""), os.environ.get("BINANCEUS_SECRET", ""))
+    return _bnus
+
+
+def bnus_sym(coin):
+    return coin.split("-")[0] + "USD"
+
+
+def bnus_rules(coin):
+    if coin not in _bnus_rules:
+        _bnus_rules[coin] = bnus().rules(bnus_sym(coin))
+    return _bnus_rules[coin]
+
+
+def bnus_fills(o, base):
+    """(qty net of a fee taken in the coin, average price, USD spent or received gross, USD fee) of a FULL order reply."""
+    fills = o.get("fills") or []
+    qty = sum(float(f["qty"]) for f in fills) or float(o.get("executedQty") or 0)
+    quote = sum(float(f["qty"]) * float(f["price"]) for f in fills) or float(o.get("cummulativeQuoteQty") or 0)
+    px = quote / qty if qty else 0.0
+    fee_base = sum(float(f["commission"]) for f in fills if f["commissionAsset"] == base)
+    fee_usd = sum(float(f["commission"]) for f in fills if f["commissionAsset"] == "USD")
+    return qty - fee_base, px, quote, fee_usd + fee_base * px
+
+
+def bnus_sell_qty(coin, qty):
+    """Size to sell: the bot's coins rounded UP one step if spare dust covers it (Binance.US takes the buy fee in the
+    coin, so a plain round-down would leave a step behind every trade), never more than the free balance."""
+    step = bnus_rules(coin)["step"]
+    free = bnus().balances().get(coin.split("-")[0], (0.0, 0.0))[0]
+    return floor_to(min(qty + step * 0.999, free), step)
+
+
+def bnus_buy(bot, coin, usd, bar_ts):
+    base = coin.split("-")[0]
+    free_usd = bnus().balances().get("USD", (0.0, 0.0))[0]
+    usd = min(usd, free_usd * 0.99, LIVE["max_order_usd"])
+    if usd < max(bnus_rules(coin)["min_notional"], 1.0):
+        log(f"  {coin}: LIVE buy skipped - only ${free_usd:.2f} USD free on Binance.US")
+        return 0.0, 0.0, 0.0
+    o = bnus().order(symbol=bnus_sym(coin), side="BUY", type="MARKET", quoteOrderQty=f"{usd:.2f}",
+                     newClientOrderId=f"{bot['prefix']}B{base}{bar_ts // 1000}"[:36])
+    qty, px, quote, fee_usd = bnus_fills(o, base)
+    _last_fill.update({"avg_px": px, "fee_usdt": round(fee_usd, 6), "fee_ccy": base, "ord_id": o.get("orderId"),
+                       "state": o.get("status")})
+    return qty, px, quote
+
+
+def bnus_sell(bot, coin, qty):
+    base = coin.split("-")[0]
+    r = bnus_rules(coin)
+    sz = bnus_sell_qty(coin, qty)
+    if sz <= 0 or sz * bnus().price(bnus_sym(coin)) < r["min_notional"]:
+        return 0.0, 0.0
+    o = bnus().order(symbol=bnus_sym(coin), side="SELL", type="MARKET", quantity=fmt_step(sz, r["step"]),
+                     newClientOrderId=f"{bot['prefix']}S{base}{int(time.time())}"[:36])
+    _, px, quote, fee_usd = bnus_fills(o, base)
+    filled = float(o.get("executedQty") or 0)
+    _last_fill.update({"avg_px": px, "fee_usdt": round(fee_usd, 6), "fee_ccy": "USD", "ord_id": o.get("orderId"),
+                       "state": o.get("status")})
+    return filled, quote - fee_usd
+
+
+def bnus_stop_place(bot, coin, pos):
+    r = bnus_rules(coin)
+    sz = bnus_sell_qty(coin, pos["qty"])
+    o = bnus().order(symbol=bnus_sym(coin), side="SELL", type="STOP_LOSS", quantity=fmt_step(sz, r["step"]),
+                     stopPrice=fmt_step(pos["stop"], r["tick"]),
+                     newClientOrderId=f"{bot['prefix']}X{coin.split('-')[0]}{int(time.time())}"[:36])
+    pos["algo_id"], pos["algo_px"], pos["algo_sz"] = o["orderId"], pos["stop"], sz
+    log(f"  {coin}: LIVE exchange stop placed at {pos['stop']:.6g} for {sz:.8g} (order {o['orderId']})")
+    record("stop_placed", bot, coin, stop=pos["stop"], qty=sz, algo_id=o["orderId"])
+
+
+def bnus_stop_cancel(bot, coin, pos):
+    if not pos.get("algo_id"):
+        return
+    try:
+        bnus().cancel(bnus_sym(coin), pos["algo_id"])
+        log(f"  {coin}: LIVE exchange stop cancelled (order {pos['algo_id']})")
+        record("stop_cancelled", bot, coin, algo_id=pos["algo_id"])
+    except Exception as e:
+        log(f"  {coin}: ATTENTION could not cancel LIVE exchange stop {pos['algo_id']}: {e}")
+    pos["algo_id"] = None
+
+
+def bnus_stop_sync(bot, coin, pos):
+    """Binance.US can't amend a stop: when the stop rose or the size changed, cancel it and place the new one."""
+    try:
+        if pos.get("algo_id"):
+            step = bnus_rules(coin)["step"]
+            if pos["stop"] <= pos["algo_px"] * 1.001 and abs(floor_to(pos["qty"], step) - floor_to(pos["algo_sz"], step)) < step:
+                return
+            bnus_stop_cancel(bot, coin, pos)
+        bnus_stop_place(bot, coin, pos)
+    except Exception as e:
+        log(f"  {coin}: ATTENTION LIVE exchange stop not in sync ({e}); the hourly check still guards this trade")
+
+
+def bnus_stop_check(bot, bs, coin):
+    pos = bs["positions"].get(coin)
+    if not pos or not pos.get("algo_id"):
+        return False
+    try:
+        o = bnus().get_order(bnus_sym(coin), pos["algo_id"])
+    except Exception as e:
+        log(f"  {coin}: could not check LIVE exchange stop ({e})")
+        return False
+    st = o.get("status")
+    if st in ("NEW", "PARTIALLY_FILLED", "PENDING_NEW"):
+        return False
+    filled = float(o.get("executedQty") or 0)
+    if st == "FILLED" and filled > 0:
+        quote = float(o.get("cummulativeQuoteQty") or 0)
+        pos["algo_id"] = None
+        _last_fill.update({"avg_px": quote / filled, "fee_usdt": round(quote * fee_of(bot), 6), "ord_id": o.get("orderId")})
+        close_position(None, bot, bs, coin, "stop (exchange)", pos["stop"], done=(filled, quote * (1 - fee_of(bot))))
+        return True
+    log(f"  {coin}: ATTENTION LIVE exchange stop {pos['algo_id']} is {st}; it will be placed again")
+    record("stop_problem", bot, coin, algo_id=pos["algo_id"], state=st)
+    pos["algo_id"] = None
+    return False
+
+
+def bnus_sold_since(coin, since_ms):
+    """Binance.US sells of this coin since since_ms: (qty, USD proceeds net of fees) or None."""
+    try:
+        trades = bnus()._req("GET", "/api/v3/myTrades", {"symbol": bnus_sym(coin), "startTime": int(since_ms)}, signed=True)
+    except Exception as e:
+        log(f"  {coin}: could not read Binance.US trades ({e})")
+        return None
+    sells = [t for t in trades if not t.get("isBuyer")]
+    qty = sum(float(t["qty"]) for t in sells)
+    if qty <= 0:
+        return None
+    gross = sum(float(t["quoteQty"]) for t in sells)
+    fees = sum(float(t["commission"]) for t in sells if t["commissionAsset"] == "USD")
+    _last_fill.update({"avg_px": gross / qty, "fee_usdt": round(fees, 6), "ord_id": sells[0].get("orderId")})
+    return qty, gross - fees
+
+
+# ───────── Opening / closing (demo, live or paper) ─────────
 def risk_pct(bot, bs):
     """The bot's base risk (its "risk" setting, else RISK_PCT). If RISK_STEPS_ON, risk a bit more per trade as the
     practice balance grows so it grows faster, dropping straight back to base if the balance falls 5% from its best."""
@@ -1171,11 +1354,15 @@ def open_position(api, bot, bs, coin, bar, inf, extra):
     free = max(eq - in_use, 0.0)
     qty = min(eq * risk_pct(bot, bs) / (close - sl), free / close)
     usdt = qty * close
-    if usdt < 5:
+    if bot["mode"] == "live" and not LIVE["on"]:
+        log(f"  {coin}: signal but LIVE trading is switched off (LIVE['on'])")
+        record("skip", bot, coin, why="live switched off", signal_px=close)
+        return
+    if usdt < bot.get("min_usd", 5):
         log(f"  {coin}: signal but order too small ({usdt:.2f})")
         record("skip", bot, coin, why="order too small", usdt=round(usdt, 2), signal_px=close)
         return
-    if bot["mode"] == "demo":
+    if real_orders(bot):
         got, px, cost = okx_buy(api, bot, coin, usdt, bar["ts"])
         if got <= 0:
             log(f"  {coin}: buy did not fill")
@@ -1194,11 +1381,11 @@ def open_position(api, bot, bs, coin, bar, inf, extra):
     except Exception:
         pass
     record("buy", bot, coin, signal_px=close, fill_px=px or close, slip_pct=pct_diff(px or close, close), qty=got,
-           cost=round(cost, 4), fee_usdt=_last_fill.get("fee_usdt") if bot["mode"] == "demo" else round(usdt * fee_of(bot), 4),
+           cost=round(cost, 4), fee_usdt=_last_fill.get("fee_usdt") if real_orders(bot) else round(usdt * fee_of(bot), 4),
            stop=sl, stop_dist_pct=round((close - sl) / close * 100, 3), target=inf["tp"], score=inf["score"],
            risk_pct=round(risk_pct(bot, bs) * 100, 3), risk_usd=pos["risk_usd"], equity=bs["equity"],
            open_after=len(bs["positions"]), candle_utc=ts_iso(bar["ts"]), fear_greed=fg,
-           order_id=_last_fill.get("ord_id") if bot["mode"] == "demo" else None)
+           order_id=_last_fill.get("ord_id") if real_orders(bot) else None)
     if exch_stops(bot):
         stop_sync(api, bot, coin, pos)
     tp_txt = f" TP {inf['tp']:.6g}" if inf["tp"] else " (trailing stop)"
@@ -1219,7 +1406,7 @@ def add_piece(api, bot, bs, coin, bar):
     qty = min(eq * risk_pct(bot, bs) / (close - pos["stop"]), max(eq - in_use, 0.0) / close)
     usdt = qty * close
     if usdt >= 5:
-        if bot["mode"] == "demo":
+        if real_orders(bot):
             got, px, cost = okx_buy(api, bot, coin, usdt, bar["ts"])
         else:
             got, px, cost = qty, close, usdt * (1 + fee_of(bot))
@@ -1232,7 +1419,7 @@ def add_piece(api, bot, bs, coin, bar):
             pos["risk_usd"] = round(pos.get("risk_usd", 0) + got * ((px or close) - pos["stop"]), 4)
             record("add", bot, coin, signal_px=close, fill_px=px or close, slip_pct=pct_diff(px or close, close), qty=got,
                    cost=round(cost, 4), stop=pos["stop"], entry_px=pos["entry_px"],
-                   fee_usdt=_last_fill.get("fee_usdt") if bot["mode"] == "demo" else round(usdt * fee_of(bot), 4))
+                   fee_usdt=_last_fill.get("fee_usdt") if real_orders(bot) else round(usdt * fee_of(bot), 4))
         else:
             log(f"  {coin}: add-on buy did not fill")
     else:
@@ -1246,13 +1433,13 @@ def close_position(api, bot, bs, coin, reason, paper_px, done=None):
     if done:
         filled, proceeds = done
         px = proceeds / filled
-    elif bot["mode"] == "demo":
+    elif real_orders(bot):
         stop_cancel(api, bot, coin, pos)
         filled, proceeds = okx_sell(api, bot, coin, pos["qty"])
         if filled <= 0:
             # Nothing left to sell: something already sold these coins (almost always the exchange stop). Record
             # OKX's real sale instead of dropping the trade, so trades.csv, state.json and the balance stay right.
-            got = exchange_sold_since(api, coin, pos["entry_ts"])
+            got = exchange_sold_since(api, coin, pos["entry_ts"], bot)
             if not got:
                 log(f"  {coin}: ATTENTION nothing left to sell and no OKX sale found — clearing position unrecorded")
                 record("vanished", bot, coin, entry_px=pos["entry_px"], qty=pos["qty"], stop=pos["stop"])
@@ -1270,10 +1457,10 @@ def close_position(api, bot, bs, coin, reason, paper_px, done=None):
     pct = (proceeds - pos["cost"]) / pos["cost"] * 100 if pos["cost"] else 0
     log(f"  SELL {coin} {filled:.8g} @ {px:.6g} ({reason}) P/L {pnl:+.2f} ({pct:+.2f}%)")
     log_trade(bot, coin, "sell", filled, px, proceeds, pnl, pct, reason, bs["equity"])
-    gross = _last_fill.get("avg_px") if bot["mode"] == "demo" else paper_px  # price before fees
+    gross = _last_fill.get("avg_px") if real_orders(bot) else paper_px  # price before fees
     record("sell", bot, coin, reason=reason, by="exchange stop" if done else "bot", intended_px=paper_px, fill_px=gross,
            slip_pct=pct_diff(gross, paper_px), qty=filled, proceeds=round(proceeds, 4),
-           fee_usdt=_last_fill.get("fee_usdt") if bot["mode"] == "demo" else round(filled * px * fee_of(bot), 4),
+           fee_usdt=_last_fill.get("fee_usdt") if real_orders(bot) else round(filled * px * fee_of(bot), 4),
            entry_px=pos["entry_px"], stop=pos["stop"], first_stop=pos["sl"], pnl=round(pnl, 4), pnl_pct=round(pct, 3),
            r_multiple=round(pnl / pos["risk_usd"], 3) if pos.get("risk_usd") else None,
            held_hours=round((time.time() * 1000 - pos["entry_ts"]) / 3600000, 1), added=bool(pos.get("added")),
@@ -1293,7 +1480,7 @@ def take_half(api, bot, bs, coin, paper_px):
     """+2R reached: sell half to bank profit, the rest keeps running with its stop."""
     pos = bs["positions"][coin]
     pos["half"] = True
-    if bot["mode"] == "demo":
+    if real_orders(bot):
         stop_cancel(api, bot, coin, pos)
         filled, proceeds = okx_sell(api, bot, coin, pos["qty"] / 2)
         if filled <= 0:
@@ -1311,7 +1498,7 @@ def take_half(api, bot, bs, coin, paper_px):
     pos["cost"] -= part_cost
     log(f"  HALF {coin} {filled:.8g} @ {px:.6g} (+2R) P/L {pnl:+.2f} ({pct:+.2f}%)")
     record("half", bot, coin, intended_px=paper_px, fill_px=px, slip_pct=pct_diff(px, paper_px), qty=filled,
-           pnl=round(pnl, 4), fee_usdt=_last_fill.get("fee_usdt") if bot["mode"] == "demo" else round(filled * px * fee_of(bot), 4))
+           pnl=round(pnl, 4), fee_usdt=_last_fill.get("fee_usdt") if real_orders(bot) else round(filled * px * fee_of(bot), 4))
     log_trade(bot, coin, "sell", filled, px, proceeds, pnl, pct, "half profit +2R", bs["equity"])
     sweep_profit(api, bot, bs, pnl)
 
@@ -1657,6 +1844,9 @@ def main():
             continue
         if bot["mode"] == "demo" and not have_keys:
             log(f"[{bot['name']}] waiting for OKX API key secrets — skipped")
+            continue
+        if bot["mode"] == "live" and not (os.environ.get("BINANCEUS_KEY") and os.environ.get("BINANCEUS_SECRET")):
+            log(f"[{bot['name']}] waiting for Binance.US API key secrets — skipped")
             continue
         for coin in bot["coins"]:
             total += 1

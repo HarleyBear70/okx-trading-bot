@@ -36,6 +36,8 @@ jobs:
           OKX_API_SECRET: ${{ secrets.OKX_API_SECRET }}
           OKX_API_PASSPHRASE: ${{ secrets.OKX_API_PASSPHRASE }}
           OKX_BASE_URL: ${{ vars.OKX_BASE_URL }}
+          BINANCEUS_KEY: ${{ secrets.BINANCEBOTAPI }} # REAL MONEY: tr-live, turtle-live (key has no withdraw)
+          BINANCEUS_SECRET: ${{ secrets.BINACEBOTSECRET }}
         run: python bot.py ${{ github.event.inputs.mode || 'run' }} 2>&1 | tee bot_run.log
       - name: Write trade journal (read-only, never trades)
         if: always()
