@@ -78,8 +78,7 @@
   }
  },
  "attention": [
-  "odd:tr-okx:SUI bought in trades.csv but not open in state.json",
-  "run"
+  "odd:tr-okx:SUI bought in trades.csv but not open in state.json"
  ],
- "run_errors": "[Trend Rider] BTC-USDT: ERROR <urlopen error [Errno 104] Connection reset by peer> | [Confluence Rank (paper)] BTC-USDT: ERROR <urlopen error [Errno 104] Connection reset by peer> | [Confluence Rank (paper)] ETH-USDT: ERROR <urlopen error [Errno 104] Connection reset by peer>"
+ "run_errors": ""
 }

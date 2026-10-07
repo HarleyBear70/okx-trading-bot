@@ -38,7 +38,7 @@
   "tr-okx|BTC-USDT": 1791331200000,
   "tr-okx|ETH-USDT": 1791331200000,
   "tr-okx|SOL-USDT": 1791331200000,
-  "tr-okx|SUI-USDT": 1791316800000,
+  "tr-okx|SUI-USDT": 1791331200000,
   "tr-okx|TRX-USDT": 1791331200000,
   "v2-gold|XAUT-USDT": 1791331200000,
   "v2-okx|ETH-USDT": 1791331200000,
@@ -62,7 +62,7 @@
    "signals": 0
   },
   "tr-okx": {
-   "candles": 95,
+   "candles": 96,
    "near_misses": 78,
    "signals": 1
   },
