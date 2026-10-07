@@ -1,5 +1,5 @@
 {
- "rows_seen": 13,
+ "rows_seen": 14,
  "bots": {
   "v4-okx": {
    "peak": 1006.89,
@@ -23,7 +23,7 @@
   },
   "tr-okx": {
    "peak": 1000.0,
-   "odd": "",
+   "odd": "SUI bought in trades.csv but not open in state.json",
    "halt_flag": false
   },
   "b1-paper": {
@@ -77,5 +77,7 @@
    "halt_flag": false
   }
  },
- "attention": []
+ "attention": [
+  "odd:tr-okx:SUI bought in trades.csv but not open in state.json"
+ ]
 }

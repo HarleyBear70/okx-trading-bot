@@ -898,9 +898,7 @@
    "group": "testing",
    "mode": "demo",
    "name": "Trend Rider",
-   "open_positions": [
-    "SUI-USDT"
-   ],
+   "open_positions": [],
    "signals_seen": {
     "candles": 90,
     "near_misses": 78,
@@ -1018,35 +1016,35 @@
   },
   "v4-kraken": {
    "all": {
-    "avg_candles_held": 10.0,
-    "avg_loss": null,
-    "avg_r": 0.16,
+    "avg_candles_held": 13.0,
+    "avg_loss": -12.63,
+    "avg_r": -0.42,
     "avg_win": 9.19,
-    "closed": 1,
-    "losers_that_were_green_first": 0,
-    "losses": 0,
-    "open": 1,
-    "profit_factor": null,
-    "total_pnl": 9.19,
+    "closed": 2,
+    "losers_that_were_green_first": 1,
+    "losses": 1,
+    "open": 0,
+    "profit_factor": 0.73,
+    "total_pnl": -3.44,
     "trades": 2,
-    "win_rate_pct": 100.0,
+    "win_rate_pct": 50.0,
     "wins": 1
    },
-   "balance": 1009.186,
+   "balance": 996.5594,
    "by_coin": {
     "ETHUSD": {
-     "avg_candles_held": null,
-     "avg_loss": null,
-     "avg_r": null,
+     "avg_candles_held": 16.0,
+     "avg_loss": -12.63,
+     "avg_r": -1.0,
      "avg_win": null,
-     "closed": 0,
-     "losers_that_were_green_first": 0,
-     "losses": 0,
-     "open": 1,
-     "profit_factor": null,
-     "total_pnl": 0,
+     "closed": 1,
+     "losers_that_were_green_first": 1,
+     "losses": 1,
+     "open": 0,
+     "profit_factor": 0.0,
+     "total_pnl": -12.63,
      "trades": 1,
-     "win_rate_pct": null,
+     "win_rate_pct": 0.0,
      "wins": 0
     },
     "XBTUSD": {
@@ -1083,9 +1081,7 @@
    "group": "testing",
    "mode": "paper",
    "name": "SP-12 v4 (Kraken paper)",
-   "open_positions": [
-    "ETHUSD"
-   ],
+   "open_positions": [],
    "signals_seen": {
     "candles": 59,
     "near_misses": 21,
@@ -1418,20 +1414,20 @@
    "wins": 0
   },
   "testing": {
-   "avg_candles_held": 7.8,
-   "avg_loss": -2.08,
-   "avg_r": 0.02,
+   "avg_candles_held": 9.4,
+   "avg_loss": -5.6,
+   "avg_r": -0.18,
    "avg_win": 7.54,
-   "closed": 4,
-   "losers_that_were_green_first": 2,
-   "losses": 2,
-   "open": 3,
-   "profit_factor": 3.62,
-   "total_pnl": 10.92,
+   "closed": 5,
+   "losers_that_were_green_first": 3,
+   "losses": 3,
+   "open": 2,
+   "profit_factor": 0.9,
+   "total_pnl": -1.71,
    "trades": 7,
-   "win_rate_pct": 50.0,
+   "win_rate_pct": 40.0,
    "wins": 2
   }
  },
- "updated_utc": "2026-10-07 01:25"
+ "updated_utc": "2026-10-07 02:25"
 }
