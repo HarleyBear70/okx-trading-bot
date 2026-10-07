@@ -167,14 +167,14 @@ if barstate.islast and showLns
     label.delete(strongLb)
     label.delete(weakLb)
     if not na(strong)
-        strongLn := line.new(bar_index - 30, strong, bar_index + 8, strong, extend=extend.right,
+        strongLn := line.new(bar_index - 30, strong, bar_index + 26, strong, extend=extend.right,
              color=color.rgb(235, 235, 235), width=2, style=line.style_solid)
-        strongLb := label.new(bar_index + 8, strong, "MUST HOLD " + str.tostring(strong, format.mintick),
+        strongLb := label.new(bar_index + 26, strong, "MUST HOLD " + str.tostring(strong, format.mintick),
              style=label.style_label_left, color=color.rgb(70, 70, 70), textcolor=color.white, size=size.normal)
     if not na(weak)
-        weakLn := line.new(bar_index - 30, weak, bar_index + 8, weak, extend=extend.right,
+        weakLn := line.new(bar_index - 30, weak, bar_index + 26, weak, extend=extend.right,
              color=color.gray, width=1, style=line.style_dotted)
-        weakLb := label.new(bar_index + 8, weak, "TARGET " + str.tostring(weak, format.mintick),
+        weakLb := label.new(bar_index + 26, weak, "TARGET " + str.tostring(weak, format.mintick),
              style=label.style_label_left, color=color.rgb(110, 110, 110), textcolor=color.white, size=size.normal)
 
 // Trade plan on a breakout (green/red BOS or purple shift): direction, stop past the strong level,
@@ -246,10 +246,10 @@ phase = squeeze ? "Sideways: squeeze, breakout coming" : expanding ? "Expanding"
      pullback ? "Pullback, loading orders: holds while " + (trend == 1 ? "above " : "below ") + lvl :
      trend != 0 ? "Testing the strong level " + lvl : "Waiting for structure"
 who   = trend == 1 ? "UP: buyers in control" : trend == -1 ? "DOWN: sellers in control" : "No clear trend yet"
-var table tb = table.new(position.top_right, 1, 6, bgcolor=color.new(color.black, 70), border_width=0)
+var table tb = table.new(position.top_right, 1, 6, bgcolor=color.new(color.black, 15), frame_color=color.gray, frame_width=1, border_width=3)
 if barstate.islast and showBox
-    table.cell(tb, 0, 0, who, text_color=trend == 1 ? color.rgb(0, 230, 118) : trend == -1 ? color.rgb(255, 80, 80) : color.silver, text_size=size.normal)
-    table.cell(tb, 0, 1, phase, text_color=color.silver, text_size=size.normal)
+    table.cell(tb, 0, 0, who, text_color=trend == 1 ? color.rgb(0, 230, 118) : trend == -1 ? color.rgb(255, 80, 80) : color.white, text_size=size.normal)
+    table.cell(tb, 0, 1, phase, text_color=color.white, text_size=size.normal)
     if showPlan and pDir != 0 and pState != "open"
         done = "Last plan (" + (pDir == 1 ? "LONG" : "SHORT") + "): " + (pState == "TP hit" ? "TP hit - done" : "stopped out - done") + ". Waiting for the next break."
         table.cell(tb, 0, 2, done, text_color=pState == "TP hit" ? color.rgb(0, 230, 118) : color.rgb(255, 120, 120), text_size=size.normal)
@@ -267,7 +267,7 @@ if barstate.islast and showBox
         winUsd  = posUsd * (math.abs(pTP - pEntry) / pEntry - 2 * fee)
         sizeTxt = "Risk $" + str.tostring(riskUsd, "#.##") + " -> buy $" + str.tostring(posUsd, "#.##") +
              " (" + str.tostring(posUsd / pEntry, "#.######") + " coins). Win at TP ~$" + str.tostring(winUsd, "#.##")
-        table.cell(tb, 0, 3, sizeTxt, text_color=winUsd >= 1.5 * riskUsd ? color.silver : color.rgb(255, 214, 0), text_size=size.normal)
+        table.cell(tb, 0, 3, sizeTxt, text_color=winUsd >= 1.5 * riskUsd ? color.white : color.rgb(255, 214, 0), text_size=size.normal)
 
 // Phone / app alerts (TradingView: Alert > Condition: Jeff's Smoke Detector)
 alertcondition(shift, "PURPLE: market shift", "Market shift: a body closed through the strong high/low")
