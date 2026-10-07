@@ -122,6 +122,17 @@
       },
       "positions": {}
     },
+    "rsi2-bnus": {
+      "equity": 1000.0,
+      "last_bar": {
+        "BNB-USDT": 1791244800000,
+        "BTC-USDT": 1791244800000,
+        "ETH-USDT": 1791244800000,
+        "SOL-USDT": 1791244800000,
+        "XRP-USDT": 1791244800000
+      },
+      "positions": {}
+    },
     "tr-bnus": {
       "equity": 1000.0,
       "last_bar": {
@@ -152,6 +163,17 @@
         "TRX-USDT": 1791388800000
       },
       "peak": 1000.0,
+      "positions": {}
+    },
+    "turtle-bnus": {
+      "equity": 1000.0,
+      "last_bar": {
+        "BNB-USDT": 1791244800000,
+        "BTC-USDT": 1791244800000,
+        "ETH-USDT": 1791244800000,
+        "SOL-USDT": 1791244800000,
+        "XRP-USDT": 1791244800000
+      },
       "positions": {}
     },
     "v2-gold": {

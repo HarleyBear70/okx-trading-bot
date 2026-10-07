@@ -1,6 +1,6 @@
 # P/L calendar and strategy cards
 
-Updated automatically every hour (2026-10-07 16:26 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
+Updated automatically every hour (2026-10-07 17:26 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
 
 ## Combined OKX demo account
 
@@ -32,7 +32,7 @@ Closed P/L only; open trades count when they close.
 
 - HOLD (long-term, PAPER): weekly dip-DCA buyer, $10/week into BTC + XRP, double when 20%+ below the 200-day average. Paid $10.00, worth $9.86. Profit sweeper (25% of wins into this pile): OFF until real money. Buys: hold_pile.csv.
 - ACTIVE (trading, OKX demo): Trend Rider, NNFX Aroon, Donchian Trend
-- BINANCE.US (same bots, paper, 0.02% fee): Trend Rider (Binance.US paper), Donchian Trend (Binance.US paper), NNFX Aroon (Binance.US paper)
+- BINANCE.US (same bots, paper, 0.02% fee): Trend Rider (Binance.US paper), Donchian Trend (Binance.US paper), NNFX Aroon (Binance.US paper), Turtle 55/20 (Binance.US paper), RSI(2) snap-back (Binance.US paper)
 - HOLD (BTC protected hold, paper): BTC Protected Hold (paper)
 - INCUBATING (paper forward tests): Follow Line (paper), Double Bottom (paper), Confluence Rank (paper), B3 pairs (paper)
 - RANGE: none yet. No range bot has passed a test (research/N1_RANGE.md, B2), so this pile stays empty until one does.
@@ -40,7 +40,7 @@ Closed P/L only; open trades count when they close.
 
 ## Growth: demo vs paper
 
-Average balance per bot, each bot starting at $1,000: the active demo bots (3, solid) vs the paper bots (8, dashed). Demo now $997.42 (-0.26%), paper now $998.83 (-0.12%).
+Average balance per bot, each bot starting at $1,000: the active demo bots (3, solid) vs the paper bots (10, dashed). Demo now $997.42 (-0.26%), paper now $999.06 (-0.09%).
 
 ![Demo vs paper growth](calendars/cards/growth.svg)
 
@@ -204,6 +204,30 @@ Binance.US · BTC ETH XRP · daily candles · started 2026-10-07 · balance now 
 | Backtest replay since start | 0 | - | - | 0.0% |
 | Live (paper) since start | 0 | - | - | 0.0% |
 
+### Turtle 55/20 (Binance.US paper)  ·  PAPER
+
+Binance.US · BTC ETH SOL XRP BNB · daily candles · started 2026-10-07 · balance now 1,000.00
+
+![Turtle 55/20 (Binance.US paper) live vs backtest](calendars/cards/turtle-bnus.svg)
+
+| | Trades | Win % | PF | Max DD |
+|---|---|---|---|---|
+| Backtest, long run (research, 2022-now) | - | - | - | - |
+| Backtest replay since start | 0 | - | - | 0.0% |
+| Live (paper) since start | 0 | - | - | 0.0% |
+
+### RSI(2) snap-back (Binance.US paper)  ·  PAPER
+
+Binance.US · BTC ETH SOL XRP BNB · daily candles · started 2026-10-07 · balance now 1,000.00
+
+![RSI(2) snap-back (Binance.US paper) live vs backtest](calendars/cards/rsi2-bnus.svg)
+
+| | Trades | Win % | PF | Max DD |
+|---|---|---|---|---|
+| Backtest, long run (research, 2022-now) | - | - | - | - |
+| Backtest replay since start | 0 | - | - | 0.0% |
+| Live (paper) since start | 0 | - | - | 0.0% |
+
 ### BTC Protected Hold (paper)  ·  PAPER
 
 OKX · BTC · daily candles · started 2026-10-06 · balance now 990.61
@@ -307,6 +331,18 @@ Closed P/L so far: +$0.00 · 0 win days · 0 loss days
 Closed P/L so far: +$0.00 · 0 win days · 0 loss days
 
 ![NNFX Aroon (Binance.US paper)](calendars/nnfx-bnus.svg)
+
+### Turtle 55/20 (Binance.US paper)
+
+Closed P/L so far: +$0.00 · 0 win days · 0 loss days
+
+![Turtle 55/20 (Binance.US paper)](calendars/turtle-bnus.svg)
+
+### RSI(2) snap-back (Binance.US paper)
+
+Closed P/L so far: +$0.00 · 0 win days · 0 loss days
+
+![RSI(2) snap-back (Binance.US paper)](calendars/rsi2-bnus.svg)
 
 ### BTC Protected Hold (paper)
 

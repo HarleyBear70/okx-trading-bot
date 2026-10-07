@@ -90,6 +90,16 @@
    "peak": 1000.0,
    "halt_flag": false,
    "odd": ""
+  },
+  "turtle-bnus": {
+   "peak": 1000.0,
+   "halt_flag": false,
+   "odd": ""
+  },
+  "rsi2-bnus": {
+   "peak": 1000.0,
+   "halt_flag": false,
+   "odd": ""
   }
  },
  "attention": [],
