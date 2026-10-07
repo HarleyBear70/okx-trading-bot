@@ -1,0 +1,54 @@
+name: Log Chrome Claude notes
+
+# Chrome Claude posts on issues #3 (trades) and #4 (Claude chat) with Jeff's own login, so GitHub never notifies Jeff.
+# This copies each new comment (except the bot's own trade results and terminal Claude's replies) into
+# reports/health/chrome_notes.md; the hourly alert watch emails Jeff about new lines there.
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: chrome-notes-log
+  cancel-in-progress: false
+
+jobs:
+  log:
+    if: github.event.issue.number == 3 || github.event.issue.number == 4
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+      - name: Append the comment
+        env:
+          BODY: ${{ github.event.comment.body }}
+          URL: ${{ github.event.comment.html_url }}
+          NUM: ${{ github.event.issue.number }}
+          WHEN: ${{ github.event.comment.created_at }}
+        run: |
+          python3 - <<'EOF'
+          import os
+          body = os.environ["BODY"].strip()
+          skip = ("Results from this hour's run", "Terminal Claude", "Note from terminal Claude")
+          if body.startswith(skip):
+              print("not a Chrome Claude note, skipped")
+              raise SystemExit(0)
+          where = {"3": "#3 trades", "4": "#4 Claude chat"}[os.environ["NUM"]]
+          short = " ".join(body.split())[:500]
+          os.makedirs("reports/health", exist_ok=True)
+          with open("reports/health/chrome_notes.md", "a") as f:
+              f.write(f"- {os.environ['WHEN']} | {where} | {os.environ['URL']} | {short}\n")
+          open("/tmp/changed", "w").close()
+          EOF
+          [ -f /tmp/changed ] || exit 0
+          git config user.name "sp12-bot"
+          git config user.email "sp12-bot@users.noreply.github.com"
+          git add reports/health/chrome_notes.md
+          git commit -m "chrome notes: new comment on #$NUM"
+          for i in 1 2 3; do
+            git push && exit 0
+            git pull --rebase origin main || { git rebase --abort; exit 1; }
+          done
+          exit 1
