@@ -1,5 +1,13 @@
 # The Analyst's journal (newest first)
 
+## 2026-10-07 session (SKIPPED: no market data)
+- This cloud session could not reach OKX: the network policy blocks us.okx.com and www.okx.com (proxy answered 403).
+  Without candles I can't read the market, so I made NO new trades and did not touch the three resting orders
+  (BTC breakout 87,500, SOL breakout 125.3, LINK dip 13.55). The hourly bot run still fills/stops them.
+- News level GREEN (NEWS.md, 6 Oct 7:31 PM ET). Fed minutes today 2 PM ET.
+- No bot trades closed since last session except BTC Protected Hold opening (paper) and Trend Rider SUI still open; no full post-mortems done.
+- To fix: allow OKX (and the Fear & Greed site) in this environment's network policy, then I can run normally tomorrow.
+
 ## 2026-10-06 session 1
 - Placed 3 resting orders (BTC breakout, SOL breakout, LINK dip), no market buys. See briefs/2026-10-06.md.
 - Bot review: Trend Rider has 1 open trade (SUI from 1.227, about -2% open, stop 1.135). Donchian and NNFX: no trades yet.
