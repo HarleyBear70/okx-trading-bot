@@ -1,5 +1,5 @@
 {
- "updated_utc": "2026-10-07 06:30",
+ "updated_utc": "2026-10-07 07:29",
  "bots": {
   "v4-okx": {
    "live_now": 1005.0504,
@@ -70,13 +70,13 @@
    "error": null
   },
   "tr-okx": {
-   "live_now": 1000.0,
+   "live_now": 992.2541,
    "replay_now": 996.2453,
    "live": {
-    "n": 0,
-    "win": null,
-    "pf": null,
-    "dd": 0.0
+    "n": 1,
+    "win": 0.0,
+    "pf": 0.0,
+    "dd": -0.7750000000000035
    },
    "replay": {
     "n": 1,

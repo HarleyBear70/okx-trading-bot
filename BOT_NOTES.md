@@ -1,9 +1,10 @@
-ATTENTION: Trend Rider: SUI bought in trades.csv but not open in state.json (checked 2026-10-07 2:30 AM ET)
+STATUS: all normal (checked 2026-10-07 3:29 AM ET)
 
 # Bot notes
 
 Written every hour by watcher.py after the bots run. Read-only: it never trades. Newest first, Eastern time. ATTENTION means: a bot 8%+ below its best balance, a losing streak longer than the backtest's worst, live vs backtest replay 2%+ apart, a failed bot run, or an unexpected open position.
 
+- 2026-10-06 9:58 PM ET · Trend Rider sold SUI at 1.1475 (trailing stop (exchange; recorded late Oct 7)), P/L -7.75 (-7.14%), balance 992.25
 - 2026-10-07 1:27 AM ET · Bot run OK again
 - 2026-10-07 12:27 AM ET · Bot run problem: [Trend Rider] BTC-USDT: ERROR <urlopen error [Errno 104] Connection reset by peer> | [Confluence Rank (paper)] BTC-USDT: ERROR <urlopen error [Errno 104] Connection reset by peer> | [Confluence Rank (paper)] ETH-USDT: ERROR <urlopen error [Errno 104] Connection reset by peer>
 - 2026-10-06 10:26 PM ET · Trend Rider unexpected position: SUI bought in trades.csv but not open in state.json
