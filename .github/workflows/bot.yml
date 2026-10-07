@@ -117,3 +117,10 @@ jobs:
           body=$(printf '%sNew notes in [BOT_NOTES.md](%s/%s/blob/main/BOT_NOTES.md). Tell the Chrome Claude: check the bot notes\n\n%s' \
             "$who" "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$(head -c 1500 bot_notes_new.md | sed 's/^/> /')")
           gh issue comment "$num" --body "$body"
+      - name: Wake the Beekeeper on a real problem (opens a "bot-failed" issue; closes it after a clean run)
+        if: always()
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FAILED: ${{ job.status == 'failure' }}
+        run: python tools/wake_beekeeper.py bot_run.log
