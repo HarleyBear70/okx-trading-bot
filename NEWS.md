@@ -1,19 +1,19 @@
-NEWS LEVEL: GREEN - no exchange, stablecoin or regulatory emergency found; BTC rally is jumpy but no crash (checked 2026-10-06 7:31 PM ET)
-Careful until: n/a
+NEWS LEVEL: YELLOW - FOMC minutes (September meeting) come out today at 2:00 PM ET (checked 2026-10-07 7:35 AM ET)
+Careful until: 2026-10-07 6:00 PM ET (no new trades from 10:00 AM ET)
 
 ## What happened
-- BTC rose above $86,000 on Monday (first time since late January) after the failed CLARITY Act vote; about $800M of short liquidations in 24h. Upward move, not a crash. Source: [Cointelegraph via search](https://cointelegraph.com/news/what-happened-in-crypto-today) (could not open page directly; unconfirmed in detail)
-- Binance BTC withdrawals at multi-year highs in late September; whales moving stablecoins in. Not an emergency. Source: [FXStreet](https://fxstreet.com/cryptocurrencies/news/binance-btc-outflows-hit-highest-since-mid-2023-as-whales-deposit-stablecoins-202610061121)
-- Older, not new: Liquid Network (Blockstream) $320M hack in early September; hacker says funds will be returned. Source: [The Star](https://www.thestar.com.my/business/business-news/2026/09/07/bitcoin-network-says-us320mil-stolen-in-latest-crypto-hack)
-- No OKX, Coinbase, Kraken or Bybit outage/hack or USDT/USDC/USD1 depeg found in searches.
-- SEC is reviewing ETF rules (comment period opened June 30); no shock action found. Source: [The Block](https://theblock.co/post/406750/sec-opens-etf-rule-review-following-crypto-fund-surge-prediction-markets-push)
+- No OKX, Binance, Coinbase, Kraken or Bybit hack/outage/withdrawal halt found in searches. Old stories (OKX 2020 withdrawal pause, 2022 cloud outage) are not new.
+- No USDT/USDC/USD1 depeg found. Small-project stablecoin depegs (Acala, Yala) that showed up are old and not our coins.
+- No 10%+ crash found. Last report: BTC rally above $86,000 with ~$800M short liquidations (Oct 5-6), jumpy but upward. Source: [Cointelegraph](https://cointelegraph.com/news/what-happened-in-crypto-today) (unconfirmed in detail)
+- SEC: proposed "Reg Crypto Assets" rules (Aug 18) and ETF rule review ongoing; no shock action found. Source: [Mayer Brown](https://www.mayerbrown.com/ja/insights/publications/2026/08/sec-proposes-new-reg-crypto-assets), [The Block](https://theblock.co/post/406750/sec-opens-etf-rule-review-following-crypto-fund-surge-prediction-markets-push)
+- Some search results list October ETF decision dates (SOL, XRP, etc.) but they look recycled from 2025 - unconfirmed, not relied on.
 
 ## Coming up (next 7 days, ET)
-- No major US macro release found in the next 7 days (jobs report was Oct 2).
-- Wed Oct 14, 8:30 AM: CPI (September) - high impact (just outside the 7-day window).
+- Wed Oct 7, 2:00 PM: FOMC minutes (Sept 15-16 meeting) - high impact.
+- Wed Oct 14, 8:30 AM: CPI (September) - high impact (just outside 7 days).
 - Wed Oct 28, 2:00 PM: FOMC decision, press conference 2:30 PM - high impact.
 Source: [fedratecalc.com](https://fedratecalc.com/us-economic-calendar/october-2026/), [BLS](https://www.bls.gov/schedule/2026/home.htm)
 
 ## What it means for us
-Normal trading is fine. The market is a bit jumpy after the rally and liquidations, so keep normal care.
-Next caution window: CPI on Oct 14 (no new trades about 4 hours before to 4 hours after 8:30 AM).
+No emergency, but the FOMC minutes can move markets today. No new trades from 10:00 AM to 6:00 PM ET; extra care.
+Next caution window: CPI Oct 14 around 8:30 AM ET.
