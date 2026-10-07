@@ -348,6 +348,108 @@
    "start_balance": 1000.0,
    "strategy": "dbottom"
   },
+  "dc-bnus": {
+   "all": {
+    "avg_candles_held": null,
+    "avg_loss": null,
+    "avg_r": null,
+    "avg_win": null,
+    "closed": 0,
+    "losers_that_were_green_first": 0,
+    "losses": 0,
+    "open": 0,
+    "profit_factor": null,
+    "total_pnl": 0,
+    "trades": 0,
+    "win_rate_pct": null,
+    "wins": 0
+   },
+   "balance": 1000.0,
+   "by_coin": {
+    "BNB-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "BTC-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "ETH-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "SOL-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "XRP-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    }
+   },
+   "group": "testing",
+   "mode": "paper",
+   "name": "Donchian Trend (Binance.US paper)",
+   "open_positions": [],
+   "signals_seen": {},
+   "start_balance": 1000.0,
+   "strategy": "donchian"
+  },
   "dc-okx": {
    "all": {
     "avg_candles_held": null,
@@ -596,6 +698,78 @@
    "start_balance": 1000.0,
    "strategy": "hold"
   },
+  "nnfx-bnus": {
+   "all": {
+    "avg_candles_held": null,
+    "avg_loss": null,
+    "avg_r": null,
+    "avg_win": null,
+    "closed": 0,
+    "losers_that_were_green_first": 0,
+    "losses": 0,
+    "open": 0,
+    "profit_factor": null,
+    "total_pnl": 0,
+    "trades": 0,
+    "win_rate_pct": null,
+    "wins": 0
+   },
+   "balance": 1000.0,
+   "by_coin": {
+    "BTC-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "ETH-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "XRP-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    }
+   },
+   "group": "testing",
+   "mode": "paper",
+   "name": "NNFX Aroon (Binance.US paper)",
+   "open_positions": [],
+   "signals_seen": {},
+   "start_balance": 1000.0,
+   "strategy": "nnfx"
+  },
   "nnfx-okx": {
    "all": {
     "avg_candles_held": null,
@@ -739,6 +913,127 @@
    "signals_seen": {},
    "start_balance": 1000.0,
    "strategy": "nnfx"
+  },
+  "tr-bnus": {
+   "all": {
+    "avg_candles_held": null,
+    "avg_loss": null,
+    "avg_r": null,
+    "avg_win": null,
+    "closed": 0,
+    "losers_that_were_green_first": 0,
+    "losses": 0,
+    "open": 0,
+    "profit_factor": null,
+    "total_pnl": 0,
+    "trades": 0,
+    "win_rate_pct": null,
+    "wins": 0
+   },
+   "balance": 1000.0,
+   "by_coin": {
+    "BNB-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "BTC-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "ETH-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "SOL-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "SUI-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "TRX-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    }
+   },
+   "group": "testing",
+   "mode": "paper",
+   "name": "Trend Rider (Binance.US paper)",
+   "open_positions": [],
+   "signals_seen": {
+    "candles": 6,
+    "near_misses": 0,
+    "signals": 0
+   },
+   "start_balance": 1000.0,
+   "strategy": "tr"
   },
   "tr-gold": {
    "all": {
@@ -1393,10 +1688,111 @@
    "review": "Did the guard fire? If so, was it a real breakdown or normal variance?",
    "review_on": "2026-10-19",
    "why": "Jeff hired Claude as risk manager ('program yourself to trade'). 12% is past every bot's 8-year backtest worst (about 10%), so it only fires when a bot behaves worse than ever tested."
+  },
+  {
+   "approved_by": "Jeff (paper)",
+   "bots": "Trend Rider, Donchian Trend, NNFX Aroon (Binance.US paper copies: tr-bnus, dc-bnus, nnfx-bnus)",
+   "change": "New paper copies of the three live bots on Binance.US USD prices at Binance.US's 0.02% fee (bot.py venue 'binanceus', public klines, per-bot 'fee' setting used for paper fills and breakeven stops). Same strategies and settings as the OKX demo bots. OKX bots unchanged (backtest identical: Trend Rider +133.7% / -9.6%).",
+   "date_utc": "2026-10-07",
+   "review": "Do the Binance.US copies track the OKX bots' signals, and does the lower fee show up in their results? Next step if yes: Binance.US API keys and a live connector.",
+   "review_on": "2026-10-19",
+   "why": "research/F36.md: at Binance.US fees the three bots make far more with smaller drops (0.75% risk: +608% / -12.1% vs +366% / -14.7% on OKX). Jeff has a Binance.US account and is willing to switch exchanges."
   }
  ],
- "check_meanings": {},
- "now": {},
+ "check_meanings": {
+  "above_ema50": {
+   "meaning": "Required: 4H close above the 50 EMA",
+   "points": null
+  },
+  "bos": {
+   "meaning": "Required: candle closes above the last swing high (86,970.5) - a break of structure",
+   "points": null
+  },
+  "daily_trend": {
+   "meaning": "Required: daily close above the 50-day EMA",
+   "points": null
+  }
+ },
+ "now": {
+  "tr-bnus|BNB-USDT": {
+   "action": "NO TRADE",
+   "bot": "Trend Rider (Binance.US paper)",
+   "candle_utc": "2026-10-07 04:00",
+   "chart_coin": "BNB-USDT",
+   "close": 775.34,
+   "coin": "BNB-USDT",
+   "group": "testing",
+   "mode": "paper",
+   "rsi14": 45.7,
+   "score": "-",
+   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (809.18) - a break of structure."
+  },
+  "tr-bnus|BTC-USDT": {
+   "action": "NO TRADE",
+   "bot": "Trend Rider (Binance.US paper)",
+   "candle_utc": "2026-10-07 04:00",
+   "chart_coin": "BTC-USDT",
+   "close": 84096.2,
+   "coin": "BTC-USDT",
+   "group": "testing",
+   "mode": "paper",
+   "rsi14": 38.6,
+   "score": "-",
+   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (86,970.5) - a break of structure."
+  },
+  "tr-bnus|ETH-USDT": {
+   "action": "NO TRADE",
+   "bot": "Trend Rider (Binance.US paper)",
+   "candle_utc": "2026-10-07 04:00",
+   "chart_coin": "ETH-USDT",
+   "close": 2615.23,
+   "coin": "ETH-USDT",
+   "group": "testing",
+   "mode": "paper",
+   "rsi14": 32.1,
+   "score": "-",
+   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (2,738.79) - a break of structure."
+  },
+  "tr-bnus|SOL-USDT": {
+   "action": "NO TRADE",
+   "bot": "Trend Rider (Binance.US paper)",
+   "candle_utc": "2026-10-07 04:00",
+   "chart_coin": "SOL-USDT",
+   "close": 118.6,
+   "coin": "SOL-USDT",
+   "group": "testing",
+   "mode": "paper",
+   "rsi14": 42.0,
+   "score": "-",
+   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (122.22) - a break of structure."
+  },
+  "tr-bnus|SUI-USDT": {
+   "action": "NO TRADE",
+   "bot": "Trend Rider (Binance.US paper)",
+   "candle_utc": "2026-10-07 04:00",
+   "chart_coin": "SUI-USDT",
+   "close": 1.1374,
+   "coin": "SUI-USDT",
+   "group": "testing",
+   "mode": "paper",
+   "rsi14": 38.5,
+   "score": "-",
+   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (1.2632) - a break of structure."
+  },
+  "tr-bnus|TRX-USDT": {
+   "action": "NO TRADE",
+   "bot": "Trend Rider (Binance.US paper)",
+   "candle_utc": "2026-10-07 04:00",
+   "chart_coin": "TRX-USDT",
+   "close": 0.3346,
+   "coin": "TRX-USDT",
+   "group": "testing",
+   "mode": "paper",
+   "rsi14": 42.6,
+   "score": "-",
+   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (0.3379) - a break of structure."
+  }
+ },
  "totals": {
   "live": {
    "avg_candles_held": null,
@@ -1429,5 +1825,5 @@
    "wins": 2
   }
  },
- "updated_utc": "2026-10-07 09:27"
+ "updated_utc": "2026-10-07 10:27"
 }

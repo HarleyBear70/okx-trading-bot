@@ -40,6 +40,17 @@
       },
       "positions": {}
     },
+    "dc-bnus": {
+      "equity": 1000.0,
+      "last_bar": {
+        "BNB-USDT": 1791244800000,
+        "BTC-USDT": 1791244800000,
+        "ETH-USDT": 1791244800000,
+        "SOL-USDT": 1791244800000,
+        "XRP-USDT": 1791244800000
+      },
+      "positions": {}
+    },
     "dc-okx": {
       "equity": 1000.0,
       "last_bar": {
@@ -84,6 +95,15 @@
         }
       }
     },
+    "nnfx-bnus": {
+      "equity": 1000.0,
+      "last_bar": {
+        "BTC-USDT": 1791244800000,
+        "ETH-USDT": 1791244800000,
+        "XRP-USDT": 1791244800000
+      },
+      "positions": {}
+    },
     "nnfx-okx": {
       "equity": 1000.0,
       "last_bar": {
@@ -99,6 +119,18 @@
         "BTC-USDT": 1791158400000,
         "ETH-USDT": 1791158400000,
         "XRP-USDT": 1791158400000
+      },
+      "positions": {}
+    },
+    "tr-bnus": {
+      "equity": 1000.0,
+      "last_bar": {
+        "BNB-USDT": 1791345600000,
+        "BTC-USDT": 1791345600000,
+        "ETH-USDT": 1791345600000,
+        "SOL-USDT": 1791345600000,
+        "SUI-USDT": 1791345600000,
+        "TRX-USDT": 1791345600000
       },
       "positions": {}
     },

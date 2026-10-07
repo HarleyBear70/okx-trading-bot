@@ -75,6 +75,21 @@
    "peak": 1000.0,
    "odd": "",
    "halt_flag": false
+  },
+  "tr-bnus": {
+   "peak": 1000.0,
+   "halt_flag": false,
+   "odd": ""
+  },
+  "dc-bnus": {
+   "peak": 1000.0,
+   "halt_flag": false,
+   "odd": ""
+  },
+  "nnfx-bnus": {
+   "peak": 1000.0,
+   "halt_flag": false,
+   "odd": ""
   }
  },
  "attention": [],
