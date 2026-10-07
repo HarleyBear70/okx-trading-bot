@@ -10,14 +10,14 @@ permissions:
 
 jobs:
   scan:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 300
     env:
       IMG: freqtradeorg/freqtrade:stable
       CFG: /repo/freqtrade/user_data/config_community.json
       UD: /repo/freqtrade/user_data
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Get the community strategies
         run: |
           git clone --depth 1 https://github.com/freqtrade/freqtrade-strategies.git /tmp/fs

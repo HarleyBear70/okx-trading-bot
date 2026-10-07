@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   backtest:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 60
     env:
       IMG: freqtradeorg/freqtrade:stable
@@ -22,7 +22,7 @@ jobs:
       UD: /repo/freqtrade/user_data
       RANGE: "20240301-"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Download OKX price history (4h + daily)
         run: |
