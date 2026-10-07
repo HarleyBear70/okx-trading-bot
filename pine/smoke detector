@@ -167,14 +167,14 @@ if barstate.islast and showLns
     label.delete(strongLb)
     label.delete(weakLb)
     if not na(strong)
-        strongLn := line.new(bar_index - 30, strong, bar_index + 26, strong, extend=extend.right,
+        strongLn := line.new(bar_index - 30, strong, bar_index + 8, strong, extend=extend.right,
              color=color.rgb(235, 235, 235), width=2, style=line.style_solid)
-        strongLb := label.new(bar_index + 26, strong, "MUST HOLD " + str.tostring(strong, format.mintick),
+        strongLb := label.new(bar_index + 8, strong, "MUST HOLD " + str.tostring(strong, format.mintick),
              style=label.style_label_left, color=color.rgb(70, 70, 70), textcolor=color.white, size=size.normal)
     if not na(weak)
-        weakLn := line.new(bar_index - 30, weak, bar_index + 26, weak, extend=extend.right,
+        weakLn := line.new(bar_index - 30, weak, bar_index + 8, weak, extend=extend.right,
              color=color.gray, width=1, style=line.style_dotted)
-        weakLb := label.new(bar_index + 26, weak, "TARGET " + str.tostring(weak, format.mintick),
+        weakLb := label.new(bar_index + 8, weak, "TARGET " + str.tostring(weak, format.mintick),
              style=label.style_label_left, color=color.rgb(110, 110, 110), textcolor=color.white, size=size.normal)
 
 // Trade plan on a breakout (green/red BOS or purple shift): direction, stop past the strong level,
@@ -230,7 +230,7 @@ if barstate.islast
     label.delete(sLb)
     label.delete(tLb)
     if showPlan and pState == "open"
-        x2 = bar_index + 8
+        x2 = bar_index + 22
         eLn := line.new(pBar, pEntry, x2, pEntry, color=color.rgb(41, 98, 255), width=1)
         sLn := line.new(pBar, pSL, x2, pSL, color=color.rgb(230, 60, 60), width=2)
         tLn := line.new(pBar, pTP, x2, pTP, color=color.rgb(0, 200, 100), width=2)
