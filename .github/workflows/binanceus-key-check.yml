@@ -1,0 +1,40 @@
+name: Binance.US key check (read-only)
+
+# Run by hand (Actions tab -> "Binance.US key check" -> Run workflow). Asks Binance.US what the API key in the
+# BINANCEBOTAPI / BINACEBOTSECRET secrets may do. Read-only: it never places, cancels or withdraws anything, and it
+# prints no key, no secret and no balances, only yes/no permissions.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Ask Binance.US what the key may do
+        env:
+          KEY: ${{ secrets.BINANCEBOTAPI }}
+          SECRET: ${{ secrets.BINACEBOTSECRET }}
+        run: |
+          python3 - <<'EOF'
+          import hashlib, hmac, json, os, time, urllib.error, urllib.parse, urllib.request
+          key, secret = os.environ.get("KEY", "").strip(), os.environ.get("SECRET", "").strip()
+          print("key present:", bool(key), "| secret present:", bool(secret))
+          q = urllib.parse.urlencode({"timestamp": int(time.time() * 1000), "recvWindow": 10000})
+          sig = hmac.new(secret.encode(), q.encode(), hashlib.sha256).hexdigest()
+          req = urllib.request.Request(f"https://api.binance.us/api/v3/account?{q}&signature={sig}",
+                                       headers={"X-MBX-APIKEY": key, "User-Agent": "sp12-bot"})
+          try:
+              a = json.loads(urllib.request.urlopen(req, timeout=20).read().decode())
+          except urllib.error.HTTPError as e:
+              print("Binance.US said NO:", e.code, e.read().decode()[:300])
+              raise SystemExit(1)
+          print("key works (reading): YES")
+          print("can trade:", "YES" if a.get("canTrade") else "NO")
+          print("can withdraw:", "YES  <-- turn this OFF" if a.get("canWithdraw") else "NO (good)")
+          print("can deposit:", "YES" if a.get("canDeposit") else "NO")
+          print("permissions:", a.get("permissions"))
+          EOF
