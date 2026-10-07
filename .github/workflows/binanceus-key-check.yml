@@ -34,7 +34,7 @@ jobs:
               raise SystemExit(1)
           print("key works (reading): YES")
           print("can trade:", "YES" if a.get("canTrade") else "NO")
-          print("can withdraw:", "YES  <-- turn this OFF" if a.get("canWithdraw") else "NO (good)")
+          print("account can withdraw (not the key):", "YES" if a.get("canWithdraw") else "NO")
           print("can deposit:", "YES" if a.get("canDeposit") else "NO")
           print("permissions:", a.get("permissions"))
           print("(the lines above are the ACCOUNT's abilities; below are THIS KEY's own switches)")
