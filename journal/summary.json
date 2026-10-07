@@ -1028,7 +1028,7 @@
    "name": "Trend Rider (Binance.US paper)",
    "open_positions": [],
    "signals_seen": {
-    "candles": 6,
+    "candles": 12,
     "near_misses": 0,
     "signals": 0
    },
@@ -1074,7 +1074,7 @@
    "name": "Trend Rider (gold paper)",
    "open_positions": [],
    "signals_seen": {
-    "candles": 20,
+    "candles": 21,
     "near_misses": 1,
     "signals": 0
    },
@@ -1195,7 +1195,7 @@
    "name": "Trend Rider",
    "open_positions": [],
    "signals_seen": {
-    "candles": 102,
+    "candles": 108,
     "near_misses": 78,
     "signals": 1
    },
@@ -1241,7 +1241,7 @@
    "name": "SP-12 v2 (gold paper)",
    "open_positions": [],
    "signals_seen": {
-    "candles": 20,
+    "candles": 21,
     "near_misses": 6,
     "signals": 0
    },
@@ -1302,8 +1302,8 @@
    "name": "SP-12 v2",
    "open_positions": [],
    "signals_seen": {
-    "candles": 40,
-    "near_misses": 20,
+    "candles": 42,
+    "near_misses": 21,
     "signals": 4
    },
    "start_balance": 1000.0,
@@ -1378,7 +1378,7 @@
    "name": "SP-12 v4 (Kraken paper)",
    "open_positions": [],
    "signals_seen": {
-    "candles": 65,
+    "candles": 68,
     "near_misses": 21,
     "signals": 12
    },
@@ -1484,7 +1484,7 @@
    "name": "SP-12 v4",
    "open_positions": [],
    "signals_seen": {
-    "candles": 91,
+    "candles": 96,
     "near_misses": 24,
     "signals": 9
    },
@@ -1496,8 +1496,8 @@
   "btc_4h_supertrend": "red/down",
   "btc_above_4h_ema50": false,
   "btc_above_daily_ema50": true,
-  "btc_close": 84148.8,
-  "btc_rsi14": 38.6
+  "btc_close": 83736.0,
+  "btc_rsi14": 35.5
  },
  "changes": [
   {
@@ -1699,8 +1699,382 @@
    "why": "research/F36.md: at Binance.US fees the three bots make far more with smaller drops (0.75% risk: +608% / -12.1% vs +366% / -14.7% on OKX). Jeff has a Binance.US account and is willing to switch exchanges."
   }
  ],
- "check_meanings": {},
- "now": {},
+ "check_meanings": {
+  "above_ema50": {
+   "meaning": "Required: 4H close above the 50 EMA",
+   "points": null
+  },
+  "above_vwap": {
+   "meaning": "Required: price above daily VWAP",
+   "points": null
+  },
+  "bos": {
+   "meaning": "Required: candle closes above the last swing high (86,693.7) - a break of structure",
+   "points": null
+  },
+  "daily_trend": {
+   "meaning": "Daily trend up: yesterday's daily close above a rising 20-day EMA",
+   "points": 1
+  },
+  "ema_stack": {
+   "meaning": "Required: EMAs stacked up (8 above 21 above 55)",
+   "points": null
+  },
+  "in_fvg": {
+   "meaning": "Price dipping into a recent fair value gap (counted against)",
+   "points": -1
+  },
+  "in_order_block": {
+   "meaning": "Price retesting the order block before the last BOS (counted against)",
+   "points": -1
+  },
+  "liquidity_sweep": {
+   "meaning": "Liquidity sweep in the last 10 candles: price dipped under a swing low and closed back above it",
+   "points": 1
+  },
+  "macd_rising": {
+   "meaning": "MACD histogram rising (momentum picking up)",
+   "points": 1
+  },
+  "recent_bos": {
+   "meaning": "Break of structure in the last 20 candles (the tested settings count this AGAINST a buy)",
+   "points": -1
+  },
+  "reversal_candle": {
+   "meaning": "Bullish engulfing or hammer candle (counted against)",
+   "points": -1
+  },
+  "risk": {
+   "meaning": "Required: stop no more than 4.0% away",
+   "points": null
+  },
+  "score": {
+   "meaning": "Required: score of 2 or more",
+   "points": null
+  },
+  "supertrend_green": {
+   "meaning": "Supertrend is green on this candle",
+   "points": 1
+  },
+  "trend_gate": {
+   "meaning": "Required: previous candle closed above the 50 EMA with Supertrend green",
+   "points": null
+  }
+ },
+ "now": {
+  "tr-bnus|BNB-USDT": {
+   "action": "NO TRADE",
+   "bot": "Trend Rider (Binance.US paper)",
+   "candle_utc": "2026-10-07 08:00",
+   "chart_coin": "BNB-USDT",
+   "close": 765.76,
+   "coin": "BNB-USDT",
+   "group": "testing",
+   "mode": "paper",
+   "rsi14": 39.3,
+   "score": "-",
+   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (809.18) - a break of structure."
+  },
+  "tr-bnus|BTC-USDT": {
+   "action": "NO TRADE",
+   "bot": "Trend Rider (Binance.US paper)",
+   "candle_utc": "2026-10-07 08:00",
+   "chart_coin": "BTC-USDT",
+   "close": 83702.2,
+   "coin": "BTC-USDT",
+   "group": "testing",
+   "mode": "paper",
+   "rsi14": 35.8,
+   "score": "-",
+   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (86,670.9) - a break of structure."
+  },
+  "tr-bnus|ETH-USDT": {
+   "action": "NO TRADE",
+   "bot": "Trend Rider (Binance.US paper)",
+   "candle_utc": "2026-10-07 08:00",
+   "chart_coin": "ETH-USDT",
+   "close": 2577.16,
+   "coin": "ETH-USDT",
+   "group": "testing",
+   "mode": "paper",
+   "rsi14": 27.1,
+   "score": "-",
+   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (2,724.11) - a break of structure."
+  },
+  "tr-bnus|SOL-USDT": {
+   "action": "NO TRADE",
+   "bot": "Trend Rider (Binance.US paper)",
+   "candle_utc": "2026-10-07 08:00",
+   "chart_coin": "SOL-USDT",
+   "close": 117.28,
+   "coin": "SOL-USDT",
+   "group": "testing",
+   "mode": "paper",
+   "rsi14": 36.5,
+   "score": "-",
+   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (121.96) - a break of structure."
+  },
+  "tr-bnus|SUI-USDT": {
+   "action": "NO TRADE",
+   "bot": "Trend Rider (Binance.US paper)",
+   "candle_utc": "2026-10-07 08:00",
+   "chart_coin": "SUI-USDT",
+   "close": 1.12,
+   "coin": "SUI-USDT",
+   "group": "testing",
+   "mode": "paper",
+   "rsi14": 35.4,
+   "score": "-",
+   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (1.2632) - a break of structure."
+  },
+  "tr-bnus|TRX-USDT": {
+   "action": "NO TRADE",
+   "bot": "Trend Rider (Binance.US paper)",
+   "candle_utc": "2026-10-07 08:00",
+   "chart_coin": "TRX-USDT",
+   "close": 0.3321,
+   "coin": "TRX-USDT",
+   "group": "testing",
+   "mode": "paper",
+   "rsi14": 30.2,
+   "score": "-",
+   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (0.3379) - a break of structure."
+  },
+  "tr-gold|XAUT-USDT": {
+   "action": "NO TRADE",
+   "bot": "Trend Rider (gold paper)",
+   "candle_utc": "2026-10-07 08:00",
+   "chart_coin": "XAUT-USDT",
+   "close": 4125.7,
+   "coin": "XAUT-USDT",
+   "group": "testing",
+   "mode": "paper",
+   "rsi14": 39.4,
+   "score": "-",
+   "why": "No buy. Missing: daily close above the 50-day EMA; 4H close above the 50 EMA; candle closes above the last swing high (4,182.9) - a break of structure."
+  },
+  "tr-okx|BNB-USDT": {
+   "action": "NO TRADE",
+   "bot": "Trend Rider",
+   "candle_utc": "2026-10-07 08:00",
+   "chart_coin": "BNB-USDT",
+   "close": 767.8,
+   "coin": "BNB-USDT",
+   "group": "testing",
+   "mode": "demo",
+   "rsi14": 38.9,
+   "score": "-",
+   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (810.1) - a break of structure."
+  },
+  "tr-okx|BTC-USDT": {
+   "action": "NO TRADE",
+   "bot": "Trend Rider",
+   "candle_utc": "2026-10-07 08:00",
+   "chart_coin": "BTC-USDT",
+   "close": 83736.0,
+   "coin": "BTC-USDT",
+   "group": "testing",
+   "mode": "demo",
+   "rsi14": 35.5,
+   "score": "-",
+   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (86,693.7) - a break of structure."
+  },
+  "tr-okx|ETH-USDT": {
+   "action": "NO TRADE",
+   "bot": "Trend Rider",
+   "candle_utc": "2026-10-07 08:00",
+   "chart_coin": "ETH-USDT",
+   "close": 2578.53,
+   "coin": "ETH-USDT",
+   "group": "testing",
+   "mode": "demo",
+   "rsi14": 26.1,
+   "score": "-",
+   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (2,725.33) - a break of structure."
+  },
+  "tr-okx|SOL-USDT": {
+   "action": "NO TRADE",
+   "bot": "Trend Rider",
+   "candle_utc": "2026-10-07 08:00",
+   "chart_coin": "SOL-USDT",
+   "close": 117.35,
+   "coin": "SOL-USDT",
+   "group": "testing",
+   "mode": "demo",
+   "rsi14": 36.8,
+   "score": "-",
+   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (122) - a break of structure."
+  },
+  "tr-okx|SUI-USDT": {
+   "action": "NO TRADE",
+   "bot": "Trend Rider",
+   "candle_utc": "2026-10-07 08:00",
+   "chart_coin": "SUI-USDT",
+   "close": 1.1218,
+   "coin": "SUI-USDT",
+   "group": "testing",
+   "mode": "demo",
+   "rsi14": 36.9,
+   "score": "-",
+   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (1.2644) - a break of structure."
+  },
+  "tr-okx|TRX-USDT": {
+   "action": "NO TRADE",
+   "bot": "Trend Rider",
+   "candle_utc": "2026-10-07 08:00",
+   "chart_coin": "TRX-USDT",
+   "close": 0.33429,
+   "coin": "TRX-USDT",
+   "group": "testing",
+   "mode": "demo",
+   "rsi14": 44.7,
+   "score": "-",
+   "why": "No buy. Missing: daily close above the 50-day EMA; 4H close above the 50 EMA; candle closes above the last swing high (0.33717) - a break of structure."
+  },
+  "v2-gold|XAUT-USDT": {
+   "action": "NO TRADE",
+   "bot": "SP-12 v2 (gold paper)",
+   "candle_utc": "2026-10-07 08:00",
+   "chart_coin": "XAUT-USDT",
+   "close": 4125.7,
+   "coin": "XAUT-USDT",
+   "group": "testing",
+   "mode": "paper",
+   "rsi14": 39.4,
+   "score": 0,
+   "why": "No buy. Missing: previous candle closed above the 50 EMA with Supertrend green; score of 2 or more (got 0). Score 0 (needed 2). Points for: Liquidity sweep in the last 10 candles: price dipped under a swing low and closed back above it. Points against: Break of structure in the last 20 candles (the tested settings count this AGAINST a buy)."
+  },
+  "v2-okx|ETH-USDT": {
+   "action": "NO TRADE",
+   "bot": "SP-12 v2",
+   "candle_utc": "2026-10-07 08:00",
+   "chart_coin": "ETH-USDT",
+   "close": 2578.53,
+   "coin": "ETH-USDT",
+   "group": "testing",
+   "mode": "demo",
+   "rsi14": 26.1,
+   "score": 1,
+   "why": "No buy. Missing: previous candle closed above the 50 EMA with Supertrend green; score of 2 or more (got 1). Score 1 (needed 2). Points for: Daily trend up: yesterday's daily close above a rising 20-day EMA."
+  },
+  "v2-okx|SOL-USDT": {
+   "action": "NO TRADE",
+   "bot": "SP-12 v2",
+   "candle_utc": "2026-10-07 08:00",
+   "chart_coin": "SOL-USDT",
+   "close": 117.35,
+   "coin": "SOL-USDT",
+   "group": "testing",
+   "mode": "demo",
+   "rsi14": 36.8,
+   "score": 2,
+   "why": "No buy. Missing: previous candle closed above the 50 EMA with Supertrend green. Score 2 (needed 2). Points for: Daily trend up: yesterday's daily close above a rising 20-day EMA; Liquidity sweep in the last 10 candles: price dipped under a swing low and closed back above it."
+  },
+  "v4-kraken|ETHUSD": {
+   "action": "NO TRADE",
+   "bot": "SP-12 v4 (Kraken paper)",
+   "candle_utc": "2026-10-07 08:00",
+   "chart_coin": "ETH-USDT",
+   "close": 2577.63,
+   "coin": "ETHUSD",
+   "group": "testing",
+   "mode": "paper",
+   "rsi14": 25.8,
+   "score": 1,
+   "why": "No buy. Missing: previous candle closed above the 50 EMA with Supertrend green; score of 2 or more (got 1); EMAs stacked up (8 above 21 above 55); price above daily VWAP. Score 1 (needed 2). Points for: Daily trend up: yesterday's daily close above a rising 20-day EMA."
+  },
+  "v4-kraken|XBTUSD": {
+   "action": "NO TRADE",
+   "bot": "SP-12 v4 (Kraken paper)",
+   "candle_utc": "2026-10-07 08:00",
+   "chart_coin": "BTC-USDT",
+   "close": 83710.1,
+   "coin": "XBTUSD",
+   "group": "testing",
+   "mode": "paper",
+   "rsi14": 35.6,
+   "score": 1,
+   "why": "No buy. Missing: previous candle closed above the 50 EMA with Supertrend green; score of 2 or more (got 1); EMAs stacked up (8 above 21 above 55); price above daily VWAP. Score 1 (needed 2). Points for: Daily trend up: yesterday's daily close above a rising 20-day EMA."
+  },
+  "v4-kraken|XRPUSD": {
+   "action": "NO TRADE",
+   "bot": "SP-12 v4 (Kraken paper)",
+   "candle_utc": "2026-10-07 08:00",
+   "chart_coin": "XRP-USDT",
+   "close": 1.44658,
+   "coin": "XRPUSD",
+   "group": "testing",
+   "mode": "paper",
+   "rsi14": 33.4,
+   "score": 1,
+   "why": "No buy. Missing: previous candle closed above the 50 EMA with Supertrend green; score of 2 or more (got 1); EMAs stacked up (8 above 21 above 55); price above daily VWAP. Score 1 (needed 2). Points for: Daily trend up: yesterday's daily close above a rising 20-day EMA."
+  },
+  "v4-okx|BNB-USDT": {
+   "action": "NO TRADE",
+   "bot": "SP-12 v4",
+   "candle_utc": "2026-10-07 08:00",
+   "chart_coin": "BNB-USDT",
+   "close": 767.8,
+   "coin": "BNB-USDT",
+   "group": "testing",
+   "mode": "demo",
+   "rsi14": 38.9,
+   "score": 1,
+   "why": "No buy. Missing: previous candle closed above the 50 EMA with Supertrend green; score of 2 or more (got 1); EMAs stacked up (8 above 21 above 55); price above daily VWAP. Score 1 (needed 2). Points for: Daily trend up: yesterday's daily close above a rising 20-day EMA; Liquidity sweep in the last 10 candles: price dipped under a swing low and closed back above it. Points against: Price retesting the order block before the last BOS (counted against)."
+  },
+  "v4-okx|BTC-USDT": {
+   "action": "NO TRADE",
+   "bot": "SP-12 v4",
+   "candle_utc": "2026-10-07 08:00",
+   "chart_coin": "BTC-USDT",
+   "close": 83736.0,
+   "coin": "BTC-USDT",
+   "group": "testing",
+   "mode": "demo",
+   "rsi14": 35.5,
+   "score": 1,
+   "why": "No buy. Missing: previous candle closed above the 50 EMA with Supertrend green; score of 2 or more (got 1); EMAs stacked up (8 above 21 above 55); price above daily VWAP. Score 1 (needed 2). Points for: Daily trend up: yesterday's daily close above a rising 20-day EMA."
+  },
+  "v4-okx|ETH-USDT": {
+   "action": "NO TRADE",
+   "bot": "SP-12 v4",
+   "candle_utc": "2026-10-07 08:00",
+   "chart_coin": "ETH-USDT",
+   "close": 2578.53,
+   "coin": "ETH-USDT",
+   "group": "testing",
+   "mode": "demo",
+   "rsi14": 26.1,
+   "score": 1,
+   "why": "No buy. Missing: previous candle closed above the 50 EMA with Supertrend green; score of 2 or more (got 1); EMAs stacked up (8 above 21 above 55); price above daily VWAP. Score 1 (needed 2). Points for: Daily trend up: yesterday's daily close above a rising 20-day EMA."
+  },
+  "v4-okx|XLM-USDT": {
+   "action": "NO TRADE",
+   "bot": "SP-12 v4",
+   "candle_utc": "2026-10-07 08:00",
+   "chart_coin": "XLM-USDT",
+   "close": 0.20338,
+   "coin": "XLM-USDT",
+   "group": "testing",
+   "mode": "demo",
+   "rsi14": 31.2,
+   "score": 1,
+   "why": "No buy. Missing: previous candle closed above the 50 EMA with Supertrend green; score of 2 or more (got 1); EMAs stacked up (8 above 21 above 55); price above daily VWAP. Score 1 (needed 2). Points for: Daily trend up: yesterday's daily close above a rising 20-day EMA."
+  },
+  "v4-okx|XRP-USDT": {
+   "action": "NO TRADE",
+   "bot": "SP-12 v4",
+   "candle_utc": "2026-10-07 08:00",
+   "chart_coin": "XRP-USDT",
+   "close": 1.4472,
+   "coin": "XRP-USDT",
+   "group": "testing",
+   "mode": "demo",
+   "rsi14": 33.4,
+   "score": 1,
+   "why": "No buy. Missing: previous candle closed above the 50 EMA with Supertrend green; score of 2 or more (got 1); EMAs stacked up (8 above 21 above 55); price above daily VWAP. Score 1 (needed 2). Points for: Daily trend up: yesterday's daily close above a rising 20-day EMA."
+  }
+ },
  "totals": {
   "live": {
    "avg_candles_held": null,
@@ -1733,5 +2107,5 @@
    "wins": 2
   }
  },
- "updated_utc": "2026-10-07 11:26"
+ "updated_utc": "2026-10-07 12:33"
 }
