@@ -327,7 +327,7 @@ $("#kpis").innerHTML = [
 }
 
 /* ---------- equity chart ---------- */
-const PILE_ORDER = { CLAUDE: -1, ACTIVE: 0, HOLD: 1, INCUBATING: 2, PAUSED: 3, RETIRED: 4 };
+const PILE_ORDER = { CLAUDE: -1, ACTIVE: 0, "BINANCE.US": 0.5, HOLD: 1, INCUBATING: 2, PAUSED: 3, RETIRED: 4 };
 const chartable = bots.filter((b) => b.status !== "retired" && (b.backtest || b.live_curve.length > 1 || b.status === "running")).sort((a, b) => (PILE_ORDER[a.pile] ?? 3) - (PILE_ORDER[b.pile] ?? 3));
 let sel = (chartable.find((b) => b.id === "tr-okx") || chartable[0]).id;
 let range = "all";
@@ -473,12 +473,13 @@ function verdict(b) {
 
 /* ---------- who's winning (leaderboard) ---------- */
 function raceBoard() {
-  const players = bots.filter((b) => b.pile === "CLAUDE" || ((b.pile === "ACTIVE" || b.pile === "HOLD") && b.status !== "retired"));
+  const players = bots.filter((b) => b.pile === "CLAUDE" || ((b.pile === "ACTIVE" || b.pile === "BINANCE.US" || b.pile === "HOLD") && b.status !== "retired"));
   players.sort((a, b) => (b.balance - b.start_balance) - (a.balance - a.start_balance));
   const medal = ["🥇", "🥈", "🥉"];
   $("#race").innerHTML = `<div class="race">` + players.map((b, i) => {
     const s = b.stats || {}, pl = b.balance - b.start_balance, w = s.wins ?? 0, l = s.losses ?? 0, n = w + l;
-    const who = b.pile === "CLAUDE" ? "Claude, trading on judgment" : b.pile === "HOLD" ? "BTC hold" : "Bot · " + MODE[b.mode];
+    const who = b.pile === "CLAUDE" ? "Claude, trading on judgment" : b.pile === "HOLD" ? "BTC hold" :
+      b.pile === "BINANCE.US" ? "Bot · Binance.US paper (0.02% fee)" : "Bot · OKX " + MODE[b.mode] + " (0.35% fee)";
     return `<div class="race-row"><div class="rk">${medal[i] || i + 1}</div>
       <div class="nm">${esc(b.name)}<small>${who}${s.open ? " · " + s.open + " open" : ""}</small></div>
       <div class="big ${cls(pl)}">${money(pl, true)}</div>

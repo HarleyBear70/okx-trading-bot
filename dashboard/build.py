@@ -147,7 +147,8 @@ def main():
     k_taker = (kraken or {}).get("fees", {}).get("taker", {})
     k_fee = max(k_taker.values()) / 100 if k_taker else None  # Kraken reports % (e.g. 0.40)
     venue = {b["id"]: b["venue"] for b in bot.BOTS}
-    fee_for = lambda bid: k_fee if venue.get(bid) == "kraken" and k_fee else REAL_FEE  # noqa: E731
+    bot_fee = {b["id"]: b.get("fee") for b in bot.BOTS}
+    fee_for = lambda bid: bot_fee.get(bid) or (k_fee if venue.get(bid) == "kraken" and k_fee else REAL_FEE)  # noqa: E731
     extra = real_fees(trades, fee_for)
     for t in trades:  # R for re-priced paper trades: P/L over the money at risk
         if t.get("fee_adjusted") and t["status"] != "open" and t.get("planned_stop") and t["entry_px"] > t["planned_stop"]:

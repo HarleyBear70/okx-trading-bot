@@ -25,10 +25,12 @@ OUT = os.path.join(HERE, "calendars", "cards")
 START = {"v4-okx": "2026-10-04", "v4-kraken": "2026-10-04", "v2-okx": "2026-10-04", "v2-gold": "2026-10-04",
          "tr-okx": "2026-10-04", "tr-gold": "2026-10-04", "b1-paper": "2026-10-05", "b3-paper": "2026-10-05",
          "nnfx-paper": "2026-10-05", "nnfx-okx": "2026-10-06", "dc-okx": "2026-10-06",
-         "hold-paper": "2026-10-06", "fl-paper": "2026-10-06", "db-paper": "2026-10-06", "cr-paper": "2026-10-06"}
+         "hold-paper": "2026-10-06", "fl-paper": "2026-10-06", "db-paper": "2026-10-06", "cr-paper": "2026-10-06",
+         "tr-bnus": "2026-10-07", "dc-bnus": "2026-10-07", "nnfx-bnus": "2026-10-07"}
 W, H, PADL, PADR, PADT, PADB = 330, 130, 44, 10, 12, 22
 # The three piles (job 4). RANGE is empty: no range bot has passed (research/N1_RANGE.md).
 PILES = [("ACTIVE (trading, OKX demo)", ["tr-okx", "nnfx-okx", "dc-okx"]),
+         ("BINANCE.US (same bots, paper, 0.02% fee)", ["tr-bnus", "dc-bnus", "nnfx-bnus"]),
          ("HOLD (BTC protected hold, paper)", ["hold-paper"]),
          ("INCUBATING (paper forward tests)", ["fl-paper", "db-paper", "cr-paper", "b3-paper"]),
          ("RANGE", []),
@@ -230,7 +232,7 @@ def build(api, rows):
     for b in bot.BOTS:
         st = status(b)
         tf = {"1H": "1-hour", "4H": "4-hour", "1D": "daily", "1DL": "daily"}[bot.bot_tf(b)]
-        venue = "Kraken" if b["venue"] == "kraken" else "OKX"
+        venue = {"kraken": "Kraken", "binanceus": "Binance.US"}.get(b["venue"], "OKX")
         bs = state.get("bots", {}).get(b["id"], {"equity": b["equity"], "positions": {}})
         mtm, back, bpn, err = bs.get("equity", b["equity"]), None, [], None
         try:

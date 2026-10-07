@@ -187,5 +187,14 @@
   "approved_by": "Jeff",
   "review_on": "2026-10-19",
   "review": "Did the guard fire? If so, was it a real breakdown or normal variance?"
+ },
+ {
+  "date_utc": "2026-10-07",
+  "bots": "Trend Rider, Donchian Trend, NNFX Aroon (Binance.US paper copies: tr-bnus, dc-bnus, nnfx-bnus)",
+  "change": "New paper copies of the three live bots on Binance.US USD prices at Binance.US's 0.02% fee (bot.py venue 'binanceus', public klines, per-bot 'fee' setting used for paper fills and breakeven stops). Same strategies and settings as the OKX demo bots. OKX bots unchanged (backtest identical: Trend Rider +133.7% / -9.6%).",
+  "why": "research/F36.md: at Binance.US fees the three bots make far more with smaller drops (0.75% risk: +608% / -12.1% vs +366% / -14.7% on OKX). Jeff has a Binance.US account and is willing to switch exchanges.",
+  "approved_by": "Jeff (paper)",
+  "review_on": "2026-10-19",
+  "review": "Do the Binance.US copies track the OKX bots' signals, and does the lower fee show up in their results? Next step if yes: Binance.US API keys and a live connector."
  }
 ]

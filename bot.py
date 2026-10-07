@@ -51,6 +51,7 @@ SWEEP = {"on": False, "share": 0.25}
 # The halt sticks (state.json "halted") until Jeff says resume. Live BOTS only, so backtests are unaffected.
 GUARD = {"on": True, "max_dd": 0.12, "skip_strats": ("hold",)}
 BE_BUFFER = 2 * FEE  # breakeven stop sits just above entry so fees are covered
+BINANCEUS_FEE = 0.0002  # Binance.US spot: 0% maker / 0.02% taker on all pairs (binance.us/fees, checked Oct 7 2026)
 
 BOTS = [
     {"id": "v4-okx", "retired": True, "name": "SP-12 v4", "strat": "v4", "venue": "okx", "mode": "demo", "prefix": "gh4",
@@ -91,6 +92,16 @@ BOTS = [
      "pyramid": True,  # Oct 6 2026 (Jeff): one add-on at +1R, stop then >= entry; risk 0.35% -> 0.32% (research/F10.md)
      "btc_leash": True},  # Oct 6 2026 (Jeff): ETH SOL XRP BNB buy only when BTC's daily close > its daily 50 EMA (research/F11.md)
     # Donchian: daily 20-day breakout, passed at the real fee: +123%, DD -9.1% (research/F2.md)
+    # Binance.US copies (Oct 7 2026, Jeff: "can u build ones for it"): same strategies and settings as the OKX demo bots,
+    # PAPER on Binance.US USD prices at Binance.US's 0.02% fee, to compare the two exchanges live (research/F36.md).
+    {"id": "tr-bnus", "name": "Trend Rider (Binance.US paper)", "strat": "tr", "venue": "binanceus", "mode": "paper",
+     "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "BNB-USDT", "SUI-USDT", "TRX-USDT"], "equity": 1000.0, "pivot": 5,
+     "risk": 0.004, "half_at_2r": False, "fear_skip_at_or_below": 25, "fee": BINANCEUS_FEE},
+    {"id": "dc-bnus", "name": "Donchian Trend (Binance.US paper)", "strat": "donchian", "venue": "binanceus",
+     "mode": "paper", "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "XRP-USDT", "BNB-USDT"], "equity": 1000.0,
+     "risk": 0.0032, "max_open": 5, "half_at_2r": False, "pyramid": True, "btc_leash": True, "fee": BINANCEUS_FEE},
+    {"id": "nnfx-bnus", "name": "NNFX Aroon (Binance.US paper)", "strat": "nnfx", "venue": "binanceus", "mode": "paper",
+     "coins": ["BTC-USDT", "ETH-USDT", "XRP-USDT"], "equity": 1000.0, "fee": BINANCEUS_FEE},
     {"id": "hold-paper", "name": "BTC Protected Hold (paper)", "strat": "hold", "venue": "okx", "mode": "paper",
      "coins": ["BTC-USDT"], "equity": 1000.0, "risk": 1.0, "half_at_2r": False},  # Oct 6 2026 (Jeff): all-in BTC above
     # its 100-day average, cash below. A hold, not a 0.5%-risk bot: drops of 35-40% still happen (research/F2.md, B3)
@@ -346,6 +357,49 @@ def kraken_candles(pair, interval):
     if bars:
         bars[-1]["confirm"] = False
     return bars
+
+
+BINANCEUS_URL = "https://api.binance.us"
+
+
+def binanceus_candles(coin, interval, limit):
+    """Binance.US public klines (no key), USD pairs: "BTC-USDT" -> BTCUSD. interval "4h"/"1d"/"1h". Oldest -> newest;
+    the last row is the forming candle (confirm=False)."""
+    sym = coin.split("-")[0] + "USD"
+    out, end = [], None
+    while len(out) < limit:
+        q = {"symbol": sym, "interval": interval, "limit": min(1000, limit - len(out))}
+        if end:
+            q["endTime"] = end
+        url = f"{BINANCEUS_URL}/api/v3/klines?" + urllib.parse.urlencode(q)
+        for attempt in range(4):
+            try:
+                with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "sp12-bot"}),
+                                            timeout=20) as r:
+                    rows = json.loads(r.read().decode())
+                break
+            except Exception as e:
+                if attempt == 3:
+                    raise RuntimeError(f"Binance.US {sym}: {e}")
+                time.sleep(2 + attempt * 2)
+        if not rows:
+            break
+        out = rows + out
+        end = rows[0][0] - 1
+        if len(rows) < q["limit"]:
+            break
+    now = time.time() * 1000
+    return [{"ts": int(r[0]), "o": float(r[1]), "h": float(r[2]), "l": float(r[3]), "c": float(r[4]),
+             "v": float(r[5]), "confirm": int(r[6]) < now} for r in out]
+
+
+def fee_of(bot):
+    """Fee per buy or sell for this bot's paper fills: its own "fee" setting, else the OKX rate (FEE)."""
+    return bot.get("fee", FEE)
+
+
+def be_buffer(bot):
+    return 2 * fee_of(bot)
 
 
 def pivots_ge(src, L, high=True):
@@ -1093,7 +1147,7 @@ def open_position(api, bot, bs, coin, bar, inf, extra):
             record("skip", bot, coin, why="buy did not fill", usdt=round(usdt, 2), signal_px=close)
             return
     else:
-        got, px, cost = qty, close, usdt * (1 + FEE)
+        got, px, cost = qty, close, usdt * (1 + fee_of(bot))
     pos = {"entry_ts": bar["ts"], "entry_px": px or close, "qty": got, "cost": cost, "sl": sl, "tp": inf["tp"],
            "stop": sl, "limit": inf["tp"], "trail": False, "hi": None}
     pos.update(extra)
@@ -1105,7 +1159,7 @@ def open_position(api, bot, bs, coin, bar, inf, extra):
     except Exception:
         pass
     record("buy", bot, coin, signal_px=close, fill_px=px or close, slip_pct=pct_diff(px or close, close), qty=got,
-           cost=round(cost, 4), fee_usdt=_last_fill.get("fee_usdt") if bot["mode"] == "demo" else round(usdt * FEE, 4),
+           cost=round(cost, 4), fee_usdt=_last_fill.get("fee_usdt") if bot["mode"] == "demo" else round(usdt * fee_of(bot), 4),
            stop=sl, stop_dist_pct=round((close - sl) / close * 100, 3), target=inf["tp"], score=inf["score"],
            risk_pct=round(risk_pct(bot, bs) * 100, 3), risk_usd=pos["risk_usd"], equity=bs["equity"],
            open_after=len(bs["positions"]), candle_utc=ts_iso(bar["ts"]), fear_greed=fg,
@@ -1133,7 +1187,7 @@ def add_piece(api, bot, bs, coin, bar):
         if bot["mode"] == "demo":
             got, px, cost = okx_buy(api, bot, coin, usdt, bar["ts"])
         else:
-            got, px, cost = qty, close, usdt * (1 + FEE)
+            got, px, cost = qty, close, usdt * (1 + fee_of(bot))
         if got > 0:
             pos["qty"] += got
             pos["cost"] += cost
@@ -1143,7 +1197,7 @@ def add_piece(api, bot, bs, coin, bar):
             pos["risk_usd"] = round(pos.get("risk_usd", 0) + got * ((px or close) - pos["stop"]), 4)
             record("add", bot, coin, signal_px=close, fill_px=px or close, slip_pct=pct_diff(px or close, close), qty=got,
                    cost=round(cost, 4), stop=pos["stop"], entry_px=pos["entry_px"],
-                   fee_usdt=_last_fill.get("fee_usdt") if bot["mode"] == "demo" else round(usdt * FEE, 4))
+                   fee_usdt=_last_fill.get("fee_usdt") if bot["mode"] == "demo" else round(usdt * fee_of(bot), 4))
         else:
             log(f"  {coin}: add-on buy did not fill")
     else:
@@ -1175,7 +1229,7 @@ def close_position(api, bot, bs, coin, reason, paper_px, done=None):
         px = proceeds / filled
     else:
         filled, px = pos["qty"], paper_px
-        proceeds = filled * px * (1 - FEE)
+        proceeds = filled * px * (1 - fee_of(bot))
     pnl = (proceeds - pos["cost"]) * pos.get("pnl_scale", 1.0)
     bs["equity"] = round(bs["equity"] + pnl, 4)
     pct = (proceeds - pos["cost"]) / pos["cost"] * 100 if pos["cost"] else 0
@@ -1184,7 +1238,7 @@ def close_position(api, bot, bs, coin, reason, paper_px, done=None):
     gross = _last_fill.get("avg_px") if bot["mode"] == "demo" else paper_px  # price before fees
     record("sell", bot, coin, reason=reason, by="exchange stop" if done else "bot", intended_px=paper_px, fill_px=gross,
            slip_pct=pct_diff(gross, paper_px), qty=filled, proceeds=round(proceeds, 4),
-           fee_usdt=_last_fill.get("fee_usdt") if bot["mode"] == "demo" else round(filled * px * FEE, 4),
+           fee_usdt=_last_fill.get("fee_usdt") if bot["mode"] == "demo" else round(filled * px * fee_of(bot), 4),
            entry_px=pos["entry_px"], stop=pos["stop"], first_stop=pos["sl"], pnl=round(pnl, 4), pnl_pct=round(pct, 3),
            r_multiple=round(pnl / pos["risk_usd"], 3) if pos.get("risk_usd") else None,
            held_hours=round((time.time() * 1000 - pos["entry_ts"]) / 3600000, 1), added=bool(pos.get("added")),
@@ -1193,10 +1247,10 @@ def close_position(api, bot, bs, coin, reason, paper_px, done=None):
     sweep_profit(api, bot, bs, pnl)
 
 
-def stop_reason(pos):
+def stop_reason(pos, bot=None):
     if pos["stop"] <= pos["sl"]:
         return "stop"
-    if pos["stop"] <= pos["entry_px"] * (1 + BE_BUFFER) * 1.0001:
+    if pos["stop"] <= pos["entry_px"] * (1 + (be_buffer(bot) if bot else BE_BUFFER)) * 1.0001:
         return "breakeven stop"
     return "trailing stop"
 
@@ -1213,7 +1267,7 @@ def take_half(api, bot, bs, coin, paper_px):
         px = proceeds / filled
     else:
         filled, px = pos["qty"] / 2, paper_px
-        proceeds = filled * px * (1 - FEE)
+        proceeds = filled * px * (1 - fee_of(bot))
     part_cost = pos["cost"] * filled / pos["qty"]
     pnl = (proceeds - part_cost) * pos.get("pnl_scale", 1.0)
     bs["equity"] = round(bs["equity"] + pnl, 4)
@@ -1222,7 +1276,7 @@ def take_half(api, bot, bs, coin, paper_px):
     pos["cost"] -= part_cost
     log(f"  HALF {coin} {filled:.8g} @ {px:.6g} (+2R) P/L {pnl:+.2f} ({pct:+.2f}%)")
     record("half", bot, coin, intended_px=paper_px, fill_px=px, slip_pct=pct_diff(px, paper_px), qty=filled,
-           pnl=round(pnl, 4), fee_usdt=_last_fill.get("fee_usdt") if bot["mode"] == "demo" else round(filled * px * FEE, 4))
+           pnl=round(pnl, 4), fee_usdt=_last_fill.get("fee_usdt") if bot["mode"] == "demo" else round(filled * px * fee_of(bot), 4))
     log_trade(bot, coin, "sell", filled, px, proceeds, pnl, pct, "half profit +2R", bs["equity"])
     sweep_profit(api, bot, bs, pnl)
 
@@ -1230,7 +1284,7 @@ def check_hit(api, bot, bs, coin, bar):
     """Did this candle touch the resting stop / target? Returns True if the trade was closed."""
     pos = bs["positions"][coin]
     if bar["l"] <= pos["stop"]:
-        reason = stop_reason(pos)
+        reason = stop_reason(pos, bot)
         close_position(api, bot, bs, coin, reason, min(pos["stop"], bar["o"]))
         return True
     two_r = pos.get("half_at") or pos["entry_px"] + 2 * (pos["entry_px"] - pos["sl"])
@@ -1251,7 +1305,7 @@ def manage_on_close(api, bot, bs, coin, a, i, bar, bars_in):
     one_r = pos["entry_px"] - pos["sl"]
     if one_r > 0 and bar["h"] >= pos["entry_px"] + one_r:
         pos["be"] = True  # +1R reached: the stop never goes back below breakeven
-    be_floor = max(pos["sl"], pos["entry_px"] * (1 + BE_BUFFER)) if pos.get("be") else pos["sl"]
+    be_floor = max(pos["sl"], pos["entry_px"] * (1 + be_buffer(bot))) if pos.get("be") else pos["sl"]
     if bot["strat"] == "v4":
         pos["hi"] = max(pos["hi"] or bar["h"], bar["h"])
         trail = pos["hi"] >= pos["entry_px"] + one_r
@@ -1404,7 +1458,11 @@ _data = {}
 def get_data(api, venue, coin, tf="4H"):
     key = (venue, coin, tf)
     if key not in _data:
-        if tf == "1H":
+        if venue == "binanceus":
+            iv = {"1H": "1h", "4H": "4h"}.get(tf, "1d")
+            raw4 = binanceus_candles(coin, iv, {"1H": 400, "4H": 500, "1DL": 800}.get(tf, 220))
+            rawd = [] if tf == "1H" else raw4 if tf in ("1D", "1DL") else binanceus_candles(coin, "1d", 400)
+        elif tf == "1H":
             raw4, rawd = api.candles(coin, "1H", 400), []
         elif tf in ("1D", "1DL"):  # 1DL: long daily history for Confluence Rank's 233 EMA + 200-day rank
             raw4 = api.candles(coin, "1Dutc", 800 if tf == "1DL" else 220)
