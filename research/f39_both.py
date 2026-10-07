@@ -23,7 +23,8 @@ FX0, FXCUT = dt.datetime(2012, 3, 1, tzinfo=e.UTC), dt.datetime(2019, 1, 1, tzin
 
 
 def fx_sim(signals, data, t0, t1):
-    """signals[pair] = list per bar of None or (side, stop, target or None, exit_fn(k) -> bool). One trade per pair."""
+    """signals[pair] = list per bar of None or (side, stop, target or None, exit_fn(k) -> bool[, trail_fn(k) -> stop]).
+    One trade per pair."""
     t0m, t1m = e.ms(t0), e.ms(t1) if t1 else 1 << 62
     eq, pos, trades, curve = 1000.0, {}, [], []
     times = sorted({b["ts"] for p in data for b in data[p] if t0m <= b["ts"] < t1m})
@@ -51,14 +52,18 @@ def fx_sim(signals, data, t0, t1):
                     close(p, max(q["tp"], b["o"]) if q["side"] == 1 else min(q["tp"], b["o"]))
                 elif q["exit"](k):
                     close(p, b["c"])
+                elif q.get("trail"):
+                    ns = q["trail"](k)  # trailing stop, set at the close, only tightens
+                    q["stop"] = max(q["stop"], ns) if q["side"] == 1 else min(q["stop"], ns)
             s = signals[p][k]
             if p not in pos and s:
-                side, stop, tp, ex = s
+                side, stop, tp, ex = s[:4]
                 dist = abs(b["c"] - stop)
                 if dist <= 0:
                     continue
                 units = min(eq * RISK / dist, eq * LEV / b["c"])
-                pos[p] = {"side": side, "entry": b["c"], "stop": stop, "tp": tp, "exit": ex, "units": units}
+                pos[p] = {"side": side, "entry": b["c"], "stop": stop, "tp": tp, "exit": ex, "units": units,
+                          "trail": s[4] if len(s) > 4 else None}
         curve.append((ts, eq))
     peak, dd = 1000.0, 0.0
     for _, v in curve:
