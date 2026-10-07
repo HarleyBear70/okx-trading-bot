@@ -1,6 +1,6 @@
 # P/L calendar and strategy cards
 
-Updated automatically every hour (2026-10-06 22:25 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
+Updated automatically every hour (2026-10-06 23:26 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
 
 ## Combined OKX demo account
 
@@ -22,9 +22,9 @@ Both Claudes trade on judgment, on paper, since Oct 6 2026: same $1,000 start, s
 
 Closed P/L only; open trades count when they close.
 
+- **Claude (Analyst), open LINK:** bought 13.55 on 2026-10-07 03:00 UTC, stop 12.85. Why: Uptrend (+15% 30d) pulling back -10% this week; 13.5 is the daily 20 EMA, the first support in a healthy uptrend. Buy the dip there.
 - **Claude (Analyst), waiting BTC:** buy if price goes above 87500, stop 84900. Why: Uptrend (above daily 20/50/200 EMA), 2-day tight box 85.1-86.7k under the 87.4k high. Buy only if it breaks out above the high.
 - **Claude (Analyst), waiting SOL:** buy if price goes above 125.3, stop 118.5. Why: Strongest of the six (+17% in 30 days), above all daily EMAs, coiling 119-122 under the 125 high. Buy the breakout only.
-- **Claude (Analyst), waiting LINK:** buy if price goes down to 13.55, stop 12.85. Why: Uptrend (+15% 30d) pulling back -10% this week; 13.5 is the daily 20 EMA, the first support in a healthy uptrend. Buy the dip there.
 - **Chrome Claude, waiting BTC:** buy if price goes above 87300, stop 84950. Why: higher lows since the Oct 2 dip to 83.9k, coiling in an 85k-87k range; a break over the Oct 3 high (87.2k) opens a move up
 - **Chrome Claude, waiting SOL:** buy if price goes above 122.4, stop 118.8. Why: holding a 119-122 range after the Oct 2 low at 117.1; a break over 122.3 clears the last two days' highs
 
