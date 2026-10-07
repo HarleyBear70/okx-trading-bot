@@ -1,10 +1,12 @@
 name: Binance.US key check (read-only)
 
-# Run by hand (Actions tab -> "Binance.US key check" -> Run workflow). Asks Binance.US what the API key in the
+# Runs on the 1st of each month, or by hand (Actions tab -> "Binance.US key check" -> Run workflow). Asks Binance.US what the API key in the
 # BINANCEBOTAPI / BINACEBOTSECRET secrets may do. Read-only: it never places, cancels or withdraws anything, and it
 # prints no key, no secret and no balances, only yes/no permissions.
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "17 14 1 * *"  # 1st of each month: keeps the key "used" (Binance.US deletes unrestricted keys unused for 90 days)
 
 permissions:
   contents: read
