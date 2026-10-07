@@ -196,5 +196,14 @@
   "approved_by": "Jeff (paper)",
   "review_on": "2026-10-19",
   "review": "Do the Binance.US copies track the OKX bots' signals, and does the lower fee show up in their results? Next step if yes: Binance.US API keys and a live connector."
+ },
+ {
+  "date_utc": "2026-10-07",
+  "bots": "Turtle 55/20 (turtle-bnus), RSI(2) snap-back (rsi2-bnus), Binance.US paper",
+  "change": "Two new paper forward tests on Binance.US prices at 0.02%: Donchian with a 'dc' override {entry 55, exit 20} (Turtle), and a new 'rsi2' strategy (buy RSI(2) < 5 above the 200-day average, sell at the first close above the 5-day average, 3 ATR safety stop). bot.py replay matches research exactly (Turtle +315% / -13.6%; RSI(2) +5% / -2.0%, win 70%).",
+  "why": "Jeff: 'build me something, backtest and forward test it'. research/F38 (Turtle best on crypto, passes never-seen coins), F39 (RSI(2) is the only rule positive on both crypto and EUR/GBP), F41 (a learning manager over strategies was no better than the best single one).",
+  "approved_by": "Jeff (paper)",
+  "review_on": "2026-10-19",
+  "review": "Turtle vs live Donchian on the same exchange; RSI(2) win rate vs the tested ~70%."
  }
 ]

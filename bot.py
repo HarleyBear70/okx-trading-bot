@@ -102,6 +102,13 @@ BOTS = [
      "risk": 0.0032, "max_open": 5, "half_at_2r": False, "pyramid": True, "btc_leash": True, "fee": BINANCEUS_FEE},
     {"id": "nnfx-bnus", "name": "NNFX Aroon (Binance.US paper)", "strat": "nnfx", "venue": "binanceus", "mode": "paper",
      "coins": ["BTC-USDT", "ETH-USDT", "XRP-USDT"], "equity": 1000.0, "fee": BINANCEUS_FEE},
+    # Forward tests from the Oct 7 2026 search for "something that works" (research/F38, F39, F41), Binance.US paper:
+    {"id": "turtle-bnus", "name": "Turtle 55/20 (Binance.US paper)", "strat": "donchian", "venue": "binanceus",
+     "mode": "paper", "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "XRP-USDT", "BNB-USDT"], "equity": 1000.0,
+     "risk": 0.005, "max_open": 5, "half_at_2r": False, "dc": {"entry": 55, "exit": 20}, "fee": BINANCEUS_FEE},
+    {"id": "rsi2-bnus", "name": "RSI(2) snap-back (Binance.US paper)", "strat": "rsi2", "venue": "binanceus",
+     "mode": "paper", "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "XRP-USDT", "BNB-USDT"], "equity": 1000.0,
+     "risk": 0.005, "max_open": 5, "half_at_2r": False, "fee": BINANCEUS_FEE},
     {"id": "hold-paper", "name": "BTC Protected Hold (paper)", "strat": "hold", "venue": "okx", "mode": "paper",
      "coins": ["BTC-USDT"], "equity": 1000.0, "risk": 1.0, "half_at_2r": False},  # Oct 6 2026 (Jeff): all-in BTC above
     # its 100-day average, cash below. A hold, not a 0.5%-risk bot: drops of 35-40% still happen (research/F2.md, B3)
@@ -644,10 +651,11 @@ DONCHIAN_SETTINGS = {"entry": 20, "exit": 10, "stop_atr": 2.0, "atr": 20}
 HOLD_SETTINGS = {"sma": 100}
 
 
-def analyse_donchian(bars):
+def analyse_donchian(bars, cfg=None):
     """Daily, long only: buy on a close above the prior 20-day high; first stop 2 ATR(20) under the close, then the
-    stop trails at the lowest low of the last 10 days (a["trail"]). No target, no half sell, no breakeven step."""
-    cfg = DONCHIAN_SETTINGS
+    stop trails at the lowest low of the last 10 days (a["trail"]). No target, no half sell, no breakeven step.
+    cfg overrides DONCHIAN_SETTINGS (a bot's "dc" setting, e.g. Turtle 55/20)."""
+    cfg = {**DONCHIAN_SETTINGS, **(cfg or {})}
     h, l, c = [b["h"] for b in bars], [b["l"] for b in bars], [b["c"] for b in bars]
     a = atr(h, l, c, cfg["atr"])
     n = len(bars)
@@ -660,6 +668,27 @@ def analyse_donchian(bars):
             signal[k] = True
             info[k] = {"score": f"{cfg['entry']}-day high", "raw_risk": (c[k] - sl) / c[k] * 100, "sl": sl, "tp": None}
     return {"signal": signal, "info": info, "trail": trail}
+
+
+RSI2_SETTINGS = {"rsi_below": 5, "trend_sma": 200, "exit_sma": 5, "stop_atr": 3.0, "atr": 20}
+
+
+def analyse_rsi2(bars):
+    """Daily RSI(2) snap-back (Connors; research/F39.md): buy at the close when price is above its 200-day average and
+    RSI(2) < 5; sell at the first close above the 5-day average (a["exit"]); safety stop 3 ATR(20)."""
+    cfg = RSI2_SETTINGS
+    h, l, c = [b["h"] for b in bars], [b["l"] for b in bars], [b["c"] for b in bars]
+    st, r2, a = sma(c, cfg["trend_sma"]), rsi(c, 2), atr(h, l, c, cfg["atr"])
+    n = len(bars)
+    signal, info, ex = [False] * n, [None] * n, [False] * n
+    for k in range(n):
+        if k >= cfg["exit_sma"] - 1:
+            ex[k] = c[k] > sum(c[k - cfg["exit_sma"] + 1:k + 1]) / cfg["exit_sma"]
+        if st[k] and r2[k] is not None and a[k] and c[k] > st[k] and r2[k] < cfg["rsi_below"]:
+            sl = c[k] - cfg["stop_atr"] * a[k]
+            signal[k] = True
+            info[k] = {"score": f"RSI(2) {r2[k]:.1f}", "raw_risk": (c[k] - sl) / c[k] * 100, "sl": sl, "tp": None}
+    return {"signal": signal, "info": info, "exit": ex}
 
 
 def btc_leash(bars, btc_daily, coin):
@@ -1343,6 +1372,11 @@ def manage_on_close(api, bot, bs, coin, a, i, bar, bars_in):
             close_position(api, bot, bs, coin, "Follow Line turned down", bar["c"])
             return True
         return False
+    elif bot["strat"] == "rsi2":
+        if a["exit"][i]:
+            close_position(api, bot, bs, coin, "closed above the 5-day average", bar["c"])
+            return True
+        return False
     elif bot["strat"] == "hold":
         if a["exit"][i]:
             close_position(api, bot, bs, coin, f"closed below the {HOLD_SETTINGS['sma']}-day average", bar["c"])
@@ -1481,7 +1515,7 @@ def get_data(api, venue, coin, tf="4H"):
 
 def bot_tf(bot):
     return {"b1": "1H", "pairs": "1D", "nnfx": "1D", "donchian": "1D", "hold": "1D", "followline": "1D", "dbottom": "1D",
-            "confluence": "1DL"}.get(bot["strat"], "4H")
+            "confluence": "1DL", "rsi2": "1D"}.get(bot["strat"], "4H")
 
 
 def analyse_for(api, bot, coin):
@@ -1493,7 +1527,7 @@ def analyse_for(api, bot, coin):
     elif bot["strat"] == "nnfx":
         a = analyse_nnfx(bars)
     elif bot["strat"] == "donchian":
-        a = analyse_donchian(bars)
+        a = analyse_donchian(bars, bot.get("dc"))
         if bot.get("btc_leash"):
             ok = btc_leash(bars, get_data(api, bot["venue"], "BTC-USDT", "1D")[0], coin)
             a["leash_blocked"] = [s and not o for s, o in zip(a["signal"], ok)]
@@ -1502,6 +1536,8 @@ def analyse_for(api, bot, coin):
         a = analyse_hold(bars)
     elif bot["strat"] == "followline":
         a = analyse_followline(bars)
+    elif bot["strat"] == "rsi2":
+        a = analyse_rsi2(bars)
     elif bot["strat"] == "dbottom":
         a = analyse_dbottom(bars)
     elif bot["strat"] == "confluence":
@@ -1526,7 +1562,7 @@ def entry_extra(bot, bar, inf):
         return {"no_half": True, "tag": inf["tag"]}
     if bot["strat"] == "nnfx":
         return {"half_at": inf["half_at"], "be_after_half": True}
-    if bot["strat"] in ("donchian", "hold", "followline", "dbottom", "confluence"):
+    if bot["strat"] in ("donchian", "hold", "followline", "dbottom", "confluence", "rsi2"):
         return {"no_half": True}
     return {}
 
