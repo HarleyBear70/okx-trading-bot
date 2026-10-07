@@ -1,7 +1,8 @@
 // Jeff's Smoke Detector: a clean chart that only speaks up when something important is happening.
 // Normal candles = nothing to do. Colored candles = look here:
-//   STEEL BLUE = pullback / loading: price is moving against the trend but the strong level still holds. It's
-//            gathering orders before the next big move, not a breakout and not a reversal. Stay calm, don't chase.
+//   WHITE / BLACK = pullback / loading: price is moving against the trend but the strong level still holds.
+//            WHITE = buyers pushing that candle, BLACK = sellers pushing. Gathering orders, not a breakout. Don't chase.
+//   GREY = normal, nothing to do.
 //   YELLOW = smoke, watch: price is getting close to a key high/low, or squeezing sideways (breakout building),
 //            or a doji at a key level, or a minor pullback low/high broke inside the trend.
 //   ORANGE = trap: a wick took out a swing high/low (liquidity sweep) but the BODY closed back inside,
@@ -153,7 +154,8 @@ pullback = trend != 0 and not expanding and not squeeze and not na(strong) and
 
 candleCol = shift ?  color.rgb(170, 60, 255) : trap ?  color.rgb(255, 140, 0) :
      bos ? (trend == 1 ?  color.rgb(0, 230, 118) :  color.rgb(255, 50, 50)) :
-     smoke ?  color.rgb(255, 214, 0) : pullback ?  color.rgb(90, 130, 190) : na
+     smoke ?  color.rgb(255, 214, 0) :
+     pullback ? (close >= open ? color.white : color.black) : color.rgb(150, 150, 150)
 barcolor(candleCol)
 
 // The two key lines, redrawn on the last candle only. WHITE solid = must hold. GREY dotted = target. Each is labeled.
@@ -276,15 +278,16 @@ alertcondition(bos, "BOS", "Break of structure: trend continues")
 alertcondition(smoke and not (shift or trap or bos), "YELLOW: smoke", "Watch: near a key level, squeezing, or a doji at a level")
 
 // Color key: big, easy-to-read box in the lower-left corner
-var table keyTb = table.new(position.bottom_left, 2, 7, bgcolor= color.new(color.black, 15), frame_color= color.gray, frame_width=1, border_width=3)
+var table keyTb = table.new(position.bottom_left, 2, 8, bgcolor=color.rgb(55, 55, 55), frame_color=color.gray, frame_width=1, border_width=1)
 keyRow(r, c, t) =>
-    table.cell(keyTb, 0, r, "●", text_color=c, text_size=size.large)
-    table.cell(keyTb, 1, r, t, text_color= color.white, text_size=size.normal, text_halign=text.align_left)
+    table.cell(keyTb, 0, r, "    ", bgcolor=c, text_size=size.normal)
+    table.cell(keyTb, 1, r, t, text_color=color.white, text_size=size.normal, text_halign=text.align_left)
 if barstate.islast and showKey
-    keyRow(0, color.rgb(90, 130, 190), "Pullback (loading)")
-    keyRow(1, color.rgb(255, 214, 0), "Watch (getting close)")
-    keyRow(2, color.rgb(255, 140, 0), "Trap (fake-out wick)")
-    keyRow(3, color.rgb(0, 230, 118), "Break UP (BOS)")
-    keyRow(4, color.rgb(255, 50, 50), "Break DOWN (BOS)")
-    keyRow(5, color.rgb(170, 60, 255), "Trend shift (flipped)")
-    keyRow(6, color.gray, "White/black = normal, nothing to do")
+    keyRow(0, color.white, "Buyers pushing (pullback)")
+    keyRow(1, color.black, "Sellers pushing (pullback)")
+    keyRow(2, color.rgb(255, 214, 0), "Watch - move coming")
+    keyRow(3, color.rgb(255, 140, 0), "Fake-out - do nothing")
+    keyRow(4, color.rgb(0, 230, 118), "BOS up - stays bullish")
+    keyRow(5, color.rgb(255, 50, 50), "BOS down - stays bearish")
+    keyRow(6, color.rgb(170, 60, 255), "Market shift - flipping")
+    keyRow(7, color.rgb(150, 150, 150), "Grey = normal, nothing to do")
