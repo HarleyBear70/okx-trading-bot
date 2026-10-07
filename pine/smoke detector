@@ -1,36 +1,39 @@
 // Jeff's Smoke Detector: a clean chart that only speaks up when something important is happening.
 // Normal candles = nothing to do. Colored candles = look here:
 //   WHITE / BLACK = pullback / loading: price is moving against the trend but the strong level still holds.
-//            WHITE = buyers pushing that candle, BLACK = sellers pushing. Gathering orders, not a breakout. Don't chase.
 //   GREY = normal, nothing to do.
-//   YELLOW = smoke, watch: price is getting close to a key high/low, or squeezing sideways (breakout building),
-//            or a doji at a key level, or a minor pullback low/high broke inside the trend.
-//   ORANGE = trap: a wick took out a swing high/low (liquidity sweep) but the BODY closed back inside,
-//            OR a failed breakout: a BOS whose broken level is lost again on a body close within 3 candles.
+//   YELLOW = smoke, watch: close to a key high/low, squeezing sideways, a doji at a key level, or a minor break inside the trend.
+//   ORANGE = trap: a wick swept a swing high/low but the BODY closed back inside, or a breakout failed within 3 candles.
 //   BRIGHT GREEN / RED = BOS: a candle BODY closed beyond the last swing high/low, trend continues.
 //   PURPLE = MARKET SHIFT: a candle BODY closed through the strong (protected) high/low, the trend flipped.
-// Two lines: WHITE SOLID "MUST HOLD" = strong high/low that must hold. GREY DOTTED "TARGET" = weak high/low (liquidity).
-// Trade plan: every green/red/purple candle gets an arrow and lines: BUY/SELL (blue), SL (red, past the strong level),
-// TP1 "safe" (just under the nearest old high/low = liquidity) and TP2 "long shot" (the -27% Fib extension).
-// Position size: the box says how much to buy so a stopped-out trade loses about your risk % (fees included),
-// and roughly what a win at TP pays after fees (yellow when the win is under 1.5x the risk: weak trade).
-// Corner box: who is in control and whether price is expanding, pulling back or going sideways.
-// Read the daily first, then the 4H. It reads the chart; it is not a buy signal by itself.
+// Lines: WHITE SOLID "MUST HOLD" = strong high/low. GREY DOTTED "TARGET" = weak high/low (liquidity).
+// Auto drawing (redrawn after every BOS / market shift): the swing high + swing low of the move, the Fib 50% line with
+// PREMIUM (top half) and DISCOUNT (bottom half) shaded, the latest supply zone in premium and demand zone in discount,
+// and the latest few imbalances (FVG) that haven't been filled yet.
+// Long/short box: only shows when price is in the right zone (discount in an uptrend = long, premium in a downtrend = short).
+// Stop = just past the MUST HOLD level (small cushion so a wick into the liquidity doesn't stop you out).
+// TP1 = just before the nearest liquidity (old high/low), TP2 = the -27% Fib extension. GOOD / SKIP = Jeff's % rules.
+// Hover over the box labels for the full details. Read the daily first, then the 4H. Not a buy signal by itself.
 //@version=6
-indicator("Jeff's Smoke Detector", shorttitle="Smoke", overlay=true, max_lines_count=10, max_labels_count=24)
+indicator("Jeff's Smoke Detector", shorttitle="Smoke", overlay=true, max_lines_count=40, max_labels_count=40, max_boxes_count=30)
 
-swingLen = input.int(5, "Swing size (candles on each side of a swing high/low)", minval=2, maxval=20)
-nearAtr  = input.float(0.5, "'Getting close' distance (x ATR)", minval=0.1, step=0.1)
-showLns  = input.bool(true, "Show the 2 key lines (solid = must hold, dotted = target)")
-showBox  = input.bool(true, "Show the small corner box")
-showKey  = input.bool(true, "Show the color key in the box")
-showPlan = input.bool(true, "Show the trade plan on breakouts (entry, SL, TP)")
-slBuf    = input.float(0.25, "Stop buffer beyond the strong level (x ATR)", minval=0, step=0.05)
-acct     = input.float(197, "My account size ($)", minval=1)
-riskPct  = input.float(0.5, "Risk per trade (% of account)", minval=0.05, maxval=5, step=0.05)
-feePct   = input.float(0.35, "Fee per buy or sell (%)", minval=0, step=0.01)
-ext1     = input.float(0.27, "TP2 Fib extension (0.27 = the -27% line)", minval=0.05, step=0.01)
-ext2     = input.float(0.68, "Far Fib extension when there's no old high/low ahead (0.68 = -68%)", minval=0.1, step=0.01)
+swingLen  = input.int(5, "Swing size (candles on each side of a swing high/low)", minval=2, maxval=20)
+nearAtr   = input.float(0.5, "'Getting close' distance (x ATR)", minval=0.1, step=0.1)
+showLns   = input.bool(true, "Show the 2 key lines (solid = must hold, dotted = target)")
+showBox   = input.bool(true, "Show the corner box")
+showKey   = input.bool(true, "Show the color key")
+showFib   = input.bool(true, "Show the auto Fib (premium / discount)")
+showZones = input.bool(false, "Show the latest supply (premium) and demand (discount) zones")
+showFvg   = input.bool(false, "Show the latest imbalances (FVG)")
+fvgMax    = input.int(3, "How many imbalances to show", minval=1, maxval=6)
+showPlan  = input.bool(true, "Show the long/short box when price is in the right zone")
+slBuf     = input.float(0.15, "Stop cushion past the MUST HOLD level (x ATR)", minval=0, step=0.05)
+acct      = input.float(197, "My account size ($)", minval=1)
+riskPct   = input.float(0.5, "Risk per trade (% of account)", minval=0.05, maxval=5, step=0.05)
+feePct    = input.float(0.35, "Fee per buy or sell (%)", minval=0, step=0.01)
+ext1      = input.float(0.27, "TP2 Fib extension (0.27 = the -27% line)", minval=0.05, step=0.01)
+maxSlPct  = input.float(1.35, "My rule: max stop loss (%)", minval=0.1, step=0.05)
+minTpPct  = input.float(2.0, "My rule: min take profit (%)", minval=0.1, step=0.1)
 
 atr  = ta.atr(14)
 ph   = ta.pivothigh(high, swingLen, swingLen)
@@ -39,8 +42,8 @@ body = math.abs(close - open)
 rng  = high - low
 
 // Squeeze: Bollinger width near its lowest in 100 candles = price coiling sideways
-basis = ta.sma(close, 20)
-bbw   = basis > 0 ? 4 * ta.stdev(close, 20) / basis : na
+basis   = ta.sma(close, 20)
+bbw     = basis > 0 ? 4 * ta.stdev(close, 20) / basis : na
 bbwLow  = ta.lowest(bbw, 100)
 squeeze = not na(bbw) and not na(bbwLow) and bbw <= bbwLow * 1.10
 
@@ -52,20 +55,68 @@ var int   trend  = 0      // 1 up, -1 down, 0 not known yet
 var float strong = na     // protected level: a body close through it = market shift
 var float ext    = na     // highest high of the up move / lowest low of the down move
 
-var array<float> pastHighs = array.new<float>()   // swing highs = liquidity above
-var array<float> pastLows  = array.new<float>()   // swing lows = liquidity below
+// Supply / demand: the last up candle before a swing high (supply) / last down candle before a swing low (demand)
+var float supTop = na
+var float supBot = na
+var int   supBar = na
+var float demTop = na
+var float demBot = na
+var int   demBar = na
+
 if not na(ph)
     swH   := ph
     hDone := false
-    array.push(pastHighs, ph)
-    if array.size(pastHighs) > 30
-        array.shift(pastHighs)
+    for i = swingLen to swingLen + 5
+        if close[i] > open[i]
+            supTop := math.max(high[i], ph)
+            supBot := low[i]
+            supBar := bar_index - i
+            break
 if not na(pl)
     swL   := pl
     lDone := false
-    array.push(pastLows, pl)
-    if array.size(pastLows) > 30
-        array.shift(pastLows)
+    for i = swingLen to swingLen + 5
+        if close[i] < open[i]
+            demTop := high[i]
+            demBot := math.min(low[i], pl)
+            demBar := bar_index - i
+            break
+// a body close through a zone uses it up
+if not na(supTop) and close > supTop
+    supTop := na
+    supBot := na
+if not na(demBot) and close < demBot
+    demTop := na
+    demBot := na
+
+// Imbalances (FVG): a gap between candle 1 and candle 3. Kept until price fills it.
+var array<float> fTop = array.new<float>()
+var array<float> fBot = array.new<float>()
+var array<int>   fBar = array.new<int>()
+var array<int>   fDir = array.new<int>()
+if low > high[2] and (low - high[2]) >= 0.1 * atr
+    array.push(fTop, low)
+    array.push(fBot, high[2])
+    array.push(fBar, bar_index - 1)
+    array.push(fDir, 1)
+if high < low[2] and (low[2] - high) >= 0.1 * atr
+    array.push(fTop, low[2])
+    array.push(fBot, high)
+    array.push(fBar, bar_index - 1)
+    array.push(fDir, -1)
+if array.size(fTop) > 0
+    for i = array.size(fTop) - 1 to 0
+        filled = array.get(fDir, i) == 1 ? low <= array.get(fBot, i) : high >= array.get(fTop, i)
+        if filled and array.get(fBar, i) < bar_index - 1
+            array.remove(fTop, i)
+            array.remove(fBot, i)
+            array.remove(fBar, i)
+            array.remove(fDir, i)
+while array.size(fTop) > fvgMax
+    array.shift(fTop)
+    array.shift(fBot)
+    array.shift(fBar)
+    array.shift(fDir)
 
 bos      = false
 shift    = false
@@ -75,7 +126,6 @@ internal = false
 if trend == 1
     ext := math.max(nz(ext, high), high)
     if not na(strong) and close < strong
-        // body closed through the protected low: buyers lost control
         shift  := true
         trend  := -1
         strong := ext
@@ -86,7 +136,7 @@ if trend == 1
         hDone  := true
         strong := swL
     else if not lDone and close < swL
-        internal := true   // a pullback low broke, but the protected low still holds
+        internal := true
         lDone    := true
 else if trend == -1
     ext := math.min(nz(ext, low), low)
@@ -136,12 +186,10 @@ if not na(bosBar) and bar_index - bosBar > 3
 // Target = the weak high (uptrend) or weak low (downtrend) not taken yet
 weak = trend == 1 ? (hDone ? na : swH) : trend == -1 ? (lDone ? na : swL) : na
 
-// Trap: wick through a swing high/low, body closed back inside
 trapHigh = not na(swH) and not hDone and high > swH and close <= swH
 trapLow  = not na(swL) and not lDone and low < swL and close >= swL
 trap := ((trapHigh or trapLow) or failedBos) and not bos and not shift
 
-// Smoke: close to a key level, squeezing, a doji at a level, or an internal break
 nearWeak   = not na(weak) and math.abs(weak - close) <= nearAtr * atr
 nearStrong = not na(strong) and math.abs(close - strong) <= nearAtr * atr
 dojiLevel  = rng > 0 and body <= 0.1 * rng and (nearWeak or nearStrong)
@@ -150,168 +198,139 @@ smoke = nearWeak or nearStrong or squeeze or dojiLevel or internal
 hi10 = ta.highest(close, 10)[1]
 lo10 = ta.lowest(close, 10)[1]
 expanding = trend == 1 ? close > hi10 : trend == -1 ? close < lo10 : false
-// Pullback / loading: in a trend, not making new extremes, not squeezing, strong level intact
-pullback = trend != 0 and not expanding and not squeeze and not na(strong) and
-     (trend == 1 ? close > strong : close < strong)
+pullback = trend != 0 and not expanding and not squeeze and not na(strong) and (trend == 1 ? close > strong : close < strong)
 
-candleCol = shift ?  color.rgb(170, 60, 255) : trap ?  color.rgb(255, 140, 0) :
-     bos ? (trend == 1 ?  color.rgb(0, 230, 118) :  color.rgb(255, 50, 50)) :
-     smoke ?  color.rgb(255, 214, 0) :
-     pullback ? (close >= open ? color.white : color.black) : color.rgb(150, 150, 150)
+candleCol = shift ? color.rgb(170, 60, 255) : trap ? color.rgb(255, 140, 0) : bos ? (trend == 1 ? color.rgb(0, 230, 118) : color.rgb(255, 50, 50)) : smoke ? color.rgb(255, 214, 0) : pullback ? (close >= open ? color.white : color.black) : color.rgb(150, 150, 150)
 barcolor(candleCol)
 
-// The two key lines, redrawn on the last candle only. WHITE solid = must hold. GREY dotted = target. Each is labeled.
-var line  strongLn = na
-var line  weakLn   = na
-var label strongLb = na
-var label weakLb   = na
-if barstate.islast and showLns
-    line.delete(strongLn)
-    line.delete(weakLn)
-    label.delete(strongLb)
-    label.delete(weakLb)
-    if not na(strong)
-        strongLn := line.new(bar_index - 30, strong, bar_index + 8, strong, extend=extend.right,
-             color=color.rgb(235, 235, 235), width=2, style=line.style_solid)
-        strongLb := label.new(bar_index + 8, strong, "MUST HOLD " + str.tostring(strong, format.mintick),
-             style=label.style_label_left, color=color.rgb(70, 70, 70), textcolor=color.white, size=size.normal)
-    if not na(weak)
-        weakLn := line.new(bar_index - 30, weak, bar_index + 8, weak, extend=extend.right,
-             color=color.gray, width=1, style=line.style_dotted)
-        weakLb := label.new(bar_index + 8, weak, "TARGET " + str.tostring(weak, format.mintick),
-             style=label.style_label_left, color=color.rgb(110, 110, 110), textcolor=color.white, size=size.normal)
+// The move's range: MUST HOLD level to the furthest point of the move. 50% splits premium (top) / discount (bottom).
+rangeOk = trend != 0 and not na(strong) and not na(ext) and strong != ext
+rangeHi = rangeOk ? math.max(strong, ext) : na
+rangeLo = rangeOk ? math.min(strong, ext) : na
+mid     = rangeOk ? (rangeHi + rangeLo) / 2 : na
+inDiscount = rangeOk and trend == 1 and close <= mid and close > strong
+inPremium  = rangeOk and trend == -1 and close >= mid and close < strong
 
-// Trade plan on a breakout (green/red BOS or purple shift): direction, stop past the strong level, and TWO targets:
-//   TP1 "play it safe" = a hair before the nearest untaken old high (long) / old low (short) = the liquidity,
-//   TP2 "long shot"    = the Fib extension of the swing (-27% beyond the swing high/low).
-//   (If there's no old high/low ahead, TP1 = the -27% extension and TP2 = the -68% extension.)
-// The plan stays on the chart until the SL or TP2 is hit, then it clears itself. TP1 hit is shown in the box.
-var float  pEntry = na
-var float  pSL    = na
-var float  pTP    = na     // TP1 (safe)
-var float  pTP2   = na     // TP2 (long shot)
-var int    pDir   = 0
-var int    pBar   = na
-var string pState = ""      // "open", "TP2 hit", "stopped out"
-var bool   tp1Hit = false
-var line   eLn = na
-var line   sLn = na
-var line   tLn = na
-var line   t2Ln = na
-var label  eLb = na
-var label  sLb = na
-var label  tLb = na
-var label  t2Lb = na
-newPlan = false
-if (bos or shift) and not na(strong)
-    dir   = trend
-    entry = close
-    sl    = dir == 1 ? strong - slBuf * atr : strong + slBuf * atr
-    risk  = math.abs(entry - sl)
-    if risk > 0.2 * atr and (dir == 1 ? sl < entry : sl > entry)
-        // swing for the Fib: from the strong level to the furthest point of the move
-        swingEnd = dir == 1 ? math.max(nz(ext, high), high) : math.min(nz(ext, low), low)
-        rangeSz  = math.abs(swingEnd - strong)
-        fib1     = swingEnd + dir * ext1 * rangeSz
-        fib2     = swingEnd + dir * ext2 * rangeSz
-        // nearest untaken old high (long) / old low (short) ahead of the entry = liquidity
-        float liq = na
-        src = dir == 1 ? pastHighs : pastLows
-        if array.size(src) > 0
-            for i = 0 to array.size(src) - 1
-                lv = array.get(src, i)
-                minGap = math.max(0.5 * atr, entry * 3 * feePct / 100)   // TP1 must clear fees (2 x 0.35%) with room to spare
-                ahead = dir == 1 ? lv > entry + minGap : lv < entry - minGap
-                if ahead and (na(liq) or math.abs(lv - entry) < math.abs(liq - entry))
-                    liq := lv
-        hair = 0.1 * atr   // take profit a hair before the level so the order actually fills
-        float tp1 = na
-        float tp2 = na
-        if not na(liq) and math.abs(liq - entry) < math.abs(fib1 - entry)
-            tp1 := liq - dir * hair
-            tp2 := fib1 - dir * hair
-        else
-            tp1 := fib1 - dir * hair
-            tp2 := fib2 - dir * hair
-        pEntry  := entry
-        pSL     := sl
-        pTP     := tp1
-        pTP2    := tp2
-        pDir    := dir
-        pBar    := bar_index
-        pState  := "open"
-        tp1Hit  := false
-        newPlan := true
-// After the breakout candle: stop checked first (to be safe), then TP1, then TP2
-if not newPlan and pState == "open"
-    if pDir == 1
-        if low <= pSL
-            pState := "stopped out"
-        else
-            tp1Hit := tp1Hit or high >= pTP
-            pState := high >= pTP2 ? "TP2 hit" : "open"
-    else
-        if high >= pSL
-            pState := "stopped out"
-        else
-            tp1Hit := tp1Hit or low <= pTP
-            pState := low <= pTP2 ? "TP2 hit" : "open"
+// Long/short idea when price is in the right zone: entry = now, stop just past MUST HOLD, TP1 = liquidity, TP2 = -27% Fib
+float pEntry = na
+float pSL    = na
+float pTP1   = na
+float pTP2   = na
+int   pDir   = 0
+if showPlan and (inDiscount or inPremium)
+    pDir   := inDiscount ? 1 : -1
+    pEntry := close
+    pSL    := pDir == 1 ? strong - slBuf * atr : strong + slBuf * atr
+    hair   = 0.1 * atr
+    minGap = math.max(0.5 * atr, close * 3 * feePct / 100)
+    swingEnd = pDir == 1 ? rangeHi : rangeLo
+    float liq = na
+    if math.abs(swingEnd - close) >= minGap
+        liq := swingEnd
+    if not na(weak)
+        aheadW = pDir == 1 ? weak > close + minGap : weak < close - minGap
+        if aheadW and (na(liq) or math.abs(weak - close) < math.abs(liq - close))
+            liq := weak
+    fibX = swingEnd + pDir * ext1 * (rangeHi - rangeLo)
+    pTP1 := na(liq) ? fibX - pDir * hair : liq - pDir * hair
+    pTP2 := fibX - pDir * hair
+    if math.abs(pTP2 - close) <= math.abs(pTP1 - close) + hair
+        pTP2 := na
+
+slPct   = pDir != 0 ? math.abs(pEntry - pSL) / pEntry * 100 : na
+tp1Pct  = pDir != 0 ? math.abs(pTP1 - pEntry) / pEntry * 100 : na
+tp2Pct  = pDir != 0 and not na(pTP2) ? math.abs(pTP2 - pEntry) / pEntry * 100 : na
+rr1     = pDir != 0 ? math.abs(pTP1 - pEntry) / math.abs(pEntry - pSL) : na
+goodNow = pDir != 0 and nz(slPct, 99) <= maxSlPct and (nz(tp1Pct) >= minTpPct or nz(tp2Pct) >= minTpPct)
+
+// Position size so a stopped-out trade loses about riskPct of the account, fees included
+riskUsd = acct * riskPct / 100
+fee     = feePct / 100
+posUsd  = pDir != 0 ? math.min(riskUsd / (slPct / 100 + 2 * fee), acct) : na
+win1    = pDir != 0 ? posUsd * (tp1Pct / 100 - 2 * fee) : na
+win2    = pDir != 0 and not na(pTP2) ? posUsd * (tp2Pct / 100 - 2 * fee) : na
+
+// ---------- Drawing (last candle only, everything old is cleared first) ----------
+var array<box>   bxs = array.new<box>()
+var array<line>  lns = array.new<line>()
+var array<label> lbs = array.new<label>()
+clear = color.new(color.black, 100)
+gCol  = color.rgb(0, 200, 100)
+rCol  = color.rgb(230, 60, 60)
 if barstate.islast
-    line.delete(eLn)
-    line.delete(sLn)
-    line.delete(tLn)
-    line.delete(t2Ln)
-    label.delete(eLb)
-    label.delete(sLb)
-    label.delete(tLb)
-    label.delete(t2Lb)
-    if showPlan and pState == "open"
-        x2 = bar_index + 22   // plan tags sit right of the MUST HOLD / TARGET tags so they never cover each other
-        eLn  := line.new(pBar, pEntry, x2, pEntry, color=color.rgb(41, 98, 255), width=1)
-        sLn  := line.new(pBar, pSL, x2, pSL, color=color.rgb(230, 60, 60), width=2)
-        tLn  := line.new(pBar, pTP, x2, pTP, color=color.rgb(0, 200, 100), width=2, style=tp1Hit ? line.style_dashed : line.style_solid)
-        t2Ln := line.new(pBar, pTP2, x2, pTP2, color=color.rgb(0, 150, 70), width=2)
-        eLb  := label.new(x2, pEntry, (pDir == 1 ? "BUY at " : "SELL at ") + str.tostring(pEntry, format.mintick), style=label.style_label_left, color=color.rgb(41, 98, 255), textcolor=color.white, size=size.normal)
-        sLb  := label.new(x2, pSL, "SL " + str.tostring(pSL, format.mintick), style=label.style_label_left, color=color.rgb(230, 60, 60), textcolor=color.white, size=size.normal)
-        tLb  := label.new(x2, pTP, (tp1Hit ? "TP1 HIT " : "TP1 safe ") + str.tostring(pTP, format.mintick), style=label.style_label_left, color=color.rgb(0, 200, 100), textcolor=color.white, size=size.normal)
-        t2Lb := label.new(x2, pTP2, "TP2 long shot " + str.tostring(pTP2, format.mintick), style=label.style_label_left, color=color.rgb(0, 150, 70), textcolor=color.white, size=size.normal)
-plotshape(showPlan and (bos or shift) and trend == 1, "Long", shape.triangleup, location.belowbar,  color.rgb(0, 200, 100), size=size.small)
-plotshape(showPlan and (bos or shift) and trend == -1, "Short", shape.triangledown, location.abovebar,  color.rgb(230, 60, 60), size=size.small)
+    for b in bxs
+        box.delete(b)
+    for ln in lns
+        line.delete(ln)
+    for lb in lbs
+        label.delete(lb)
+    array.clear(bxs)
+    array.clear(lns)
+    array.clear(lbs)
+    xL = bar_index - 40
+    xR = bar_index + 15
+    if showLns and not na(strong)
+        array.push(lns, line.new(bar_index - 30, strong, bar_index + 8, strong, extend=extend.right, color=color.rgb(235, 235, 235), width=2, style=line.style_solid))
+        array.push(lbs, label.new(bar_index + 8, strong, "MUST HOLD " + str.tostring(strong, format.mintick), style=label.style_label_left, color=color.rgb(70, 70, 70), textcolor=color.white, size=size.normal))
+    if showLns and not na(weak)
+        array.push(lns, line.new(bar_index - 30, weak, bar_index + 8, weak, extend=extend.right, color=color.gray, width=1, style=line.style_dotted))
+        array.push(lbs, label.new(bar_index + 8, weak, "TARGET " + str.tostring(weak, format.mintick), style=label.style_label_left, color=color.rgb(110, 110, 110), textcolor=color.white, size=size.normal))
+    if showFib and rangeOk
+        array.push(bxs, box.new(xL, rangeHi, xR, mid, border_color=clear, bgcolor=color.new(rCol, 92)))
+        array.push(lbs, label.new(xL + 2, rangeHi - (rangeHi - mid) * 0.15, "PREMIUM", style=label.style_label_left, color=color.rgb(255, 175, 175), textcolor=color.black, size=size.normal))
+        array.push(bxs, box.new(xL, mid, xR, rangeLo, border_color=clear, bgcolor=color.new(gCol, 92)))
+        array.push(lbs, label.new(xL + 2, rangeLo + (mid - rangeLo) * 0.15, "DISCOUNT", style=label.style_label_left, color=color.rgb(170, 235, 190), textcolor=color.black, size=size.normal))
+        array.push(lns, line.new(xL, mid, xR, mid, color=color.rgb(255, 214, 0), width=1, style=line.style_dashed))
+        array.push(lbs, label.new(xL, mid, "50%  " + str.tostring(mid, format.mintick), style=label.style_label_right, color=color.rgb(255, 214, 0), textcolor=color.black, size=size.normal))
+        array.push(lbs, label.new(xL, rangeHi, "Swing high  " + str.tostring(rangeHi, format.mintick), style=label.style_label_right, color=color.rgb(235, 235, 235), textcolor=color.black, size=size.normal))
+        array.push(lbs, label.new(xL, rangeLo, "Swing low  " + str.tostring(rangeLo, format.mintick), style=label.style_label_right, color=color.rgb(235, 235, 235), textcolor=color.black, size=size.normal))
+    if showZones and rangeOk
+        if not na(demTop) and demTop <= mid
+            array.push(bxs, box.new(demBar, demTop, xR, demBot, border_color=color.new(gCol, 60), bgcolor=color.new(gCol, 88), text="Demand", text_size=size.normal, text_color=color.white, text_halign=text.align_right))
+        if not na(supBot) and supBot >= mid
+            array.push(bxs, box.new(supBar, supTop, xR, supBot, border_color=color.new(rCol, 60), bgcolor=color.new(rCol, 88), text="Supply", text_size=size.normal, text_color=color.white, text_halign=text.align_right))
+    if showFvg and array.size(fTop) > 0
+        for i = 0 to array.size(fTop) - 1
+            array.push(bxs, box.new(array.get(fBar, i), array.get(fTop, i), xR, array.get(fBot, i), border_color=color.new(color.rgb(170, 200, 255), 75), bgcolor=color.new(color.rgb(170, 200, 255), 93), text="Imbalance", text_size=size.normal, text_color=color.new(color.white, 35), text_halign=text.align_right))
+    if pDir != 0
+        x1 = bar_index + 1
+        x2 = bar_index + 22
+        tip = (pDir == 1 ? "LONG" : "SHORT") + " if you enter now" + "\nEntry: " + str.tostring(pEntry, format.mintick) + "\nStop: " + str.tostring(pSL, format.mintick) + "  (" + str.tostring(slPct, "#.##") + "%)" + "\nTP1: " + str.tostring(pTP1, format.mintick) + "  (" + str.tostring(tp1Pct, "#.##") + "%)" + (na(pTP2) ? "" : "\nTP2: " + str.tostring(pTP2, format.mintick) + "  (" + str.tostring(tp2Pct, "#.##") + "%)") + "\nReward/risk to TP1: " + str.tostring(rr1, "#.##") + "\nBuy about $" + str.tostring(posUsd, "#.##") + "  (" + str.tostring(posUsd / pEntry, "#.######") + " coins)" + "\nIf stopped: lose about $" + str.tostring(riskUsd, "#.##") + "\nAt TP1: win about $" + str.tostring(win1, "#.##") + " after fees"
+        array.push(bxs, box.new(x1, math.max(pEntry, pTP1), x2, math.min(pEntry, pTP1), border_color=gCol, bgcolor=color.new(gCol, 70)))
+        array.push(bxs, box.new(x1, math.max(pEntry, pSL), x2, math.min(pEntry, pSL), border_color=rCol, bgcolor=color.new(rCol, 70)))
+        array.push(lbs, label.new(x2, pEntry, (pDir == 1 ? "LONG  " : "SHORT  ") + (goodNow ? "GOOD" : "SKIP"), style=label.style_label_left, color=goodNow ? color.rgb(0, 150, 70) : color.rgb(200, 30, 30), textcolor=color.white, size=size.normal, tooltip=tip))
+        array.push(lbs, label.new(x2, pSL, "SL " + str.tostring(slPct, "#.##") + "%", style=label.style_label_left, color=rCol, textcolor=color.white, size=size.normal, tooltip=tip))
+        array.push(lbs, label.new(x2, pTP1, "TP1 " + str.tostring(tp1Pct, "#.##") + "%", style=label.style_label_left, color=gCol, textcolor=color.white, size=size.normal, tooltip=tip))
+        if not na(pTP2)
+            array.push(lns, line.new(x1, pTP2, x2, pTP2, color=color.rgb(0, 150, 70), width=2, style=line.style_dashed))
+            array.push(lbs, label.new(x2, pTP2, "TP2 " + str.tostring(tp2Pct, "#.##") + "%", style=label.style_label_left, color=color.rgb(0, 150, 70), textcolor=color.white, size=size.normal, tooltip=tip))
+
+plotshape(bos or shift ? trend == 1 : false, "Long", shape.triangleup, location.belowbar, color.rgb(0, 200, 100), size=size.small)
+plotshape(bos or shift ? trend == -1 : false, "Short", shape.triangledown, location.abovebar, color.rgb(230, 60, 60), size=size.small)
 
 // Corner box
 lvl   = str.tostring(strong, format.mintick)
-phase = squeeze ? "Sideways: squeeze, breakout coming" : expanding ? "Expanding" :
-     pullback ? "Pullback, loading orders: holds while " + (trend == 1 ? "above " : "below ") + lvl :
-     trend != 0 ? "Testing the strong level " + lvl : "Waiting for structure"
+phase = squeeze ? "Sideways: squeeze, breakout coming" : expanding ? "Expanding" : pullback ? "Pullback, loading orders: holds while " + (trend == 1 ? "above " : "below ") + lvl : trend != 0 ? "Testing the strong level " + lvl : "Waiting for structure"
 who   = trend == 1 ? "UP: buyers in control" : trend == -1 ? "DOWN: sellers in control" : "No clear trend yet"
 var table tb = table.new(position.top_right, 1, 6, bgcolor=color.new(color.black, 15), frame_color=color.gray, frame_width=1, border_width=3)
 if barstate.islast and showBox
     table.cell(tb, 0, 0, who, text_color=trend == 1 ? color.rgb(0, 230, 118) : trend == -1 ? color.rgb(255, 80, 80) : color.white, text_size=size.normal)
     table.cell(tb, 0, 1, phase, text_color=color.white, text_size=size.normal)
-    if showPlan and pDir != 0 and pState != "open"
-        done = "Last plan (" + (pDir == 1 ? "LONG" : "SHORT") + "): " + (pState == "TP2 hit" ? "TP2 hit - done" : tp1Hit ? "TP1 hit, then stopped - done" : "stopped out - done") + ". Waiting for the next break."
-        table.cell(tb, 0, 2, done, text_color=pState == "TP2 hit" or tp1Hit ? color.rgb(0, 230, 118) : color.rgb(255, 120, 120), text_size=size.normal)
+    if pDir != 0
+        planTxt = (pDir == 1 ? "LONG idea (enter now): " : "SHORT idea (enter now): ") + "SL " + str.tostring(pSL, format.mintick) + "   TP1 " + str.tostring(pTP1, format.mintick) + (na(pTP2) ? "" : "   TP2 " + str.tostring(pTP2, format.mintick))
+        table.cell(tb, 0, 2, planTxt, text_color=pDir == 1 ? color.rgb(0, 230, 118) : color.rgb(255, 80, 80), text_size=size.normal)
+        sizeTxt = "Risk $" + str.tostring(riskUsd, "#.##") + " -> buy $" + str.tostring(posUsd, "#.##") + " (" + str.tostring(posUsd / pEntry, "#.######") + " coins). Win at TP1 ~$" + str.tostring(win1, "#.##") + (na(win2) ? "" : ", at TP2 ~$" + str.tostring(win2, "#.##"))
+        table.cell(tb, 0, 3, sizeTxt, text_color=color.white, text_size=size.normal)
+        checkTxt = (goodNow ? "GOOD TRADE" : "SKIP") + "   SL " + str.tostring(slPct, "#.##") + "%   TP1 " + str.tostring(tp1Pct, "#.##") + "%" + (na(tp2Pct) ? "" : "   TP2 " + str.tostring(tp2Pct, "#.##") + "%")
+        table.cell(tb, 0, 4, checkTxt, text_color=color.white, bgcolor=goodNow ? color.rgb(0, 150, 70) : color.rgb(200, 30, 30), text_size=size.large)
+    else
+        waitTxt = not rangeOk ? "No trade idea: waiting for structure" : trend == 1 ? "No trade now: wait for a pullback into DISCOUNT (below " + str.tostring(mid, format.mintick) + ")" : "No trade now: wait for a bounce into PREMIUM (above " + str.tostring(mid, format.mintick) + ")"
+        table.cell(tb, 0, 2, waitTxt, text_color=color.rgb(200, 200, 200), text_size=size.normal)
         table.cell(tb, 0, 3, "", text_size=size.normal)
-    if showPlan and pState == "open"
-        risk1 = math.abs(pEntry - pSL)
-        plan = (pDir == 1 ? "Open plan: LONG" : "Open plan: SHORT") + "  SL " + str.tostring(pSL, format.mintick) +
-             "  TP1 " + str.tostring(pTP, format.mintick) + " (" + str.tostring(math.abs(pTP - pEntry) / risk1, "#.#") + ":1)" +
-             "  TP2 " + str.tostring(pTP2, format.mintick) + " (" + str.tostring(math.abs(pTP2 - pEntry) / risk1, "#.#") + ":1)" +
-             (tp1Hit ? "  TP1 HIT" : "")
-        table.cell(tb, 0, 2, plan, text_color=pDir == 1 ? color.rgb(0, 230, 118) : color.rgb(255, 80, 80), text_size=size.normal)
-        // Position size so a stopped-out trade loses about riskPct of the account, fees included
-        riskUsd = acct * riskPct / 100
-        stopPct = risk1 / pEntry
-        fee     = feePct / 100
-        posUsd  = math.min(riskUsd / (stopPct + 2 * fee), acct)
-        win1    = posUsd * (math.abs(pTP - pEntry) / pEntry - 2 * fee)
-        win2    = posUsd * (math.abs(pTP2 - pEntry) / pEntry - 2 * fee)
-        sizeTxt = "Risk $" + str.tostring(riskUsd, "#.##") + " -> buy $" + str.tostring(posUsd, "#.##") +
-             " (" + str.tostring(posUsd / pEntry, "#.######") + " coins). Win at TP1 ~$" + str.tostring(win1, "#.##") +
-             ", at TP2 ~$" + str.tostring(win2, "#.##")
-        table.cell(tb, 0, 3, sizeTxt, text_color=win1 >= riskUsd ? color.white : color.rgb(255, 214, 0), text_size=size.normal)
+        table.cell(tb, 0, 4, "", text_size=size.normal, bgcolor=clear)
 
 // Phone / app alerts (TradingView: Alert > Condition: Jeff's Smoke Detector)
+alertcondition(goodNow and not goodNow[1], "GOOD TRADE setup", "Smoke Detector: a GOOD TRADE setup is on the chart (stop and target inside my rules)")
 alertcondition(shift, "PURPLE: market shift", "Market shift: a body closed through the strong high/low")
 alertcondition(trap, "ORANGE: trap", "Trap: a wick swept a swing high/low and closed back inside, or a breakout failed")
 alertcondition(bos, "BOS", "Break of structure: trend continues")
