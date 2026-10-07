@@ -37,4 +37,18 @@ jobs:
           print("can withdraw:", "YES  <-- turn this OFF" if a.get("canWithdraw") else "NO (good)")
           print("can deposit:", "YES" if a.get("canDeposit") else "NO")
           print("permissions:", a.get("permissions"))
+          print("(the lines above are the ACCOUNT's abilities; below are THIS KEY's own switches)")
+          q2 = urllib.parse.urlencode({"timestamp": int(time.time() * 1000), "recvWindow": 10000})
+          sig2 = hmac.new(secret.encode(), q2.encode(), hashlib.sha256).hexdigest()
+          req2 = urllib.request.Request(f"https://api.binance.us/sapi/v1/account/apiRestrictions?{q2}&signature={sig2}",
+                                        headers={"X-MBX-APIKEY": key, "User-Agent": "sp12-bot"})
+          try:
+              r = json.loads(urllib.request.urlopen(req2, timeout=20).read().decode())
+              for k in ("enableReading", "enableSpotAndMarginTrading", "enableWithdrawals", "ipRestrict"):
+                  if k in r:
+                      print(f"KEY {k}: {r[k]}")
+              print("KEY other switches:", {k: v for k, v in r.items() if k.startswith("enable") and k not in
+                    ("enableReading", "enableSpotAndMarginTrading", "enableWithdrawals")})
+          except urllib.error.HTTPError as e:
+              print("key-switch lookup not available on Binance.US:", e.code, e.read().decode()[:200])
           EOF
