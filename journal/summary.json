@@ -1,5 +1,77 @@
 {
  "bots": {
+  "b1-bnus": {
+   "all": {
+    "avg_candles_held": null,
+    "avg_loss": null,
+    "avg_r": null,
+    "avg_win": null,
+    "closed": 0,
+    "losers_that_were_green_first": 0,
+    "losses": 0,
+    "open": 0,
+    "profit_factor": null,
+    "total_pnl": 0,
+    "trades": 0,
+    "win_rate_pct": null,
+    "wins": 0
+   },
+   "balance": 1000.0,
+   "by_coin": {
+    "BTC-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "ETH-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "XRP-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    }
+   },
+   "group": "testing",
+   "mode": "paper",
+   "name": "B1c breakout retest (Binance.US paper)",
+   "open_positions": [],
+   "signals_seen": {},
+   "start_balance": 1000.0,
+   "strategy": "b1"
+  },
   "b1-paper": {
    "all": {
     "avg_candles_held": null,
@@ -1513,6 +1585,112 @@
    "start_balance": 1000.0,
    "strategy": "v2"
   },
+  "v4-bnus": {
+   "all": {
+    "avg_candles_held": null,
+    "avg_loss": null,
+    "avg_r": null,
+    "avg_win": null,
+    "closed": 0,
+    "losers_that_were_green_first": 0,
+    "losses": 0,
+    "open": 0,
+    "profit_factor": null,
+    "total_pnl": 0,
+    "trades": 0,
+    "win_rate_pct": null,
+    "wins": 0
+   },
+   "balance": 1000.0,
+   "by_coin": {
+    "BNB-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "BTC-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "ETH-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "XLM-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "XRP-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    }
+   },
+   "group": "testing",
+   "mode": "paper",
+   "name": "SP-12 v4 (Binance.US paper)",
+   "open_positions": [],
+   "signals_seen": {
+    "candles": 5,
+    "near_misses": 0,
+    "signals": 0
+   },
+   "start_balance": 1000.0,
+   "strategy": "v4"
+  },
   "v4-kraken": {
    "all": {
     "avg_candles_held": 13.0,
@@ -1912,8 +2090,127 @@
    "why": "Jeff: 'build me something, backtest and forward test it'. research/F38 (Turtle best on crypto, passes never-seen coins), F39 (RSI(2) is the only rule positive on both crypto and EUR/GBP), F41 (a learning manager over strategies was no better than the best single one)."
   }
  ],
- "check_meanings": {},
- "now": {},
+ "check_meanings": {
+  "above_vwap": {
+   "meaning": "Required: price above daily VWAP",
+   "points": null
+  },
+  "daily_trend": {
+   "meaning": "Daily trend up: yesterday's daily close above a rising 20-day EMA",
+   "points": 1
+  },
+  "ema_stack": {
+   "meaning": "Required: EMAs stacked up (8 above 21 above 55)",
+   "points": null
+  },
+  "in_fvg": {
+   "meaning": "Price dipping into a recent fair value gap (counted against)",
+   "points": -1
+  },
+  "in_order_block": {
+   "meaning": "Price retesting the order block before the last BOS (counted against)",
+   "points": -1
+  },
+  "liquidity_sweep": {
+   "meaning": "Liquidity sweep in the last 10 candles: price dipped under a swing low and closed back above it",
+   "points": 1
+  },
+  "macd_rising": {
+   "meaning": "MACD histogram rising (momentum picking up)",
+   "points": 1
+  },
+  "recent_bos": {
+   "meaning": "Break of structure in the last 20 candles (the tested settings count this AGAINST a buy)",
+   "points": -1
+  },
+  "reversal_candle": {
+   "meaning": "Bullish engulfing or hammer candle (counted against)",
+   "points": -1
+  },
+  "risk": {
+   "meaning": "Required: stop no more than 4.0% away",
+   "points": null
+  },
+  "score": {
+   "meaning": "Required: score of 2 or more",
+   "points": null
+  },
+  "supertrend_green": {
+   "meaning": "Supertrend is green on this candle",
+   "points": 1
+  },
+  "trend_gate": {
+   "meaning": "Required: previous candle closed above the 50 EMA with Supertrend green",
+   "points": null
+  }
+ },
+ "now": {
+  "v4-bnus|BNB-USDT": {
+   "action": "NO TRADE",
+   "bot": "SP-12 v4 (Binance.US paper)",
+   "candle_utc": "2026-10-07 16:00",
+   "chart_coin": "BNB-USDT",
+   "close": 771.34,
+   "coin": "BNB-USDT",
+   "group": "testing",
+   "mode": "paper",
+   "rsi14": 44.3,
+   "score": 3,
+   "why": "No buy. Missing: previous candle closed above the 50 EMA with Supertrend green; EMAs stacked up (8 above 21 above 55). Score 3 (needed 2). Points for: Daily trend up: yesterday's daily close above a rising 20-day EMA; Liquidity sweep in the last 10 candles: price dipped under a swing low and closed back above it; MACD histogram rising (momentum picking up)."
+  },
+  "v4-bnus|BTC-USDT": {
+   "action": "NO TRADE",
+   "bot": "SP-12 v4 (Binance.US paper)",
+   "candle_utc": "2026-10-07 16:00",
+   "chart_coin": "BTC-USDT",
+   "close": 83403.5,
+   "coin": "BTC-USDT",
+   "group": "testing",
+   "mode": "paper",
+   "rsi14": 33.9,
+   "score": 1,
+   "why": "No buy. Missing: previous candle closed above the 50 EMA with Supertrend green; score of 2 or more (got 1); EMAs stacked up (8 above 21 above 55); price above daily VWAP. Score 1 (needed 2). Points for: Daily trend up: yesterday's daily close above a rising 20-day EMA."
+  },
+  "v4-bnus|ETH-USDT": {
+   "action": "NO TRADE",
+   "bot": "SP-12 v4 (Binance.US paper)",
+   "candle_utc": "2026-10-07 16:00",
+   "chart_coin": "ETH-USDT",
+   "close": 2568.75,
+   "coin": "ETH-USDT",
+   "group": "testing",
+   "mode": "paper",
+   "rsi14": 26.1,
+   "score": 1,
+   "why": "No buy. Missing: previous candle closed above the 50 EMA with Supertrend green; score of 2 or more (got 1); EMAs stacked up (8 above 21 above 55); price above daily VWAP. Score 1 (needed 2). Points for: Daily trend up: yesterday's daily close above a rising 20-day EMA."
+  },
+  "v4-bnus|XLM-USDT": {
+   "action": "NO TRADE",
+   "bot": "SP-12 v4 (Binance.US paper)",
+   "candle_utc": "2026-10-07 16:00",
+   "chart_coin": "XLM-USDT",
+   "close": 0.19976,
+   "coin": "XLM-USDT",
+   "group": "testing",
+   "mode": "paper",
+   "rsi14": 27.6,
+   "score": 1,
+   "why": "No buy. Missing: previous candle closed above the 50 EMA with Supertrend green; score of 2 or more (got 1); EMAs stacked up (8 above 21 above 55); price above daily VWAP. Score 1 (needed 2). Points for: Daily trend up: yesterday's daily close above a rising 20-day EMA."
+  },
+  "v4-bnus|XRP-USDT": {
+   "action": "NO TRADE",
+   "bot": "SP-12 v4 (Binance.US paper)",
+   "candle_utc": "2026-10-07 16:00",
+   "chart_coin": "XRP-USDT",
+   "close": 1.4174,
+   "coin": "XRP-USDT",
+   "group": "testing",
+   "mode": "paper",
+   "rsi14": 28.1,
+   "score": 1,
+   "why": "No buy. Missing: previous candle closed above the 50 EMA with Supertrend green; score of 2 or more (got 1); EMAs stacked up (8 above 21 above 55); price above daily VWAP. Score 1 (needed 2). Points for: Daily trend up: yesterday's daily close above a rising 20-day EMA."
+  }
+ },
  "totals": {
   "live": {
    "avg_candles_held": null,
@@ -1946,5 +2243,5 @@
    "wins": 2
   }
  },
- "updated_utc": "2026-10-07 21:26"
+ "updated_utc": "2026-10-07 22:23"
 }

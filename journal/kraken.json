@@ -1,19 +1,19 @@
 {
- "updated_utc": "2026-10-07 21:27",
+ "updated_utc": "2026-10-07 22:24",
  "errors": {},
  "balances": [],
  "total_usd": 0,
  "fees": {
   "volume_30d_usd": 0.0,
   "taker": {
-   "XRP": 0.8,
    "BTC": 0.8,
-   "ETH": 0.8
+   "ETH": 0.8,
+   "XRP": 0.8
   },
   "maker": {
+   "BTC": 0.4,
    "ETH": 0.4,
-   "XRP": 0.4,
-   "BTC": 0.4
+   "XRP": 0.4
   }
  },
  "trades_count": 0,

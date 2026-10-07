@@ -1,5 +1,8 @@
 {
  "last_bar": {
+  "b1-bnus|BTC-USDT": 1791388800000,
+  "b1-bnus|ETH-USDT": 1791388800000,
+  "b1-bnus|XRP-USDT": 1791388800000,
   "b1-paper|BTC-USDT": 1791388800000,
   "b1-paper|ETH-USDT": 1791388800000,
   "b1-paper|XRP-USDT": 1791388800000,
@@ -67,6 +70,11 @@
   "v2-gold|XAUT-USDT": 1791388800000,
   "v2-okx|ETH-USDT": 1791388800000,
   "v2-okx|SOL-USDT": 1791388800000,
+  "v4-bnus|BNB-USDT": 1791388800000,
+  "v4-bnus|BTC-USDT": 1791388800000,
+  "v4-bnus|ETH-USDT": 1791388800000,
+  "v4-bnus|XLM-USDT": 1791388800000,
+  "v4-bnus|XRP-USDT": 1791388800000,
   "v4-kraken|ETHUSD": 1791388800000,
   "v4-kraken|SOLUSD": 1791129600000,
   "v4-kraken|XBTUSD": 1791388800000,
@@ -104,6 +112,11 @@
    "candles": 46,
    "near_misses": 22,
    "signals": 4
+  },
+  "v4-bnus": {
+   "candles": 5,
+   "near_misses": 0,
+   "signals": 0
   },
   "v4-kraken": {
    "candles": 74,

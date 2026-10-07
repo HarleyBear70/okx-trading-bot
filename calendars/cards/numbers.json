@@ -1,5 +1,5 @@
 {
- "updated_utc": "2026-10-07 21:27",
+ "updated_utc": "2026-10-07 22:24",
  "bots": {
   "v4-okx": {
    "live_now": 1005.0504,
@@ -240,6 +240,40 @@
    "error": null
   },
   "rsi2-bnus": {
+   "live_now": 1000.0,
+   "replay_now": 1000.0,
+   "live": {
+    "n": 0,
+    "win": null,
+    "pf": null,
+    "dd": 0.0
+   },
+   "replay": {
+    "n": 0,
+    "win": null,
+    "pf": null,
+    "dd": 0.0
+   },
+   "error": null
+  },
+  "v4-bnus": {
+   "live_now": 1000.0,
+   "replay_now": 1000.0,
+   "live": {
+    "n": 0,
+    "win": null,
+    "pf": null,
+    "dd": 0.0
+   },
+   "replay": {
+    "n": 0,
+    "win": null,
+    "pf": null,
+    "dd": 0.0
+   },
+   "error": null
+  },
+  "b1-bnus": {
    "live_now": 1000.0,
    "replay_now": 1000.0,
    "live": {

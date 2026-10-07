@@ -1,5 +1,14 @@
 {
   "bots": {
+    "b1-bnus": {
+      "equity": 1000.0,
+      "last_bar": {
+        "BTC-USDT": 1791406800000,
+        "ETH-USDT": 1791406800000,
+        "XRP-USDT": 1791406800000
+      },
+      "positions": {}
+    },
     "b1-paper": {
       "equity": 1000.0,
       "last_bar": {
@@ -188,6 +197,17 @@
       "last_bar": {
         "ETH-USDT": 1791230400000,
         "SOL-USDT": 1791230400000
+      },
+      "positions": {}
+    },
+    "v4-bnus": {
+      "equity": 1000.0,
+      "last_bar": {
+        "BNB-USDT": 1791388800000,
+        "BTC-USDT": 1791388800000,
+        "ETH-USDT": 1791388800000,
+        "XLM-USDT": 1791388800000,
+        "XRP-USDT": 1791388800000
       },
       "positions": {}
     },
