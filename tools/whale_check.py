@@ -14,11 +14,12 @@ COINS = ["BTC", "ETH", "SOL", "XRP", "BNB", "LINK", "SUI"]
 meta, ctx = post({"type": "metaAndAssetCtxs"})
 names = [u["name"] for u in meta["universe"]]
 print("| Coin | Price | Funding (per hour) | Yearly equiv. | Open interest ($M) | 24h volume ($M) |")
+print("|---|---|---|---|---|---|")
 for c in COINS:
     if c in names:
         x = ctx[names.index(c)]
         px, f = float(x["markPx"]), float(x["funding"])
-        print(f"| {c} | {px:,.4g} | {f*100:+.4f}% | {f*24*365*100:+.1f}% | {float(x['openInterest'])*px/1e6:,.0f} | {float(x['dayNtlVlm'])/1e6:,.0f} |")
+        print(f"| {c} | {px:,.6g} | {f*100:+.4f}% | {f*24*365*100:+.1f}% | {float(x['openInterest'])*px/1e6:,.0f} | {float(x['dayNtlVlm'])/1e6:,.0f} |")
 lb = json.loads(urllib.request.urlopen(urllib.request.Request("https://stats-data.hyperliquid.xyz/Mainnet/leaderboard",
                 headers={"User-Agent": "Mozilla/5.0"}), timeout=60).read())
 rows = lb.get("leaderboardRows", lb)
@@ -43,6 +44,7 @@ for r in top:
             elif sz < 0: agg[c][1] += val; agg[c][3] += 1
 print(f"\nTop {seen} all-time most profitable Hyperliquid traders - their positions now (one big wallet can dominate):")
 print("| Coin | Long $ (traders) | Short $ (traders) | Net |")
+print("|---|---|---|---|")
 for c, (l, s, nl, ns) in agg.items():
     if l or s:
         print(f"| {c} | ${l/1e6:,.1f}M ({nl}) | ${s/1e6:,.1f}M ({ns}) | {'LONG' if l > s else 'SHORT'} {abs(l-s)/(l+s)*100:.0f}% |")
