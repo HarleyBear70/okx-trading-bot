@@ -1395,35 +1395,8 @@
    "why": "Jeff hired Claude as risk manager ('program yourself to trade'). 12% is past every bot's 8-year backtest worst (about 10%), so it only fires when a bot behaves worse than ever tested."
   }
  ],
- "check_meanings": {
-  "above_ema50": {
-   "meaning": "Required: 4H close above the 50 EMA",
-   "points": null
-  },
-  "bos": {
-   "meaning": "Required: candle closes above the last swing high (1.2644) - a break of structure",
-   "points": null
-  },
-  "daily_trend": {
-   "meaning": "Required: daily close above the 50-day EMA",
-   "points": null
-  }
- },
- "now": {
-  "tr-okx|SUI-USDT": {
-   "action": "NO TRADE",
-   "bot": "Trend Rider",
-   "candle_utc": "2026-10-07 00:00",
-   "chart_coin": "SUI-USDT",
-   "close": 1.1436,
-   "coin": "SUI-USDT",
-   "group": "testing",
-   "mode": "demo",
-   "rsi14": 40.5,
-   "score": "-",
-   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (1.2644) - a break of structure."
-  }
- },
+ "check_meanings": {},
+ "now": {},
  "totals": {
   "live": {
    "avg_candles_held": null,
@@ -1456,5 +1429,5 @@
    "wins": 2
   }
  },
- "updated_utc": "2026-10-07 05:26"
+ "updated_utc": "2026-10-07 06:30"
 }
