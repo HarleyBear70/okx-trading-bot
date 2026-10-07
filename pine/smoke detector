@@ -8,7 +8,7 @@
 //            OR a failed breakout: a BOS whose broken level is lost again on a body close within 3 candles.
 //   BRIGHT GREEN / RED = BOS: a candle BODY closed beyond the last swing high/low, trend continues.
 //   PURPLE = MARKET SHIFT: a candle BODY closed through the strong (protected) high/low, the trend flipped.
-// Two lines: SOLID = strong high/low that must hold. DOTTED = weak high/low = the target (liquidity sits there).
+// Two lines: WHITE SOLID "MUST HOLD" = strong high/low that must hold. GREY DOTTED "TARGET" = weak high/low (liquidity).
 // Trade plan: every green/red/purple candle gets a tiny arrow (direction) and 3 short lines: entry (grey), stop loss
 // (red, just past the strong level) and take profit (green, the nearest untaken liquidity, else 2x the risk).
 // Position size: the box says how much to buy so a stopped-out trade loses about your risk % (fees included),
@@ -16,7 +16,7 @@
 // Corner box: who is in control and whether price is expanding, pulling back or going sideways.
 // Read the daily first, then the 4H. It reads the chart; it is not a buy signal by itself.
 //@version=6
-indicator("Jeff's Smoke Detector", shorttitle="Smoke", overlay=true, max_lines_count=10)
+indicator("Jeff's Smoke Detector", shorttitle="Smoke", overlay=true, max_lines_count=10, max_labels_count=20)
 
 swingLen = input.int(5, "Swing size (candles on each side of a swing high/low)", minval=2, maxval=20)
 nearAtr  = input.float(0.5, "'Getting close' distance (x ATR)", minval=0.1, step=0.1)
@@ -156,31 +156,43 @@ candleCol = shift ?  color.rgb(170, 60, 255) : trap ?  color.rgb(255, 140, 0) :
      smoke ?  color.rgb(255, 214, 0) : pullback ?  color.rgb(90, 130, 190) : na
 barcolor(candleCol)
 
-// The two lines, redrawn on the last candle only
-var line strongLn = na
-var line weakLn   = na
+// The two key lines, redrawn on the last candle only. WHITE solid = must hold. GREY dotted = target. Each is labeled.
+var line  strongLn = na
+var line  weakLn   = na
+var label strongLb = na
+var label weakLb   = na
 if barstate.islast and showLns
     line.delete(strongLn)
     line.delete(weakLn)
+    label.delete(strongLb)
+    label.delete(weakLb)
     if not na(strong)
-        strongLn := line.new(bar_index - 30, strong, bar_index + 10, strong, extend=extend.right,
-             color=trend == 1 ?  color.rgb(0, 200, 100) :  color.rgb(230, 60, 60), width=2, style=line.style_solid)
+        strongLn := line.new(bar_index - 30, strong, bar_index + 8, strong, extend=extend.right,
+             color=color.rgb(235, 235, 235), width=2, style=line.style_solid)
+        strongLb := label.new(bar_index + 8, strong, "MUST HOLD " + str.tostring(strong, format.mintick),
+             style=label.style_label_left, color=color.rgb(70, 70, 70), textcolor=color.white, size=size.normal)
     if not na(weak)
-        weakLn := line.new(bar_index - 30, weak, bar_index + 10, weak, extend=extend.right,
-             color= color.gray, width=1, style=line.style_dotted)
+        weakLn := line.new(bar_index - 30, weak, bar_index + 8, weak, extend=extend.right,
+             color=color.gray, width=1, style=line.style_dotted)
+        weakLb := label.new(bar_index + 8, weak, "TARGET " + str.tostring(weak, format.mintick),
+             style=label.style_label_left, color=color.rgb(110, 110, 110), textcolor=color.white, size=size.normal)
 
 // Trade plan on a breakout (green/red BOS or purple shift): direction, stop past the strong level,
-// target = the nearest untaken liquidity (old swing high for a long, old swing low for a short), else 2R
-var float pEntry = na
-var float pSL    = na
-var float pTP    = na
-var int   pDir   = 0
-var line  eLn = na
-var line  sLn = na
-var line  tLn = na
-var label eLb = na
-var label sLb = na
-var label tLb = na
+// target = the nearest untaken liquidity (old swing high for a long, old swing low for a short), else 2R.
+// The plan stays on the chart (stretching to today's candle) until its TP or SL is hit, then it clears itself.
+var float  pEntry = na
+var float  pSL    = na
+var float  pTP    = na
+var int    pDir   = 0
+var int    pBar   = na
+var string pState = ""      // "open", "TP hit", "stopped out"
+var line   eLn = na
+var line   sLn = na
+var line   tLn = na
+var label  eLb = na
+var label  sLb = na
+var label  tLb = na
+newPlan = false
 if (bos or shift) and not na(strong)
     dir   = trend
     entry = close
@@ -197,25 +209,36 @@ if (bos or shift) and not na(strong)
                     tp := lv
         if na(tp)
             tp := entry + dir * 2 * risk
-        pEntry := entry
-        pSL    := sl
-        pTP    := tp
-        pDir   := dir
-        if showPlan
-            line.delete(eLn)
-            line.delete(sLn)
-            line.delete(tLn)
-            eLn := line.new(bar_index, entry, bar_index + 15, entry, color= color.silver, width=1)
-            sLn := line.new(bar_index, sl, bar_index + 15, sl, color= color.rgb(230, 60, 60), width=2)
-            tLn := line.new(bar_index, tp, bar_index + 15, tp, color= color.rgb(0, 200, 100), width=2)
-            label.delete(eLb)
-            label.delete(sLb)
-            label.delete(tLb)
-            eLb := label.new(bar_index + 15, entry, (dir == 1 ? "BUY at " : "SELL at ") + str.tostring(entry, format.mintick), style=label.style_label_left, color= color.rgb(41, 98, 255), textcolor= color.white, size=size.normal)
-            sLb := label.new(bar_index + 15, sl, "SL " + str.tostring(sl, format.mintick), style=label.style_label_left, color= color.rgb(230, 60, 60), textcolor= color.white, size=size.normal)
-            tLb := label.new(bar_index + 15, tp, "TP " + str.tostring(tp, format.mintick), style=label.style_label_left, color= color.rgb(0, 200, 100), textcolor= color.white, size=size.normal)
-plotshape(showPlan and (bos or shift) and trend == 1, "Long", shape.triangleup, location.belowbar,  color.rgb(0, 200, 100), size=size.tiny)
-plotshape(showPlan and (bos or shift) and trend == -1, "Short", shape.triangledown, location.abovebar,  color.rgb(230, 60, 60), size=size.tiny)
+        pEntry  := entry
+        pSL     := sl
+        pTP     := tp
+        pDir    := dir
+        pBar    := bar_index
+        pState  := "open"
+        newPlan := true
+// After the breakout candle: did price reach the stop or the target? (stop checked first, to be safe)
+if not newPlan and pState == "open"
+    if pDir == 1
+        pState := low <= pSL ? "stopped out" : high >= pTP ? "TP hit" : "open"
+    else
+        pState := high >= pSL ? "stopped out" : low <= pTP ? "TP hit" : "open"
+if barstate.islast
+    line.delete(eLn)
+    line.delete(sLn)
+    line.delete(tLn)
+    label.delete(eLb)
+    label.delete(sLb)
+    label.delete(tLb)
+    if showPlan and pState == "open"
+        x2 = bar_index + 8
+        eLn := line.new(pBar, pEntry, x2, pEntry, color=color.rgb(41, 98, 255), width=1)
+        sLn := line.new(pBar, pSL, x2, pSL, color=color.rgb(230, 60, 60), width=2)
+        tLn := line.new(pBar, pTP, x2, pTP, color=color.rgb(0, 200, 100), width=2)
+        eLb := label.new(x2, pEntry, (pDir == 1 ? "BUY at " : "SELL at ") + str.tostring(pEntry, format.mintick), style=label.style_label_left, color=color.rgb(41, 98, 255), textcolor=color.white, size=size.normal)
+        sLb := label.new(x2, pSL, "SL " + str.tostring(pSL, format.mintick), style=label.style_label_left, color=color.rgb(230, 60, 60), textcolor=color.white, size=size.normal)
+        tLb := label.new(x2, pTP, "TP " + str.tostring(pTP, format.mintick), style=label.style_label_left, color=color.rgb(0, 200, 100), textcolor=color.white, size=size.normal)
+plotshape(showPlan and (bos or shift) and trend == 1, "Long", shape.triangleup, location.belowbar,  color.rgb(0, 200, 100), size=size.small)
+plotshape(showPlan and (bos or shift) and trend == -1, "Short", shape.triangledown, location.abovebar,  color.rgb(230, 60, 60), size=size.small)
 
 // Corner box
 lvl   = str.tostring(strong, format.mintick)
@@ -223,15 +246,19 @@ phase = squeeze ? "Sideways: squeeze, breakout coming" : expanding ? "Expanding"
      pullback ? "Pullback, loading orders: holds while " + (trend == 1 ? "above " : "below ") + lvl :
      trend != 0 ? "Testing the strong level " + lvl : "Waiting for structure"
 who   = trend == 1 ? "UP: buyers in control" : trend == -1 ? "DOWN: sellers in control" : "No clear trend yet"
-var table tb = table.new(position.top_right, 1, 6, bgcolor= color.new(color.black, 70), border_width=0)
+var table tb = table.new(position.top_right, 1, 6, bgcolor=color.new(color.black, 70), border_width=0)
 if barstate.islast and showBox
-    table.cell(tb, 0, 0, who, text_color=trend == 1 ?  color.rgb(0, 230, 118) : trend == -1 ?  color.rgb(255, 80, 80) :  color.silver, text_size=size.small)
-    table.cell(tb, 0, 1, phase, text_color= color.silver, text_size=size.small)
-    if showPlan and pDir != 0
+    table.cell(tb, 0, 0, who, text_color=trend == 1 ? color.rgb(0, 230, 118) : trend == -1 ? color.rgb(255, 80, 80) : color.silver, text_size=size.normal)
+    table.cell(tb, 0, 1, phase, text_color=color.silver, text_size=size.normal)
+    if showPlan and pDir != 0 and pState != "open"
+        done = "Last plan (" + (pDir == 1 ? "LONG" : "SHORT") + "): " + (pState == "TP hit" ? "TP hit - done" : "stopped out - done") + ". Waiting for the next break."
+        table.cell(tb, 0, 2, done, text_color=pState == "TP hit" ? color.rgb(0, 230, 118) : color.rgb(255, 120, 120), text_size=size.normal)
+        table.cell(tb, 0, 3, "", text_size=size.normal)
+    if showPlan and pState == "open"
         rr = math.abs(pTP - pEntry) / math.abs(pEntry - pSL)
-        plan = (pDir == 1 ? "Last break: LONG" : "Last break: SHORT") + "  SL " + str.tostring(pSL, format.mintick) +
+        plan = (pDir == 1 ? "Open plan: LONG" : "Open plan: SHORT") + "  SL " + str.tostring(pSL, format.mintick) +
              "  TP " + str.tostring(pTP, format.mintick) + "  (" + str.tostring(rr, "#.#") + ":1)"
-        table.cell(tb, 0, 2, plan, text_color=pDir == 1 ?  color.rgb(0, 230, 118) :  color.rgb(255, 80, 80), text_size=size.small)
+        table.cell(tb, 0, 2, plan, text_color=pDir == 1 ? color.rgb(0, 230, 118) : color.rgb(255, 80, 80), text_size=size.normal)
         // Position size so a stopped-out trade loses about riskPct of the account, fees included
         riskUsd = acct * riskPct / 100
         stopPct = math.abs(pEntry - pSL) / pEntry
@@ -240,7 +267,7 @@ if barstate.islast and showBox
         winUsd  = posUsd * (math.abs(pTP - pEntry) / pEntry - 2 * fee)
         sizeTxt = "Risk $" + str.tostring(riskUsd, "#.##") + " -> buy $" + str.tostring(posUsd, "#.##") +
              " (" + str.tostring(posUsd / pEntry, "#.######") + " coins). Win at TP ~$" + str.tostring(winUsd, "#.##")
-        table.cell(tb, 0, 3, sizeTxt, text_color=winUsd >= 1.5 * riskUsd ?  color.silver :  color.rgb(255, 214, 0), text_size=size.small)
+        table.cell(tb, 0, 3, sizeTxt, text_color=winUsd >= 1.5 * riskUsd ? color.silver : color.rgb(255, 214, 0), text_size=size.normal)
 
 // Phone / app alerts (TradingView: Alert > Condition: Jeff's Smoke Detector)
 alertcondition(shift, "PURPLE: market shift", "Market shift: a body closed through the strong high/low")
