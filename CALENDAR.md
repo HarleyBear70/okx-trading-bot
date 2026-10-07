@@ -1,6 +1,6 @@
 # P/L calendar and strategy cards
 
-Updated automatically every hour (2026-10-07 18:37 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
+Updated automatically every hour (2026-10-07 19:22 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
 
 ## Combined OKX demo account
 
@@ -261,7 +261,7 @@ Binance.US · BTC ETH SOL BNB SUI TRX · 4-hour candles · started 2026-10-07 ·
 
 | | Trades | Win % | PF | Max DD |
 |---|---|---|---|---|
-| Backtest, long run (research, 2022-now) | - | - | - | - |
+| Backtest, long run (research, 2022-now) | - | 40% | 2.38 | -9.3% |
 | Backtest replay since start | 0 | - | - | 0.0% |
 | Live (live) since start | 0 | - | - | 0.0% |
 
@@ -273,7 +273,7 @@ Binance.US · BTC ETH SOL XRP BNB · daily candles · started 2026-10-07 · bala
 
 | | Trades | Win % | PF | Max DD |
 |---|---|---|---|---|
-| Backtest, long run (research, 2022-now) | - | - | - | - |
+| Backtest, long run (research, 2022-now) | - | 44% | 5.42 | -13.6% |
 | Backtest replay since start | 0 | - | - | 0.0% |
 | Live (live) since start | 0 | - | - | 0.0% |
 
