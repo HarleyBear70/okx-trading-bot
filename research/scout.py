@@ -44,6 +44,10 @@ EXPECTED = {
     "nnfx-okx": {"win": 59, "pf": 1.89, "dd": -6.1, "streak": None, "src": "real 0.35% fee, 2022-now (research/FEES.md)"},
     "nnfx-paper": {"win": 61, "pf": 2.20, "dd": -5.4, "streak": None, "src": "research/NNFX.md (2022-now)"},
     "b1-paper": {"win": 46, "pf": 1.17, "dd": -5.8, "streak": None, "src": "research/B_BOXES.md"},
+    # REAL-MONEY bots: "normal bad luck" bands set before live results (research/LIVE_BANDS.md, Oct 7 2026). streak =
+    # 95th percentile of 5,000 reshuffles; dd = the worse of the real backtest drop and the reshuffle 95th percentile.
+    "tr-live": {"win": 40, "pf": 2.38, "dd": -9.3, "streak": 16, "src": "live settings, 0.02% fee, 2018-now (research/LIVE_BANDS.md)"},
+    "turtle-live": {"win": 44, "pf": 5.42, "dd": -13.6, "streak": 11, "src": "live settings, 0.02% fee, 2018-now (research/LIVE_BANDS.md)"},
 }
 
 
