@@ -56,6 +56,12 @@
   "tr-bnus|SUI-USDT": 1791388800000,
   "tr-bnus|TRX-USDT": 1791388800000,
   "tr-gold|XAUT-USDT": 1791388800000,
+  "tr-live|BNB-USDT": 1791388800000,
+  "tr-live|BTC-USDT": 1791388800000,
+  "tr-live|ETH-USDT": 1791388800000,
+  "tr-live|SOL-USDT": 1791388800000,
+  "tr-live|SUI-USDT": 1791388800000,
+  "tr-live|TRX-USDT": 1791388800000,
   "tr-okx|BNB-USDT": 1791388800000,
   "tr-okx|BTC-USDT": 1791388800000,
   "tr-okx|ETH-USDT": 1791388800000,
@@ -67,6 +73,11 @@
   "turtle-bnus|ETH-USDT": 1791388800000,
   "turtle-bnus|SOL-USDT": 1791388800000,
   "turtle-bnus|XRP-USDT": 1791388800000,
+  "turtle-live|BNB-USDT": 1791388800000,
+  "turtle-live|BTC-USDT": 1791388800000,
+  "turtle-live|ETH-USDT": 1791388800000,
+  "turtle-live|SOL-USDT": 1791388800000,
+  "turtle-live|XRP-USDT": 1791388800000,
   "v2-gold|XAUT-USDT": 1791388800000,
   "v2-okx|ETH-USDT": 1791388800000,
   "v2-okx|SOL-USDT": 1791388800000,
@@ -96,6 +107,11 @@
   "tr-gold": {
    "candles": 23,
    "near_misses": 1,
+   "signals": 0
+  },
+  "tr-live": {
+   "candles": 6,
+   "near_misses": 0,
    "signals": 0
   },
   "tr-okx": {

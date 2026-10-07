@@ -1255,6 +1255,127 @@
    "start_balance": 1000.0,
    "strategy": "tr"
   },
+  "tr-live": {
+   "all": {
+    "avg_candles_held": null,
+    "avg_loss": null,
+    "avg_r": null,
+    "avg_win": null,
+    "closed": 0,
+    "losers_that_were_green_first": 0,
+    "losses": 0,
+    "open": 0,
+    "profit_factor": null,
+    "total_pnl": 0,
+    "trades": 0,
+    "win_rate_pct": null,
+    "wins": 0
+   },
+   "balance": 50.0,
+   "by_coin": {
+    "BNB-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "BTC-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "ETH-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "SOL-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "SUI-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "TRX-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    }
+   },
+   "group": "live",
+   "mode": "live",
+   "name": "Trend Rider (LIVE Binance.US)",
+   "open_positions": [],
+   "signals_seen": {
+    "candles": 6,
+    "near_misses": 0,
+    "signals": 0
+   },
+   "start_balance": 50.0,
+   "strategy": "tr"
+  },
   "tr-okx": {
    "all": {
     "avg_candles_held": 12.0,
@@ -1476,6 +1597,108 @@
    "open_positions": [],
    "signals_seen": {},
    "start_balance": 1000.0,
+   "strategy": "donchian"
+  },
+  "turtle-live": {
+   "all": {
+    "avg_candles_held": null,
+    "avg_loss": null,
+    "avg_r": null,
+    "avg_win": null,
+    "closed": 0,
+    "losers_that_were_green_first": 0,
+    "losses": 0,
+    "open": 0,
+    "profit_factor": null,
+    "total_pnl": 0,
+    "trades": 0,
+    "win_rate_pct": null,
+    "wins": 0
+   },
+   "balance": 50.0,
+   "by_coin": {
+    "BNB-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "BTC-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "ETH-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "SOL-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "XRP-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    }
+   },
+   "group": "live",
+   "mode": "live",
+   "name": "Turtle 55/20 (LIVE Binance.US)",
+   "open_positions": [],
+   "signals_seen": {},
+   "start_balance": 50.0,
    "strategy": "donchian"
   },
   "v2-gold": {
@@ -2091,124 +2314,97 @@
   }
  ],
  "check_meanings": {
-  "above_vwap": {
-   "meaning": "Required: price above daily VWAP",
+  "above_ema50": {
+   "meaning": "Required: 4H close above the 50 EMA",
+   "points": null
+  },
+  "bos": {
+   "meaning": "Required: candle closes above the last swing high (86,670.9) - a break of structure",
    "points": null
   },
   "daily_trend": {
-   "meaning": "Daily trend up: yesterday's daily close above a rising 20-day EMA",
-   "points": 1
-  },
-  "ema_stack": {
-   "meaning": "Required: EMAs stacked up (8 above 21 above 55)",
-   "points": null
-  },
-  "in_fvg": {
-   "meaning": "Price dipping into a recent fair value gap (counted against)",
-   "points": -1
-  },
-  "in_order_block": {
-   "meaning": "Price retesting the order block before the last BOS (counted against)",
-   "points": -1
-  },
-  "liquidity_sweep": {
-   "meaning": "Liquidity sweep in the last 10 candles: price dipped under a swing low and closed back above it",
-   "points": 1
-  },
-  "macd_rising": {
-   "meaning": "MACD histogram rising (momentum picking up)",
-   "points": 1
-  },
-  "recent_bos": {
-   "meaning": "Break of structure in the last 20 candles (the tested settings count this AGAINST a buy)",
-   "points": -1
-  },
-  "reversal_candle": {
-   "meaning": "Bullish engulfing or hammer candle (counted against)",
-   "points": -1
-  },
-  "risk": {
-   "meaning": "Required: stop no more than 4.0% away",
-   "points": null
-  },
-  "score": {
-   "meaning": "Required: score of 2 or more",
-   "points": null
-  },
-  "supertrend_green": {
-   "meaning": "Supertrend is green on this candle",
-   "points": 1
-  },
-  "trend_gate": {
-   "meaning": "Required: previous candle closed above the 50 EMA with Supertrend green",
+   "meaning": "Required: daily close above the 50-day EMA",
    "points": null
   }
  },
  "now": {
-  "v4-bnus|BNB-USDT": {
+  "tr-live|BNB-USDT": {
    "action": "NO TRADE",
-   "bot": "SP-12 v4 (Binance.US paper)",
+   "bot": "Trend Rider (LIVE Binance.US)",
    "candle_utc": "2026-10-07 16:00",
    "chart_coin": "BNB-USDT",
    "close": 771.34,
    "coin": "BNB-USDT",
-   "group": "testing",
-   "mode": "paper",
+   "group": "live",
+   "mode": "live",
    "rsi14": 44.3,
-   "score": 3,
-   "why": "No buy. Missing: previous candle closed above the 50 EMA with Supertrend green; EMAs stacked up (8 above 21 above 55). Score 3 (needed 2). Points for: Daily trend up: yesterday's daily close above a rising 20-day EMA; Liquidity sweep in the last 10 candles: price dipped under a swing low and closed back above it; MACD histogram rising (momentum picking up)."
+   "score": "-",
+   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (809.18) - a break of structure."
   },
-  "v4-bnus|BTC-USDT": {
+  "tr-live|BTC-USDT": {
    "action": "NO TRADE",
-   "bot": "SP-12 v4 (Binance.US paper)",
+   "bot": "Trend Rider (LIVE Binance.US)",
    "candle_utc": "2026-10-07 16:00",
    "chart_coin": "BTC-USDT",
    "close": 83403.5,
    "coin": "BTC-USDT",
-   "group": "testing",
-   "mode": "paper",
+   "group": "live",
+   "mode": "live",
    "rsi14": 33.9,
-   "score": 1,
-   "why": "No buy. Missing: previous candle closed above the 50 EMA with Supertrend green; score of 2 or more (got 1); EMAs stacked up (8 above 21 above 55); price above daily VWAP. Score 1 (needed 2). Points for: Daily trend up: yesterday's daily close above a rising 20-day EMA."
+   "score": "-",
+   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (86,670.9) - a break of structure."
   },
-  "v4-bnus|ETH-USDT": {
+  "tr-live|ETH-USDT": {
    "action": "NO TRADE",
-   "bot": "SP-12 v4 (Binance.US paper)",
+   "bot": "Trend Rider (LIVE Binance.US)",
    "candle_utc": "2026-10-07 16:00",
    "chart_coin": "ETH-USDT",
    "close": 2568.75,
    "coin": "ETH-USDT",
-   "group": "testing",
-   "mode": "paper",
+   "group": "live",
+   "mode": "live",
    "rsi14": 26.1,
-   "score": 1,
-   "why": "No buy. Missing: previous candle closed above the 50 EMA with Supertrend green; score of 2 or more (got 1); EMAs stacked up (8 above 21 above 55); price above daily VWAP. Score 1 (needed 2). Points for: Daily trend up: yesterday's daily close above a rising 20-day EMA."
+   "score": "-",
+   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (2,724.11) - a break of structure."
   },
-  "v4-bnus|XLM-USDT": {
+  "tr-live|SOL-USDT": {
    "action": "NO TRADE",
-   "bot": "SP-12 v4 (Binance.US paper)",
+   "bot": "Trend Rider (LIVE Binance.US)",
    "candle_utc": "2026-10-07 16:00",
-   "chart_coin": "XLM-USDT",
-   "close": 0.19976,
-   "coin": "XLM-USDT",
-   "group": "testing",
-   "mode": "paper",
-   "rsi14": 27.6,
-   "score": 1,
-   "why": "No buy. Missing: previous candle closed above the 50 EMA with Supertrend green; score of 2 or more (got 1); EMAs stacked up (8 above 21 above 55); price above daily VWAP. Score 1 (needed 2). Points for: Daily trend up: yesterday's daily close above a rising 20-day EMA."
+   "chart_coin": "SOL-USDT",
+   "close": 115.79,
+   "coin": "SOL-USDT",
+   "group": "live",
+   "mode": "live",
+   "rsi14": 31.3,
+   "score": "-",
+   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (121.96) - a break of structure."
   },
-  "v4-bnus|XRP-USDT": {
+  "tr-live|SUI-USDT": {
    "action": "NO TRADE",
-   "bot": "SP-12 v4 (Binance.US paper)",
+   "bot": "Trend Rider (LIVE Binance.US)",
    "candle_utc": "2026-10-07 16:00",
-   "chart_coin": "XRP-USDT",
-   "close": 1.4174,
-   "coin": "XRP-USDT",
-   "group": "testing",
-   "mode": "paper",
-   "rsi14": 28.1,
-   "score": 1,
-   "why": "No buy. Missing: previous candle closed above the 50 EMA with Supertrend green; score of 2 or more (got 1); EMAs stacked up (8 above 21 above 55); price above daily VWAP. Score 1 (needed 2). Points for: Daily trend up: yesterday's daily close above a rising 20-day EMA."
+   "chart_coin": "SUI-USDT",
+   "close": 1.1241,
+   "coin": "SUI-USDT",
+   "group": "live",
+   "mode": "live",
+   "rsi14": 36.7,
+   "score": "-",
+   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (1.2632) - a break of structure."
+  },
+  "tr-live|TRX-USDT": {
+   "action": "NO TRADE",
+   "bot": "Trend Rider (LIVE Binance.US)",
+   "candle_utc": "2026-10-07 16:00",
+   "chart_coin": "TRX-USDT",
+   "close": 0.3353,
+   "coin": "TRX-USDT",
+   "group": "live",
+   "mode": "live",
+   "rsi14": 51.2,
+   "score": "-",
+   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (0.3379) - a break of structure."
   }
  },
  "totals": {
@@ -2243,5 +2439,5 @@
    "wins": 2
   }
  },
- "updated_utc": "2026-10-07 22:23"
+ "updated_utc": "2026-10-07 22:37"
 }

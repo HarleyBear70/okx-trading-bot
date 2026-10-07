@@ -110,6 +110,16 @@
    "peak": 1000.0,
    "halt_flag": false,
    "odd": ""
+  },
+  "tr-live": {
+   "peak": 50.0,
+   "halt_flag": false,
+   "odd": ""
+  },
+  "turtle-live": {
+   "peak": 50.0,
+   "halt_flag": false,
+   "odd": ""
   }
  },
  "attention": [],
