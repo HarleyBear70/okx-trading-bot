@@ -44,7 +44,9 @@ jobs:
         continue-on-error: true
         env:
           OKX_BASE_URL: ${{ vars.OKX_BASE_URL }}
-        run: python journal.py
+        run: |
+          python journal.py
+          python tools/trade_lessons.py
       - name: Claude the Analyst - paper stops and resting orders (paper only, never trades)
         if: always()
         continue-on-error: true
@@ -85,6 +87,7 @@ jobs:
           if [ -f hold_pile.csv ]; then git add hold_pile.csv; fi
           if [ -f CALENDAR.md ]; then git add CALENDAR.md calendars; fi
           if [ -f BOT_NOTES.md ]; then git add BOT_NOTES.md; fi
+          if [ -f LESSONS.md ]; then git add LESSONS.md; fi
           git add analyst/ledger.json 2>/dev/null || true
           if [ -f analyst/trades.csv ]; then git add analyst/trades.csv; fi
           git add analyst/chrome 2>/dev/null || true
