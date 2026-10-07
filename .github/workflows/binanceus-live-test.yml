@@ -1,0 +1,32 @@
+name: Binance.US live test (by hand only)
+
+# Supervised test of the Binance.US live connection (tools/binanceus_live.py). Never scheduled: run it by hand from the
+# Actions tab. "check" = balances only, no orders. "trade" = one $10 BTC round trip: buy, exchange stop, cancel, sell.
+on:
+  workflow_dispatch:
+    inputs:
+      step:
+        description: "check (no orders) or trade ($10 round trip)"
+        required: true
+        default: check
+        type: choice
+        options: [check, trade]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: binanceus-live
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+      - name: Run
+        env:
+          BINANCEUS_KEY: ${{ secrets.BINANCEBOTAPI }}
+          BINANCEUS_SECRET: ${{ secrets.BINACEBOTSECRET }}
+        run: python3 tools/binanceus_live.py ${{ inputs.step }}
