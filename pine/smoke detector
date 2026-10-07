@@ -230,7 +230,7 @@ if barstate.islast
     label.delete(sLb)
     label.delete(tLb)
     if showPlan and pState == "open"
-        x2 = bar_index + 22
+        x2 = bar_index + 22   // plan tags sit right of the MUST HOLD / TARGET tags so they never cover each other
         eLn := line.new(pBar, pEntry, x2, pEntry, color=color.rgb(41, 98, 255), width=1)
         sLn := line.new(pBar, pSL, x2, pSL, color=color.rgb(230, 60, 60), width=2)
         tLn := line.new(pBar, pTP, x2, pTP, color=color.rgb(0, 200, 100), width=2)
