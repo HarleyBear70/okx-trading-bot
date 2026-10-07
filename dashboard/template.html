@@ -146,6 +146,17 @@ select { font: inherit; font-size: 14px; padding: 5px 8px; border-radius: 6px; b
 #daychart { width: 100%; height: 220px; display: block; }
 #daychart text { fill: var(--muted); font: 11px var(--mono); }
 tr.newrow td { background: var(--warn-bg); }
+.race { display: grid; gap: 8px; }
+.race-row { display: grid; grid-template-columns: 34px minmax(0, 1.4fr) 1fr 1fr minmax(120px, 1.3fr); gap: 12px; align-items: center;
+  padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel-2); font-size: 19px; }
+.race-row .rk { font: 700 22px var(--display); color: var(--muted); text-align: center; }
+.race-row .nm { font: 600 21px var(--display); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.race-row .nm small { display: block; font: 400 13px var(--body); color: var(--muted); }
+.race-row .big { font: 500 22px var(--mono); font-variant-numeric: tabular-nums; text-align: right; }
+.wl { display: flex; height: 14px; border-radius: 7px; overflow: hidden; background: var(--grid); }
+.wl span { display: block; height: 100%; }
+.wl-txt { font: 500 14px var(--mono); color: var(--fg-2); margin-top: 4px; text-align: center; }
+@media (max-width: 640px) { .race-row { grid-template-columns: 28px 1fr 1fr; font-size: 16px; } .race-row .wlcol, .race-row .bal { display: none; } }
 footer { font-size: 13px; color: var(--muted); max-width: 90ch; }
 @media (max-width: 520px) { #chart { height: 260px; } h1 { font-size: 24px; } .kpi .val { font-size: 19px; } }
 </style>
@@ -161,6 +172,11 @@ footer { font-size: 13px; color: var(--muted); max-width: 90ch; }
 
   <div class="notice" id="live-note" hidden></div>
   <section class="kpis" id="kpis" aria-label="Summary"></section>
+  <section class="panel" aria-labelledby="race-h">
+    <div class="panel-head"><h2 id="race-h">Who's winning</h2>
+      <span class="small muted">Both Claudes and the live bots, same $1,000 start, same fees. Ranked by profit. Bars = win / loss count.</span></div>
+    <div id="race"></div>
+  </section>
   <section class="panel" id="new-panel" aria-labelledby="new-h" hidden>
     <div class="panel-head"><h2 id="new-h">New on OKX since the last bot run</h2><span class="small muted">Straight from your demo account. Reasons and exact P/L arrive after the next hourly run.</span></div>
     <div class="scroll"><table id="new-table"></table></div>
@@ -455,6 +471,23 @@ function verdict(b) {
   return { html: `<span class="flag warnf">Keep testing</span>`, why: `Making money but PF ${fx(pf)} is under ${D.rules.pf_shortlist}.` };
 }
 
+/* ---------- who's winning (leaderboard) ---------- */
+function raceBoard() {
+  const players = bots.filter((b) => b.pile === "CLAUDE" || ((b.pile === "ACTIVE" || b.pile === "HOLD") && b.status !== "retired"));
+  players.sort((a, b) => (b.balance - b.start_balance) - (a.balance - a.start_balance));
+  const medal = ["🥇", "🥈", "🥉"];
+  $("#race").innerHTML = `<div class="race">` + players.map((b, i) => {
+    const s = b.stats || {}, pl = b.balance - b.start_balance, w = s.wins ?? 0, l = s.losses ?? 0, n = w + l;
+    const who = b.pile === "CLAUDE" ? "Claude, trading on judgment" : b.pile === "HOLD" ? "BTC hold" : "Bot · " + MODE[b.mode];
+    return `<div class="race-row"><div class="rk">${medal[i] || i + 1}</div>
+      <div class="nm">${esc(b.name)}<small>${who}${s.open ? " · " + s.open + " open" : ""}</small></div>
+      <div class="big ${cls(pl)}">${money(pl, true)}</div>
+      <div class="big bal">${money(b.balance)}</div>
+      <div class="wlcol"><div class="wl">${n ? `<span style="width:${w / n * 100}%;background:var(--up)"></span><span style="width:${l / n * 100}%;background:var(--down)"></span>` : ""}</div>
+        <div class="wl-txt">${n ? `${w} won · ${l} lost` : "no closed trades yet"}</div></div></div>`;
+  }).join("") + `</div>`;
+}
+
 /* ---------- bots table ---------- */
 function botsTable() {
   const list = bots.filter((b) => b.status !== "retired" || (b.stats && b.stats.open)).sort((a, b) => (PILE_ORDER[a.pile] ?? 5) - (PILE_ORDER[b.pile] ?? 5));
@@ -702,7 +735,7 @@ function krakenPanel() {
   else if (k.trades) h += `<p class="empty">No trades on this Kraken account yet.</p>`;
   box.innerHTML = h;
 }
-renderKpis(); setLive(); krakenPanel(); chartPanel(); botsTable(); openTrades(); coinTable(); calendar(); weekdayChart(); histTable(); holdAndMarket();
+renderKpis(); raceBoard(); setLive(); krakenPanel(); chartPanel(); botsTable(); openTrades(); coinTable(); calendar(); weekdayChart(); histTable(); holdAndMarket();
 /* ---------- live layer: your OKX demo account, refreshed every minute while the page is open ---------- */
 const snapMs = msOf(D.updated_utc);
 const DENY = ["needs_reauth", "server_not_connected", "blocked_by_policy", "approval_required", "not_in_manifest", "consent_required", "selection_required", "not_granted", "capability_disabled"];
