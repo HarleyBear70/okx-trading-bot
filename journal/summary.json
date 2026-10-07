@@ -1699,100 +1699,8 @@
    "why": "research/F36.md: at Binance.US fees the three bots make far more with smaller drops (0.75% risk: +608% / -12.1% vs +366% / -14.7% on OKX). Jeff has a Binance.US account and is willing to switch exchanges."
   }
  ],
- "check_meanings": {
-  "above_ema50": {
-   "meaning": "Required: 4H close above the 50 EMA",
-   "points": null
-  },
-  "bos": {
-   "meaning": "Required: candle closes above the last swing high (86,970.5) - a break of structure",
-   "points": null
-  },
-  "daily_trend": {
-   "meaning": "Required: daily close above the 50-day EMA",
-   "points": null
-  }
- },
- "now": {
-  "tr-bnus|BNB-USDT": {
-   "action": "NO TRADE",
-   "bot": "Trend Rider (Binance.US paper)",
-   "candle_utc": "2026-10-07 04:00",
-   "chart_coin": "BNB-USDT",
-   "close": 775.34,
-   "coin": "BNB-USDT",
-   "group": "testing",
-   "mode": "paper",
-   "rsi14": 45.7,
-   "score": "-",
-   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (809.18) - a break of structure."
-  },
-  "tr-bnus|BTC-USDT": {
-   "action": "NO TRADE",
-   "bot": "Trend Rider (Binance.US paper)",
-   "candle_utc": "2026-10-07 04:00",
-   "chart_coin": "BTC-USDT",
-   "close": 84096.2,
-   "coin": "BTC-USDT",
-   "group": "testing",
-   "mode": "paper",
-   "rsi14": 38.6,
-   "score": "-",
-   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (86,970.5) - a break of structure."
-  },
-  "tr-bnus|ETH-USDT": {
-   "action": "NO TRADE",
-   "bot": "Trend Rider (Binance.US paper)",
-   "candle_utc": "2026-10-07 04:00",
-   "chart_coin": "ETH-USDT",
-   "close": 2615.23,
-   "coin": "ETH-USDT",
-   "group": "testing",
-   "mode": "paper",
-   "rsi14": 32.1,
-   "score": "-",
-   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (2,738.79) - a break of structure."
-  },
-  "tr-bnus|SOL-USDT": {
-   "action": "NO TRADE",
-   "bot": "Trend Rider (Binance.US paper)",
-   "candle_utc": "2026-10-07 04:00",
-   "chart_coin": "SOL-USDT",
-   "close": 118.6,
-   "coin": "SOL-USDT",
-   "group": "testing",
-   "mode": "paper",
-   "rsi14": 42.0,
-   "score": "-",
-   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (122.22) - a break of structure."
-  },
-  "tr-bnus|SUI-USDT": {
-   "action": "NO TRADE",
-   "bot": "Trend Rider (Binance.US paper)",
-   "candle_utc": "2026-10-07 04:00",
-   "chart_coin": "SUI-USDT",
-   "close": 1.1374,
-   "coin": "SUI-USDT",
-   "group": "testing",
-   "mode": "paper",
-   "rsi14": 38.5,
-   "score": "-",
-   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (1.2632) - a break of structure."
-  },
-  "tr-bnus|TRX-USDT": {
-   "action": "NO TRADE",
-   "bot": "Trend Rider (Binance.US paper)",
-   "candle_utc": "2026-10-07 04:00",
-   "chart_coin": "TRX-USDT",
-   "close": 0.3346,
-   "coin": "TRX-USDT",
-   "group": "testing",
-   "mode": "paper",
-   "rsi14": 42.6,
-   "score": "-",
-   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (0.3379) - a break of structure."
-  }
- },
+ "check_meanings": {},
+ "now": {},
  "totals": {
   "live": {
    "avg_candles_held": null,
@@ -1825,5 +1733,5 @@
    "wins": 2
   }
  },
- "updated_utc": "2026-10-07 10:27"
+ "updated_utc": "2026-10-07 11:26"
 }
