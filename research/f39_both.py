@@ -71,7 +71,7 @@ def fx_sim(signals, data, t0, t1):
     won = sum(t["pnl"] for t in trades if t["pnl"] > 0)
     lost = -sum(t["pnl"] for t in trades if t["pnl"] < 0)
     return {"ret": eq / 10 - 100, "dd": dd * 100, "pf": won / lost if lost else 0.0, "trades": len(trades),
-            "win": 100 * sum(t["pnl"] > 0 for t in trades) / len(trades) if trades else 0.0}
+            "win": 100 * sum(t["pnl"] > 0 for t in trades) / len(trades) if trades else 0.0, "curve": curve}
 
 
 def rsi2_signals(bars, lo, shorts):
