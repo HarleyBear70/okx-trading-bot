@@ -10,14 +10,14 @@
 //   BRIGHT GREEN / RED = BOS: a candle BODY closed beyond the last swing high/low, trend continues.
 //   PURPLE = MARKET SHIFT: a candle BODY closed through the strong (protected) high/low, the trend flipped.
 // Two lines: WHITE SOLID "MUST HOLD" = strong high/low that must hold. GREY DOTTED "TARGET" = weak high/low (liquidity).
-// Trade plan: every green/red/purple candle gets a tiny arrow (direction) and 3 short lines: entry (grey), stop loss
-// (red, just past the strong level) and take profit (green, the nearest untaken liquidity, else 2x the risk).
+// Trade plan: every green/red/purple candle gets an arrow and lines: BUY/SELL (blue), SL (red, past the strong level),
+// TP1 "safe" (just under the nearest old high/low = liquidity) and TP2 "long shot" (the -27% Fib extension).
 // Position size: the box says how much to buy so a stopped-out trade loses about your risk % (fees included),
 // and roughly what a win at TP pays after fees (yellow when the win is under 1.5x the risk: weak trade).
 // Corner box: who is in control and whether price is expanding, pulling back or going sideways.
 // Read the daily first, then the 4H. It reads the chart; it is not a buy signal by itself.
 //@version=6
-indicator("Jeff's Smoke Detector", shorttitle="Smoke", overlay=true, max_lines_count=10, max_labels_count=20)
+indicator("Jeff's Smoke Detector", shorttitle="Smoke", overlay=true, max_lines_count=10, max_labels_count=24)
 
 swingLen = input.int(5, "Swing size (candles on each side of a swing high/low)", minval=2, maxval=20)
 nearAtr  = input.float(0.5, "'Getting close' distance (x ATR)", minval=0.1, step=0.1)
@@ -29,6 +29,8 @@ slBuf    = input.float(0.25, "Stop buffer beyond the strong level (x ATR)", minv
 acct     = input.float(197, "My account size ($)", minval=1)
 riskPct  = input.float(0.5, "Risk per trade (% of account)", minval=0.05, maxval=5, step=0.05)
 feePct   = input.float(0.35, "Fee per buy or sell (%)", minval=0, step=0.01)
+ext1     = input.float(0.27, "TP2 Fib extension (0.27 = the -27% line)", minval=0.05, step=0.01)
+ext2     = input.float(0.68, "Far Fib extension when there's no old high/low ahead (0.68 = -68%)", minval=0.1, step=0.01)
 
 atr  = ta.atr(14)
 ph   = ta.pivothigh(high, swingLen, swingLen)
@@ -179,21 +181,27 @@ if barstate.islast and showLns
         weakLb := label.new(bar_index + 8, weak, "TARGET " + str.tostring(weak, format.mintick),
              style=label.style_label_left, color=color.rgb(110, 110, 110), textcolor=color.white, size=size.normal)
 
-// Trade plan on a breakout (green/red BOS or purple shift): direction, stop past the strong level,
-// target = the nearest untaken liquidity (old swing high for a long, old swing low for a short), else 2R.
-// The plan stays on the chart (stretching to today's candle) until its TP or SL is hit, then it clears itself.
+// Trade plan on a breakout (green/red BOS or purple shift): direction, stop past the strong level, and TWO targets:
+//   TP1 "play it safe" = a hair before the nearest untaken old high (long) / old low (short) = the liquidity,
+//   TP2 "long shot"    = the Fib extension of the swing (-27% beyond the swing high/low).
+//   (If there's no old high/low ahead, TP1 = the -27% extension and TP2 = the -68% extension.)
+// The plan stays on the chart until the SL or TP2 is hit, then it clears itself. TP1 hit is shown in the box.
 var float  pEntry = na
 var float  pSL    = na
-var float  pTP    = na
+var float  pTP    = na     // TP1 (safe)
+var float  pTP2   = na     // TP2 (long shot)
 var int    pDir   = 0
 var int    pBar   = na
-var string pState = ""      // "open", "TP hit", "stopped out"
+var string pState = ""      // "open", "TP2 hit", "stopped out"
+var bool   tp1Hit = false
 var line   eLn = na
 var line   sLn = na
 var line   tLn = na
+var line   t2Ln = na
 var label  eLb = na
 var label  sLb = na
 var label  tLb = na
+var label  t2Lb = na
 newPlan = false
 if (bos or shift) and not na(strong)
     dir   = trend
@@ -201,44 +209,71 @@ if (bos or shift) and not na(strong)
     sl    = dir == 1 ? strong - slBuf * atr : strong + slBuf * atr
     risk  = math.abs(entry - sl)
     if risk > 0.2 * atr and (dir == 1 ? sl < entry : sl > entry)
-        float tp = na
+        // swing for the Fib: from the strong level to the furthest point of the move
+        swingEnd = dir == 1 ? math.max(nz(ext, high), high) : math.min(nz(ext, low), low)
+        rangeSz  = math.abs(swingEnd - strong)
+        fib1     = swingEnd + dir * ext1 * rangeSz
+        fib2     = swingEnd + dir * ext2 * rangeSz
+        // nearest untaken old high (long) / old low (short) ahead of the entry = liquidity
+        float liq = na
         src = dir == 1 ? pastHighs : pastLows
         if array.size(src) > 0
             for i = 0 to array.size(src) - 1
                 lv = array.get(src, i)
-                ok = dir == 1 ? lv >= entry + risk : lv <= entry - risk
-                if ok and (na(tp) or math.abs(lv - entry) < math.abs(tp - entry))
-                    tp := lv
-        if na(tp)
-            tp := entry + dir * 2 * risk
+                ahead = dir == 1 ? lv > entry + 0.5 * atr : lv < entry - 0.5 * atr
+                if ahead and (na(liq) or math.abs(lv - entry) < math.abs(liq - entry))
+                    liq := lv
+        hair = 0.1 * atr   // take profit a hair before the level so the order actually fills
+        float tp1 = na
+        float tp2 = na
+        if not na(liq) and math.abs(liq - entry) < math.abs(fib1 - entry)
+            tp1 := liq - dir * hair
+            tp2 := fib1 - dir * hair
+        else
+            tp1 := fib1 - dir * hair
+            tp2 := fib2 - dir * hair
         pEntry  := entry
         pSL     := sl
-        pTP     := tp
+        pTP     := tp1
+        pTP2    := tp2
         pDir    := dir
         pBar    := bar_index
         pState  := "open"
+        tp1Hit  := false
         newPlan := true
-// After the breakout candle: did price reach the stop or the target? (stop checked first, to be safe)
+// After the breakout candle: stop checked first (to be safe), then TP1, then TP2
 if not newPlan and pState == "open"
     if pDir == 1
-        pState := low <= pSL ? "stopped out" : high >= pTP ? "TP hit" : "open"
+        if low <= pSL
+            pState := "stopped out"
+        else
+            tp1Hit := tp1Hit or high >= pTP
+            pState := high >= pTP2 ? "TP2 hit" : "open"
     else
-        pState := high >= pSL ? "stopped out" : low <= pTP ? "TP hit" : "open"
+        if high >= pSL
+            pState := "stopped out"
+        else
+            tp1Hit := tp1Hit or low <= pTP
+            pState := low <= pTP2 ? "TP2 hit" : "open"
 if barstate.islast
     line.delete(eLn)
     line.delete(sLn)
     line.delete(tLn)
+    line.delete(t2Ln)
     label.delete(eLb)
     label.delete(sLb)
     label.delete(tLb)
+    label.delete(t2Lb)
     if showPlan and pState == "open"
         x2 = bar_index + 22   // plan tags sit right of the MUST HOLD / TARGET tags so they never cover each other
-        eLn := line.new(pBar, pEntry, x2, pEntry, color=color.rgb(41, 98, 255), width=1)
-        sLn := line.new(pBar, pSL, x2, pSL, color=color.rgb(230, 60, 60), width=2)
-        tLn := line.new(pBar, pTP, x2, pTP, color=color.rgb(0, 200, 100), width=2)
-        eLb := label.new(x2, pEntry, (pDir == 1 ? "BUY at " : "SELL at ") + str.tostring(pEntry, format.mintick), style=label.style_label_left, color=color.rgb(41, 98, 255), textcolor=color.white, size=size.normal)
-        sLb := label.new(x2, pSL, "SL " + str.tostring(pSL, format.mintick), style=label.style_label_left, color=color.rgb(230, 60, 60), textcolor=color.white, size=size.normal)
-        tLb := label.new(x2, pTP, "TP " + str.tostring(pTP, format.mintick), style=label.style_label_left, color=color.rgb(0, 200, 100), textcolor=color.white, size=size.normal)
+        eLn  := line.new(pBar, pEntry, x2, pEntry, color=color.rgb(41, 98, 255), width=1)
+        sLn  := line.new(pBar, pSL, x2, pSL, color=color.rgb(230, 60, 60), width=2)
+        tLn  := line.new(pBar, pTP, x2, pTP, color=color.rgb(0, 200, 100), width=2, style=tp1Hit ? line.style_dashed : line.style_solid)
+        t2Ln := line.new(pBar, pTP2, x2, pTP2, color=color.rgb(0, 150, 70), width=2)
+        eLb  := label.new(x2, pEntry, (pDir == 1 ? "BUY at " : "SELL at ") + str.tostring(pEntry, format.mintick), style=label.style_label_left, color=color.rgb(41, 98, 255), textcolor=color.white, size=size.normal)
+        sLb  := label.new(x2, pSL, "SL " + str.tostring(pSL, format.mintick), style=label.style_label_left, color=color.rgb(230, 60, 60), textcolor=color.white, size=size.normal)
+        tLb  := label.new(x2, pTP, (tp1Hit ? "TP1 HIT " : "TP1 safe ") + str.tostring(pTP, format.mintick), style=label.style_label_left, color=color.rgb(0, 200, 100), textcolor=color.white, size=size.normal)
+        t2Lb := label.new(x2, pTP2, "TP2 long shot " + str.tostring(pTP2, format.mintick), style=label.style_label_left, color=color.rgb(0, 150, 70), textcolor=color.white, size=size.normal)
 plotshape(showPlan and (bos or shift) and trend == 1, "Long", shape.triangleup, location.belowbar,  color.rgb(0, 200, 100), size=size.small)
 plotshape(showPlan and (bos or shift) and trend == -1, "Short", shape.triangledown, location.abovebar,  color.rgb(230, 60, 60), size=size.small)
 
@@ -253,23 +288,27 @@ if barstate.islast and showBox
     table.cell(tb, 0, 0, who, text_color=trend == 1 ? color.rgb(0, 230, 118) : trend == -1 ? color.rgb(255, 80, 80) : color.white, text_size=size.normal)
     table.cell(tb, 0, 1, phase, text_color=color.white, text_size=size.normal)
     if showPlan and pDir != 0 and pState != "open"
-        done = "Last plan (" + (pDir == 1 ? "LONG" : "SHORT") + "): " + (pState == "TP hit" ? "TP hit - done" : "stopped out - done") + ". Waiting for the next break."
-        table.cell(tb, 0, 2, done, text_color=pState == "TP hit" ? color.rgb(0, 230, 118) : color.rgb(255, 120, 120), text_size=size.normal)
+        done = "Last plan (" + (pDir == 1 ? "LONG" : "SHORT") + "): " + (pState == "TP2 hit" ? "TP2 hit - done" : tp1Hit ? "TP1 hit, then stopped - done" : "stopped out - done") + ". Waiting for the next break."
+        table.cell(tb, 0, 2, done, text_color=pState == "TP2 hit" or tp1Hit ? color.rgb(0, 230, 118) : color.rgb(255, 120, 120), text_size=size.normal)
         table.cell(tb, 0, 3, "", text_size=size.normal)
     if showPlan and pState == "open"
-        rr = math.abs(pTP - pEntry) / math.abs(pEntry - pSL)
+        risk1 = math.abs(pEntry - pSL)
         plan = (pDir == 1 ? "Open plan: LONG" : "Open plan: SHORT") + "  SL " + str.tostring(pSL, format.mintick) +
-             "  TP " + str.tostring(pTP, format.mintick) + "  (" + str.tostring(rr, "#.#") + ":1)"
+             "  TP1 " + str.tostring(pTP, format.mintick) + " (" + str.tostring(math.abs(pTP - pEntry) / risk1, "#.#") + ":1)" +
+             "  TP2 " + str.tostring(pTP2, format.mintick) + " (" + str.tostring(math.abs(pTP2 - pEntry) / risk1, "#.#") + ":1)" +
+             (tp1Hit ? "  TP1 HIT" : "")
         table.cell(tb, 0, 2, plan, text_color=pDir == 1 ? color.rgb(0, 230, 118) : color.rgb(255, 80, 80), text_size=size.normal)
         // Position size so a stopped-out trade loses about riskPct of the account, fees included
         riskUsd = acct * riskPct / 100
-        stopPct = math.abs(pEntry - pSL) / pEntry
+        stopPct = risk1 / pEntry
         fee     = feePct / 100
         posUsd  = math.min(riskUsd / (stopPct + 2 * fee), acct)
-        winUsd  = posUsd * (math.abs(pTP - pEntry) / pEntry - 2 * fee)
+        win1    = posUsd * (math.abs(pTP - pEntry) / pEntry - 2 * fee)
+        win2    = posUsd * (math.abs(pTP2 - pEntry) / pEntry - 2 * fee)
         sizeTxt = "Risk $" + str.tostring(riskUsd, "#.##") + " -> buy $" + str.tostring(posUsd, "#.##") +
-             " (" + str.tostring(posUsd / pEntry, "#.######") + " coins). Win at TP ~$" + str.tostring(winUsd, "#.##")
-        table.cell(tb, 0, 3, sizeTxt, text_color=winUsd >= 1.5 * riskUsd ? color.white : color.rgb(255, 214, 0), text_size=size.normal)
+             " (" + str.tostring(posUsd / pEntry, "#.######") + " coins). Win at TP1 ~$" + str.tostring(win1, "#.##") +
+             ", at TP2 ~$" + str.tostring(win2, "#.##")
+        table.cell(tb, 0, 3, sizeTxt, text_color=win1 >= riskUsd ? color.white : color.rgb(255, 214, 0), text_size=size.normal)
 
 // Phone / app alerts (TradingView: Alert > Condition: Jeff's Smoke Detector)
 alertcondition(shift, "PURPLE: market shift", "Market shift: a body closed through the strong high/low")
