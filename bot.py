@@ -54,7 +54,8 @@ BE_BUFFER = 2 * FEE  # breakeven stop sits just above entry so fees are covered
 BINANCEUS_FEE = 0.0002  # Binance.US spot: 0% maker / 0.02% taker on all pairs (binance.us/fees, checked Oct 7 2026)
 # REAL MONEY (Jeff, Oct 7 2026: "go live"): bots with mode "live" place real Binance.US orders (keys BINANCEBOTAPI /
 # BINACEBOTSECRET, withdrawals disabled on the key). "on": False = live bots make no new buys; their stops keep working.
-LIVE = {"on": True, "max_order_usd": 60.0}
+LIVE = {"on": True, "max_order_usd": 60.0,
+        "day_loss": 0.03}  # a live bot down 3% of its balance today (UTC) makes no new buys until tomorrow
 
 BOTS = [
     {"id": "v4-okx", "retired": True, "name": "SP-12 v4", "strat": "v4", "venue": "okx", "mode": "demo", "prefix": "gh4",
@@ -1319,6 +1320,16 @@ def risk_pct(bot, bs):
             return pct
     return base
 
+def day_pnl(bs):
+    """This bot's closed P/L so far today (UTC)."""
+    d = bs.get("day_pnl")
+    return d[1] if d and d[0] == now_iso()[:10] else 0.0
+
+
+def add_day_pnl(bs, pnl):
+    bs["day_pnl"] = [now_iso()[:10], round(day_pnl(bs) + pnl, 4)]
+
+
 def guard_block(bot, bs):
     """GUARD: reason this live bot may not buy, or None. Sets the sticky bs["halted"] on a drawdown breach."""
     if not GUARD["on"] or bot.get("strat") in GUARD["skip_strats"] or bot.get("id") not in {b["id"] for b in BOTS}:
@@ -1358,6 +1369,10 @@ def open_position(api, bot, bs, coin, bar, inf, extra):
         log(f"  {coin}: signal but LIVE trading is switched off (LIVE['on'])")
         record("skip", bot, coin, why="live switched off", signal_px=close)
         return
+    if bot["mode"] == "live" and day_pnl(bs) <= -LIVE["day_loss"] * bs["equity"]:
+        log(f"  {coin}: signal but {bot['name']} hit today's loss limit ({day_pnl(bs):.2f}) - no new buys until tomorrow")
+        record("skip", bot, coin, why="daily loss limit", day_pnl=day_pnl(bs), signal_px=close)
+        return
     if usdt < bot.get("min_usd", 5):
         log(f"  {coin}: signal but order too small ({usdt:.2f})")
         record("skip", bot, coin, why="order too small", usdt=round(usdt, 2), signal_px=close)
@@ -1391,6 +1406,9 @@ def open_position(api, bot, bs, coin, bar, inf, extra):
     tp_txt = f" TP {inf['tp']:.6g}" if inf["tp"] else " (trailing stop)"
     log(f"  BUY {coin} {got:.8g} @ {px:.6g} for {cost:.2f} | SL {sl:.6g}{tp_txt} | {inf['score']}")
     log_trade(bot, coin, "buy", got, px, cost, None, None, f"score {inf['score']}", bs["equity"])
+    if bot["mode"] == "live" and exch_stops(bot) and not pos.get("algo_id"):
+        log(f"  {coin}: ATTENTION real-money buy has no exchange stop - selling it again now (safety rule)")
+        close_position(api, bot, bs, coin, "safety exit: exchange stop could not be placed", close)
 
 
 def add_piece(api, bot, bs, coin, bar):
@@ -1454,6 +1472,7 @@ def close_position(api, bot, bs, coin, reason, paper_px, done=None):
         proceeds = filled * px * (1 - fee_of(bot))
     pnl = (proceeds - pos["cost"]) * pos.get("pnl_scale", 1.0)
     bs["equity"] = round(bs["equity"] + pnl, 4)
+    add_day_pnl(bs, pnl)
     pct = (proceeds - pos["cost"]) / pos["cost"] * 100 if pos["cost"] else 0
     log(f"  SELL {coin} {filled:.8g} @ {px:.6g} ({reason}) P/L {pnl:+.2f} ({pct:+.2f}%)")
     log_trade(bot, coin, "sell", filled, px, proceeds, pnl, pct, reason, bs["equity"])
@@ -1493,6 +1512,7 @@ def take_half(api, bot, bs, coin, paper_px):
     part_cost = pos["cost"] * filled / pos["qty"]
     pnl = (proceeds - part_cost) * pos.get("pnl_scale", 1.0)
     bs["equity"] = round(bs["equity"] + pnl, 4)
+    add_day_pnl(bs, pnl)
     pct = (proceeds - part_cost) / part_cost * 100 if part_cost else 0
     pos["qty"] -= filled
     pos["cost"] -= part_cost

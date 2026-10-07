@@ -166,6 +166,26 @@ def test_guard_blocks_live_bot():
     assert not fake.calls
 
 
+def test_daily_loss_limit_blocks_buys():
+    fake, bs = setup()
+    bot.add_day_pnl(bs, -1.6)  # more than 3% of $50 lost today
+    assert open_btc(bs) is None and not fake.calls
+
+
+def test_no_exchange_stop_means_sell_straight_away():
+    fake, bs = setup()
+    real = fake.order
+
+    def no_stops(test=False, **p):
+        if p["type"] == "STOP_LOSS":
+            raise RuntimeError("Binance.US said no")
+        return real(test=test, **p)
+    fake.order = no_stops
+    assert open_btc(bs) is None
+    assert fake.bal["BTC"] < 0.00001 + 1e-12  # bought, then sold again
+    assert len([p for k, p in fake.calls if k == "order" and p["side"] == "SELL"]) == 1
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
