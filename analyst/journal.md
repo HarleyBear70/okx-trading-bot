@@ -1,5 +1,10 @@
 # The Analyst's journal (newest first)
 
+## 2026-10-08 session (SKIPPED again: no market data)
+- OKX is still blocked in this cloud environment (proxy answers 403), so `ledger.py status` and all candle reads fail.
+- No new trades, no changes to the resting orders. The hourly bot run still manages them.
+- Second skipped day in a row. Fix: allow OKX (and the Fear & Greed site) in this environment's network policy.
+
 ## 2026-10-07 session (SKIPPED: no market data)
 - This cloud session could not reach OKX: the network policy blocks us.okx.com and www.okx.com (proxy answered 403).
   Without candles I can't read the market, so I made NO new trades and did not touch the three resting orders
