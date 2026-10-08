@@ -1,21 +1,8 @@
 {
- "equity": 1000.0,
+ "equity": 994.34,
  "peak": 1000.0,
- "positions": {
-  "LINK": {
-   "qty": 7.142857142857132,
-   "entry": 13.55,
-   "cost": 97.12446428571414,
-   "stop": 12.85,
-   "first_stop": 12.85,
-   "target": null,
-   "risk_usd": 5.0,
-   "opened": "2026-10-07 03:00",
-   "why": "Uptrend (+15% 30d) pulling back -10% this week; 13.5 is the daily 20 EMA, the first support in a healthy uptrend. Buy the dip there.",
-   "wrong": "A daily close under 13 = the pullback is turning into a downtrend."
-  }
- },
- "last_check": "2026-10-08 13:30",
+ "positions": {},
+ "last_check": "2026-10-08 14:30",
  "halted": null,
  "orders": {
   "BTC": {
@@ -43,5 +30,5 @@
    "expires_ms": 1791552657595
   }
  },
- "last_check_ms": 1791460800000
+ "last_check_ms": 1791464400000
 }
