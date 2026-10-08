@@ -10,7 +10,7 @@ Rules (research/F39.md, research/FX_RSI2_TF.md), daily candles (UTC):
 Backtest 7 majors 2012-now: PF 1.16, win 67%, drop -2.8%, ~35 trades/year; 2019-now PF 1.33, win 70%.
 
   python forex_bot.py          # update the paper account (state: forex_state.json, trades: forex_trades.csv)
-Env: OANDA_TOKEN (GitHub secret OANDAKEYAPI).
+Env: OANDA_TOKEN (GitHub secret OANDAAPIKEYDEMO, a Practice-account token).
 """
 import csv
 import datetime as dt
@@ -39,7 +39,7 @@ def iso(ms):
 def candles(token, pair, host_box):
     q = urllib.parse.urlencode({"granularity": "D", "count": 300, "price": "M", "dailyAlignment": 0,
                                 "alignmentTimezone": "UTC"})
-    hosts = [host_box[0]] if host_box else HOSTS
+    hosts = [host_box[0]] + [h for h in HOSTS if h != host_box[0]] if host_box else HOSTS
     err = None
     for h in hosts:
         req = urllib.request.Request(f"{h}/v3/instruments/{pair}/candles?{q}",
@@ -47,8 +47,7 @@ def candles(token, pair, host_box):
         try:
             with urllib.request.urlopen(req, timeout=20) as r:
                 rows = json.load(r)["candles"]
-            if not host_box:
-                host_box.append(h)
+            host_box[:] = [h]
             return [{"ts": int(dt.datetime.fromisoformat(x["time"][:19]).replace(tzinfo=UTC).timestamp() * 1000),
                      "o": float(x["mid"]["o"]), "h": float(x["mid"]["h"]), "l": float(x["mid"]["l"]),
                      "c": float(x["mid"]["c"]), "complete": x["complete"]} for x in rows]

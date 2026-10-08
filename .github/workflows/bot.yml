@@ -43,7 +43,7 @@ jobs:
         if: always()
         continue-on-error: true
         env:
-          OANDA_TOKEN: ${{ secrets.OANDAKEYAPI }}
+          OANDA_TOKEN: ${{ secrets.OANDAAPIKEYDEMO }} # Practice account token (Oct 8 2026)
         run: python forex_bot.py
       - name: Write trade journal (read-only, never trades)
         if: always()
