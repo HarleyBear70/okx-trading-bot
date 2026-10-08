@@ -111,7 +111,7 @@ def replay(api, b, t0):
                 k = idx.get(ts)
                 if k is not None:
                     mtm += p["qty"] * bars[k]["c"] * (1 - bot.FEE) - p["cost"]
-            curve.append((ts + {"1H": 3600000, "4H": bot.H4_MS, "1D": 86400000, "1DL": 86400000}[bot.bot_tf(pb)], mtm))
+            curve.append((ts + {"1H": 3600000, "1HD": 3600000, "4H": bot.H4_MS, "1D": 86400000, "1DL": 86400000}[bot.bot_tf(pb)], mtm))
     finally:
         bot.log_trade, bot.log, bot.SWEEP["on"] = o_lt, o_log, o_sweep
     return [(t0, b["equity"])] + curve, pnls
@@ -234,7 +234,7 @@ def build(api, rows):
     numbers = {}  # live vs replay per bot, saved for watcher.py
     for b in bot.BOTS:
         st = status(b)
-        tf = {"1H": "1-hour", "4H": "4-hour", "1D": "daily", "1DL": "daily"}[bot.bot_tf(b)]
+        tf = {"1H": "1-hour", "1HD": "1-hour", "4H": "4-hour", "1D": "daily", "1DL": "daily"}[bot.bot_tf(b)]
         venue = {"kraken": "Kraken", "binanceus": "Binance.US"}.get(b["venue"], "OKX")
         bs = state.get("bots", {}).get(b["id"], {"equity": b["equity"], "positions": {}})
         mtm, back, bpn, err = bs.get("equity", b["equity"]), None, [], None
