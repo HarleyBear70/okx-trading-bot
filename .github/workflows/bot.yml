@@ -39,7 +39,7 @@ jobs:
           BINANCEUS_KEY: ${{ secrets.BINANCEBOTAPI }} # REAL MONEY: tr-live, turtle-live (key has no withdraw)
           BINANCEUS_SECRET: ${{ secrets.BINACEBOTSECRET }}
         run: python bot.py ${{ github.event.inputs.mode || 'run' }} 2>&1 | tee bot_run.log
-      - name: Forex paper bot (OANDA prices only, never places orders)
+      - name: Forex DEMO bot (OANDA Practice account only, fake money)
         if: always()
         continue-on-error: true
         env:

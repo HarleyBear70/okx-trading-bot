@@ -1,16 +1,18 @@
 """
-Forex PAPER bot: RSI(2) snap-back on 7 major pairs, long + short (Jeff, Oct 8 2026: "trade on forex also").
-Prices from OANDA (read-only: candles only, NEVER places orders). Separate from bot.py, so it can't touch the
-live crypto bots.
+Forex DEMO bot on OANDA's Practice server: RSI(2) snap-back on 7 major pairs, long + short (Jeff, Oct 8 2026:
+"build a bot for the demo on oanda"). Places real orders on the PRACTICE account only (fake money); the host is
+hard-wired to api-fxpractice, so it can never trade a live account. Separate from bot.py (which is long-only and
+runs real crypto money).
 
-Rules (research/F39.md, research/FX_RSI2_TF.md), daily candles (UTC):
-  long : close > 200-day average and RSI(2) < 5  -> buy at the close; exit at the first close above the 5-day average
-  short: close < 200-day average and RSI(2) > 95 -> sell at the close; exit at the first close below the 5-day average
-  safety stop 3 ATR(20); 0.5% risk of the balance, leverage cap 10x, cost 0.01% each side, one trade per pair.
-Backtest 7 majors 2012-now: PF 1.16, win 67%, drop -2.8%, ~35 trades/year; 2019-now PF 1.33, win 70%.
+Rules (research/F39.md, research/FX_RSI2_TF.md, research/BATTERY.md), daily candles (UTC):
+  long : close > 200-day average and RSI(2) < 5  -> buy; exit at the first daily close above the 5-day average
+  short: close < 200-day average and RSI(2) > 95 -> sell; exit at the first daily close below the 5-day average
+  safety stop 3 ATR(20), held by OANDA (stopLossOnFill); 0.5% risk of the account a trade; one trade per pair.
+Backtest 7 majors 2012-now: PF 1.16, win 67%, ~35 trades/year; 2019-now PF 1.33, win 70%.
+15m and 1H versions of every strategy tested lost money on forex (research/BATTERY.md), so this bot stays daily.
 
-  python forex_bot.py          # update the paper account (state: forex_state.json, trades: forex_trades.csv)
-Env: OANDA_TOKEN (GitHub secret OANDAAPIKEYDEMO, a Practice-account token).
+  python forex_bot.py      (state: forex_state.json, log: forex_trades.csv)
+Env: OANDA_TOKEN (GitHub secret OANDAAPIKEYDEMO).
 """
 import csv
 import datetime as dt
@@ -24,40 +26,38 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from bot import atr, rsi, sma  # noqa: E402  (pure indicator functions)
 
+HOST = "https://api-fxpractice.oanda.com"  # PRACTICE ONLY
 PAIRS = ["EUR_USD", "GBP_USD", "AUD_USD", "NZD_USD", "USD_CAD", "USD_CHF", "USD_JPY"]
-HOSTS = ["https://api-fxpractice.oanda.com", "https://api-fxtrade.oanda.com"]
-RISK, LEV, COST, STOP_ATR, RSI_LO = 0.005, 10.0, 0.0001, 3.0, 5
+RISK, STOP_ATR, RSI_LO = 0.005, 3.0, 5
 STATE = os.path.join(HERE, "forex_state.json")
 TRADES = os.path.join(HERE, "forex_trades.csv")
 UTC = dt.timezone.utc
+TOKEN = os.environ.get("OANDA_TOKEN", "")
+
+
+def api(method, path, q=None, body=None):
+    url = HOST + path + ("?" + urllib.parse.urlencode(q) if q else "")
+    req = urllib.request.Request(url, method=method, data=json.dumps(body).encode() if body is not None else None,
+                                 headers={"Authorization": f"Bearer {TOKEN}", "Content-Type": "application/json",
+                                          "User-Agent": "forex-demo"})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        return json.load(r)
 
 
 def iso(ms):
     return dt.datetime.fromtimestamp(ms / 1000, UTC).strftime("%Y-%m-%d")
 
 
-def candles(token, pair, host_box):
-    q = urllib.parse.urlencode({"granularity": "D", "count": 300, "price": "M", "dailyAlignment": 0,
-                                "alignmentTimezone": "UTC"})
-    hosts = [host_box[0]] + [h for h in HOSTS if h != host_box[0]] if host_box else HOSTS
-    err = None
-    for h in hosts:
-        req = urllib.request.Request(f"{h}/v3/instruments/{pair}/candles?{q}",
-                                     headers={"Authorization": f"Bearer {token}", "User-Agent": "forex-paper"})
-        try:
-            with urllib.request.urlopen(req, timeout=20) as r:
-                rows = json.load(r)["candles"]
-            host_box[:] = [h]
-            return [{"ts": int(dt.datetime.fromisoformat(x["time"][:19]).replace(tzinfo=UTC).timestamp() * 1000),
-                     "o": float(x["mid"]["o"]), "h": float(x["mid"]["h"]), "l": float(x["mid"]["l"]),
-                     "c": float(x["mid"]["c"]), "complete": x["complete"]} for x in rows]
-        except Exception as e:  # wrong host for this token (practice vs live) -> try the other
-            err = e
-    raise RuntimeError(f"OANDA candles failed for {pair}: {err}")
+def candles(pair):
+    rows = api("GET", f"/v3/instruments/{pair}/candles", {"granularity": "D", "count": 300, "price": "M",
+                                                          "dailyAlignment": 0, "alignmentTimezone": "UTC"})["candles"]
+    return [{"ts": int(dt.datetime.fromisoformat(x["time"][:19]).replace(tzinfo=UTC).timestamp() * 1000),
+             "o": float(x["mid"]["o"]), "h": float(x["mid"]["h"]), "l": float(x["mid"]["l"]),
+             "c": float(x["mid"]["c"])} for x in rows if x["complete"]]
 
 
 def signal(bars):
-    """(side, stop) for the last bar, or None; plus the exit check for an open trade."""
+    """(side, stop) for the last bar, or None; and RSI(2)."""
     c = [b["c"] for b in bars]
     h, l = [b["h"] for b in bars], [b["l"] for b in bars]
     s200, r2, a = sma(c, 200), rsi(c, 2), atr(h, l, c, 20)
@@ -76,58 +76,91 @@ def log_trade(row):
     with open(TRADES, "a", newline="") as f:
         w = csv.writer(f)
         if new:
-            w.writerow(["date_utc", "pair", "action", "side", "price", "units", "pnl_usd", "equity", "reason"])
+            w.writerow(["time_utc", "pair", "action", "side", "units", "price", "pnl_usd", "balance", "reason"])
         w.writerow(row)
 
 
+def now():
+    return dt.datetime.now(UTC).strftime("%Y-%m-%d %H:%M")
+
+
+def handle(st, acct, nav, pair):
+    bars = candles(pair)
+    b = bars[-1]
+    if st["last_bar"].get(pair) == b["ts"]:
+        return  # this daily candle was already handled
+    st["last_bar"][pair] = b["ts"]
+    t = st["trades"].get(pair)
+    if t:
+        avg5 = sum(x["c"] for x in bars[-5:]) / 5
+        if not ((b["c"] > avg5) if t["side"] == 1 else (b["c"] < avg5)):
+            return
+        r = api("PUT", f"/v3/accounts/{acct}/trades/{t['id']}/close", body={"units": "ALL"})
+        fill = r.get("orderFillTransaction", {})
+        log_trade([now(), pair, "close", t["side"], t["units"], fill.get("price", ""), fill.get("pl", ""),
+                   fill.get("accountBalance", ""), "back past the 5-day average"])
+        print(f"forex {pair}: CLOSED {'long' if t['side'] == 1 else 'short'} at {fill.get('price')} "
+              f"P/L {fill.get('pl')}")
+        del st["trades"][pair]
+    sig, r2 = signal(bars)
+    print(f"forex {pair}: {iso(b['ts'])} close {b['c']} RSI(2) {r2 if r2 is None else round(r2, 1)}"
+          f"{' -> SIGNAL' if sig else ''}")
+    if not sig:
+        return
+    side, stop = sig
+    dist = abs(b["c"] - stop)
+    usd_per_unit = dist if pair.endswith("_USD") else dist / b["c"]  # stop distance in USD per unit
+    units = int(nav * RISK / usd_per_unit)
+    if units < 1:
+        return
+    prec = 3 if pair.endswith("JPY") else 5
+    r = api("POST", f"/v3/accounts/{acct}/orders", body={"order": {
+        "type": "MARKET", "instrument": pair, "units": str(side * units), "timeInForce": "FOK",
+        "positionFill": "DEFAULT", "stopLossOnFill": {"price": f"{stop:.{prec}f}"}}})
+    fill = r.get("orderFillTransaction")
+    if not fill or "tradeOpened" not in fill:
+        print(f"forex {pair}: order NOT filled: {json.dumps(r)[:300]}")
+        return
+    st["trades"][pair] = {"id": fill["tradeOpened"]["tradeID"], "side": side, "units": units,
+                          "entry": float(fill["price"])}
+    log_trade([now(), pair, "open", side, units, fill["price"], "", fill.get("accountBalance", ""),
+               f"RSI(2) {r2:.1f}, stop {stop:.{prec}f}"])
+    print(f"forex {pair}: OPENED {'long' if side == 1 else 'short'} {units} units at {fill['price']}, "
+          f"stop {stop:.{prec}f}")
+
+
 def main():
-    token = os.environ.get("OANDA_TOKEN")
-    if not token:
+    if not TOKEN:
         print("forex: no OANDA_TOKEN, skipped")
         return
-    st = json.load(open(STATE)) if os.path.exists(STATE) else {"equity": 1000.0, "positions": {}, "last_bar": {}}
-    host = [st["host"]] if st.get("host") else []
+    st = json.load(open(STATE)) if os.path.exists(STATE) else {}
+    st.setdefault("last_bar", {})
+    st.setdefault("trades", {})  # pair -> {"id", "side", "units", "entry"}
+    for k in ("equity", "positions", "host"):  # old paper-bot fields
+        st.pop(k, None)
+    acct = st.get("account") or api("GET", "/v3/accounts")["accounts"][0]["id"]
+    st["account"] = acct
+    summ = api("GET", f"/v3/accounts/{acct}/summary")["account"]
+    nav = float(summ["NAV"])
+    open_ids = {t["id"] for t in api("GET", f"/v3/accounts/{acct}/openTrades")["trades"]}
+    # trades OANDA closed on its own (safety stop hit)
+    for pair, t in list(st["trades"].items()):
+        if t["id"] not in open_ids:
+            d = api("GET", f"/v3/accounts/{acct}/trades/{t['id']}")["trade"]
+            log_trade([now(), pair, "closed by OANDA", t["side"], t["units"], d.get("averageClosePrice", ""),
+                       d.get("realizedPL", ""), summ["balance"], "safety stop"])
+            print(f"forex {pair}: trade {t['id']} closed by OANDA (stop), P/L {d.get('realizedPL')}")
+            del st["trades"][pair]
     for pair in PAIRS:
-        bars = [b for b in candles(token, pair, host) if b["complete"]]
-        b = bars[-1]
-        if st["last_bar"].get(pair) == b["ts"]:
-            continue  # this daily candle was already handled
-        st["last_bar"][pair] = b["ts"]
-        p = st["positions"].get(pair)
-        if p:
-            side = p["side"]
-            avg5 = sum(x["c"] for x in bars[-5:]) / 5
-            px, why = None, None
-            if (b["l"] <= p["stop"]) if side == 1 else (b["h"] >= p["stop"]):
-                px = min(p["stop"], b["o"]) if side == 1 else max(p["stop"], b["o"])
-                why = "safety stop"
-            elif (b["c"] > avg5) if side == 1 else (b["c"] < avg5):
-                px, why = b["c"], "back past the 5-day average"
-            if px is not None:
-                # same P/L as the backtest: in risk units, so it's in USD for every pair
-                pnl = side * (px - p["entry"]) * p["units"] - (p["entry"] + px) * p["units"] * COST
-                st["equity"] += pnl
-                del st["positions"][pair]
-                log_trade([iso(b["ts"]), pair, "close", side, px, round(p["units"], 4), round(pnl, 2),
-                           round(st["equity"], 2), why])
-                print(f"forex {pair}: CLOSE {'long' if side == 1 else 'short'} at {px} ({why}) P/L {pnl:+.2f}")
-        if pair in st["positions"]:
-            continue
-        sig, r2 = signal(bars)
-        print(f"forex {pair}: {iso(b['ts'])} close {b['c']} RSI(2) {r2 if r2 is None else round(r2, 1)}"
-              f"{' -> SIGNAL' if sig else ''}")
-        if sig:
-            side, stop = sig
-            dist = abs(b["c"] - stop)
-            units = min(st["equity"] * RISK / dist, st["equity"] * LEV / b["c"])
-            st["positions"][pair] = {"side": side, "entry": b["c"], "stop": stop, "units": units, "ts": b["ts"]}
-            log_trade([iso(b["ts"]), pair, "open", side, b["c"], round(units, 4), "", round(st["equity"], 2),
-                       f"RSI(2) {r2:.1f}, stop {stop:.5g}"])
-    if host:
-        st["host"] = host[0]
+        try:
+            handle(st, acct, nav, pair)
+        except Exception as e:  # one pair failing must not lose what the others did
+            print(f"forex {pair}: ERROR {e}")
+        with open(STATE, "w") as f:
+            json.dump(st, f, indent=1)
     with open(STATE, "w") as f:
         json.dump(st, f, indent=1)
-    print(f"forex paper: equity ${st['equity']:.2f}, open {list(st['positions'])}, OANDA {st.get('host', '?')}")
+    print(f"forex demo: account {acct} NAV {nav:,.2f}, open {list(st['trades'])}")
 
 
 if __name__ == "__main__":
