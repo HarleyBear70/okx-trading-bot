@@ -1,0 +1,23 @@
+name: OANDA history download (read-only)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  download:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Download M15 + H1 candles
+        env:
+          OANDA_TOKEN: ${{ secrets.OANDAAPIKEYDEMO }}
+        run: python tools/oanda_history.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: oanda_hist
+          path: oanda_hist
+          retention-days: 7
