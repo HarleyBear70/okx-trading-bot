@@ -1,0 +1,35 @@
+name: Brad sweep bot (1H, paper)
+
+on:
+  schedule:
+    - cron: "4 * * * *" # every hour, 4 minutes after the 1H candle closes
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: brad-bot
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Run the 1H Brad paper bot (never places real orders)
+        run: python brad_bot.py
+      - name: Save state
+        run: |
+          git config user.name "brad-bot"
+          git config user.email "brad-bot@users.noreply.github.com"
+          git add brad_state.json
+          if [ -f brad_trades.csv ]; then git add brad_trades.csv; fi
+          git diff --cached --quiet && exit 0
+          git commit -m "brad bot: update state"
+          for i in 1 2 3 4 5; do git pull --rebase -q && git push && exit 0; sleep $((i * 5)); done
+          exit 1

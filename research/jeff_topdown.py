@@ -35,6 +35,7 @@ def structure(b):
     hDone = lDone = True
     trend, strong, ext = 0, None, None
     out_t, out_s, out_shift, out_trap, out_mid = [0] * n, [None] * n, [False] * n, [False] * n, [None] * n
+    out_tdir = [0] * n  # +1 swept a high (bearish fuel), -1 swept a low (bullish fuel)
     for i in range(n):
         j = i - L  # pivot candidate, confirmed L bars later (no look-ahead)
         if j >= L:
@@ -43,8 +44,9 @@ def structure(b):
             if l[j] == min(l[j - L:i + 1]) and l[j] < min(l[j + 1:i + 1]):
                 swL, lDone = l[j], False
         shift = False
-        trap = (swH is not None and not hDone and h[i] > swH and c[i] <= swH) or \
-               (swL is not None and not lDone and l[i] < swL and c[i] >= swL)
+        up_trap = swH is not None and not hDone and h[i] > swH and c[i] <= swH
+        dn_trap = swL is not None and not lDone and l[i] < swL and c[i] >= swL
+        trap = up_trap or dn_trap
         if trend == 1:
             ext = max(ext if ext is not None else h[i], h[i])
             if strong is not None and c[i] < strong:
@@ -67,9 +69,10 @@ def structure(b):
             elif not lDone and swL is not None and c[i] < swL:
                 trend, lDone, strong, ext = -1, True, swH, l[i]
         out_t[i], out_s[i], out_shift[i], out_trap[i] = trend, strong, shift, trap
+        out_tdir[i] = -1 if dn_trap else (1 if up_trap else 0)
         if strong is not None and ext is not None and strong != ext:
             out_mid[i] = (strong + ext) / 2
-    return {"trend": out_t, "strong": out_s, "shift": out_shift, "trap": out_trap, "mid": out_mid}
+    return {"trend": out_t, "strong": out_s, "shift": out_shift, "trap": out_trap, "mid": out_mid, "tdir": out_tdir}
 
 
 def resample(b, span):
