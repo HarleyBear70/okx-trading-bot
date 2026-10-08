@@ -3,9 +3,9 @@
     "b1-bnus": {
       "equity": 1000.0,
       "last_bar": {
-        "BTC-USDT": 1791464400000,
-        "ETH-USDT": 1791464400000,
-        "XRP-USDT": 1791464400000
+        "BTC-USDT": 1791468000000,
+        "ETH-USDT": 1791468000000,
+        "XRP-USDT": 1791468000000
       },
       "positions": {}
     },
@@ -219,11 +219,11 @@
     "tr1h-bnus": {
       "equity": 1000.0,
       "last_bar": {
-        "BNB-USDT": 1791464400000,
-        "BTC-USDT": 1791464400000,
-        "ETH-USDT": 1791464400000,
-        "SOL-USDT": 1791464400000,
-        "SUI-USDT": 1791464400000
+        "BNB-USDT": 1791468000000,
+        "BTC-USDT": 1791468000000,
+        "ETH-USDT": 1791468000000,
+        "SOL-USDT": 1791468000000,
+        "SUI-USDT": 1791468000000
       },
       "positions": {}
     },
