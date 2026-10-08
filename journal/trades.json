@@ -1000,7 +1000,7 @@
   "mode": "paper",
   "planned_stop": 857.597,
   "planned_target": null,
-  "price_now": 83181.2,
+  "price_now": 82946.6,
   "qty": 0.011660489,
   "result": "open",
   "risk_pct": 99.0,
@@ -1009,10 +1009,10 @@
   "stop_now": 857.597,
   "strategy": "hold",
   "trailing_on": false,
-  "unrealized_pct": -3.007,
+  "unrealized_pct": -3.28,
   "why_entry": null,
-  "worst_pct": -3.506,
-  "worst_px": 82753.0
+  "worst_pct": -3.626,
+  "worst_px": 82650.0
  },
  {
   "best_pct": 1.853,
@@ -1036,7 +1036,7 @@
   "mode": "paper",
   "planned_stop": 2317.74,
   "planned_target": null,
-  "price_now": 2579.37,
+  "price_now": 2567.92,
   "qty": 0.019416043,
   "result": "open",
   "risk_pct": 10.0,
@@ -1045,7 +1045,7 @@
   "stop_now": 2317.74,
   "strategy": "rsi2",
   "trailing_on": false,
-  "unrealized_pct": 0.16,
+  "unrealized_pct": -0.285,
   "why_entry": null,
   "worst_pct": -1.436,
   "worst_px": 2538.27
@@ -1072,7 +1072,7 @@
   "mode": "paper",
   "planned_stop": 1.20074,
   "planned_target": null,
-  "price_now": 1.4252,
+  "price_now": 1.4175,
   "qty": 22.67935,
   "result": "open",
   "risk_pct": 15.512,
@@ -1081,7 +1081,7 @@
   "stop_now": 1.20074,
   "strategy": "rsi2",
   "trailing_on": false,
-  "unrealized_pct": 0.281,
+  "unrealized_pct": -0.26,
   "why_entry": null,
   "worst_pct": -0.985,
   "worst_px": 1.4072
