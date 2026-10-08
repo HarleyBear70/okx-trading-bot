@@ -88,3 +88,23 @@ Script: research/brad_rules.py (rules in its header). Source: Jeff's notes in Cl
 - Best quality: same with discount on: 1.3/wk, PF 1.27, +0.20R/trade.
 - 15m loses on crypto and forex at every setting; forex 1H only works at very low frequency.
 - Costs here are 0.05%/side; at OKX taker 0.35% these thin edges would vanish. Binance.US-level fees or maker (limit) fills needed.
+
+## 5-minute entries (research/brad_5m.py: 5 coins, 4H trend, 0.07%/side, 2019-now)
+
+| Sweep window | Discount rule | Target | Trades/wk | Win % | PF | R/trade | 2019-22 PF | 2023-now PF | Long PF | Short PF |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 36 candles | on | 2R | 4.5 | 35% | 0.83 | -0.11 | 0.89 | 0.77 | 0.80 | 0.86 |
+| 36 candles | on | 3R | 4.7 | 26% | 0.84 | -0.12 | 0.88 | 0.79 | 0.81 | 0.86 |
+| 36 candles | off | 2R | 12.6 | 34% | 0.81 | -0.10 | 0.88 | 0.73 | 0.76 | 0.88 |
+| 36 candles | off | 3R | 13.0 | 26% | 0.86 | -0.09 | 0.90 | 0.80 | 0.81 | 0.91 |
+| 96 candles | on | 2R | 7.2 | 34% | 0.82 | -0.11 | 0.84 | 0.80 | 0.80 | 0.85 |
+| 96 candles | on | 3R | 7.1 | 25% | 0.84 | -0.11 | 0.85 | 0.83 | 0.85 | 0.83 |
+| 96 candles | off | 2R | 20.1 | 34% | 0.86 | -0.08 | 0.90 | 0.79 | 0.85 | 0.86 |
+| 96 candles | off | 3R | 18.5 | 26% | 0.88 | -0.07 | 0.92 | 0.82 | 0.89 | 0.87 |
+| 288 candles | on | 2R | 8.2 | 34% | 0.84 | -0.10 | 0.86 | 0.81 | 0.80 | 0.87 |
+| 288 candles | on | 3R | 7.6 | 25% | 0.86 | -0.10 | 0.88 | 0.83 | 0.83 | 0.88 |
+| 288 candles | off | 2R | 19.7 | 35% | 0.89 | -0.06 | 0.93 | 0.83 | 0.87 | 0.90 |
+| 288 candles | off | 3R | 16.6 | 27% | 0.92 | -0.06 | 0.98 | 0.86 | 0.92 | 0.92 |
+
+- Loses at every setting (PF 0.81-0.92), both halves, longs and shorts. 5m gives 5-20 trades/week but each loses ~0.1R after fees.
+- So the trading_bots_v1.zip 5m-entry idea is rejected; the 1H bot (brad_bot.py) stays the only Brad version.
