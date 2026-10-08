@@ -15,7 +15,7 @@
    "wrong": "A daily close under 13 = the pullback is turning into a downtrend."
   }
  },
- "last_check": "2026-10-08 09:28",
+ "last_check": "2026-10-08 10:29",
  "halted": null,
  "orders": {
   "BTC": {
@@ -43,5 +43,5 @@
    "expires_ms": 1791552657595
   }
  },
- "last_check_ms": 1791446400000
+ "last_check_ms": 1791450000000
 }
