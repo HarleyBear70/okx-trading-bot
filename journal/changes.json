@@ -205,5 +205,13 @@
   "approved_by": "Jeff (paper)",
   "review_on": "2026-10-19",
   "review": "Turtle vs live Donchian on the same exchange; RSI(2) win rate vs the tested ~70%."
+ },
+ {
+  "date_utc": "2026-10-08",
+  "bots": "Trend Rider 1H (tr1h-bnus), Binance.US paper",
+  "change": "New paper bot: Trend Rider's rules on 1H candles with the daily 50 EMA trend filter, 0.4% risk, Binance.US 0.02% fee, coins BTC ETH SOL BNB SUI. bot.py: per-bot 'tf' override and a '1HD' timeframe (1H + daily candles).",
+  "why": "Jeff: 'if u can get the bot to make money on a lower time frame i will add money' / 'make a bot that can do those time frames'. research/H1_TR.md: ~5 trades/week, +211% / -23% since 2018 (4H: +182% / -7.5%), lost on never-seen coins since 2022.",
+  "approved_by": "Jeff (paper)",
+  "review_on": "2026-10-19"
  }
 ]

@@ -101,6 +101,12 @@ BOTS = [
     {"id": "tr-bnus", "name": "Trend Rider (Binance.US paper)", "strat": "tr", "venue": "binanceus", "mode": "paper",
      "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "BNB-USDT", "SUI-USDT", "TRX-USDT"], "equity": 1000.0, "pivot": 5,
      "risk": 0.004, "half_at_2r": False, "fear_skip_at_or_below": 25, "fee": BINANCEUS_FEE},
+    # Oct 7 2026 (Jeff: "if u can get the bot to make money on a lower time frame i will add money"): Trend Rider's
+    # rules on 1H candles + daily trend, PAPER at the Binance.US fee. Backtest 2018-now: ~5 trades/week, +211%,
+    # worst drop -23%, PF 1.27; lost on never-seen coins since 2022 (research/H1_TR.md).
+    {"id": "tr1h-bnus", "name": "Trend Rider 1H (Binance.US paper)", "strat": "tr", "tf": "1HD", "venue": "binanceus",
+     "mode": "paper", "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "BNB-USDT", "SUI-USDT"], "equity": 1000.0,
+     "pivot": 5, "risk": 0.004, "half_at_2r": False, "fee": BINANCEUS_FEE},
     {"id": "dc-bnus", "name": "Donchian Trend (Binance.US paper)", "strat": "donchian", "venue": "binanceus",
      "mode": "paper", "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "XRP-USDT", "BNB-USDT"], "equity": 1000.0,
      "risk": 0.0032, "max_open": 5, "half_at_2r": False, "pyramid": True, "btc_leash": True, "fee": BINANCEUS_FEE},
@@ -1706,11 +1712,12 @@ def get_data(api, venue, coin, tf="4H"):
     key = (venue, coin, tf)
     if key not in _data:
         if venue == "binanceus":
-            iv = {"1H": "1h", "4H": "4h"}.get(tf, "1d")
-            raw4 = binanceus_candles(coin, iv, {"1H": 400, "4H": 500, "1DL": 800}.get(tf, 220))
+            iv = {"1H": "1h", "1HD": "1h", "4H": "4h"}.get(tf, "1d")
+            raw4 = binanceus_candles(coin, iv, {"1H": 400, "1HD": 400, "4H": 500, "1DL": 800}.get(tf, 220))
             rawd = [] if tf == "1H" else raw4 if tf in ("1D", "1DL") else binanceus_candles(coin, "1d", 400)
-        elif tf == "1H":
-            raw4, rawd = api.candles(coin, "1H", 400), []
+        elif tf in ("1H", "1HD"):  # 1HD: 1H candles + daily candles (Trend Rider on 1H)
+            raw4 = api.candles(coin, "1H", 400)
+            rawd = api.candles(coin, "1Dutc", 400) if tf == "1HD" else []
         elif tf in ("1D", "1DL"):  # 1DL: long daily history for Confluence Rank's 233 EMA + 200-day rank
             raw4 = api.candles(coin, "1Dutc", 800 if tf == "1DL" else 220)
             rawd = raw4
@@ -1727,6 +1734,8 @@ def get_data(api, venue, coin, tf="4H"):
 
 
 def bot_tf(bot):
+    if bot.get("tf"):
+        return bot["tf"]
     return {"b1": "1H", "pairs": "1D", "nnfx": "1D", "donchian": "1D", "hold": "1D", "followline": "1D", "dbottom": "1D",
             "confluence": "1DL", "rsi2": "1D"}.get(bot["strat"], "4H")
 
