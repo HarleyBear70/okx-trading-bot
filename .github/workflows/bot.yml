@@ -90,7 +90,7 @@ jobs:
           git config user.name "sp12-bot"
           git config user.email "sp12-bot@users.noreply.github.com"
           git add state.json trades.csv journal 2>/dev/null || true
-          git add forex_state.json forex_trades.csv 2>/dev/null || true
+          for f in forex_state.json forex_trades.csv; do if [ -f $f ]; then git add $f; fi; done
           if [ -f hold_pile.csv ]; then git add hold_pile.csv; fi
           if [ -f CALENDAR.md ]; then git add CALENDAR.md calendars; fi
           if [ -f BOT_NOTES.md ]; then git add BOT_NOTES.md; fi
