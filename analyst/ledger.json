@@ -2,7 +2,7 @@
  "equity": 994.34,
  "peak": 1000.0,
  "positions": {},
- "last_check": "2026-10-08 18:29",
+ "last_check": "2026-10-08 19:27",
  "halted": null,
  "orders": {
   "BTC": {
@@ -30,5 +30,5 @@
    "expires_ms": 1791552657595
   }
  },
- "last_check_ms": 1791478800000
+ "last_check_ms": 1791482400000
 }
