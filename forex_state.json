@@ -1,6 +1,4 @@
 {
- "equity": 1000.0,
- "positions": {},
  "last_bar": {
   "EUR_USD": 1791331200000,
   "GBP_USD": 1791331200000,
@@ -10,5 +8,6 @@
   "USD_CHF": 1791331200000,
   "USD_JPY": 1791331200000
  },
- "host": "https://api-fxpractice.oanda.com"
+ "trades": {},
+ "account": "101-001-40597426-001"
 }
