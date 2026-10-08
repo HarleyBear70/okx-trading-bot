@@ -1,0 +1,35 @@
+name: Jeff top-down bot (15m, paper)
+
+on:
+  schedule:
+    - cron: "2,17,32,47 * * * *" # every 15 minutes, 2 minutes after each 15m candle closes
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: jeff-bot
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Run the 15m paper bot (never places real orders)
+        run: python jeff_bot.py
+      - name: Save state
+        run: |
+          git config user.name "jeff-bot"
+          git config user.email "jeff-bot@users.noreply.github.com"
+          git add jeff_state.json
+          if [ -f jeff_trades.csv ]; then git add jeff_trades.csv; fi
+          git diff --cached --quiet && exit 0
+          git commit -m "jeff bot: update state"
+          for i in 1 2 3 4 5; do git pull --rebase -q && git push && exit 0; sleep $((i * 5)); done
+          exit 1
