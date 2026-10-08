@@ -1500,6 +1500,112 @@
    "start_balance": 1000.0,
    "strategy": "tr"
   },
+  "tr1h-bnus": {
+   "all": {
+    "avg_candles_held": null,
+    "avg_loss": null,
+    "avg_r": null,
+    "avg_win": null,
+    "closed": 0,
+    "losers_that_were_green_first": 0,
+    "losses": 0,
+    "open": 0,
+    "profit_factor": null,
+    "total_pnl": 0,
+    "trades": 0,
+    "win_rate_pct": null,
+    "wins": 0
+   },
+   "balance": 1000.0,
+   "by_coin": {
+    "BNB-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "BTC-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "ETH-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "SOL-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    },
+    "SUI-USDT": {
+     "avg_candles_held": null,
+     "avg_loss": null,
+     "avg_r": null,
+     "avg_win": null,
+     "closed": 0,
+     "losers_that_were_green_first": 0,
+     "losses": 0,
+     "open": 0,
+     "profit_factor": null,
+     "total_pnl": 0,
+     "trades": 0,
+     "win_rate_pct": null,
+     "wins": 0
+    }
+   },
+   "group": "testing",
+   "mode": "paper",
+   "name": "Trend Rider 1H (Binance.US paper)",
+   "open_positions": [],
+   "signals_seen": {
+    "candles": 5,
+    "near_misses": 0,
+    "signals": 0
+   },
+   "start_balance": 1000.0,
+   "strategy": "tr"
+  },
   "turtle-bnus": {
    "all": {
     "avg_candles_held": null,
@@ -2314,10 +2420,97 @@
    "review": "Turtle vs live Donchian on the same exchange; RSI(2) win rate vs the tested ~70%.",
    "review_on": "2026-10-19",
    "why": "Jeff: 'build me something, backtest and forward test it'. research/F38 (Turtle best on crypto, passes never-seen coins), F39 (RSI(2) is the only rule positive on both crypto and EUR/GBP), F41 (a learning manager over strategies was no better than the best single one)."
+  },
+  {
+   "approved_by": "Jeff (paper)",
+   "bots": "Trend Rider 1H (tr1h-bnus), Binance.US paper",
+   "change": "New paper bot: Trend Rider's rules on 1H candles with the daily 50 EMA trend filter, 0.4% risk, Binance.US 0.02% fee, coins BTC ETH SOL BNB SUI. bot.py: per-bot 'tf' override and a '1HD' timeframe (1H + daily candles).",
+   "date_utc": "2026-10-08",
+   "review_on": "2026-10-19",
+   "why": "Jeff: 'if u can get the bot to make money on a lower time frame i will add money' / 'make a bot that can do those time frames'. research/H1_TR.md: ~5 trades/week, +211% / -23% since 2018 (4H: +182% / -7.5%), lost on never-seen coins since 2022."
   }
  ],
- "check_meanings": {},
- "now": {},
+ "check_meanings": {
+  "above_ema50": {
+   "meaning": "Required: 4H close above the 50 EMA",
+   "points": null
+  },
+  "bos": {
+   "meaning": "Required: candle closes above the last swing high (86,670.9) - a break of structure",
+   "points": null
+  },
+  "daily_trend": {
+   "meaning": "Required: daily close above the 50-day EMA",
+   "points": null
+  }
+ },
+ "now": {
+  "tr1h-bnus|BNB-USDT": {
+   "action": "NO TRADE",
+   "bot": "Trend Rider 1H (Binance.US paper)",
+   "candle_utc": "2026-10-07 20:00",
+   "chart_coin": "BNB-USDT",
+   "close": 772.71,
+   "coin": "BNB-USDT",
+   "group": "testing",
+   "mode": "paper",
+   "rsi14": 45.6,
+   "score": "-",
+   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (809.18) - a break of structure."
+  },
+  "tr1h-bnus|BTC-USDT": {
+   "action": "NO TRADE",
+   "bot": "Trend Rider 1H (Binance.US paper)",
+   "candle_utc": "2026-10-07 20:00",
+   "chart_coin": "BTC-USDT",
+   "close": 83264.0,
+   "coin": "BTC-USDT",
+   "group": "testing",
+   "mode": "paper",
+   "rsi14": 32.9,
+   "score": "-",
+   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (86,670.9) - a break of structure."
+  },
+  "tr1h-bnus|ETH-USDT": {
+   "action": "NO TRADE",
+   "bot": "Trend Rider 1H (Binance.US paper)",
+   "candle_utc": "2026-10-07 20:00",
+   "chart_coin": "ETH-USDT",
+   "close": 2575.26,
+   "coin": "ETH-USDT",
+   "group": "testing",
+   "mode": "paper",
+   "rsi14": 28.4,
+   "score": "-",
+   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (2,724.11) - a break of structure."
+  },
+  "tr1h-bnus|SOL-USDT": {
+   "action": "NO TRADE",
+   "bot": "Trend Rider 1H (Binance.US paper)",
+   "candle_utc": "2026-10-07 20:00",
+   "chart_coin": "SOL-USDT",
+   "close": 116.24,
+   "coin": "SOL-USDT",
+   "group": "testing",
+   "mode": "paper",
+   "rsi14": 34.5,
+   "score": "-",
+   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (121.96) - a break of structure."
+  },
+  "tr1h-bnus|SUI-USDT": {
+   "action": "NO TRADE",
+   "bot": "Trend Rider 1H (Binance.US paper)",
+   "candle_utc": "2026-10-07 20:00",
+   "chart_coin": "SUI-USDT",
+   "close": 1.1243,
+   "coin": "SUI-USDT",
+   "group": "testing",
+   "mode": "paper",
+   "rsi14": 36.8,
+   "score": "-",
+   "why": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (1.2632) - a break of structure."
+  }
+ },
  "totals": {
   "live": {
    "avg_candles_held": null,
@@ -2350,5 +2543,5 @@
    "wins": 2
   }
  },
- "updated_utc": "2026-10-08 01:26"
+ "updated_utc": "2026-10-08 02:25"
 }

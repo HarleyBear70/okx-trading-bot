@@ -120,6 +120,11 @@
    "peak": 50.0,
    "halt_flag": false,
    "odd": ""
+  },
+  "tr1h-bnus": {
+   "peak": 1000.0,
+   "halt_flag": false,
+   "odd": ""
   }
  },
  "attention": [],

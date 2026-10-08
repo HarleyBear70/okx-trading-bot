@@ -68,6 +68,11 @@
   "tr-okx|SOL-USDT": 1791403200000,
   "tr-okx|SUI-USDT": 1791403200000,
   "tr-okx|TRX-USDT": 1791403200000,
+  "tr1h-bnus|BNB-USDT": 1791403200000,
+  "tr1h-bnus|BTC-USDT": 1791403200000,
+  "tr1h-bnus|ETH-USDT": 1791403200000,
+  "tr1h-bnus|SOL-USDT": 1791403200000,
+  "tr1h-bnus|SUI-USDT": 1791403200000,
   "turtle-bnus|BNB-USDT": 1791403200000,
   "turtle-bnus|BTC-USDT": 1791403200000,
   "turtle-bnus|ETH-USDT": 1791403200000,
@@ -118,6 +123,11 @@
    "candles": 126,
    "near_misses": 78,
    "signals": 1
+  },
+  "tr1h-bnus": {
+   "candles": 5,
+   "near_misses": 0,
+   "signals": 0
   },
   "v2-gold": {
    "candles": 24,
