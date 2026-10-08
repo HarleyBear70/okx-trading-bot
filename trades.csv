@@ -14,3 +14,5 @@ time_utc,bot,mode,coin,side,qty,price,usdt,pnl_usdt,pnl_pct,reason,bot_balance
 2026-10-06 04:26,BTC Protected Hold (paper),paper,BTC-USDT,buy,0.011660489,85759.7,1003.5,,,score above 100-day average,1000.0
 2026-10-07 02:25,SP-12 v4 (Kraken paper),paper,ETHUSD,sell,0.21907312,2654.2031,579.43,-12.63,-2.13,stop,996.56
 2026-10-07 01:58,Trend Rider,demo,SUI-USDT,sell,88.0503,1.1475,100.68,-7.75,-7.14,trailing stop (exchange; recorded late Oct 7),992.25
+2026-10-08 00:34,RSI(2) snap-back (Binance.US paper),paper,ETH-USDT,buy,0.019416043,2575.26,50.01,,,score RSI(2) 4.5,1000.0
+2026-10-08 00:34,RSI(2) snap-back (Binance.US paper),paper,XRP-USDT,buy,22.67935,1.4212,32.24,,,score RSI(2) 4.9,1000.0

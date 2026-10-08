@@ -1,9 +1,11 @@
-STATUS: all normal (checked 2026-10-07 7:23 PM ET)
+STATUS: all normal (checked 2026-10-07 8:35 PM ET)
 
 # Bot notes
 
 Written every hour by watcher.py after the bots run. Read-only: it never trades. Newest first, Eastern time. ATTENTION means: a bot 8%+ below its best balance, a losing streak longer than the backtest's worst, live vs backtest replay 2%+ apart, a failed bot run, or an unexpected open position.
 
+- 2026-10-07 8:34 PM ET · RSI(2) snap-back (Binance.US paper) bought ETH 0.019416 at 2575.26 (50.01 USDT), stop 2317.74, target -
+- 2026-10-07 8:34 PM ET · RSI(2) snap-back (Binance.US paper) bought XRP 22.6793 at 1.4212 (32.24 USDT), stop 1.20074, target -
 - 2026-10-06 9:58 PM ET · Trend Rider sold SUI at 1.1475 (trailing stop (exchange; recorded late Oct 7)), P/L -7.75 (-7.14%), balance 992.25
 - 2026-10-07 1:27 AM ET · Bot run OK again
 - 2026-10-07 12:27 AM ET · Bot run problem: [Trend Rider] BTC-USDT: ERROR <urlopen error [Errno 104] Connection reset by peer> | [Confluence Rank (paper)] BTC-USDT: ERROR <urlopen error [Errno 104] Connection reset by peer> | [Confluence Rank (paper)] ETH-USDT: ERROR <urlopen error [Errno 104] Connection reset by peer>

@@ -1,5 +1,5 @@
 {
- "updated_utc": "2026-10-07 23:23",
+ "updated_utc": "2026-10-08 00:35",
  "bots": {
   "v4-okx": {
    "live_now": 1005.0504,
@@ -240,19 +240,19 @@
    "error": null
   },
   "rsi2-bnus": {
-   "live_now": 1000.0,
-   "replay_now": 1000.0,
+   "live_now": 999.6957369711007,
+   "replay_now": 999.6957369711007,
    "live": {
     "n": 0,
     "win": null,
     "pf": null,
-    "dd": 0.0
+    "dd": -0.030426302889929868
    },
    "replay": {
     "n": 0,
     "win": null,
     "pf": null,
-    "dd": 0.0
+    "dd": -0.030426302889929868
    },
    "error": null
   },
@@ -325,19 +325,19 @@
    "error": null
   },
   "hold-paper": {
-   "live_now": 990.6086705060767,
-   "replay_now": 992.9999999999999,
+   "live_now": 964.6863334409984,
+   "replay_now": 967.0153067247666,
    "live": {
     "n": 0,
     "win": null,
     "pf": null,
-    "dd": -0.9391329493923295
+    "dd": -3.531366655900159
    },
    "replay": {
     "n": 0,
     "win": null,
     "pf": null,
-    "dd": -0.7000000000000117
+    "dd": -3.2984693275233457
    },
    "error": null
   },
