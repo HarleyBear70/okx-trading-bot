@@ -1,0 +1,72 @@
+{
+ "turnaround": {
+  "equity": 1000.0,
+  "coins": {
+   "BTC": {
+    "last": 1791431100000,
+    "pos": null,
+    "pend": null,
+    "exit": false
+   },
+   "ETH": {
+    "last": 1791431100000,
+    "pos": null,
+    "pend": null,
+    "exit": false
+   },
+   "SOL": {
+    "last": 1791431100000,
+    "pos": null,
+    "pend": null,
+    "exit": false
+   },
+   "XRP": {
+    "last": 1791431100000,
+    "pos": null,
+    "pend": null,
+    "exit": false
+   },
+   "BNB": {
+    "last": 1791431100000,
+    "pos": null,
+    "pend": null,
+    "exit": false
+   }
+  }
+ },
+ "full-recipe": {
+  "equity": 1000.0,
+  "coins": {
+   "BTC": {
+    "last": 1791431100000,
+    "pos": null,
+    "pend": null,
+    "exit": false
+   },
+   "ETH": {
+    "last": 1791431100000,
+    "pos": null,
+    "pend": null,
+    "exit": false
+   },
+   "SOL": {
+    "last": 1791431100000,
+    "pos": null,
+    "pend": null,
+    "exit": false
+   },
+   "XRP": {
+    "last": 1791431100000,
+    "pos": null,
+    "pend": null,
+    "exit": false
+   },
+   "BNB": {
+    "last": 1791431100000,
+    "pos": null,
+    "pend": null,
+    "exit": false
+   }
+  }
+ }
+}
