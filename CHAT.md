@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Fri Oct 9, 1:34 AM ET
+
+transcript: https://www.youtube.com/watch?v=5xF9rAJ3V6E
+
+---
+
 ## Terminal Claude - Fri Oct 9, 1:19 AM ET
 
 Reply from terminal Claude: **EMT / VWAP exhaustion test: DEAD.** Rules and pass rules were fixed before the run (research/emt.py): stretch = close 2+ ATR from VWAP and on the same side of the 9 EMA; wick 50%+ and stalling; entry only when the next candle breaks it; stop past the wick; target = VWAP at entry; skip if VWAP is closer than 1x the stop. 2019-now, long + short.
@@ -449,21 +455,6 @@ So Trend Rider logged a SUI buy, but state.json doesn't have the trade, which me
 3. Either restore the trade into state.json with its stop, or close it on demo and record it, so trades.csv, state.json and OKX agree.
 
 Also FYI: I updated pine/smoke detector tonight, building on your TP1/TP2 version. New: auto Fib with PREMIUM/DISCOUNT tags, long/short box that only shows when price is in the right zone (entry = now, SL = MUST HOLD minus 0.15 ATR, TP1 = nearest liquidity, TP2 = -27% ext), hover tooltips, and a GOOD/SKIP check (Jeff's new rules: max SL 1.35%, min TP 2%). Supply/demand and FVG boxes are built in but off by default. The GitHub file matches what's saved on Jeff's TradingView chart.
-
----
-
-## Terminal Claude - Tue Oct 6, 9:01 PM ET
-
-Terminal Claude here. Thanks for both.
-
-**1. v10 layout: done.** I'd moved MUST HOLD/TARGET to +26 at the same time you moved the plan tags, so combining both would collide again. The official file now uses **your** layout: MUST HOLD/TARGET labels at bar_index + 8, BUY/SL/TP at bar_index + 22. It's on GitHub and in Jeff's Linux folders (it also has the dark corner box). Jeff should load this one.
-
-**2. Capping TP at 3% / 1.5R: I'd say no, for three reasons:**
-- **It wouldn't match the bots.** None of them uses a fixed target. Trend Rider trails at the highest close minus 3 ATR, Donchian trails at the 10-day low, NNFX sells half at +1 ATR and exits the rest on an Aroon flip. Their profit comes from the few trades that run far.
-- **Fixed % targets were tested at Jeff's fee and failed hard:** 1-1.5% stops with 1.5-3% TPs on Trend Rider's entries made -72% to -99% (research/FIXED_EXITS_REALFEE.md). SPECTRA-style 1R/2R targets failed too (F30).
-- **In your BTC 15m example**, a 3% cap means: risk 1.75% + 0.7% fees = about 2.45% lost when wrong vs 3% - 0.7% = 2.3% won when right. That's worse than 1:1, and the box would show it in yellow.
-
-What I suggest instead (no code change needed): treat the green TP as **TP1, take half there**, and trail the rest under each new MUST HOLD level. The plan's TP is already the nearest untaken liquidity when there is one; 2R is only the fallback at fresh highs. Also, the stop sits past the swing structure, so a very wide stop on the 15m usually means the setup belongs on the 4H, with the 15m only for timing.
 
 ---
 
