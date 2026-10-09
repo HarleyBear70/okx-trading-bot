@@ -119,6 +119,11 @@ BOTS = [
     {"id": "rsi2-bnus", "name": "RSI(2) snap-back (Binance.US paper)", "strat": "rsi2", "venue": "binanceus",
      "mode": "paper", "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "XRP-USDT", "BNB-USDT"], "equity": 1000.0,
      "risk": 0.005, "max_open": 5, "half_at_2r": False, "fee": BINANCEUS_FEE},
+    # Oct 8 2026 (Jeff): Dynamic Breakout II (QuantConnect library) + BTC switch, the team-test winner
+    # (research/QC_LIBRARY.md, research/TEAM_TEST.md). Paper, next to turtle-bnus to compare at a review.
+    {"id": "db2-bnus", "name": "Breakout II + BTC switch (Binance.US paper)", "strat": "db2", "venue": "binanceus",
+     "mode": "paper", "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "XRP-USDT", "BNB-USDT"], "equity": 1000.0,
+     "risk": 0.005, "max_open": 5, "half_at_2r": False, "fee": BINANCEUS_FEE},
     # Retired at OKX fees, back to life at Binance.US fees (research/F42.md): same settings as their OKX versions, paper.
     {"id": "v4-bnus", "name": "SP-12 v4 (Binance.US paper)", "strat": "v4", "venue": "binanceus", "mode": "paper",
      "coins": ["BTC-USDT", "ETH-USDT", "XRP-USDT", "XLM-USDT", "BNB-USDT"], "equity": 1000.0, "risk": 0.004,
@@ -714,6 +719,45 @@ def analyse_rsi2(bars):
             sl = c[k] - cfg["stop_atr"] * a[k]
             signal[k] = True
             info[k] = {"score": f"RSI(2) {r2[k]:.1f}", "raw_risk": (c[k] - sl) / c[k] * 100, "sl": sl, "tp": None}
+    return {"signal": signal, "info": info, "exit": ex}
+
+
+DB2_SETTINGS = {"start": 20, "lo": 20, "hi": 60, "vol": 30, "bb": 2.0, "btc_sma": 200, "stop_atr": 3.0, "atr": 20}
+
+
+def analyse_db2(bars, btc_daily):
+    """Dynamic Breakout II (QuantConnect library; research/qc_library.py, TEAM_TEST.md), daily, long only.
+    Lookback starts at 20 and moves with 30-day volatility: n = round(n * (1 + (vol - vol_yday) / vol)), kept 20-60.
+    Buy on a close above the upper Bollinger band (EMA n, 2 std) on a day that made an n-day high, only while BTC
+    closes above its 200-day average (BTC switch). Sell on a close below the n-day simple average (a["exit"]).
+    Safety stop 3 ATR(20) (the backtest had none; it sizes the 0.5% risk and catches crashes)."""
+    cfg = DB2_SETTINGS
+    h, l, c = [b["h"] for b in bars], [b["l"] for b in bars], [b["c"] for b in bars]
+    a = atr(h, l, c, cfg["atr"])
+    bc = [d["c"] for d in btc_daily]
+    bs = sma(bc, cfg["btc_sma"])
+    btc_up = {day_of(d["ts"]): bs[k] is not None and bc[k] > bs[k] for k, d in enumerate(btc_daily)}
+    n = len(bars)
+    signal, info, ex = [False] * n, [None] * n, [False] * n
+    num, pv = cfg["start"], None
+    for k in range(cfg["vol"] - 1, n):
+        w = c[k - cfg["vol"] + 1:k + 1]
+        m = sum(w) / len(w)
+        vol = (sum((v - m) ** 2 for v in w) / len(w)) ** 0.5
+        if pv and vol:
+            num = min(cfg["hi"], max(cfg["lo"], round(num * (1 + (vol - pv) / vol))))
+        pv = vol
+        if k < num + 1:
+            continue
+        seg = c[k - num + 1:k + 1]
+        avg = sum(seg) / num
+        ex[k] = c[k] < avg
+        sd = (sum((v - avg) ** 2 for v in seg) / num) ** 0.5
+        if (a[k] and btc_up.get(day_of(bars[k]["ts"]), False) and c[k] > ema(c[:k + 1], num)[-1] + cfg["bb"] * sd
+                and h[k] >= max(h[k - num:k])):
+            sl = c[k] - cfg["stop_atr"] * a[k]
+            signal[k] = True
+            info[k] = {"score": f"{num}-day breakout", "raw_risk": (c[k] - sl) / c[k] * 100, "sl": sl, "tp": None}
     return {"signal": signal, "info": info, "exit": ex}
 
 
@@ -1596,6 +1640,11 @@ def manage_on_close(api, bot, bs, coin, a, i, bar, bars_in):
             close_position(api, bot, bs, coin, "closed above the 5-day average", bar["c"])
             return True
         return False
+    elif bot["strat"] == "db2":
+        if a["exit"][i]:
+            close_position(api, bot, bs, coin, "closed below its breakout average", bar["c"])
+            return True
+        return False
     elif bot["strat"] == "hold":
         if a["exit"][i]:
             close_position(api, bot, bs, coin, f"closed below the {HOLD_SETTINGS['sma']}-day average", bar["c"])
@@ -1737,7 +1786,7 @@ def bot_tf(bot):
     if bot.get("tf"):
         return bot["tf"]
     return {"b1": "1H", "pairs": "1D", "nnfx": "1D", "donchian": "1D", "hold": "1D", "followline": "1D", "dbottom": "1D",
-            "confluence": "1DL", "rsi2": "1D"}.get(bot["strat"], "4H")
+            "confluence": "1DL", "rsi2": "1D", "db2": "1DL"}.get(bot["strat"], "4H")
 
 
 def analyse_for(api, bot, coin):
@@ -1760,6 +1809,8 @@ def analyse_for(api, bot, coin):
         a = analyse_followline(bars)
     elif bot["strat"] == "rsi2":
         a = analyse_rsi2(bars)
+    elif bot["strat"] == "db2":
+        a = analyse_db2(bars, get_data(api, bot["venue"], "BTC-USDT", "1DL")[0])
     elif bot["strat"] == "dbottom":
         a = analyse_dbottom(bars)
     elif bot["strat"] == "confluence":
@@ -1784,7 +1835,7 @@ def entry_extra(bot, bar, inf):
         return {"no_half": True, "tag": inf["tag"]}
     if bot["strat"] == "nnfx":
         return {"half_at": inf["half_at"], "be_after_half": True}
-    if bot["strat"] in ("donchian", "hold", "followline", "dbottom", "confluence", "rsi2"):
+    if bot["strat"] in ("donchian", "hold", "followline", "dbottom", "confluence", "rsi2", "db2"):
         return {"no_half": True}
     return {}
 
