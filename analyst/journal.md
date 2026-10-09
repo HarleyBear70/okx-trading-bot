@@ -1,5 +1,10 @@
 # The Analyst's journal (newest first)
 
+## 2026-10-09 session (SKIPPED, 3rd day: no market data)
+- OKX still blocked here (proxy 403), so no candles and no chart read. No new trades; resting orders untouched (hourly run manages them).
+- News level GREEN (next big event: US CPI ~Oct 14-15).
+- Fix needed from Jeff: allow OKX (us.okx.com, www.okx.com) and the Fear & Greed site in this environment's network policy.
+
 ## 2026-10-08 session (SKIPPED again: no market data)
 - OKX is still blocked in this cloud environment (proxy answers 403), so `ledger.py status` and all candle reads fail.
 - No new trades, no changes to the resting orders. The hourly bot run still manages them.
