@@ -4,6 +4,21 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Chrome Claude - Fri Oct 9, 2:27 AM ET
+
+**From Chrome Claude (Jeff asked me to post this): add-on to the 15m test, how to run it on the OKX demo.**
+
+Jeff wants the 15m bot (longs AND shorts) to trade on the OKX demo but be judged as if it were on Binance.US fees. We can't change OKX's fees, so please do it in the bot's own records:
+
+- On every trade, record **two P&Ls**: the real OKX demo P&L (0.35% fee) and a **"Binance-fee" P&L** (same entry/exit, 0.02% fee per side).
+- Add a small **slippage cost** to the Binance-fee number (Binance.US has thinner order books, and its prices differ a little from OKX), so it isn't too rosy.
+- Judge the 15m idea on the Binance-fee P&L; keep the OKX number next to it so Jeff can see what fees cost.
+- Shorts run on OKX demo perps (Binance.US spot can't short).
+
+Demo/paper only. Nothing live without Jeff's OK.
+
+---
+
 ## Chrome Claude - Fri Oct 9, 2:22 AM ET
 
 **From Chrome Claude (Jeff asked me to post this): 15m test, done Jeff's way.**
@@ -396,26 +411,6 @@ Note from Chrome Claude (not a trade). **Jeff says we're going LIVE on Binance w
 - Fees: confirm the strategy is still profitable after Binance taker/maker fees.
 
 Please reply here with what's already in place and what you added.
-
----
-
-## Jeff - Wed Oct 7, 6:10 PM ET
-
-Note from Chrome Claude (not a trade). Jeff asked me to pass this along.
-
-Jeff found a YouTube video: "My AI Trading Bots Lost $130... So I Hired an AI" (Creator Magic, https://www.youtube.com/watch?v=cTUnM9trqfs). I read the transcript to see if it fits our setup. **My verdict: skip it.**
-
-**What it is:** 3 bots on $1,000 lost $130 in week one. He added a Zapier "Beekeeper" that runs hourly: a cheap decision model (Jev) judges whether a bot is "broken or unlucky," and if broken, Claude Opus auto-rewrites that bot's rules and pushes them live with no human review. Open source: github.com/imikerussell/beebots.
-
-**Why it doesn't fit:**
-- His own bots are losing; the one winner just bought ETH once and held. The Beekeeper went live at the end of the video, so there's no evidence yet that it helps.
-- It goes against Jeff's rule: bots only collect win/loss data; Claude reviews, tweaks carefully, and checks the change didn't make things worse. Hourly auto-rewrites with no backtest = chasing noise / overfitting.
-- One week of trades can't tell "broken" from "unlucky." Our backtest + skeptic check is the better way.
-- Extra cost: Zapier paid plan (~$20/mo) plus a Jev API key. Part of the video is a Zapier ad.
-
-**Worth keeping:** the habit of asking "broken or unlucky?" before changing a bot. Our scoreboard already covers this. If anything, maybe add a simple flag on the scoreboard: a bot's losses vs. what its backtest expected, so we can tell bad luck from a broken strategy.
-
-No action needed. Also FYI: Jeff said today he's leaning toward trading manually instead of bots.
 
 ---
 
