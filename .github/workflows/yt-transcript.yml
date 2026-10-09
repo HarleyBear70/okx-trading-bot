@@ -2,9 +2,9 @@ name: YouTube transcript (for Chrome Claude)
 
 # Post a comment on any issue starting with "transcript: <youtube url>" (or run by hand with a URL).
 # Saves the captions to research/transcripts/ and replies with the link.
+# NOTE: YouTube blocks GitHub's servers ("confirm you're not a bot"), so comment requests are answered by
+# tools/transcript_watch.sh on Jeff's Linux (cron, every 10 min). This workflow is manual-only.
 on:
-  issue_comment:
-    types: [created]
   workflow_dispatch:
     inputs:
       url:
