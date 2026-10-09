@@ -11,6 +11,9 @@ buys only 2019-now ~2 trades/week, PF 1.30, +0.22R a trade; 2023-now PF 1.14).
 One paper account, $1,000, 0.5% risk a trade, 0.07% cost a side. Never places real orders.
 
   python brad_bot.py      (state: brad_state.json, trades: brad_trades.csv)
+  python brad_bot.py --skip-mon-fri   paper COPY that takes no new setups on Mondays or Fridays (UTC); open trades
+                                      and waiting orders still run (state: brad_monfri_state.json, trades:
+                                      brad_monfri_trades.csv). Backtest research/BRAD_RULES.md: PF 1.36 vs 1.27.
 """
 import csv
 import datetime as dt
@@ -28,8 +31,10 @@ from jeff_topdown import structure  # noqa: E402
 
 COINS = "BTC ETH SOL XRP BNB ADA DOGE AVAX LINK LTC DOT XLM BCH HBAR NEAR UNI ATOM SHIB TRX SUI AAVE ETC ALGO".split()
 RISK, COST, RR, WIN = 0.005, 0.0007, 3, 48
-STATE = os.path.join(HERE, "brad_state.json")
-TRADES = os.path.join(HERE, "brad_trades.csv")
+SKIP_MON_FRI = "--skip-mon-fri" in sys.argv
+TAG = "brad-monfri" if SKIP_MON_FRI else "brad"
+STATE = os.path.join(HERE, "brad_monfri_state.json" if SKIP_MON_FRI else "brad_state.json")
+TRADES = os.path.join(HERE, "brad_monfri_trades.csv" if SKIP_MON_FRI else "brad_trades.csv")
 H1, H4 = 3600000, 4 * 3600000
 
 
@@ -48,7 +53,7 @@ def close_trade(acc, coin, cs, x, px, why):
     acc["equity"] += pnl
     log([iso(x["ts"]), coin, "sell", px, round(p["qty"], 8), round(px * p["qty"], 2), round(pnl, 2),
          round(acc["equity"], 2), why])
-    print(f"brad {coin}: SELL {px} ({why}) P/L {pnl:+.2f}")
+    print(f"{TAG} {coin}: SELL {px} ({why}) P/L {pnl:+.2f}")
     cs["pos"] = None
 
 
@@ -59,7 +64,7 @@ def main():
             bars = [b for b in binanceus_candles(coin + "-USDT", "1h", 1000) if b["confirm"]]
             h4 = htf(coin, "4h", H4, 500)
         except Exception as e:
-            print(f"brad {coin}: data ERROR {e}")
+            print(f"{TAG} {coin}: data ERROR {e}")
             continue
         s, a = structure(bars), atr(bars)
         cs = acc["coins"].setdefault(coin, {"last": bars[-2]["ts"], "pos": None, "order": None})
@@ -79,7 +84,7 @@ def main():
                     cs["order"] = None
                     log([iso(x["ts"]), coin, "buy", px, round(qty, 8), round(px * qty, 2), "",
                          round(acc["equity"], 2), f"gap fill, stop {o['stop']:.6g}, target {o['tgt']:.6g}"])
-                    print(f"brad {coin}: BUY {px} stop {o['stop']:.6g} target {o['tgt']:.6g} (${px * qty:.2f})")
+                    print(f"{TAG} {coin}: BUY {px} stop {o['stop']:.6g} target {o['tgt']:.6g} (${px * qty:.2f})")
                     if x["l"] <= o["stop"]:  # stop in the fill candle
                         close_trade(acc, coin, cs, x, o["stop"], "stop")
                     continue
@@ -92,6 +97,9 @@ def main():
                     close_trade(acc, coin, cs, x, max(p["tgt"], x["o"]), "target 3R")
                 continue
             # 3) new setup at the close
+            weekday = dt.datetime.fromtimestamp(x["ts"] / 1000, dt.timezone.utc).weekday()
+            if SKIP_MON_FRI and weekday in (0, 4):
+                continue
             if not cs["order"] and s["shift"][k] and s["trend"][k] == 1 and a[k]:
                 if view_at(h4, x["ts"] + H1)[0] != 1:
                     continue
@@ -103,12 +111,12 @@ def main():
                     if entry > stop:
                         cs["order"] = {"entry": entry, "stop": stop, "tgt": entry + RR * (entry - stop),
                                        "expires": x["ts"] + 86400000}
-                        print(f"brad {coin}: limit buy {entry:.6g}, stop {stop:.6g}")
-        print(f"brad {coin}: {iso(bars[-1]['ts'])} close {bars[-1]['c']} | "
+                        print(f"{TAG} {coin}: limit buy {entry:.6g}, stop {stop:.6g}")
+        print(f"{TAG} {coin}: {iso(bars[-1]['ts'])} close {bars[-1]['c']} | "
               f"{'IN TRADE' if cs['pos'] else 'order waiting' if cs['order'] else 'flat'}")
     with open(STATE, "w") as f:
         json.dump(acc, f, indent=1)
-    print(f"brad balance ${acc['equity']:.2f}, open {[c for c, v in acc['coins'].items() if v['pos']]}, "
+    print(f"{TAG} balance ${acc['equity']:.2f}, open {[c for c, v in acc['coins'].items() if v['pos']]}, "
           f"orders {[c for c, v in acc['coins'].items() if v['order']]}")
 
 

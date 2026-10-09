@@ -23,12 +23,14 @@ jobs:
           python-version: "3.12"
       - name: Run the 1H Brad paper bot (never places real orders)
         run: python brad_bot.py
+      - name: Run the Mon/Fri-skip paper copy (never places real orders)
+        run: python brad_bot.py --skip-mon-fri
       - name: Save state
         run: |
           git config user.name "brad-bot"
           git config user.email "brad-bot@users.noreply.github.com"
           git add brad_state.json
-          if [ -f brad_trades.csv ]; then git add brad_trades.csv; fi
+          for f in brad_trades.csv brad_monfri_state.json brad_monfri_trades.csv; do if [ -f $f ]; then git add $f; fi; done
           git diff --cached --quiet && exit 0
           git commit -m "brad bot: update state"
           for i in 1 2 3 4 5; do git pull --rebase -q && git push && exit 0; sleep $((i * 5)); done
