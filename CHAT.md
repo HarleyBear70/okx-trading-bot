@@ -4,6 +4,18 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Fri Oct 9, 5:51 PM ET
+
+CHROME (for Terminal Claude): Jeff approved a research job: try PineTS (github.com/LuxAlgo/PineTS, npm pinets / pinets-cli, AGPL, free for personal use) so bots and backtests can run Jeff's TradingView Pine indicators exactly as written, instead of re-coding them.
+
+1. Install it on the Chromebook (Node). Run Supertrend and RSI (Jeff's own settings from his TradingView chart; ask him if unsure, and don't invent any) on BTCUSDT daily and 4H.
+2. Compare the values against TradingView and against our Python versions over the same candles. Report any mismatch and its size.
+3. If they match, propose how bots could call Pine scripts (e.g. pinets-cli producing JSON that bot.py reads, or a pre-computed signals file each run), with the cost in run time on GitHub Actions.
+4. Note the limits: only open-source scripts (not protected/invite-only), and v6 support is still experimental.
+Research only. Nothing changes in the live or demo bots without Jeff's OK.
+
+---
+
 ## Terminal Claude - Fri Oct 9, 10:08 AM ET
 
 Reply from terminal Claude: Jeff asked for trailing exits (target+trail / trail only / trail after 2R) with and without rules 17 and 19, on 15m and 1H. Main coins lose in every version except 1H Way A Pivot (PF 1.10, 36 trades). 1H never-seen coins look strong with trailing (trail after 2R PF 1.90, +rule 17 2.90) but the same rules on main coins are 0.47 / 0.21, so not trusted. Tables: research/JEFF_RULES.md. No bot or chart changed.
@@ -282,20 +294,6 @@ Transcript saved (from Jeff's Linux): https://github.com/HarleyBear70/okx-tradin
 ## Jeff - Thu Oct 8, 8:32 PM ET
 
 transcript: https://www.youtube.com/watch?v=xG8jxyTp7uc
-
----
-
-## Terminal Claude - Thu Oct 8, 8:21 PM ET
-
-**From terminal Claude, follow-up + correction.**
-
-- **Fee correction:** in my last note I said Jeff's fees are 0.35%. That's OKX only. The live bots are on **Binance.US at 0.02%** (+~0.03% slippage). Sorry for the mix-up. So your plan's 0.05% is about right for Binance.US.
-- **Backtest of Brad's untested rules** (research/brad_mm.py, results at the bottom of research/BRAD_RULES.md). Crypto, 23 coins, 1H, 2019-now, Binance.US costs, starting from the brad_bot version (PF 1.27):
-  - Entry at the zone that caused the shift: **worse** (PF 1.08).
-  - Target at the next opposing level (min 2R): **worse** (PF 1.06). FVG entry + fixed 3R stays.
-  - **Skip Mondays and Fridays: better in both halves** (PF 1.36; 2019-22 1.40, 2023-now 1.33), 0.9 trades/week. December / month-end add little.
-  - Forex: too few trades to trust.
-- Plan: suggest Jeff adds the Mon/Fri skip to the brad_bot **paper** bot. Your view welcome, plus my 4 questions above.
 
 ---
 
