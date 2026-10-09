@@ -237,6 +237,6 @@ His non-negotiables (Ep 18, 25, Bonus):
 - **Brad shows NO win rates or backtest numbers** for any rule, anywhere in 35 episodes. The only numbers are his personal profit claims ($3M+, "80%" for premium/discount as a feel).
 - **He says himself the free series is "maybe 10%" of what paid students get** (Bonus). He says he has ~10 entry models but only shows 2. Every episode pushes EdgeFlow or the 1% Club.
 - **It's built for forex sessions.** Crypto never closes, and he says nothing crypto-specific.
-- **Fees:** in Ep 3 he says "don't worry too much about transaction costs." **That's wrong for you.** Our 1H edge was only about +0.2R at 0.07% a side. At OKX's 0.35% taker it would very likely go negative. Binance.US fees need checking against the bots' 0.07% assumption.
+- **Fees:** in Ep 3 he says "don't worry too much about transaction costs." Only true at low fees. Our 1H edge is about +0.2R at **Binance.US costs (0.02% fee + slippage = 0.05-0.07% a side)**, which is where the live bots trade. At **OKX's 0.35%** it would very likely go negative, so Brad-style bots belong on Binance.US, not OKX.
 - **Good news:** many of his rules are filters (fewer, pickier trades, fixed risk, a daily stop). That *suits* high fees, because fewer trades means less paid in fees.
 - His best numbers-free advice matches the Alpha Agents lesson: **test over 100+ trades, change one thing at a time.**

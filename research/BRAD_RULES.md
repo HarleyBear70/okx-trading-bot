@@ -108,3 +108,41 @@ Script: research/brad_rules.py (rules in its header). Source: Jeff's notes in Cl
 
 - Loses at every setting (PF 0.81-0.92), both halves, longs and shorts. 5m gives 5-20 trades/week but each loses ~0.1R after fees.
 - So the trading_bots_v1.zip 5m-entry idea is rejected; the 1H bot (brad_bot.py) stays the only Brad version.
+
+## Market Mechanics rules from the full 35-episode series (research/brad_mm.py, Oct 8 2026 night)
+
+| Market | Version | Trades/wk | Win % | PF | R/trade | 2019-22 PF | 2023-now PF | Long PF | Short PF |
+|---|---|---|---|---|---|---|---|---|---|
+| crypto (23) 1H | base = brad_bot (FVG entry, 3R) | 1.3 | 31% | 1.27 | +0.20 | 1.42 | 1.18 | 1.41 | 1.10 |
+| crypto (23) 1H | + zone entry | 0.5 | 28% | 1.08 | +0.06 | 1.30 | 0.96 | 1.13 | 1.02 |
+| crypto (23) 1H | + structural target (min 2R) | 0.8 | 26% | 1.06 | +0.05 | 1.15 | 1.01 | 1.22 | 0.88 |
+| crypto (23) 1H | + prior-day high/low target (min 2R) | 0.0 | 31% | 1.32 | +0.23 | 0.70 | 2.05 | 2.08 | 0.41 |
+| crypto (23) 1H | + calendar skips (Mon/Fri/Dec/month-end) | 0.8 | 32% | 1.37 | +0.26 | 1.35 | 1.39 | 1.62 | 1.09 |
+| crypto (23) 1H | zone + struct | 0.6 | 17% | 1.05 | +0.05 | 0.77 | 1.23 | 1.30 | 0.82 |
+| crypto (23) 1H | zone + 3R + calendar | 0.3 | 26% | 0.98 | -0.01 | 1.15 | 0.90 | 0.99 | 0.98 |
+| crypto (23) 1H | ALL: zone + struct + calendar | 0.4 | 15% | 0.96 | -0.04 | 0.64 | 1.15 | 1.37 | 0.61 |
+| forex (8) 1H | base = brad_bot (FVG entry, 3R) | 0.2 | 29% | 1.15 | +0.11 | 1.41 | 0.85 | 1.56 | 0.84 |
+| forex (8) 1H | + zone entry | 0.1 | 29% | 1.11 | +0.08 | 0.95 | 1.38 | 0.58 | 1.68 |
+| forex (8) 1H | + structural target (min 2R) | 0.2 | 26% | 1.02 | +0.02 | 0.97 | 1.10 | 1.23 | 0.88 |
+| forex (8) 1H | + prior-day high/low target (min 2R) | 0.0 | 25% | 0.61 | -0.32 | 0.93 | 0.00 | 0.00 | 0.89 |
+| forex (8) 1H | + calendar skips (Mon/Fri/Dec/month-end) | 0.1 | 32% | 1.32 | +0.23 | 1.86 | 0.51 | 2.63 | 0.35 |
+| forex (8) 1H | zone + struct | 0.1 | 22% | 1.45 | +0.39 | 1.20 | 1.86 | 1.53 | 1.40 |
+| forex (8) 1H | zone + 3R + calendar | 0.0 | 25% | 0.90 | -0.08 | 1.36 | 0.00 | 1.62 | 0.39 |
+| forex (8) 1H | ALL: zone + struct + calendar | 0.1 | 26% | 2.06 | +0.85 | 2.74 | 0.84 | 3.46 | 1.09 |
+
+Calendar split (crypto 23 coins, 1H, base + one skip):
+
+| Skip | Trades/wk | PF | 2019-22 PF | 2023-now PF |
+|---|---|---|---|---|
+| none (base) | 1.3 | 1.27 | 1.42 | 1.18 |
+| Mon/Fri only | 0.9 | 1.36 | 1.40 | 1.33 |
+| Mon only | 1.1 | 1.29 | 1.33 | 1.26 |
+| Fri only | 1.2 | 1.34 | 1.49 | 1.24 |
+| Sat/Sun | 1.0 | 1.24 | 1.42 | 1.11 |
+| December only | 1.2 | 1.27 | 1.38 | 1.21 |
+| month-end only | 1.3 | 1.29 | 1.43 | 1.20 |
+
+- Zone entry and structural target (Brad's 'next opposing level', min 2R) both HURT on crypto (PF 1.27 -> 1.06-1.08). The FVG-edge entry + fixed 3R stays.
+- Skipping Mondays and Fridays helps on crypto in both halves (PF 1.36; 1.40 / 1.33) at 0.9 trades/week. December and month-end add little.
+- Forex: 0.0-0.2 trades/week, too few to trust any row.
+- Costs: Binance.US level (0.05%/side). Not for OKX's 0.35%.
