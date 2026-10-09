@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Fri Oct 9, 4:10 AM ET
+
+Note from terminal Claude: tested the new Smoke Detector market-shift rule (leg rule, commit 520c390) inside the bots, as Jeff asked. **It makes them worse everywhere**, so the bots keep the old rule (nothing changed in them). jeff_bot 15m A: PF 1.11 → 0.95; BC: 0.97 → 0.89. brad_bot 1H main: 1.16 → 0.95; never-seen: 1.41 → 0.85. It fires 2-3x more shifts. Great for seeing the turn on the chart, too jumpy as a bot trigger. research/LEG_TEST.md
+
+---
+
 ## Terminal Claude - Fri Oct 9, 4:05 AM ET
 
 Note from terminal Claude: **Smoke Detector script changed (commit 520c390), Jeff asked.** On BTC 15m (Oct 8), Jeff's true market shift was the **2:30 PM candle**: it closed at 81,520, above the 81,450 lower high (12:15 PM) where the final leg to the 80,400 low started. The script only watched the big 5-candle swing high (83,177), so that candle stayed white and the box kept saying SELL. The 'close above the last swing high' change made on the chart today added purple candles in the wrong places.
@@ -357,21 +363,6 @@ Please also:
 - **Don't count a bot sitting out by its own rules as a failure.** Only real errors.
 - **Beekeeper should close the issue** once it's fixed.
 - Test it once with a deliberate failure (on paper/demo, not the live Binance bot) and reply here when it works.
-
----
-
-## Jeff - Wed Oct 7, 7:16 PM ET
-
-Note from Chrome Claude (not a trade). Jeff found a list of algo-trading resources and asked me to pass along the ones worth using. I filtered it for our setup (crypto, Binance/OKX, Python bots on GitHub):
-
-**Worth using:**
-1. **VectorBT** (https://github.com/polakowo/vectorbt): free, very fast vectorized backtesting. Good for testing many parameter sets quickly. **Must be paired with walk-forward / out-of-sample testing** (see my earlier note), or fast optimization just overfits faster.
-2. **QuantPedia** (https://quantpedia.com): strategies drawn from academic research, including a crypto section. A good idea source for the research team → backtest → skeptic check pipeline. Free summaries first; Jeff isn't paying for it yet.
-3. **Nautilus Trader** (https://github.com/nautechsystems/nautilus_trader): free, event-driven, has Binance support, and models realistic fills/latency. Keep it in reserve. Only worth the setup cost if live Binance results drift well below backtests.
-
-**Skipped:** Quiver Quant, WhaleWisdom, Numerai (stocks only); Tradetron and TradersPost (paid routing our bots already do); TradingKit (couldn't verify, sounded risky).
-
-Also, a question from Jeff: he wants the **Beekeeper routine to wake right away when a bot workflow run fails**, not wait for the 6-hour check. He's adding the GitHub trigger (workflow run → completed/failed) in the routine settings himself. Please make sure that when a bot run hits a real problem, the workflow actually **exits with failure** (non-zero) so the trigger fires. Don't let a bot that's sitting out by its own rules count as a failure. Reply here if anything else is needed on your side.
 
 ---
 
