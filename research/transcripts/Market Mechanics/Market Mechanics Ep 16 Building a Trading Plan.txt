@@ -1,0 +1,289 @@
+Market Mechanics Ep 16： Building a Trading Plan
+https://www.youtube.com/watch?v=4MG3uUyoQCc
+
+Ladies and gentlemen, welcome to how to build a trading plan 101. Professor Brett here. And today
+that's what I'm going to be discussing. I'm going to show you how to build a trading plan, and I'm
+going to build it with you live. Right, so here's the problem. Most traders do not fail because they
+lack effort. They fail because they do not have a clear, repeatable plan. What I basically mean by
+that is that they open the charts, they see the candlesticks doing this, and then they start to
+improvise, they start to enter for a buy, and then they just react emotionally. So price up, they
+enter for a buy, price goes down, they enter for a sell. Big bullish candlestick, they enter for a
+buy. And to me, that's not trading. That's gambling. The reason why it's gambling is because you
+don't have any structure built into your trading. So as a result, your results are going to be
+chaotic. Just think about it. How can you be surprised when you are inconsistent with your profits
+when the way you've been executing your trades is inconsistent? Sometimes you're entering here,
+sometimes you're entering there. You don't have like a structure. You don't have like a systematic
+framework that decide your decision-making. All right, so that's what we're talking about in this
+lesson. And this is a tweet that I've written. If you cannot explain a trade plan simply, you cannot
+execute it consistently. And if you cannot execute it consistently, you will not get consistent
+results. Remember, the goal is not to sound smart. The goal is to be consistent. So before I show
+you how to build a mechanical trading system or a trading plan inside Edge Flow, I want to talk
+about the theory behind it. Right, because if you do not understand why a trading plan matters and
+what it actually is, then building one just becomes a waste of time. Okay? So remember, your trading
+plan, this is not just a random document. This is the thing that will actually help you make the
+same quality of decision again and again regardless of how you feel. Regardless of whether you feel
+greedy, whether you are feeling the fear or impulse or any sort of other emotion, whatever. My
+favorite quote which I repeat all the time during my live trading session is F your emotions. Plan
+the trade, trade the plan. That is what this lesson is really about. Right? So, what actually is a
+trading plan? A trading plan is simply a set of rules that tells you what kind of market to trade,
+what conditions needs to be present, where you enter, where you exit, how you manage risk, and what
+trades are not worth taking. That's it. It doesn't need to be complicated, right? It just needs to
+be simple. It just need to lay out all the rules that you need to follow every single day. In fact,
+the more complicated it is, the harder it is to follow it under pressure. Just think about it. When
+you're emotional, and then you go on to your trading plan, you realize that there's like 10 pages
+and it's filled with a lot of jargon and fluff. Now, you won't even feel like going through that
+trading plan anymore. Right? You've just set yourself up for failure when you make it too
+complicated or too difficult. So, yeah, keep things simple. That's just my philosophy. I
+fundamentally I fundamentally believe that simplicity is the highest form of intellect. All right?
+That's it. A good trading plan is not supposed to be impressive because it sounds advanced. A good
+trading plan is impressive because it is clear enough to execute consistently. All right? So, here's
+why most traders struggle. A lot of traders out there, they think that they have a strategy. But
+what they really have is a loose collection of ideas. They have some concepts in their head, all
+right? They they know all the blocks, they know supply and demand zones, they know candlestick
+patterns, they know chart patterns. Maybe they have some screenshots that they save on the phone or
+maybe like a PDF locked somewhere. Things that they kind of look out for. But here's the thing. When
+the market starts moving live in real-time market condition speed matters the most. All right, if
+you don't know exactly what you are looking for every single move looks like a trade that is worth
+entering. Right, everything starts falling apart because now you're like, "Hmm, should I enter here?
+Should I enter there? Maybe I should stay out. Maybe I should just wait a little bit more." Da da da
+da you know, all of this stupid um inner voice just start to cloud your judgment. Anything that is
+not clear becomes emotional when money is on the line. So if you don't have a structured
+decision-making you're pretty much telling the market, "Hey, I'm just going to donate my hard-earned
+money to you." Because when I get emotional I can't do All right, I don't have a trading plan to
+ground me. I'm just going to donate my hard-earned money to you. So that's what happens when you
+don't have a trade plan, all right? As a result, you force entries, you hesitate, you move your stop
+losses, you cut winners early, you do all of these stupid trading mistakes and just take unnecessary
+losses. Plays the big games, wins the big prizes. That's it. A weak plan creates emotional
+execution. A clear plan creates repeatable execution. All right, remember that. If you don't have a
+trading plan or you have a weak trading plan, what tends to happen is that emotions just have more
+power over you. It just make it more easier for emotions to take control of your decision-making. So
+yeah, save yourself some time and money by creating a robust and proven trade plan. Now, remember,
+our job as traders is to allocate capital wisely. That's right. It's not to, you know, make the most
+amount of money. That's our goal, but that's not our job. Our job is to allocate capital wisely
+because you only have a finite amount of capital. You only have 100k in your account, 10k in your
+account, 1,000 bucks in your account. Which means that you need to make sure that you're spending it
+wisely. You need to make sure that you are actually deploying it on the setups that are actually
+worth taking. Right? This means that your trading plan should decide which trades are worth risking
+on, which ones are not, when to participate in the market, and when to stay out. Your plan will be
+able to protect your capital from low-quality decisions. You should be able to know what define an
+A+ setup, what define a B setup, and a C setup. And you only want to make sure that you're deploying
+your capital on the A+ setups. So, a mechanical system is not about being robotic. It's about
+removing unnecessary emotion. It tells you what to look for, what must be true, what invalidates the
+setup, how to manage the trade, and how to review the system. A mechanical plan turns trading from
+vibes into data. That's the power of a mechanical plan. Right? So, once again, just understand that
+you need to have one and you need to keep it simple. Right? Because the reason why it needs to be
+simple is because you need to apply it in real time without confusion. But when there's confusion,
+when your trading plan is 10 long, what tends to happen is that, like I said, emotions take over.
+Okay? So, the purpose of a mechanical trading system is to remove all the discretion from trading.
+It's to remove all the unnecessary emotion from trading. So that when you're in the heat of the
+moment, there is no room for guesswork. There is no room for emotion. There is only room for
+execution according to your trade plan. So, what a trading plan does is that it literally give you
+the structure, right? So, that is what makes it mechanical. It's something that is clearly defined
+and is measurable and is repeatable and is scalable. Okay? So, when a trading plan is actually
+mechanical, what tends to happen is that your execution becomes more consistent. Which is a huge
+thing, right? Because now you're always losing a small amount of money and then when you're winning,
+you're actually making a lot of more money. Second thing is that your journaling becomes much more
+honest because now you can actually tell whether a trade followed the plan or not. Right? If the
+trade followed the plan and you make money, great. This just give you like an ego boost and you also
+give your trade plan a boost. Now you have data that actually allows you to trust a trading plan.
+Right? Because men lie, women lie, but numbers don't lie, right? Thirdly is your review process
+becomes much more useful because now you're no longer reviewing random trades that you're taking on
+a Friday night. You are actually reviewing a system, right? So, when you actually review your
+trades, you're actually reviewing the effectiveness of the trading system. And that give you the
+data you need to improve that trading system. So, yeah. That's how important it is to have like a
+mechanical trading system. So, well, before I move on to the next part which I talk about what
+should a good trading plan answer, I want you guys to adopt this philosophy which is called plan
+first, trade second. A lot of traders do the opposite, right? They open the charts, they trade
+first, then they try to decide what to do next. You know, maybe I should like get out when price
+comes here or get out when price comes there. Professional traders do the exact opposite. They
+decide in advance what they are willing to do. And then they just wait for the market to meet those
+conditions. So, that's a huge difference, right? Because one is reactive. The retail trader is
+reactive, you know, he's just trading for the sake of trading, trading for the sake of adrenaline,
+trading for the sake of excitement, trading for the sake of making money. But the professional
+trader is intentional. He knows exactly what he's looking for. And he knows exactly when not to
+trade. He's like a sniper, right? Who is just focused on taking one good trade and the next good
+trade and then the next good trade. So, yeah. Plan first, trade second. So, that when the hits the
+fan, at least you're well prepared for it. And trust me, the always hits the fan, right? Always.
+Yeah. So, just don't leave any room for guesswork or emotion. Your plan should tell you exactly what
+you're waiting for before the market even gets there. If price comes here, I'm going to buy. If
+price comes here, I'm going to enter for sell. And then when price does eventually go there, all you
+need to do is just execute. That's it. You don't sit there and think, "Hmm, should I do this? Should
+I do that? Maybe I should do this." No, there's no room for like discretion. Because you have a
+mechanical trading system. All right, so here's what a good trade plan should do. A good trade plan
+should give you the answers to simple questions just like this. What market conditions do I want to
+be trading? Is it the bullish market condition, bearish market condition? Is it when price is in a
+continuation phase or a pullback phase? What makes a setup valid? Right? Must I get a my bias and I
+must I need to ensure that the lower timeframe trade ideal is aligned with the higher timeframe
+trade bias, must it be located at a specific supply and demand zone or order block. Right? What
+makes a setup valid and worth taking? What makes it invalid? Right? So, if price actually comes down
+and break past this zone, then I'm not going to be looking for longs anymore because that pretty
+much tell me that that one zone is no longer working. It's no longer effective. How do I manage the
+trade? Right? Where to place a stop loss? Where to place your take profit? And most importantly,
+when should I stay out completely? What are the market conditions that I want to avoid at all class
+costs just like a plague? Right? Maybe on Mondays, right? The market condition is not ideal. Maybe
+during high impact news. Maybe during holiday seasons. Right? So, when should I stay out completely?
+If your trading plan cannot answer these simple questions right here, it is not strong enough. You
+need to go back to the lab and just make it even stronger. Yeah. So, that's trading plan. And Okay,
+here's a common misconception. A lot of traders think that in order for you to become profitable at
+trading, you just need to be disciplined. Right? So, discipline means forcing yourself to do hard
+things. But what they fail to realize is that discipline actually becomes a lot easier when the plan
+is clear. So, when you have a trading plan, you actually don't really need to be super disciplined.
+You need to be less disciplined. Right? Just think about it, right? The definition of discipline is
+to do the hard things especially when you don't feel like it. When you don't have a trading plan,
+you have no choice but to try to use your willpower to try to be disciplined in the heat of the
+moment, to try to control yourself. But when you have a trading plan, you have a structure, you
+know, you are not negotiating with yourself. You're not asking, "Should I take this trade? Maybe
+this is close enough. What if I just try this one?" You already know where you are entering for the
+trade. As a result, you already have the structure, you already have an idea. You don't really need
+to rely too much on a willpower. All you need to do is just execute. That is the beauty of a
+mechanical trading system, right? It allows you to like just not negotiate with the inner And less
+negotiation means less emotional damage. Means less losses. As simple as that. With that being said,
+let's move on to the next part, which I'm going to show you how to build a mechanical trading system
+live in Edge Flow. This app is called Edge Flow for a reason, because it helps your edge flow into
+execution. Edge Flow literally stands for Edge plus Flow. And your edge in this case is your trading
+plan. Your flow is how you execute it on a day-to-day basis. And the thing is, most traders, they
+have an edge in their head or in a PDF, but it doesn't translate into consistent actions. Because
+sometimes they forget to look at it, they they forget to review it, they don't feel like reviewing
+it. But with Edge Flow, Edge Flow turns it into a workflow that you can follow every single day.
+Okay? Like, this app is built in a way where it connects the whole loop. Plan your trade, prepare
+for the session itself, execute the trade, journal your trade, review the trade. So your edge
+doesn't break when emotions hit. Now, the reason why I believe having a trading plan is so important
+is because I believe that a trader's job is to allocate resources wisely. Since we only have a
+finite amount of capital in our account, we only have a limited amount of money. So we want to make
+sure that every single trade that we take is a high probability setup. And that's where your trading
+plan comes in. Your trading plan decides what trades are worth taking and what trades are not worth
+taking. Let me show you how I build my mechanical trading system inside Edge. So, like I said, Edge
+is just like a simple trade plan builder. All you have to do is to come in here, create a plan just
+like this, and you just fill up all of the necessary fields in here. And it start off by naming the
+plan. And if you don't know where to start, feel free to use the presets that we have right here.
+These are proven templates, proven trading systems for my coaches inside my mentorship program, the
+1% Club, with over 20 years of combined trading experience. Right, so we can verify that these
+trading strategies, these trading plans actually work. But yeah, if you want, if you don't know
+where to start, you can check out these templates right here, but just know that they are uh simply
+a starting point, right? You still have to customize it so that it suits your trading style, it
+suits your trading personality. You adjust it to fit your risk tolerance. Okay? But anyways, let's
+just try to build a plan live right now. Okay, so first things first, put a name right here. Let's
+call it Market Mechanics Plan. Right, this is where you can give a name to the setup in which you
+are trading within this plan itself. Right, so maybe I'd like to call it the liquidity sweep entry
+model. All right, and then this is where you want to add your charting process. So, this to me is
+the most important part of building a trading plan. It's to de- termine the bias, right? It's to
+identify what's the trend direction, it's to map out our what point of interest, it's to determine
+what is the location in which we want to enter the trades from. Right, so that's where charting
+process come into play. It's how you turn a blank chart into a system, so you know exactly where to
+buy, where to sell. That's it, right? That's the charting process. Right, so this is where I put
+like little bit of top-down process, what I do on a higher time frame, what I do on a medium time
+frame, what I do on a lower time frame. So, just to give you a quick little example, you can see
+like this one right here on this A+ setup checklist, these are the steps that I have in my charting
+process. All right, if you know how I trade, you will understand all of these terminologies. If you
+don't, you might want to consider checking out my YouTube. But yeah, like this is just the entire
+charting process which I take every single time I come onto a blank chart. All right, I know that
+okay, these are the things that I need to do in order for me to make sense of the market, in order
+for me to just build a narrative on the market. Okay? So, yeah, the goal of this charting process is
+for you to just turn a blank chart into something you can work with so that you can develop a trade
+bias. All right, that's it. And then this next section, this is where you can put your entry
+criteria. All right, so let's say my charting process allows me to mark up this beautiful supply and
+demand zone. Okay, now price has finally dropped into the supply and demand zone, and now I want to
+enter for the trade. But then what's the confirmation? What's the entry triggers that I need to see
+appear in the market before I enter for the trade? Well, that's my entry criteria. All right, so
+this is where I'll put down the the things that I want to look out for, right? The confirmation, the
+non-negotiables that must be true before I even think about pressing the buy and sell button. And if
+every or any of these criteria is not met, I would just not trade, right? Like that's it. If even
+just one of these boxes are not being checked, I would still not trade. All right, that's how
+important the entry criteria is to me. I want to make sure that when I see a setup, it needs to
+check off every box within the entry criteria itself. Yeah, and then below here, this is where I
+also paste like some screenshot of my entry models, right? Just for me to like remind myself, okay,
+this is the setup that I'm looking for when I come on to a blank chart, and this is an example of
+the setup itself. Yeah, so you can place some chart screenshots. You can take it as reference points
+when you are trading. And then below here, this is where you have your trade management rules,
+right? So once again, this is something that you can type. You can literally type like how you would
+manage the trade once you are in the position itself, right? Whether you are going for set and
+forget method, whether you are trailing your stop loss, whether you are taking partial profits. If
+you are trailing your stop loss, how will you be trailing your stop loss? If you are taking partial
+profits, are you going to be taking partial profit at 50% or like 100% or whatever? You need to
+define the terms in which you want to be managing the trade itself right here. And then once that's
+done, this is where you put your exit criteria, right? Which is very very simple. There's only two
+sort of exit criteria, to be honest with you. Number one is where do you want to exit if the trade
+ideal does not go as planned? Right? So like where do you want to get out if you're wrong? So this
+is where you decide where to place your stop loss, right? Maybe I want to place my stop loss at the
+low or high of the liquidation candle, or below my support level, or above my resistance level,
+whatever it is, right? And then another scenario that you need to think to account of is where would
+I get out if my trade play out in the way I envision it to play out, right? Like if price actually
+goes in my desired direction, where do I want to get out of at if I'm right? Okay? So this is where
+I perhaps I might say I want to take profit at the next swing high or the next swing low. Right?
+Just like this, right? This is how you put your exit criteria on paper. So now you know exactly
+where you want to get out when price goes wrong, when things go wrong, and things go right, okay?
+Remember amateurs focus on entries, professionals obsess over exits, right? So make sure you have a
+very clear ideal on exactly where you want to get out of the trade at all times, before you even
+enter the trade. And then below here, this is where you can put some trading notes as well. For me
+personally, I like to put some reminders. I like to put some philosophies. I I like to put some
+quotes in here. Uh and you can also put common mistakes. You can even put market conditions that you
+want to avoid, right? So, these are kind of like the rules that you want to follow to protect you
+from yourself, right? To protect protect you from emotions, right? So, to me, this is just like a
+reminder to myself, okay? Yeah, so you can just put whatever you want in here. This is fully
+optional. And bam, there you have it. Now, on the right-hand side right here, if you notice on your
+trade plan, you will see your guardrails in here. So, you don't have the ability to change your
+guardrails in Edge itself. If you do want to modify your guardrails, just press this button right
+here, and this is like the modify guardrails button, and it will direct you to settings, right?
+Where you can change your guardrails in here. And whatever guardrails you apply here, it's universal
+across every single trade plan, right? You can see every single trade plan has the same exact
+guardrails, right? So, if you want to change your guardrails, you can just press this button right
+here, and you will get directed to the settings. Next up is once you save the trading plan, it
+becomes read-only, right? You can see I can no longer edit the trade plan. I can check off the boxes
+right here right here right right nice, but I can no longer edit the trade plan. And this is useful,
+right? Because when you are trading, okay? We have this banner that pops up every single day that to
+remind you to actually review your trade plan. And this is also part of your pre-market routine as
+well, if you actually set it as that. So, what happens is that when you press open trade plan, you
+can see this is what you will see, right? You will be able to review your entire trade plan that you
+have set as active inside Edge. And once you have reviewed the trade plan, you have went through the
+charting process, the entry criteria, you can just press market's review and the banner will
+disappear itself. And also, when you are trading, if you go to trade plan right here, you can also
+trade with your trade plan right next to you as well. If you want uh more guidance, more structure,
+more support, right? You can analyze the charts while you're doing this mapping process, you can
+look for your entry models while you're looking at the reference right here. So, that's Edge, okay?
+And yeah, that's what happens when you actually set a plan as active. When you set a plan as active,
+it get pinned on the top and it's literally everywhere, right? On your trading platform, it appears
+here, right in your pre-market routine, it also appears here, it becomes your default trading plan.
+All right, that's how the the active thing work. That's how you actually activate a plan. And also,
+when you take a trade, right? Let's say you take a new trade and you close the position and you go
+on the journal, it will automatically tag that trade as the trade plan that you have on active,
+right? So, in that case, you could saw you could you saw that my active trade plan was the A+ setup
+checklist. And if I come under this trade right here, you can see, by default, it always tag it to
+the active trade plan. Yeah, and then you can come into journal, you can select whether you did or
+did not follow your trade plan or not. And then, based on this, right? It will create your plan
+stats, right? So, if you go back to the Edge itself, you can see, this is your trading data. This is
+the statistics that we've compiled based on the trades that are tagged to this trading plan in the
+trading journal. All right, so like what I've showcased to you earlier on, on your trading journal
+itself, you have the ability to go to individual trades and just like tag it to the trade plan that
+you follow, right? And check off like whether you follow all the trading plan or not. And then, when
+you do this, right? When you take multiple trades, what happens is that when you to to Edge, we are
+able to show you how effective the trade plan actually is, right? Based on how many trades you have
+taken, what is your win rate while you're using this trading plan, what is your P&amp;L, right? How
+much money you made or lose while you're trading with this trade plan, and what is your compliance,
+which is did you actually follow your trading plan or not? Right, because just now, as you recall,
+when you go on the trading journal, you have this check box where you can tick I follow my trade
+plan. So, if you didn't, it will reflect here. If you did, it will also reflect in this compliance
+score right here. Yeah, so this is simply the percentage of trades where the required checklist
+steps were followed. So, this requires you to be brutally honest so that you can actually see how
+each one of your trade plan performs. And when you do this, this allows you to make data-driven
+decisions instead of decisions based on vibe. Instead of saying stuff like, "Oh, today this trade
+plan didn't work, so I'm just going to switch to this other trade plan. Oh, my trading guru is
+trading this plan, so I'm going to just going to switch to another plan." No. Now you can actually
+make data-driven decisions, right? But like I said, it requires you to be honest with your trading
+journal, right? You want to make sure that you don't lie to anybody, right? Because nobody here is
+going to be looking at your trading data other than yourself. Be brutally honest, grade your trades
+based on the trading plan, and this is where you will be able to like really just see which are the
+trading plan that tends to perform well, which one is just not that effective, and then you can just
+double down on the plan that actually works. So, yeah, that's it. As simple as that, right? Like
+that's the entire Edge system. That's how you build a trading plan inside Edge Flow, and that's how
+you actually like just integrate the trading plan into your entire trading system so discipline
+becomes automatic. So, I just want to say just going to end off with like a final piece of advice.
+When you are creating a trading plan and you start follow your trading plan, as time passes, you
+want to adapt. Okay? You don't just want to follow your trade plan blindly. You should treat your
+trading plan as a living, breathing organism rather than a scripture. Because as the markets evolve,
+market conditions change, which also means that this trading plan will not be as effective 5 years
+from now compared to today. Right? So, as the markets evolve, you want to tweak it. You want to test
+it. You want to adapt it. Because if you follow the same plan for 50 years without changing
+anything, then you are not trading the plan. The plan is trading you. Right? So, make sure you
+evolve your trade plan as time passes and slowly but surely just continue to seek to improve this
+trading plan. And then, as time passes, this trading plan will just get better and better, more and
+more bulletproof, and you will start to see your trading results compound as well.

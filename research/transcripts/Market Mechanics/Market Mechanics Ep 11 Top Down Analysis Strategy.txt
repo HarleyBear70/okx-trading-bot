@@ -1,0 +1,527 @@
+Market Mechanics Ep 11： Top Down Analysis Strategy
+https://www.youtube.com/watch?v=qtrATSo3-lQ
+
+One of the biggest reasons traders stay confused is because they keep switching time frames without
+actually knowing what each time frame is supposed to do. So, they look at the 4-hour time frame and
+then the 1-hour time frame, then the 15-minute time frame, then the 5-minute time frame, and by the
+time they are ready to enter the trade, they are completely lost. They look at one time frame and
+they think that price is actually very bullish right now. And then they switch to another time
+frame, then they see price is actually very bearish. So, in this case, should I enter for a buy or
+enter for a sell? Now, the problem is usually not the chart. The problem is that they do not yet
+understand how to read multiple time frames together. They don't understand that multiple time
+frames doesn't mean the market is doing different thing. It just shows you the different layers of
+the market itself. Multi-time frame analysis is not just about looking at more charts. It's about
+knowing what each time frame is telling you and how they all work together. So, that's what we're
+covering in this lesson. So far, we have already covered a lot of very important concepts like
+market structure, supply and demand, premium and discount, fair value gaps, order blocks, all this
+good stuff. In this lesson, I want to show you how to combine these ideas across multiple time
+frames. The higher time frame will give you the bigger story. The lower time frame will allow you to
+trade with precision. So, you need to understand how they all work together. When you do, your
+analysis will be a lot more clearer. Right. So, with that being said, as usual, I'm just going to go
+through the theory first, right? Just understand the chart diagrams, understand the logic behind
+multi-time frame analysis and why we use it. Then later, we are going to go into the charts and
+apply this. Okay? So, what is multi-time frame analysis? Multi-time frame analysis is basically the
+process of reading the market from higher time frames down to the lower time frame in order to
+understand the bigger picture and find direction and refine execution. Quite simply put, you are
+using multiple time frames so that you can determine the trend direction, so you can trade with
+smart money, and still at the same time trading with sniper-like precision on the lower time frame
+itself. So, it's not just about checking random time frames, it's about understanding each time
+frame and using each time frame for a very specific job. You are supposed to use the higher time
+frame to do this, the medium time frame to do that, and the lower time frame to do this. Now, going
+down the time frames is like zooming into price action. That is why I view top-down analysis or
+multi-time frame analysis or whatever you like to call it as having a microscope. You know, just
+zooming into what price is doing on the lower time frames itself. Right? That's just you looking at
+like what you can't see with your bare eyes itself. And the reason why we use multi-time frame
+analysis is because if you don't, what tends to happen is that you're going to get strapped trading
+against the bigger trend. Right? For example, if you just only look at the 5-minute time frame and
+you neglect the daily time frame, what tends to happen is that you look for a sell because the
+5-minute trend direction is bearish. But then next thing you know, price starts going up
+significantly because the higher time frame trend, the daily time frame trend is actually bullish.
+And the higher time frame trend will always have much more power and control over the lower time
+frame trend. So, as a result, you get trapped in the wrong direction because you neglected this
+multi-time frame analysis. So, when you have multi-time frame analysis, what tends to happen is that
+you have a lot more clarity over the trend direction, which also means that you will get better
+timing of your entries, and it also means that you will stop forcing trades in the wrong context.
+So, the like I said earlier, the higher the time frame, the more powerful the information is. The
+monthly time frame will be much stronger than the weekly time frame. The price action that you see
+on the weekly time frame is going to be much more stronger and much more significant than the ones
+that you see on the daily time frame, daily over the 4-hour, and so on and so forth. Right? You
+basically get my point. The higher the time frame, the stronger the price action is. So, if I see
+like a big bullish candlestick on the daily time frame, this tells me that over the next few days,
+there's a very high chance for price to remain bullish compared to if I see the same bullish
+candlestick on a 1-minute time frame. It might just not have as much significance as the one that
+has appeared on the daily time frame. Right? Because yes, higher time frame, much more significance,
+much more powerful. So, when it comes to multi-time frame structure, you must understand this logic
+right here. If you understand this logic, everything becomes much more simpler. And that is the fact
+that a higher time frame trend is a lower No, a higher time frame run is a lower time frame trend.
+So, what I basically mean by that is that once again, just applying the concept of market structure,
+price is creating higher highs, higher lows. This is a uptrend, right? So, this entire move right
+here is a trend. But within this trend itself, there are certain legs, right? So, we will call each
+one of these leg a run. Right? So, price goes up, pulls back, goes up, pulls back, creating higher
+highs and higher lows. Right? So, each one of these leg where price is pulling back or price is
+continuing is counted as a run. So, looking at this, it basically said a higher time frame trend is
+a a higher time frame run is a lower time frame trend. So, what it basically means is that within
+this entire leg itself, it might look like a straight line on the higher time frame, but if you go
+down to the lower time frame itself, you will see price creating higher highs and higher lows.
+Right? Because that's what price will be doing on the internal structure on the lower time frame
+trend. And that's what formed this entire leg itself. So, just to give you an example on what that
+essentially means, right? So, this right here, this right here, is a run, another run, and another
+run, and another run. Right? So, every time price move up is a run. And then if you look at it using
+a microscope, right? Which means you jump down to the lower time frame and look at this entire leg
+right here, what you will see is these gray lines that we have behind the thick black lines right
+here. This is like the lower time frame structure where price is creating higher highs, higher lows,
+higher highs, higher lows on the lower time frame itself. And then later on, you can see the lower
+time frame start shifting bearish first, then the higher time frame start shifting bearish later on.
+Okay? So, this is what we mean when I say that um price is fractal. The market is fractal. So,
+whatever happens on the higher time frame, it must first happen on the lower time frame itself. So,
+another example right here, right? This one is a little bit more complex, but just to show you this
+entire logic. So, the daily time frame could just be price goes up, pulls back, and then goes up.
+Right? Just give you like this blue line that you can see on the screen right here. But remember,
+within this line itself, if you go down one time frame lower, right? So, let's say you jump from the
+daily time frame to the 4-hour time frame, what you will see is the price creating higher highs and
+higher lows to form this daily time frame trend, this daily time frame run right here. Right? So,
+this one daily time frame run is actually a 4-hour time frame trend. Same thing right here, right?
+And same thing right here. And then within the 4-hour time frame run, right? Which is this push to
+the upside, pulls back, and then push to the upside, and push back. If you look at each one of these
+leg, it also further comprises of trends that is going on on the lower time frame, perhaps on the
+15-minute time frame itself. Right? So, if you look at this right here on the 4-hour time frame, it
+might look like a straight line just like this. But if you jump down to the 15-minute time frame,
+this is where you start seeing price creating higher highs, higher lows, higher highs, and higher
+lows, and all of that comes together and form this entire 4-hour leg here. Same thing within this
+15-minute trend itself, there's also your 1-minute trend itself, your lower time frame trend, right?
+That is going on um in a microscope microscopic level. Yeah. So, you basically get my point right
+here. So, when you perform multi-time frame analysis, what you are doing is that you're analyzing
+the charts from the higher time frame down to the lower time frame. The higher time frame tells you
+like where's the institutional flow of money. The lower time frame tells you the precise place and
+time you want to enter the trades. Right? Which is something that we're going to talk about later
+on. So, your lower time frame price action forms your higher time frame price action. Okay? So,
+literally like what we've mentioned, a higher time frame trend, a higher time frame run is a lower
+time frame trend. So, all of these lower time frame trends, higher high, higher lows, comes together
+to form your higher time frame run, which is just one straight line to the upside. And your higher
+time frame price action create your higher time frame runs, right? Like this move to the upside or
+to the downside, which in turn creates your lower time frame trends, and then that make up your
+lower time frame price action. So, the lower time frame has to shift first before the higher time
+frame actually shift. So, the same patterns actually repeat themselves over and over again. Whatever
+happens on the higher time frame, must first happen on the lower time frame. So, whatever principles
+that you guys have been learning when it comes to market structure, when it comes to supply and
+demand, when it comes to premium and discount, you can apply it across every single time frame. But
+just understand that if you apply it on the higher time frame, it's for a different reason compared
+to if you're applying it on the lower time frame itself. So, it might take a little bit longer for
+the trade or the idea to actually play out on the higher time frame because you can apply the same
+strategy, the same concept because of the time frame that you're applying it in there's going to be
+like a different time horizon in which the idea can essentially play out. So, as traders, as market
+mechanics traders, we typically use these three time frames. A higher time frame, a medium time
+frame, or a lower time frame itself. And like I said, each one of these time frames serve a specific
+purpose. You need all three time frames. You cannot just have one time frame. You need all three in
+order to make sense of the market. In order for you to define a trend direction so that you can
+actually develop a trade idea, so that you can actually get in at the best price, at the right
+place, at the right time. At the right trade idea, right? So, remember I think in one of the first
+few lessons I talked about how success in trading requires you to form the right trade idea at the
+right place, at the right time. So, that's what this multi-time frame analysis is about. It allows
+us to achieve that. So, I'm going to show you some examples on like what time frames that you can
+potentially use as a higher time frame, medium time frame, and lower time frame later on. But for
+now, I just want you to really just understand the purpose of each one of these time frame right
+here. The higher time frame is used to build the narrative. It's used to identify the trend
+direction. Okay, so this is the time frame that tells you who's in control of price, supply or
+demand, buyers or sellers. Right, this is where you can determine the prevailing trend direction so
+you can trade with it. So, when you are on the higher time frame, you want to be asking yourself
+these few questions. Is the market bullish, bearish, or ranging? What is What is price relative to
+key supply and demand? Is price in premium or discount? What liquidity is nearby? Once again,
+something that we can talk about in the next few lessons. Are we approaching an order block, fair
+value gap, or a major zone? Because if we are, then we are expecting a reaction from that area. And
+then for your medium time frame, this is where you're using it to determine your immediate bias,
+which is what price is doing right now. And you can also use it to identify your point of interest,
+aka your supply and demand zones, your order blocks, your flip zones, your liquidity zones. So,
+after the higher time frame gives you the trend direction, the medium time frame helps you refine
+the dealing range, the range in which you want to focus on, the exact zone in which you want to
+enter the trade from, the internal structure, and whether price is approaching your area properly.
+Right? So, medium time frame is like that sweet spot between the higher time frame and the lower
+time frame. It's the middleman, essentially. Okay, so it allows you to like just get more clarity
+over what price is doing, gather more evidence, right? Before you actually look for your entry. And
+also determine like exactly where you are looking for your entry, which is usually your point of
+interest, right? Your supply and demand zones or your order blocks. And then, once price mitigates
+or touches or enters the medium time frame point of interest, your supply and demand zones, your
+order block, once again, this is where you can jump down to the lower time frame. And the lower time
+frame is for you to wait for price to enter into your area, and then when it does, look for your
+entry confirmation, look for your entry model, and then once that presents itself, you enter into
+the trade with confidence, without any fear, without any hesitation, you just enter with confidence
+once you have seen your confirmation on this time frame itself. And this is where you can refine
+your entry, you can have your tight stop loss, and place your take profit right here. So, as you
+guys can see, each one of these time frame has a specific purpose, and if you combine all of them
+together, you will be able to see the market for what it is. You will have the best chance to
+actually read price for what it actually is. So, yeah, let Make sure you utilize these three time
+frames itself. So, with that being said, let's go on to the charts right now and try to apply all of
+these theories that we have just learned. So, I'm going to give you some example, right? Maybe the
+first example that I want to showcase to you guys is on EUR/USD, right? So, let's look at EUR/USD
+chart together right here. Okay, so here on the top left-hand corner, you have seen I've laid out a
+set of time frames, right? For you guys to actually copy. Depending on your trading style, you're
+going to be using a different set of time frames. So, it's very important that you actually take the
+time out to determine which trading style suits you the best. Right? And you're able to find out
+based on your commitments, your lifestyle, your risk tolerance, and your goals. Okay, so once you
+have decided which trading style, right? You want to specialize in, whether that's swing trader,
+which is people who are holding the trade for more than 24 hours, after a few days, or even a few
+weeks, or a day trader, which which is just opening and closing a trade within 24 hours, not trying
+to hold the trade overnight, or scalpers, which is the short-term traders who are getting in and out
+within a few minutes, anywhere under less than an hour. Once you have decided which trading style
+you want to specialize in find that trading style, and then stick to the set of time frames that
+you're assigned to. Okay, so if you're a scalper, this is the time frame that you're going to be
+using. If you are swing trader, this is going to be the time frame that you're using. And this will
+be your higher time frame, this will be your medium time frame, and this will be the your lower time
+frame. Okay, so yeah, just now we have already like talked about the purpose on like each one of
+these time frames. I'm not going to dive deeper into this right here. I'm just going to show you how
+to actually do this multi-time frame analysis or top-down analysis right here. So, in this case, I'm
+just going to use um the day trader set of time frames as an an example for you guys, right? So, I'm
+going to be a day trader, which means my higher time frame is the 4-hour, my medium time frame is
+the 15-minute, and my lower time frame could be the 5-minute time frame itself. Okay, so let's look
+at this chart over here. So, first things first, always start from your higher time frame. All
+right, that's the first thing. You don't want to take a bottom-to-up approach. You want to take a
+top-to-bottom approach. What I basically mean by that is that a lot of times beginners tend to start
+with the lower time frame, right? So, beginners, they immediately like to jump to the 5-minute time
+frame, see what price is doing over here. If price is going down, they just enter for a sell here.
+Or they go down to the 1-minute time frame, see price is going up, they just enter for a buy
+somewhere around here. That's not how you should be trading. Because if you start from the lower
+time frame, you're essentially building a bias from noise. All of these price action has very little
+significance over like where price is potentially heading towards next. Right? So, what you want to
+do is to start from the higher time frame. Okay, so once again, let me just put it into simple
+English. If you trade and you start on the lower time frame, the 5-minute, the 1-minute, or even the
+15-minute time frame what you're essentially doing is that you're putting blinders on yourself. You
+know those horses with like the blinders on themselves which prevents them from seeing their
+surroundings? That's what you're essentially doing. You will only be able to see what price is doing
+on the 5-minute, and you will not be able to see what price is doing on a higher time frame, which
+is actually the price action that determine where price is heading towards next. So, even though
+price is going down on the 5-minute time frame, you enter for a sell, next thing you know, price
+start reversing heavily against you because the 1-hour time frame, the 4-hour time frame is heavily
+bullish right now. All right, so always start top-down, not bottom-up. Start with the higher time
+frame, right? The first set of time frame, which is the 4-hour, and this is where you want to build
+your narrative and determine your trend direction. So, clear as day, price has been going up, right?
+Price is creating higher highs, higher lows, higher highs, higher lows. This is where I want to take
+my um line tool and just map out all the structural breaks that has been going on for the past few
+days, right? So, there's one right here. Okay, so and then there's maybe another one right here. And
+then there's another one right here. Okay, so just by doing this alone, I can see that okay, all of
+these are actually my bullish break of structure, where price is just going up, creating higher
+highs higher lows, higher highs, and higher lows. And just by doing this alone, I know that the
+market is in an uptrend, which means that buyers are in control of price. Okay? Buyers are in
+control of price. So, as much as possible, if I want to trade with the trend direction, the higher
+time frame trend direction this is where I will potentially want to look for longs at demand zones
+that is within your discount range. Just like what we have covered for the past few lessons. So,
+after you determine your swing structure, this is where you can define your swing low and a swing
+high, right? This will be the swing low, but you can see the swing low has been taken out recently
+since this is the lowest point to the left to the most recent break of structure, therefore creating
+a market shift. All right, so what does this tell us? This tell us that right now price have
+potentially shifted bearish so that it can pull back to this last low right here before continuing
+bullish. At least that's our expectation on what price could potentially do. Okay, for me to know
+for a fact that price is going to shift bearish I want to see price take out this low here. Okay, so
+over here if price just take out this last last low right here last internal low. This is just price
+shifting bearish in the short term to facilitate the pullback. So right now, even though higher time
+frame trend is bullish right here, what is price doing right now? Okay, so that's another thing.
+That's what we use the medium time frame for. What is price doing right now? We need to determine
+our immediate bias so that we can trade with the internal order flow so that we can trade with the
+immediate price action which is what price is doing right now. So over here, another thing that you
+could have done on the higher time frame is to like once again just map out the previous low right
+here. Swing low and then this your swing high. If you want to be like super duper mechanical, you
+might even want to map this out as your internal break of structure instead of your bullish break of
+structure. Right? So if that's the case then this is the swing low and this is the swing high. And
+right now like I said, price has shifted bearish to facilitate the pullback itself. And then this is
+where you might even go one step further to map out your premium and discount. And then you will
+realize that price is still quite high up within the premium pricing. So if I want to look for
+longs, I do really want to see price comes down into this discount range right here. And ideally I
+want to see it mitigate some form of demand zone. Right? So once again, there's a demand zone right
+here and then there's potentially another demand zone over here. Okay, so maybe if I'm looking for
+longs, I want to see price comes down mitigate this zone or this zone and then I can look for longs
+to trade in this particular direction itself. So that's what you essentially do on the higher time
+frame. You just build the narrative. You just try to figure out what is the market show tell trying
+to tell you right now and what is like who is in control of price, right? Whether the buyers or the
+sellers. Once all of this is done then this is where I can jump down to the medium time frame. So
+for me personally when I'm trading, I like to use the 1-hour time frame and the medium 15-minute
+time frame as my medium time frame. Right? So I like to use both. Even though here only recommend
+you to use one, I personally like to use both. Right? Because to jump from 4-hour to 15-minute it's
+like a very big gap. So I prefer to use 1-hour as like the middle man between like 4-hour and
+15-minute. But once again, completely up to you. I just wanted to show you three time frames for
+simplicity's sake. Right? Because I know a lot of you guys are not ready to have four different time
+frames. You guys are not even ready to have three time frames. Having four is like it's just going
+to drive you mad, isn't it? So yeah, I would say like stick to whatever works best for you, but this
+is based on how I personally trade. I like to have the 1-hour as like a like a sweet spot like like
+a like the the the the best medium time frame between the 4-hour and the lower time frame which is
+the 5-minute time frame. So on the 1-hour time frame itself, you can see price have started shifting
+bearish. Okay, cool. Let's go down to the 15-minute time frame which is our officially medium time
+frame and this is where you can see 15-minute time frame has already shifted bearish. How do we know
+price shifted bearish? Price came all the way down here taking out the last higher low giving us a
+market shift. Okay, so just by that alone, we know that okay, right now the internal structure is
+actually bearish. So if we enter for a buy somewhere around here, it's kind of trading against the
+lower time frame trend. It's also trading against the internal order flow. Right? So maybe it's not
+the best time to look for shorts. I mean maybe it's not the best time to look for longs. Maybe it's
+a good time to look for shorts. At least short it all the way till price comes down to the discount
+range or comes down to this demand zone or this demand zone right here. So this is how we can go
+about if you want to trade counter trend. Right? The reason why I say it's counter trend is because
+right now lower time frame is bearish, but the higher time frame is bullish. So if you were to look
+for short, you are actually trading with the internal structure, but you're trading against the
+higher time frame swing structure itself. Right? So let's continue mapping it this up. Right? So on
+the 15-minute time frame on my medium time frame, what is my objective? My objective is to determine
+the immediate bias and map out any point of interest. Right? So in this case, the immediate bias is
+that price is actually bearish. And then this is where maybe I want to draw my 15-minute structure
+as high. Uh structure as well, 15-minute swing high and then 15-minute swing low right here. And
+then this is where I can potentially wait for price to pull back to some form of supply zone then
+look for shorts. Right? So this is where I can come here try to identify every supply zone over
+here. There's one over here on the extreme right there. And then there's maybe another one right
+here. Okay, another one right here. And then this is where once again, you can use the premium and
+discount as well. Right? Drag it from the swing high to the swing low, you will see that over here
+price is still within the discount zone. So if you want to look for short, it's might be a little
+bit too early. Right? You might be much better off waiting for price comes down up to this supply
+that is within the premium pricing or even this one right here. Get your entry confirmation, get
+your entry trigger, then look to short it all the way down here. Now you can start to see the
+different pieces of the puzzle start coming together. Now you can start to see it, okay, I need to
+use supply zone plus premium and discount plus structure plus multi-time frame analysis for me to
+actually develop a trade idea that is congruent with the market. Now I can start to use all of these
+market mechanics concepts to try to decrypt what the market is trying to tell me. Yeah, so I'll say
+like in this case, I want once again, I'm not going to dive too deep into entries and exits because
+this is a lesson where we talk about multi-time frame analysis. Right? But I wanted to observe what
+price does. Okay? So this is where price is at right now. Let's observe. Okay, price is actually
+bullish right now. Okay, are we surprised that price is bullish? No. Why? Because just like what we
+have mentioned, the market cannot go down forever. It cannot go up forever. After a huge move to the
+downside, it needs to seek balance again. It needs to get more fuel. And where is it most likely
+going to get fuel from? It's going to get fuel at some supply zone. But is it any supply zone? No.
+It's usually going to be at a supply zone that is located within the premium range above the 50%
+equilibrium level within the swing range itself. Right? Because this is where the fair value is is
+situated at. This is where there's more sell orders for price to continue going down even further.
+Okay, so just as what we predicted, right? Price has came all the way up here. Now if you are a
+scalper, this is where you can potentially even look to trade this move right here. Or even if
+you're an intraday trader, right? You can try to capture this move to this area here. And I'm going
+to show you how to do that right after this example. I'm going to show you a trade I've taken which
+is me literally capturing this move right here. Okay, and I'm going to walk you through like my
+thought process behind this entire trade and how I apply multi-time frame analysis on it. But before
+we do, let's not get too ahead of ourselves. Let's just continue to observe what price does. Right?
+Because this is where I wanted to really see how powerful this multi-time frame analysis thing is.
+Okay, so over here, what happened? What happened is that price has literally came up here mitigate
+the supply zone that is within the premium pricing. So you can see price did not start coming down
+when price came up here. No, there was not enough fuel. So it needed to continue going up till it
+comes to the gas station, grab more fuel then go down. Like I said, nothing ever happens nothing at
+that that happens in the market is mere coincidence. Right? Every single move is planned out. Every
+single move has a purpose. So in this case, the purpose was that price just needs to go up there
+grab more liquidity before the real move actually happens. Now I want you to observe what price did.
+When price mitigate this supply zone to grab more liquidity, look at the internal structure that we
+have right here that is being formed. Price goes up, pulls back, goes up, pulls back, goes up, pulls
+back. So we know that price has shifted bullish because price is creating higher highs and higher
+lows on the 15-minute time frame. But does this mean that price has shifted bullish because [snorts]
+the trend is reversing? No. If price take out this higher, then yeah, maybe price is reversing. But
+if it doesn't take out that high, this just tells us that price have shifted bullish in the short
+term to facilitate the pullback. Okay, facilitate the pullback to this supply zone. And when it does
+that, this is where price consolidated a little bit. Later on price came down take out the last
+internal low giving us a market shift which tells us that the internal structure has shifted from
+bullish to bearish. So if you were to look for shorts, the best place to look for shorts is at this
+supply zone that is within the premium pricing. Once you get your entry confirmation that the area
+that the structure is shifting bearish, by all means go and look for short and this is where you can
+trade it all the way down here or even to here if there is enough fuel in the market. And if you
+look at this, does this look familiar to you? Right? Like does this look familiar to you? Okay, so
+just to make it even more obvious, this is the last break of structure right here. And then later on
+price came down take out the last internal higher low giving us a market shift. Right? I want you to
+take a snapshot of this price action here. This portion here. Right? Remember this. Now this is what
+price is doing on the 15-minute time frame. Let's go back to the 4-hour time frame. Do you see it
+now? It's literally the the exact same price action just on a different scale, just on a different
+price just on a different time frame. That's what I mean when I say the market is fractal. Right?
+You will see the same patterns across different time frames. Just now on the 15-minute time frame,
+we saw price goes up, pulls back, goes up, pulls back, and then goes up, and then comes down, breaks
+structure causing the internal structure to shift bearish. Guess what? On the 4-hour time frame, we
+have seen the exact same thing. After price action turned bearish after the market shift is formed,
+price is pulling back, and then now it's going to start going down. Let's go back to the 15-minute.
+After the market shift is formed, price has came down, and now it's starting to pull back, and now
+it's going to go down. Same exact price action. That's how you apply multi-time frame analysis.
+Okay? So, now let's just continue to observe what price does. Okay? So, price continue going down,
+continue consolidating around here, la la la, right? Creating a lower high, and then comes down.
+Okay, cool. Now, let's talk about the lower time frame since we haven't talked about the lower time
+frame yet. So, you only enter into the lower time frame, which in this case is the 5-minute time
+frame for a day trader, you only go down to the lower time frame once price have touched your medium
+time frame point of interest. This prevents you from trading when price is in the middle of nowhere.
+So, in this case itself, let's say price was over here. Okay? Price is over here. And we have mapped
+out our 15-minute supply zone, this one right here and this one right here. So, these are the two
+locations in which we want to enter the trade from. This means that when price is hovering around
+here in the middle of nowhere, we do not go down to the lower time frame. I'm not going to jump down
+to the 5-minute, I'm not going to jump down to the 1-minute time frame, I'm doing nothing until
+price touches either one of these zone here. So, I'm still over here waiting very patiently, or
+maybe I would like to set an alert right here at the edge of the zone, and then I just wait. Boom,
+the minute price touches that zone, you jump down to the lower time frame to look for your entries.
+So, this is where you jump down to the 5-minute time frame, your lower time frame to look for your
+entry confirmation. You look for entry triggers, look for entry confluences. And then once you got
+your entry confluences in this time frame itself, then you can look for shorts. Right? So, we're
+going to delve deeper into entry confluences, entry models in the next few lessons, right? But for
+now, just to give you like a quick little example, right? So, in this case, look at the internal
+structure. Price came up here, came down, and then took out this high here as well, right? Took out
+this high here. But this turns out to be a liquidity sweep. After the liquidity sweep, price came
+down and took out this last low over here, giving us a market shift. Right? So, this is going to be
+one of the entry models that you're going to be learning very soon, but once you see this pattern
+itself, and it happened right after price mitigate the zone, this is where you can look for shorts.
+Right? This is where you can look for short, and then this is where you can look to short it all the
+way down. Right? So, once again, we're going to delve deeper into entries and exits in the next few
+lessons. For now, just get really good at using these different time frame. Okay? So, in this case
+itself, I'm not sure why TradingView is taking so long to load these days. It's really testing my
+patience. Okay, let let's just wait a little bit, man. Yeah, so anyways, in this case itself, what
+happened was that the lower time frame, the 5-minute time frame started shifting bearish first
+before the higher time frame, the 15-minute actually shifted bearish. Okay? You guys saw this was
+the lower time frame structure, right? The 5-minute structure started turning bearish first, then
+the 15-minute time frame started turning bearish. So, like I said, whatever happens on the higher
+time frame, it must first happen on the lower time frame. So, in this case, let's continue to
+observe, right? What price does. Okay? So, we got a market shift over here, price started shifting
+bearish, la la la. Okay, cool. And then we got a break of structure to the downside right here, and
+then now price is creating lower highs, lower lows, lower highs, lower highs, lower lows, and then
+lower highs again. And once again, this is the beauty of market structure, right? So, this is the
+supply zone that led to this break of structure, and look at where price pulled back to. Pulled
+back, mitigated the supply zone. Or if you want to make it even more refined, guess what? What is
+this? This is your good old fair value gap, right? Fair value gap, imbalance, right? Another
+imbalance right here, which means that there's an order block over here. Okay? So, this is actually
+a good old juicy order block. So, once again, using the concept that we just that I just walked you
+through, this is a 15-minute order block, right? So, on the medium time frame, we have determined
+our intermediate bias, which is bearish right now, and we have mapped out our point of interest,
+which is the 15-minute order block that we have right here. So, in this case, right here, let's say
+price is somewhere around here. I'm not doing anything. I'm not jumping down to the lower time
+frame. I'm not going to be getting itchy fingers to try to enter for a sell right here. No. I won't
+wait for price to come to me. I never ever chase price. I wait for price to come to me. Okay? So, in
+this case, I'm waiting, I'm waiting. Okay? Price comes up to this fair value gap. Now I'm
+interested, right? If I can see a reaction, if I can see the confirmation that price is going
+bearish right here, then I can look for shorts. Right? Uh okay, so if you're a scalper, you could
+potentially have caught this move right here, this tiny move right here after the the fair value gap
+itself. But let's say you missed this move here. Then next, cool. You do nothing, right? You are
+very patient. You tell yourself that you don't chase trade. Okay, the move has already happened
+without me. Now I'm chill. I'm waiting for price to come to my next point of interest, which is the
+order block. Okay? So, the minute price step into the order block just like this, boom, straight
+away, go and look for entry confirmation on the 5-minute time frame itself, right? The lower time
+frame. And if you see your entry confirmation, by all means, take a good old short position right
+here, and then watch price collapse. Right? You can see the entry is the last thing you do. The
+money is not made in clicking the buy and sell button. The money is made in the preparation that
+comes before that. The money is made in the entire top-down analysis, the multi-time frame analysis.
+The trade ideal, the entry is only just one little piece of the entire puzzle itself. So, when you
+see me capturing, you know, high R trades, when you see me making six figures on a given trade,
+understand that it was not because I identified a bearish candlestick at this zone that I enter for
+a sell. No, it's because of what came before that. How I developed my trade bias using the
+multi-time frame analysis. So, the entire process contributed to me catching this trade itself.
+Okay? So, that's multi-time frame analysis, right? I've pretty much walked you guys through how to
+use these three set of time frames as a day trader. Now, maybe let's try to look at another example
+on a live trade I've taken, but this time around, let's look at it from the eyes of a scalper. So,
+if I'm a scalper today, I'm going to be using the 1-hour time frame as the higher time frame, the
+5-minute as my medium time frame, and the 1-minute as my lower time frame itself. And that's what we
+are doing in this case itself. Okay? So, right here, I'm on the 1-hour time frame here. So, maybe
+let me just see. Yeah, let's just go back to where price was like somewhere around here. Let's go
+back to my entry. And I can walk you through everything. So, let's say right now, 1-hour time frame,
+I'm a scalper today. I'm getting in and out fast, which means I don't really need to care about what
+price is doing on a daily time frame or the weekly time frame, because I'm literally developing my
+trade ideal within the next few minutes and just getting out within the next few hours, right? So,
+the daily time frame, the weekly time frame doesn't really concern me as much as it concerns a swing
+trader or a day trader. It still affect you, right? Don't get me wrong, right? Like like I said, the
+higher time frame trade ideal is always going to be much more stronger than what price is doing on
+the lower time frame. So, if you want, you can still take a look at it, right? But just don't put
+too much significance over the daily time frame itself. Because you as a scalper, your higher time
+frame will be the 1-hour time frame itself. So, 1-hour time frame is my higher time frame, and I'm
+developing my trade bias by identifying the trend direction and mapping out structure. Right? So,
+you can see price has created a bullish break of structure, bullish break of structure right here,
+but the thing is that the market has shifted bearish when price took out this low over here. So,
+this is where I had my good old market shift over here. And then now, this is where I can find that
+this is my 1-hour swing high, and this is my 1-hour swing low. This is the range that we are trading
+within right now. And after this huge imbalance to the downside, I'm expecting the market to come up
+to a balance again. I'm expecting price to start shifting bullish in the short term, right? To fill
+up all of this imbalance on the left-hand side right here. So, this is where I can take my premium
+and discount tool, drag it from the swing high to the swing low just like this, and this is where
+I'm plotting out the supply zones, the order block in which I can expect price to gravitate towards
+next. That's me plotting out the gas station that price is moving towards next to grab more fuel
+before going down even further. So, in this case obviously find the imbalance, right? Find a strong
+displacement, huge displacement right here, here, here. And then this right here is the origin
+point, so this becomes the order block. Okay? So, this one is very obvious, right? Because we got a
+huge strong bearish candlestick right here. And the origin point is this candlestick right here,
+this origin candle here. So, that's the order block and then you can also map out the other supply
+zone if you want up here. Right? So, this tell me that the first place that price is moving towards
+next is going to be this order block. So, in this case that was my analysis on the 1-hour time
+frame. I've identified the trend direction, which is bearish. But on the lower time frame itself, it
+could potentially shift bullish in the short term to facilitate the pullback. Right? So, even though
+the high the the higher time frame is telling me that price is bearish if I jump down to the lower
+time frame and the medium time frame to determine my to develop my immediate bias, I will actually
+be looking for longs, right? Because I want to trade this pullback all the way up to this supply
+zone right here, right? Or even this order block here. So, this is where I jump down to the
+15-minute time frame. And same thing, right? You can map out your 15-minute high and 15-minute low
+right here. This is a 15-minute swing range in which we are focusing on. And you can also map out
+any other supply zones or order blocks that you have missed on the higher time frame itself. Right?
+So, in this case this was the uh 1-hour order block that we have mapped out. And then I also map out
+this other 15-minute supply zone right here. Okay? The reason why I mapped that out is because price
+came down, pullback, and then goes up. And it is also order block. It's not just a supply zone.
+Because if you look at the next candlestick, there was imbalance. Right? So, this is the order
+block. So, you can see if you didn't do this on a medium time frame, you would have missed this
+point of interest itself. You have missed this step. Okay? Anyways, in this case we got the 1-hour
+order block that is situated quite high up there. And then there's this 15-minute order block here.
+All right? So, this is where price is moving towards next. Because the market is moving from
+imbalance to balance to imbalance again. All right? So, that's the gas station, yeah? Okay, so that
+is my target. But where do I want to enter the trade from? Well since I'm trading the pullback, I
+duty on the look for longs. But where do I want to look for longs? I don't want to look for longs
+when price is at a high. I want to look for longs when price have just created a new higher low. And
+right now price is going to go up just like this. So, in this case I map out my 15-minute structure
+and I found out that price is creating higher highs, higher lows just like this. And you can see
+every time price came up there, create a high, swap some liquidity, and then go up there, break
+structure. Same thing right here. Okay? So, in this case this is the demand zone that led to the
+previous break of structure. I saw price mitigated that zone and this is where price started
+shifting bullish. And I know for a fact that price is just going to continue bullish until it
+reaches this area here. All right? So, this is where I map out my lower time frame demand zone. And
+the minute price step into this area here, then this is where I jump down to my 5-minute time frame
+and I look for my entry. Okay? Jump down to my lower time frame to look for my entry itself. So, I
+personally like to use the 15-minute as the medium time frame. And then the 5-minute and 1-minute as
+the lower time frame. So, I will actually use both the 5-minute and 1-minute as the lower time
+frame. 5-minute to just, you know, get my entry. 1-minute sometimes to just refine my entry even
+further, right? Just to get like even more of a sniper entry. So, in this case what do we have? We
+got price mitigating this zone right here, creating a new higher low, and then right now price is
+giving us clear as day bullish confirmation that tells us that price is going to head up this way
+here. So, this is where look for longs here. Okay? After I look for longs, price started coming up
+here. And then this is where I believe I placed my stop loss like below this low initially. I forgot
+where exactly I placed my stop loss, but I think it was like somewhere below this low. And then
+eventually I moved it up to a below this low because I actually scaled in for this second position.
+Once again, you guys can see my entire like top-down approach from the moment I entered a trade to
+the moment I get out of the this trade on my second channel Bread Trades, I literally we documented
+every single pip move on there, right? You can see me enter this trade live on there itself. But
+yeah, I'm just giving you like a quick little trade recap. So, what happens is that after we got a
+bullish confirmation turn, enter for the long for the first position right here. And then later on
+price pullback to this area here, giving me more confirmation. So, this is where I decided to scale
+in for my second position. And then later on uh like I said, I'm pretty much expecting price to move
+up to this next 15-minute order block. So, that's why I targeted the area. And then my stop loss was
+below this new low right here that is has been formed here. You can see from price pullback it was
+this low here. So, my stop loss was situated at below this low here of my second position, right?
+The internal low that I've entered at. And then later on price just went up very, very nice. Came in
+the drawdown a little bit, not going to lie, right? But eventually price went up there slowly but
+surely and just hit TP. Right? But look at what price is doing. Price is just creating those higher
+highs and higher lows. So, this is where when price was like reversing around here, I wasn't scared
+whatsoever. And the reason why I wasn't scared is because I trust structure, right? So, in this case
+this is the last higher low. So, if that low doesn't get taken out, then the bullish market
+structure is still intact and my trade idea is still correct. It is still valid. So, I will not get
+phased even though I'm down like 50k at the moment, I will just continue holding on to the trade
+idea. Because I understand market mechanics. Later on price went up there, smashed my TP, and I made
+a ton of money on that day itself. And this was a trade that I was very proud of because of the fact
+that I literally caught out the fact that I was going to get a sniper like trade and I did just
+that, right? Like if you guys go and watch that live trading recording, you will see that when I
+enter into this position here, I told you guys that I was going to get a sniper entry. And then
+right after I enter for the trade, price moved up immediately and then eventually went up there with
+not much drawdown itself, right? So, I told you guys I was I was going to do something and I ended
+up doing it live. So, yeah. That's it. Right? So, basically just to sum up everything that we have
+covered in here understand that time frames they don't always conflict with each other. They are
+just showing different layers of the same market. Because whatever happens on a higher time frame
+must first happen on the lower time frame. And you tend to see the same patterns across the
+different time frames. So, in this case daily time frame can be bullish. Right? Daily time frame can
+be bullish. In fact, it was bullish itself. But right now the 15-minute time frame could be bearish.
+And then the 1-minute time frame can be bullish. Each one of these time frame has a specific purpose
+as well. They are all serving a different role. Okay? They are all serving the higher time frame,
+which is king, right? The higher time frame is still king. So, they are all just like different
+little ants in a colony, just, you know, playing their part so that they can serve the entire
+kingdom or the colony. So, multi-time frame analysis is really just about using each time frame for
+a specific purpose. Once again, using the higher time frame to do this. Using the medium time frame
+to do this. Using the lower time frame to do this. Higher time frame give you the big picture.
+Medium time frame tells you where to enter, right? Develop your immediate trade idea, your immediate
+bias, and the point of interest. Lower time frames tells you when to enter. Okay? So, I will say the
+higher time frame tell you what who is in control of price. Medium time frame tells you where to
+enter the trade. Lower time frame tells you when to enter for the trade itself. And when you learn
+to read them together, you stop getting lost in the noise and complexity of the market, and you
+start trading with much more clarity. So, yeah. I know this lesson was a little bit long, right? But
+because this is such a big, chunky topic that I have to spend more time covering. And I really hope
+that I've made things a lot more clearer for you guys. Don't worry if you're still confused. As time
+passes, you will just get better at doing this. I will say when in doubt, just zoom out, right? So,
+whenever you find yourself not knowing what's the trend direction on the lower time frame always
+zoom back out to your higher time frame. Go back to the daily time frame. Go back to the 4-hour if
+you're day trading. Go back to the 1-hour if you're scalping. And then do your analysis from
+top-down. And when you do, you have a much more better understanding of what the market is actually
+doing. All right? So, with that said, I hope you guys have enjoyed this little episode for
+multi-time frame analysis. In the next few episodes, we're going to talk more about market mechanics
+concepts. And this is where you should start to build like a little foundation when it comes to
+market mechanics. Over the next few lessons, we're just strengthen that foundation and just make it
+even more robust, right? So, you can have a much better idea on how the market fundamentally move.
+So, with that being said I hope to see you guys on the next episode. And as always, remember you're
+just one trade away.

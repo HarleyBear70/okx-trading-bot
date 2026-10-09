@@ -1,0 +1,161 @@
+3 free Github repos to print $$$ AI trading
+https://www.youtube.com/watch?v=Z3CUdMYXZm8
+
+If you find the idea of building your own trading bot overwhelming, the good news for you is that
+there are professional developers who have built them for you for free. Over the past few weeks,
+I've been diving deep into the world of GitHub repos, and I've gone through all of the major
+repositories. I've gone through finance, I've gone through quantitative finance, I've gone through
+the stock market, crypto, trading bots, all of the major topics on GitHub to find the best three
+repos for actual trading execution. So, in today's video, we're going to break down each of the
+three repos. I'm going to tell you what my favorite one is, and I'm going to show you how you can
+use these repos to automate your trading. Starting with repo number one, which is Freqtrade, which
+is a free and open-source crypto trading bot written in Python. It supports all of the major
+exchanges, and it can be controlled by the web UI or via Telegram, which I personally like. It
+contains backtesting, plotting, and money management tools, as well as strategy optimization by
+machine learning. So, obviously, here on the channel, I've been teaching you guys how to build your
+own trading bots, but I also understand that some people just want a plug-and-play solution where
+download a trading bot and already have the parameters, the behavior of the bot, the way the bot
+interacts, and the risk parameters already built in. And I do think for people getting into the
+world of AI trading, these are actually great ways to start, because you can have everything in one
+place. You can get the ball rolling, you can even paper trade to begin with, and then later on, if
+you want to develop your own custom bot which behaves in a certain way once you've refined your own
+strategy, then you can go ahead and do that. So, this bot connects to pretty much every major crypto
+exchange, and if you're not into crypto, you might be thinking, "Oh, you know, I can't trade stocks,
+etc." Well, the good thing about Binance, about HyperLiquid, about all of these exchanges now is
+they've pivoted. They A lot of them have stocks now. In fact, most of them have stock perps. I know
+Binance specifically has pushed heavy into RWAs, pretty much has all commodities, FX, etc. So, you
+can pretty much trade all of it now. So, this isn't just for crypto, but these exchanges typically
+have much less barrier to entry, lower friction, and have better APIs for AI compared to traditional
+brokerages in the stock market, for example. So, the thing that I really like about this bot is that
+you can interface with it directly through Telegram. So, you can use {forward slash} performance to
+see the performance of the bots. You can use {forward slash} start to start a particular strategy.
+You can do {forward slash} stop to stop a bot run. And you can spin up multiple bots on your
+Telegram chats. So, you can take your own strategy that you've already back-tested. Maybe you found
+it online using one of my other guides. And then you can start running it within the bot. But Freak
+Trade actually has an inbuilt back-testing feature, which allows you to back-test using historical
+exchange data. And then you can do a dry run. So, you could use real data from the exchange to
+forward test a trading bot out of sample without using real money. So, you can actually see if it's
+a reliable indicator or not. That's the number one thing that I tell people when they get into AI
+trading. The back-test can look amazing. It can be doing, you know, hundreds or thousands of percent
+in profit. But the real test is how does it actually perform in a live environment? And that's where
+you want to do a dry run. So, both of these things are actually implemented directly into the bot
+itself. Now, I'm going to show you how to set it up and give you an example of a prompt so you can
+see how it runs. So, what I just did is I asked Claude to back-test a Bitcoin and Ethereum breakout
+strategy. After a couple of amendments, it's finalized a strategy. I'm not recommending you guys
+copy this strategy, by the way. I'm just using a sample one for the example of this video. So, to
+set up the Freak Trade Web UI, or if you were doing it on Telegram, it'd be the exact same system. I
+followed their instructions. I put it into Claude code. I had Claude code handle everything for me.
+And I used it to set up the dashboard here. I'll show you how we can actually start running trades
+through their Web UI dashboard, which is their trading bot dashboard. But if you want to do a really
+simple install, not just of this GitHub, but also the other two repos I'll be getting into in
+today's video. I'll leave a link below in my free school community down below. If you join, under
+the resources section of my school, I'm going to leave a {dot} md file that you can literally just
+drag and drop into your Claude code session or into your code x session. And it's going to install
+the three repos that I've discussed today. So, then you can literally just open a new chat and start
+prompting. I'll make it easy for you guys. So, now that we have the web UI set up, I'm going to ask
+it to set up the strategy. So, if you go onto one of the charts, you can see the entry and exit
+orders. You can also see the trades. If you click on dashboard, you can see that the bot is open.
+So, this is a dry run, so without real money because we're currently testing a bot and we already
+gave it the strategy, which you can see in the cloud session, so that's now going to be executing
+over time. Keep in mind that because it's running in a Python terminal session, the computer would
+need to be on for this to be executing 24/7. So, that's why you're probably going to need a VPS or a
+separate computer with a session running 24/7. That's a common theme when it comes to building your
+own trading bots. Luckily, like Hostinger has one for a few dollars. I'll leave a link in the
+description of this video if you're planning on getting one anyway because we can get you a
+discount, but you'll need to be running a device 24/7 for trades to actually go through. And let's
+say in a few weeks this ends up being a good strategy that you want to start testing with real money
+on an exchange like Bybit, for example, then you could just plug in your API into Claude and then
+you could still use the freqtrade UI or you could use the Telegram and then you could use Claude for
+inference, which would talk through the MCP to an exchange to open real trades. So, the benefit of
+this is you have inbuilt backtesting, you have an inbuilt dashboard created for you, you have
+inbuilt execution and stability on that front and, you know, and all of the data is logged and it
+runs as its own Python, so you're actually not reliant on Claude actually. You're obviously reliant
+on Claude for inference if you want to use it interface to, you know, come up with strategies and
+make amendments and handle installation, but then beyond that you're not actually reliant on it,
+but, you know, clearly I'll, you know, interface with Claude because I want something with you in a
+real back and forth inference. So, freqtrade is very cool, but let's move on to the number two
+GitHub on this list, which is Vibe Trading. Now, Vibe Trading is essentially your personal trading
+agent. So, freqtrade relies on you to give it a strategy and then it's an execution engine, whereas
+Vibe Trading includes a self-improving agent, which can essentially come up with strategies for
+itself on your behalf. So, the way that you can fine-tune a strategy into runnable analysis. So, if
+you have a theory on a certain strategy, you can use that to backtest, turn it into a real strategy,
+and then start testing it on the market. So, it has a bunch of features. The first thing you can do
+is ask a trading question. Next thing you can do is backtest a strategy idea. You can review your
+own trades. You can read institutional filings and fund books. You can run analyst teams, and you
+can use this to generate strategies. So, it's like an engine to generate strategies before you move
+over to the execution phase. So, you could even use VibeTrading as a personal trading agent to
+refine a strategy and, you know, review your trades and make amendments, and then you could put it
+into something like Freak Trade or the last one we're going to speak about for the execution
+component. So, their tagline is essentially turn market questions into runnable research. So, it's
+not an execution tool. It's mostly a research tool. However, you can connect it to Alpaca for the
+execution layer. There's also some other exchanges that they've got in-built that you can use. So,
+it's not as much of an engine as Freak Trade is. That's not what it's supposed to be. It's more for
+the analysis and research side of things. They also have an alpha library, which is quite cool,
+which has strategies, anomalies that they have found. So, it's got 450 plus pre-built quant alpha
+zones across four categories, and then you could use those to refine your own strategies. So, Freak
+Trade has 54.6 K stars. This one has 33.7 K stars and 170 contributors. And, you know, very active
+contributions as well. You can see one here is 18 hours ago. So, I just asked it to find me the best
+performing momentum strategy across Nvidia, Meta, Apple, Microsoft, and Amazon over the last 2
+years. Backtest it with realistic fees. Show me the equity curve and set it up to paper trade on my
+Alpaca account with $100,000 and run the first cycle. Show me the orders that it places. Okay, so it
+just ran the entire command. Firstly, it started by generating an equity curve of the momentum
+strategy versus a buy and hold strategy. Then it generated this dashboard so I can track the
+strategy and the total returns. By the way, I don't actually think critically this is a very good
+strategy. To properly backtest and engineer a strategy, that's obviously its own video, which I do
+multiple videos on. Just using this as an example. So we got the chart on the equity and drawdown.
+You've got the trades, the positions, the attribution, so we can track all of our strategies. And
+you can see that we've got the orders that were triggered on my paper trading exchange. As you can
+see here, this is an Alpaca account, which you can create to test out these trading strategies on
+paper, so you know, without real money. But obviously you could do it with real money if you wanted
+to. Once obviously you've extensively tested a strategy, you could see the orders have been placed
+here. But I would say the best use case for Vibe Trading is the generation of strategies. So I just
+asked it for example, what's the best strategy in the Alpha Zero to build a trading bot? And it's
+going to benchmark the Alpha Zero strategies. There's 462 against the S&amp;P 500. So it decided
+that Alpha 101032 is one of the best options considering it passes the out of sample test. Although
+the edge is small versus buying and holding. So what you could then do is you could take this, you
+could start running a paper test, and you could run it over a few months to see if it's profitable.
+Now for the third repo, and this one is probably the most impressive of the three. It's called No
+Fx. It's an AI trading terminal assistant for stocks, commodities, forex, and crypto. No Fx is
+essentially the strategy engine, the execution middle layer between your LLM and your exchange. It's
+got a feature called autopilot where you can fund a wallet, so it works across hyperliquid
+centralized exchanges. And as soon as you deposit, you can run strategies on their server, so you
+don't need to run a terminal session. Everything happens on their site. So No Fx is a terminal, as
+you can see in front of you. You can see the cost liquidation map, the order book, the signal matrix
+for your automations, and the orchestration topology. So, if you're doing high-frequency trading,
+the flow of the decision to execution. You can see your equity, your total P&amp;L, and everything
+within a single terminal. So, once you install it, remember everything will be available for free in
+my community down below. So, you can just drag and drop, and everything will automatically install.
+I'm now going to ask Claude Code to run no effects. You can see here it's a professional AI trading
+agent for US stocks, commodities, FX, crypto, etc. Build institutional grade strategies by chatting
+in plain English. So, you can see here you've got your dashboard for strategy visualization. You
+could also connect to centralized exchange accounts, so you can start running strategies with a
+centralized exchange. If you click on strategy, you could see a signal board with a bunch of live
+directions, so you can see Bitcoin VVV, Ethereum Hyperliquid, all with a long bias. If you click
+down below, it'll load up the direction history and heat map. So, if you want to use autopilot, you
+need to use Hyperliquid. If you want to use a strategy, which you could develop in the strategy then
+you can obviously connect it to any one of your other exchanges. If you want to create a strategy,
+you can scroll down on the home page here, and you can actually run some of their pre-built
+strategies, and you can deploy them directly on the site itself. So, this is just a slightly easier,
+more convenient way of starting a bot versus needing to do it yourself in Claude. And obviously,
+you've got some of their inbuilt strategies that you can use, and it does save you from needing to
+build your own engine for Hyperliquid. I will say it's not that difficult on Claude if you know how
+to do it, but I think the appeal of these GitHubs is getting a more seamless experience. It's just
+slightly simpler because of the guardrails and the plumbing already being developed for you, so
+you've got risk parameters developed, you've got all of the exchange connections developed, you've
+already got the trading loop developed, which is reading the market, deciding how you want to
+executing, recording the reasoning, and that is obviously being handled by the engine. But of
+course, if you do choose to DIY, then you can maintain full control. You can build in a paper mode.
+For example, this is, you know, live only if you do choose with going with no effects. So, it really
+depends, you know, on what you're trying to achieve. But, my recommendation is that you try out a
+lot of stuff. You can try out all three because all three of the GitHub repos from today's video
+serve a different need. Just by installing them all at once, have a play around, and the only real
+way to get good at AI trading is to experiment with these tools because that's how you learn what
+you like, what you don't like, and it will make you a lot better. And it's much easier to learn AI
+trading by actually AI trading, doing it with paper money, and then developing strategies over time
+so you can start deploying real money. So, I hope this video opened your eyes to what is actually
+out there for free on GitHub. There are many more, but these are the three that I like on the actual
+trading bot side. Obviously, I've done other videos on things like research agents, trading desks,
+etc. But, in terms of, you know, the execution side of things, I think these ones are great and all
+serve a unique purpose. So, if you want to join my school community, get the setup prompt from
+today's video, I'll leave a link down below. Subscribe to the channel if you like content like this,
+and I will see you in the next video. Have a lovely rest of your day. Peace out.

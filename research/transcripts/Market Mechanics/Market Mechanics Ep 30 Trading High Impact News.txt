@@ -1,0 +1,221 @@
+Market Mechanics Ep 30： Trading High Impact News
+https://www.youtube.com/watch?v=jl9t6KMoiHg
+
+Most traders do not lose on news days because news is random. They lose because they treat news like
+a casino. That's it. They see the volatility, they see the big candles, they see price moving so
+fast and they think that that means opportunity. But in reality, this right here is not a clean
+trading opportunity. It is a risk event. Okay, so a lot of times when a high impact news release, be
+it NFP or FOMC or CPI, right? What tends to happen is that price tends to either move up or down by
+100 pips. Like for example, in this case. Before the news comes out, price tends to consolidate in a
+tight range just like this where there's a lot of uncertainty in the market as the market prepares
+for the upcoming release of the news itself, right? So, this is where price tends to be a little bit
+choppy right here. And a lot of time, a lot of retail traders, what they do is that they just wait
+for the news to come out and then when price starts going down, they immediately start entering for
+a sell. And then sometimes it work out. And if it work out, good job for you. Sometimes it doesn't
+work out, right? Price starts going up. And sometimes what can even happen is that price comes down
+and then goes up straight away by 100 pips, causing you to get stopped out, causing you to get
+trapped in this manipulation. All right. That's what tends to happen. When major news drops, the
+spreads will widen, liquidity will start disappearing, and price can spike both ways. That's like
+the danger of trading news. The market might sweep both swipes, right? Might sweep sell-side
+liquidity and buy-side liquidity and then later on, then price will actually move in a particular
+direction. Which is why my best advice for people who want to trade news is to just don't trade
+news. All right, that's it. Just don't. Okay, just don't. I've learned that this the hard way. I've
+lost so much money trying to trade news in my first year of trading. And the thing is, yes, you
+might make some money here and there, right? But it's not sustainable. And if you do make money from
+trading news, it's a bad thing because you pretty much just reinforce the behavior of trading news.
+And then you tend to repeat what you got rewarded for in the past. So, you now you're addicted to
+trading news. And next time your luck runs out, market manipulation takes place, and you lose a lot
+of money. But then now you get addicted to the pain of losing money trading the news. And then now
+you continue trading news. And then next thing you know, you blow your account. Right? So, please,
+for the love of God, do not try to trade news because it is honestly just a gamble. Yes, there are
+certain strategies out there like, "Oh my god, what if I just place like a buy stop order right here
+and then like a sell stop order right here and then whatever direction price, you know, go to, I'm
+I'm going to get triggered into that trade." All of this trade, but end of the day, trading the news
+is just gamble. All right. So, yeah, that's pretty much it. Thank you for watching this. No, I'm
+just kidding. But yeah, I believe that your job as a trader is to understand the news. Okay? Like
+you still need to understand news because news is why price move the way it move. Technicals show
+you how price move. News tells you why price move. So, you don't need to be some macro expert, you
+don't need to have a PhD in economics, you don't need to memorize every economic release. You don't
+need to try to predict the headline. Your job is simply to know what the news are and where the
+landmines are. All right? So, it's like when the news are occurring and then you can avoid trading
+those times itself. And once again, if you ignore fundamentals, what tends to happen is that you
+might get caught in a move that makes no sense through the lens of a setup alone. What I basically
+mean by that is that technical wise, like right now if we are looking at this price action over
+here, price is obviously bullish, right? Price is obviously bullish because of the market shift over
+here. Price is creating higher highs, higher lows, and you might be tempted to look for a long
+position somewhere around here. Or you might have already been in a long position somewhere around
+here and you place a stop loss below these lows right here. So, your technical trade idea, your
+technical analysis is telling you that price is going to go up, right? What can possibly go wrong,
+right? And then later on at around 8:30 p.m. Singapore time, non-farm payroll comes out and it
+stopped you out just like this. You can see the trend direction of the market just reverse 180 just
+because of a news, just because the fundamentals of GU has changed. So, if you were not aware of the
+news, if you not you were you were not aware that, you know, there's news at 8:30 p.m., then guess
+what? You would have been stopped out and you would have no idea why you got stopped out. So, it's
+important for you to understand what this news is, right? Like what does non-farm payroll means? All
+right, what does CPI actually means? Understand the definition of each one of these news and how it
+affect price and then also understand the time in which those news tends to appear, right? The date
+and time. And then try to avoid those those periods itself. Which is what we're going to go through
+in the next part itself. Like I said, the goal of high impact news is not to gamble on the release
+of the news itself. It's to know when the risk is getting elevated, when slippage is increasing,
+when the liquidity is getting lesser, how to protect your capital and avoid getting trapped by the
+volatility you were never prepared for in the first place. Avoid getting trapped in this market
+manipulation. So, that should be your mindset when approaching news. Right? So, in the next section,
+in the next segment of this video, I'm going to show you how to handle all of that inside Edge Flow
+using the economic calendar. So, you can actually see the landmines before you step on them. All
+right? So, with that being said, let me show you how to use the economic calendar inside Edge Flow
+to filter what matters, plan around high impact releases, and avoid treating news like a gambling
+event. So, on Edge Flow you can find a news and economic calendar feature here just by clicking
+news. And this is where you will be able to see all the news that is coming up for the day, for
+tomorrow, for next week, for next month, this month, so on and so forth, right? And this is
+literally all the news that is available right now in the market. And this is really like a daily
+landmine map, right? This is where you want to see, okay, when are the high impact news coming up?
+And then this is where I might want to trade around it. I might want to avoid trading it completely.
+Uh this is where you can scan for news that is related to the currencies on your watch list, right?
+You can just filter it to like the currencies that's on your watch list right here. You can even
+filter it by impact level, right? So, if you only want to see high impact news, it will only show
+you high impact news, uh so on and so forth. You can even filter it by categories right here. When
+you come in here, the first thing you must do is to really just going to filter it by like the
+currencies that you want to be trading, right? The currencies that you're already trading on your
+watch list, right? So, whether that's EUR/USD, GBP/JPY, whatever. So, in this case, like say I'm
+trading um EUR/USD and I'm trading GBP/USD, I'm trading GBP/JPY as well, and I'm also trading the
+Canadian dollar, right? This is where I'll just select these currency pairs so I only look at the
+high impact news that is related to these currency pairs, right? Anything outside of those are just
+noise. And then this is where, like I said, you just want to focus on the high impact news. All
+right? So, you can see this is the time that is at right now. It's around like 2:13 a.m. UTC right
+now. And then the next news that is coming out is the Japanese yen news of the three-month bill
+auction, but it's like a low impact news, so it's kind of like irrelevant. Yeah, but like this is
+where you can kind of know, all right, cool. This is where I'm at and these are the news that is
+coming out next and these are the news that has already passed. Right? And I only want to focus on
+the high impact news that is relevant to my watch list. Right? So, maybe I can just filter it out.
+And then this is where I can just see, okay, at this time, at 7:00 a.m. later on, retail sales is
+going to come out for GBP. At 1:30 p.m. later on, personal income is going to come out for USD.
+Right? Like I said, there's no point reading every single low impact, medium impact news on here.
+You just want to focus on the high impact news. And the cool part about Edge Flow is that we also
+have a calendar view. And once again, I I don't know why that there's no other news provider that
+does this, right? But I was like, "We need this feature because this is something that forex traders
+like to look at." Is to just know exactly on the day that they are trading which uh is there going
+to be any high impact news, right? So, at the first glance you can see, okay, today is there high
+impact news. If there's a red outline just like this, that means there's a high impact news on the
+day. If there isn't, that means there's no high impact news. And then based on this you can also
+find out, okay, on this day itself, how many high impact news are there and how many medium impact
+news, how many low impact news are there going to be happening on the day itself, right? So, once
+again, when you have this calendar view, this allow you to see at a high level which days are loaded
+with high impact news. This helps you plan ahead and be extra cautious. Like for example, if I see
+tomorrow is going to be like a red folder, then this is where I will know, okay, tomorrow there's
+going to be high impact news. Let me go and find out what time are the high impact news coming out.
+And then maybe I want to be trading around those times itself. Another example is if you are trading
+a platform that doesn't allow you to hold positions through certain news events, this makes it
+obvious which days you need to manage your risk title, which days you need to close your positions
+early before the news come out, uh which days you could like just trade around the news itself,
+right? So, this is a very cool feature that we have, the calendar view here. Now, the thing about
+trading news is that if you have any experience trading news, you will know that news candles are
+designed to spike both sides, right? So, a lot of times when a high impact news comes out, price
+goes up by 100 pips, and then later on price comes down by another 100 pips because of market
+manipulation. Which also means that if you don't have a system that is specifically tested for news,
+you shouldn't be trading news at all. Right? Because remember, we are not here to get lucky. We're
+not here to gamble. You are trading the news without understanding the news that's going to come
+out. It's like you trying to get a lottery ticket and praying that you are going to be winning the
+lottery. Okay? We are here to get consistent. We're not here to get lucky. And here's a huge part
+when it comes to discipline that we have inside Edge Flow. Right? This news feature here, what we
+can give you is the ability to block trading when there's a high impact news. So, if you click on
+this button right here, the block trading settings, this is where you can turn on the toggle the
+ability to block trading for high impact news in your watch list. Right? So, it's pretty much just
+going to be scanning the currency pairs that you have on watch list, and it's going to be blocking
+trading when there's a high impact news that is related onto the currency pairs on your watch list
+if you turn this on. Okay? So, once again, this means at any point of time, if there's a red news
+event that affects the currency pairs that you're going to be trading, Edge Flow will literally stop
+you from entering trades during that window. And this is where you can set a block window. The
+default state is probably like 15 minutes, right? But you can set it to 5 minutes, 10 minutes, 30
+minutes, 60 minutes. And then you can also set the block behavior, right? Whether you want it to
+block trading before the high impact news or after the high impact news, or block trading before and
+after the high impact news. Once again, completely up to you, right? I would recommend you to at
+least put it at 15 minutes before and after high impact news. Okay? And then once done, you can just
+hit save. When you do this, what happens is that it prevent you from getting wiped out, right? It
+prevent you from, you know, getting trapped in unpredictable move in the market. It prevent you from
+getting into the insane volatility that tends to happen when a high impact news come out. Which
+means that you don't enter right before the spread start widening and liquidity start disappearing.
+You don't get wicked out from slippage and random volatility, and it won't rage click a revenge
+trade after you get taken into the trade itself. The key point here is this ability to block trading
+before and after high impact news, it's simply a mechanism for Edge Flow to protect you from
+impulse. Protect you from getting trapped in move that you shouldn't be part of. Once again, it's
+not trying to make you trade more. It's trying to keep you alive and disciplined so your edge can
+actually play out. All right. So, now let's talk about how to actually trade news. Okay? Because
+there are simply just three ways that you can trade news. There's only three options. And for
+majority of the traders watching this, I would advise you to stick to option A, which is avoid it
+completely. Right? Doesn't matter whether you are beginner, intermediate, or advanced trader, it's
+always some sort of gamble if you trade the news. Because what happens is that the news can come out
+saying that, okay, it's a good news, right? And good news means US dollar is probably going to go
+up. But then, it can still go down because of market manipulation. Right? That is where you hear the
+the the quote, which is quite renowned Wall Street, which says, "Buy the rumor, sell the news."
+Right? Buy the rumor, sell the news. Okay? It's the exact same thing right here because a lot of
+times the news has already been factored in, right? Which means you tend to see the move happen
+before the actual news come out, right? So, even though US dollar is good, but when the news comes
+out, US dollar actually start dumping. So, lots of market manipulation right here. So, for majority
+of the traders out there, I'll just highly recommend you to just avoid it completely, which means
+you don't open new positions during that window where the news is coming out, like 15 minutes before
+and after news. And then after the news came out, you want to wait for the volatility to settle,
+maybe 30 minutes to 60 minutes after the high impact news comes out. Once the structure start
+becoming much more clearer, this is where you can continue trading. Okay? So, option A, perfect, the
+best option for majority of the traders out there. Now, option B, only trade if already in position.
+All right. So, let's say you enter a trade, you know, you enter for a buy on EUR/USD 2 hours before
+high impact news comes out. And during a like during the high impact news coming out, price haven't
+hit your TP, price haven't hit your stop loss yet, so you have no choice but to actually hold the
+position past the news. If that's the case, what should you be doing? Well, you could reduce risk,
+right? Maybe you want to close a portion of the position before the news actually comes out. Or
+maybe you want to move your stop loss to break even. Right? Once again, if rules allow you to do so,
+if the price action allows you to do so. And you just want to make sure that you don't widen stops
+emotionally, right? The last thing you should be doing is before a high impact news comes out, you
+start like widening your stop loss because you don't know which direction price is going to go.
+Right? So, if you're not already in the position, highly recommend you to stick to option A, like I
+said, just avoid the high impact news release completely and just trade after it. And then next, we
+got option C. Okay? Option C is to trade post news only. If you are more of an advanced trader, more
+of an intermediate trader with some experience under the belt, you know, you've been trading the
+news, you have been exposed to the volatility of the high impact news for a few years, for a few
+months, you kind of understand like what the price action will be like after a high impact news
+release, then this is where you can consider option C, which is trade after the high impact news
+release. Trade the price action after the high impact news release. Because what tends to happen is
+that when the high impact news gets released, this is where you get all of this unpredictable move,
+right? Price goes up, down very dangerously. But after the high impact news comes out, this is where
+the market starts coming down. The market starts to update itself based on the new information that
+was presented during the high impact news. All right. This is where the market start becoming more
+rational. So, what you want to do when you're choosing option C is to let the spike happen, right?
+Let the news event, you know, comes out and become incredibly crazy. Let all the noise fade away,
+right? And then you want to wait for some form of liquidity sweep, some form of structure reclaiming
+itself, some form of structure shift, or even like price returning to a point of interest that you
+want to be entering the trade on. And then you can just execute your normal plan from there. Yeah.
+This is where you can just continue doing your technical analysis process, you know, map out your
+charts, determine where is the the best price point that you want to enter the trade on. Uh this is
+where you can just do your technicals, you know, like this is where it's safe to do that because the
+market has already taken into account the new information. So, those are the three options. Like I
+said, for majority of the traders out there, I would just recommend option A. Like it's just not
+worth it, right? It's just not worth to like, you know, gamble here and there because your goal here
+is to last in the game long enough so you can actually win consistently. Your goal here is not to
+hit like one lucky jackpot and just stop trading for the rest of your your life. No, it's to just
+make sure that you are consistent. Just make sure that you focus on survival rather than, you know,
+these big wins, you know, these boom and bust cycle where you make a lot of money, you lose a lot of
+money, you make a lot of money, you lose a lot of money, which is quite simply just not uns- it's
+just unsustainable. Now, here's what not to do, right? So, here's a little quick checklist right
+here. You shouldn't be placing a random market order because it feels bullish. You shouldn't be
+sizing up it to make it worth it. You shouldn't move your stop loss wider because the spread is
+crazy. And most importantly, you shouldn't revenge trade if you get wicked out. Okay? The last thing
+you want to do is you are in a position before the high impact news release, you get stopped out
+because of the high impact news release, and you start getting angry at the market. Now, you you
+start revenge trading. Now, you start trying to make back the money that you've lost. Now, you start
+trying to get back at the market. It's not worth it, trust me. Been there, done that. Yeah,
+remember, you want to trade the reaction, not the headline. Okay? Like if you're trading news, you
+want to trade the market's reaction to the news, not the news itself. Like I said earlier, the news
+can be good, but the currency that is related to the news can still start dumping because the
+market's reaction is all that matters. The market's reaction is what drive the price action of the
+market. It's the sentiment that actually drive price. It's not really like the fundamentals itself.
+Professionals don't need to trade every day, right? Remember that. They don't wake up thinking, "How
+can I force a trade today?" They wake up thinking, "How do I protect capital and wait for clean
+market conditions?" Because like I said earlier, this game is not about thriving. Before you can
+think about thriving, you need to think about how to survive. Longevity is the name of the game. And
+high impact news is one of the fastest ways to donate money if you treat it like entertainment. If
+you treat it like gambling. If you treat it like a casino. And that is why in Edge Flow, we have you
+remove temptation by baking our rules into the trading system so you are not relying on willpower
+when volatility spikes, right? That is what like this block trading function is for, right? Is to
+make sure that we prevent you from making stupid decisions. We prevent you from getting trapped in
+unfavorable market conditions. Last but not least, just remember that news isn't your edge. Your
+rules are. Use the economic calendar here to avoid the landmines. Let the volatility pass. Let the
+noise pass and then execute when conditions are normal again.

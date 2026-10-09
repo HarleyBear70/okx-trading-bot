@@ -1,0 +1,312 @@
+Market Mechanics Ep 21： Risk Management
+https://www.youtube.com/watch?v=1s8ea5SH7ZA
+
+Risk management is a love letter to your future self. And you're the only one responsible for
+delivering it. When I say risk management is a love letter to your future self, what I mean is this.
+Every single time you protect your capital, every single time you keep your losses small, every
+single time you follow your trading rules, you are doing something today that your future self will
+thank you for. Because good risk management keeps you alive in the game. Just think about it. The
+only way to win the game is to have chips to play with. But if you run out of chips, you literally
+cannot continue playing the game. Good risk management does just that, right? It allows you to be
+alive in this game long enough so that you can win big, so that you can win consistently. It helps
+you preserve your capital, your confidence, and your ability to keep executing your edge. And the
+key here is nobody else is going to do that for you. Nobody is coming to save you. You're the only
+one who has to deliver it through your actions, your discipline, and your decisions in real time.
+Which is something that I always say to my students. Right? Because every everybody is thinking
+about how to get rich fast, how to make as much money as humanly possible in the shortest amount of
+time. I want to become a millionaire trader in 6 months. I want to buy the Lamborghini in a year
+from now. Buddy, the fastest way to blow up is to try to win faster. The fastest way to become
+profitable is to try to lose faster. Because in trading, the goal is not to avoid losses. The goal
+is to keep them small, controlled, and consistent long enough for your edge to play out. That's the
+holy grail right there. It's to survive in the game long enough for your edge to play out so that
+you can actually win, so that you can make money consistently. So, this lesson incredibly important,
+right? So, make sure you actually internalize these principles which I'm about to share with you and
+apply this risk management framework that I'm about to show you. All right. So, first of all, let's
+talk about risk management principles. These are like the golden laws, right? These are the golden
+rules, right? You have to follow these rules in order for you to really make sure that manage your
+money well. First rule is to protect capital first. All right? So, that's the first rule right
+there. Is to protect capital first. Warren Buffett famously said, "Rule number one is not to make
+money. Rule number one is do not lose money. And then rule number two is to never forget rule number
+one." Your first job as a trader is not to make money. Is to not lose money. It's to protect your
+capital so you can stay in the game long enough for your edge to play out. Right? Like I said
+earlier, if you run out of chips, you cannot continue playing. And if you cannot continue playing,
+then you cannot win the game. So, the only way for you to actually win the game long-term, not just
+one time or two times, but long-term, is to play the long game. And the only way you can play the
+long game is if you have capital to play with. Right? So, protect your downside, protect your
+capital, and sure that, you know, you're not blowing everything on one trade. You're not risking
+your entire account on one trade. Because if you do just that, all it takes is one loss to wipe you
+out. Right? All it takes is one loss to get you out of the game. Rule number two, principle number
+two, is to define your risk before every single trade. Before you enter for a buy or sell the
+position, you always need to know exactly how much money are you willing to lose. Is it $100? Is it
+$1,000? Is it $500? Is it $300? Whatever it is, you need to clearly define a risk before every
+single trade. If you do not define the risk before the trade, emotion will define it during the
+trade. What I basically mean by that is that let's say today you're obsessed with making money,
+right? So, you're thinking to yourself if you win this trade, you are going to make 1,000 bucks and
+then you're going to be able to buy that brand new MacBook. But what you failed to take into account
+before you enter for the trade is how much you could potentially lose if this trade does not go as
+planned. So, as a result, you enter for the trade, price start going against you, you're down $500,
+you're down $700, price keep going against you, your heart keep on beating faster and faster, your
+palms start sweating as you watch your loss compound, and now you're down $1,000. Now you're down
+$2,000. And now you're down $5,000. And next thing you know, you blew your entire account on one
+trade because you haven't clearly defined your risk before every single trade. Okay? So, always make
+sure you only trade with money you can afford to lose. And it's very important for you to actually
+define how much money are you willing to risk on any given trade before actually entering for the
+trade itself. Next is to keep your risk consistent. Do not change your risk based on feelings, based
+on confidence, or based on emotions, right? The last thing you should be doing is the sizing up
+because you just got a winning streak. Or sizing up just because you lost a trade and now you want
+to make back the loss. Do not trade your emotions, trade the market. Okay? So, make sure you keep
+your risk consistent. Consistent risk leads to cleaner data, more stable emotions, and better
+long-term execution. Right? So, another reason to keep your risk consistent is so that you can keep
+your profits consistent. Think about it, right? Consistent profits require consistent actions. If
+today you're risking 5% of your account, tomorrow you're risking 3% of your account, next next day
+you're risking 2% of your account, sometimes you're going to lose 5%, sometimes you're going to lose
+2%, sometimes you're going to lose 3% because your risk is variable, it's always changing, because
+of how you feel, then guess what? You cannot expect your profits to be consistent. Right? Like
+mathematically, the only way for your profits to be consistent is if you have your risk consistent.
+If you're risking the same amount of money every single trade, and every single time you're wrong,
+every single time you lose, you are only losing this small amount of your account. And every single
+time you win, you are making this much amount of money, which outweigh your little losses.
+Mathematically, long term is going to play out, it's going to work in your favor. Right? So, you
+need to make sure you keep your risk consistent, so that you can keep your losses small, and you can
+have big wins. Next is the use guardrails to control yourself. Set hard rules for max daily loss,
+max daily profit, and total trades per day. I'm going to show you how to do this later. I'm going to
+show you how to actually implement this into your trading system later. Right? But, you need to do
+this. Right? You cannot just rely on your emotions, you cannot just rely on your gut feeling in the
+heat of the moment. You have to define rules. You have to have like a framework to prevent you from
+blowing up. Because good risk management is not just about avoiding big losses. It is also about
+preventing emotional decisions. Okay? When you have like a very clear defined rule that you stick to
+on a daily basis, you are less likely to deviate from your trade plan. You are less likely to make
+stupid decisions in the heat of the moment, which means you are less likely to take unnecessary
+losses. Right? Play stupid game, win stupid prizes. That's it. Number five is a thing in
+probability, it's not certainty. No setup is guaranteed. Losses are part of trading. Risk management
+works when you accept uncertainty and focus on executing your edge over a series of trades. So, like
+what I mentioned right here, no matter how confident you are, no matter how many confluences you
+have attained from the market itself, you got a liquidity sweep, market shift, freaking uh chart
+patterns, whatever, right? The most confluence trade, right? You are so confident in the trade idea,
+there's no way it could go wrong. At least that's what you thought. Next thing you know, price
+reverse against you. Even though you have all the confluences, even though you checked every single
+box in the trade plan and your entry checklist. Well, because the market is random, right? At the
+end of the day, anything can happen in the market. Anything can happen in the market. Right? So, you
+want to make sure that you're thinking in probability, it's not certainty. Losses are part of the
+trading. It's just a cost of doing business, which means that you got to get used to it, right? You
+got to get comfortable with it. Warren Buffett loses, Ray Dalio loses, Paul Tudor Jones loses,
+George Soros loses. All of these billionaire traders lose from time to time. It's not about how
+often you lose. It's about how much money you make when you are right, and how much money you lose
+when you are wrong. Because like I said, if you can keep your losses small, and you can keep your
+wins big, mathematically, over the law of large numbers, over the long term, you will be profitable.
+That's the secret right there. I lose money, Warren Buffett lose money, every single person who
+trades lose money. Not because we are at trading, but because that's just the nature of the market.
+Out of 100 trades that you take, some is going to be losses, no matter how good or profitable your
+trading strategy is. Nobody on this God's green earth has a 100% win rate. Which means that you will
+incur losses. So, like I said, it's all about keeping the losses small. All about minimizing the
+losses and maximizing the profits. So, those are the five principles, right, that I adopt on a daily
+basis. This is how you should approach risk. This is how you should approach money, right? It's to
+always have the survival mentality. Before you can think about thriving, you should first think
+about surviving. You cannot thrive if you don't even survive in this game, right? So, think about
+protecting your downside. Think about protecting your account. Think about protecting yourself.
+Because the hidden cost of not adhering to your risk parameters is emotional. It's emotional. And
+the reason why I say this is because let's say you lose money on your first few accounts, right?
+Like you lose money trading, no matter how hard you try. You keep on losing money. The obvious loss
+is the money, right? The money, the hard-earned money that you have lost to the market. But the not
+so obvious loss is your morale. Now you will have a lower morale, and now all of these losses will
+feed into your identity. You will start to feel like, "Oh my god, trading is not for me. Trading is
+a scam. I'm bad at trading. Maybe I'm not born for trading." All of these infectious belief, doubts,
+is going to creep in your mind. That's the hidden cost of losses. That's the hidden cost of not
+adhering to your risk parameters. When you do not follow your risk management, yes, your account
+will suffer, but more importantly, you will suffer, right? You will suffer. Your mental well-being
+is going to go off the charts, right? And you will not be able to trade the market for what it is.
+So, yes, it's very simple. Go and do them, especially when you don't feel like it. All right? That's
+what risk management is. It's about just adhering to these rules even when you don't feel like it.
+Especially when you Now, I'm going to give you a framework. All right? So, this is the framework
+that I personally use to manage my multi seven figure account and it's the same framework that
+allowed me to scale from five figures to six figures to now multi seven figures. It's the same
+framework that got so many of my students funded. It's the same framework that got most of my
+students to the stage where they are consistently profitable and they're making anywhere from 5K a
+month to $50,000 a month. It's all using this set of risk management rules right here. First of all,
+risk a fixed percentage per trade. Right? Like I said, keep your risk consistent. And the rule of
+thumb is to risk like 1% of your entire account on any given trade. Okay? So, the industry tells you
+to stick to 1%. Right? Because if you risk 1% on each trade, guess what? You can be wrong 100 times
+1% * 100 before you actually blow your entire account. Right? So, it give you more breathing room to
+take a bunch of losses and still stay in the game. So, 1% is pretty good. But, what I found based on
+data is that 0.5% is pretty decent as well. 0.25% is The larger the account that you're managing,
+the lower your risk per trade should be. Like for example, right now I'm managing like a $5 million
+account. And I'm still risking 1% a trade. Right? Because that's the amount of money that I'm
+willing to lose. But, if I'm risking $10 million, which I can safely say that I'm not ready for that
+yet, but let's say I get to that point where I'm risking $10 million No, where I'm trading a $10
+million account. I'm probably not going to be risking 1% on that the trade itself because 1% on a
+$10 million account is a lot a lot of money. So, that That where I might consider risking 0.5%.
+right? So you want to like just ask yourself what is your risk tolerance? What is the amount of
+money that you are willing to lose on any given trade? Okay, the maximum is 1% anywhere below 1%
+that's great. The lower the better right because the lower the more room you can afford to lose
+before you actually blow up right? Like I think about it risking 1% per trade you have 100 bullets
+in your gun. But if you risk 0.5% on on a trade now you have 200 bullets. You have twice the amount
+of trades right? To actually play with right? But the downside of risking a small amount of money is
+that you make less money. So once again ask your risk tolerance I just introspect about your risk
+tolerance if you are more aggressive 1% is the right way to go if you're more conservative consider
+risking 0.25 or even 0.5% of your entire account on any given trade. Next is to set a max daily
+loss. So this is usually 2% to 3% max then stop for the day. Now the reason why I actually encourage
+you to set this rule is because you are going to get emotional when you get big losses. It's just
+part of being a human. You hate to be wrong. You hate the feeling of uncertainty. You hate it. Your
+ego hates it right? So when you take losses which is inevitable like I said earlier you are going to
+start feeling emotional. And if you don't have a gut rule that prevents you from making stupid
+decisions taking stupid trades what tends to happen next is that you're going to revenge trade.
+You're going to try to continue trading to make back the money that you have lost. You're going to
+over trade. You're going to force trades even though there's no opportunities. And when you do that
+you are no longer trading the market. You are simply trading your mental well-being. You're simply
+trading your emotions. And when you're trading your emotions, you are not looking at price. You are
+not rational. You are not logical. You are not executing your trade plan. And when you do that, the
+market is going to punish you. The market is going to punish you with a big loss. Next thing you
+know, you lose 1K initially. Now you take this other other trade. Now you are down 2K. And then you
+continue trading and now you are down 5K. And then next thing you know, you you have blown your
+entire account. Because in the heat of the moment, the emotional part of your brain overpowered the
+rational part of the brain. As a result, you were unconscious. You don't even realize that you are
+actually emotional, but your emotions were driving your decision-making. And that's a very dangerous
+way to be trading. So you want to have like a max daily loss, right? So 2% to 3% of your account,
+right? So for example, if your account got 100K, if you lose 3K, assuming you're risking 1% on on
+any given trade, which means you lose three trades, you stop trading for the day. Okay, you stop
+trading for the day. You sit back, re-evaluate what's going on, journal that I trade, reflect, and
+then get back to the charts when you are ready mentally. Okay, so yeah, having like a max daily loss
+helps out a lot. And also respect your max drawdown. Usually 5% to 10% max before reducing size or
+pausing. So this one is quite simple if you actually stick to rule number one and rule number two
+right here. If you have a max daily loss and you have a fixed risk per trade, your drawdown
+shouldn't be anywhere more than 1%. Right? On any given trade. And if you have five different open
+positions, then you'll probably be like 5% max. Right? So drawdown is like the amount of money that
+you are going to rate before you actually go back into break even or profitable. Right? So I'll say
+a good amount is like 5% to 10% before you're reducing size or pausing. So, once again, if you stick
+to these two and you have rule number four, you should be fine. Which brings us to rule number four,
+which is to limit total trades per day. Do not let one day turn into emotional over trading. Like I
+say, your job is to make sure that you minimize your losses. And you can minimize your losses in two
+ways. Quali- quantitatively, right? Which is just ensuring that whenever you lose, you lose a little
+bit of money, and that is adhering to your risk per trade. And also, another way is to limit the
+number of losses you incur on any given day. And that's what two, three, four is about. Right? It's
+about just ensuring that the most amount of money that I could lose for the day is 3% of your
+account, or even 5% of your account. And once you hit that, you're done. Or, you know, once you take
+three trades for today, you're done. Okay? So, even if you win those three trades, you still stop
+trading for the day because three is three, right? Doesn't matter if whether you win or lose those
+three trades. As long as you've taken three trades, you stop trading for the day. This prevents you
+from over trading, it prevents you from revenge trading, and most importantly, it prevents you from
+giving back the profits that you've made back to the market. Just think about it. How many times
+have you take a Let's say you win a trade, right? And that's another thing that I believe, right? I
+don't think the hard part is losing. I think the hard part is winning. Because when you start
+winning a trade, now your ego starts stepping into your decision making. Now, you start feeling
+overconfident, you start feeling this euphoria. And now you are inclined to just disregard the risk
+management because you're on top of the world, right? You feel like you're the king of the trading
+industry. You're the best trader in the entire world. Next thing you know, you continue trading and
+on the next trade itself, you end up giving back the profits that you have made back to the market.
+And in the next trade, you lose money and now you're back to square one. Or even worse, you are in a
+loss than you started in the first place. Right? All because you don't have like some form of rule
+to really just ensure that you limit the amount of trades that you're taking on any given day. Last
+but not least, is only risk on A quality setups. Protect capital by being selective, not just by
+sizing smaller. Okay? So, you want to make sure that you're protecting your capital by ensuring that
+you are only risking it on the setups that are worth taking. On the setups that has a high chance of
+working out. And that is the A+ setups. Right? Which is something that we talked about in the last
+few lessons, how to define an A+ setup. So, those are the setups that is worth deploying the capital
+for. Okay? Because those are the setups where, you know, once again, price is not going to suddenly
+go in a way because those models appear, but it has a higher chance of working out compared to if
+you take a setup that is a B setup or like a C setup. Now, understanding risk management is one
+thing. Actually following it real time is another thing. And that's where so many traders struggle.
+They know what they should do, but they don't do it because in the heat of the moment, emotions
+cloud their judgment. In the heat of the moment, they forget their trade management. They forget
+their risk management rules. They ignore it. And that's exactly why we built all of these risk
+management features inside Edge Flow, my trading super app. Once again, most traders already know
+what to do, but they just don't do it. Edge Flow helps you close that gap by turning risk management
+from an ideal, from a rule you have written down on a paper, into a trading system. You literally
+have no choice but to build all of these trading rules that I just showed you here into your trading
+system. Let me show you what it looks like. So, the first feature that we have is the auto risk
+calculator. Right? So, the first step is to make sure that every single trade is sized properly. So,
+for example, today if I were to enter a trade on EUR/USD, I come in here and I press trade. This is
+where the minute I place my stop loss, EdgeFlow automatically calculate the lot size for me based on
+my stop loss distance, based on my account size, and my risk per trade. All right. So, in this case,
+I'm risking 1% per trade because that's the god rail that I've set for myself in my settings. So, if
+I come here and I place my stop loss at let's say 1.170 85, right? You can see my stop loss right
+here. Look, the lot size automatically get calculated for me. And it's automatically updating in
+real time based on the fluctuations of price. This way, I'm always risking 1% of my account on any
+given trade. All right. So, this is the very amazing sort of feature for me when I started using it
+because I don't have to go to another website, spend so much time trying to figure out my lot size.
+The system literally does it for me. And if you don't like to place the price of the stop loss, you
+can also place it in terms of pips, right? So, for example, I want to have like a three pip stop
+loss. Boom, lot size automatically get calculated. Or even just like a one pip stop loss. Boom, lot
+size get auto calculated. Right? So, very useful feature to have. It pretty much reduces the
+friction that is needed for you to be disciplined, right? For you to actually adhere to your risk
+parameters. Right? This way, you are no longer guessing a lot size or eyeballing your exposure.
+You're entering every single trade with a defined risk amount that matches your trade plan. Which
+brings us to the god rails that we have right here. Okay? So, if you notice all of these guard
+rails, you can configure them in your settings. This allows you to have a max loss, a max profit
+target, and also the max trades per day, and also your risk per trade. All of these is what we call
+the guard rails. All right, so if you go to settings and you go to trading preferences, this is
+where you can set your guard rails. Like I said, you want to limit the amount of trades that you're
+taking on any given day. So, this is where you can set it over here, right? If you want to take
+three trades a day, put that in. If you want to take two, put that in. Whatever it is, just put it
+in right here. So, once again, this is very important, right? Because this helps us reduce
+overtrading, reduce impulsive trades, reduce bottom entries, reduce low quality setups that is
+outside of our entry model. When you know you only have a limited amount of bullets, which is five
+in this case, you become much more selective. Now, you're just thinking through every single trade
+before you actually enter for the trade itself. And that selectivity improve execution. Okay, so for
+example, if I set three right here, I'm only have three bullets for today. So, I want to be very
+mindful. I want to really make sure that I think through before I enter for the trade, because once
+I hit three trades, I'm done for the day. Another thing is the max daily loss, right? So, once
+again, this helps you protect yourself from turning one red day into a destructive day. Once your
+max daily loss is hit, that should be a signal to stop. This rule right here exists to protect you
+from revenge trading, emotional sizing, forcing setups after losses, and just digging a deeper hole
+for yourself. Right? So, once again, if this account that I'm using right now is a million dollars,
+right? So, if that's the case, my risk per trade is usually about 1%, so let's say I only want to be
+losing a total of 2% or 3% on any given trade, this is where I can just put the max daily loss as
+20k or 30k or whatever I want to set for the day. And then once I actually lose more than 30k or
+near 30k, this is where EdgeFlow will automatically block me from trading. I will not be able to
+continue trading because my max loss has been triggered. So, this way it prevents me from revenge
+trading. And also max profit, which prevents you from giving back your profits back to the market.
+Right? Like I said earlier, the problem right here is with winning. A lot of traders, they make
+money early and then they keep trading out of greed, out of boredom, out of overconfidence, and they
+end up giving it back. Okay? Sometimes the most disciplined decision is to stop after a strong
+session. Once you make money, know when enough is enough and just stop. And this got real right here
+allows you to protect a green day. Allows you to protect your profits and not give it back to the
+market. Right? So, I usually like to set it at around like 5% to 10%. Once I hit 5% or 10% on any
+given day, I'm done for the day. Right? Like that's the most amount of money that I'm willing to uh
+make before I just stop because I know for a fact that if I go more than this amount, I will just
+end up, you know, making stupid mistakes and giving back the profits back to the market. And also
+like the risk per trade right here, like I mentioned earlier, this is where you can define how much
+money you want to risk on any given trade based on your account. In this case, 1% is where I usually
+like to risk. I can even go to 0.5% as well or even 0.25% and the lot size will automatically adjust
+by itself to match the risk. Right? So, let's say 0.5% in this case right here. And this is where
+when you go and trade, you realize that the risk per trade has been changed to 0.5% and if you set a
+stop loss, you will see that it's a lot more lesser right now, right? The loss is a lot more lesser,
+right? Because once again, this is calculated based on the stop loss distance and based on the risk
+per trade. So, all of these features that we have in place helps to reduce the friction it takes to
+trade in a disciplined manner. Okay, like if you don't have these guardrails in a system, it just
+make it a lot more difficult for you to become consistently profitable. Right? Because when you are
+trying to be disciplined, it requires a lot of willpower. It It requires a lot of mental energy. And
+when I'm putting that energy into trying to be disciplined, it's going to be very hard for you to
+actually just trade profitably. For you to just trade fast. So, with EdgeFlow, instead of relying on
+discipline in the moment, you literally build discipline into your environment. Right? So, once you
+hit the max trades per day, this trade button get grayed out. You are not allowed to trade. You can
+override it, but it will require you to input a reason. Same thing, if you hit the max loss, if you
+hit the daily target, you will not be allowed to trade. Right? So, this means that your slot sizing
+is calculated there properly. Every single time you are risking the same amount of trade, 0.5% or 1%
+based on what you choose, which means that you will have a consistent risk equal consistent profits.
+Also means that your risk is always defined before the trade. Right? You are not scrambling around
+here thinking about, "Oh, what lot size should I use for this trade?" No, because it's automatically
+calculated for you. Once again, you have no choice but to like just stick to your risk parameters.
+Your daily loss has a hard cap. Right? So, once you hit this amount, you're done for the day. Your
+daily profit can finally be protected. Your total number of trades is controlled. Once again, all of
+these guardrails just makes it so much easier to stay aligned with your rules even when the market
+is moving fast. Most traders do not fail from the lack of knowledge. A lot of you guys watching this
+video right here already know about these principles. You already know what to do. Right? You
+already know that you shouldn't be risking your entire account on one trade because that's gambling.
+That's not trading. They fail from a of consistency. And consistency is so difficult to maintain
+when you are trading independently by yourself. But it becomes so much easier when your trading
+environment supports that discipline. So instead of relying on willpower, uh, you know, energy, or
+your emotions, or guesswork, your trading environment literally support that discipline, right?
+Literally build it into your system itself. So now you have no choice but to be disciplined on a
+daily basis. And like I said, consistent actions lead to consistent results. When you're consistent
+in terms of the way you manage your capital, it's only a matter of time till you see consistent
+profits. That's why Edge Flow is not just about analysis. It's also about execution and behavior.
+Because your edge is not in your strategy. Your edge is also in your ability to manage risk, protect
+capital, and stay disciplined over a large sample size of trades. Everything you need to trade
+profitably, everything you need to think, act, and feel like a professional trader is in Edge Flow.
+So if you want to get your hands on this awesome trading software, click the link in bio. Because at
+the end of the day, risk management should not live only in your head. It should be built into the
+way you trade. Okay? And that's the real purpose of having all of these risk calculators and got
+real sense in Edge Flow. To make discipline execution easier, to reduce the friction it's needed to
+be disciplined, to do the right things, so that it can become more consistent, so that your results
+can become more repeatable and more predictable, and more scalable. Right? So with that being said,
+hope you guys have enjoyed this lesson. And as always, remember you're just one trade away.

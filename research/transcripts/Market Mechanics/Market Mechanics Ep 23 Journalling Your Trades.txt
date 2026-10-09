@@ -1,0 +1,195 @@
+Market Mechanics Ep 23： Journalling Your Trades
+https://www.youtube.com/watch?v=Gx6KAhhWn10
+
+The definition of gambling is trading without journaling. It's repeating the same mistakes with more
+confidence. Einstein famously said, "Insanity is doing the same things over and over again and
+expecting different results." It's the exact same concept in here. If you trade the same way, you
+repeat the same mistakes, you are going to get the same results, which means until you change, your
+trading results will not change. Okay? So, I believe that journaling is important not for your
+present self. You don't journal for today. You journal for your future version of yourself. Right?
+The goal here with journaling is to capture truth while it's fresh, not after you rationalize it.
+It's to capture truth so that later you can introspect on truth and you can think about how you can
+improve your existing strategy to make it even better, how you can improve yourself, your technical
+edge, your mental edge. And to me, like, journaling is just how you separate luck from skill.
+Because a green trade, a winning trade, can be bad execution, right? Could just be you got lucky and
+you won the trade. And similarly, a red trade, a losing trade, could be a good trade because you
+executed your trade plan flawlessly in that trade. Which also means that if you do not journal your
+trades, you will never ever know the difference. It is your duty to journal your trades not for
+today, but for your future self. So, you can look back, see the progress you've made, and thank you
+for not wasting years repeating the same mistakes. And we all know that the secret to profitability
+is to become more disciplined, right? But what does it that mean? To become more disciplined, what
+it essentially means is that you need to overcome the resistance that stops you from doing the hard,
+boring, repetitive tasks that are required to succeed. Things like journaling, reviewing, refining,
+following a trade plan. And the thing is you can do all of that by increasing reps until you adapt,
+or you can just reduce friction. And that's what Edge Flow does. It lowers the resistance to the
+boring, repetitive tasks that actually make you profitable. Okay, so let me show you how to actually
+use the trading journal inside Edge Flow to journal and review your trades. So, after you have
+closed a position itself, right? You can just go and journal that trade by going to your trading
+journal function in Edge Flow. So, over here, this is where every single trade that you have closed,
+every single position that you have closed, will appear over here, right? They get auto imported
+immediately right after you exit a trade. And you can also add a manual trade entry if you want to
+do so, right? Like this is where you Let's say you take a trade outside of this trading account and
+you want to document it on your Edge Flow account, you could just add a manual trade and just fill
+in the details in here, right? The details about the trade. And then once you do so, the manual
+trade will appear here, right? Just to give you an example of a manual trade. Ta-da, right? Manual
+trade, as simple as that. So, when it comes to journaling, trust me, nobody likes journaling, all
+right? Nobody likes journaling. The only difference between professional traders and amateur traders
+is that they do the things that they don't like to do anyways because they know that it helps them
+in the long term, right? So, my rule, my non-negotiable is I journal right after I exit a trade.
+Okay, you want to make this a habit because that's the only way this thing can feel fun. That's the
+only way you can reduce the amount of willpower needed to do this mundane task is to make it a
+habit. So, journal right after you exit a trade, right? For example, I come in here, I trade trade
+trade trade. Today I lost $2,000. Cool. Press this button right here, view in journal, straightaway
+go and journal the trade itself, right? Like once again, when you build it into a habit, now you are
+doing it every single day. Okay? So, if you can't do it immediately because like let's say you are
+still trading, you know, you still want to continue trading, then what you want to do is to do it at
+the end of the trading session, at the end of the trading day. But, you must get it done no matter
+what within the same day, okay? Because this is where your emotions are still fresh. You just got
+off the trade, you kind of understand the trade idea, and you can like really just document the
+reality of the trade itself. It is different if you journal right now compared to if you journal the
+trade a few days later, right? So, try to do it as soon as humanly possible, and just do more reps,
+right? Because the more reps you do, the more automatic it becomes, and the more easier it is for
+you to journal in the future. And to me, what I like to do is to once again, like I said, reduce the
+friction that is needed to journal, right? So, I like to get into a flow state. And I get into a
+flow state by putting my headphones on, and also having like a green tea right by my side, and just
+start like chipping away, right? Just listening to some productivity beats, you know what I'm
+saying? And then like I just coming in here and just start journaling, right? So, this is where like
+I said, if you do it fast, it takes only 5 minutes, and it can save you thousands of dollars by
+preventing repeated mistakes. So, after you're done trading for the day, first thing you want to do
+is to go to the trading journal, and I click the day that you're on, and glance at the daily stats
+first, right? It just give you quick context at a high level. And this is where you can see your
+P&amp;L for all the closed positions of the day, how many trades you have taken, what is your win
+rate like, did you follow your trading plan, did you violate any guardrails? If so, it'll be
+documented right here. Did you complete the pre-market routine, and how many straight trades you
+have already journaled so far, right? So, if you come here, you will notice there's like this gray
+dot beside each trade itself. What it pretty much means is that the journal is missing, right? That
+means you haven't started journaling the trade itself. So, once you start journaling the trade, it
+will look something like this. You can see the the greater just disappeared, right? So, this kind of
+indicate, okay, have you journal for the day or not, right? If you're able to journal all the trades
+that you've taken, then this thing will turn into complete. Now, let's begin the journaling process,
+right? So, let's click on this trade itself. And what you want to do is to scan from left to right.
+Okay? Because the left side, what we have over here is all your trading data, which is once again
+automatically imported from your trading broker. This is where I can see on P&amp;L, what instrument
+do you trade, what was the direction, what lot size do you use, what date was this on, like what
+session was this trade in, what was the trade duration, right? Whether it's 5 minute, 1 hour, 45
+minutes, and what is the entry price, and what is the take profit, stop loss, so on and so forth.
+And what is your risk and reward in terms of R multiple, and what was the fees that cost you in this
+trade itself. Okay? So, on the left-hand side, just review the trading data, see whether it's
+correct or not, and then on the right-hand side, this is where you have the space, you have the time
+to actually introspect on the trade idea itself. Okay? Introspect on the trade that have just been
+closed. So, when you start journaling, the first thing you want to do is to actually add your chart
+screenshots, right? So, you have context over the trade itself. So, on the trading panel itself, you
+can just come in here and just press download image. And then once you download image, you can just
+come back here to the journal, and then you can just upload the image just by dragging and dropping
+into any one of these boxes right here. But you basically just want to upload a chart screenshot for
+the higher time frame, on medium time frame, and a lower time frame. The higher time frame, this
+give you context as to like why this trend direction, you know, what was your initial bias, what was
+the structure like, what was the key levels. And then the medium time frame could answer the next
+question, why this location, why the higher and lower display the month zone or flip zone, like
+where was the available liquidity? And then the lower time frame, this is where I can see your entry
+trigger, right? What was the entry confirmation that triggered that appeared in the market that
+causes you to enter for the trade itself. Okay? So, the reason why we actually put these chart
+screenshots in here for you is so that we can refresh your memory, right? To just remind you of what
+happened a few hours ago, a few minutes ago when you were in the position itself. And once you
+visually see the trade that you just exited, you can revisit your thought process accurately instead
+of rewriting history, right? Because we all know how inaccurate memory is, right? So, it's important
+that you actually do this. And here's a tip for you, right? If you press this focus mode over here,
+what you essentially go is literally focus mode where we literally hide all like all the other
+details like this and this. So, all you have can do is to just like journal, right? Journal manually
+while reviewing the chart screenshots here, right? So, this is a cool little tip that you can try
+out if you want. But anyways, this is where I can start tagging your trades, right? So, once again,
+go from top to bottom, right? Did you follow a trading plan? Yes or no? You can just check off this
+box right here and then go and tag which plan did you actually follow based on your edge, right? So,
+by default, you will always be the plan that trading plan, the edge that you have set as active in
+the edge feature itself, right? But yeah, you can go and select whatever trading plan that you have
+followed in this case and then type in the entry confluences, right? So, how this works is that it's
+essentially tags, right? It's It's like a tag system. So, just list down your entry confluences,
+right? So, let's say in this case, we got a market shift, okay? Just type in, press enter, and it
+will be tagged right here. And then it'll be saved over here as a drop down so that you can tag it
+in the future. Yeah, so you type in your entry confluences over here, I'll pick the two to five
+[snorts] confluences that actually cause you to take the trade itself. You don't have to over tag,
+right? You don't have to pick 10 things because you're just going to be lying to yourself. Just like
+really just enter the the entry confluences right there. And then next up you got the trade
+management, right? This is where you can once again write down how you manage the open position,
+right? Did you hold it all the way to your take profit? Or like did you take partial profits? If so,
+where did you place your partial profit at? If you move your stop loss, how did you move your stop
+loss or and so forth? And then once done, you can go and reflect on the trade itself and think about
+what were the mistakes that were committed on this trade. Whether that's a win or a loss, there will
+always be some form of mistake. There will always be more room for like improvement, right? So, if
+there's a mistake, just go and tag it right here, right? Maybe I did not wait for price to mitigate
+my point of interest, right? Whatever mistake that you have, just put it in. If you don't have any
+mistakes, you are flawless, then yeah, you can just uh just like leave it clean. Okay, but like I
+said, you just want to make sure that you are brutally honest, right? Because this is where you will
+be able to make the most amount of progress when you actually just stare at your inadequacy and just
+think about solutions to overcome your shortcomings. And then over here, this is where you can take
+your emotion, right? So, about the in the trading panel, we have a feature, right? So, example,
+right after you enter for a trade over here, what happens is that there will be this emotion pop-up
+model right here that appears right after you trade just to ask us ask you what emotion drove this
+entry, right? So, let's say calm. And then this is your entry emotion, right? This entry emotion
+will be tagged into your trading journal. And then once you close the position itself, there will
+also be another model just like this asking you how do you feel after you got out of the trade,
+right? And this emotion here will be tagged into your exit emotion, right? So, whatever emotion that
+you have selected while you're trading, like I said, it will automatically be imported in here.
+Okay? So, yeah, let's say in this case, since I didn't, you know, in select my emotion while I was
+in the in this position itself, I'm just going to manually choose it right now in retrospect, right?
+So, I can put calm, disappointed, whatever it is. Just put the emotion there. Okay? So, once that's
+done, this is the fun part, and that is reflecting on the trade itself. So, when it comes to
+reflecting the trade, you can either type out your reflection manually just like this, or you can
+record like a little voice thing, which will then transcribe what you are saying into text. So, this
+way you don't even have like do the journal itself, right? Let me just show you how this work. Okay,
+you can see like it literally just transcribed what I just said. Okay, so today I entered for a
+trade on EUR/USD, and I actually made the mistake of being too impatient. I rushed into the trade
+without following my trade plan. Okay, you can see just an example right there. What happens is that
+it transcribed what I said into text, right? So, this way if on some days where you don't feel like
+manually typing stuff, because you just encounter a bunch of losses, you can just speak to it like a
+freaking human, and then it will transcribe what you have said to it. All right, so when it comes to
+reflection, there are two ways that I actually reflect based on my trading results. When I'm green,
+when I make money, this is where I'm asking myself, okay, did I actually follow my trade plan, or
+did I get lucky? And if I did follow my trade plan, which part of the process was clean, right? Like
+what worked? Okay, like is it because the point of interest was marked up properly? Is it because um
+my bias was correct? And then I also ask myself, did I leave money on the table, or did I manage the
+position well? Right, and this is where I really just go and look at my how I managed the trade.
+Right, did I cut the profits early because I was scared that price is going to reverse? Did I take
+partial profit? Did I move my stop loss way too soon? And then last but not least, I ask myself, how
+can I repeat this win again next time? Okay, like what are the things that I can do more of in the
+future so that I can repeat a win just like this. That's the scenario if I win, if I'm green, if I
+make money. Cool. Very fun. Right, it's fun to journal when you're making money. The other scenario
+is when I lose money, when I'm red. The first question I ask myself after I lost a trade is, was it
+a good loss or a bad loss? Because a good loss is one in which I follow my plan and I still lose.
+That's part of trading, right? That's just variance, right? That's just, you know, the the
+probabilistic nature of trading. You can't escape good losses. But if it's a bad loss, that's
+alarming because a bad loss is a loss that I incurred as a result of neglecting my trading plan.
+Once again, that's alarming, right? Because that just says that I haven't been disciplined on this
+trade itself. Let me go and investigate what went wrong. Like, did I let emotions cloud my judgment?
+Okay, if that's the case, I can go and look what was my emotion at entry? What was my emotion at
+exit? And then based on that, I can develop a hypothesis, right? Okay, saying that because I was
+angry when I was entering the trade, it caused me to actually neglect my trade plan, and now I'm
+just trading the market because I want to get back the money that I've lost. And that resulted in
+this loss. So, the next time around when I actually feel this exact same emotion, maybe I should
+calm myself down. Maybe I should, you know, meditate before I actually get back into the market. I
+also ask myself, okay, what caused the the loss itself, right? Like, did I not follow my trade plan?
+Was it timing? Was it anticipation? Was it emotion? Whatever it is, identify the root cause and try
+to fix it next time round. Okay, what got real can prevent this exact mistake? What rule change do I
+need to do to make to like combat this mistake in the future, right? To prevent myself from
+repeating the same mistake again. Okay? So, yeah. Basically, just remember that a good trade is not
+necessarily a profitable one. A good trade is one in which you executed according to your trading
+plan. Especially when you didn't feel like it. So, just because you make money doesn't mean it's
+good. Just because you lost money doesn't mean it's bad. Execution is what we are grading here. We
+don't define our performance, our self-worth by our P&amp;L. No, we define it by our ability to
+execute the trading system. By our desire to becoming a skilled trader. So, once you're done with
+everything, right? Let's say put a bunch of journal in here. There's no save button because it's
+auto save. You can see right here. It's auto save, right? So, you can just leave the journal itself.
+Or, if you want, you can just continue journaling the next trade by pressing this button right here.
+And then boom, you're going to the next trade. And then this is where you can like journal like the
+the previous trade, the next trade, so on and so forth. Yeah. So, that's what you can potentially do
+in here. And then this allows you to just journal trades back to back without ever leaving the page
+itself. And also, there's this function that allows you to share a trade right here, right? You can
+use this for feedback. You can use this for accountability. You can share it with your coach, share
+it with your trading partner, you can share it with your community. Make sure that you only share it
+after you have journaled it, though, so that the context is much more complete. But yeah, that's the
+whole point of the trading journal. Remember, you're not doing this to feel productive. You are
+doing this to get dangerous. Every trade you journal becomes feedback. Every mistake you make
+becomes a pattern, and every pattern you fix becomes profit over time. So, do not be that trader who
+keeps paying the market tuition for the same lesson again and again. Close the loop after every
+session. Break the cycle. Break the vicious cycle of unprofitability. And your future self is going
+to thank you for it.

@@ -1,0 +1,138 @@
+My AI Trading Bots Now Rewrite Their Own Rules
+https://www.youtube.com/watch?v=cTUnM9trqfs
+
+A week ago on my previous video, I gave free AIBs $1,000. Well, they've already gone ahead and lost
+130 of it. Boozy Bee is down a third and consistently gets benched. Total DJ. Meanwhile, 93 of you
+actually build bees in the hive because I gave you the opportunity to clone this and host this.
+That's right, 93 of you hosting your own bees. And it blew my mind that the open code I shared on
+GitHub was fought 100 times and starred 200 times. So, thank you for that. And as you'll see, many
+of you are in profit and doing better than me. And one bee, Scrum B, not mine, by the way, is
+beating every single bee I own. Now, why is that? Well, my bees aren't stupid. It's just that
+nobody's watching them. So today I'm actually going to introduce the character I mentioned in last
+week's video, the beekeeper. Basically, when the bees get hurt, they call the beekeeper. And then
+beekeeper is powered by Jeb, who will decide, be are you broken or are you just unlucky? And then,
+and this is the big thing, we hand the decision off to a latest Frontier model that will write new
+rules even while I sleep. So let's see if we can get my money back. Before we continue, this is not
+financial advice. Crypto can go to zero and everything I do in this video will be shared in a link
+at the end of the video. So, take a look at this crazy site, bbots.te. Over 36,000 of you from well,
+all over the globe are watching this. In fact, 369 of you are watching this experiment right now.
+And here's what they've seen. Well, they've seen Breezybe is actually up. And definitely I think
+Breezybe just got lucky because well it just put money into Ethereum and then held it and it's gone
+up by about 2.37%. One trade held and money in the bank. The BusyB is down by about 7.6%. It's
+allowed one trade a day, uses it by breakfast, then sits there and generally loses. Although at the
+moment it's on a slight uptick, so that might change. And then we've got Boozy B. started with $333.
+Now 34 orders later, 14 trades this week, seven points from being absolutely retired for good. Yeah,
+Jeb made $600,000 decisions this week. And really, what I've realized over the week is Jeb is just a
+monkey that says do or don't do. But it's cost me $10 and I'm not complaining. The decisions were
+never the problem. The rules were. Last week I said build your own be. And yeah, 93 of you already
+did in 7 days. 18 hives buzzing and trading and three bees have already died. If we look at the
+graveyard over here, bless these bees. Rest in peace, they lost all their money ahead of me. Max B
+was killed by Bitcoin. Crumb was killed by Hib. And there's this one here, cause unknown. But at the
+top of the chart, Scrum is up 5.7%. That's a great return on investment. So, here's the thing that
+nobody's noticed. Every bee's rules are actually public. I can go into this leaderboard and so can
+anyone else who goes to the site, click into a bee, and there are the bee's rules. You can copy
+these rules and clone them yourself. Obviously, with the caveat that paper trading is advised, and
+that's not financial advice. There is money being made in the hive, just not by me. So, the question
+is, why does Jev not just fix the bees? And the answer is because Jeb is a referee and not a coach.
+Same situation in and always just the same answer out. No memory, no research, no opinion about
+tomorrow or what's actually happening on the market. Just signals and a percentage that it's likely
+to succeed. It can say no 40,000 times a day and charge you a dollar. But it won't say your rules
+are wrong. You might want to change your strategy. Somebody has to watch these three bees. And I'm
+definitely not doing it at 3:00 in the morning. So meet the beekeeper. It's actually one zap running
+24/7 on Zappia that watches all three of my bees. And the first step, well, the bees call it via a
+web hook. So, that's any of my three bees calling out to this zap when they need help and they'll
+get coaching back from the beekeeper. Any problems passed straight into Zapia. Then, I've had this
+AI code generated. And don't worry, you won't need to copy and paste that from my screen. I'll just
+share the link to the template for that zap so you can clone it yourself. I want you to imagine step
+two as the scorecard. Every bee, every trade, every rule, and everything that was done and the rules
+from the hive passed on to step three, which is Jev. And Jev's single decision here is to decide
+whether the bee is broken or just unlucky because of the market. Now, if you're doing this yourself,
+this is the first place you'll need to put an API key in. And thankfully, yes, Jev reenabled
+signups. Last week, they were disabled for a while. So you can sign up to Jev from Typesafe, get
+your API key and stick it straight into Zappia here with a sign in. So as you'll see here, I am
+actually in the Typesafe console. I can go to my API keys and I can create a key. And we'll call
+this one the beekeeper because of course that's going to be assigned to the beekeeper. And with the
+beekeeper created, we'll connect it. Okay, it's as easy as that to connect Jeb into Zapia. Now I
+have something that can make decisions on my behalf, even when I'm sleeping. Before we look at how
+Jev actually works in this app, I want to show you what gets fed into Jev. So, every time something
+comes from the BBOT site, we get an update on the bees, how much money they've got, what their
+trading, what their strategy is, everything is passed through, and also how the top viewer bees are
+doing. This is important because a lot of your bees are doing better than mine. So, we pass a lot of
+that detail across, including the profit and loss for each B and the top B name at present. Now,
+this is all really important because Jev gets to judge from that data if a B is truly broken and
+needs fixing. Now, let's look at what's really going on inside this Jev step. As you can see, the
+content of everything I've pulled from my live BBOT site is passed on, and we have yes or no
+questions. Is at least one of Mike's three official bees losing because its rules are wrong in this
+market? And then we pick from a B name. So busy, breezy, boozy are there. And then an anger scale
+for the beekeeper. Should the beekeeper be calm, mildly annoyed, cross, angry, or furious about
+this? And a confidence score. So there we go. Zappia makes it easy to put all of the things you need
+to measure into Jev in one single call. With this setup, we're testing Jev, and it's done. And look
+at this. The answer is yes. Boozy is broken. Anger is unsure from Jev. Confidence 0.63. 63
+confidence about the B. Yeah. 0.75. That's pretty high. Okay. So, not all answers are confident
+here, but Boozy is definitely coming up here as a B that the beekeeper should be watching and
+fixing. And you know what? Looking at his chart, I would be tempted to agree. So, this is fantastic.
+Rather than Jev just going round and round saying, "Hold on to things, ride, and don't make a move."
+We are actually passing that information to the frontier now to a Frontier AI model to get some
+coaching and hopefully improve our bees. So far, we've managed to catch the information from the
+site. We've used a little bit of code to rip it all apart and then we pass it on to Jev. The next
+thing is to filter. Only if Jev names a B will it go further. Well, indeed, that actually happened.
+And you can see here in the test, yep, it would have happened. It would have passed on because Boozy
+was named as a B. Yes, broken with a confidence of 75, which is exactly what we want to see. Now,
+the coolest thing about Zapia is you get Frontier models included as part of paid plans. So, I'm now
+passing on to AI by Zapia to use Opus 5.5 to write new rules for my trading bees. As you'll see,
+I've already set up AI by Zappia, and I've told it it's the beekeeper. It's making a decision based
+on the answers that come back from Jev, which are pasted all the way through this prompt to make new
+decisions. Now, another cool thing as well as choosing premium models here, I happen to have chosen
+the fantastic premium Claude Opus 5.5 sitting right at the edge of the Frontier. As you can see,
+many other models are available. Even Fable 5. If you want to go ahead and use that one in your Zap,
+you can do it. The other thing I'm going to flip on here is the ability to browse the web. Yep, AI
+by Zapia can do that all in one call as well. So, the market, crypto, all of that can be influenced
+by Chatter Online. And this one step will allow the beekeeper to see that stuff. Then we've got
+output fields here. We've got the idea, the new rules, any coins that should be looked at, the
+reason, and a note that will all then get sent back to my BBOT site. And my bees are self-improving.
+So you can see I've run AI by Zappia once. It's already got an idea, some new rules, coins to
+follow. And the reason because Boozy stops chasing thin hype coins and follows some majors. Caught
+this one face down in a pump jar again. Mike, after 34 orders and a third of its honey gone, it's on
+BTC, ETH, link, and sold now, and it only gets to add to a trade that's already paying. This is just
+the kind of stuff I wanted. I've traded a monkey for a real coach. Okay, so with all of that done,
+when a bee is hurting, it calls through, sends its details to Jev. Jev judges, then sends it off to
+the frontier, Opus 5.5 in my case, and then after that, it's signed and delivered back to my lab,
+back to my Bbots site. Now, that's fantastic, and I'm going to update the BBOT site to have the
+beekeeper on there with notes, but I want to keep an eye on everything the Beekeeper is doing and
+all these strategy changes. So, one more addition to my Zap and we'll call it done. One thing I
+wanted to show you at this stage, I'm actually using Buzz to run this whole project. It's clawed
+code under the hood and it even screenshots my Zappia website so I can see it building out the zap
+in real time in front of me. Yes, spoiler alert. I no longer build zaps. I either use next
+generation zaps or I use a buzz agent that has computer control that can literally build those zaps
+in front of my very eyes. So, as you can see, all the feedback is back. More screenshots. Computer
+use is just next level using either clawed code or codeex inside buzz. It screenshots everything
+just amazing. One more prompt. Okay, before we hand back to the lab between steps five and six, I'd
+like to insert a Zapia table. So, make sure that step is there and make sure everything the
+beekeeper does is recorded so I have traceability and accountability. That's absolutely fantastic.
+Brilliant prompt. I will send that off to my buzz agent that is now going to go ahead and control my
+computer and build that into my Zap. And look at this in real time without me actually touching the
+computer. My agent is opening up, making sure a Zapia table is there with all of the columns needed
+to record the data for me. This is really cool to watch it just scroll through everything and add in
+the fields automatically for me. Just like this, I don't have to touch my keyboard. My agent is
+doing it for me. So, it's as simple as that. Logged into a Zampia table and then passed back to my
+live BBOT. A minute later, the strategy is on the site. It's amazing. Nobody needs to touch a
+keyboard. And will you take a look at that? The beekeeper is live on the site. This is fantastic. No
+rounds yet. He's putting his gloves on, but is indeed powered by Opus 5.5 and Zapia. We should have
+self-improving bees in moments. So, the bees have a boss now. Every hour, my server pings a zap. Jev
+reads the scorecard and decides if a bee is broken or just unlucky. If it's broken, Claude opens 5.5
+rewrites that bee's rules inside Zapia and they go live on the site with a oneliner from the
+beekeeper. He can change the words, never the risk. You can copy the zap yourself and the link is
+below. Now, here's the clever bit. Jev runs on my box 24/7, every second or so, nearly for free. I
+mean, I've spent only 10 bucks in a week. Jev inside Zapia runs only when a bee cries, when it's
+hurt, and again costs just pennies. Opus is included in my Zapia plan. So that is Frontier
+Intelligence only on demand when a B is actually broken. So clever stuff. Jev is there as the
+decision maker, but then we hand off to the frontier via Zapia when it's needed. cheap and constant
+at the bottom, smart and rare at the top, and me at the very top with a 24-hour clock and um losing
+sleep watching the site wondering if it's all working. Zapia is an awesome AI orchestration
+platform, and professional plans start from just under $20 a month. Boozy lost that in one morning,
+so this is definitely a good investment to improve my bees. The bees still have no idea that they're
+being watched, but every one of them now has a keeper. And if you built a bee last week, go and
+check in on it. And if you want your own beekeeper, I'm going to put the link to this holes app in
+the description. Build your own bee, then build the thing that watches it as well to keep your bees
+safe and hopefully in profit. Thank you so much for watching and YouTube is showing a video on your
+screen now you should watch

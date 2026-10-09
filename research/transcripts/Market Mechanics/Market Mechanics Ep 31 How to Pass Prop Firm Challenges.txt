@@ -1,0 +1,304 @@
+Market Mechanics Ep 31： How to Pass Prop Firm Challenges
+https://www.youtube.com/watch?v=kRYQFKysfis
+
+How to pass prop firm challenges 101. In this video, I'm going to give you a lot of tips and tricks
+so that you can pass your prop firm challenges with ease. And this is coming from a mentor who has
+helped hundreds, if not thousands, of in students get funded. Right? Like all of these amazing
+results that you can see on the screen right here over and over again. So, I can tell you with all
+my heart that every single tip and trick I'm about to teach you today works. All right? So, yeah.
+Continue. You can see this goes on and on. We've got so many students who managed to get with all of
+these tips and tricks where I'm about to equip you with. Okay, so this is the secret sauce right
+there. Now, a lot of traders think prop firm challenges are a test of strategy. They are not. A prop
+firm challenge is a rule-based game. So, that's how I define a prop firm challenge. It's simply a
+game. And if you win the game, that doesn't mean that you're a good trader. It just means that you
+really understand the rules of that game. If you failed at the game, that also doesn't mean that
+you're at trading. You could be a good trader, but still fail the prop firm challenge. All right?
+Because you don't understand the rules. Because you don't play by the And a lot of traders, they
+don't fail the prop firm challenge because their strategy sucks. They fail because they break the
+rules before their edge has enough time to play out. As a result, they overtrade, they revenge
+trade, they size up emotionally, they hold their trading trades through news, they hit daily loss,
+they blow overall drawdown. All right? They start to break every single rule that the prop firm
+challenge asks them not to break. And that's why they fail. Right? Like they can have the most
+profitable trading strategy under the sun, but because they exceed the risk parameters, because they
+violate a certain rule, they fail. So, prop firm challenges are not just about making money. They
+are about making money without breaching the rules. That is the game. And once you understand that,
+your whole approach starts changing. Because now you stop thinking about how can I pass this as fast
+as possible, and you start thinking about how can I survive long enough, stay within the rules, and
+let my edge do the work. That is a much better question. So, my best piece of advice for you who are
+trying to attempt a prop firm challenge or is going to attempt a prop firm challenge is this. Prop
+firm challenges reward the boring traders, not the emotional one. That's it. Okay? So, once again,
+the big mistake right now is that a lot of traders, they try to rush the process. They are trying to
+get funded as soon as humanly possible. They see the 5% or 10% profit target, and now they
+immediately start thinking, I need to make that quickly. I need to make this challenge worth it. I
+need to get funded with the 100K. I need to get funded fast. And that urgency is what destroys them.
+That urgency is what creates frustration, is what creates nervousness, and that's what allows you to
+actually fail the challenge yourself. So, it's like you know how to trade, but because of the fact
+that you were nervous, because of the fact that you were emotional, you unconsciously violate any
+one of those rules right here, and you fail the challenge. Okay? Remember, the faster you try to
+win, the more likely you are to break the rules. So, ironically, the longer it takes for you to
+actually get funded. So, you want to make sure that you're doing the boring stuff. The trader who
+stays consistent, who manages risk well, and keep his losses controlled would usually outperform the
+trader who keep trying to be a hero, keep on trying to get funded in 20 days so that he can post on
+his Instagram and flex to his friends that he got a funded certificate. Right? So, what actually
+matters here is this right here. These are the numbers that define the game itself. Okay, the profit
+target, the max daily loss, the max overall drawdown, the trading day, the time limit, all of which
+I'm going to go through with you in a bit in part two of this lesson itself. These numbers are
+everything because they define the game. If you do not build your strategy around these numbers,
+then you are not really trading the challenge. You are just trading your emotions inside someone
+else's rule book. And that number ends well. Right, so what you want to do is to really understand
+the numbers and then structure your trading so that you can like game those numbers mathematically.
+If the profit target is this, and that's what you should be aiming for, then you want to make sure
+that you adjust your risk parameters so that you do not violate your max daily loss, max overall
+drawdown, but still give yourself enough room to actually hit your target. So once again, we're
+going to dive deeper into like the actual strategy in part two of this lesson itself. For now, let's
+let's just go back to the theory. Right, so what's the best strategy for passing then? It's this,
+very simple. Stay small, stay consistent, stay alive. I call these the three stays. Stay small, stay
+consistent, stay alive. What this essentially means is that you should be risking small enough that
+normal losing streaks do not kill you. Your risk per trade should not be more than 1% per trade.
+Should not even be more than 0.5% per trade. And you want to focus on A and A+ setups only. Right,
+you only want to be taking the setups where you know for a fact that it's going to work out. You
+want to avoid all the random trades that is outside of a trade plan. You don't want to force trades
+when the market conditions is not ideal, when the price is just chopping around. And you want to
+make sure that you protect your trading account, your trading rules at all costs. Because the goal
+here is not to hit the target in one day. The goal here is to hit the target without breaching the
+rules. Okay? And once again, that usually happens faster when you are when you stop trying to rush
+it. Remember, the goal is not to get funded. The goal is to get paid. So, getting funded is just
+stage one, right? Once you get funded, you still need to think about how to actually get paid. And
+not just get paid once, but get paid consistently from the market. So, you might as well use this
+challenge right here to build the right habits from the ground up. So, that eventually when you do
+get funded, when you do have the capital, you are able to like adhere to your risk parameters
+because it's already a habit, right? It's already part of your identity. Okay? So, yeah. Like I
+said, a lot of retail traders, they tend to fail because they revenge trade after a loss, they over
+trade out of boredom, they ramp up their lot size after a few wins, they hold into dangerous news
+events, they give back the profits back to the market, they try to make up for lost time, and all of
+this is not a strategy problem. Like, the guy can trade, right? The guy has a good strategy. But,
+because he lack discipline, he's too emotional, he lack structure, he failed the challenge. So,
+yeah. I really believe that passing a prop firm challenge is less about finding a better setup and
+more about building better behavior. If you have the right behavior, you play by the rules, it's
+only a matter of time until you pass. But, if you have the wrong behavior, you can have the best
+setup in the entire world, but you will still fail. Even if you do pass, you will not be able to
+maintain that funded account, you will not be able to extract payouts consistently from that funded
+account itself. So, yeah. It's all about just playing by the rules, to be honest with you. Right?
+Like I said, just like any game, you just got to understand the rules of the game, and as much as
+possible, try to game the rules of the game if you can, but like you still have to follow them.
+Right? So, yeah. Your real edge in a prop firm challenge is not just strategy. It's your ability to
+turn the prop firm rules into your own system. Because once the rules are clear, the game becomes so
+much more easier. Which means define a risk, respect the daily loss, respect the drawdown right
+here. Keep your trade count low, trade only your best session, avoid landmines like high impact
+news, and just let the challenge unfold over a series of controlled days. That is how you pass. Not
+by gambling, not by rushing, not by trying to be clever, but by being structured enough to let your
+edge compound without self-sabotage, without breaking the rules and losing the account itself. So,
+yeah. Just to sum up everything, prop firm challenge isn't hard because of strategy, it's hard
+because of the rules. And your job is to turn those rules into a process that you can actually
+follow when emotions hit, because it's going to hit, right? Because when your hard-earned money is
+on the line, you're going to feel nervous, you're going to feel frustrated, you're going to feel
+anger, you're going to feel fear, greed, all of those stuff right here. Which is why it's so
+important for you to have some form of guardrails that prevent you from making stupid mistakes, that
+prevent emotions from taking control over your decision making. Which brings us to the second part
+of this lesson. Knowing the prop firm rules is one thing. Actually following them in real time is
+another thing. So now, what I want to do is to show you how to use Edge Flow to turn those prop firm
+rules into guardrails, so you stop relying on willpower and start trading the challenge with
+structure. To me, this is how you cheat at a prop firm challenge, by having guardrails that other
+traders do not have. So, with that being said, enjoy the lesson. This app lets you cheat at prop
+firm challenges. So, you pass them faster. Not by breaking the rules, the opposite, but by enforcing
+them. Now, before we talk about the game, right? Before we talk about how to pass a prop firm
+challenge faster, let's understand what the game actually is. So, a prop firm challenge isn't a test
+of how smart your strategy is. It's a test of whether you can follow rules under the pressure. So,
+let's quickly break down the rules that govern the game. Because once you understand these numbers,
+passing becomes way easier and you will stop failing for dumb reasons. So, for the sake of
+simplicity, I'm just going to show you in the example of a $200,000 funded account from FTMO. Right,
+so in order for you to get funded with 200k of them, you have to pay this refundable fee of like
+around 1k euros and you have to pass that challenge, which is comprised of two phases. Okay? So,
+once you pass those two phases, this is where you will get funded with 200k and you can trade with
+this large amount of trading capital. So, let's break down the rule one by one. First of all, we got
+a profit target. This is the goal that you need to hit in order to pass each phase. So, for phase
+one, the first phase, you have to get a profit target of 10%. And then for the second phase, you
+have to get a profit target of 5%. So, you have to make 10% in the first phase and you have to make
+5% in the second phase in order for you to actually get funded. Right, so in total, you have to make
+around like 15% if you're combining both of them together. Bear in mind that you're not trying to
+get there in one day. You are trying to hit it without breaking the loss rules, which is what makes
+it kind of difficult. Right, because if you are just going to aim for 10%, you can just full port
+your account and just like over leverage, over size your trades and you can easily achieve that in
+like one trade. But the thing is you have the max loss rule. So the max daily loss, this is the
+maximum amount of money you are allowed to lose in a single day. So in this example is 5%, right? So
+if you hit this and you keep trading, you fail. And this is the one rule that most traders breach
+because they start getting tilted, they start spiraling out of control, they start revenge trading
+and as result they lose way more than 5% on a any given day, right? For example, on this trade they
+lose they might lose 2%. Next trade they lose another 2%. Now they're already down 4% but they start
+feeling this urge to make back the money they have lost. So they continue trading and then they lose
+another 2%. And then now they just lost the entire challenge. They just failed the entire challenge
+because they breached the max daily loss rule. Next is the max loss rule. This is the maximum you're
+allowed to lose on the account overall. So in this example itself, it's around 10%. So if you lose
+your 10% of your capital in total, right? Out of all the trades they have taken combined, you lose
+10% this is where you fail the challenge. All right, so you want to be extremely careful, right?
+This is what we call the death line, right? Once you cross this line, boom, you're gone. And then
+you got the minimum trading days. Minimum trading days is the amount of days that you are required
+to trade in order for you to pass this challenge. Right? So some firms actually have this rule where
+you have to trade for a certain number of days. So this allows them to check whether you are just
+yellowing one day and then I just passing by luck, right? So in this example is four days, which
+means even if you hit the target early, right? Even if you make 10% in your phase one within like
+one day, you still have to take a bunch of trades for three more days in order for you to meet the
+minimum days requirement. And then we got the trading period. This is how long you have to complete
+the challenge. In this example, it's unlimited, right? Meaning there's no time pressure. You can
+trade it for as long as you want. You can take it at your own own time at your own pace. And as long
+as you get the 10% and 5% you'll be fine. You can pass the challenge, right? So, you can slow down,
+trade clean, and focus on not breaking rules. But on some prop firms, there might be some form of
+trading period, right? Where you have to pass and you have to get 10% or 5% within 30 days, within
+60 days, right? So, yeah, that's that. Last but not least, we got the the rewards, right? The
+rewards is pretty much your profit split once you got funded. So, in this example, it's up to 90%,
+which means when you get funded with 200k and you start winning trades, you start making money on
+the account itself, you will get to keep most of the profits. You will get to keep up to 90% of the
+trading profits. And then the firm will take the remainder, right? Could be 10%, could be 5%,
+depending on once again the the percentage split. So, I fundamentally believe that prop firm
+challenges isn't hard because of strategy, it's hard because of the rules, right? It's hard because
+of these rules right here. It's difficult to try to pass, get this profit target, while
+simultaneously ensuring that you don't breach the max daily loss and the max loss rule. And I also
+ensuring that you actually meet the minimum trading days, right? So, the rules is what makes it
+hard. So, your job is to turn these numbers right here into guardrails. So, you don't breach them
+when emotions hit. And that's what Edge Flow allows you to do, right? So, now let's do that, right?
+Let's set up our prop firm guardrails into Edge Flow, right? Let's build discipline into our
+execution system so that we actually meet these rules and we can actually pass with flying colors.
+This way, once again, you're not relying on willpower when you're angry, you're relying on a system.
+So, let's go to settings right now and let's go to trading preferences. This is where you get to set
+your guardrails. So, obviously, we already have a lesson on how to set your guardrails properly,
+right? So, please go and check out that lesson if you haven't done so. In this lesson, I'm just
+going to show you the guardrails that you can set in order to help you pass a prop firm challenge
+faster, right? So, for max trades per day, I would advise you to set it to three to five trades a
+day. Okay, three to five trades, not too much. If you are risking 1% on any given trade, right,
+which I'm assuming you are, right, because if you are going for a prop firm challenge, you're either
+risking 0.5% or 1%. I'm going to talk more about this later on. You want to make sure that you don't
+take too many trades on a day, right? Because if you take way too many on a trades on a day, you're
+going to breach your max daily loss easily, right? So, I'll say set it to three to five trades. I
+would say if you're a scalper, you can set it to five, right? But, if you're more of an intraday
+trader, you can just set it to three, right? So, highly recommend you to just pick these to your to
+fit your trading style, to fit your trading personality, to fit your trading goals. And this is very
+useful because it really prevents you from overtrading. It prevents you from, you know, just
+incurring the the just breaching the max daily loss rule. So, this is where I'll just be
+conservative and put three. Now, for the max daily loss, right? This is where you want to set it so
+that you have a little bit of buffer and you don't actually breach your trading rule, right? Breach
+your max daily loss rule. So, earlier on in the example I've showed you, the max daily loss for the
+prop firm challenge is 5%. So, if you put it at 5% right here, it's a little bit risky, right? So,
+you might want to put it at 4%. This way, when you hit 4% Edge Flow blocks you from trading. It
+prevents you from continuing trading. Right? And now you know that, okay, cool. Hands off, right? Or
+you can be even more safe, you can set it at like 2%. I personally like to set it at 2%. Right? So,
+if I'm trading a 100k account, I'm going to set it at $2,000. If I'm trading a 200k account like
+what you've just seen right here, this is where I set it at like $4,000. Right? So, that'll be 2% of
+my account. But like I said, 2% is good enough for me personally. If you want, you can set it to 4%,
+right? But I like 2%, right? Just to be safe. Okay? Because this is really the hard stop, right?
+They will block you from trading once you hit it. And this is also like the rule that causes most
+prop firm traders to fail. Next, you've got your max daily profit. Now, this is completely optional,
+right? You can choose to set a max daily profit or you don't have to, right? Like it's completely up
+to you. But I still recommend you to do it. So, earlier on you've seen that on phase one you need to
+get 10% to pass, right? And then on phase two you need to get 5% to pass. But that's for your entire
+period where you are attempting the prop firm challenge. This is max daily profit, right? Which is a
+target that you want to aim for on a day-to-day basis. And once you hit the target, you stop trading
+to prevent yourself from giving your profits back to the market itself. So, you need 10% overall,
+right? But for your daily profit, you don't need to get 10% in one day, right? That's You don't want
+to be doing that, right? Because if you're doing that, you're going to be over risking, you're going
+to be increasing the likelihood of you making a mistake and then you failing the challenge. So, what
+I recommend you to put here is 1%. Okay? 1% of your trading account on any given day. So, in this
+case on a 200k account, right? This is where I put just $2,000. Once you make $2,000 for the day,
+you stop trading for the day. All right, if you want to be a little bit aggressive and push a little
+bit more, you can go for 3%, right? Which is like around $6,000, right? Or even 5%, right? But you
+just want to make sure that you set a figure that makes sense to you. Okay, so in this example, I'm
+just going to set it to like just 1%, right? 1% a day. As time passes, this will add up, right? Like
+I said, the goal here is not to make the most amount of money on any given day. The goal here is to
+make sure that you don't give back the money that you actually make. Okay, so 1%. Once you hit it,
+stop trading, live to fight for another day. Next up, we got the risk per trade. Now, this is where
+it gets a little bit interesting, right? Because what you set here is going to increase or decrease
+the likelihood of you actually passing this prop firm challenge. I recommend you to set it at 0.5%.
+Okay, 0.5%. Because when you risk only 0.5% of your capital on any given trade, now you have more
+room to breathe. Now you have more buffer to play with, where you can take more losses and still
+stay in the game, right? So, 0.5% is a pretty good number for me. When I'm trying to attempt a prop
+firm challenge, I like to use a variable risk method, which means that I like to risk 0.5% on a A
+setup. But if I see a A+ setup, which means I have more conviction, more confidence, I could put it
+at 1%. I could actually increase my fixed risk per trade from 0.5% to 1%. Right? But you don't want
+to set it over here, right? You can manually bump it up to 1% for that one trade when you are
+trading in the trading platform. So, over here I'll just put 0.5%. Let me just quickly show you what
+I mean, right? So, over here I've already set my risk per trade at 0.5% and today let's say I enter
+for a buy for EUR/USD and I want to place my stop loss at 1.17, okay? So, let's say. And obviously,
+Edge Flow will automatically calculate my lot size based on my balance, right? And then let's say I
+want to place my take profit at 1.19. Right? So, this is where if it's a A setup, I will set it at
+0.5%, right? But if if it's a A+ setup, I might want to set it to 1%, right? So, this is where I can
+press this unlock button and then just adjust my risk per trade to set it to 1. Right? And you can
+see my lot size literally just doubled. And this is where I can actually place the trade. And if
+it's a A+ setup, I'll risk 1% on this setup itself. Yeah, so this is what I'll recommend you to do.
+I'll recommend you to actually adjust the risk per trade manually to 1% when you see a A+ setup on
+the trading panel before you enter for the trade, rather than setting it in your guardrails, right?
+So, in your guardrails, just stick to 0.5%. Your default for risk per trade, it should be boring. It
+should be consistent. Okay? Most importantly, it have to be consistent, especially in a prop
+challenge. Because prop firms don't fail you because of one bad trade. They fail you because you
+start breaching your risk management rules. You start hitting their limits, right? They like to
+punish you for breaching risk management rules more than they punish a normal losing streak. So, be
+conservative, stick to 0.5%. Uh and the thing about A+ setups is that it's quite rare, right? A+
+setups are really those setups where they check off every single box. Once again, I did done the
+lesson covering how to define A+ setups, how to look for them. So, you can check that lesson out.
+But when they do appear, you they kind of earn the right to like slightly use a little bit more
+risk, right? Just 1%. Okay? So, yeah. Just stick to 0.5% and you'll be fine. Remember, consistency
+beats aggression. If you start sizing your trades randomly, you you start to neglect your risk per
+trade. Sometimes you risk 0.5% sometimes you risk 2% sometimes you risk 5%. Now, your equity curve
+will also become random. Okay, there's like a direct correlation with your actions being random and
+the results being random. And when you do that, you're going to breach your trading rules. But, if
+you keep your risk consistent, right? Always sticking to 0.5% you can survive variance and let your
+edge play out. Next up, we've got your trading window, right? So, for a trading window, you only
+want to set your best session window, right? So, on data, based on historical performance, what is
+the time window that you tend to perform the best in? So, for me personally, based on my data, I
+figured out that my trades tend to work out really really well during the London Q-Zone. Right? So,
+that is somewhere within like 7:00 a.m. UTC to around 10:00 a.m. UTC. Which means that during this
+window, right? During these 3 hours, I tend to see the most small trading opportunities and when I
+do enter for those trades itself, those trades tend to play out within this time window. Right? So,
+I'll advise you to like, once again, based on data, right? Not based on guesswork or emotions, based
+on data, find out the time that you tend to trade perform the best in, right? Put a start time here,
+put an end time here and just click save changes. And when you do that, now you have just set up
+guardrails. Right? And you can see all your guardrails in jail while you are trading. Your max
+trades per day, your trading window, your max loss, your max profit and also whether you are
+actually violating any guardrails, right? It will always appear right here. If you actually end up,
+you know, violating your trading rules. Okay, so, now that our core guardrails are set, there's one
+more rule that wipes out a ton of prop accounts and it has nothing to do with strategy. And that is
+news. Okay, that is news, your economic news. On Edge4, we actually an ability, right, to block
+trading before and after high impact news. The reason why you want to block trading before high and
+after high impact news is because when high impact news comes out, the spread start blowing out of
+proportion. Slippage starts spiking. And then, there's a lot of market manipulation where price goes
+up, down 100 pips, and price at both sides grab all the available liquidity. And if you trade during
+news, you are essentially gambling. And a lot of prop firms, they would either restrict trading
+around news, which means if you trade around news, you will fail the challenge. Or they will punish
+you for getting clipped by that insane volatility that actually appeared during news. Right, so
+highly recommend you not to trade news. Just come on to news on Edge4 itself, and you can actually
+block trading before and after high impact news. I would recommend you to set it to 15 minute before
+and after high impact news. Right, this way you can really like just stay away from trading during
+that unpredictable pre- period where there's insane amounts of volatility. All right, we have turned
+the prop firm rules into guardrails. So, all the biggest failure points are now blocked. But, people
+still fail because of a few predictable behavioral patterns. So now, let me show you the most common
+ones and the exact Edge4 fix for each. First of all, revenge trading, right? This is the fastest way
+to blow a challenge. You take one loss, you start getting emotional, you start trying to make it
+back immediately. Edge4 fixes that with the max daily loss hard stop, right, the guardrail that we
+have literally just said. And if you still feel triggered, I would highly recommend you to go
+straight into our sanctuary feature to reset your nervous system, to get back into mental
+equilibrium before you do something stupid. Next is overtrading. Most traders don't fail because of
+one bad trade. They fail because they take too many low-quality trades. They prioritize activity
+over making money. Edge Flow fixes that with max trades per day and a shorter trading window. So,
+you're only trading your best hours and you're only trading your best setups. Next is holding into
+high-impact news, right? News volatility. Like I said earlier on, news is where spreads start
+widening, slippage start happening, and pricing both sides, right? So, there's a lot of like
+unpredictable volatility during news. And Edge Flow fixes this with news blocking and allows you to
+plan in advance on the economic calendar. You know exactly what days have high-impact news and you
+can trade around it. Next is risk spikes after win, right? So, this is a silent killer. You win a
+couple of trades, start feeling euphoric, start feeling invincible, you start sizing up, and then
+you take one bad loss. And then that one bad loss into one big loss. And then that one big loss wipe
+out your entire progress. You know, you could be like just 1% away from the profit target, but then
+you lose. And then now you start getting emotional. Then and then you lose another trade. And then
+now you just wiped out all your gains and you're back to square one. You're back to 0% and then
+eventually you even go all the way down and breach your max loss rule, right? Because you kept
+trading after the initial loss. So, Edge Flow fixes this with fixed risk tiers, right? Allows you to
+take stick to a consistent risk per trade every single time before you enter for a trade, and we
+also track your consistency. So, you stay boring and consistent. And giving back profits, right? We
+all know the feeling of you making money, you keep trading, and you donate it back to the market.
+The market doesn't need your money, you guys, right? But you donate it back to the market because
+you're so kind. Edge Flow fixes this with a profit target stop and the habit of closing a session
+once you've hit your daily goal. That's it for this lesson itself, right? Remember, passing a prop
+firm challenges really simple. It's just like a game. Once you understand the rules of the game, and
+you practice it, eventually you're just going to get good at the game. So, don't break the trading
+rules, stay consistent, and let your edge compound. Edge flow, get it? Let your edge compound. Most
+people fail because they rely on willpower, and willpower disappears the moment emotions hit. And
+with Edge Flow, we've turned your prop firm rules into a system. So, discipline becomes automatic,
+and passing becomes inevitable.
