@@ -41,6 +41,7 @@ import datetime as dt
 import gc
 import os
 import sys
+import zoneinfo
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -50,6 +51,7 @@ import m15  # noqa: E402
 
 M15, H4, D1 = 900000, 4 * 3600000, 86400000
 CUSH, SW, PRE = 0.1, 5, 3
+NY = zoneinfo.ZoneInfo("America/New_York")
 MAIN = ["BTC", "ETH", "SOL", "XRP", "BNB"]
 UNSEEN = ["ADA", "DOGE", "LINK", "AVAX", "LTC", "DOT"]
 
@@ -88,7 +90,7 @@ def zones_4h(hb, method):
     return out
 
 
-def run(o, h, l, c, ts, way, zmethod, fee, bstop="bottom"):
+def run(o, h, l, c, ts, way, zmethod, fee, bstop="bottom", minrr=None, kz=False):
     """long side only (shorts: call with upside-down prices). Returns trades (entry ts, exit ts, R, planned R:R)."""
     n = len(ts)
     hb = bars_of(o, h, l, c, ts, H4)
@@ -142,6 +144,10 @@ def run(o, h, l, c, ts, way, zmethod, fee, bstop="bottom"):
             ok = not pos and curd[0] == 1 and allowed(x_ts)
             px = o[i]
             r = px - setup["stop"]
+            if ok and r > 0 and minrr is not None:
+                ok = (setup["tgt"] - px) >= minrr * r  # rule 17: target at least 2x the risk (before fees)
+            if ok and kz:
+                ok = killzone(x_ts)  # rule 19: entry candle opens in London 2-5 AM or New York 7-10 AM ET
             if ok and r > 0 and setup["tgt"] > px:
                 pos = {"e": px, "stop": setup["stop"], "tgt": setup["tgt"], "r": r, "ts": x_ts,
                        "rr": (setup["tgt"] - px) / r, "e0low": setup["stop"]}
@@ -183,6 +189,11 @@ def run(o, h, l, c, ts, way, zmethod, fee, bstop="bottom"):
         if end % D1 == 0:
             curd = vd.get(end, curd)
     return out
+
+
+def killzone(t):
+    e = dt.datetime.fromtimestamp(t / 1000, dt.timezone.utc).astimezone(NY)
+    return 2 <= e.hour < 5 or 7 <= e.hour < 10
 
 
 def allowed(t):
@@ -266,7 +277,10 @@ def row(name, tr, years):
     lo, sh = stats([t[2] for t in tr if t[4] == 1]), stats([t[2] for t in tr if t[4] == -1])
     rr = sorted(t[3] for t in tr)[len(tr) // 2]
     p = lambda s: "-" if not s else f"{s['pf']:.2f}"
-    return (f"| {name} | {f['n']} | {f['n'] / years / 52:.1f} | {f['win']:.0f}% | {rr:.1f} | {f['pf']:.2f} | "
+    w, ls = [t[2] for t in tr if t[2] > 0], [t[2] for t in tr if t[2] <= 0]
+    aw = f"{sum(w) / len(w):+.2f}R" if w else "-"
+    al = f"{sum(ls) / len(ls):+.2f}R" if ls else "-"
+    return (f"| {name} | {f['n']} | {f['n'] / years / 52:.1f} | {f['win']:.0f}% | {aw} | {al} | {rr:.1f} | {f['pf']:.2f} | "
             f"{f['avg']:+.2f}R | {f['dd']:.0f}R | {p(h1)} | {p(h2)} | {p(lo)} | {p(sh)} |")
 
 
@@ -279,10 +293,10 @@ def both_sides(coin, vers):
     del raw
     gc.collect()
     res = {}
-    for name, way, zm, fee, bs in vers:
-        lo = [t + (1,) for t in run(o, h, l, c, ts, way, zm, fee, bs)]
+    for name, way, zm, fee, bs, *opt in vers:
+        lo = [t + (1,) for t in run(o, h, l, c, ts, way, zm, fee, bs, *opt)]
         sh = [t + (-1,) for t in run([-v for v in o], [-v for v in l], [-v for v in h], [-v for v in c], ts,
-                                      way, zm, fee, bs)]
+                                      way, zm, fee, bs, *opt)]
         # one trade per coin at a time: drop a trade that starts while the other side is still open
         keep, busy = [], -1
         for t in sorted(lo + sh):
@@ -295,13 +309,19 @@ def both_sides(coin, vers):
 
 def main():
     years = (dt.datetime.now(dt.timezone.utc) - B.START).days / 365.25
-    hdr = ("| Version | Trades | /wk | Win % | Typical R:R | PF | Avg | Worst DD | 2019-22 PF | 2023-now PF | "
-           "Long PF | Short PF |\n|---|---|---|---|---|---|---|---|---|---|---|---|")
+    hdr = ("| Version | Trades | /wk | Win % | Avg win | Avg loss | Typical R:R | PF | Avg | Worst DD | 2019-22 PF | "
+           "2023-now PF | Long PF | Short PF |\n|---|---|---|---|---|---|---|---|---|---|---|---|---|---|")
     vers = [("Way A, Pivot zones", "A", "pivot", 0.0005, "bottom"), ("Way A, Range zones", "A", "range", 0.0005, "bottom"),
             ("Way B, stop at bottom", "B", "pivot", 0.0005, "bottom"), ("Way B, stop halfway", "B", "pivot", 0.0005, "half")]
     extra = [("Way A Pivot, zero fees", "A", "pivot", 0.0, "bottom"), ("Way A Range, zero fees", "A", "range", 0.0, "bottom"),
              ("Way B bottom, zero fees", "B", "pivot", 0.0, "bottom"), ("Way A Pivot, OKX 0.35%", "A", "pivot", 0.0035, "bottom")]
-    only = sys.argv[1:]
+    if sys.argv[1:] == ["open"]:  # Oct 9: Jeff filled OPEN rules 17 and 19 with Brad's numbers
+        vers = [("Way A Range, as before", "A", "range", 0.0005, "bottom"),
+                ("+ rule 17 (target 2x risk)", "A", "range", 0.0005, "bottom", 2.0, False),
+                ("+ rule 19 (killzones)", "A", "range", 0.0005, "bottom", None, True),
+                ("+ rules 17 and 19", "A", "range", 0.0005, "bottom", 2.0, True)]
+        extra = []
+    only = [x for x in sys.argv[1:] if x != "open"]
     for title, coins in (("main: BTC ETH SOL XRP BNB", MAIN), ("never-seen: ADA DOGE LINK AVAX LTC DOT", UNSEEN)):
         vs = vers + extra
         allr = {v[0]: [] for v in vs}
