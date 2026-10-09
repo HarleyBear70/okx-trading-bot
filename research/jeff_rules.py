@@ -90,7 +90,9 @@ def zones_4h(hb, method):
     return out
 
 
-def run(o, h, l, c, ts, way, zmethod, fee, bstop="bottom", minrr=None, kz=False):
+def run(o, h, l, c, ts, way, zmethod, fee, bstop="bottom", minrr=None, kz=False, exitm="target", tf=M15):
+    """exitm: "target" = target + trailing (rule 15 + 37); "trail" = no target, the trailing stop is the only exit;
+    "trail2r" = no target, stop stays put until price reaches 2R, then trails."""
     """long side only (shorts: call with upside-down prices). Returns trades (entry ts, exit ts, R, planned R:R)."""
     n = len(ts)
     hb = bars_of(o, h, l, c, ts, H4)
@@ -130,15 +132,18 @@ def run(o, h, l, c, ts, way, zmethod, fee, bstop="bottom", minrr=None, kz=False)
         if pos:
             if l[i] <= pos["stop"]:
                 px = min(pos["stop"], o[i])
-            elif h[i] >= pos["tgt"]:
+            elif exitm == "target" and h[i] >= pos["tgt"]:
                 px = max(pos["tgt"], o[i])
             else:
                 px = None
             if px is not None:
                 out.append((pos["ts"], x_ts, ((px - pos["e"]) - fee * (abs(pos["e"]) + abs(px))) / pos["r"], pos["rr"]))
                 pos = None
-            elif trail_low is not None and a[i] and trail_low > pos["e0low"]:
-                pos["stop"] = max(pos["stop"], trail_low - CUSH * a[i])
+            else:
+                if h[i] >= pos["e"] + 2 * pos["r"]:
+                    pos["armed"] = True
+                if trail_low is not None and a[i] and trail_low > pos["e0low"] and (exitm != "trail2r" or pos["armed"]):
+                    pos["stop"] = max(pos["stop"], trail_low - CUSH * a[i])
         # pending entry at this candle's open
         if setup and setup.get("go") == i:
             ok = not pos and curd[0] == 1 and allowed(x_ts)
@@ -150,7 +155,7 @@ def run(o, h, l, c, ts, way, zmethod, fee, bstop="bottom", minrr=None, kz=False)
                 ok = killzone(x_ts)  # rule 19: entry candle opens in London 2-5 AM or New York 7-10 AM ET
             if ok and r > 0 and setup["tgt"] > px:
                 pos = {"e": px, "stop": setup["stop"], "tgt": setup["tgt"], "r": r, "ts": x_ts,
-                       "rr": (setup["tgt"] - px) / r, "e0low": setup["stop"]}
+                       "rr": (setup["tgt"] - px) / r, "e0low": setup["stop"], "armed": False}
                 trail_low = None
                 if l[i] <= pos["stop"]:  # the entry candle itself can stop out
                     out.append((x_ts, x_ts, ((pos["stop"] - px) - fee * (abs(px) + abs(pos["stop"]))) / r, pos["rr"]))
@@ -179,7 +184,7 @@ def run(o, h, l, c, ts, way, zmethod, fee, bstop="bottom", minrr=None, kz=False)
         elif swl is not None and not swl_done and c[i] < swl:
             swl_done = True
         # candle i closed: update the 4H / daily view and kill zones on a 4H body close below them
-        end = x_ts + M15
+        end = x_ts + tf
         if end % H4 == 0:
             cur4 = v4.get(end, cur4)
             for z in zones:
@@ -284,19 +289,25 @@ def row(name, tr, years):
             f"{f['avg']:+.2f}R | {f['dd']:.0f}R | {p(h1)} | {p(h2)} | {p(lo)} | {p(sh)} |")
 
 
-def both_sides(coin, vers):
+def both_sides(coin, vers, tf=M15):
     raw = m15.m15(coin)
     t_min = B.ms(B.START) - 120 * 86400000
     raw = [x for x in raw if x["ts"] >= t_min]
     ts = [x["ts"] for x in raw]
     o, h, l, c = ([x[k] for x in raw] for k in "ohlc")
     del raw
+    if tf != M15:
+        hb = bars_of(o, h, l, c, ts, tf)
+        ts = [x["ts"] for x in hb]
+        o, h, l, c = ([x[k] for x in hb] for k in "ohlc")
+        del hb
     gc.collect()
     res = {}
     for name, way, zm, fee, bs, *opt in vers:
-        lo = [t + (1,) for t in run(o, h, l, c, ts, way, zm, fee, bs, *opt)]
+        kw = dict(zip(("minrr", "kz", "exitm"), opt), tf=tf)
+        lo = [t + (1,) for t in run(o, h, l, c, ts, way, zm, fee, bs, **kw)]
         sh = [t + (-1,) for t in run([-v for v in o], [-v for v in l], [-v for v in h], [-v for v in c], ts,
-                                      way, zm, fee, bs, *opt)]
+                                      way, zm, fee, bs, **kw)]
         # one trade per coin at a time: drop a trade that starts while the other side is still open
         keep, busy = [], -1
         for t in sorted(lo + sh):
@@ -321,6 +332,8 @@ def main():
                 ("+ rule 19 (killzones)", "A", "range", 0.0005, "bottom", None, True),
                 ("+ rules 17 and 19", "A", "range", 0.0005, "bottom", 2.0, True)]
         extra = []
+    if sys.argv[1:2] == ["trail"]:  # Oct 9: Jeff asked for trailing exits, with/without 2x, on 15m and 1H
+        return trail_main(years, hdr)
     only = [x for x in sys.argv[1:] if x != "open"]
     for title, coins in (("main: BTC ETH SOL XRP BNB", MAIN), ("never-seen: ADA DOGE LINK AVAX LTC DOT", UNSEEN)):
         vs = vers + extra
@@ -336,6 +349,27 @@ def main():
         for v in vs:
             print(row(v[0], allr[v[0]], years))
         sys.stdout.flush()
+
+
+def trail_main(years, hdr):
+    F = 0.0005
+    exits = [("target + trail", "target"), ("trail only", "trail"), ("trail after 2R", "trail2r")]
+    filt = [("", None, False), (" + rule 17", 2.0, False), (" + rule 19", None, True), (" + 17 + 19", 2.0, True)]
+    rng = [(f"Range, {en}{fn}", "A", "range", F, "bottom", mr, kz, ex) for en, ex in exits for fn, mr, kz in filt]
+    base1h = [("Way A, Pivot zones", "A", "pivot", F, "bottom"), ("Way B, stop at bottom", "B", "pivot", F, "bottom"),
+              ("Way B, stop halfway", "B", "pivot", F, "half")]
+    charts = [x for x in (("15m", M15, rng), ("1H", 3600000, base1h + rng)) if x[0] in (sys.argv[2:] or ("15m", "1H"))]
+    for chart, tf, vs in charts:
+        for title, coins in (("main: BTC ETH SOL XRP BNB", MAIN), ("never-seen: ADA DOGE LINK AVAX LTC DOT", UNSEEN)):
+            allr = {v[0]: [] for v in vs}
+            for cn in coins:
+                for k, v in both_sides(cn, vs, tf).items():
+                    allr[k] += v
+                gc.collect()
+            print(f"\n### {chart} chart, {title} (Binance.US 0.05% a side)\n\n{hdr}")
+            for v in vs:
+                print(row(v[0], allr[v[0]], years))
+            sys.stdout.flush()
 
 
 if __name__ == "__main__":
