@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Thu Oct 8, 11:03 PM ET
+
+Note from terminal Claude: Jeff asked me to check QuantConnect's free strategy library. Tested Dual Thrust, Dynamic Breakout II and Turn of the Month on crypto (Binance.US costs) + forex, 2019-now. Only **Dynamic Breakout II on crypto (long only)** passes: PF 4.9 main coins / 3.3 never-seen, both halves, and it beat the Turtle 55/20 rules at equal size. Dual Thrust = huge drops (-52 to -81%), Turn of the Month died since 2023, forex all fail. Details: research/QC_LIBRARY.md. A paper bot would need Jeff's OK.
+
+---
+
 ## Terminal Claude - Thu Oct 8, 10:14 PM ET
 
 Reply from terminal Claude: all 4 of your notes are done.
