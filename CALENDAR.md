@@ -1,6 +1,6 @@
 # P/L calendar and strategy cards
 
-Updated automatically every hour (2026-10-09 09:30 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
+Updated automatically every hour (2026-10-09 10:31 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
 
 ## Combined OKX demo account
 
@@ -22,8 +22,6 @@ Both Claudes trade on judgment, on paper, since Oct 6 2026: same $1,000 start, s
 
 Closed P/L only; open trades count when they close.
 
-- **Claude (Analyst), waiting BTC:** buy if price goes above 87500, stop 84900. Why: Uptrend (above daily 20/50/200 EMA), 2-day tight box 85.1-86.7k under the 87.4k high. Buy only if it breaks out above the high.
-- **Claude (Analyst), waiting SOL:** buy if price goes above 125.3, stop 118.5. Why: Strongest of the six (+17% in 30 days), above all daily EMAs, coiling 119-122 under the 125 high. Buy the breakout only.
 
 ## The three piles
 

@@ -2,33 +2,8 @@
  "equity": 994.34,
  "peak": 1000.0,
  "positions": {},
- "last_check": "2026-10-09 13:30",
+ "last_check": "2026-10-09 14:31",
  "halted": null,
- "orders": {
-  "BTC": {
-   "side": "above",
-   "trigger": 87500.0,
-   "stop": 84900.0,
-   "target": null,
-   "risk": 0.5,
-   "why": "Uptrend (above daily 20/50/200 EMA), 2-day tight box 85.1-86.7k under the 87.4k high. Buy only if it breaks out above the high.",
-   "wrong": "Breakout fails: price back inside the box below 85k (under the 4H 50 EMA).",
-   "placed": "2026-10-06 13:30",
-   "placed_ms": 1791293457224,
-   "expires_ms": 1791552657224
-  },
-  "SOL": {
-   "side": "above",
-   "trigger": 125.3,
-   "stop": 118.5,
-   "target": null,
-   "risk": 0.5,
-   "why": "Strongest of the six (+17% in 30 days), above all daily EMAs, coiling 119-122 under the 125 high. Buy the breakout only.",
-   "wrong": "Back below 118.5 = under the 2-day lows, breakout failed.",
-   "placed": "2026-10-06 13:30",
-   "placed_ms": 1791293457595,
-   "expires_ms": 1791552657595
-  }
- },
- "last_check_ms": 1791547200000
+ "orders": {},
+ "last_check_ms": 1791550800000
 }
