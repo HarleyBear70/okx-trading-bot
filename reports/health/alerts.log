@@ -1,1 +1,2 @@
 2026-10-07 02:40 UTC - URGENT: Trend Rider SUI missing from state.json, no sell in trades.csv (emailed Jeff)
+2026-10-09 00:55 UTC - FIXED: watcher false alarm 'RSI(2) 5 trades open (max 3)' - watcher ignored per-bot max_open (rsi2-bnus allows 5)

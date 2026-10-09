@@ -206,8 +206,9 @@ def main():
             if coin in held:
                 odd.append(f"{short(coin)} bought while the bot is paused")
         mem.get("paused_buys", {})[bid] = [c for c in mem.get("paused_buys", {}).get(bid, []) if c in held]
-        if len(held) > bot.MAX_OPEN:
-            odd.append(f"{len(held)} trades open (max {bot.MAX_OPEN})")
+        max_open = b.get("max_open", bot.MAX_OPEN)
+        if len(held) > max_open:
+            odd.append(f"{len(held)} trades open (max {max_open})")
         for o in odd:
             attention.append((f"odd:{bid}:{o}", f"{name}: {o}"))
         sig = "; ".join(odd)
