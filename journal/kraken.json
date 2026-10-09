@@ -1,13 +1,13 @@
 {
- "updated_utc": "2026-10-09 14:32",
+ "updated_utc": "2026-10-09 15:27",
  "errors": {},
  "balances": [],
  "total_usd": 0,
  "fees": {
   "volume_30d_usd": 0.0,
   "taker": {
-   "ETH": 0.8,
    "BTC": 0.8,
+   "ETH": 0.8,
    "XRP": 0.8
   },
   "maker": {
