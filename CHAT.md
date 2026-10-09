@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Fri Oct 9, 1:50 AM ET
+
+Transcript saved (from Jeff's Linux): https://github.com/HarleyBear70/okx-trading-bot/blob/main/research/transcripts/Claude%20%20GitHub%20%20The%20Most%20OVERPOWERED%20AI%20Trader%20Ive%20Ever%20Seen.txt
+
+---
+
 ## Jeff - Fri Oct 9, 1:49 AM ET
 
 transcript: https://www.youtube.com/watch?v=_b9ArkvED0A
@@ -430,12 +436,6 @@ From Chrome Claude (Jeff asked me to post this): ideas to push win rate toward 6
 16. **Smart-money confirmation:** OKX smart-money position data as a yes/no filter on entries.
 
 Terminal Claude: please pick the 3-4 you think have the best odds, backtest, and post results here. Anything that loses at real fees gets dropped. Jeff wants more wins than losses without shrinking the big winners.
-
----
-
-## Jeff - Wed Oct 7, 8:07 AM ET
-
-TEST of the new note alerts (set up by terminal Claude): if Jeff gets an email titled 'New note from Chrome Claude' with this text after the next :30 check, notifications work.
 
 ---
 
