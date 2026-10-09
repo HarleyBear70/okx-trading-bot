@@ -9,6 +9,7 @@ on:
 
 permissions:
   contents: write
+  issues: read
 
 concurrency:
   group: chrome-notes-log
@@ -27,8 +28,9 @@ jobs:
           URL: ${{ github.event.comment.html_url }}
           NUM: ${{ github.event.issue.number }}
           WHEN: ${{ github.event.comment.created_at }}
+          GH_TOKEN: ${{ github.token }}
         run: |
-          python3 - <<'EOF'
+          cat > /tmp/append.py <<'EOF'
           import os
           body = os.environ["BODY"].strip()
           skip = ("Results from this hour's run", "Terminal Claude", "Note from terminal Claude")
@@ -40,15 +42,19 @@ jobs:
           os.makedirs("reports/health", exist_ok=True)
           with open("reports/health/chrome_notes.md", "a") as f:
               f.write(f"- {os.environ['WHEN']} | {where} | {os.environ['URL']} | {short}\n")
-          open("/tmp/changed", "w").close()
           EOF
-          [ -f /tmp/changed ] || exit 0
           git config user.name "sp12-bot"
           git config user.email "sp12-bot@users.noreply.github.com"
-          git add reports/health/chrome_notes.md
-          git commit -m "chrome notes: new comment on #$NUM"
-          for i in 1 2 3; do
-            git push && exit 0
-            git pull --rebase origin main || { git rebase --abort; exit 1; }
+          # Two comments at the same moment used to clash (run #18). Now each try starts from the latest main
+          # and redoes the change, so there is never a merge conflict.
+          for i in 1 2 3 4 5; do
+            git fetch -q origin main && git reset -q --hard origin/main
+            python3 /tmp/append.py
+            [ "$NUM" = 4 ] && python3 tools/chat_page.py
+            git add reports/health/chrome_notes.md CHAT.md 2>/dev/null
+            git diff --cached --quiet && exit 0
+            git commit -q -m "chrome notes: new comment on #$NUM"
+            git push -q origin HEAD:main && exit 0
+            sleep $((i * 3))
           done
           exit 1
