@@ -6,6 +6,8 @@
 //   ORANGE = trap: a wick swept a swing high/low but the BODY closed back inside, or a breakout failed within 3 candles.
 //   BRIGHT GREEN / RED = BOS: a candle BODY closed beyond the last swing high/low, trend continues.
 //   PURPLE = MARKET SHIFT: a candle BODY closed through the strong (protected) high/low, the trend flipped.
+//   The MUST HOLD level follows each leg: when price breaks the last small low (downtrend), it moves to the lower high
+//   that leg started from, so the first body close back above that leg high turns PURPLE (Oct 9 2026 fix).
 // Lines: WHITE SOLID "MUST HOLD" = strong high/low. GREY DOTTED "TARGET" = weak high/low (liquidity).
 // Auto drawing (redrawn after every BOS / market shift): the swing high + swing low of the move, the Fib 50% line with
 // PREMIUM (top half) and DISCOUNT (bottom half) shaded, the latest supply zone in premium and demand zone in discount,
@@ -39,13 +41,16 @@ feePct    = input.float(0.35, "Fee per buy or sell (%)", minval=0, step=0.01)
 ext1      = input.float(0.27, "TP2 Fib extension (0.27 = the -27% line)", minval=0.05, step=0.01)
 maxSlPct  = input.float(1.35, "My rule: max stop loss (%)", minval=0.1, step=0.05)
 minTpPct  = input.float(2.0, "My rule: min take profit (%)", minval=0.1, step=0.1)
-showEarly = input.bool(true, "Show early turns (small market shifts)")
+showEarly = input.bool(false, "Show early turns (small market shifts)")
+legLen    = input.int(1, "Market shift: leg swing size (candles each side)", minval=1, maxval=5)
 miniLen   = input.int(2, "Early-turn swing size (candles each side)", minval=1, maxval=5)
 showPat   = input.bool(true, "Show candle pattern names (only away from the middle)")
 
 atr  = ta.atr(14)
 ph   = ta.pivothigh(high, swingLen, swingLen)
 pl   = ta.pivotlow(low, swingLen, swingLen)
+lph  = ta.pivothigh(high, legLen, legLen)
+lpl  = ta.pivotlow(low, legLen, legLen)
 body = math.abs(close - open)
 rng  = high - low
 
@@ -126,6 +131,28 @@ while array.size(fTop) > fvgMax
     array.shift(fBar)
     array.shift(fDir)
 
+// Leg structure (Jeff/Brad): each time the trend makes a new low by closing below the last small swing low,
+// the MUST HOLD level moves down to the lower high that leg started from (and the mirror in an uptrend).
+// A body close through that level = the true market shift.
+var float legH  = na
+var float legL  = na
+var bool  legHd = true
+var bool  legLd = true
+if not na(lph)
+    legH  := lph
+    legHd := false
+if not na(lpl)
+    legL  := lpl
+    legLd := false
+if trend == -1 and not legLd and close < legL
+    legLd := true
+    if not na(legH) and not na(strong) and legH < strong
+        strong := legH
+if trend == 1 and not legHd and close > legH
+    legHd := true
+    if not na(legL) and not na(strong) and legL > strong
+        strong := legL
+
 bos      = false
 shift    = false
 trap     = false
@@ -139,10 +166,11 @@ if trend == 1
         strong := ext
         ext    := low
         lDone  := true
+        legLd  := true
     else if not hDone and close > swH
         bos    := true
         hDone  := true
-        strong := swL
+        strong := na(strong) ? swL : math.max(strong, swL)
     else if not lDone and close < swL
         internal := true
         lDone    := true
@@ -154,10 +182,11 @@ else if trend == -1
         strong := ext
         ext    := high
         hDone  := true
+        legHd  := true
     else if not lDone and close < swL
         bos    := true
         lDone  := true
-        strong := swH
+        strong := na(strong) ? swH : math.min(strong, swH)
     else if not hDone and close > swH
         internal := true
         hDone    := true
