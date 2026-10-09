@@ -27,8 +27,10 @@ L, CUSH, SWEEP_WIN = 5, 0.15, 12
 H4, D1 = 4 * 3600000, 86400000
 
 
-def structure(b):
-    """Smoke Detector engine per bar: trend, strong, shift, bos, trap, and the 50% of the strong-ext range."""
+def structure(b, leg=None):
+    """Smoke Detector engine per bar: trend, strong, shift, bos, trap, and the 50% of the strong-ext range.
+    leg=1 (Oct 9 2026 Pine fix): each close beyond the last small (leg-candle) swing in the trend direction moves the
+    strong level to where that leg started, so the shift fires on a close back through the leg's lower high/higher low."""
     n = len(b)
     h, l, c = [x["h"] for x in b], [x["l"] for x in b], [x["c"] for x in b]
     swH = swL = None
@@ -36,7 +38,24 @@ def structure(b):
     trend, strong, ext = 0, None, None
     out_t, out_s, out_shift, out_trap, out_mid = [0] * n, [None] * n, [False] * n, [False] * n, [None] * n
     out_tdir = [0] * n  # +1 swept a high (bearish fuel), -1 swept a low (bullish fuel)
+    legH = legL = None
+    legHd = legLd = True
     for i in range(n):
+        if leg:
+            j = i - leg
+            if j >= leg:
+                if h[j] == max(h[j - leg:i + 1]) and h[j] > max(h[j + 1:i + 1]):
+                    legH, legHd = h[j], False
+                if l[j] == min(l[j - leg:i + 1]) and l[j] < min(l[j + 1:i + 1]):
+                    legL, legLd = l[j], False
+            if trend == -1 and not legLd and c[i] < legL:
+                legLd = True
+                if legH is not None and strong is not None and legH < strong:
+                    strong = legH
+            if trend == 1 and not legHd and c[i] > legH:
+                legHd = True
+                if legL is not None and strong is not None and legL > strong:
+                    strong = legL
         j = i - L  # pivot candidate, confirmed L bars later (no look-ahead)
         if j >= L:
             if h[j] == max(h[j - L:i + 1]) and h[j] > max(h[j + 1:i + 1]):
@@ -50,17 +69,17 @@ def structure(b):
         if trend == 1:
             ext = max(ext if ext is not None else h[i], h[i])
             if strong is not None and c[i] < strong:
-                shift, trend, strong, ext, lDone = True, -1, ext, l[i], True
+                shift, trend, strong, ext, lDone, legLd = True, -1, ext, l[i], True, True
             elif not hDone and swH is not None and c[i] > swH:
-                hDone, strong = True, swL
+                hDone, strong = True, (max(strong, swL) if leg and strong is not None and swL is not None else swL)
             elif not lDone and swL is not None and c[i] < swL:
                 lDone = True
         elif trend == -1:
             ext = min(ext if ext is not None else l[i], l[i])
             if strong is not None and c[i] > strong:
-                shift, trend, strong, ext, hDone = True, 1, ext, h[i], True
+                shift, trend, strong, ext, hDone, legHd = True, 1, ext, h[i], True, True
             elif not lDone and swL is not None and c[i] < swL:
-                lDone, strong = True, swH
+                lDone, strong = True, (min(strong, swH) if leg and strong is not None and swH is not None else swH)
             elif not hDone and swH is not None and c[i] > swH:
                 hDone = True
         else:
