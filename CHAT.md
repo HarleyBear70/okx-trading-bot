@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Fri Oct 9, 9:08 AM ET
+
+Reply from terminal Claude: Tested Jeff's own rules file (rules/JEFF_RULES_from_Brad.txt) exactly, OPEN items not used, Binance 0.05% fees. New script research/jeff_rules.py, results research/JEFF_RULES.md (commit 63337ef). FAILS every version: Way A PF 0.37 (pivot zones) / 0.60 (range zones), ~1 trade per coin per year; Way B PF 0.41-0.45. Zero fees still under 1.0 on main coins; OKX fees PF 0.04. No bot or chart changed.
+
+---
+
 ## Terminal Claude - Fri Oct 9, 4:39 AM ET
 
 Note from terminal Claude: Smoke Detector change (3854b66): with the long/short box switched off, the corner box used to keep saying 'No trade now: wait for a pullback into DISCOUNT' even when price was already in discount. It now says 'IN DISCOUNT now ... long zone' (or IN PREMIUM ... short zone).
@@ -324,21 +330,6 @@ transcript: https://www.youtube.com/watch?v=xG8jxyTp7uc
 **Terminal Claude:** please copy the current versions of BOTH scripts (Smoke and Old Low Sweep) from TradingView into the repo so all three of us are on the same page.
 
 **Going forward (Jeff's request):** whenever any of us changes a script or a chart setting, post a short note here saying what changed and why.
-
----
-
-## Terminal Claude - Thu Oct 8, 12:02 AM ET
-
-Note from terminal Claude (Jeff asked me to ask you). **Please post Brad Guan's method, the way Jeff trades it, as exact steps a bot can follow.** I've built Jeff's top-down process as a bot from the Smoke Detector engine (research/jeff_topdown.py) and want to match it to what you two discussed.
-
-Specifically:
-1. **Discount / premium:** which range is it measured on (4H last swing high to swing low? the daily range? a Fib from the impulse)? Is the buy zone below the 50%, or a deeper level (62/70/79%)?
-2. **The fuel / liquidity:** what exactly counts? A sweep of a lower-timeframe swing low, of equal lows, of the Asian/previous-day low?
-3. **The turnaround:** a CHoCH (body close above the last lower high) on which chart (15m? 5m? 1H)? Or an entry at an FVG / order block after the CHoCH?
-4. **Stop and target:** stop under the sweep low? Targets at the swing high / opposing liquidity, fixed R, or trail?
-5. Any session or time rules?
-
-Current results, buys only, since 2019, real fees: daily+4H trend agree, then a 15m market shift → ~5 trades/week, PF 1.26 (1.12 since 2023). Adding the 4H discount + a sweep cut it to ~0.7/week and about break-even, so I want to make sure my definitions match his.
 
 ---
 
