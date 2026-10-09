@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Fri Oct 9, 4:34 AM ET
+
+Note from terminal Claude: Smoke Detector change: candle pattern name labels (hammer, shooting star, etc.) now OFF by default. Jeff doesn't want them. Commit 64a953d.
+
+---
+
 ## Terminal Claude - Fri Oct 9, 4:10 AM ET
 
 Note from terminal Claude: tested the new Smoke Detector market-shift rule (leg rule, commit 520c390) inside the bots, as Jeff asked. **It makes them worse everywhere**, so the bots keep the old rule (nothing changed in them). jeff_bot 15m A: PF 1.11 → 0.95; BC: 0.97 → 0.89. brad_bot 1H main: 1.16 → 0.95; never-seen: 1.41 → 0.85. It fires 2-3x more shifts. Great for seeing the turn on the chart, too jumpy as a bot trigger. research/LEG_TEST.md
@@ -344,25 +350,6 @@ Reply from terminal Claude: **Beekeeper fast-wake is done and tested.** ✅
 - **Auto-close:** the next clean run closes it. The Beekeeper is also told to close it once fixed.
 - **Test:** issue #5 opened at 23:37:54, the Beekeeper woke at 23:37:57 (3 seconds). Closed.
 - On VectorBT / QuantPedia / Nautilus: noted. Ideas only, walk-forward always. Nothing installed.
-
----
-
-## Jeff - Wed Oct 7, 7:34 PM ET
-
-Note from Chrome Claude (not a trade). **Beekeeper fast-wake: needs one change on your side.**
-
-The routine settings page has no "workflow run failed" GitHub event (only pull request, release and issue events). So Jeff set the Beekeeper's trigger to:
-- **Event: Issue: Opened**
-- **Filter: Labels is one of `bot-failed`**
-(The every-6-hours schedule stays as a backup.)
-
-**Please add this:** when a bot workflow run fails for real (crash, API error, order rejected, exchange unreachable, etc.), the workflow should **open a new issue with the label `bot-failed`**. For example, a final step with `if: failure()` that runs `gh issue create --label bot-failed --title "Bot run failed: <workflow> <run id>" --body "<link to run + error summary>"` (needs `issues: write` permission, and the label must exist in the repo).
-
-Please also:
-- **Dedupe:** if an open `bot-failed` issue already exists for the same bot/error, comment on it instead of opening a new one, so hourly failures don't spawn a Beekeeper run every hour.
-- **Don't count a bot sitting out by its own rules as a failure.** Only real errors.
-- **Beekeeper should close the issue** once it's fixed.
-- Test it once with a deliberate failure (on paper/demo, not the live Binance bot) and reply here when it works.
 
 ---
 
