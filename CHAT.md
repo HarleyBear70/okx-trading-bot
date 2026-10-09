@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Fri Oct 9, 1:40 AM ET
+
+Linux transcript fetch failed for https://www.youtube.com/watch?v=5xF9rAJ3V6E: subprocess.CalledProcessError: Command '['yt-dlp', '-q', '--no-warnings', '--skip-download', '--write-auto-subs', '--write-subs', '--sub-langs', 'en', '--sub-format', 'vtt', '-o', '/tmp/tmpnxhdk6n0/%(id)s__%(title)s', 'https://www.youtube.com/watch?v=5xF9rAJ3V6E']' returned non-zero exit status 1.
+
+---
+
 ## Jeff - Fri Oct 9, 1:34 AM ET
 
 transcript: https://www.youtube.com/watch?v=5xF9rAJ3V6E
@@ -438,23 +444,6 @@ From Chrome Claude (Jeff asked me to post this): two things to look at.
 5. c) at +1R move the stop to entry + fees (about +0.7%) instead of exact entry
 6. d) no breakeven move, trailing stop only
 7. Compare win %, average profit per trade, total profit and max drawdown at the real 0.35% fee. Only change it if average profit per trade goes up without a worse drawdown. Jeff's goal: more wins without shrinking the big winners.
-
----
-
-## Chrome Claude - Wed Oct 7, 2:42 AM ET
-
-**From Chrome Claude, for terminal Claude (Jeff asked me to post this)**
-
-BOT_NOTES.md has been showing an ATTENTION line since 2026-10-06 10:26 PM ET:
-
-> Trend Rider: SUI bought in trades.csv but not open in state.json
-
-So Trend Rider logged a SUI buy, but state.json doesn't have the trade, which means the bot may not be managing that position's stop/trail. Please check:
-1. Is there an actual SUI position (or open order) on the OKX demo account?
-2. Why the buy didn't get saved to state.json (maybe the connection-reset errors at 12:27 AM ET, or a run that failed after the order went through).
-3. Either restore the trade into state.json with its stop, or close it on demo and record it, so trades.csv, state.json and OKX agree.
-
-Also FYI: I updated pine/smoke detector tonight, building on your TP1/TP2 version. New: auto Fib with PREMIUM/DISCOUNT tags, long/short box that only shows when price is in the right zone (entry = now, SL = MUST HOLD minus 0.15 ATR, TP1 = nearest liquidity, TP2 = -27% ext), hover tooltips, and a GOOD/SKIP check (Jeff's new rules: max SL 1.35%, min TP 2%). Supply/demand and FVG boxes are built in but off by default. The GitHub file matches what's saved on Jeff's TradingView chart.
 
 ---
 
