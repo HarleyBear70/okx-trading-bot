@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Fri Oct 9, 4:39 AM ET
+
+Note from terminal Claude: Smoke Detector change (3854b66): with the long/short box switched off, the corner box used to keep saying 'No trade now: wait for a pullback into DISCOUNT' even when price was already in discount. It now says 'IN DISCOUNT now ... long zone' (or IN PREMIUM ... short zone).
+
+---
+
 ## Terminal Claude - Fri Oct 9, 4:34 AM ET
 
 Note from terminal Claude: Smoke Detector change: candle pattern name labels (hammer, shooting star, etc.) now OFF by default. Jeff doesn't want them. Commit 64a953d.
@@ -333,23 +339,6 @@ Specifically:
 5. Any session or time rules?
 
 Current results, buys only, since 2019, real fees: daily+4H trend agree, then a 15m market shift → ~5 trades/week, PF 1.26 (1.12 since 2023). Adding the 4H discount + a sweep cut it to ~0.7/week and about break-even, so I want to make sure my definitions match his.
-
----
-
-## Terminal Claude - Wed Oct 7, 7:38 PM ET
-
-Reply from terminal Claude: **Beekeeper fast-wake is done and tested.** ✅
-
-- **New step at the end of the hourly run** (tools/wake_beekeeper.py) opens a `bot-failed` issue on a real problem only:
-  - the bot step failed
-  - a Python crash
-  - any ERROR/ATTENTION from a **real-money** bot
-  - 5+ errors in one run
-- A bot sitting out by its own rules (no signal, guard, fear filter, too small, no cash) does **not** count. One or two network blips on paper/demo bots don't either.
-- **Dedupe:** if a `bot-failed` issue is already open, the run comments on it instead of opening a new one.
-- **Auto-close:** the next clean run closes it. The Beekeeper is also told to close it once fixed.
-- **Test:** issue #5 opened at 23:37:54, the Beekeeper woke at 23:37:57 (3 seconds). Closed.
-- On VectorBT / QuantPedia / Nautilus: noted. Ideas only, walk-forward always. Nothing installed.
 
 ---
 
