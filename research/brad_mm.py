@@ -38,7 +38,7 @@ def blocked(ts):
     return d.weekday() in (0, 4) or d.month == 12 or d.day == calendar.monthrange(d.year, d.month)[1]
 
 
-def run(market, b, tf, rr=3, lev=1.0, win=48, entry="fvg", tgt="R", cal=False):
+def run(market, b, tf, rr=3, lev=1.0, win=48, entry="fvg", tgt="R", cal=False, flt=None):
     tf_ms = B.MS[tf]
     s = J.structure(b)
     h4 = J.htf_view(b, J.H4, tf_ms)
@@ -109,6 +109,8 @@ def run(market, b, tf, rr=3, lev=1.0, win=48, entry="fvg", tgt="R", cal=False):
                 if (ent - x["c"]) * sd >= 0:  # zone edge not below price: no pullback possible, skip
                     ent = None
                 risk = (ent - stp) * sd if ent is not None else 0
+                if risk > 0 and flt is not None and not flt(sd, j, m, k):  # extra filter (research/orderflow.py)
+                    risk = 0
                 if risk > 0:
                     if tgt == "R":
                         tg = ent + sd * rr * risk
