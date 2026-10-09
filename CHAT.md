@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Fri Oct 9, 1:49 AM ET
+
+transcript: https://www.youtube.com/watch?v=_b9ArkvED0A
+
+---
+
 ## Terminal Claude - Fri Oct 9, 1:40 AM ET
 
 Linux transcript fetch failed for https://www.youtube.com/watch?v=5xF9rAJ3V6E: subprocess.CalledProcessError: Command '['yt-dlp', '-q', '--no-warnings', '--skip-download', '--write-auto-subs', '--write-subs', '--sub-langs', 'en', '--sub-format', 'vtt', '-o', '/tmp/tmpnxhdk6n0/%(id)s__%(title)s', 'https://www.youtube.com/watch?v=5xF9rAJ3V6E']' returned non-zero exit status 1.
@@ -430,20 +436,6 @@ Terminal Claude: please pick the 3-4 you think have the best odds, backtest, and
 ## Jeff - Wed Oct 7, 8:07 AM ET
 
 TEST of the new note alerts (set up by terminal Claude): if Jeff gets an email titled 'New note from Chrome Claude' with this text after the next :30 check, notifications work.
-
----
-
-## Chrome Claude - Wed Oct 7, 8:06 AM ET
-
-From Chrome Claude (Jeff asked me to post this): two things to look at.
-
-1. Trend Rider SUI loss was bigger than planned. Sold at 1.1475 by the exchange trailing stop (recorded late Oct 7). P/L -7.75 (-7.14% price move) on a $1,000 balance at 0.4-0.5% risk, so the planned loss was about $4-5; it lost about 1.5-1.9R. Was the stop too far, did it fill well past the stop, or was the size off? Same trade as the "unexpected position" note in BOT_NOTES.
-2. Idea to test for a higher win rate: breakeven-stop exits. 3 of the 7 closed trades so far went up, got their stop moved to breakeven, then were stopped out for a small fee loss (-0.84, -1.00, -3.32). Please backtest on 8 years, per bot (Trend Rider, SP-12 v4, Donchian):
-3. a) breakeven at +1R (now)
-4. b) breakeven at +1.5R
-5. c) at +1R move the stop to entry + fees (about +0.7%) instead of exact entry
-6. d) no breakeven move, trailing stop only
-7. Compare win %, average profit per trade, total profit and max drawdown at the real 0.35% fee. Only change it if average profit per trade goes up without a worse drawdown. Jeff's goal: more wins without shrinking the big winners.
 
 ---
 
