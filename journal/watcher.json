@@ -99,7 +99,7 @@
   "rsi2-bnus": {
    "peak": 1000.0,
    "halt_flag": false,
-   "odd": "5 trades open (max 3)"
+   "odd": ""
   },
   "v4-bnus": {
    "peak": 1000.0,
@@ -127,8 +127,6 @@
    "odd": ""
   }
  },
- "attention": [
-  "odd:rsi2-bnus:5 trades open (max 3)"
- ],
+ "attention": [],
  "run_errors": ""
 }

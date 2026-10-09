@@ -1,4 +1,4 @@
-ATTENTION: RSI(2) snap-back (Binance.US paper): 5 trades open (max 3) (checked 2026-10-08 8:39 PM ET)
+STATUS: all normal (checked 2026-10-08 9:28 PM ET)
 
 # Bot notes
 
