@@ -125,6 +125,11 @@
    "peak": 1000.0,
    "halt_flag": false,
    "odd": ""
+  },
+  "db2-bnus": {
+   "peak": 1000.0,
+   "halt_flag": false,
+   "odd": ""
   }
  },
  "attention": [],
