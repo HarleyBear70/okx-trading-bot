@@ -3,9 +3,9 @@
     "b1-bnus": {
       "equity": 1000.0,
       "last_bar": {
-        "BTC-USDT": 1791496800000,
-        "ETH-USDT": 1791496800000,
-        "XRP-USDT": 1791496800000
+        "BTC-USDT": 1791500400000,
+        "ETH-USDT": 1791500400000,
+        "XRP-USDT": 1791500400000
       },
       "positions": {}
     },
@@ -21,71 +21,71 @@
     "b3-paper": {
       "equity": 1000.0,
       "last_bar": {
-        "BTC-USDT": 1791331200000,
-        "ETH-USDT": 1791331200000,
-        "XRP-USDT": 1791331200000
+        "BTC-USDT": 1791417600000,
+        "ETH-USDT": 1791417600000,
+        "XRP-USDT": 1791417600000
       },
       "positions": {}
     },
     "cr-paper": {
       "equity": 1000.0,
       "last_bar": {
-        "BNB-USDT": 1791331200000,
-        "BTC-USDT": 1791331200000,
-        "ETH-USDT": 1791331200000,
-        "SOL-USDT": 1791331200000,
-        "XRP-USDT": 1791331200000
+        "BNB-USDT": 1791417600000,
+        "BTC-USDT": 1791417600000,
+        "ETH-USDT": 1791417600000,
+        "SOL-USDT": 1791417600000,
+        "XRP-USDT": 1791417600000
       },
       "positions": {}
     },
     "db-paper": {
       "equity": 1000.0,
       "last_bar": {
-        "BNB-USDT": 1791331200000,
-        "BTC-USDT": 1791331200000,
-        "ETH-USDT": 1791331200000,
-        "SOL-USDT": 1791331200000,
-        "XRP-USDT": 1791331200000
+        "BNB-USDT": 1791417600000,
+        "BTC-USDT": 1791417600000,
+        "ETH-USDT": 1791417600000,
+        "SOL-USDT": 1791417600000,
+        "XRP-USDT": 1791417600000
       },
       "positions": {}
     },
     "dc-bnus": {
       "equity": 1000.0,
       "last_bar": {
-        "BNB-USDT": 1791331200000,
-        "BTC-USDT": 1791331200000,
-        "ETH-USDT": 1791331200000,
-        "SOL-USDT": 1791331200000,
-        "XRP-USDT": 1791331200000
+        "BNB-USDT": 1791417600000,
+        "BTC-USDT": 1791417600000,
+        "ETH-USDT": 1791417600000,
+        "SOL-USDT": 1791417600000,
+        "XRP-USDT": 1791417600000
       },
       "positions": {}
     },
     "dc-okx": {
       "equity": 1000.0,
       "last_bar": {
-        "BNB-USDT": 1791331200000,
-        "BTC-USDT": 1791331200000,
-        "ETH-USDT": 1791331200000,
-        "SOL-USDT": 1791331200000,
-        "XRP-USDT": 1791331200000
+        "BNB-USDT": 1791417600000,
+        "BTC-USDT": 1791417600000,
+        "ETH-USDT": 1791417600000,
+        "SOL-USDT": 1791417600000,
+        "XRP-USDT": 1791417600000
       },
       "positions": {}
     },
     "fl-paper": {
       "equity": 1000.0,
       "last_bar": {
-        "BNB-USDT": 1791331200000,
-        "BTC-USDT": 1791331200000,
-        "ETH-USDT": 1791331200000,
-        "SOL-USDT": 1791331200000,
-        "XRP-USDT": 1791331200000
+        "BNB-USDT": 1791417600000,
+        "BTC-USDT": 1791417600000,
+        "ETH-USDT": 1791417600000,
+        "SOL-USDT": 1791417600000,
+        "XRP-USDT": 1791417600000
       },
       "positions": {}
     },
     "hold-paper": {
       "equity": 1000.0,
       "last_bar": {
-        "BTC-USDT": 1791331200000
+        "BTC-USDT": 1791417600000
       },
       "peak": 1000.0,
       "positions": {
@@ -107,18 +107,18 @@
     "nnfx-bnus": {
       "equity": 1000.0,
       "last_bar": {
-        "BTC-USDT": 1791331200000,
-        "ETH-USDT": 1791331200000,
-        "XRP-USDT": 1791331200000
+        "BTC-USDT": 1791417600000,
+        "ETH-USDT": 1791417600000,
+        "XRP-USDT": 1791417600000
       },
       "positions": {}
     },
     "nnfx-okx": {
       "equity": 1000.0,
       "last_bar": {
-        "BTC-USDT": 1791331200000,
-        "ETH-USDT": 1791331200000,
-        "XRP-USDT": 1791331200000
+        "BTC-USDT": 1791417600000,
+        "ETH-USDT": 1791417600000,
+        "XRP-USDT": 1791417600000
       },
       "positions": {}
     },
@@ -134,14 +134,42 @@
     "rsi2-bnus": {
       "equity": 1000.0,
       "last_bar": {
-        "BNB-USDT": 1791331200000,
-        "BTC-USDT": 1791331200000,
-        "ETH-USDT": 1791331200000,
-        "SOL-USDT": 1791331200000,
-        "XRP-USDT": 1791331200000
+        "BNB-USDT": 1791417600000,
+        "BTC-USDT": 1791417600000,
+        "ETH-USDT": 1791417600000,
+        "SOL-USDT": 1791417600000,
+        "XRP-USDT": 1791417600000
       },
       "peak": 1000.0,
       "positions": {
+        "BNB-USDT": {
+          "cost": 54.24015342358017,
+          "entry_px": 737.06,
+          "entry_ts": 1791417600000,
+          "hi": null,
+          "limit": null,
+          "no_half": true,
+          "qty": 0.07357516017972453,
+          "risk_usd": 5.0,
+          "sl": 669.1022818273676,
+          "stop": 669.1022818273676,
+          "tp": null,
+          "trail": false
+        },
+        "BTC-USDT": {
+          "cost": 61.5983151484076,
+          "entry_px": 81649.26,
+          "entry_ts": 1791417600000,
+          "hi": null,
+          "limit": null,
+          "no_half": true,
+          "qty": 0.0007542750289325078,
+          "risk_usd": 5.0,
+          "sl": 75020.37821522677,
+          "stop": 75020.37821522677,
+          "tp": null,
+          "trail": false
+        },
         "ETH-USDT": {
           "cost": 50.01135874776325,
           "entry_px": 2575.26,
@@ -153,6 +181,20 @@
           "risk_usd": 5.0,
           "sl": 2317.740996668062,
           "stop": 2317.740996668062,
+          "tp": null,
+          "trail": false
+        },
+        "SOL-USDT": {
+          "cost": 35.59349267488145,
+          "entry_px": 109.47,
+          "entry_ts": 1791417600000,
+          "hi": null,
+          "limit": null,
+          "no_half": true,
+          "qty": 0.3250787923613912,
+          "risk_usd": 5.0,
+          "sl": 94.08911352727839,
+          "stop": 94.08911352727839,
           "tp": null,
           "trail": false
         },
@@ -175,12 +217,12 @@
     "tr-bnus": {
       "equity": 1000.0,
       "last_bar": {
-        "BNB-USDT": 1791475200000,
-        "BTC-USDT": 1791475200000,
-        "ETH-USDT": 1791475200000,
-        "SOL-USDT": 1791475200000,
-        "SUI-USDT": 1791475200000,
-        "TRX-USDT": 1791475200000
+        "BNB-USDT": 1791489600000,
+        "BTC-USDT": 1791489600000,
+        "ETH-USDT": 1791489600000,
+        "SOL-USDT": 1791489600000,
+        "SUI-USDT": 1791489600000,
+        "TRX-USDT": 1791489600000
       },
       "positions": {}
     },
@@ -194,24 +236,24 @@
     "tr-live": {
       "equity": 50.0,
       "last_bar": {
-        "BNB-USDT": 1791475200000,
-        "BTC-USDT": 1791475200000,
-        "ETH-USDT": 1791475200000,
-        "SOL-USDT": 1791475200000,
-        "SUI-USDT": 1791475200000,
-        "TRX-USDT": 1791475200000
+        "BNB-USDT": 1791489600000,
+        "BTC-USDT": 1791489600000,
+        "ETH-USDT": 1791489600000,
+        "SOL-USDT": 1791489600000,
+        "SUI-USDT": 1791489600000,
+        "TRX-USDT": 1791489600000
       },
       "positions": {}
     },
     "tr-okx": {
       "equity": 992.2541,
       "last_bar": {
-        "BNB-USDT": 1791475200000,
-        "BTC-USDT": 1791475200000,
-        "ETH-USDT": 1791475200000,
-        "SOL-USDT": 1791475200000,
-        "SUI-USDT": 1791475200000,
-        "TRX-USDT": 1791475200000
+        "BNB-USDT": 1791489600000,
+        "BTC-USDT": 1791489600000,
+        "ETH-USDT": 1791489600000,
+        "SOL-USDT": 1791489600000,
+        "SUI-USDT": 1791489600000,
+        "TRX-USDT": 1791489600000
       },
       "peak": 1000.0,
       "positions": {}
@@ -219,33 +261,33 @@
     "tr1h-bnus": {
       "equity": 1000.0,
       "last_bar": {
-        "BNB-USDT": 1791496800000,
-        "BTC-USDT": 1791496800000,
-        "ETH-USDT": 1791496800000,
-        "SOL-USDT": 1791496800000,
-        "SUI-USDT": 1791496800000
+        "BNB-USDT": 1791500400000,
+        "BTC-USDT": 1791500400000,
+        "ETH-USDT": 1791500400000,
+        "SOL-USDT": 1791500400000,
+        "SUI-USDT": 1791500400000
       },
       "positions": {}
     },
     "turtle-bnus": {
       "equity": 1000.0,
       "last_bar": {
-        "BNB-USDT": 1791331200000,
-        "BTC-USDT": 1791331200000,
-        "ETH-USDT": 1791331200000,
-        "SOL-USDT": 1791331200000,
-        "XRP-USDT": 1791331200000
+        "BNB-USDT": 1791417600000,
+        "BTC-USDT": 1791417600000,
+        "ETH-USDT": 1791417600000,
+        "SOL-USDT": 1791417600000,
+        "XRP-USDT": 1791417600000
       },
       "positions": {}
     },
     "turtle-live": {
       "equity": 50.0,
       "last_bar": {
-        "BNB-USDT": 1791331200000,
-        "BTC-USDT": 1791331200000,
-        "ETH-USDT": 1791331200000,
-        "SOL-USDT": 1791331200000,
-        "XRP-USDT": 1791331200000
+        "BNB-USDT": 1791417600000,
+        "BTC-USDT": 1791417600000,
+        "ETH-USDT": 1791417600000,
+        "SOL-USDT": 1791417600000,
+        "XRP-USDT": 1791417600000
       },
       "positions": {}
     },
@@ -267,11 +309,11 @@
     "v4-bnus": {
       "equity": 1000.0,
       "last_bar": {
-        "BNB-USDT": 1791475200000,
-        "BTC-USDT": 1791475200000,
-        "ETH-USDT": 1791475200000,
-        "XLM-USDT": 1791475200000,
-        "XRP-USDT": 1791475200000
+        "BNB-USDT": 1791489600000,
+        "BTC-USDT": 1791489600000,
+        "ETH-USDT": 1791489600000,
+        "XLM-USDT": 1791489600000,
+        "XRP-USDT": 1791489600000
       },
       "positions": {}
     },

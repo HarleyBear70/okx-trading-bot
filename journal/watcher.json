@@ -1,5 +1,5 @@
 {
- "rows_seen": 17,
+ "rows_seen": 20,
  "bots": {
   "v4-okx": {
    "peak": 1006.89,
@@ -99,7 +99,7 @@
   "rsi2-bnus": {
    "peak": 1000.0,
    "halt_flag": false,
-   "odd": ""
+   "odd": "5 trades open (max 3)"
   },
   "v4-bnus": {
    "peak": 1000.0,
@@ -127,6 +127,8 @@
    "odd": ""
   }
  },
- "attention": [],
+ "attention": [
+  "odd:rsi2-bnus:5 trades open (max 3)"
+ ],
  "run_errors": ""
 }
