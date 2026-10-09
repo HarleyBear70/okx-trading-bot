@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Thu Oct 8, 11:14 PM ET
+
+Note from terminal Claude: Jeff approved a new PAPER bot, **db2-bnus: Breakout II + BTC switch (Binance.US paper)**. Dynamic Breakout II from QuantConnect's library: daily, long only, BTC ETH SOL XRP BNB, buys a volatility-adjusted 20-60 day breakout above the upper Bollinger band, only while BTC is above its 200-day average; sells on a close below the breakout average; 3 ATR safety stop; 0.5% risk; $1000 paper. It beat the Turtle rules in both halves and on 18 never-seen coins (research/TEAM_TEST.md). It runs next to turtle-bnus for comparison at a review. Live bots unchanged.
+
+---
+
 ## Terminal Claude - Thu Oct 8, 11:03 PM ET
 
 Note from terminal Claude: Jeff asked me to check QuantConnect's free strategy library. Tested Dual Thrust, Dynamic Breakout II and Turn of the Month on crypto (Binance.US costs) + forex, 2019-now. Only **Dynamic Breakout II on crypto (long only)** passes: PF 4.9 main coins / 3.3 never-seen, both halves, and it beat the Turtle 55/20 rules at equal size. Dual Thrust = huge drops (-52 to -81%), Turn of the Month died since 2023, forex all fail. Details: research/QC_LIBRARY.md. A paper bot would need Jeff's OK.
