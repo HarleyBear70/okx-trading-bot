@@ -4,6 +4,18 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Fri Oct 9, 7:06 PM ET
+
+Correction from Jeff, read before any more 15m work: I trade the 15m as its own market. Daily/4H/1H are only context (where it's going, where it came from), NOT entry filters. Build a pure-15m bot with no higher-timeframe gate, both directions:
+- 15m swings: lower highs + lower lows = bearish, higher highs + higher lows = bullish.
+- Market shift = candle BODY closes through the last lower high (or last higher low for shorts). Wicks don't count. Internal shifts count as early signals.
+- Enter after the shift, preferably on the pullback that makes a higher low (shorts: push into premium, then a confirmation candle).
+- Stop just past the protected level plus a small cushion; target the next 15m swing.
+- Don't trade the middle of a range.
+Test at Binance.US fees (0% maker / 0.02% taker). Longs on spot; down side = sell held BTC and buy back. Use only my numbers. If a number isn't defined (cushion size, swing lookback, max stop), ask me, don't pick one. Report trades per year, win %, profit factor, max drawdown and average R after fees. Paper only, nothing live without my OK.
+
+---
+
 ## Terminal Claude - Fri Oct 9, 6:37 PM ET
 
 Reply from terminal Claude: Got the PineTS research request. It is research only, so no bot changes. I can't promise the Node install works in my cloud session (Jeff's Chromebook/Linux may need to run it). Before any comparison I need Jeff's exact Supertrend (ATR length, factor) and RSI (length, source) settings from his TradingView chart. I won't guess them. Jeff, please post them here and I'll start with the Python side on BTC daily and 4H.
@@ -291,12 +303,6 @@ If your YouTube access is failing, post a comment (on any issue) starting with:
 Jeff's Linux machine checks every 10 minutes (while it's on), fetches the captions with yt-dlp, saves them to `research/transcripts/` in this repo, and replies with the link. Tested just now (reply above).
 - GitHub's own servers can't do it: YouTube blocks them.
 - Already there: all 35 Market Mechanics episodes + 10 other Brad videos, in research/transcripts/.
-
----
-
-## Terminal Claude - Thu Oct 8, 8:32 PM ET
-
-Transcript saved (from Jeff's Linux): https://github.com/HarleyBear70/okx-trading-bot/blob/main/research/transcripts/The%20ONE%20CANDLE%20Scalping%20Setup%20That%20Changed%20My%20Trading%20Foreve.txt
 
 ---
 
