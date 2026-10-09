@@ -408,7 +408,7 @@ if barstate.islast and showBox
         checkTxt = (goodNow ? "GOOD TRADE" : "SKIP") + "   SL " + str.tostring(slPct, "#.##") + "%   TP1 " + str.tostring(tp1Pct, "#.##") + "%" + (na(tp2Pct) ? "" : "   TP2 " + str.tostring(tp2Pct, "#.##") + "%") + "   |   after fees R:R " + str.tostring(win1 / riskUsd, "#.#") + (na(win2) ? "" : " / " + str.tostring(win2 / riskUsd, "#.#"))
         table.cell(tb, 0, 4, checkTxt, text_color=color.white, bgcolor=goodNow ? color.rgb(0, 150, 70) : color.rgb(200, 30, 30), text_size=size.large)
     else
-        waitTxt = not rangeOk ? "No trade idea: waiting for structure" : trend == 1 ? "No trade now: wait for a pullback into DISCOUNT (below " + str.tostring(mid, format.mintick) + ")" : "No trade now: wait for a bounce into PREMIUM (above " + str.tostring(mid, format.mintick) + ")"
+        waitTxt = not rangeOk ? "No trade idea: waiting for structure" : inDiscount ? "IN DISCOUNT now (below " + str.tostring(mid, format.mintick) + "): long zone. Turn on the long/short box in settings to see SL/TP" : inPremium ? "IN PREMIUM now (above " + str.tostring(mid, format.mintick) + "): short zone. Turn on the long/short box in settings to see SL/TP" : trend == 1 ? "No trade now: wait for a pullback into DISCOUNT (below " + str.tostring(mid, format.mintick) + ")" : "No trade now: wait for a bounce into PREMIUM (above " + str.tostring(mid, format.mintick) + ")"
         table.cell(tb, 0, 2, waitTxt, text_color=color.rgb(200, 200, 200), text_size=size.normal)
         table.cell(tb, 0, 3, "", text_size=size.normal)
         table.cell(tb, 0, 4, "", text_size=size.normal, bgcolor=clear)
