@@ -1,0 +1,211 @@
+Claude + GitHub = The Most OVERPOWERED AI Trader I've Ever Seen
+https://www.youtube.com/watch?v=_b9ArkvED0A
+
+In today's video, I'm going to give $100,000 to a team of 12 AI agents to trade on my behalf. And
+this is using a free GitHub repo called Trading Agents with 107,000 stars. Over the past few weeks,
+I've been experimenting with GitHub repos to see what the best automated trading tools on the
+internet are. And these are repositories created by real developers. As you can see, Trading Agents
+has 21 contributors and is getting constant updates by real developers. So, the good thing about
+using GitHub to source your tooling is that you don't need to build it from scratch yourself. You've
+literally got pro developers that are building this stuff for you. By the end of today's video,
+you're going to know how to have 12 trading agents trading on your behalf. It's literally like
+having an entire team of quant traders. Who would have imagined a few years ago when I first started
+AI trading, getting pine scripts off GPT, and putting them into TradingView, that you could
+literally now spin up an entire army of AI agents. Well, we are now in that era, and AI trading is
+only going to accelerate. So, the sooner you can learn it, the better positioned you are going to
+be. So, if you want to learn more about AI trading, subscribe to the channel, and let's get into the
+video. So, firstly, before we start trading, let me walk you through Trading Agents and explain what
+it does. So, essentially, it's a multi-agent trading framework that mirrors the dynamics of
+real-world trading firms. So, it's basically like having your own AI trading firm. But applying
+specialized LLM-powered agents from fundamental analysts, sentiment experts, technical analysts to
+traders, a risk management team, the platform collaboratively evaluates market conditions and
+informs trading decisions. These agents engage in dynamic discussions to pinpoint the optimal
+strategy. So, just like in a real trading firm, you would have an analyst presenting data from the
+real world to the risk management division, and the risk management division would evaluate sizing,
+and then it would get ticked off by the head trader. You're essentially mimicking that process with
+a series of AI agents. So, you can see here. So, this is exactly how it works. The repo plugs in the
+market data from Yahoo Finance and other data sources into the researcher team, also social media
+trends, so X and Reddit. Then you've got all of the new sources like Bloomberg, Reuters, and then it
+taps into the fundamentals so a company profile, financial history, insider transactions. All of
+this information is then routed to the researcher team which decides whether an asset is bullish or
+bearish. It provides buy evidence, it provides sell evidence. Then the trader makes a transaction
+proposal and the risk management team decides whether to be aggressive, neutral, or conservative.
+That then goes to the head manager and then they are responsible for making a decision on execution.
+And obviously in your case if you wanted to manually approve you could. If you want to leave things
+fully to the AI then you can also do that as well. So it's essentially an entire team that is
+trading on your behalf. So here are the 12 agents that you get access to. You've got the analyst
+team who's the fundamental analyst, you've got the sentiment analyst, a news analyst, and a
+technical analyst each with their own personality, profile, and skills in order to conduct each
+individual role. Then you've got the researcher team who critically assess the insights provided by
+the analyst team. Then you've got the trader agent which composes reports from the analysts and
+researchers to make informed trading decisions and they'll give a reasoning and a recommendation for
+acting in a certain way. And then you've got the risk management and portfolio manager. The risk
+management continuously evaluates portfolio risk by assessing market volatility, liquidity, and
+other risk factors. So they will adjust the trading strategies on your behalf, provide assessment
+reports to the portfolio manager for a final decision, and then the portfolio manager essentially
+approves or rejects the transaction proposal after going through all of these steps. If the trade is
+approved then the order will be sent to the exchange and executed. So to install this on the
+computer you want to go into the GitHub, you want to click copy on each of these commands and then
+you want to put it into Claude code or Codex you can use either. Or what you can do is you could
+take the GitHub link and you could get Claude to do it itself. But if you want the most seamless
+installation experience possible then in my free school community down below I'm going to leave a
+resource where you can just drag and drop it into Claude code. It'll automatically install and it
+will automatically be set up with the framework that I'm showing you in today's video. So, it's
+basically a cheat sheet of sorts that anybody can start. In my school community, you'll also find
+all of the resources and assets from these videos. So, as you can see here, if you click on the
+classroom and then free asset library, every single time I upload a video, you can get the full
+setup guides and all of the MD files that you can use to set this stuff up on your own. And it's
+good because everything is in one place, so nothing ever gets lost. You don't need to go through a
+bunch of portals and claim a bunch of stuff. If you ever want anything, you just need to go into my
+school community and you can access the resources from all of these videos, including the resources
+from today. And I think that's great because over time we're building the blocks for you guys to go
+from beginner to a seasoned experienced AI trader. And as new technology comes out, as new models
+come out, as new features and tools come out, it will only make us better and better and better.
+We're only just scratching the surface of what you can already do. In 6 months' time, AI trading is
+going to be even better. So, I think being a part of a community that's at the forefront of that is
+super valuable. So, I just put in a prompt to kick off a research process on Bitcoin. So, I asked it
+to run its analysis on Bitcoin for today, and you are now seeing it's going through the process of
+analyzing Bitcoin in accordance with the initial steps we discussed before. So, the research team is
+curating information that's going to go through this process. So, I just ran the entire process on
+Bitcoin, which took about 10 minutes, and it put it through the entire system. So, firstly, we have
+the market analysts doing their research. So, you can see here price action and trend structure,
+momentum MACD, momentum RSI, volatility with a takeaway for each section. The synthesis is that
+Bitcoin is in a confirmed multi-time frame uptrend that recently broke out to a closing high of 81K
+after a shallow control pullback in early to mid-September that did not violate structure. MACD
+histogram is recovering sharply from a corrective dip and nearing a bullish crossover. By the way,
+you could even prompt and get graphs to demonstrate each of these trends. You can actually format a
+visual research report using this information, which which is really, really cool. You can even use
+this information to create custom indicators. You can ask Claude, you know, if you connect the
+TradingView MCP to overlay this information over the chart as well. So, that's a really good way to
+learn. Price is trading near the upper Bollinger band, which in a strong trend is typically a
+continuation signal, though it does raise near-term pullback risk towards the 78,400 middle band.
+The combination of a fresh breakout to highs, recovering momentum, and non-overbought RSIs
+constructively bullish, but traders should watch for a confirmed MACD signal crossover as validation
+and whether price can hold above the 78,400 to 79,800 zone, since that would confirm continued trend
+health rather than a failed breakout. Then you've got the sentiment analyst who dug through all of
+the news and put together its proposal. Then the fundamentals analyst did its analysis with the
+entire summarized bull case, entire summarized bear case. I mean, this is really top-level stuff. If
+you actually read through the information, it's very, very in-depth, and I would imagine it would be
+particularly useful when it comes to analyzing things like stocks, and I'm going to give you an
+example of that in a minute here. We have the trader, we have the risk team, we have a bullish,
+bearish, and neutral analyst giving their opinions. And then finally, after all of that, it comes
+down to the portfolio manager with the overall rating, which is hold, with the executive summary
+saying, "It is not a place to add and also not a place to liquidate. Load a conditional upgrade to
+overweight on a decisive rally close above 83,000, with the first tranche gated on a successful
+retest of 83K at support." So, what we can do as the next step here is actually start to develop
+some AI automated triggers, which I'll show you how to do that to actually automate a trade. One
+thing that's very obvious when you read through this analysis is that it's not AI slop. Like, if you
+ask a Claude chat for information, it doesn't use the same language, formatting, depth. It doesn't
+have access to the same data sources that you're obviously getting through the Trading Agent's
+resource on GitHub. So, when it comes to actually analyzing stocks, Bitcoin, and automated trading,
+this is like miles better than if you were just using a Claude app. We'll get into the trading in a
+second, but I find this particularly useful when it comes to stocks because stocks have even more
+data when it comes to the financial reporting, projections, fundamental, bull case, bear case, etc.
+So, if I do a prompt like this, could you please run an analysis from the beginning on Meta stock to
+work out if it's a buy or a sell right now? This is a stock that fundamentally I'm actually bullish
+on because and obviously not financial advice, but my personal thesis is that distribution in the AI
+era will become really important, especially if open-source models genuinely threaten the frontier
+labs. Then the enterprises with baked-in distribution, so Google is one of them due to the amount of
+people that use the Google Suite, Microsoft is one of them due to the amount of people that use
+Microsoft, and then Meta is one of them because of the amount of people that use Instagram,
+Facebook, and WhatsApp. I think given how strong of a position they're in to distribute AI and
+optimize AI in terms of ad spend, I think they're in a strong position personally, but I'm
+interested to see what the analyst actually says about the price and whether there's a trade
+opportunity. What you can also do is you can set loops running overnight. So, if you plug your
+portfolio into Claude or into Codex, you can actually have an analysis happening overnight. So,
+every single morning you get a report that notifies you whether there has been a material change in
+your portfolio. The way to do this is by scheduling a task on Claude, which you can do. But since
+it's on Claude code, you do need the session to be open overnight. So, either doing it on a separate
+device, which is always on, or on a VPS, so a virtual private server that you can set up on one of
+the websites. For example, I use Hostinger. If you want a link, I'll leave it below. I think we
+have, you know, a discount going. But I essentially have a computer running 24/7 for a lot of my AI
+trading because if you want truly 24/7 autonomous trade execution or even, you know, at the very
+least analysis, then you're going to need a computer that's on 24/7. Another thing is you got to
+remember this is the brain because we're interfacing with Claude code as a harness right now. But
+you could develop a front end that looks a lot nicer than this. For example, you could use an
+application like Buzz, which is built by Jack Dorsey, which is essentially Slack for agents. You
+could have research channels that give you alerts that are formatted nicer. You could even create a
+custom front-end, so you could build your own front-end UI dashboard with updates on your portfolio.
+So, you just go in the morning and look at a dashboard and everything's formatted really nice. So,
+this is the raw information cuz I'm showing you the behind-the-scenes process of trading agents, but
+you can make it look really nice. And of course, once you start actually executing, you'll have a
+nice dashboard because you'll be able to see your positions. For example, I had an AI agent place a
+position on Nvidia, which I've already made $40 on, which I'll show you the execution piece once the
+analysis is finished here. So, you can see here that it's actually breaking down the year-on-year
+revenue growth, which is up 28% for Meta, their gross margin, their forward multiple, the trend, the
+bear case. So, I think with stocks it's a very, very cool tool to use, and you can actually use this
+to generate a buy, hold, or sell rating for your stock positions, which I think is really handy.
+Okay, so there are three levels to using this tool, in my opinion. Level one is the morning read.
+So, you can run it based on your portfolio. So, you just copy and paste your tickets in. You get it
+to produce a summary, and then, you know, you can manually then decide if you want to make any
+material changes to your portfolio. It probably costs around a $1 to $2. It depends on the model,
+and it depends on the effort of the model per run. So, it will cost some money, but you don't need
+to run it every day, especially if you're a higher time frame trader. Level two, this is the level
+up that I was discussing, is it runs itself based on a schedule. So, you'll need a VPS for this,
+where you have a schedule. So, every day at 9:00 a.m., every 2 days at 9:00 a.m., you run through
+your entire portfolio, which you you can have your portfolio on Notion or a Google Sheet, you know,
+wherever you keep it, you can just connect it, and you can have a summary landing in Telegram. You
+can connect it with Bot Father. You can even use Notice or another tool to get it sent to your
+WhatsApp. So, you can just literally get a notification. This will cost you maybe $30 to $50 a
+month. It depends on how often you want the alerts, but that is for the pure analysis side of
+things. So, those are the first two levels. The third level, which I'll show you now, is essentially
+putting these trades onto a real execution book. I'll show you a paper trading book in a second, and
+then you can level it up to, you know, a real money account if you want. The principle is the exact
+same, where you get the outcome that is then translated into a plan, and then that plan, which is
+developed by the engine, is then treated as a conditional order which gets placed on a brokerage,
+for example, Alpaca. And obviously, you can have an MD file with a set of guardrails, for example,
+max 20% per position, no market orders, so limit orders only, cancel stale orders. You can have a
+kill switch file. You can even have an approval, where just before it sets the order, you need to
+manually click approve. So, it will line everything up, the buy price, the amount, etc., and you
+just need to approve and click approve. That's one way that you can reduce, because I think a big
+thing, you know, with crypto trading, stock trading, you know, people have complacency or they don't
+act. Um I've been the exact same for a long time. Like, I'll have an idea, I'll have a trade thesis,
+but when push comes to shove, I don't act on a position, buying or selling. Whereas, this takes away
+the friction and literally makes it a binary yes or no. So, it takes away all of that grunt work.
+But, I'll show you right now how to actually conduct level three. So, we just analyzed Bitcoin and
+Meta. So, I'm going to ask Claude to read those two reports, Bitcoin, Meta, turn each verdict into a
+concrete order plan for my Alpaca account using paper for the example of this video, but in the top
+left you can switch to a real account. But, I always recommend when you start learning automation,
+when you start testing, always test using a paper account, and then, you know, build systems which
+are robust, and then you can always move to real trading later. Same with algo trading bots. Always
+start on a paper exchange, and then move to real trading later. But, the process is the exact same.
+I've given it some rules, so each order, maximum 10% of current cash, no market orders, everything's
+a limit or a stop limit that only fills if the desk's trigger is hit. If the verdict is hold with a
+breakout trigger and a pullback zone, place one order for each, a stop limit buy at the breakout
+level, and a limit buy in the lower half of the pullback zone. Before placing anything, show me a
+table, tick a verdict, order type, trigger price, limit price, quantity, dollar size, etc. Wait for
+me to type yes to process the order. After I confirm, place the orders through the Alpaca MCP, then
+show me the accounts opening order so I can see them on my book. So, you can see here it took my
+instructions and it developed a real trading plan. So, you can see here we've got the stop limit buy
+based on the analysis at $83,000. So, that would be the breakout trigger zone. We have the meta stop
+limit buy at $703. We have the meta limit buy at 620 as well. It gives us the justification for the
+range and it also points out the nuance so we can set a limit order, but if it's not a decisive
+daily close, then we might cancel the order last minute. That's where the manual approval comes in.
+And of course, the orders would have to be conditional on a macro check at the time. You could
+theoretically also run an experiment where you just gave the trading agents full range of your
+account. And you know, if you use paper trading for example, you can literally get them to make
+adjustments whenever they want on your positions or a specific set of assets that you asked them to
+analyze. But in practice, you probably have a portfolio that you're managing. You probably have
+assets that you're interested in and you're probably still wanting to have some sort of manual
+discretion over the the entries and exits on those assets. So, a system like this in that case would
+make more sense. So, you can see it's just placed all of the orders. So, if we go onto my exchange
+account, you can see we have the meta limit order. We have the Bitcoin limit order and uh these were
+previous buys that I made on another test. And we also have an expiry date in case the orders don't
+trigger by those dates. It's quite a cool feeling being able to talk to Claude and then having a
+brokerage trading on your behalf. As I said before, if you run a VPS, you could literally run an
+experiment where you just get a model like this to trade on your behalf. I probably wouldn't
+recommend that though because I think the power of this model is empowering you with the tools to
+make better decisions and to speed up execution. And I think the concept of speeding up execution is
+so important because we all have busy lives. So, if you can just get an update on Telegram, be on
+the way to work on your phone, and then just send it a message like, "Yep, trigger the position,
+execute the stop loss." And just have that executing. That's so much better than needing to sit
+down, log into a brokerage account, manually amend a position, set a limit order, check that it's
+correct. I think the future of trading is people interacting with agents directly. So, I'm going to
+leave the full setup guide from this video so you can just drag and drop it into Claude. It'll
+include all of the steps. It'll walk you through the steps on setting up also an Alpaca account. You
+can also use other MCPs for other brokerages, so you don't need to use Alpaca. I just find it's the
+best and the most compatible with the majority of the AI models. And in the free school community,
+we'll have all of the other resources from all of my other videos as well. So, let me know what you
+guys think of trading agents. I think it's one of the best AI trading free GitHub repos out there.
+Subscribe to the channel for more content like this, and I will see you in the next video. Have a
+lovely rest of your day. Peace out.
