@@ -44,7 +44,7 @@ minTpPct  = input.float(2.0, "My rule: min take profit (%)", minval=0.1, step=0.
 showEarly = input.bool(false, "Show early turns (small market shifts)")
 legLen    = input.int(1, "Market shift: leg swing size (candles each side)", minval=1, maxval=5)
 miniLen   = input.int(2, "Early-turn swing size (candles each side)", minval=1, maxval=5)
-showPat   = input.bool(true, "Show candle pattern names (only away from the middle)")
+showPat   = input.bool(false, "Show candle pattern names (only away from the middle)")
 
 atr  = ta.atr(14)
 ph   = ta.pivothigh(high, swingLen, swingLen)
