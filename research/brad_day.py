@@ -31,6 +31,7 @@ Long rules below; shorts are the exact mirror (run on upside-down prices). One t
   Coins       BTC ETH SOL XRP. Binance 5m archive 2019 to Sep 30 2026. Halves 2019-22 / 2023-now.
   Not used    killzones/sessions, news, daily loss limit (not in Ep 11's steps).
 
+  python3 research/brad_day.py v4         (Oct 10: Jeff's answers to the 43 rules, 24 versions)
   python3 research/brad_day.py kz         (Oct 10: killzones + maker entry, swing 5 and 1, range zones)
   python3 research/brad_day.py            (BTC ETH SOL XRP, swing 1/3/5 x pivot/range, with and without fees)
 """
@@ -133,6 +134,68 @@ class Struct:
         return ev
 
 
+class RangeStruct(Struct):
+    """Jeff's rule #7 (Oct 10): only a BOS resets STRONG/WEAK.
+    Uptrend: BOS = a candle BODY closes above the last HH (the body of the newest confirmed swing high at the top of
+    the range). New WEAK = the newest high, new STRONG = the lowest low between that HH and the break.
+    Market shift = a BODY closes below the STRONG candle's body; then STRONG = the highest high that led to the
+    break and WEAK = the newest low. Any other break inside the range = iBOS, warning only, nothing resets.
+    Downtrend is the mirror. Before the first break it starts like Struct (first body break of a swing)."""
+
+    def __init__(self, *a):
+        super().__init__(*a)
+        self.sb = None  # STRONG candle's body edge a close must pass for a market shift
+        self.si = 0  # STRONG candle index
+        self.hh = None  # body level of the last HH (uptrend) / LL (downtrend) a close must pass for a BOS
+        self.hhi = 0
+
+    def _set(self, trend, org, i):
+        o, h, l, c = self.o, self.h, self.l, self.c
+        self.trend, self.si, self.hh = trend, org, None
+        if trend == 1:
+            self.rlo, self.rhi, self.sb = l[org], max(h[org:i + 1]), min(o[org], c[org])
+        else:
+            self.rhi, self.rlo, self.sb = h[org], min(l[org:i + 1]), max(o[org], c[org])
+
+    def step(self, i):
+        if self.trend == 0:
+            ev = super().step(i)
+            if ev:
+                self._set(1 if ev[0] == "bull" else -1, ev[1], i)
+            return ev
+        o, h, l, c, N = self.o, self.h, self.l, self.c, self.N
+        ev = None
+        if self.trend == 1:
+            if c[i] < self.sb:
+                org = max(range(self.si, i + 1), key=lambda k: h[k])
+                self._set(-1, org, i)
+                ev = ("bear", org)
+            elif self.hh is not None and c[i] > self.hh:
+                org = min(range(self.hhi, i + 1), key=lambda k: l[k])
+                self._set(1, org, i)
+                ev = ("bull", org)
+            else:
+                self.rhi = max(self.rhi, h[i])
+        else:
+            if c[i] > self.sb:
+                org = min(range(self.si, i + 1), key=lambda k: l[k])
+                self._set(1, org, i)
+                ev = ("bull", org)
+            elif self.hh is not None and c[i] < self.hh:
+                org = max(range(self.hhi, i + 1), key=lambda k: h[k])
+                self._set(-1, org, i)
+                ev = ("bear", org)
+            else:
+                self.rlo = min(self.rlo, l[i])
+        j = i - N
+        if j >= N and j > self.si:
+            if self.trend == 1 and h[j] == self.rhi and h[j] == max(h[j - N:i + 1]) and h[j] > max(h[j + 1:i + 1]):
+                self.hh, self.hhi = max(o[j], c[j]), j  # the HH is confirmed once price pulls back from it
+            if self.trend == -1 and l[j] == self.rlo and l[j] == min(l[j - N:i + 1]) and l[j] < min(l[j + 1:i + 1]):
+                self.hh, self.hhi = min(o[j], c[j]), j
+        return ev
+
+
 def zone(h, l, org, N, ztype):
     """(bottom, top) of a demand zone whose low candle is org."""
     if ztype == "pivot":
@@ -147,15 +210,26 @@ def killzone(t):
     return 2 <= e.hour < 5 or 7 <= e.hour < 10
 
 
-def run(d, N, ztype, taker=TAKER, log=None, kz=False, maker=False):
+def pos_in(x, st):
+    """where x sits in a timeframe's range: 0 = the low, 1 = the high."""
+    return (x - st.rlo) / (st.rhi - st.rlo) if st.rhi > st.rlo else 0.5
+
+
+def run(d, N, ztype, taker=TAKER, log=None, kz=False, maker=False, rng=False, stopm="sweep", cap=MAXSTOP,
+        band=0.0):
     """long side only. Returns [(entry ts, exit ts, R)].
     kz    = the limit order can only fill inside Jeff's killzones; outside them it waits (Oct 10).
-    maker = the limit entry pays 0% (maker); stop exits still pay taker + slippage (Jeff, Oct 10)."""
+    maker = the limit entry pays 0% (maker); stop exits still pay taker + slippage (Jeff, Oct 10).
+    rng   = Jeff's Oct 10 answers: 4H/15m use RangeStruct (#7) and the target is the 15m WEAK high (#33).
+    stopm = "sweep" (below the 5m sweep low) or "strong" (below the 15m STRONG low), +0.05% (#31).
+    cap   = max stop distance as a fraction of price, None = no cap (#32).
+    band  = no-trade band around the 0.5: 0.05 = 0.45-0.55, 0.10 = 0.40-0.60 (#11)."""
     ts, o, h, l, c = d["ts"], d["o"], d["h"], d["l"], d["c"]
     t0 = B.ms(B.START)
     O15, H15, L15, C15, end15 = resample(ts, o, h, l, c, M15)
     O4, H4_, L4, C4, end4 = resample(ts, o, h, l, c, H4)
-    s5, s15, s4 = Struct(o, h, l, c, N), Struct(O15, H15, L15, C15, N), Struct(O4, H4_, L4, C4, N)
+    SS = RangeStruct if rng else Struct
+    s5, s15, s4 = Struct(o, h, l, c, N), SS(O15, H15, L15, C15, N), SS(O4, H4_, L4, C4, N)
     fee = lambda px: taker * abs(px)
     zones = []  # [bottom, top, used]
     setup = None  # {"z": zone, "low": sweep low or None, "swept": bool}
@@ -197,8 +271,8 @@ def run(d, N, ztype, taker=TAKER, log=None, kz=False, maker=False):
                 if setup and setup["z"][0] <= z[0]:
                     continue  # already working a deeper zone
                 z[2] = True
-                m15, m4 = s15.mid(), s4.mid()
-                if m15 is not None and m4 is not None and z[1] <= m15 and l[i] <= m4:
+                if (s15.rlo is not None and s4.rlo is not None and pos_in(z[1], s15) <= 0.5 - band
+                        and pos_in(l[i], s4) <= 0.5 - band):
                     setup = {"z": z, "low": None, "swept": False}
                 break
         # 4) sweep: a 5m wick under the last 5m swing low while working the zone
@@ -214,10 +288,15 @@ def run(d, N, ztype, taker=TAKER, log=None, kz=False, maker=False):
             org = ev5[1]
             zb, zt = zone(h, l, org, N, "pivot" if ztype == "pivot" else "range")
             e = zt
-            stop = setup["low"] - CUSH * abs(setup["low"])
+            base = s15.rlo if stopm == "strong" else setup["low"]
+            stop = base - CUSH * abs(base)
             r = e - stop
-            if 0 < r <= MAXSTOP * abs(e) and e < c[i]:
-                tg = sorted(v - CUSH * abs(v) for v in s15.highs if v - CUSH * abs(v) - e >= MINRR * r)
+            if 0 < r and (cap is None or r <= cap * abs(e)) and e < c[i]:
+                if rng:
+                    w = s15.rhi - CUSH * abs(s15.rhi)
+                    tg = [w] if w - e >= MINRR * r else []
+                else:
+                    tg = sorted(v - CUSH * abs(v) for v in s15.highs if v - CUSH * abs(v) - e >= MINRR * r)
                 if tg:
                     pend = {"e": e, "stop": stop, "tgt": tg[0], "z": tuple(setup["z"][:2]), "ms_ts": ts[i]}
         k = end15[i]
@@ -270,7 +349,66 @@ def main_kz():
         print(P.row(v[0], res[v[0]], years), flush=True)
 
 
+def day_limit(tr, lim=6.0):
+    """Jeff #43: like the live bots, no new entries once the account is down 3% on the UTC day.
+    At the live bots' 0.5% risk a trade, 3% = 6R. All coins share one account. tr = (entry, exit, R, side, coin)."""
+    keep, day, lost = [], None, 0.0
+    closed = []
+    for t in sorted(tr):
+        d = t[0] // 86400000
+        if d != day:
+            day, closed = d, []
+        lost = -sum(x[2] for x in closed if x[1] <= t[0] and x[1] // 86400000 == d)
+        if lost >= lim:
+            continue
+        keep.append(t)
+        closed.append(t)
+    return keep
+
+
+def main_v4(show10=False):
+    """Oct 10 round 3 (Jeff's answers to the 43 rules): swing 5, range zones, maker entry, killzones, RangeStruct,
+    target = 15m WEAK, 3% daily loss limit; stops sweep/strong x caps 1.35/2/3/none x middle bands none/0.45-0.55/0.40-0.60."""
+    years = (dt.datetime(2026, 10, 1, tzinfo=dt.timezone.utc) - B.START).days / 365.25
+    caps = ((0.0135, "1.35%"), (0.02, "2%"), (0.03, "3%"), (None, "no cap"))
+    bands = ((0.0, "no band"), (0.05, "no trades 0.45-0.55"), (0.10, "no trades 0.40-0.60"))
+    vers = [(f"stop below {'5m sweep' if sm == 'sweep' else '15m STRONG'}, cap {cn}, {bn}", sm, cv, bv)
+            for sm in ("sweep", "strong") for cv, cn in caps for bv, bn in bands]
+    res = {v[0]: [] for v in vers}
+    logs = {v[0]: [] for v in vers}
+    for cn in COINS:
+        d = load(cn)
+        md = mirror(d)
+        for name, sm, cv, bv in vers:
+            kw = dict(kz=True, maker=True, rng=True, stopm=sm, cap=cv, band=bv)
+            l1, l2 = [], []
+            lo = [t + (1, cn) for t in run(d, 5, "range", log=l1, **kw)]
+            sh = [t + (-1, cn) for t in run(md, 5, "range", log=l2, **kw)]
+            keep, busy = [], -1
+            for t in sorted(lo + sh):
+                if t[0] > busy:
+                    keep.append(t)
+                    busy = t[1]
+            res[name] += keep
+            if cn == "BTC":
+                ok = {t[0] for t in keep}
+                logs[name] = [dict(x, side=1) for x in l1 if x["ts"] in ok] + [dict(x, side=-1) for x in l2 if x["ts"] in ok]
+        print(f"  ({cn} done)", flush=True)
+        del d, md
+        gc.collect()
+    print("\n### Brad DAY TRADE round 3 (Jeff's 43-rule answers): swing 5, range zones, maker entry, killzones, "
+          "BOS/iBOS rule, target = 15m WEAK, 3% daily loss limit. BTC ETH SOL XRP, Binance.US costs\n")
+    print("| Version | Trades/yr | Win % | Avg win | Avg loss | PF | Avg | Max DD | 2019-22 PF | 2023-now PF | "
+          "Long PF | Short PF |\n|---|---|---|---|---|---|---|---|---|---|---|---|")
+    for v in vers:
+        print(P.row(v[0], [t[:4] for t in day_limit(res[v[0]])], years), flush=True)
+    import json
+    json.dump({k: v for k, v in logs.items()}, open(os.path.join(HERE, ".cache", "brad_day_v4_btc.json"), "w"))
+
+
 def main():
+    if sys.argv[1:] == ["v4"]:
+        return main_v4()
     if sys.argv[1:] == ["kz"]:
         return main_kz()
     coins = sys.argv[1:] or COINS
