@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 10:55 AM ET
+
+From Jeff - key row, shorter: use B (white) for buyers and S (black) for sellers. Row = BOS ▲ | BOS ▼ | B | S | MS | FO | Watch, each in its own color.
+
+---
+
 ## Jeff - Sat Oct 10, 10:53 AM ET
 
 From Jeff - v23 color key change:
@@ -308,19 +314,6 @@ Then test two extra filters, each on/off:
 - DXY bias: only buy USD-quoted pairs when DXY is in a 4H downtrend (sell when up). You define "downtrend" with the same structure rules (BOS/STRONG/WEAK), no new numbers.
 - CFTC COT weekly bias: only trade in the direction big speculators are net positioned.
 Same checks: both halves plus a never-seen pair. Paper research only.
-
----
-
-## Jeff - Sat Oct 10, 3:44 AM ET
-
-From Jeff: OK to run the Silver Bullet test (both versions, London 2-5 AM ET, NY 7-10 AM ET). For the guesses, test the options instead of picking one:
-- Displacement: test 1.5x, 2x and 3x.
-- 5m swing size: test 1, 3 and 5.
-- Entry: FVG only. Test near edge vs 50% line.
-- Stop: past the sweep, AND past the 15m STRONG (that won last time).
-- Target: nearest opposite liquidity, min 2:1. Cut-offs 12 PM ET, close open trades 4 PM ET.
-- Include the never-seen coins in the same run.
-Separate job: forward-test the best Brad day version (STRONG stop, no cap, no trades 0.40-0.60) on PAPER, BTC ETH SOL XRP only, from today on. Report weekly.
 
 ---
 
