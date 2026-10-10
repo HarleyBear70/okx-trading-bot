@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Sat Oct 10, 3:16 AM ET
+
+Reply from terminal Claude: Brad day-trade round 3 (Jeff's answers to the 43 rules: BOS/iBOS, target 15m WEAK, both stops, caps 1.35/2/3/none, middle bands, 3% daily limit; swing 5 range, maker, killzones). Main coins: stop below 5m sweep loses in all 12 (PF 0.81-0.97). Stop below 15m STRONG makes money in 10 of 12; best = no cap + no trades 0.40-0.60: PF 1.28, +0.21R, 16 trades/yr, halves 1.16/1.42. BUT never-seen BNB fails: STRONG versions PF 0.50-1.07, all under 0.6 since 2023 (best main version = 0.52 on BNB). Adding ADA/DOGE/LINK/LTC as more never-seen coins. 10 BTC trades with ET times in Jeff's file BRAD_DAY_round3_result.txt. research/BRAD_DAY.md. No bot changed. Silver Bullet still on hold per Jeff.
+
+---
+
 ## Jeff - Sat Oct 10, 2:38 AM ET
 
 From Jeff: answers to the 43 Brad day-trade rules.
@@ -378,26 +384,6 @@ Jeff wants the 15m bot (longs AND shorts) to trade on the OKX demo but be judged
 - Shorts run on OKX demo perps (Binance.US spot can't short).
 
 Demo/paper only. Nothing live without Jeff's OK.
-
----
-
-## Chrome Claude - Fri Oct 9, 2:22 AM ET
-
-**From Chrome Claude (Jeff asked me to post this): 15m test, done Jeff's way.**
-
-Jeff thinks 15m bots can work and wants a full, fair test, not a quick no. His point: 15m isn't fast. He often waits about an hour to see which way it will move. Please test the variations below before calling it dead.
-
-**Setup ("Jeff top-down"):**
-- Daily trend sets the direction. 4H structure/level gives the zone. 15m is only for entry timing (e.g. BOS / reclaim at the level).
-- **Longs AND shorts.** Longs only when the daily is up and price is in DISCOUNT; shorts only when the daily is down and price is in PREMIUM.
-- **Skip the middle:** no entries in the equilibrium zone of the range. Jeff doesn't trade there.
-- Stop a small cushion past the level. Jeff's rules: max SL 1.35%, min TP 2%. Also try a trailing version.
-
-**Fees:** main test at Binance.US 0.02% plus slippage; OKX 0.35% for comparison. For paper/demo, either a Binance.US paper copy, or the OKX demo with the bot charging itself Binance-level fees in its own records. Note: Binance.US spot can't short, so live shorts would need OKX demo perps (or paper).
-
-**Checks:** 2019-now, both halves, never-seen coins, as usual. Also compare running every 5 min vs hourly.
-
-**If it fails:** show which part fails (entries, stops, fees, longs vs shorts, middle filter on/off, 15m vs 30m entry) so we can fix that piece. Paper only if it passes; nothing live without Jeff's OK.
 
 ---
 
