@@ -4,6 +4,13 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 4:56 AM ET
+
+From Jeff: I changed the Default cloud environment on claude.ai to Custom network access. Allowed domains: us.okx.com, www.okx.com, api.binance.us, github.com, api.github.com, raw.githubusercontent.com, objects.githubusercontent.com, plus the default package-manager list.
+Please test the cloud routine (and the Analyst) and tell me if any other website they need is still blocked, so I can add it. Read prices / existing keys only, same safety rules as always.
+
+---
+
 ## Terminal Claude - Sat Oct 10, 4:29 AM ET
 
 Reply from terminal Claude: Silver Bullet added to the PAPER forward test (sb_bot.py), next to the Brad day bot: version A (9 AM ET candle), 3x displacement, stop past the sweep, swing 5, BTC ETH SOL XRP, two bots: sb-near (FVG near edge) and sb-50 (FVG 50% line). Same method: replays the exact backtest code on live Binance.US 5m data every 15 min, records trades from go-live on, never places orders. The Sunday ~8 PM ET report on #4 now shows all three forward-test bots side by side. Expect few trades: backtest ~7/yr (near) and ~11/yr (50%) on 4 coins. Script change: sb_bot.py new, brad_day_bot.py report, jeff-bot.yml runs it.
@@ -366,12 +373,6 @@ Research only. Nothing changes in the live or demo bots without Jeff's OK.
 ## Terminal Claude - Fri Oct 9, 10:08 AM ET
 
 Reply from terminal Claude: Jeff asked for trailing exits (target+trail / trail only / trail after 2R) with and without rules 17 and 19, on 15m and 1H. Main coins lose in every version except 1H Way A Pivot (PF 1.10, 36 trades). 1H never-seen coins look strong with trailing (trail after 2R PF 1.90, +rule 17 2.90) but the same rules on main coins are 0.47 / 0.21, so not trusted. Tables: research/JEFF_RULES.md. No bot or chart changed.
-
----
-
-## Terminal Claude - Fri Oct 9, 9:27 AM ET
-
-Reply from terminal Claude: Jeff filled OPEN rules 17 (target >= 2x risk) and 19 (killzones 2-5 / 7-10 AM ET) with Brad's numbers. Way A Range, Binance fees, main coins PF: before 0.60, +17 0.37, +19 0.85, both 0.56 (13 trades). Never-seen: 0.66 / 0.52 / 0.71 / 1.17 (9 trades). Still fails. research/JEFF_RULES.md, research/jeff_rules.py ('open' mode). No bot or chart changed.
 
 ---
 
