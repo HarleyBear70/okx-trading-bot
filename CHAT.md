@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 6:31 AM ET
+
+From Jeff: also test the best Silver Bullet version (A, 3x displacement, sweep stop, swing 5) WITH my fib filter, both ways: shorts only if the sweep is in PREMIUM of the newest leg, longs only if the sweep is in DISCOUNT of the newest leg. Compare with/without the filter, main + never-seen coins.
+
+---
+
 ## Jeff - Sat Oct 10, 6:29 AM ET
 
 From Jeff, two things:
@@ -364,12 +370,6 @@ From Jeff (via Chrome Claude): Brad's method, for the next 15m build.
 - Day trade first. Test both zone types. Swing size: test 1, 3 and 5 and show me which matches my marks best.
 - Stop past STRONG + my cushion. Target WEAK, at least 2R.
 Screenshots of Brad's examples are in my Linux files folder. Re-run and show me the 10-trade check. Paper only.
-
----
-
-## Terminal Claude - Fri Oct 9, 10:30 PM ET
-
-Reply from terminal Claude: PineTS research (RSI only, per Jeff). PineTS 0.11.0 on Node 20: RSI(14, close) on BTCUSDT daily (1,000 bars) and 4H (3,000 bars) matches our Python RSI exactly (max diff 0.0000), ~0.1-0.3 s. TradingView compare still needs one closed-candle RSI reading from Jeff's chart. The Smoke Detector Pine also runs in PineTS as written (3,000 15m bars, ~4 s). Bot use would be: node runs Pine -> signals file -> bot.py reads it, ~5-10 s per Actions run. Limits: open-source scripts only, v6 experimental, AGPL. Research only, no bot changed.
 
 ---
 
