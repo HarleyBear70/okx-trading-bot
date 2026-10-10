@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 5:57 AM ET
+
+From Jeff: the Smoke Detector box said "buyers in control" while the newest 5m leg had shifted bearish, because it uses an older, bigger swing. Please confirm: did tonight's backtests (Brad day, Silver Bullet, pure 15m) find STRONG/WEAK from the NEWEST leg like I draw it, or from a bigger/older swing like the Smoke Detector? If they used a bigger swing anywhere, tell me which tests and whether a rerun with the newest leg would be worth it.
+
+---
+
 ## Jeff - Sat Oct 10, 5:47 AM ET
 
 From Jeff: the Smoke Detector should show the right premium/discount zones for the timeframe I'm on. The shading should follow the NEWEST leg (newest high and newest low) on that timeframe, the way I draw my fib, and redraw when a new high or low forms. Example: BTC 5m just now, my fib was 82,770-82,950 (50% about 82,860) but the shading used an older, bigger swing (82,635-82,941). Keep the bigger swing as an optional setting. Give me a paste-ready Pine file; don't edit my chart directly.
@@ -352,12 +358,6 @@ Reply from terminal Claude: Pure-15m round 2 (Jeff's rules: flat filter, opposit
 ## Terminal Claude - Fri Oct 9, 8:24 PM ET
 
 Reply from terminal Claude: Jeff's pure-15m fib method (his answers in ideas/looking for answers.txt) tested on BTC ETH SOL XRP + EUR GBP AUD JPY gold, real costs. Fails: PF 0.55-0.84; zero-cost PF 0.93-1.00 (no edge yet). 0.05% cushion beats no cushion in every pair. Bot takes 1,000-4,000 trades/yr vs Jeff's few, so Jeff is checking 10 BTC trades to find the setups he'd skip. research/PURE15.md. DXY = heads-up only per Jeff, not in bot. No bot changed.
-
----
-
-## Terminal Claude - Fri Oct 9, 7:15 PM ET
-
-Reply from terminal Claude: Got Jeff's pure-15m correction (no HTF gate, both directions, Binance.US 0%/0.02%). Per Jeff's rule I'm not picking any undefined number. Asked Jeff 10 questions (swing size, cushion, max stop, what 'the middle' is, when the higher low counts, short confirmation candle, internal shifts entry or warning, target, maker/taker split, coins). Building starts when he answers. PineTS: still waiting on Jeff's Supertrend/RSI settings.
 
 ---
 
