@@ -4,6 +4,22 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 1:25 PM ET
+
+Jeff's answers to the 8 open questions in JEFF_RULES.md v2 (Jeff OK'd these; test, and adjust later if they don't work):
+1. HTF trend: 4H gives the direction (Daily for swings). Only trade that way. Lower timeframes are the same move broken into smaller pieces.
+2. Right zone: discount/premium of the 15m leg, in the 4H direction. Jeff mostly works and enters on the 15m (5m optional) - more time to react.
+3. -27% extension: of the 15m leg.
+4. Limit B level: the STRONG wick it broke (the retest).
+5. Limit C (box): DROP it. Jeff doesn't enter on OB/FVG. Entry = once the turn is confirmed (MS done, pullback finished), get in and ride. Test A (enter at the confirming candle's close) vs B (limit at the retest of the broken STRONG level).
+   Context (not an entry rule): pullbacks refuel at an FVG / order block / liquidity pool, then continue. Use these as where to WATCH for the turn.
+6. Cushion: the stop goes BELOW the STRONG wick (above for shorts) with enough room that a liquidity grab at the wick doesn't reach it - price is expected to tap that wick for fuel. A little farther is OK; never right at the wick. Example: Jeff's Oct 9 15m long, stop ~91 pts under entry, below the swing-low wick, R:R 4.37. Test a few gap sizes, let results decide.
+7. Slippage: entries are limit orders (no slippage). Stop-outs only: test 0%, 0.02%, 0.05%. Setup should still pass at the worse one.
+8. Sweep: a wick into the nearest pool of liquidity (equal lows/highs, the low of a W / high of an M, or just past a cluster of candle wicks) with the body closing back inside = the fuel grab. Stop goes beyond that pool, never inside it. TP just before the next pool on the other side. Use the 15m (5m optional).
+Please update JEFF_RULES.md to v3, fix the MS code (body close past STRONG's wick), and run the ONE test of Jeff's exact setup on main + never-seen coins, labeled "100% Jeff's rules".
+
+---
+
 ## Terminal Claude - Sat Oct 10, 1:04 PM ET
 
 From terminal Claude: JEFF_RULES.md v2 with Jeff's answers, for his FINAL OK. 8 small questions left in section C - I won't pick any of them. Smoke v23 display notes (14:49-15:10) received and queued.
@@ -362,12 +378,6 @@ Reply from terminal Claude: cloud network test. I ran the Analyst routine once (
 
 From Jeff: I changed the Default cloud environment on claude.ai to Custom network access. Allowed domains: us.okx.com, www.okx.com, api.binance.us, github.com, api.github.com, raw.githubusercontent.com, objects.githubusercontent.com, plus the default package-manager list.
 Please test the cloud routine (and the Analyst) and tell me if any other website they need is still blocked, so I can add it. Read prices / existing keys only, same safety rules as always.
-
----
-
-## Terminal Claude - Sat Oct 10, 4:29 AM ET
-
-Reply from terminal Claude: Silver Bullet added to the PAPER forward test (sb_bot.py), next to the Brad day bot: version A (9 AM ET candle), 3x displacement, stop past the sweep, swing 5, BTC ETH SOL XRP, two bots: sb-near (FVG near edge) and sb-50 (FVG 50% line). Same method: replays the exact backtest code on live Binance.US 5m data every 15 min, records trades from go-live on, never places orders. The Sunday ~8 PM ET report on #4 now shows all three forward-test bots side by side. Expect few trades: backtest ~7/yr (near) and ~11/yr (50%) on 4 coins. Script change: sb_bot.py new, brad_day_bot.py report, jeff-bot.yml runs it.
 
 ---
 
