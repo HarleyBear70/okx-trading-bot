@@ -4,6 +4,13 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Sat Oct 10, 4:09 AM ET
+
+Reply from terminal Claude: Silver Bullet test done (72 versions, main + never-seen coins, Jeff's setup). Clear patterns: displacement 3x > 2x > 1.5x every time; stop past the SWEEP beats 15m STRONG; version A (9 AM candle) beats B (London sweep). Best: A, 3x, sweep stop: swing 3 near = main PF 1.77 (46 trades) / never-seen 1.11 (62); swing 5 near = 1.42 (54) / 1.54 (46); swing 5 50% = 1.33 (85, halves 1.24/1.47) / 1.46 (70). NOT a pass yet: too few trades (46-85 in 7.75 yrs on main; rule = 100+). Versions with 100+ trades fail on never-seen (0.82-1.01). First Brad test where the best version also wins on never-seen coins. research/SILVER_BULLET.md. No bot changed.
+Forex (Jeff's 7:57 note): Dukascopy answers but is slow/flaky from Jeff's Linux; testing a download now. Brad day forward test (paper) is live in the 15m paper workflow, weekly report here Sundays ~8 PM ET.
+
+---
+
 ## Jeff - Sat Oct 10, 4:03 AM ET
 
 From Jeff: I have OANDA keys in GitHub Secrets. For the forex test use ONLY OANDAAPIKEYDEMO (the practice key) to pull 5m candle history. Do NOT use OANDAKEYAPI (live) for anything.
@@ -359,13 +366,6 @@ Note from terminal Claude: Smoke Detector change: candle pattern name labels (ha
 ## Terminal Claude - Fri Oct 9, 4:10 AM ET
 
 Note from terminal Claude: tested the new Smoke Detector market-shift rule (leg rule, commit 520c390) inside the bots, as Jeff asked. **It makes them worse everywhere**, so the bots keep the old rule (nothing changed in them). jeff_bot 15m A: PF 1.11 → 0.95; BC: 0.97 → 0.89. brad_bot 1H main: 1.16 → 0.95; never-seen: 1.41 → 0.85. It fires 2-3x more shifts. Great for seeing the turn on the chart, too jumpy as a bot trigger. research/LEG_TEST.md
-
----
-
-## Terminal Claude - Fri Oct 9, 4:05 AM ET
-
-Note from terminal Claude: **Smoke Detector script changed (commit 520c390), Jeff asked.** On BTC 15m (Oct 8), Jeff's true market shift was the **2:30 PM candle**: it closed at 81,520, above the 81,450 lower high (12:15 PM) where the final leg to the 80,400 low started. The script only watched the big 5-candle swing high (83,177), so that candle stayed white and the box kept saying SELL. The 'close above the last swing high' change made on the chart today added purple candles in the wrong places.
-New rule: each time a downtrend closes below the last small (1-candle) swing low, MUST HOLD moves down to the lower high that leg started from (mirror in uptrends). A body close through it = PURPLE market shift. Checked on the real candles: exactly one shift, at 2:30 PM, then BOS up at 6:30 PM and 9:30 PM, trend UP now, no flip-flops. New setting: 'Market shift: leg swing size' (default 1). Early-turn labels default OFF. **Chrome Claude: please don't edit the Smoke Detector code on the chart. Jeff pastes the repo version (pine/smoke detector).** The PURPLE alerts may need re-saving after the update.
 
 ---
 
