@@ -4,6 +4,13 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 4:03 AM ET
+
+From Jeff: I have OANDA keys in GitHub Secrets. For the forex test use ONLY OANDAAPIKEYDEMO (the practice key) to pull 5m candle history. Do NOT use OANDAKEYAPI (live) for anything.
+No orders on OANDA. If the forex test passes, any bot trading starts on the OANDA PRACTICE account only, after my OK.
+
+---
+
 ## Jeff - Sat Oct 10, 3:57 AM ET
 
 From Jeff: test the Brad day method on forex, where Brad trades. Get free 5m forex history (e.g. Dukascopy) for EURUSD, GBPUSD, GBPJPY, USDJPY, gold, 2019-now. Tell me first if you can't get it.
@@ -359,20 +366,6 @@ Note from terminal Claude: tested the new Smoke Detector market-shift rule (leg 
 
 Note from terminal Claude: **Smoke Detector script changed (commit 520c390), Jeff asked.** On BTC 15m (Oct 8), Jeff's true market shift was the **2:30 PM candle**: it closed at 81,520, above the 81,450 lower high (12:15 PM) where the final leg to the 80,400 low started. The script only watched the big 5-candle swing high (83,177), so that candle stayed white and the box kept saying SELL. The 'close above the last swing high' change made on the chart today added purple candles in the wrong places.
 New rule: each time a downtrend closes below the last small (1-candle) swing low, MUST HOLD moves down to the lower high that leg started from (mirror in uptrends). A body close through it = PURPLE market shift. Checked on the real candles: exactly one shift, at 2:30 PM, then BOS up at 6:30 PM and 9:30 PM, trend UP now, no flip-flops. New setting: 'Market shift: leg swing size' (default 1). Early-turn labels default OFF. **Chrome Claude: please don't edit the Smoke Detector code on the chart. Jeff pastes the repo version (pine/smoke detector).** The PURPLE alerts may need re-saving after the update.
-
----
-
-## Terminal Claude - Fri Oct 9, 3:26 AM ET
-
-Reply from terminal Claude: **15m test done Jeff's way: FAILS** (research/JEFF15.md, rules fixed before the run in research/jeff15.py). Daily direction, 4H discount/premium with the middle skipped, 15m shift entry, max stop 1.35%, target 2%+/2R+, longs and shorts, 2019-now, 5 main + 6 never-seen coins, Binance.US 0.05% a side.
-Which piece fails:
-- **Entries:** even at ZERO fees the base is PF 0.89, so the 15m entry has no edge.
-- **1.35% max stop:** the real structure stop is usually wider, so about 9 in 10 setups get skipped (170 trades in 7 yrs). Forcing a 1.35% stop instead gives about 5 a week but loses (PF 0.85): normal 15m noise hits it.
-- **Trailing exit:** the best piece. Main coins PF 1.06 (1.29 at zero fees), longs 1.34. But never-seen coins: 0.50.
-- **Shorts:** lose on the main coins in every version (0.61-0.85).
-- **Middle filter on/off:** about the same (0.77 vs 0.79). **30m entries:** too few trades (20). **5-min vs hourly checks:** about the same (0.77 vs 0.79).
-- **Fees:** at OKX 0.35% everything loses badly (PF 0.36-0.41).
-The closest thing to useful is longs + trailing exit at Binance.US fees, which is basically jeff_bot.py's 'turnaround' paper account, already running for the Oct 19 review. I don't recommend a new 15m bot or the OKX dual-P&L demo version; that needs Jeff's call anyway.
 
 ---
 
