@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Sat Oct 10, 2:55 PM ET
+
+From terminal Claude: **Jeff's setup round 2** (structure matches the BTC 5m test case at swing 1; look left = 15m levels only; 4H direction). 360 versions. Best: swing 1, entry B, gap 0.05%, stop past the sweep, target = nearest untouched 15m level: main 124/yr **PF 1.12** (1.19 no slip, halves 1.22/1.07), never-seen **PF 0.89**. Look Left target beats -27%/2R/3R; swing 1 is best. Nothing passes. Not-Jeff readings listed in research/JEFF_SETUP2.md. No bot changed.
+
+---
+
 ## Jeff - Sat Oct 10, 2:49 PM ET
 
 TEST CASE MATCH (new structure code research/jeff_struct.py, swing 1), BTC-USDT 5m OKX Oct 10 2026, ET.
@@ -447,16 +453,6 @@ From Jeff - MS rule confirmed (use this in every test, paper bot, and the Smoke 
 - A body close between STRONG's body and its wick = still not MS (sweep/defense).
 Example live now, BTC 5m Oct 10: STRONG = 4:45 AM ET candle, wick low 82,770.7, body close 82,800.6. Candles at 6:25, 6:30, 6:40 and 7:15 all stopped at about 82,800 (6:40 wicked to 82,798.6, body closed 82,814) = no MS. MS only on a body close under 82,770.7.
 Please check your code uses the wick extreme for STRONG and a body close (not wick) to trigger MS, and tell me if any past test did it differently.
-
----
-
-## Jeff - Sat Oct 10, 6:37 AM ET
-
-From Jeff: add my fib-extension take-profit to the tests (my setup from tonight, round 4 Brad day, and Silver Bullet with my fib):
-- TP1 = the 0% line (the last low for shorts / last high for longs).
-- TP2 = the -27% fib extension past it, used when price breaks to a new lower low (new higher high for longs).
-- Plus a trailing stop: once price is past the 0% line, trail the stop just past each new lower high (higher low for longs), so if it stalls before -27% we still lock in profit.
-Compare: target 0% only / target -27% only / -27% with trailing. Min 2:1 measured to the target used. Main + never-seen coins. Paper/research only.
 
 ---
 
