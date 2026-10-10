@@ -3,9 +3,9 @@
     "b1-bnus": {
       "equity": 1000.0,
       "last_bar": {
-        "BTC-USDT": 1791590400000,
-        "ETH-USDT": 1791590400000,
-        "XRP-USDT": 1791590400000
+        "BTC-USDT": 1791594000000,
+        "ETH-USDT": 1791594000000,
+        "XRP-USDT": 1791594000000
       },
       "positions": {}
     },
@@ -272,13 +272,28 @@
     "tr1h-bnus": {
       "equity": 1000.0,
       "last_bar": {
-        "BNB-USDT": 1791590400000,
-        "BTC-USDT": 1791590400000,
-        "ETH-USDT": 1791590400000,
-        "SOL-USDT": 1791590400000,
-        "SUI-USDT": 1791590400000
+        "BNB-USDT": 1791594000000,
+        "BTC-USDT": 1791594000000,
+        "ETH-USDT": 1791594000000,
+        "SOL-USDT": 1791594000000,
+        "SUI-USDT": 1791594000000
       },
-      "positions": {}
+      "peak": 1000.0,
+      "positions": {
+        "SUI-USDT": {
+          "cost": 204.9168957932144,
+          "entry_px": 1.091,
+          "entry_ts": 1791594000000,
+          "hi": 1.091,
+          "limit": null,
+          "qty": 187.78727828514445,
+          "risk_usd": 4.0,
+          "sl": 1.06969930254846,
+          "stop": 1.06969930254846,
+          "tp": null,
+          "trail": false
+        }
+      }
     },
     "turtle-bnus": {
       "equity": 1000.0,
