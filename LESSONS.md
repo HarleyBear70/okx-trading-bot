@@ -4,7 +4,7 @@ What each closed trade teaches, from the bots' own trades only. Written every ho
 
 ## Candidate rules (0)
 
-- none yet (6 closed trades; need a mistake on 3+ losers)
+- none yet (7 closed trades; need a mistake on 3+ losers)
 
 ## Mistake tally
 
@@ -14,11 +14,16 @@ What each closed trade teaches, from the bots' own trades only. Written every ho
 | was up 1R or more, then ended as a loss | 2 | 0 | -4.16 |
 | bought more than 6% above the 50 EMA (chasing) | 1 | 0 | -7.75 |
 | stop was more than 8% away | 1 | 0 | -7.75 |
-| the 4H Supertrend was still pointing down | 1 | 0 | -7.75 |
-| breakout candle had below-average volume | 3 | 2 | -1.71 |
+| the 4H Supertrend was still pointing down | 1 | 1 | -3.57 |
+| breakout candle had below-average volume | 3 | 3 | +2.47 |
 | daily RSI was over 70 (overbought) | 0 | 0 | +0.00 |
 
-## Every closed trade, newest first (6)
+## Every closed trade, newest first (7)
+
+### WIN +4.18 - Trend Rider 1H (Binance.US paper) SUI (2026-10-10 02:24 -> 2026-10-10 22:23 UTC)
+- **Why it bought:** No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (1.1445) - a break of structure.
+- **What happened:** best +4.33% (0.51R), worst -1.10%, held 6 candles, sold by Price came back down to the trailing stop after moving up - the bot locked in what it could. at 1.1137 (+2.04%, 0.25R).
+- **Lessons:** the 4H Supertrend was still pointing down; breakout candle had below-average volume.
 
 ### LOSS -12.63 - SP-12 v4 (Kraken paper) ETHUSD (2026-10-04 12:26 -> 2026-10-07 02:25 UTC)
 - **Why it bought:** BUY signal. Score 3 (needed 2). Points for: Daily trend up: yesterday's daily close above a rising 20-day EMA; Supertrend is green on this candle; MACD histogram rising (momentum picking up). Stop 1.69% below, target 5.07% above.

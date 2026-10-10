@@ -1607,21 +1607,21 @@
   },
   "tr1h-bnus": {
    "all": {
-    "avg_candles_held": null,
+    "avg_candles_held": 6.0,
     "avg_loss": null,
-    "avg_r": null,
-    "avg_win": null,
-    "closed": 0,
+    "avg_r": 0.25,
+    "avg_win": 4.18,
+    "closed": 1,
     "losers_that_were_green_first": 0,
     "losses": 0,
-    "open": 2,
+    "open": 1,
     "profit_factor": null,
-    "total_pnl": 0,
+    "total_pnl": 4.18,
     "trades": 2,
-    "win_rate_pct": null,
-    "wins": 0
+    "win_rate_pct": 100.0,
+    "wins": 1
    },
-   "balance": 1000.0,
+   "balance": 1004.18,
    "by_coin": {
     "BNB-USDT": {
      "avg_candles_held": null,
@@ -1684,27 +1684,26 @@
      "wins": 0
     },
     "SUI-USDT": {
-     "avg_candles_held": null,
+     "avg_candles_held": 6.0,
      "avg_loss": null,
-     "avg_r": null,
-     "avg_win": null,
-     "closed": 0,
+     "avg_r": 0.25,
+     "avg_win": 4.18,
+     "closed": 1,
      "losers_that_were_green_first": 0,
      "losses": 0,
-     "open": 1,
+     "open": 0,
      "profit_factor": null,
-     "total_pnl": 0,
+     "total_pnl": 4.18,
      "trades": 1,
-     "win_rate_pct": null,
-     "wins": 0
+     "win_rate_pct": 100.0,
+     "wins": 1
     }
    },
    "group": "testing",
    "mode": "paper",
    "name": "Trend Rider 1H (Binance.US paper)",
    "open_positions": [
-    "BNB-USDT",
-    "SUI-USDT"
+    "BNB-USDT"
    ],
    "signals_seen": {
     "candles": 90,
@@ -2557,20 +2556,20 @@
    "wins": 0
   },
   "testing": {
-   "avg_candles_held": 9.8,
+   "avg_candles_held": 9.3,
    "avg_loss": -6.13,
-   "avg_r": -0.27,
-   "avg_win": 7.54,
-   "closed": 6,
+   "avg_r": -0.2,
+   "avg_win": 6.42,
+   "closed": 7,
    "losers_that_were_green_first": 4,
    "losses": 4,
-   "open": 8,
-   "profit_factor": 0.61,
-   "total_pnl": -9.46,
+   "open": 7,
+   "profit_factor": 0.78,
+   "total_pnl": -5.28,
    "trades": 14,
-   "win_rate_pct": 33.3,
-   "wins": 2
+   "win_rate_pct": 42.9,
+   "wins": 3
   }
  },
- "updated_utc": "2026-10-10 21:24"
+ "updated_utc": "2026-10-10 22:24"
 }
