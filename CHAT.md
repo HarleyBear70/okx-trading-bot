@@ -4,6 +4,19 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Sat Oct 10, 6:01 AM ET
+
+Reply from terminal Claude:
+1) Smoke Detector v22 (paste-ready, chart not touched): Jeff's Linux 'Claude Files/From Claude/Smoke_Detector_v22_newest_leg.pine.txt', also pine/smoke_detector_v22.pine. New setting 'Premium/discount shading follows': 'Newest leg (my fib)' (default) or 'Bigger swing (old way)'. Newest leg = the newest low that led to the newest high (up leg) or mirror; redraws on every new high (up) / new low (down); the pullback low becomes the new bottom only once price makes a new high, so pullbacks show as discount of the current leg. A body close past the newest small swing (leg swing size setting, default 1) flips the leg. The corner box now says 'Newest leg UP/DOWN | big swing: UP/DOWN', and the long/short box stop goes past the leg's end. Checked it runs in PineTS on BTC 5m. Leg size 1 flips often on 5m; raise 'leg swing size' to 2-3 if it's too jumpy.
+2) Which swing tonight's tests used:
+- Pure 15m (all rounds): NEWEST leg (newest swing low -> highest high since). Like Jeff draws.
+- Brad day rounds 1-2: close to newest leg (every body break of any swing reset STRONG/WEAK).
+- Brad day round 3 (the PF 1.28 version), the Brad day PAPER bot, and the forex test running now: the BIGGER swing. Jeff's answer #7 said only a BOS past the last HH resets STRONG/WEAK and inner breaks are warnings, so pullback lows never move STRONG. That matches the Smoke Detector's old way, not Jeff's 5m fib example. Jeff's #7 and his newest-leg drawing conflict; he should pick one.
+- Silver Bullet: no fib at all. Only its '15m STRONG stop' option used the bigger swing, and those versions lost; the winners used the sweep stop. Not affected.
+Rerun worth it? Yes for Brad day round 3, it's cheap (~25 min). Question for Jeff: newest leg for the premium/discount check only, or also for the stop (STRONG) and target (WEAK)?
+
+---
+
 ## Jeff - Sat Oct 10, 5:57 AM ET
 
 From Jeff: the Smoke Detector box said "buyers in control" while the newest 5m leg had shifted bearish, because it uses an older, bigger swing. Please confirm: did tonight's backtests (Brad day, Silver Bullet, pure 15m) find STRONG/WEAK from the NEWEST leg like I draw it, or from a bigger/older swing like the Smoke Detector? If they used a bigger swing anywhere, tell me which tests and whether a rerun with the newest leg would be worth it.
@@ -352,12 +365,6 @@ Reply from terminal Claude: Pure-15m round 3: Jeff's body-to-body breaks vs wick
 ## Terminal Claude - Fri Oct 9, 9:29 PM ET
 
 Reply from terminal Claude: Pure-15m round 2 (Jeff's rules: flat filter, opposite shift cancels, swing 1/3/5, deeper fib entries 61.8/70.5/78.6, enter only on a candle close). Still fails: best PF 0.81 (swing 5, 50% entry). Deeper entries worse every time; flat filter (8/16/32 candles) barely moves PF; swing 1 worse. Asked Jeff what makes a BOS 'real' and to mark the 14 extra swing-1 shifts. research/PURE15.md. No bot changed.
-
----
-
-## Terminal Claude - Fri Oct 9, 8:24 PM ET
-
-Reply from terminal Claude: Jeff's pure-15m fib method (his answers in ideas/looking for answers.txt) tested on BTC ETH SOL XRP + EUR GBP AUD JPY gold, real costs. Fails: PF 0.55-0.84; zero-cost PF 0.93-1.00 (no edge yet). 0.05% cushion beats no cushion in every pair. Bot takes 1,000-4,000 trades/yr vs Jeff's few, so Jeff is checking 10 BTC trades to find the setups he'd skip. research/PURE15.md. DXY = heads-up only per Jeff, not in bot. No bot changed.
 
 ---
 
