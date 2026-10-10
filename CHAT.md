@@ -6,6 +6,70 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ## Jeff - Sat Oct 10, 2:15 AM ET
 
+SILVER BULLET TEST: EVERY RULE, TAGGED (Oct 10 2026). NOTHING HAS BEEN RUN.
+Source: Brad's video "The ICT Silver Bullet Strategy They Don't Want You To See" (transcript in research/transcripts).
+[JEFF] = your rule   [BRAD-SB] = from that video   [GUESS] = my proposal, needs your OK or fix
+BTC ETH SOL XRP, both directions, paper research only.
+
+BRAD'S 5 STEPS (both versions)                                                      [BRAD-SB]
+  1. Price sweeps liquidity.  2. Market structure shifts.  3. Displacement (big candles).
+  4. Pullback into an entry model (FVG or order block).  5. Target the opposite-side liquidity.
+  "If the setup appears outside of this window, it's none of my business."
+
+VERSION A: "9 AM CANDLE"
+A1. At 10:00 AM ET, mark the high and low of the 9:00-10:00 AM ET 1H candle.        [JEFF + BRAD-SB]
+A2. Only 10:00-11:00 AM ET: sweep of the high = short setup, sweep of the low = long setup. [JEFF + BRAD-SB]
+A3. Sweep = a 5m WICK goes past the level. A close past it also counts.              [GUESS]
+A4. Price sweeps BOTH sides before 11 AM = take whichever happens first. The other side is ignored. [GUESS]
+A5. Only the sweep must happen by 11:00. The shift, displacement and fill may come after, up to [GUESS: 12:00 PM ET]; then cancel.
+A6. At most 1 trade per coin per day.                                                [GUESS]
+    Note: Brad built this one for NASDAQ (stock market opens 9:30 AM). Crypto trades 24/7, so the 9 AM candle has
+    no stock-open meaning for coins. Worth testing anyway since you asked.
+
+VERSION B: "SESSION"
+B1. Mark the London session high and low.                                            [JEFF + BRAD-SB]
+B2. The sweep must take out the London high or low, during the NY session.            [JEFF + BRAD-SB]
+B3. Entry must be in the NY session.                                                  [JEFF]
+B4. LONDON HOURS (ET) = ?   NY HOURS (ET) = ?                                         [ASK JEFF, not guessing]
+B5. Brad marks only the side price is near. The bot watches both and takes the first sweep. [GUESS]
+B6. At most 1 trade per coin per NY session.                                           [GUESS]
+
+ENTRY STEPS (both versions)
+E1. Shift = a 5m candle BODY closes past the last 5m swing (body to body).           [JEFF 5m + body; BRAD-SB uses 1m]
+E2. 5m swing size = [GUESS: 3]. Or test 1, 3, 5 like before?
+E3. The shift must come AFTER the sweep.                                              [BRAD-SB]
+E4. Displacement required: big candles after the shift.                               [JEFF + BRAD-SB]
+    "Big" = [GUESS: the shift leg has a candle with a body at least 2x the average body of the last 20 5m candles].
+    Brad gives no number. Test 1.5x / 2x / 3x?
+E5. Entry zone = the FVG made by the displacement (candle 1 high to candle 3 low).    [BRAD-SB]
+    If there's no FVG = no trade. Order blocks not used, to keep it to one model.      [GUESS]
+    (Brad says either an FVG or an order block works; you said "FVG/zone".)
+E6. Limit order at the FVG's near edge (top for longs).                               [GUESS: near edge. Or the 50% line?]
+E7. Price never pulls back into the FVG = no trade.                                   [BRAD-SB]
+E8. Order cancelled if price reaches the target first.                                [GUESS]
+
+STOP / TARGET
+S1. Stop past the sweep high/low + your 0.05% cushion.                               [JEFF; BRAD-SB says either past the sweep or past the FVG]
+S2. Skip if the stop is more than 1.35% away.                                         [JEFF max stop]
+T1. Target = the nearest 5m swing high (longs) / low (shorts) on the left: the opposite liquidity. [JEFF + BRAD-SB]
+T2. Minimum 2:1, else skip.                                                           [GUESS: your 2:1 rule from before. Brad doesn't give one here]
+T3. Set and forget, full stop or full target.                                          [BRAD Ep 17]
+T4. Still open at the end of the NY day = [GUESS: close it at 4:00 PM ET]. Or let it run?
+
+COSTS / DATA
+C1. Entry = maker 0% (limit). Stop = 0.02% taker + 0.02% slippage. Target = 0%.        [JEFF]
+C2. Binance 5m candles, 2019 to Sep 30 2026. 1H and session highs/lows built from them. [GUESS]
+C3. Daylight saving: ET times follow New York clock changes.                          [GUESS]
+
+WHAT I NEED FROM YOU
+ 1. London hours and NY hours in ET (B4).
+ 2. OK or fix each [GUESS], especially: displacement size (E4), FVG only (E5), entry edge (E6),
+    minimum 2:1 (T2), swing size (E2), 11 AM / 12 PM cut-offs (A5).
+
+---
+
+## Jeff - Sat Oct 10, 2:15 AM ET
+
 EVERY RULE THE BRAD DAY-TRADE BOT USES (Oct 10 2026)
 [JEFF] = your rule   [BRAD] = from Brad's videos (episode)   [GUESS] = my choice, needs your OK
 [GUESS-OK] = one of the 5 choices you already approved this morning
@@ -324,12 +388,6 @@ Jeff thinks 15m bots can work and wants a full, fair test, not a quick no. His p
 ## Jeff - Fri Oct 9, 2:05 AM ET
 
 **Note from Chrome Claude (not a trade).** Test post: Chrome Claude can now read and post on this thread from Jeff's Chrome side panel. Terminal Claude, no action needed.
-
----
-
-## Terminal Claude - Fri Oct 9, 1:50 AM ET
-
-Transcript saved (from Jeff's Linux): https://github.com/HarleyBear70/okx-trading-bot/blob/main/research/transcripts/Claude%20%20GitHub%20%20The%20Most%20OVERPOWERED%20AI%20Trader%20Ive%20Ever%20Seen.txt
 
 ---
 
