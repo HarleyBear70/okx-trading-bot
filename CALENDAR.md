@@ -1,6 +1,6 @@
 # P/L calendar and strategy cards
 
-Updated automatically every hour (2026-10-09 19:24 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
+Updated automatically every hour (2026-10-09 20:36 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
 
 ## Combined OKX demo account
 
@@ -25,7 +25,7 @@ Closed P/L only; open trades count when they close.
 
 ## The three piles
 
-- HOLD (long-term, PAPER): weekly dip-DCA buyer, $10/week into BTC + XRP, double when 20%+ below the 200-day average. Paid $10.00, worth $9.25. Profit sweeper (25% of wins into this pile): OFF until real money. Buys: hold_pile.csv.
+- HOLD (long-term, PAPER): weekly dip-DCA buyer, $10/week into BTC + XRP, double when 20%+ below the 200-day average. Paid $10.00, worth $9.35. Profit sweeper (25% of wins into this pile): OFF until real money. Buys: hold_pile.csv.
 - LIVE (REAL MONEY, Binance.US, $50 each): Trend Rider (LIVE Binance.US), Turtle 55/20 (LIVE Binance.US)
 - ACTIVE (trading, OKX demo): Trend Rider, NNFX Aroon, Donchian Trend
 - BINANCE.US (same bots, paper, 0.02% fee): Trend Rider (Binance.US paper), Donchian Trend (Binance.US paper), NNFX Aroon (Binance.US paper), Turtle 55/20 (Binance.US paper), RSI(2) snap-back (Binance.US paper), Breakout II + BTC switch (Binance.US paper), SP-12 v4 (Binance.US paper), B1c breakout retest (Binance.US paper)
@@ -36,7 +36,7 @@ Closed P/L only; open trades count when they close.
 
 ## Growth: demo vs paper
 
-Average balance per bot, each bot starting at $1,000: the active demo bots (3, solid) vs the paper bots (16, dashed). Demo now $997.42 (-0.26%), paper now $877.67 (-12.23%).
+Average balance per bot, each bot starting at $1,000: the active demo bots (3, solid) vs the paper bots (16, dashed). Demo now $997.42 (-0.26%), paper now $878.40 (-12.16%).
 
 ![Demo vs paper growth](calendars/cards/growth.svg)
 
@@ -226,7 +226,7 @@ Binance.US · BTC ETH SOL XRP BNB · daily candles · started 2026-10-07 · bala
 
 ### RSI(2) snap-back (Binance.US paper)  ·  PAPER
 
-Binance.US · BTC ETH SOL XRP BNB · daily candles · started 2026-10-07 · balance now 996.25
+Binance.US · BTC ETH SOL XRP BNB · daily candles · started 2026-10-07 · balance now 997.79
 
 ![RSI(2) snap-back (Binance.US paper) live vs backtest](calendars/cards/rsi2-bnus.svg)
 
@@ -234,7 +234,7 @@ Binance.US · BTC ETH SOL XRP BNB · daily candles · started 2026-10-07 · bala
 |---|---|---|---|---|
 | Backtest, long run (research, 2022-now) | - | - | - | - |
 | Backtest replay since start | 0 | - | - | -0.4% |
-| Live (paper) since start | 0 | - | - | -0.4% |
+| Live (paper) since start | 0 | - | - | -0.2% |
 
 ### Breakout II + BTC switch (Binance.US paper)  ·  PAPER
 
@@ -298,7 +298,7 @@ Binance.US · BTC ETH SOL XRP BNB · daily candles · started 2026-10-07 · bala
 
 ### BTC Protected Hold (paper)  ·  PAPER
 
-OKX · BTC · daily candles · started 2026-10-06 · balance now 946.52
+OKX · BTC · daily candles · started 2026-10-06 · balance now 956.59
 
 ![BTC Protected Hold (paper) live vs backtest](calendars/cards/hold-paper.svg)
 
@@ -306,7 +306,7 @@ OKX · BTC · daily candles · started 2026-10-06 · balance now 946.52
 |---|---|---|---|---|
 | Backtest, long run (research, 2022-now) | - | 18% | 1.91 | -38.6% |
 | Backtest replay since start | 0 | - | - | -5.1% |
-| Live (paper) since start | 0 | - | - | -5.3% |
+| Live (paper) since start | 0 | - | - | -4.3% |
 
 ### Follow Line (paper)  ·  PAPER
 
