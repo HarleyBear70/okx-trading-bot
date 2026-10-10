@@ -1,0 +1,29 @@
+name: Dukascopy forex history (read-only research data)
+
+on:
+  workflow_dispatch:
+    inputs:
+      pairs:
+        description: "Dukascopy symbols, space separated"
+        default: "EURUSD GBPUSD GBPJPY USDJPY XAUUSD AUDUSD DOLLARIDXUSD"
+
+jobs:
+  download:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Download 5m candles + spreads (no account, no key, nothing traded)
+        env:
+          FX_OUT: fx5
+        run: |
+          mkdir -p fx5
+          for p in ${{ inputs.pairs }}; do python tools/dukascopy.py $p || echo "$p FAILED"; done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fx5
+          path: fx5
+          retention-days: 7
