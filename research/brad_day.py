@@ -31,6 +31,7 @@ Long rules below; shorts are the exact mirror (run on upside-down prices). One t
   Coins       BTC ETH SOL XRP. Binance 5m archive 2019 to Sep 30 2026. Halves 2019-22 / 2023-now.
   Not used    killzones/sessions, news, daily loss limit (not in Ep 11's steps).
 
+  python3 research/brad_day.py v5         (Oct 10: NEWEST leg, leg swing 1/2/3/5, main + never-seen)
   python3 research/brad_day.py v4         (Oct 10: Jeff's answers to the 43 rules, 24 versions)
   python3 research/brad_day.py kz         (Oct 10: killzones + maker entry, swing 5 and 1, range zones)
   python3 research/brad_day.py            (BTC ETH SOL XRP, swing 1/3/5 x pivot/range, with and without fees)
@@ -196,6 +197,52 @@ class RangeStruct(Struct):
         return ev
 
 
+class LegStruct(Struct):
+    """Jeff's NEWEST LEG (Oct 10 2026, issue #4): "my BOS rule and my fib are the same thing". Same logic as the Smoke
+    Detector v22 Pine (matched Jeff's BTC 5m fib 82,770.7 -> 82,950).
+    Up leg: WEAK = the newest high. Each NEW HIGH (wick above WEAK) after price pulled back and made a swing low since the
+    last high = a BOS: STRONG moves up to the lowest low between the last high and now (the newest pullback low).
+    A body close above the newest swing high's body starts an up leg (STRONG = the lowest low since that swing high);
+    a body close below the newest swing low's body starts a down leg. Down leg = mirror. Swing size N."""
+
+    def __init__(self, *a):
+        super().__init__(*a)
+        self.nH = self.nL = None
+        self.nHb = self.nLb = None
+        self.hb = self.lb = 0  # candle of the newest high (up leg) / newest low (down leg)
+
+    def step(self, i):
+        o, h, l, c, N = self.o, self.h, self.l, self.c, self.N
+        j = i - N
+        if j >= N:
+            if h[j] == max(h[j - N:i + 1]) and h[j] > max(h[j + 1:i + 1]):
+                self.nH, self.nHb = max(o[j], c[j]), j
+            if l[j] == min(l[j - N:i + 1]) and l[j] < min(l[j + 1:i + 1]):
+                self.nL, self.nLb = min(o[j], c[j]), j
+        ev = None
+        if self.trend != 1 and self.nH is not None and c[i] > self.nH:
+            org = min(range(self.nHb, i + 1), key=lambda k: l[k])
+            self.trend, self.rlo, self.rhi, self.hb = 1, l[org], h[i], i
+            ev = ("bull", org)
+        elif self.trend != -1 and self.nL is not None and c[i] < self.nL:
+            org = max(range(self.nLb, i + 1), key=lambda k: h[k])
+            self.trend, self.rhi, self.rlo, self.lb = -1, h[org], l[i], i
+            ev = ("bear", org)
+        elif self.trend == 1 and h[i] > self.rhi:
+            if self.nLb is not None and self.nLb > self.hb:
+                org = min(range(self.hb, i + 1), key=lambda k: l[k])
+                self.rlo = l[org]
+                ev = ("bull", org)
+            self.rhi, self.hb = h[i], i
+        elif self.trend == -1 and l[i] < self.rlo:
+            if self.nHb is not None and self.nHb > self.lb:
+                org = max(range(self.lb, i + 1), key=lambda k: h[k])
+                self.rhi = h[org]
+                ev = ("bear", org)
+            self.rlo, self.lb = l[i], i
+        return ev
+
+
 def zone(h, l, org, N, ztype):
     """(bottom, top) of a demand zone whose low candle is org."""
     if ztype == "pivot":
@@ -216,7 +263,7 @@ def pos_in(x, st):
 
 
 def run(d, N, ztype, taker=TAKER, log=None, kz=False, maker=False, rng=False, stopm="sweep", cap=MAXSTOP,
-        band=0.0, state=None, kzw=None, allow=None, spr=None):
+        band=0.0, state=None, kzw=None, allow=None, spr=None, leg=None):
     """long side only. Returns [(entry ts, exit ts, R)].
     kz    = the limit order can only fill inside Jeff's killzones; outside them it waits (Oct 10).
     maker = the limit entry pays 0% (maker); stop exits still pay taker + slippage (Jeff, Oct 10).
@@ -226,13 +273,16 @@ def run(d, N, ztype, taker=TAKER, log=None, kz=False, maker=False, rng=False, st
     band  = no-trade band around the 0.5: 0.05 = 0.45-0.55, 0.10 = 0.40-0.60 (#11).
     kzw   = killzone hours instead of Jeff's default [(2, 5), (7, 10)] ET, e.g. [(2, 5)] = London only (forex, Oct 10).
     allow = bytearray, 1 = this side may fill on this 5m candle (DXY / COT filters, forex Oct 10).
-    spr   = forex: real spread per 5m candle; half of it is paid on the entry and half on every exit."""
+    spr   = forex: real spread per 5m candle; half of it is paid on the entry and half on every exit.
+    rng="leg" = Jeff's NEWEST LEG (LegStruct) on 4H + 15m for premium/discount, STRONG stop and WEAK target;
+    leg   = its swing size (default N)."""
     ts, o, h, l, c = d["ts"], d["o"], d["h"], d["l"], d["c"]
     t0 = B.ms(B.START)
     O15, H15, L15, C15, end15 = resample(ts, o, h, l, c, M15)
     O4, H4_, L4, C4, end4 = resample(ts, o, h, l, c, H4)
-    SS = RangeStruct if rng else Struct
-    s5, s15, s4 = Struct(o, h, l, c, N), SS(O15, H15, L15, C15, N), SS(O4, H4_, L4, C4, N)
+    SS = LegStruct if rng == "leg" else RangeStruct if rng else Struct
+    LN = leg or N
+    s5, s15, s4 = Struct(o, h, l, c, N), SS(O15, H15, L15, C15, LN), SS(O4, H4_, L4, C4, LN)
     fee = lambda px: taker * abs(px)
     if spr is not None:
         fee = lambda px: spr[i] / 2
@@ -414,7 +464,42 @@ def main_v4(show10=False):
     json.dump({k: v for k, v in logs.items()}, open(os.path.join(HERE, ".cache", "brad_day_v4_btc.json"), "w"))
 
 
+def main_v5():
+    """Oct 10 round 4 (Jeff): round-3 best version, but STRONG/WEAK from the NEWEST leg (LegStruct) on 4H and 15m.
+    Leg swing size 1/2/3/5 x middle band none / 0.40-0.60. Main + never-seen coins."""
+    years = (dt.datetime(2026, 10, 1, tzinfo=dt.timezone.utc) - B.START).days / 365.25
+    vers = [(f"newest leg, leg swing {lg}, {bn}", lg, bv) for lg in (1, 2, 3, 5)
+            for bv, bn in ((0.0, "no band"), (0.10, "no trades 0.40-0.60"))]
+    groups = (("main", COINS), ("unseen", ["BNB", "ADA", "DOGE", "LINK", "LTC"]))
+    res = {g: {v[0]: [] for v in vers} for g, _ in groups}
+    for g, coins in groups:
+        for cn in coins:
+            d = load(cn)
+            md = mirror(d)
+            for name, lg, bv in vers:
+                kw = dict(kz=True, maker=True, rng="leg", leg=lg, stopm="strong", cap=None, band=bv)
+                lo = [t + (1, cn) for t in run(d, 5, "range", **kw)]
+                sh = [t + (-1, cn) for t in run(md, 5, "range", **kw)]
+                keep, busy = [], -1
+                for t in sorted(lo + sh):
+                    if t[0] > busy:
+                        keep.append(t)
+                        busy = t[1]
+                res[g][name] += keep
+            print(f"  ({cn} done)", flush=True)
+            del d, md
+            gc.collect()
+    for g, coins in groups:
+        print(f"\n### Brad DAY TRADE round 4 (NEWEST leg for premium/discount, STRONG stop, WEAK target), {' '.join(coins)}\n")
+        print("| Version | Trades/yr | Win % | Avg win | Avg loss | PF | Avg | Max DD | 2019-22 PF | 2023-now PF | "
+              "Long PF | Short PF |\n|---|---|---|---|---|---|---|---|---|---|---|---|")
+        for v in vers:
+            print(P.row(v[0], [t[:4] for t in day_limit(res[g][v[0]])], years), flush=True)
+
+
 def main():
+    if sys.argv[1:] == ["v5"]:
+        return main_v5()
     if sys.argv[1:] == ["v4"]:
         return main_v4()
     if sys.argv[1:] == ["kz"]:

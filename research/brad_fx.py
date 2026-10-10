@@ -17,7 +17,8 @@ Data: OANDA practice M5 history (tools/oanda_history.py, read-only practice key;
             4 PM ET, when the CFTC publishes it (no peeking).
   Pairs     EURUSD GBPUSD GBPJPY USDJPY XAUUSD (Jeff); never-seen pair AUDUSD. OANDA 5m (mid prices), 2019 - now.
 
-  python3 research/brad_fx.py
+  python3 research/brad_fx.py          (round-3 bigger swing)
+  python3 research/brad_fx.py leg5     (Jeff's newest leg, leg swing 5; leg3 etc.)
 """
 import array
 import csv
@@ -174,6 +175,8 @@ def allow(pair, ts, side, use_dxy, use_cot, dx, cot):
 
 
 def main():
+    if sys.argv[1:2] and sys.argv[1].startswith("leg"):  # Oct 10: Jeff's NEWEST leg (brad_day.LegStruct), e.g. "leg5"
+        KW.update(rng="leg", leg=int(sys.argv[1][3:]))
     years = (dt.datetime(2026, 10, 1, tzinfo=dt.timezone.utc) - B.START).days / 365.25
     dx, cot = dxy_trend(), cot_net()
     vers = [(f"{sn}{', DXY filter' if ud else ''}{', COT filter' if uc else ''}", sw, ud, uc)
@@ -198,7 +201,8 @@ def main():
         del d, md
         gc.collect()
     for grp, title in (("main", "EURUSD GBPUSD GBPJPY USDJPY XAUUSD"), ("unseen", "NEVER-SEEN AUDUSD")):
-        print(f"\n### Brad day best version on forex, {title}, real OANDA spreads\n")
+        lab = f"NEWEST leg (leg swing {KW['leg']})" if KW.get("rng") == "leg" else "bigger swing (round 3)"
+        print(f"\n### Brad day best version on forex, {lab}, {title}, real OANDA spreads\n")
         print("| Version | Trades/yr | Win % | Avg win | Avg loss | PF | Avg | Max DD | 2019-22 PF | 2023-now PF | "
               "Long PF | Short PF |\n|---|---|---|---|---|---|---|---|---|---|---|---|")
         for v in vers:

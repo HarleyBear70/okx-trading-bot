@@ -93,3 +93,36 @@ Maker entry helps every version (+0.08 to +0.10 PF). Killzones help swing 5 a li
 | stop below 15m STRONG, cap no cap, no trades 0.40-0.60 | 23 | 22% | +2.96R | -1.03R | 0.83 | -0.14R | 31R | 1.03 | 0.64 | 1.03 | 0.70 |
 
 **Verdict: the main-coin win does not carry over.** Best main-coin version (no cap, 0.40-0.60 band) = PF 0.83 here; all 8 versions 0.80-1.03, every one losing since 2023 (0.27-0.76). The PF 1.28 on BTC/ETH/SOL/XRP is most likely luck from picking the best of 24. Not a pass.
+
+## Oct 10 round 4: Jeff's NEWEST leg for premium/discount, STRONG stop and WEAK target (python3 research/brad_day.py v5)
+
+LegStruct = the Smoke Detector v22 logic (matched Jeff's BTC 5m fib). Everything else = round-3 best (swing 5 range zones, 5m sweep + shift entry, maker, killzones, no cap, 2:1 min, 3% day limit).
+
+
+### Brad DAY TRADE round 4 (NEWEST leg for premium/discount, STRONG stop, WEAK target), BTC ETH SOL XRP
+
+| Version | Trades/yr | Win % | Avg win | Avg loss | PF | Avg | Max DD | 2019-22 PF | 2023-now PF | Long PF | Short PF |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| newest leg, leg swing 1, no band | 0 |
+| newest leg, leg swing 1, no trades 0.40-0.60 | 0 |
+| newest leg, leg swing 2, no band | 0 | 0% | - | -1.10R | 0.00 | -1.10R | 3R | 0.00 | - | 0.00 | 0.00 |
+| newest leg, leg swing 2, no trades 0.40-0.60 | 0 | 0% | - | -1.05R | 0.00 | -1.05R | 1R | 0.00 | - | - | 0.00 |
+| newest leg, leg swing 3, no band | 1 | 50% | +3.01R | -1.15R | 2.61 | +0.93R | 1R | 99.00 | 1.38 | 0.00 | 99.00 |
+| newest leg, leg swing 3, no trades 0.40-0.60 | 0 | 33% | +2.83R | -1.15R | 1.23 | +0.17R | 2R | 99.00 | 0.00 | 0.00 | 99.00 |
+| newest leg, leg swing 5, no band | 2 | 20% | +2.28R | -1.06R | 0.53 | -0.40R | 7R | 0.36 | 0.78 | 1.12 | 0.25 |
+| newest leg, leg swing 5, no trades 0.40-0.60 | 1 | 38% | +2.28R | -1.07R | 1.28 | +0.19R | 4R | 0.64 | 3.62 | 1.49 | 0.98 |
+
+### Brad DAY TRADE round 4 (NEWEST leg for premium/discount, STRONG stop, WEAK target), BNB ADA DOGE LINK LTC
+
+| Version | Trades/yr | Win % | Avg win | Avg loss | PF | Avg | Max DD | 2019-22 PF | 2023-now PF | Long PF | Short PF |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| newest leg, leg swing 1, no band | 0 |
+| newest leg, leg swing 1, no trades 0.40-0.60 | 0 |
+| newest leg, leg swing 2, no band | 0 | 100% | +3.15R | - | 99.00 | +3.15R | 0R | - | 99.00 | 99.00 | - |
+| newest leg, leg swing 2, no trades 0.40-0.60 | 0 | 100% | +2.63R | - | 99.00 | +2.63R | 0R | - | 99.00 | 99.00 | - |
+| newest leg, leg swing 3, no band | 1 | 38% | +2.54R | -1.09R | 1.40 | +0.27R | 3R | 0.58 | 4.92 | 2.11 | 1.20 |
+| newest leg, leg swing 3, no trades 0.40-0.60 | 1 | 25% | +2.55R | -1.09R | 0.78 | -0.18R | 2R | 0.78 | - | 2.11 | 0.00 |
+| newest leg, leg swing 5, no band | 3 | 50% | +2.96R | -1.06R | 2.80 | +0.95R | 4R | 2.96 | 2.54 | 5.45 | 1.64 |
+| newest leg, leg swing 5, no trades 0.40-0.60 | 2 | 46% | +3.46R | -1.05R | 2.81 | +1.03R | 3R | 2.78 | 3.01 | 5.55 | 0.75 |
+
+**Verdict: almost no trades (0-3 a year on 4 coins, 0-23 in 7.75 yrs).** With the stop past STRONG and the target at WEAK on the SAME small leg, 2:1 is only possible when the entry is in the bottom third of the leg (below 0.33), and small legs flip bearish often, which cancels setups (BTC leg 2: 291 setups -> 0 trades). Too few trades to judge either way.
