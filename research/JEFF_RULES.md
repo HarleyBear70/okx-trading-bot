@@ -1,46 +1,34 @@
 # JEFF_RULES.md — Jeff's day-trade method, ONLY rules Jeff stated
 
-Status: **v2, waiting for Jeff's FINAL OK. No test runs until Jeff approves this file.**
-Sources = Jeff's notes on GitHub issue #4 (UTC times, Oct 10 2026), some relayed by Chrome Claude.
-Nothing here is filled in by Claude. Open questions are in section C.
+Status: **v3 (Oct 10 2026), built from Jeff's answers on issue #4 (16:52, 17:01, 17:25, 17:26, 18:05 UTC).**
+Code: research/jeff_setup.py. Lines marked [NOT JEFF] are the only places Claude turned Jeff's words into numbers.
 
-## A. Jeff's rules
+## Jeff's rules
 
 | # | Rule | Source |
 |---|---|---|
-| 1 | Trade WITH the higher-timeframe trend only. | #4 14:01, 16:52 (1) |
-| 2 | Mark everything on every timeframe before moving down. Nothing marked = no trade. | #4 16:52 (0) |
-| 3 | Timeframes: start high (Daily or 4H), 1H optional, 15m = working chart, 5m = entry (1m sometimes). | #4 16:52 (4) |
-| 4 | Swings: Jeff marks by eye. TEST 1, 2 and 3 candles each side. | #4 16:52 (5) |
-| 5 | Fib on the NEWEST leg: up leg = the low that led to the newest high (STRONG, fib 1) to that high (WEAK, fib 0). Down leg = mirror. Redraw on every BOS. | #4 10:09 |
-| 6 | BOS = a candle BODY closes past the last HH (up) / LL (down). New HH -> STRONG moves up to the newest pullback low, WEAK = the new high. Breaks inside the range = iBOS, warning only. | #4 06:38, 10:09 |
-| 7 | Market shift (MS) = a candle BODY closes past STRONG's WICK. A wick past it = sweep. A body close between STRONG's body and wick = NOT an MS. | #4 11:33 |
-| 8 | Fib 0 / 0.5 / 1 only. Long only in discount, short only in premium, never the middle. | #4 05:13, 16:52 (3) |
-| 9 | Entry: with the HTF trend, in the right zone, a 5m liquidity sweep, then a 5m MS. | #4 16:52 (1) |
-| 10 | Limit orders, 1x mindset, sized in dollars. Limit price: TEST A = shift candle close, B = shift candle level, C = fib 50% or a box. | #4 16:52 (2) |
-| 11 | Stop past STRONG's wick, beyond the liquidity, far enough that price must make an MS to hit it. Cushion: TEST none / small / one wick. | #4 16:52 (6-7) |
-| 12 | Target = -27% fib extension, at least 2:1 measured to it. Compare with TP at the 0% line. | #4 10:37, 16:52 (9) |
-| 13 | Trailing / taking profit when it stalls = optional TEST only, not the base rule. | #4 14:01, 16:52 (9) |
-| 14 | Cancel an unfilled order when the setup is no longer valid: an MS against it, or price reaches the target without filling. | #4 17:01 (8) |
-| 15 | One trade at a time PER COIN. NO daily limit. Trade any time a clean setup appears. | #4 17:01 (10) |
-| 16 | No killzones for crypto, trade any time. | #4 16:52 (12) |
-| 17 | Fees: Binance.US maker 0% (limit entries), taker 0.02% (stop exits), plus small standard slippage on stop-outs. | #4 16:52 (11) |
-| 18 | Longs and shorts (shorts = mirror). Coins BTC ETH SOL XRP, plus never-seen coins as a check. | #4 07:44, 10:09 |
-| 19 | Paper / research only. | every note |
+| 1 | Higher timeframe is king. 4H = direction (Daily/Weekly above it). Only trade the 4H direction. | 17:25 (1), 18:05 |
+| 2 | 15m = working + entry chart (5m optional, 1m avoid). Process: 4H direction -> 15m premium/discount -> wait for price there -> 15m sweep + small MS -> enter. | 18:05 |
+| 3 | Swings: Jeff marks by eye -> TEST 1, 2 and 3 candles each side. | 16:52 (5) |
+| 4 | Newest-leg fib: STRONG (fib 1) = the low that led to the newest high, WEAK (fib 0) = that high. Redraw on every BOS. WEAK is set once the pullback starts. | 10:09, Brad Ep5 |
+| 5 | BOS = a candle BODY closes past the last high (wick doesn't count). | 06:38, Brad Ep5 |
+| 6 | MS = a candle BODY closes past STRONG's WICK. A wick past = sweep. | 11:33 |
+| 7 | Long only in the 15m discount, short only in the 15m premium, never the middle. | 17:25 (2) |
+| 8 | Sweep = a wick into the nearest liquidity pool with the body closing back inside (the fuel grab). | 17:25 (8) |
+| 9 | Entry after the turn is confirmed: TEST A = at the confirming candle's close, B = limit at the retest of the broken level. No OB/FVG entries. | 17:25 (4, 5) |
+| 10 | Stop below the STRONG wick / beyond the liquidity pool, never right at the wick. TEST a few gap sizes. | 17:25 (6, 8) |
+| 11 | Target: TEST -27% extension of the 15m leg (min 2:1 to it) vs fixed 2R vs fixed 3R. | 17:25 (3), 18:05 |
+| 12 | Cancel an unfilled order when the setup is invalid: an MS against it, or price reaches the target first. | 17:01 (8) |
+| 13 | One trade at a time per coin, no daily limit, no killzones, trade any time. | 17:01 (10), 16:52 (12) |
+| 14 | Fees: limit entries 0%, stop-outs 0.02% taker + TEST slippage 0 / 0.02% / 0.05% (must pass at the worst). | 16:52 (11), 17:25 (7) |
+| 15 | Small losses are fine; judge on total profit over many trades. No extra filters. | 17:26 |
+| 16 | Longs and shorts. BTC ETH SOL XRP + never-seen coins. Paper only. | earlier notes |
 
-Removed (not Jeff's): killzones on crypto, the 3% daily loss limit, 1.35% max stop, 0.40-0.60 band, counter-trend, fixed 0.05% cushion.
+## How the code reads Jeff's words [NOT JEFF where marked]
 
-## B. Before the test
-
-- Fix the MS code to rule 7 first (now it flips on a body close past the swing's BODY, not STRONG's wick).
-
-## C. Still unclear — need Jeff's answer (Claude will NOT pick)
-
-1. **HTF trend:** Daily or 4H? Or test both?
-2. **"Right zone":** discount/premium of which leg: the 15m, the HTF (4H/Daily), or both?
-3. **-27% extension:** of which leg: the 15m leg or the 5m leg?
-4. **Limit B "shift candle level":** which price is that? (the STRONG wick it broke? the open of the shift candle?)
-5. **Limit C "a box":** which box? (the order block that caused the shift? the FVG?)
-6. **Cushion "small":** how much? (e.g. 0.05%, 0.1%?) "One wick" = the size of the STRONG candle's wick?
-7. **Slippage "small standard":** how much? (e.g. 0.02%?)
-8. **The 5m sweep:** a wick past the last 5m swing low (longs)? Any 5m swing, or a particular one?
+- "Nearest liquidity pool" = the last 15m swing low (N candles each side). Equal lows / W lows aren't detected separately. [NOT JEFF]
+- "Small MS" = a 15m body close above the last 15m swing high after the sweep; entry B = that swing high (the retest). [NOT JEFF]
+- Discount = the sweep wick is below the 0.5 of the 15m leg as it stood before that candle.
+- Stop gap sizes 0.05% / 0.15% / 0.30% below the level. [NOT JEFF: Jeff said "test a few"]
+- Stop + target inside the same 5m candle = counted as the stop. [NOT JEFF, the safe way]
+- Stall management (take profit / trail) = optional, not in this test.
