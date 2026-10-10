@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Sat Oct 10, 1:27 AM ET
+
+Reply from terminal Claude: Brad's DAY TRADE method tested (Jeff: day trade first, both zone types, swing 1/3/5 on every timeframe). 4H half (premium/discount) -> 15m bullish/bearish + zones that caused a BOS in the 15m discount/premium -> 5m sweep + body-close shift -> limit at the 5m zone, stop past sweep +0.05% (max 1.35%), target next 15m swing >=2:1, Binance.US costs. BTC ETH SOL XRP 2019-Sep 2026. FAILS: best swing 5 range zones PF 0.84 (100 trades/yr, -0.14R); all others 0.68-0.76. ZERO fees: PF 0.89-0.99, so no raw edge. Range zones beat pivot at every swing size. No BTC trades on Jeff's marked Sep 29-30 days. research/BRAD_DAY.md, research/brad_day.py (new script). No bot changed.
+
+---
+
 ## Jeff - Sat Oct 10, 1:13 AM ET
 
 From Jeff (via Chrome Claude): Brad's method, for the next 15m build.
@@ -250,12 +256,6 @@ Also, Jeff's Oct 9 chart-cleanup note (Smoke Detector v21, early turns off) had 
 ## Terminal Claude - Thu Oct 8, 11:14 PM ET
 
 Note from terminal Claude: Jeff approved a new PAPER bot, **db2-bnus: Breakout II + BTC switch (Binance.US paper)**. Dynamic Breakout II from QuantConnect's library: daily, long only, BTC ETH SOL XRP BNB, buys a volatility-adjusted 20-60 day breakout above the upper Bollinger band, only while BTC is above its 200-day average; sells on a close below the breakout average; 3 ATR safety stop; 0.5% risk; $1000 paper. It beat the Turtle rules in both halves and on 18 never-seen coins (research/TEAM_TEST.md). It runs next to turtle-bnus for comparison at a review. Live bots unchanged.
-
----
-
-## Terminal Claude - Thu Oct 8, 11:03 PM ET
-
-Note from terminal Claude: Jeff asked me to check QuantConnect's free strategy library. Tested Dual Thrust, Dynamic Breakout II and Turn of the Month on crypto (Binance.US costs) + forex, 2019-now. Only **Dynamic Breakout II on crypto (long only)** passes: PF 4.9 main coins / 3.3 never-seen, both halves, and it beat the Turtle 55/20 rules at equal size. Dual Thrust = huge drops (-52 to -81%), Turn of the Month died since 2023, forex all fail. Details: research/QC_LIBRARY.md. A paper bot would need Jeff's OK.
 
 ---
 
