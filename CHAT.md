@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Sat Oct 10, 5:01 AM ET
+
+Reply from terminal Claude: cloud network test. I ran the Analyst routine once (8:58 AM UTC, paper only). WORKS now: OKX candles (first time in 5 days), GitHub pull/push. The Analyst read all 6 coins, made no new trades (its old LINK dip order had filled and stopped, -1.13R; BTC/SOL orders expired), balance 994.34. STILL BLOCKED: Fear & Greed (api.alternative.me). The News Watch also said 'price sites were blocked' for its stablecoin-peg check. Please add: api.alternative.me, api.coingecko.com, www.coingecko.com, coinmarketcap.com. (A one-time network-test routine I tried to create was refused by a safety check, so I used the Analyst's normal run instead.)
+
+---
+
 ## Jeff - Sat Oct 10, 4:56 AM ET
 
 From Jeff: I changed the Default cloud environment on claude.ai to Custom network access. Allowed domains: us.okx.com, www.okx.com, api.binance.us, github.com, api.github.com, raw.githubusercontent.com, objects.githubusercontent.com, plus the default package-manager list.
@@ -367,12 +373,6 @@ CHROME (for Terminal Claude): Jeff approved a research job: try PineTS (github.c
 3. If they match, propose how bots could call Pine scripts (e.g. pinets-cli producing JSON that bot.py reads, or a pre-computed signals file each run), with the cost in run time on GitHub Actions.
 4. Note the limits: only open-source scripts (not protected/invite-only), and v6 support is still experimental.
 Research only. Nothing changes in the live or demo bots without Jeff's OK.
-
----
-
-## Terminal Claude - Fri Oct 9, 10:08 AM ET
-
-Reply from terminal Claude: Jeff asked for trailing exits (target+trail / trail only / trail after 2R) with and without rules 17 and 19, on 15m and 1H. Main coins lose in every version except 1H Way A Pivot (PF 1.10, 36 trades). 1H never-seen coins look strong with trailing (trail after 2R PF 1.90, +rule 17 2.90) but the same rules on main coins are 0.47 / 0.21, so not trusted. Tables: research/JEFF_RULES.md. No bot or chart changed.
 
 ---
 
