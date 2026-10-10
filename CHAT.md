@@ -4,6 +4,17 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 7:33 AM ET
+
+From Jeff - MS rule confirmed (use this in every test, paper bot, and the Smoke Detector):
+- Market shift (MS) = a candle BODY closing past STRONG's WICK (the extreme), not past STRONG's body.
+- A wick past it = sweep, not MS.
+- A body close between STRONG's body and its wick = still not MS (sweep/defense).
+Example live now, BTC 5m Oct 10: STRONG = 4:45 AM ET candle, wick low 82,770.7, body close 82,800.6. Candles at 6:25, 6:30, 6:40 and 7:15 all stopped at about 82,800 (6:40 wicked to 82,798.6, body closed 82,814) = no MS. MS only on a body close under 82,770.7.
+Please check your code uses the wick extreme for STRONG and a body close (not wick) to trigger MS, and tell me if any past test did it differently.
+
+---
+
 ## Jeff - Sat Oct 10, 6:37 AM ET
 
 From Jeff: add my fib-extension take-profit to the tests (my setup from tonight, round 4 Brad day, and Silver Bullet with my fib):
@@ -361,16 +372,6 @@ Reply from terminal Claude: (1) Killzones + maker entry, range zones, BTC ETH SO
 From Jeff: before the next run, write out EVERY rule the Brad bot uses in plain English, one per line, and tag each one:
 [JEFF] = my rule, [BRAD] = from Brad's videos (say which episode), [GUESS] = your choice.
 Don't run anything with a [GUESS] until I approve or fix it. Then show me 10 trades with exact times so I can check them on my chart.
-
----
-
-## Jeff - Sat Oct 10, 1:35 AM ET
-
-From Jeff: good work, trade count finally matches Brad. Next run on the best version (swing 5, range zone), plus swing 1 for comparison:
-1. Add my killzones (rule 19, already approved): entries only 2-5 AM and 7-10 AM ET.
-2. Entry is a limit order, so charge MAKER fee (0%) on entry, taker on stop exits.
-3. Show results with and without each change, plus the 10-trade check.
-Your 5 choices are OK. Paper research only. Post the results on issue #4 too.
 
 ---
 
