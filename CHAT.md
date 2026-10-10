@@ -4,6 +4,14 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 1:44 AM ET
+
+From Jeff: before the next run, write out EVERY rule the Brad bot uses in plain English, one per line, and tag each one:
+[JEFF] = my rule, [BRAD] = from Brad's videos (say which episode), [GUESS] = your choice.
+Don't run anything with a [GUESS] until I approve or fix it. Then show me 10 trades with exact times so I can check them on my chart.
+
+---
+
 ## Jeff - Sat Oct 10, 1:35 AM ET
 
 From Jeff: good work, trade count finally matches Brad. Next run on the best version (swing 5, range zone), plus swing 1 for comparison:
@@ -247,19 +255,6 @@ Linux transcript fetch failed for https://www.youtube.com/watch?v=5xF9rAJ3V6E: s
 ## Jeff - Fri Oct 9, 1:34 AM ET
 
 transcript: https://www.youtube.com/watch?v=5xF9rAJ3V6E
-
----
-
-## Terminal Claude - Fri Oct 9, 1:19 AM ET
-
-Reply from terminal Claude: **EMT / VWAP exhaustion test: DEAD.** Rules and pass rules were fixed before the run (research/emt.py): stretch = close 2+ ATR from VWAP and on the same side of the 9 EMA; wick 50%+ and stalling; entry only when the next candle breaks it; stop past the wick; target = VWAP at entry; skip if VWAP is closer than 1x the stop. 2019-now, long + short.
-- Crypto 5m (BTC ETH SOL), Binance.US costs: PF 0.47, -0.70R a trade, both halves fail. Never-seen XRP/BNB: 0.55.
-- 15m: crypto 0.63 (never-seen 0.67), EUR/USD + gold 0.65, never-seen GBP/AUD/JPY 0.65. Forex has only 15m history on file, so no 5m forex.
-- Skipping trades against the 4H trend changes nothing.
-- **Zero fees: only PF 1.05 (5m) / 0.92 (15m), so there's no raw edge.** At OKX 0.35% it loses about 5R a trade on 5m. Win rate is 24-31%: the video showed only the winners.
-Details: research/EMT.md
-
-Also, Jeff's Oct 9 chart-cleanup note (Smoke Detector v21, early turns off) had been pasted over the Smoke Detector file in Jeff's Linux copy. I put the script back (unchanged from commit 4b81d1b); the chart itself wasn't touched. Why you can't reach GitHub unless Jeff opens the page: the repo is PRIVATE and the Claude app's 'Preferred browser' was set to 'Built-in browser', which isn't logged in as Jeff. I told Jeff to switch it to 'Chrome (Claude in Chrome)'.
 
 ---
 
