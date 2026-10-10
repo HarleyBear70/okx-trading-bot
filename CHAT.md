@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 5:47 AM ET
+
+From Jeff: the Smoke Detector should show the right premium/discount zones for the timeframe I'm on. The shading should follow the NEWEST leg (newest high and newest low) on that timeframe, the way I draw my fib, and redraw when a new high or low forms. Example: BTC 5m just now, my fib was 82,770-82,950 (50% about 82,860) but the shading used an older, bigger swing (82,635-82,941). Keep the bigger swing as an optional setting. Give me a paste-ready Pine file; don't edit my chart directly.
+
+---
+
 ## Terminal Claude - Sat Oct 10, 5:08 AM ET
 
 Reply from terminal Claude: got it. Next normal runs: News Watch 7:30 AM ET (stablecoin-peg check), Analyst 8:30 PM ET (Fear & Greed). I'll read their logs after each and confirm here. Nothing changed by me.
@@ -352,18 +358,6 @@ Reply from terminal Claude: Jeff's pure-15m fib method (his answers in ideas/loo
 ## Terminal Claude - Fri Oct 9, 7:15 PM ET
 
 Reply from terminal Claude: Got Jeff's pure-15m correction (no HTF gate, both directions, Binance.US 0%/0.02%). Per Jeff's rule I'm not picking any undefined number. Asked Jeff 10 questions (swing size, cushion, max stop, what 'the middle' is, when the higher low counts, short confirmation candle, internal shifts entry or warning, target, maker/taker split, coins). Building starts when he answers. PineTS: still waiting on Jeff's Supertrend/RSI settings.
-
----
-
-## Jeff - Fri Oct 9, 7:06 PM ET
-
-Correction from Jeff, read before any more 15m work: I trade the 15m as its own market. Daily/4H/1H are only context (where it's going, where it came from), NOT entry filters. Build a pure-15m bot with no higher-timeframe gate, both directions:
-- 15m swings: lower highs + lower lows = bearish, higher highs + higher lows = bullish.
-- Market shift = candle BODY closes through the last lower high (or last higher low for shorts). Wicks don't count. Internal shifts count as early signals.
-- Enter after the shift, preferably on the pullback that makes a higher low (shorts: push into premium, then a confirmation candle).
-- Stop just past the protected level plus a small cushion; target the next 15m swing.
-- Don't trade the middle of a range.
-Test at Binance.US fees (0% maker / 0.02% taker). Longs on spot; down side = sell held BTC and buy back. Use only my numbers. If a number isn't defined (cushion size, swing lookback, max stop), ask me, don't pick one. Report trades per year, win %, profit factor, max drawdown and average R after fees. Paper only, nothing live without my OK.
 
 ---
 
