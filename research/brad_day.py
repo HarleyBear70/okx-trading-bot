@@ -31,6 +31,7 @@ Long rules below; shorts are the exact mirror (run on upside-down prices). One t
   Coins       BTC ETH SOL XRP. Binance 5m archive 2019 to Sep 30 2026. Halves 2019-22 / 2023-now.
   Not used    killzones/sessions, news, daily loss limit (not in Ep 11's steps).
 
+  python3 research/brad_day.py v6         (Oct 10: newest leg + -27% extension target + blocking counts)
   python3 research/brad_day.py v5         (Oct 10: NEWEST leg, leg swing 1/2/3/5, main + never-seen)
   python3 research/brad_day.py v4         (Oct 10: Jeff's answers to the 43 rules, 24 versions)
   python3 research/brad_day.py kz         (Oct 10: killzones + maker entry, swing 5 and 1, range zones)
@@ -263,7 +264,7 @@ def pos_in(x, st):
 
 
 def run(d, N, ztype, taker=TAKER, log=None, kz=False, maker=False, rng=False, stopm="sweep", cap=MAXSTOP,
-        band=0.0, state=None, kzw=None, allow=None, spr=None, leg=None):
+        band=0.0, state=None, kzw=None, allow=None, spr=None, leg=None, tgtm="weak", cnt=None):
     """long side only. Returns [(entry ts, exit ts, R)].
     kz    = the limit order can only fill inside Jeff's killzones; outside them it waits (Oct 10).
     maker = the limit entry pays 0% (maker); stop exits still pay taker + slippage (Jeff, Oct 10).
@@ -275,7 +276,13 @@ def run(d, N, ztype, taker=TAKER, log=None, kz=False, maker=False, rng=False, st
     allow = bytearray, 1 = this side may fill on this 5m candle (DXY / COT filters, forex Oct 10).
     spr   = forex: real spread per 5m candle; half of it is paid on the entry and half on every exit.
     rng="leg" = Jeff's NEWEST LEG (LegStruct) on 4H + 15m for premium/discount, STRONG stop and WEAK target;
-    leg   = its swing size (default N)."""
+    leg   = its swing size (default N).
+    tgtm  = "weak" (target = 15m WEAK) or "ext27" (Jeff, Oct 10: target = the -27% fib extension past WEAK,
+            WEAK + 0.27 x (WEAK - STRONG), minus the cushion; 2:1 measured to it).
+    cnt   = a Counter: how many setups each rule stops (Jeff: "which rule is blocking the most trades")."""
+    from collections import Counter
+    cnt = cnt if cnt is not None else Counter()
+    end_setup = lambda why: cnt.update([f"setup ended: {why}"]) if setup else None
     ts, o, h, l, c = d["ts"], d["o"], d["h"], d["l"], d["c"]
     t0 = B.ms(B.START)
     O15, H15, L15, C15, end15 = resample(ts, o, h, l, c, M15)
@@ -307,9 +314,13 @@ def run(d, N, ztype, taker=TAKER, log=None, kz=False, maker=False, rng=False, st
                 pos = None
         # 2) pending limit order
         if pend and not pos:
+            if l[i] <= pend["e"] and kz and not killzone(ts[i], win):
+                pend["kzwait"] = True
             if l[i] <= pend["e"] and (not kz or killzone(ts[i], win)) and (allow is None or allow[i]):
                 e = min(o[i], pend["e"])
                 pos = dict(pend, e=e, ec=fee(e) if spr is not None or not maker else 0.0, ts=ts[i], r=e - pend["stop"])
+                cnt["FILLED (trade taken)"] += 1
+                end_setup("FILLED")
                 pend = setup = None
                 if l[i] <= pos["stop"]:  # same candle: assume the stop came first
                     r = (pos["stop"] - e - pos["ec"] - fee(pos["stop"])) / pos["r"]
@@ -318,6 +329,8 @@ def run(d, N, ztype, taker=TAKER, log=None, kz=False, maker=False, rng=False, st
                         log.append(dict(pos, x_ts=ts[i], x=pos["stop"], R=r))
                     pos = None
             elif h[i] >= pend["tgt"]:
+                cnt["order missed: price hit the target before the fill"] += 1
+                end_setup("order missed")
                 pend = setup = None  # ran to target without us
         # 3) zone touch (5m wick into a 15m demand zone), in the 15m and 4H discount
         if not pos and not pend and s15.trend == 1 and ts[i] >= t0:
@@ -327,14 +340,24 @@ def run(d, N, ztype, taker=TAKER, log=None, kz=False, maker=False, rng=False, st
                 if setup and setup["z"][0] <= z[0]:
                     continue  # already working a deeper zone
                 z[2] = True
-                if (s15.rlo is not None and s4.rlo is not None and pos_in(z[1], s15) <= 0.5 - band
-                        and pos_in(l[i], s4) <= 0.5 - band):
+                cnt["a 5m candle touched a 15m demand zone"] += 1
+                ok15 = s15.rlo is not None and pos_in(z[1], s15) <= 0.5 - band
+                ok4 = s4.rlo is not None and pos_in(l[i], s4) <= 0.5 - band
+                if not ok15:
+                    cnt["touch blocked: zone not in the 15m discount" + (" (incl. no-trade band)" if band else "")] += 1
+                elif not ok4:
+                    cnt["touch blocked: price not in the 4H discount" + (" (incl. no-trade band)" if band else "")] += 1
+                else:
+                    end_setup("switched to a deeper zone")
+                    cnt["setup started (zone OK, 15m + 4H discount OK)"] += 1
                     setup = {"z": z, "low": None, "swept": False}
                 break
         # 4) sweep: a 5m wick under the last 5m swing low while working the zone
         if setup and not pos:
             if setup["low"] is None or l[i] < setup["low"]:
                 if s5.lsl is not None and l[i] < s5.lsl:
+                    if not setup["swept"]:
+                        cnt["liquidity swept (5m wick under the last 5m swing low)"] += 1
                     setup["swept"] = True
                 if setup["swept"]:
                     setup["low"] = l[i] if setup["low"] is None else min(setup["low"], l[i])
@@ -342,19 +365,32 @@ def run(d, N, ztype, taker=TAKER, log=None, kz=False, maker=False, rng=False, st
         ev5 = s5.step(i)
         if setup and not pos and not pend and setup["swept"] and ev5 and ev5[0] == "bull":
             org = ev5[1]
+            cnt["5m market shift after the sweep"] += 1
             zb, zt = zone(h, l, org, N, "pivot" if ztype == "pivot" else "range")
             e = zt
             base = s15.rlo if stopm == "strong" else setup["low"]
             stop = base - CUSH * abs(base)
             r = e - stop
-            if 0 < r and (cap is None or r <= cap * abs(e)) and e < c[i]:
+            if not (0 < r):
+                cnt["shift blocked: entry not above the stop"] += 1
+            elif not (e < c[i]):
+                cnt["shift blocked: entry zone is above price"] += 1
+            elif not (cap is None or r <= cap * abs(e)):
+                cnt["shift blocked: stop too far (max stop)"] += 1
+            else:
                 if rng:
-                    w = s15.rhi - CUSH * abs(s15.rhi)
+                    w = s15.rhi
+                    if tgtm == "ext27":
+                        w = s15.rhi + 0.27 * (s15.rhi - s15.rlo)
+                    w -= CUSH * abs(w)
                     tg = [w] if w - e >= MINRR * r else []
                 else:
                     tg = sorted(v - CUSH * abs(v) for v in s15.highs if v - CUSH * abs(v) - e >= MINRR * r)
                 if tg:
+                    cnt["order placed"] += 1
                     pend = {"e": e, "stop": stop, "tgt": tg[0], "z": tuple(setup["z"][:2]), "ms_ts": ts[i]}
+                else:
+                    cnt["shift blocked: target under 2:1"] += 1
         k = end15[i]
         if k >= 0:
             ev = s15.step(k)
@@ -362,9 +398,11 @@ def run(d, N, ztype, taker=TAKER, log=None, kz=False, maker=False, rng=False, st
                 zb, zt = zone(H15, L15, ev[1], N, ztype)
                 zones.append([zb, zt, False])
             elif ev and ev[0] == "bear":
+                end_setup("15m turned bearish" + (" (order was waiting)" if pend else ""))
                 zones, setup, pend = [], None, None
             zones = [z for z in zones if C15[k] >= z[0]][-50:]
             if setup and C15[k] < setup["z"][0]:
+                end_setup("15m candle closed below the zone")
                 setup = pend = None
         k = end4[i]
         if k >= 0:
@@ -497,7 +535,48 @@ def main_v5():
             print(P.row(v[0], [t[:4] for t in day_limit(res[g][v[0]])], years), flush=True)
 
 
+def main_v6():
+    """Oct 10 round 5 (Jeff): newest leg, target = -27% fib extension (2:1 measured to it), plus a count of which rule
+    blocks the most setups. Leg swing 1/2/3/5, no band. Main + never-seen coins."""
+    from collections import Counter
+    years = (dt.datetime(2026, 10, 1, tzinfo=dt.timezone.utc) - B.START).days / 365.25
+    vers = [(f"newest leg, leg swing {lg}, target -27% ext", lg) for lg in (1, 2, 3, 5)]
+    groups = (("main", COINS), ("unseen", ["BNB", "ADA", "DOGE", "LINK", "LTC"]))
+    res = {g: {v[0]: [] for v in vers} for g, _ in groups}
+    cnts = {v[0]: Counter() for v in vers}
+    for g, coins in groups:
+        for cn in coins:
+            d = load(cn)
+            md = mirror(d)
+            for name, lg in vers:
+                kw = dict(kz=True, maker=True, rng="leg", leg=lg, stopm="strong", cap=None, tgtm="ext27")
+                c_ = cnts[name] if g == "main" else None
+                lo = [t + (1, cn) for t in run(d, 5, "range", cnt=c_, **kw)]
+                sh = [t + (-1, cn) for t in run(md, 5, "range", cnt=c_, **kw)]
+                keep, busy = [], -1
+                for t in sorted(lo + sh):
+                    if t[0] > busy:
+                        keep.append(t)
+                        busy = t[1]
+                res[g][name] += keep
+            print(f"  ({cn} done)", flush=True)
+            del d, md
+            gc.collect()
+    for g, coins in groups:
+        print(f"\n### Brad DAY round 5 (NEWEST leg, STRONG stop, target -27% fib extension), {' '.join(coins)}\n")
+        print("| Version | Trades/yr | Win % | Avg win | Avg loss | PF | Avg | Max DD | 2019-22 PF | 2023-now PF | "
+              "Long PF | Short PF |\n|---|---|---|---|---|---|---|---|---|---|---|---|")
+        for v in vers:
+            print(P.row(v[0], [t[:4] for t in day_limit(res[g][v[0]])], years), flush=True)
+    for v in vers:
+        print(f"\n### What blocks setups: {v[0]} (main coins, longs + shorts, 2019-now)\n")
+        for k, n in sorted(cnts[v[0]].items(), key=lambda kv: -kv[1]):
+            print(f"- {k}: {n}")
+
+
 def main():
+    if sys.argv[1:] == ["v6"]:
+        return main_v6()
     if sys.argv[1:] == ["v5"]:
         return main_v5()
     if sys.argv[1:] == ["v4"]:

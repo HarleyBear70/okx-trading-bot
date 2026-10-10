@@ -110,7 +110,7 @@ def target(h, sh, N, cur, lvl):
     return best
 
 
-def day_run(d, pre, mins, a, b, ver, N, X, entry, stopm, taker=TAKER):
+def day_run(d, pre, mins, a, b, ver, N, X, entry, stopm, taker=TAKER, allow=None):
     """one ET day, long side. Returns (sweep candle index or None, trade (entry ts, exit ts, R) or None)."""
     ts, o, h, l, c = d["ts"], d["o"], d["h"], d["l"], d["c"]
     (la, lb), (sa, sb), last = VER[ver]
@@ -148,7 +148,7 @@ def day_run(d, pre, mins, a, b, ver, N, X, entry, stopm, taker=TAKER):
         if m >= last and not pos:
             return swb, None
         if pend:
-            if l[i] <= pend["e"]:
+            if l[i] <= pend["e"] and (allow is None or allow[i]):
                 e = min(o[i], pend["e"])
                 pos = dict(pend, e=e, ts=ts[i], r=e - pend["stop"])
                 if l[i] <= pos["stop"]:

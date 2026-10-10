@@ -126,3 +126,100 @@ LegStruct = the Smoke Detector v22 logic (matched Jeff's BTC 5m fib). Everything
 | newest leg, leg swing 5, no trades 0.40-0.60 | 2 | 46% | +3.46R | -1.05R | 2.81 | +1.03R | 3R | 2.78 | 3.01 | 5.55 | 0.75 |
 
 **Verdict: almost no trades (0-3 a year on 4 coins, 0-23 in 7.75 yrs).** With the stop past STRONG and the target at WEAK on the SAME small leg, 2:1 is only possible when the entry is in the bottom third of the leg (below 0.33), and small legs flip bearish often, which cancels setups (BTC leg 2: 291 setups -> 0 trades). Too few trades to judge either way.
+
+## Oct 10 round 5: newest leg + target = -27% fib extension (2:1 measured to it) + what blocks setups (python3 research/brad_day.py v6)
+
+
+### Brad DAY round 5 (NEWEST leg, STRONG stop, target -27% fib extension), BTC ETH SOL XRP
+
+| Version | Trades/yr | Win % | Avg win | Avg loss | PF | Avg | Max DD | 2019-22 PF | 2023-now PF | Long PF | Short PF |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| newest leg, leg swing 1, target -27% ext | 0 |
+| newest leg, leg swing 2, target -27% ext | 1 | 27% | +2.11R | -1.06R | 0.75 | -0.19R | 5R | 0.00 | 2.04 | 0.00 | 1.21 |
+| newest leg, leg swing 3, target -27% ext | 3 | 22% | +2.19R | -1.07R | 0.58 | -0.35R | 11R | 0.41 | 0.77 | 0.55 | 0.60 |
+| newest leg, leg swing 5, target -27% ext | 6 | 32% | +2.69R | -1.05R | 1.20 | +0.14R | 7R | 1.20 | 1.19 | 1.69 | 0.87 |
+
+### Brad DAY round 5 (NEWEST leg, STRONG stop, target -27% fib extension), BNB ADA DOGE LINK LTC
+
+| Version | Trades/yr | Win % | Avg win | Avg loss | PF | Avg | Max DD | 2019-22 PF | 2023-now PF | Long PF | Short PF |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| newest leg, leg swing 1, target -27% ext | 0 | 100% | +2.65R | - | 99.00 | +2.65R | 0R | 99.00 | - | - | 99.00 |
+| newest leg, leg swing 2, target -27% ext | 1 | 50% | +2.73R | -1.04R | 2.62 | +0.85R | 2R | 1.68 | 5.42 | 1.94 | 4.67 |
+| newest leg, leg swing 3, target -27% ext | 3 | 28% | +2.80R | -1.06R | 1.03 | +0.02R | 6R | 0.56 | 1.62 | 0.84 | 1.22 |
+| newest leg, leg swing 5, target -27% ext | 9 | 35% | +3.12R | -1.05R | 1.62 | +0.42R | 8R | 2.02 | 1.15 | 2.57 | 1.02 |
+
+### What blocks setups: newest leg, leg swing 1, target -27% ext (main coins, longs + shorts, 2019-now)
+
+- a 5m candle touched a 15m demand zone: 178017
+- touch blocked: zone not in the 15m discount: 170104
+- touch blocked: price not in the 4H discount: 4769
+- setup started (zone OK, 15m + 4H discount OK): 3144
+- setup ended: 15m turned bearish: 3135
+- liquidity swept (5m wick under the last 5m swing low): 1759
+- 5m market shift after the sweep: 168
+- shift blocked: target under 2:1: 91
+- shift blocked: entry zone is above price: 75
+- setup ended: switched to a deeper zone: 7
+- order placed: 2
+- setup ended: 15m turned bearish (order was waiting): 2
+
+### What blocks setups: newest leg, leg swing 2, target -27% ext (main coins, longs + shorts, 2019-now)
+
+- a 5m candle touched a 15m demand zone: 100306
+- touch blocked: zone not in the 15m discount: 94607
+- touch blocked: price not in the 4H discount: 3332
+- setup started (zone OK, 15m + 4H discount OK): 2367
+- setup ended: 15m turned bearish: 2334
+- liquidity swept (5m wick under the last 5m swing low): 1895
+- 5m market shift after the sweep: 660
+- shift blocked: target under 2:1: 391
+- shift blocked: entry zone is above price: 242
+- order placed: 27
+- setup ended: 15m turned bearish (order was waiting): 11
+- FILLED (trade taken): 11
+- setup ended: FILLED: 11
+- setup ended: switched to a deeper zone: 6
+- order missed: price hit the target before the fill: 5
+- setup ended: order missed: 5
+
+### What blocks setups: newest leg, leg swing 3, target -27% ext (main coins, longs + shorts, 2019-now)
+
+- a 5m candle touched a 15m demand zone: 68525
+- touch blocked: zone not in the 15m discount: 63214
+- touch blocked: price not in the 4H discount: 2991
+- setup started (zone OK, 15m + 4H discount OK): 2320
+- setup ended: 15m turned bearish: 2249
+- liquidity swept (5m wick under the last 5m swing low): 2084
+- 5m market shift after the sweep: 1310
+- shift blocked: target under 2:1: 784
+- shift blocked: entry zone is above price: 463
+- order placed: 63
+- setup ended: 15m turned bearish (order was waiting): 29
+- FILLED (trade taken): 27
+- setup ended: FILLED: 27
+- setup ended: switched to a deeper zone: 7
+- order missed: price hit the target before the fill: 7
+- setup ended: order missed: 7
+- setup ended: 15m candle closed below the zone: 1
+
+### What blocks setups: newest leg, leg swing 5, target -27% ext (main coins, longs + shorts, 2019-now)
+
+- a 5m candle touched a 15m demand zone: 40822
+- touch blocked: zone not in the 15m discount: 35492
+- touch blocked: price not in the 4H discount: 2896
+- 5m market shift after the sweep: 2527
+- setup started (zone OK, 15m + 4H discount OK): 2434
+- liquidity swept (5m wick under the last 5m swing low): 2354
+- setup ended: 15m turned bearish: 2279
+- shift blocked: target under 2:1: 1497
+- shift blocked: entry zone is above price: 896
+- order placed: 134
+- setup ended: 15m turned bearish (order was waiting): 61
+- FILLED (trade taken): 47
+- setup ended: FILLED: 47
+- order missed: price hit the target before the fill: 26
+- setup ended: order missed: 26
+- setup ended: 15m candle closed below the zone: 12
+- setup ended: switched to a deeper zone: 9
+
+**Verdict:** leg swing 5 is the only one with trades: main PF 1.20 (6/yr, halves 1.20/1.19), never-seen 1.62 (9/yr). Only ~47 trades on the main coins in 7.75 yrs. Biggest blockers: (1) the zone isn't in the 15m discount when price first touches it (87% of touches; the zone is then used up), (2) the 15m newest leg turns bearish before the entry (94% of setups end that way), (3) target under 2:1 (59% of shifts).
