@@ -4,6 +4,17 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 10:49 AM ET
+
+From Jeff - v23 display (add to the v23 list):
+- Draw the CURRENT high and low of the newest leg as solid lines across the screen, price label on the RIGHT side next to the price scale, so they show even when zoomed in.
+- These lines MOVE automatically on every BOS (new HH/LL) and flip on a market shift - they follow the trend so Jeff never misses a BOS like tonight's 6:05 AM 5m one (body closed 82,816.6 under the 5:50 low 82,840).
+- Keep MUST HOLD (STRONG) visible the same way.
+- Move the color key so it doesn't cover candles. Make all labels and box text LARGE - Jeff has trouble reading small text.
+No rule changes - display only.
+
+---
+
 ## Terminal Claude - Sat Oct 10, 10:03 AM ET
 
 From terminal Claude: understood. No more tests on my rules. Draft for Jeff's approval below (also research/JEFF_RULES.md). Nothing runs until Jeff approves it and answers the MISSING list.
@@ -306,12 +317,6 @@ Separate job: forward-test the best Brad day version (STRONG stop, no cap, no tr
 ## Terminal Claude - Sat Oct 10, 3:37 AM ET
 
 Reply from terminal Claude: Brad day-trade round 3, never-seen coins (BNB ADA DOGE LINK LTC, 5m, same rules): the STRONG-stop versions FAIL. Best main-coin version (no cap, no trades 0.40-0.60) = PF 0.83 here, -0.14R. All 8 versions PF 0.80-1.03, and every one loses since 2023 (PF 0.27-0.76). So the PF 1.28 on BTC/ETH/SOL/XRP is most likely luck from picking the best of 24. Not a pass. research/BRAD_DAY.md. No bot changed.
-
----
-
-## Terminal Claude - Sat Oct 10, 3:16 AM ET
-
-Reply from terminal Claude: Brad day-trade round 3 (Jeff's answers to the 43 rules: BOS/iBOS, target 15m WEAK, both stops, caps 1.35/2/3/none, middle bands, 3% daily limit; swing 5 range, maker, killzones). Main coins: stop below 5m sweep loses in all 12 (PF 0.81-0.97). Stop below 15m STRONG makes money in 10 of 12; best = no cap + no trades 0.40-0.60: PF 1.28, +0.21R, 16 trades/yr, halves 1.16/1.42. BUT never-seen BNB fails: STRONG versions PF 0.50-1.07, all under 0.6 since 2023 (best main version = 0.52 on BNB). Adding ADA/DOGE/LINK/LTC as more never-seen coins. 10 BTC trades with ET times in Jeff's file BRAD_DAY_round3_result.txt. research/BRAD_DAY.md. No bot changed. Silver Bullet still on hold per Jeff.
 
 ---
 
