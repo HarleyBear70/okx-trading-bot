@@ -1,6 +1,6 @@
 # P/L calendar and strategy cards
 
-Updated automatically every hour (2026-10-10 15:24 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
+Updated automatically every hour (2026-10-10 16:24 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
 
 ## Combined OKX demo account
 
@@ -36,7 +36,7 @@ Closed P/L only; open trades count when they close.
 
 ## Growth: demo vs paper
 
-Average balance per bot, each bot starting at $1,000: the active demo bots (3, solid) vs the paper bots (16, dashed). Demo now $997.42 (-0.26%), paper now $878.40 (-12.16%).
+Average balance per bot, each bot starting at $1,000: the active demo bots (3, solid) vs the paper bots (16, dashed). Demo now $997.42 (-0.26%), paper now $878.42 (-12.16%).
 
 ![Demo vs paper growth](calendars/cards/growth.svg)
 
@@ -178,7 +178,7 @@ Binance.US · BTC ETH SOL BNB SUI TRX · 4-hour candles · started 2026-10-07 ·
 
 ### Trend Rider 1H (Binance.US paper)  ·  PAPER
 
-Binance.US · BTC ETH SOL BNB SUI · 1-hour candles · started - · balance now 999.93
+Binance.US · BTC ETH SOL BNB SUI · 1-hour candles · started - · balance now 1,000.37
 
 ![Trend Rider 1H (Binance.US paper) live vs backtest](calendars/cards/tr1h-bnus.svg)
 
@@ -186,7 +186,7 @@ Binance.US · BTC ETH SOL BNB SUI · 1-hour candles · started - · balance now 
 |---|---|---|---|---|
 | Backtest, long run (research, 2022-now) | - | - | - | - |
 | Backtest replay since start | 2 | 0% | 0.00 | -0.8% |
-| Live (paper) since start | 0 | - | - | -0.0% |
+| Live (paper) since start | 0 | - | - | 0.0% |
 
 ### Donchian Trend (Binance.US paper)  ·  PAPER
 
