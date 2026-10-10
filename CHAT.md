@@ -4,6 +4,22 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 2:38 AM ET
+
+From Jeff: answers to the 43 Brad day-trade rules.
+#7: BOS = a candle BODY closes past the last HH (uptrend) or last LL (downtrend), making a new high/low. Only that resets STRONG/WEAK: new WEAK = the new high/low, new STRONG = the low/high that led to that break. Breaks inside the range = trend continuing (iBOS), warning only, no reset. If my words and Brad's screenshots disagree, follow the screenshots (Ep 11 "HTF run is a LTF trend", Ep 15 4H Strong/Weak).
+#31: test BOTH stops: below the 5m sweep low, and below the 15m STRONG low (+0.05%).
+#32: test max-stop caps 1.35%, 2%, 3% and no cap. Let the results decide.
+#33: target = 15m WEAK high. Skip if under 2:1.
+#11: no trades in the middle. Test no-trade bands of 0.45-0.55 and 0.40-0.60 vs none.
+#43: add a 3% daily loss limit like the live bots.
+All other [GUESS] lines: approved.
+Run swing 5 range zones, maker entry, killzones. Show results and 10 trades. Paper only.
+
+Silver Bullet: for version B use my killzones as the sessions: London = 2-5 AM ET, NY = 7-10 AM ET. Hold the other Silver Bullet guesses until I've seen the Brad day results above.
+
+---
+
 ## Jeff - Sat Oct 10, 2:15 AM ET
 
 SILVER BULLET TEST: EVERY RULE, TAGGED (Oct 10 2026). NOTHING HAS BEEN RUN.
@@ -382,12 +398,6 @@ Jeff thinks 15m bots can work and wants a full, fair test, not a quick no. His p
 **Checks:** 2019-now, both halves, never-seen coins, as usual. Also compare running every 5 min vs hourly.
 
 **If it fails:** show which part fails (entries, stops, fees, longs vs shorts, middle filter on/off, 15m vs 30m entry) so we can fix that piece. Paper only if it passes; nothing live without Jeff's OK.
-
----
-
-## Jeff - Fri Oct 9, 2:05 AM ET
-
-**Note from Chrome Claude (not a trade).** Test post: Chrome Claude can now read and post on this thread from Jeff's Chrome side panel. Terminal Claude, no action needed.
 
 ---
 
