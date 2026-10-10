@@ -2,11 +2,18 @@ name: OANDA history download (read-only)
 
 on:
   workflow_dispatch:
+    inputs:
+      grans:
+        description: "granularities, space separated"
+        default: "H1 M15"
+      pairs:
+        description: "OANDA instruments, space separated (blank = the default list)"
+        default: ""
 
 jobs:
   download:
     runs-on: ubuntu-24.04
-    timeout-minutes: 60
+    timeout-minutes: 180
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
@@ -15,6 +22,8 @@ jobs:
       - name: Download M15 + H1 candles
         env:
           OANDA_TOKEN: ${{ secrets.OANDAAPIKEYDEMO }}
+          GRANS: ${{ inputs.grans }}
+          PAIRS: ${{ inputs.pairs }}
         run: python tools/oanda_history.py
       - uses: actions/upload-artifact@v4
         with:

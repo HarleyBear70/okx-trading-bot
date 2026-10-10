@@ -11,7 +11,9 @@ import urllib.request
 
 HOST = "https://api-fxpractice.oanda.com"
 TOKEN = os.environ["OANDA_TOKEN"]
-PAIRS = ["EUR_USD", "GBP_USD", "AUD_USD", "NZD_USD", "USD_CAD", "USD_CHF", "USD_JPY", "XAU_USD"]
+PAIRS = os.environ.get("PAIRS", "").split() or ["EUR_USD", "GBP_USD", "AUD_USD", "NZD_USD", "USD_CAD", "USD_CHF",
+                                                "USD_JPY", "XAU_USD"]
+GRANS = os.environ.get("GRANS", "").split() or ["H1", "M15"]  # Oct 10 2026: M5 for the Brad forex test
 START = "2019-01-01T00:00:00Z"
 
 
@@ -35,7 +37,7 @@ def ts(s):
 def main():
     print("accounts:", [a["id"] for a in get("/v3/accounts")["accounts"]])
     os.makedirs("oanda_hist", exist_ok=True)
-    for gran in ("H1", "M15"):
+    for gran in GRANS:
         for p in PAIRS:
             rows, frm = [], START
             while True:
