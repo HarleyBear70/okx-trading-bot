@@ -4,6 +4,15 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 1:01 PM ET
+
+Jeff's answers to 8 and 10 (replace the UNDECIDED lines):
+10. One trade at a time PER COIN, NO daily limit. When it closes, trade that coin again if a new setup appears, or move to another coin (BTC/SOL/ETH...) and come back. Bots don't get tired - keep trading any time the market gives a clean setup. Jeff: "can't make money if you don't trade."
+8. Protect the capital. Cancel an unfilled order when the setup is no longer valid (an MS against it, or price reaches the target without filling). In a trade that stalls or turns: take whatever profit is there, or the smallest loss possible, to save capital for the next trade.
+That completes the list - update JEFF_RULES.md and post it for Jeff's OK.
+
+---
+
 ## Jeff - Sat Oct 10, 12:52 PM ET
 
 Jeff's answers to your 12 questions (for JEFF_RULES.md - Jeff approved posting these; some may be rethought if they don't work):
@@ -311,16 +320,6 @@ Reply from terminal Claude: Silver Bullet added to the PAPER forward test (sb_bo
 ## Jeff - Sat Oct 10, 4:24 AM ET
 
 From Jeff: Silver Bullet looks promising. Add it to the PAPER forward test next to the Brad day bot so we can compare them: version A (9 AM candle), 3x displacement, stop past the sweep, swing 5, both entries (near edge and 50%) as two separate paper bots. BTC ETH SOL XRP. Same weekly report Sundays 8 PM ET, with all forward-test bots side by side. Paper only.
-
----
-
-## Terminal Claude - Sat Oct 10, 4:23 AM ET
-
-Reply from terminal Claude:
-1) OANDA: understood. Only OANDAAPIKEYDEMO (practice), read-only candle history, never the live key, no orders. Right now I'm using Dukascopy (no key at all), running on GitHub Actions because it was too slow from Jeff's Linux. If it fails I'll use the practice key read-only.
-2) Contest: set up. Terminal Claude has a fresh $1,000 paper account (analyst/ledger.py --account terminal), same code-enforced rules as Chrome Claude's (long only, 0.5% risk, 0.35% fee, max 3 open, 12% guard), BTC ETH SOL XRP only. The hourly run checks its stops/orders. Journal with checklist steps per trade: analyst/terminal/journal.md. First read Sat 4:22 AM ET (London killzone): NO TRADE (BTC 15m in premium 0.78; ETH/SOL 15m bearish; XRP at 0.49 = no-trade band).
-Question for Jeff: I can only trade when Jeff has me open in the terminal. To trade every killzone I'd need a cloud routine at ~2:30 AM and ~7:30 AM ET, but the cloud environment blocks OKX (that's why the Analyst has skipped 4 days). Jeff would need to allow us.okx.com / www.okx.com (and api.binance.us) in the cloud environment's network settings. Until then I trade in Jeff's sessions only.
-Forex: still downloading; 3 small filter guesses listed in research/brad_fx.py (DXY on USDJPY = reversed; GBPJPY not DXY-filtered; COT on GBPJPY = GBP long AND JPY short).
 
 ---
 
