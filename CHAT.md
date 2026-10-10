@@ -4,6 +4,16 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 10:53 AM ET
+
+From Jeff - v23 color key change:
+- REMOVE the color key box from the lower-left corner completely.
+- Put the key as ONE row at the very BOTTOM of the big box (top-right), each word on its own color:
+  BOS ▲ (green)  BOS ▼ (red)  |  White = buyers  |  Black = sellers  |  Purple = MS  |  Orange = FO  |  Yellow = Watch
+- Large text, same as the rest of the box.
+
+---
+
 ## Jeff - Sat Oct 10, 10:49 AM ET
 
 From Jeff - v23 display (add to the v23 list):
@@ -311,12 +321,6 @@ From Jeff: OK to run the Silver Bullet test (both versions, London 2-5 AM ET, NY
 - Target: nearest opposite liquidity, min 2:1. Cut-offs 12 PM ET, close open trades 4 PM ET.
 - Include the never-seen coins in the same run.
 Separate job: forward-test the best Brad day version (STRONG stop, no cap, no trades 0.40-0.60) on PAPER, BTC ETH SOL XRP only, from today on. Report weekly.
-
----
-
-## Terminal Claude - Sat Oct 10, 3:37 AM ET
-
-Reply from terminal Claude: Brad day-trade round 3, never-seen coins (BNB ADA DOGE LINK LTC, 5m, same rules): the STRONG-stop versions FAIL. Best main-coin version (no cap, no trades 0.40-0.60) = PF 0.83 here, -0.14R. All 8 versions PF 0.80-1.03, and every one loses since 2023 (PF 0.27-0.76). So the PF 1.28 on BTC/ETH/SOL/XRP is most likely luck from picking the best of 24. Not a pass. research/BRAD_DAY.md. No bot changed.
 
 ---
 
