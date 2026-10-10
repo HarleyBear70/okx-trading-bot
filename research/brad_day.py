@@ -31,6 +31,7 @@ Long rules below; shorts are the exact mirror (run on upside-down prices). One t
   Coins       BTC ETH SOL XRP. Binance 5m archive 2019 to Sep 30 2026. Halves 2019-22 / 2023-now.
   Not used    killzones/sessions, news, daily loss limit (not in Ep 11's steps).
 
+  python3 research/brad_day.py v7         (Oct 10: + counter-trend longs in discount while the 15m leg is DOWN)
   python3 research/brad_day.py v6         (Oct 10: newest leg + -27% extension target + blocking counts)
   python3 research/brad_day.py v5         (Oct 10: NEWEST leg, leg swing 1/2/3/5, main + never-seen)
   python3 research/brad_day.py v4         (Oct 10: Jeff's answers to the 43 rules, 24 versions)
@@ -264,7 +265,7 @@ def pos_in(x, st):
 
 
 def run(d, N, ztype, taker=TAKER, log=None, kz=False, maker=False, rng=False, stopm="sweep", cap=MAXSTOP,
-        band=0.0, state=None, kzw=None, allow=None, spr=None, leg=None, tgtm="weak", cnt=None):
+        band=0.0, state=None, kzw=None, allow=None, spr=None, leg=None, tgtm="weak", cnt=None, ct=None, ctonly=False):
     """long side only. Returns [(entry ts, exit ts, R)].
     kz    = the limit order can only fill inside Jeff's killzones; outside them it waits (Oct 10).
     maker = the limit entry pays 0% (maker); stop exits still pay taker + slippage (Jeff, Oct 10).
@@ -279,7 +280,11 @@ def run(d, N, ztype, taker=TAKER, log=None, kz=False, maker=False, rng=False, st
     leg   = its swing size (default N).
     tgtm  = "weak" (target = 15m WEAK) or "ext27" (Jeff, Oct 10: target = the -27% fib extension past WEAK,
             WEAK + 0.27 x (WEAK - STRONG), minus the cushion; 2:1 measured to it).
-    cnt   = a Counter: how many setups each rule stops (Jeff: "which rule is blocking the most trades")."""
+    cnt   = a Counter: how many setups each rule stops (Jeff: "which rule is blocking the most trades").
+    ct    = Jeff Oct 10: ALSO take COUNTER-TREND longs while the 15m leg is DOWN: price (5m wick) in the 15m AND 4H
+            discount -> same 5m sweep + market shift + limit at the shift zone; stop below the sweep low (+0.05%);
+            target "hi" = the top of the 15m down leg (premium/STRONG high) or "mid" = its 0.5, min 2:1 [options].
+            Cancelled if a 15m candle closes below the sweep low. ctonly = counter-trend longs only."""
     from collections import Counter
     cnt = cnt if cnt is not None else Counter()
     end_setup = lambda why: cnt.update([f"setup ended: {why}"]) if setup else None
@@ -333,11 +338,15 @@ def run(d, N, ztype, taker=TAKER, log=None, kz=False, maker=False, rng=False, st
                 end_setup("order missed")
                 pend = setup = None  # ran to target without us
         # 3) zone touch (5m wick into a 15m demand zone), in the 15m and 4H discount
-        if not pos and not pend and s15.trend == 1 and ts[i] >= t0:
+        if ct and not pos and not pend and not setup and s15.trend == -1 and ts[i] >= t0 and s15.rlo is not None \
+                and pos_in(l[i], s15) <= 0.5 - band and s4.rlo is not None and pos_in(l[i], s4) <= 0.5 - band:
+            cnt["counter-trend setup started (15m leg DOWN, price in 15m + 4H discount)"] += 1
+            setup = {"z": None, "low": None, "swept": False, "ct": True}
+        if not pos and not pend and s15.trend == 1 and ts[i] >= t0 and not ctonly:
             for z in sorted(zones, key=lambda z: z[0]):  # deepest first
                 if z[2] or l[i] > z[1]:
                     continue
-                if setup and setup["z"][0] <= z[0]:
+                if setup and (setup["z"] is None or setup["z"][0] <= z[0]):
                     continue  # already working a deeper zone
                 z[2] = True
                 cnt["a 5m candle touched a 15m demand zone"] += 1
@@ -368,7 +377,7 @@ def run(d, N, ztype, taker=TAKER, log=None, kz=False, maker=False, rng=False, st
             cnt["5m market shift after the sweep"] += 1
             zb, zt = zone(h, l, org, N, "pivot" if ztype == "pivot" else "range")
             e = zt
-            base = s15.rlo if stopm == "strong" else setup["low"]
+            base = s15.rlo if stopm == "strong" and not setup.get("ct") else setup["low"]
             stop = base - CUSH * abs(base)
             r = e - stop
             if not (0 < r):
@@ -378,7 +387,11 @@ def run(d, N, ztype, taker=TAKER, log=None, kz=False, maker=False, rng=False, st
             elif not (cap is None or r <= cap * abs(e)):
                 cnt["shift blocked: stop too far (max stop)"] += 1
             else:
-                if rng:
+                if setup.get("ct"):
+                    w = s15.rhi if ct == "hi" else (s15.rhi + s15.rlo) / 2
+                    w -= CUSH * abs(w)
+                    tg = [w] if w - e >= MINRR * r else []
+                elif rng:
                     w = s15.rhi
                     if tgtm == "ext27":
                         w = s15.rhi + 0.27 * (s15.rhi - s15.rlo)
@@ -388,7 +401,8 @@ def run(d, N, ztype, taker=TAKER, log=None, kz=False, maker=False, rng=False, st
                     tg = sorted(v - CUSH * abs(v) for v in s15.highs if v - CUSH * abs(v) - e >= MINRR * r)
                 if tg:
                     cnt["order placed"] += 1
-                    pend = {"e": e, "stop": stop, "tgt": tg[0], "z": tuple(setup["z"][:2]), "ms_ts": ts[i]}
+                    pend = {"e": e, "stop": stop, "tgt": tg[0], "z": tuple(setup["z"][:2]) if setup["z"] else None,
+                            "ms_ts": ts[i], "ct": bool(setup.get("ct"))}
                 else:
                     cnt["shift blocked: target under 2:1"] += 1
         k = end15[i]
@@ -398,10 +412,16 @@ def run(d, N, ztype, taker=TAKER, log=None, kz=False, maker=False, rng=False, st
                 zb, zt = zone(H15, L15, ev[1], N, ztype)
                 zones.append([zb, zt, False])
             elif ev and ev[0] == "bear":
-                end_setup("15m turned bearish" + (" (order was waiting)" if pend else ""))
-                zones, setup, pend = [], None, None
+                if setup and setup.get("ct"):
+                    zones = []  # a counter-trend setup lives through new lows in the down leg
+                else:
+                    end_setup("15m turned bearish" + (" (order was waiting)" if pend else ""))
+                    zones, setup, pend = [], None, None
             zones = [z for z in zones if C15[k] >= z[0]][-50:]
-            if setup and C15[k] < setup["z"][0]:
+            if setup and setup.get("ct") and setup["low"] is not None and C15[k] < setup["low"]:
+                end_setup("counter-trend: 15m candle closed below the sweep low")
+                setup = pend = None
+            if setup and setup["z"] and C15[k] < setup["z"][0]:
                 end_setup("15m candle closed below the zone")
                 setup = pend = None
         k = end4[i]
@@ -574,7 +594,46 @@ def main_v6():
             print(f"- {k}: {n}")
 
 
+def main_v7():
+    """Oct 10 (Jeff): counter-trend longs in the discount while the 15m leg is still DOWN (shorts = mirror), added to
+    round 3 (bigger swing, the paper bot) and round 5 (newest leg 5, -27% target). Main + never-seen coins."""
+    years = (dt.datetime(2026, 10, 1, tzinfo=dt.timezone.utc) - B.START).days / 365.25
+    bases = {"R3": dict(kz=True, maker=True, rng=True, stopm="strong", cap=None, band=0.10),
+             "R5": dict(kz=True, maker=True, rng="leg", leg=5, stopm="strong", cap=None, tgtm="ext27")}
+    adds = [("with-trend only", {}), ("+ counter-trend, target top of leg", dict(ct="hi")),
+            ("+ counter-trend, target 0.5", dict(ct="mid")),
+            ("counter-trend ONLY, target top of leg", dict(ct="hi", ctonly=True)),
+            ("counter-trend ONLY, target 0.5", dict(ct="mid", ctonly=True))]
+    vers = [(f"{b} {a}", dict(bk, **ak)) for b, bk in bases.items() for a, ak in adds]
+    groups = (("main", COINS), ("unseen", ["BNB", "ADA", "DOGE", "LINK", "LTC"]))
+    res = {g: {v[0]: [] for v in vers} for g, _ in groups}
+    for g, coins in groups:
+        for cn in coins:
+            d = load(cn)
+            md = mirror(d)
+            for name, kw in vers:
+                lo = [t + (1, cn) for t in run(d, 5, "range", **kw)]
+                sh = [t + (-1, cn) for t in run(md, 5, "range", **kw)]
+                keep, busy = [], -1
+                for t in sorted(lo + sh):
+                    if t[0] > busy:
+                        keep.append(t)
+                        busy = t[1]
+                res[g][name] += keep
+            print(f"  ({cn} done)", flush=True)
+            del d, md
+            gc.collect()
+    for g, coins in groups:
+        print(f"\n### Brad DAY + COUNTER-TREND longs in discount / shorts in premium, {' '.join(coins)}\n")
+        print("| Version | Trades/yr | Win % | Avg win | Avg loss | PF | Avg | Max DD | 2019-22 PF | 2023-now PF | "
+              "Long PF | Short PF |\n|---|---|---|---|---|---|---|---|---|---|---|---|")
+        for v in vers:
+            print(P.row(v[0], [t[:4] for t in day_limit(res[g][v[0]])], years), flush=True)
+
+
 def main():
+    if sys.argv[1:] == ["v7"]:
+        return main_v7()
     if sys.argv[1:] == ["v6"]:
         return main_v6()
     if sys.argv[1:] == ["v5"]:

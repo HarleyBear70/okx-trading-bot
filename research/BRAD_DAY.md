@@ -223,3 +223,38 @@ LegStruct = the Smoke Detector v22 logic (matched Jeff's BTC 5m fib). Everything
 - setup ended: switched to a deeper zone: 9
 
 **Verdict:** leg swing 5 is the only one with trades: main PF 1.20 (6/yr, halves 1.20/1.19), never-seen 1.62 (9/yr). Only ~47 trades on the main coins in 7.75 yrs. Biggest blockers: (1) the zone isn't in the 15m discount when price first touches it (87% of touches; the zone is then used up), (2) the 15m newest leg turns bearish before the entry (94% of setups end that way), (3) target under 2:1 (59% of shifts).
+
+## Round 6 (Oct 10): counter-trend longs in discount while the 15m leg is DOWN (shorts = mirror)
+
+Jeff: "could go for a long [in discount] and then when the time is right go for a short." Counter-trend setup = 15m leg DOWN, 5m wick in the 15m + 4H discount, then the same 5m sweep + shift + limit entry, stop below the sweep low, target the top of the 15m down leg or its 0.5 (2:1 min). Note: with one trade per coin, the counter-trend setups crowd out most with-trend ones, so "+ counter-trend" ~ "counter-trend ONLY".
+### Brad DAY + COUNTER-TREND longs in discount / shorts in premium, BTC ETH SOL XRP
+
+| Version | Trades/yr | Win % | Avg win | Avg loss | PF | Avg | Max DD | 2019-22 PF | 2023-now PF | Long PF | Short PF |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| R3 with-trend only | 16 | 30% | +3.16R | -1.04R | 1.28 | +0.21R | 13R | 1.16 | 1.42 | 1.25 | 1.31 |
+| R3 + counter-trend, target top of leg | 34 | 15% | +3.11R | -1.04R | 0.54 | -0.40R | 108R | 0.53 | 0.57 | 0.23 | 0.56 |
+| R3 + counter-trend, target 0.5 | 3 | 11% | +2.53R | -1.01R | 0.31 | -0.61R | 18R | 0.10 | 1.12 | 2.03 | 0.24 |
+| R3 counter-trend ONLY, target top of leg | 33 | 15% | +3.14R | -1.04R | 0.53 | -0.42R | 108R | 0.51 | 0.57 | 0.23 | 0.55 |
+| R3 counter-trend ONLY, target 0.5 | 3 | 11% | +2.53R | -1.01R | 0.31 | -0.61R | 18R | 0.10 | 1.12 | 2.03 | 0.24 |
+| R5 with-trend only | 6 | 32% | +2.69R | -1.05R | 1.20 | +0.14R | 7R | 1.20 | 1.19 | 1.69 | 0.87 |
+| R5 + counter-trend, target top of leg | 43 | 12% | +4.28R | -1.03R | 0.55 | -0.41R | 164R | 0.49 | 0.88 | 0.46 | 0.57 |
+| R5 + counter-trend, target 0.5 | 4 | 10% | +2.09R | -1.01R | 0.22 | -0.71R | 24R | 0.16 | 0.80 | 0.71 | 0.16 |
+| R5 counter-trend ONLY, target top of leg | 43 | 12% | +4.28R | -1.03R | 0.55 | -0.41R | 164R | 0.49 | 0.88 | 0.46 | 0.57 |
+| R5 counter-trend ONLY, target 0.5 | 4 | 10% | +2.09R | -1.01R | 0.22 | -0.71R | 24R | 0.16 | 0.80 | 0.71 | 0.16 |
+
+### Brad DAY + COUNTER-TREND longs in discount / shorts in premium, BNB ADA DOGE LINK LTC
+
+| Version | Trades/yr | Win % | Avg win | Avg loss | PF | Avg | Max DD | 2019-22 PF | 2023-now PF | Long PF | Short PF |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| R3 with-trend only | 23 | 22% | +2.96R | -1.03R | 0.83 | -0.14R | 31R | 1.03 | 0.64 | 1.03 | 0.70 |
+| R3 + counter-trend, target top of leg | 34 | 15% | +3.44R | -1.08R | 0.58 | -0.39R | 117R | 0.59 | 0.22 | 0.54 | 0.59 |
+| R3 + counter-trend, target 0.5 | 2 | 32% | +2.42R | -1.05R | 1.06 | +0.05R | 6R | 1.06 | - | 1.50 | 0.80 |
+| R3 counter-trend ONLY, target top of leg | 34 | 16% | +3.44R | -1.09R | 0.59 | -0.38R | 113R | 0.60 | 0.22 | 0.54 | 0.60 |
+| R3 counter-trend ONLY, target 0.5 | 2 | 32% | +2.42R | -1.05R | 1.06 | +0.05R | 6R | 1.06 | - | 1.50 | 0.80 |
+| R5 with-trend only | 9 | 35% | +3.12R | -1.05R | 1.62 | +0.42R | 8R | 2.02 | 1.15 | 2.57 | 1.02 |
+| R5 + counter-trend, target top of leg | 39 | 16% | +3.15R | -1.02R | 0.59 | -0.35R | 108R | 0.60 | 0.50 | 0.70 | 0.57 |
+| R5 + counter-trend, target 0.5 | 3 | 15% | +1.38R | -1.02R | 0.24 | -0.66R | 13R | 0.29 | 0.00 | 0.00 | 0.29 |
+| R5 counter-trend ONLY, target top of leg | 39 | 16% | +3.15R | -1.02R | 0.59 | -0.35R | 108R | 0.60 | 0.50 | 0.70 | 0.57 |
+| R5 counter-trend ONLY, target 0.5 | 3 | 15% | +1.38R | -1.02R | 0.24 | -0.66R | 13R | 0.29 | 0.00 | 0.00 | 0.29 |
+
+Verdict: counter-trend trades lose (PF 0.53-0.59 at the top-of-leg target, 0.2-0.3 at the 0.5). Keep trading with the leg.
