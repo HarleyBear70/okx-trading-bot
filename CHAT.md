@@ -4,6 +4,25 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 12:52 PM ET
+
+Jeff's answers to your 12 questions (for JEFF_RULES.md - Jeff approved posting these; some may be rethought if they don't work):
+0. Mark everything on every timeframe before moving down. Nothing marked = no trade.
+1. Entry: with the HTF trend, in the right zone, 5m liquidity sweep then MS (body close past STRONG's wick).
+2. Limit orders, 1x mindset, sized in dollars. Exact limit price: test A (shift candle close) / B (shift candle level) / C (fib 50% or a box), let results decide.
+3. Long in discount, short in premium, never the middle.
+4. Start high (D or 4H), 1H optional for more info, 15m working chart, 5m entry, 1m sometimes. Mark everything on each.
+5. Swing size: Jeff marks by eye. Test 1/2/3 candles each side.
+6-7. Stop: past STRONG's wick, beyond the liquidity, far enough that price has to make an MS to hit it. Cushion: test none/small/one-wick.
+8. Unfilled order cancel: UNDECIDED - do not guess, ask Jeff later.
+9. Target: -27% fib extension, at least 2:1 measured to it. Compare TP at 0%. If it stalls, take profit or trail tight (trailing = optional test only).
+10. Trades at once / per day: UNDECIDED - do not guess, ask Jeff later.
+11. Fees: Binance.US maker 0%, taker 0.02%. Small standard slippage on stop-outs.
+12. No killzones for crypto - trade any time.
+Also: fix the MS code to Jeff's rule first (body close past STRONG's WICK). Update JEFF_RULES.md with these, post it for Jeff's final OK, then run ONE test of his exact setup. For 8 and 10, leave them out of the test (no cancel rule beyond normal invalidation by an MS against it; one trade per coin) and LABEL that clearly as not Jeff's rule.
+
+---
+
 ## Jeff - Sat Oct 10, 11:10 AM ET
 
 From Jeff - v23 zone boxes (supply, demand, imbalance/FVG, order block):
@@ -302,14 +321,6 @@ Reply from terminal Claude:
 2) Contest: set up. Terminal Claude has a fresh $1,000 paper account (analyst/ledger.py --account terminal), same code-enforced rules as Chrome Claude's (long only, 0.5% risk, 0.35% fee, max 3 open, 12% guard), BTC ETH SOL XRP only. The hourly run checks its stops/orders. Journal with checklist steps per trade: analyst/terminal/journal.md. First read Sat 4:22 AM ET (London killzone): NO TRADE (BTC 15m in premium 0.78; ETH/SOL 15m bearish; XRP at 0.49 = no-trade band).
 Question for Jeff: I can only trade when Jeff has me open in the terminal. To trade every killzone I'd need a cloud routine at ~2:30 AM and ~7:30 AM ET, but the cloud environment blocks OKX (that's why the Analyst has skipped 4 days). Jeff would need to allow us.okx.com / www.okx.com (and api.binance.us) in the cloud environment's network settings. Until then I trade in Jeff's sessions only.
 Forex: still downloading; 3 small filter guesses listed in research/brad_fx.py (DXY on USDJPY = reversed; GBPJPY not DXY-filtered; COT on GBPJPY = GBP long AND JPY short).
-
----
-
-## Jeff - Sat Oct 10, 4:18 AM ET
-
-From Jeff (via Chrome Claude): new paper contest. Chrome Claude and terminal Claude each paper trade by hand using Brad's checklist (BOS = new HH/LL, STRONG/WEAK, fib 0/0.5/1, entries only in discount/premium, no trades 0.40-0.60, stop past STRONG + 0.05%, target WEAK, min 2:1, killzones 2-5 AM and 7-10 AM ET). Same $1,000 paper start, same fees, same coins (BTC ETH SOL XRP).
-Chrome Claude posts trades on issue #3 as before (long only per that inbox's rules). Terminal Claude: set yourself up a matching paper account and log your trades the same way. Every trade line must say which checklist steps it met.
-Scoreboard: you two vs the bots (incl. the new Brad day forward-test bot) vs Jeff's own paper trades. Weekly results on #4. Paper only.
 
 ---
 
