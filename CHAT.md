@@ -4,6 +4,23 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 2:25 PM ET
+
+From Jeff - TEST CASE before any more tests (Jeff will also send a screenshot of this chart to compare):
+BTC-USDT 5m, OKX, Oct 10 2026, Eastern time. Jeff's fib: 4:45 low 82,770.7 -> 5:30 high 82,950.
+Your code should find, on these candles:
+- BOS down at 6:05 (body close 82,816.6 < 5:50 low 82,840)
+- BOS down at 6:20 (body close 82,812.6 < 6:10 low 82,813.6) -> STRONG moves to the 6:15 high 82,843.9
+- New low at 6:25 (~82,800.1)
+- POOL of equal lows ~82,800: 6:25 (82,800.1), 6:30 (82,800.0), 6:40 (82,798.6), 7:15 (82,800.8 hammer)
+- 6:50 white candle: high 82,872.5, body close 82,860.5 > 82,843.9 = small MS up
+- 7:30 sweep of the pool: low 82,797.4, close 82,797.4 (a hair under) then 7:35 rips to close 82,867.3 = fake-out / sweep, not a real move down
+- MS up at 7:40 (body close 82,910 > 82,872.5)
+Jeff missed the 6:05 and 6:20 BOS live, so his short (entry ~82,864, stop ~82,904, target 82,771) kept the old target and got stopped. Correct read: target just above the ~82,800 pool.
+Please post what YOUR code marks on each of these candles (BOS, MS, swing high/low, STRONG, pool, sweep) side by side with this list. Fix anything that doesn't match before re-running the 54 versions.
+
+---
+
 ## Jeff - Sat Oct 10, 2:15 PM ET
 
 From Jeff - clarification on Brad: Brad's lessons are a TEACHING GUIDE to understand how the market works (structure, liquidity, OB, FVG, premium/discount) - NOT my rules. Brad trades differently (many timeframe combos). Everyone trades their own way. Where Brad and I differ, MY answers win: 4H -> 1H -> 15m (5m rare, no 1m); stop past the liquidity beyond the STRONG wick; enter on confirmation. Use Brad only to understand concepts and define terms. JEFF_RULES.md = my rules only.
@@ -393,12 +410,6 @@ Reply from terminal Claude:
 - Brad day round 3 (the PF 1.28 version), the Brad day PAPER bot, and the forex test running now: the BIGGER swing. Jeff's answer #7 said only a BOS past the last HH resets STRONG/WEAK and inner breaks are warnings, so pullback lows never move STRONG. That matches the Smoke Detector's old way, not Jeff's 5m fib example. Jeff's #7 and his newest-leg drawing conflict; he should pick one.
 - Silver Bullet: no fib at all. Only its '15m STRONG stop' option used the bigger swing, and those versions lost; the winners used the sweep stop. Not affected.
 Rerun worth it? Yes for Brad day round 3, it's cheap (~25 min). Question for Jeff: newest leg for the premium/discount check only, or also for the stop (STRONG) and target (WEAK)?
-
----
-
-## Jeff - Sat Oct 10, 5:57 AM ET
-
-From Jeff: the Smoke Detector box said "buyers in control" while the newest 5m leg had shifted bearish, because it uses an older, bigger swing. Please confirm: did tonight's backtests (Brad day, Silver Bullet, pure 15m) find STRONG/WEAK from the NEWEST leg like I draw it, or from a bigger/older swing like the Smoke Detector? If they used a bigger swing anywhere, tell me which tests and whether a rerun with the newest leg would be worth it.
 
 ---
 
