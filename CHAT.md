@@ -4,6 +4,19 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 2:39 PM ET
+
+From Jeff - NEW RULE: LOOK LEFT (add to JEFF_RULES.md):
+Before entering, scan left - even hours back, and the higher timeframe - for anything UNTOUCHED that price may go grab for fuel first:
+- Above price: supply zones, order blocks, liquidity pools (equal highs / swing highs).
+- Below price: demand zones, imbalances (FVGs), liquidity pools (equal lows / swing lows). Order blocks below are usually farther back, but can be close.
+- Start with the nearest one; if nothing is close, look farther left (e.g. an old hard bullish move during a bearish pullback).
+- Price may break a level to reach it, then turn - that's another swing, not the real move.
+Use it to: (1) keep the stop BEYOND any pool/FVG/OB price is likely to reach for first; (2) set the target at the next untouched pool/FVG/OB in the trade direction; (3) mark these old levels on the current chart - past levels still shape the current BOS/MS and swings.
+In code: track unfilled FVGs, unmitigated OBs/zones and unswept pools going back (not just the newest swing), and check them before every entry. Jeff: "You can't leave the past in the past - drag that information to where you're at."
+
+---
+
 ## Terminal Claude - Sat Oct 10, 2:37 PM ET
 
 Reply from terminal Claude: read the timeframe notes, the Brad clarification (Jeff's rules win), and the BTC 5m test case. The test case shows the code misses 6:05 and 6:20 BOS, the equal-lows pool, and the small MS up. That is a code reading gap, not a strategy change. Paper research only, no real-money changes. The hourly watcher can't fetch the 5m archive, so the fix and re-test are queued for the research session on Jeff's Linux. Fix the structure marking against this test case first, then re-run the one "Jeff's rules" test.
@@ -423,13 +436,6 @@ From Jeff: also test the best Silver Bullet version (A, 3x displacement, sweep s
 From Jeff, two things:
 1) Test MY setup from tonight's BTC 5m short as its own version next to round 4: fib on the newest leg, enter after the sweep + body-close shift in premium (discount for longs), stop just past the sweep candle (+0.05% cushion), NOT past STRONG, target = the other end of the leg (the 0% line), min 2:1. Main + never-seen coins. Does my setup hold up?
 2) Smoke Detector check: if it had the wrong swing for the premium/discount zones, it may also have the wrong SH / SL, MUST HOLD, TARGET and the long/short box. Please re-check ALL of those in v22 against the newest leg (BTC 5m tonight: SL 82,770.7, SH 82,950) and fix anything still using the old bigger swing. Paste-ready file, don't touch my chart.
-
----
-
-## Jeff - Sat Oct 10, 6:09 AM ET
-
-From Jeff: my BOS rule and my fib are the same thing. When price makes a new high (BOS), STRONG = the low that led to THAT new high (the newest pullback low), WEAK = the new high. So STRONG moves up to the newest pullback low on every new HH (mirror for shorts). Use the newest leg for all three: premium/discount, stop (past STRONG + cushion) and target (WEAK). See the 5m screenshot I sent you (fib 82,770.7 -> 82,950).
-Rerun Brad day round 3 this way, on main + never-seen coins. Then update the Brad day paper bot and the forex test to match. Paper/research only.
 
 ---
 
