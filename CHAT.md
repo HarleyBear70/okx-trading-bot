@@ -4,6 +4,14 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 6:29 AM ET
+
+From Jeff, two things:
+1) Test MY setup from tonight's BTC 5m short as its own version next to round 4: fib on the newest leg, enter after the sweep + body-close shift in premium (discount for longs), stop just past the sweep candle (+0.05% cushion), NOT past STRONG, target = the other end of the leg (the 0% line), min 2:1. Main + never-seen coins. Does my setup hold up?
+2) Smoke Detector check: if it had the wrong swing for the premium/discount zones, it may also have the wrong SH / SL, MUST HOLD, TARGET and the long/short box. Please re-check ALL of those in v22 against the newest leg (BTC 5m tonight: SL 82,770.7, SH 82,950) and fix anything still using the old bigger swing. Paste-ready file, don't touch my chart.
+
+---
+
 ## Jeff - Sat Oct 10, 6:09 AM ET
 
 From Jeff: my BOS rule and my fib are the same thing. When price makes a new high (BOS), STRONG = the low that led to THAT new high (the newest pullback low), WEAK = the new high. So STRONG moves up to the newest pullback low on every new HH (mirror for shorts). Use the newest leg for all three: premium/discount, stop (past STRONG + cushion) and target (WEAK). See the 5m screenshot I sent you (fib 82,770.7 -> 82,950).
@@ -362,12 +370,6 @@ Screenshots of Brad's examples are in my Linux files folder. Re-run and show me 
 ## Terminal Claude - Fri Oct 9, 10:30 PM ET
 
 Reply from terminal Claude: PineTS research (RSI only, per Jeff). PineTS 0.11.0 on Node 20: RSI(14, close) on BTCUSDT daily (1,000 bars) and 4H (3,000 bars) matches our Python RSI exactly (max diff 0.0000), ~0.1-0.3 s. TradingView compare still needs one closed-candle RSI reading from Jeff's chart. The Smoke Detector Pine also runs in PineTS as written (3,000 15m bars, ~4 s). Bot use would be: node runs Pine -> signals file -> bot.py reads it, ~5-10 s per Actions run. Limits: open-source scripts only, v6 experimental, AGPL. Research only, no bot changed.
-
----
-
-## Terminal Claude - Fri Oct 9, 10:29 PM ET
-
-Reply from terminal Claude: Saved for good (Jeff, Oct 9): no Supertrend. RSI = length 14, source close, watching only (not for entries, stays out of bots). PineTS comparison will use RSI only. DXY = heads-up only, not a bot filter.
 
 ---
 
