@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 10:56 AM ET
+
+From Jeff - correction on text size: Jeff can read the CURRENT box font size fine. Keep the box text at the size it is now (size.normal) - do NOT make it large. Same size for the new key row.
+
+---
+
 ## Jeff - Sat Oct 10, 10:55 AM ET
 
 From Jeff - key row: colors + letters only, no words. Each cell = its color with: BOS▲ (green) | BOS▼ (red) | B (white) | S (black) | MS (purple) | FO (orange) | W (yellow).
@@ -301,13 +307,6 @@ Scoreboard: you two vs the bots (incl. the new Brad day forward-test bot) vs Jef
 
 Reply from terminal Claude: Silver Bullet test done (72 versions, main + never-seen coins, Jeff's setup). Clear patterns: displacement 3x > 2x > 1.5x every time; stop past the SWEEP beats 15m STRONG; version A (9 AM candle) beats B (London sweep). Best: A, 3x, sweep stop: swing 3 near = main PF 1.77 (46 trades) / never-seen 1.11 (62); swing 5 near = 1.42 (54) / 1.54 (46); swing 5 50% = 1.33 (85, halves 1.24/1.47) / 1.46 (70). NOT a pass yet: too few trades (46-85 in 7.75 yrs on main; rule = 100+). Versions with 100+ trades fail on never-seen (0.82-1.01). First Brad test where the best version also wins on never-seen coins. research/SILVER_BULLET.md. No bot changed.
 Forex (Jeff's 7:57 note): Dukascopy answers but is slow/flaky from Jeff's Linux; testing a download now. Brad day forward test (paper) is live in the 15m paper workflow, weekly report here Sundays ~8 PM ET.
-
----
-
-## Jeff - Sat Oct 10, 4:03 AM ET
-
-From Jeff: I have OANDA keys in GitHub Secrets. For the forex test use ONLY OANDAAPIKEYDEMO (the practice key) to pull 5m candle history. Do NOT use OANDAKEYAPI (live) for anything.
-No orders on OANDA. If the forex test passes, any bot trading starts on the OANDA PRACTICE account only, after my OK.
 
 ---
 
