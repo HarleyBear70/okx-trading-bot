@@ -113,3 +113,26 @@ Cushion 0.05% beats no cushion in every pair (forex much more: 0.57 -> 0.75), be
 
 
 Verdict: FAILS. Best PF 0.81 (swing 5, 50%). Deeper fib entries are worse every time (tighter stops, more fee drag). The flat filter barely changes PF. Swing 1 doubles trades and is worse.
+
+## Oct 9 round 3: Jeff's body-to-body breaks vs wick breaks (`python3 research/pure15.py v3`)
+
+
+### BTC ETH SOL XRP, 15m only, wick vs body breaks, 0.05% cushion, close entry at 50%, 2:1, Binance.US
+
+| Version | Trades/yr | Win % | Avg win | Avg loss | PF | Avg | Max DD | 2019-22 PF | 2023-now PF | Long PF | Short PF |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| swing 1, wick breaks, flat off | 8039 | 23% | +3.26R | -1.31R | 0.74 | -0.27R | 16702R | 0.75 | 0.72 | 0.72 | 0.75 |
+| swing 1, body breaks, flat off | 7309 | 24% | +3.14R | -1.28R | 0.76 | -0.23R | 13273R | 0.78 | 0.74 | 0.74 | 0.78 |
+| swing 1, wick breaks, flat after 8 candles | 7340 | 23% | +3.23R | -1.30R | 0.73 | -0.27R | 15553R | 0.74 | 0.72 | 0.71 | 0.75 |
+| swing 1, body breaks, flat after 8 candles | 6871 | 24% | +3.11R | -1.28R | 0.76 | -0.24R | 12733R | 0.77 | 0.74 | 0.73 | 0.78 |
+| swing 3, wick breaks, flat off | 4158 | 22% | +3.39R | -1.22R | 0.79 | -0.20R | 6368R | 0.81 | 0.78 | 0.79 | 0.79 |
+| swing 3, body breaks, flat off | 4003 | 23% | +3.27R | -1.21R | 0.79 | -0.19R | 6050R | 0.79 | 0.79 | 0.79 | 0.79 |
+| swing 3, wick breaks, flat after 8 candles | 2685 | 23% | +3.23R | -1.20R | 0.79 | -0.19R | 4005R | 0.79 | 0.80 | 0.77 | 0.82 |
+| swing 3, body breaks, flat after 8 candles | 3015 | 23% | +3.16R | -1.19R | 0.78 | -0.20R | 4712R | 0.79 | 0.77 | 0.79 | 0.77 |
+| swing 5, wick breaks, flat off | 2890 | 22% | +3.45R | -1.19R | 0.81 | -0.18R | 4056R | 0.79 | 0.82 | 0.80 | 0.81 |
+| swing 5, body breaks, flat off | 2801 | 22% | +3.40R | -1.18R | 0.83 | -0.16R | 3454R | 0.80 | 0.85 | 0.83 | 0.83 |
+| swing 5, wick breaks, flat after 8 candles | 1502 | 22% | +3.29R | -1.17R | 0.80 | -0.18R | 2133R | 0.78 | 0.82 | 0.76 | 0.84 |
+| swing 5, body breaks, flat after 8 candles | 1786 | 23% | +3.27R | -1.17R | 0.82 | -0.16R | 2231R | 0.81 | 0.83 | 0.83 | 0.82 |
+
+
+Body way is a little better in 5 of 6 pairs (best: swing 5 body, PF 0.83). Still fails. Answer-key check vs Jeff's hand-marked BTC breaks Sep 29-30: swing 1 body catches 5 of 7, swing 5 only 1, but swing 1 also breaks 8 times inside Jeff's flat periods.
