@@ -4,6 +4,38 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 2:32 PM ET
+
+TEST CASE: BTC-USDT 5m OKX, Oct 10 2026 (ET). Your list vs what my code marks. Real OKX candles.
+
+                                    YOUR LIST                         MY CODE (the 54-version test, any swing size)
+5:25-5:30 leg                       4:45 low 82,770.7 -> 5:30 high    MS UP at 5:25, STRONG = 3:20 low 82,635.7   X
+6:05 BOS down (close 82,816.6)      YES                               nothing (still an UP leg)                    X
+6:20 BOS down, STRONG -> 82,843.9   YES                               nothing                                      X
+6:25-7:15 pool ~82,800              4 equal lows                      only "the last swing low"                    X
+6:50 small MS up (> 82,843.9)       YES                               nothing                                      X
+7:30 sweep of the pool              fake-out                          not seen as a sweep (close was under)        X
+7:40 MS up (> 82,872.5)             YES                               nothing                                      X
+=> my code missed almost everything. The 54-version test is NOT valid. Re-run only after this matches.
+
+A FIXED VERSION (swing 1, STRONG moves on every new high, MS = body close past STRONG's wick) gets close:
+6:05 BOS down  OK | 6:20 BOS down, STRONG 6:15 82,843.9  OK | 7:40 MS up past 82,872.5  OK
+but still differs on 3 things where I need YOUR answer:
+
+Q1. What turned the leg DOWN before 6:05?  With STRONG at 4:45 (82,770.7) no candle closed under it,
+    so by your MS rule the leg was still UP. The code only matches you if the 5:30 high moved STRONG up
+    to the 5:25 low (82,878.1), so the 5:45 close (82,850.7) was an MS down. Is that how you see it?
+    Or do you treat the pullback from 5:30 as its own small leg?
+Q2. 6:40 wicked to 82,798.6 but closed 82,814. I'll count that as a sweep, NOT a BOS down (body didn't close
+    past). Then 6:50 is your small MS (> 82,843.9). OK?
+Q3. 7:30 closed 82,797.4, under the 6:40 low 82,798.6 by 1.2 points. By your MS rule that IS an MS down.
+    You call it a fake-out, but your 7:40 "MS up past 82,872.5" only works if 7:30 flipped it down first.
+    So is a fake-out = an MS that gets reversed right after (like 7:35-7:40)? The trade logic is the same either way.
+Q4. POOL: your 4 equal lows are within 2.2 points (82,798.6 - 82,800.8 = 0.003%). How close is "equal"?
+    I'd test 0.01% / 0.02% / 0.05% apart with at least 2 touches. OK, or another number?
+
+---
+
 ## Jeff - Sat Oct 10, 2:25 PM ET
 
 From Jeff - TEST CASE before any more tests (Jeff will also send a screenshot of this chart to compare):
@@ -397,19 +429,6 @@ Rerun Brad day round 3 this way, on main + never-seen coins. Then update the Bra
 Reply from terminal Claude:
 1) FOREX test of the best Brad day version: FAILS. Data = OANDA practice M5 2019-now with real spreads (practice key, read-only; Dukascopy refused bulk downloads). 5 pairs EURUSD GBPUSD GBPJPY USDJPY XAUUSD. London+NY PF 0.74 (12 trades/yr), NY only 0.90, London only 0.60. DXY filter (built from the ICE formula, 4H structure) makes every version worse. COT filter lifts main pairs to PF 1.47-1.95 but only 1-4 trades/yr (~10-30 trades total) and never-seen AUDUSD fails (0.46-0.59). Note: this used the BIGGER swing (answer #7). research/BRAD_FX.md.
 2) Smoke Detector v22 updated after Jeff's 6:00 AM screenshot: newest leg = from the low that led to the newest high, to that high; redraws on each new high; pullbacks stay inside the leg. On OKX BTC 5m it now draws 82,770.7-82,950 (50% 82,860), Jeff's fib; old way still 82,635.7-82,950. Own setting 'Newest leg: swing size' = 2 (1 flipped too often). File: From Claude/Smoke_Detector_v22_newest_leg.pine.txt (paste-ready; Jeff's chart not touched). Jeff's 0% looked ~82,800 = the body bottom of the 4:45 AM candle (wick 82,770.7).
-
----
-
-## Terminal Claude - Sat Oct 10, 6:01 AM ET
-
-Reply from terminal Claude:
-1) Smoke Detector v22 (paste-ready, chart not touched): Jeff's Linux 'Claude Files/From Claude/Smoke_Detector_v22_newest_leg.pine.txt', also pine/smoke_detector_v22.pine. New setting 'Premium/discount shading follows': 'Newest leg (my fib)' (default) or 'Bigger swing (old way)'. Newest leg = the newest low that led to the newest high (up leg) or mirror; redraws on every new high (up) / new low (down); the pullback low becomes the new bottom only once price makes a new high, so pullbacks show as discount of the current leg. A body close past the newest small swing (leg swing size setting, default 1) flips the leg. The corner box now says 'Newest leg UP/DOWN | big swing: UP/DOWN', and the long/short box stop goes past the leg's end. Checked it runs in PineTS on BTC 5m. Leg size 1 flips often on 5m; raise 'leg swing size' to 2-3 if it's too jumpy.
-2) Which swing tonight's tests used:
-- Pure 15m (all rounds): NEWEST leg (newest swing low -> highest high since). Like Jeff draws.
-- Brad day rounds 1-2: close to newest leg (every body break of any swing reset STRONG/WEAK).
-- Brad day round 3 (the PF 1.28 version), the Brad day PAPER bot, and the forex test running now: the BIGGER swing. Jeff's answer #7 said only a BOS past the last HH resets STRONG/WEAK and inner breaks are warnings, so pullback lows never move STRONG. That matches the Smoke Detector's old way, not Jeff's 5m fib example. Jeff's #7 and his newest-leg drawing conflict; he should pick one.
-- Silver Bullet: no fib at all. Only its '15m STRONG stop' option used the bigger swing, and those versions lost; the winners used the sweep stop. Not affected.
-Rerun worth it? Yes for Brad day round 3, it's cheap (~25 min). Question for Jeff: newest leg for the premium/discount check only, or also for the stop (STRONG) and target (WEAK)?
 
 ---
 
