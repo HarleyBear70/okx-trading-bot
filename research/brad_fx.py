@@ -48,13 +48,24 @@ DXY_W = {"EURUSD": -0.576, "USDJPY": 0.136, "GBPUSD": -0.119, "USDCAD": 0.091, "
 
 
 def load(pair):
-    """OANDA M5 rows [ts, o, h, l, c (mid), spread at close, volume] from research/.cache/oanda5/."""
-    import gzip
-    import json
-    rows = json.load(gzip.open(os.path.join(HERE, ".cache", "oanda5", f"{OANDA[pair]}_M5.json.gz"), "rt"))
-    out = {"ts": array.array("q", (r[0] for r in rows))}
-    for j, k in enumerate(("o", "h", "l", "c", "sp"), 1):
-        out[k] = array.array("d", (r[j] for r in rows))
+    """OANDA M5 rows [ts, o, h, l, c (mid), spread at close, volume] from research/.cache/oanda5/,
+    turned into compact arrays once (research/.cache/bin/OA5_*) so the Chromebook doesn't run out of memory."""
+    keys = ("ts", "o", "h", "l", "c", "sp")
+    path = lambda k: os.path.join(HERE, ".cache", "bin", f"OA5_{pair}_{k}.bin")
+    if not os.path.exists(path("sp")):
+        import gzip
+        import json
+        rows = json.load(gzip.open(os.path.join(HERE, ".cache", "oanda5", f"{OANDA[pair]}_M5.json.gz"), "rt"))
+        for j, k in enumerate(keys):
+            array.array("q" if k == "ts" else "d", (r[j] for r in rows)).tofile(open(path(k), "wb"))
+        del rows
+        gc.collect()
+    out = {}
+    for k in keys:
+        x = array.array("q" if k == "ts" else "d")
+        with open(path(k), "rb") as f:
+            x.frombytes(f.read())
+        out[k] = x
     return out
 
 
@@ -62,25 +73,31 @@ def dxy_series():
     """the dollar index from its six currencies (ICE formula), 5m candles where all six have one."""
     import math
     parts = {p: load(p) for p in DXY_W}
-    common = set(parts["EURUSD"]["ts"])
-    for p in DXY_W:
-        common &= set(parts[p]["ts"])
-    ts = sorted(common)
-    idx = {p: {t: i for i, t in enumerate(parts[p]["ts"])} for p in DXY_W}
-    out = {"ts": array.array("q", ts)}
-    for k in "ohlc":
-        col = array.array("d")
-        for t in ts:
-            v = math.log(50.14348112)
+    ptr = {p: 0 for p in DXY_W}
+    out = {k: array.array("q" if k == "ts" else "d") for k in ("ts", "o", "h", "l", "c")}
+    base = math.log(50.14348112)
+    for t in parts["EURUSD"]["ts"]:
+        ok = True
+        for p in DXY_W:
+            ts_, j = parts[p]["ts"], ptr[p]
+            while j < len(ts_) and ts_[j] < t:
+                j += 1
+            ptr[p] = j
+            if j >= len(ts_) or ts_[j] != t:
+                ok = False
+        if not ok:
+            continue
+        vals = []
+        for k in "ohlc":
+            v = base
             for p, w in DXY_W.items():
-                v += w * math.log(parts[p][k][idx[p][t]])
-            col.append(math.exp(v))
-        out[k] = col
-    # with negative weights a pair's high is the index's low: keep each candle's high/low consistent
-    for i in range(len(ts)):
-        hi = max(out["o"][i], out["h"][i], out["l"][i], out["c"][i])
-        lo = min(out["o"][i], out["h"][i], out["l"][i], out["c"][i])
-        out["h"][i], out["l"][i] = hi, lo
+                v += w * math.log(parts[p][k][ptr[p]])
+            vals.append(math.exp(v))
+        o, h, l, c = vals
+        out["ts"].append(t)
+        # negative weights turn a pair's high into the index's low: keep each candle consistent
+        for k, v in zip("ohlc", (o, max(vals), min(vals), c)):
+            out[k].append(v)
     return out
 
 
@@ -181,7 +198,7 @@ def main():
         del d, md
         gc.collect()
     for grp, title in (("main", "EURUSD GBPUSD GBPJPY USDJPY XAUUSD"), ("unseen", "NEVER-SEEN AUDUSD")):
-        print(f"\n### Brad day best version on forex, {title}, real Dukascopy spreads\n")
+        print(f"\n### Brad day best version on forex, {title}, real OANDA spreads\n")
         print("| Version | Trades/yr | Win % | Avg win | Avg loss | PF | Avg | Max DD | 2019-22 PF | 2023-now PF | "
               "Long PF | Short PF |\n|---|---|---|---|---|---|---|---|---|---|---|---|")
         for v in vers:
