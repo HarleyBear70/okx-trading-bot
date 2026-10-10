@@ -4,6 +4,15 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Sat Oct 10, 9:25 AM ET
+
+From terminal Claude: **Counter-trend test (Jeff's question: long in discount while the leg is still DOWN).** Same 5m sweep + shift entry, stop below the sweep low, target = top of the down leg or its 0.5, min 2:1, shorts mirrored.
+- Main coins: round 3 with-trend PF 1.28 (16/yr) vs counter-trend PF **0.53** (33/yr). Round 5 with-trend 1.20 (6/yr) vs counter-trend **0.55** (43/yr). 0.5 target: PF 0.2-0.3.
+- Never-seen coins: counter-trend PF 0.58-0.59.
+- Win rate only 12-16%. Verdict: counter-trend adds trades but loses; the Smoke box's "wait for premium" is right. No bot or chart changed. Code: research/brad_day.py v7, results in research/BRAD_DAY.md.
+
+---
+
 ## Jeff - Sat Oct 10, 8:46 AM ET
 
 From Jeff - v23 add-on (final color list for the Smoke Detector):
@@ -302,82 +311,6 @@ WHAT I NEED FROM YOU
  1. London hours and NY hours in ET (B4).
  2. OK or fix each [GUESS], especially: displacement size (E4), FVG only (E5), entry edge (E6),
     minimum 2:1 (T2), swing size (E2), 11 AM / 12 PM cut-offs (A5).
-
----
-
-## Jeff - Sat Oct 10, 2:15 AM ET
-
-EVERY RULE THE BRAD DAY-TRADE BOT USES (Oct 10 2026)
-[JEFF] = your rule   [BRAD] = from Brad's videos (episode)   [GUESS] = my choice, needs your OK
-[GUESS-OK] = one of the 5 choices you already approved this morning
-Nothing new runs until you approve or fix every [GUESS].
-
-TIMEFRAMES
- 1. 4H = the story, 15m = the map (bias + zones), 5m = the entry.                    [BRAD Ep 11, Ep 18]
- 2. All three timeframes are built from the same 5m candles (Binance BTCUSDT etc.).    [GUESS]
-    (Your chart is OKX, so prices can differ by a few dollars.)
-
-STRUCTURE (same on 4H, 15m and 5m)
- 3. A swing high = a candle with N candles on each side lower. N = 1, 3 or 5 (testing).  [JEFF]
- 4. Same N on every timeframe.                                                          [JEFF]
- 5. A break only counts when a candle BODY closes past the old swing candle's BODY.     [JEFF body to body; BRAD Ep 5 body close]
- 6. Close above = bullish. It's a market shift if it was bearish, a BOS if already bullish. [BRAD Ep 5]
- 7. EVERY body break of a swing resets STRONG/WEAK. There is no separate iBOS yet.     [GUESS] <- CONFLICTS with your note:
-    you wrote "breaks that don't make a new strong/weak range = iBOS, early warning only." The bot doesn't do this yet.
- 8. STRONG low = the lowest low between the broken swing high and the break candle.    [JEFF + BRAD Ep 5, Ep 15]
- 9. WEAK high = the highest high since then (keeps moving up).                          [JEFF + BRAD Ep 5, Ep 15]
-10. Fib: 1 = STRONG, 0 = WEAK, 0.5 = middle. Below 0.5 = discount, above = premium.      [JEFF + BRAD Ep 8]
-11. The middle is exactly the 0.5 line (no "no-trade band" around it).                  [GUESS]
-
-4H (THE STORY)
-12. Buy only when price is in the 4H discount, sell only in the 4H premium.             [BRAD Ep 8, Ep 11]
-13. The 4H trend direction itself is NOT required, only the half.                       [GUESS-OK #1]
-
-15m (THE MAP)
-14. Buy only while the 15m is bullish, sell only while it's bearish.                    [BRAD Ep 11, Ep 18]
-15. Demand zone = the candle at the STRONG low of each bullish BOS/market shift
-    (the zone that caused the break).                                                   [BRAD Ep 7, Ep 10, Ep 18]
-16. Zone types: PIVOT = that one candle, high to low.                                    [BRAD Ep 7]
-17.             RANGE = that candle plus the N candles before it, highest high to lowest low. [GUESS-OK #2]
-18. The zone must be in the 15m discount (zone top at or below the 15m 0.5) when price reaches it. [BRAD Ep 8, Ep 25]
-19. The discount check happens at the moment price first touches the zone.              [GUESS]
-20. Several zones touched = use the deepest.                                            [GUESS-OK #3, BRAD "extreme wins"]
-21. One try per zone, taken or skipped.                                                 [GUESS]
-22. A zone is dead when a 15m candle closes below it, or when the 15m turns bearish.    [GUESS]
-23. Price in the middle of nowhere (not in a zone) = do nothing.                         [BRAD Ep 11, Ep 18]
-
-5m (THE ENTRY), only after price touches the 15m zone
-24. Sweep: a 5m wick goes below the last 5m swing low AFTER price touched the zone.     [BRAD Ep 13, Ep 18 "no sweep, no entry"; GUESS: must come after the touch]
-25. Then a 5m body closes above the last 5m swing high body (a BOS or a shift both count). [BRAD Ep 18; GUESS: a BOS counts too]
-26. Limit order at the TOP edge of the 5m zone that caused that break (same pivot/range rule). [BRAD Ep 18 "market shift entry"; GUESS: top edge]
-27. Price never comes back to the order = no trade.                                     [BRAD Ep 18]
-28. Order is cancelled if price reaches the target before it fills.                      [GUESS]
-29. Order is cancelled if the 15m turns bearish or the zone dies.                        [GUESS]
-30. If price makes a new low after the shift, the bot waits for another shift.            [BRAD Ep 18 fake shift]
-
-STOP / TARGET / MANAGEMENT
-31. Stop = below the 5m SWEEP low + your 0.05% cushion.                                 [BRAD Ep 18 + JEFF cushion] <- DIFFERS from your note:
-    you wrote "stop past STRONG + my cushion". Which STRONG: the 15m strong low (much wider stop), or the 5m sweep low?
-32. Skip if the stop is more than 1.35% away.                                           [JEFF]
-33. Target = the nearest untouched 15m swing high (minus cushion) that gives 2:1 or more. [JEFF "next swing, min 2:1"] <- DIFFERS from your note:
-    you wrote "target WEAK, at least 2R". WEAK = the 15m fib 0 (the newest high). Use that instead?
-34. No target that gives 2:1 = skip.                                                     [JEFF + BRAD Ep 25]
-35. Set and forget: full stop or full target, no trailing, no partials.                  [BRAD Ep 17]
-36. If the order fills and hits the stop in the same 5m candle, count it as a loss.      [GUESS, the safe way]
-
-SIDES, COSTS, COINS, TIMES
-37. Longs and shorts; shorts are the exact mirror.                                       [JEFF both directions]
-38. One trade per coin at a time.                                                        [GUESS]
-39. Fees: entry = maker 0% (limit order). Stop exits = 0.02% taker + 0.02% slippage. Target = 0%. [JEFF]
-40. Killzones: entries only 2-5 AM and 7-10 AM ET.                                       [JEFF rule 19]
-41. Killzone check = the FILL time. Outside the killzones the order waits and can fill later. [GUESS]
-42. Coins BTC ETH SOL XRP, 2019 to Sep 30 2026.                                          [JEFF coins]
-43. No news filter, no daily loss limit, no Monday/Friday rule.                          [GUESS, not in Ep 11's steps]
-
-THE 3 BIG ONES TO DECIDE (they change the trades the most):
- #7  iBOS: should small breaks that don't make a new strong/weak only be a warning?
- #31 Stop: below the 5m sweep low (now), or below the 15m STRONG low?
- #33 Target: next 15m swing that gives 2:1 (now), or the 15m WEAK high?
 
 ---
 
