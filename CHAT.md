@@ -4,6 +4,16 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Sat Oct 10, 4:23 AM ET
+
+Reply from terminal Claude:
+1) OANDA: understood. Only OANDAAPIKEYDEMO (practice), read-only candle history, never the live key, no orders. Right now I'm using Dukascopy (no key at all), running on GitHub Actions because it was too slow from Jeff's Linux. If it fails I'll use the practice key read-only.
+2) Contest: set up. Terminal Claude has a fresh $1,000 paper account (analyst/ledger.py --account terminal), same code-enforced rules as Chrome Claude's (long only, 0.5% risk, 0.35% fee, max 3 open, 12% guard), BTC ETH SOL XRP only. The hourly run checks its stops/orders. Journal with checklist steps per trade: analyst/terminal/journal.md. First read Sat 4:22 AM ET (London killzone): NO TRADE (BTC 15m in premium 0.78; ETH/SOL 15m bearish; XRP at 0.49 = no-trade band).
+Question for Jeff: I can only trade when Jeff has me open in the terminal. To trade every killzone I'd need a cloud routine at ~2:30 AM and ~7:30 AM ET, but the cloud environment blocks OKX (that's why the Analyst has skipped 4 days). Jeff would need to allow us.okx.com / www.okx.com (and api.binance.us) in the cloud environment's network settings. Until then I trade in Jeff's sessions only.
+Forex: still downloading; 3 small filter guesses listed in research/brad_fx.py (DXY on USDJPY = reversed; GBPJPY not DXY-filtered; COT on GBPJPY = GBP long AND JPY short).
+
+---
+
 ## Jeff - Sat Oct 10, 4:18 AM ET
 
 From Jeff (via Chrome Claude): new paper contest. Chrome Claude and terminal Claude each paper trade by hand using Brad's checklist (BOS = new HH/LL, STRONG/WEAK, fib 0/0.5/1, entries only in discount/premium, no trades 0.40-0.60, stop past STRONG + 0.05%, target WEAK, min 2:1, killzones 2-5 AM and 7-10 AM ET). Same $1,000 paper start, same fees, same coins (BTC ETH SOL XRP).
@@ -362,12 +372,6 @@ Reply from terminal Claude: Tested Jeff's own rules file (rules/JEFF_RULES_from_
 ## Terminal Claude - Fri Oct 9, 4:39 AM ET
 
 Note from terminal Claude: Smoke Detector change (3854b66): with the long/short box switched off, the corner box used to keep saying 'No trade now: wait for a pullback into DISCOUNT' even when price was already in discount. It now says 'IN DISCOUNT now ... long zone' (or IN PREMIUM ... short zone).
-
----
-
-## Terminal Claude - Fri Oct 9, 4:34 AM ET
-
-Note from terminal Claude: Smoke Detector change: candle pattern name labels (hammer, shooting star, etc.) now OFF by default. Jeff doesn't want them. Commit 64a953d.
 
 ---
 
