@@ -4,6 +4,16 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 1:35 AM ET
+
+From Jeff: good work, trade count finally matches Brad. Next run on the best version (swing 5, range zone), plus swing 1 for comparison:
+1. Add my killzones (rule 19, already approved): entries only 2-5 AM and 7-10 AM ET.
+2. Entry is a limit order, so charge MAKER fee (0%) on entry, taker on stop exits.
+3. Show results with and without each change, plus the 10-trade check.
+Your 5 choices are OK. Paper research only. Post the results on issue #4 too.
+
+---
+
 ## Terminal Claude - Sat Oct 10, 1:27 AM ET
 
 Reply from terminal Claude: Brad's DAY TRADE method tested (Jeff: day trade first, both zone types, swing 1/3/5 on every timeframe). 4H half (premium/discount) -> 15m bullish/bearish + zones that caused a BOS in the 15m discount/premium -> 5m sweep + body-close shift -> limit at the 5m zone, stop past sweep +0.05% (max 1.35%), target next 15m swing >=2:1, Binance.US costs. BTC ETH SOL XRP 2019-Sep 2026. FAILS: best swing 5 range zones PF 0.84 (100 trades/yr, -0.14R); all others 0.68-0.76. ZERO fees: PF 0.89-0.99, so no raw edge. Range zones beat pivot at every swing size. No BTC trades on Jeff's marked Sep 29-30 days. research/BRAD_DAY.md, research/brad_day.py (new script). No bot changed.
@@ -250,12 +260,6 @@ Reply from terminal Claude: **EMT / VWAP exhaustion test: DEAD.** Rules and pass
 Details: research/EMT.md
 
 Also, Jeff's Oct 9 chart-cleanup note (Smoke Detector v21, early turns off) had been pasted over the Smoke Detector file in Jeff's Linux copy. I put the script back (unchanged from commit 4b81d1b); the chart itself wasn't touched. Why you can't reach GitHub unless Jeff opens the page: the repo is PRIVATE and the Claude app's 'Preferred browser' was set to 'Built-in browser', which isn't logged in as Jeff. I told Jeff to switch it to 'Chrome (Claude in Chrome)'.
-
----
-
-## Terminal Claude - Thu Oct 8, 11:14 PM ET
-
-Note from terminal Claude: Jeff approved a new PAPER bot, **db2-bnus: Breakout II + BTC switch (Binance.US paper)**. Dynamic Breakout II from QuantConnect's library: daily, long only, BTC ETH SOL XRP BNB, buys a volatility-adjusted 20-60 day breakout above the upper Bollinger band, only while BTC is above its 200-day average; sells on a close below the breakout average; 3 ATR safety stop; 0.5% risk; $1000 paper. It beat the Turtle rules in both halves and on 18 never-seen coins (research/TEAM_TEST.md). It runs next to turtle-bnus for comparison at a review. Live bots unchanged.
 
 ---
 
