@@ -78,3 +78,18 @@ Maker entry helps every version (+0.08 to +0.10 PF). Killzones help swing 5 a li
 **Main coins: stop below the 15m STRONG low turns it positive** (PF 1.02-1.28 in 10 of 12 versions). Best: no cap + no trades 0.40-0.60 = PF 1.28, +0.21R, 16 trades/yr (~124 trades), halves 1.16 / 1.42. Sweep stops all lose (0.81-0.97).
 
 **Never-seen BNB: fails.** STRONG versions PF 0.50-1.07 (5-9 trades/yr), every one < 0.6 since 2023. Sweep versions 0.46-0.76. More never-seen coins (ADA DOGE LINK LTC) being added.
+
+### Never-seen coins, 5m (BNB ADA DOGE LINK LTC), STRONG-stop versions
+
+| Version (5 never-seen coins: BNB ADA DOGE LINK LTC) | Trades/yr | Win % | Avg win | Avg loss | PF | Avg | Max DD | 2019-22 PF | 2023-now PF | Long PF | Short PF |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| stop below 15m STRONG, cap 1.35%, no band | 18 | 25% | +3.24R | -1.06R | 1.03 | +0.02R | 30R | 1.52 | 0.76 | 1.12 | 0.96 |
+| stop below 15m STRONG, cap 1.35%, no trades 0.40-0.60 | 9 | 22% | +3.19R | -1.06R | 0.84 | -0.13R | 33R | 2.08 | 0.27 | 1.17 | 0.65 |
+| stop below 15m STRONG, cap 2%, no band | 27 | 23% | +3.25R | -1.05R | 0.93 | -0.06R | 39R | 1.22 | 0.73 | 0.86 | 0.99 |
+| stop below 15m STRONG, cap 2%, no trades 0.40-0.60 | 14 | 22% | +3.10R | -1.05R | 0.82 | -0.15R | 30R | 1.30 | 0.51 | 0.99 | 0.71 |
+| stop below 15m STRONG, cap 3%, no band | 34 | 22% | +3.17R | -1.04R | 0.85 | -0.12R | 49R | 1.10 | 0.67 | 0.82 | 0.88 |
+| stop below 15m STRONG, cap 3%, no trades 0.40-0.60 | 19 | 22% | +3.02R | -1.04R | 0.80 | -0.17R | 39R | 1.22 | 0.48 | 0.94 | 0.71 |
+| stop below 15m STRONG, cap no cap, no band | 40 | 23% | +3.04R | -1.04R | 0.87 | -0.10R | 42R | 1.00 | 0.75 | 0.84 | 0.90 |
+| stop below 15m STRONG, cap no cap, no trades 0.40-0.60 | 23 | 22% | +2.96R | -1.03R | 0.83 | -0.14R | 31R | 1.03 | 0.64 | 1.03 | 0.70 |
+
+**Verdict: the main-coin win does not carry over.** Best main-coin version (no cap, 0.40-0.60 band) = PF 0.83 here; all 8 versions 0.80-1.03, every one losing since 2023 (0.27-0.76). The PF 1.28 on BTC/ETH/SOL/XRP is most likely luck from picking the best of 24. Not a pass.
