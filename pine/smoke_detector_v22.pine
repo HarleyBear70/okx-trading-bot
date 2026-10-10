@@ -15,9 +15,9 @@
 // Long/short box: only shows when price is in the right zone (discount in an uptrend = long, premium in a downtrend = short).
 // Stop = just past the MUST HOLD level (small cushion so a wick into the liquidity doesn't stop you out).
 // TP1 = just before the nearest liquidity (old high/low), TP2 = the -27% Fib extension. GOOD / SKIP = Jeff's % rules.
-// PREMIUM/DISCOUNT (Oct 10 2026 v22): by default the shading follows the NEWEST leg, like Jeff draws his fib: the newest
-// low that led to the newest high, to that high (up leg), or the mirror (down leg), using the leg swing size below. It
-// redraws every time a new high (up leg) or new low (down leg) forms; a body close past the newest small swing flips it.
+// PREMIUM/DISCOUNT (Oct 10 2026 v22): by default the shading follows the NEWEST leg, like Jeff draws his fib: from the
+// low that led to the newest high, to that high (up leg), or the mirror (down leg), redrawn at every new high (low).
+// A body close past the newest swing low (high) flips the leg. The long/short box stop goes past the leg's end.
 // "Bigger swing (old way)" in the settings brings back the old MUST HOLD-to-extreme range.
 // Hover over the box labels for the full details. Read the daily first, then the 4H. Not a buy signal by itself.
 // EARLY TURNS (Oct 8): BLUE "▲ early" / PINK "▼ early" = a small market shift (swings of 2 candles), the little turn
@@ -48,6 +48,7 @@ minTpPct  = input.float(2.0, "My rule: min take profit (%)", minval=0.1, step=0.
 showEarly = input.bool(false, "Show early turns (small market shifts)")
 legLen    = input.int(1, "Market shift: leg swing size (candles each side)", minval=1, maxval=5)
 fibMode   = input.string("Newest leg (my fib)", "Premium/discount shading follows", options=["Newest leg (my fib)", "Bigger swing (old way)"])
+nLen      = input.int(2, "Newest leg: swing size (candles each side)", minval=1, maxval=5)
 miniLen   = input.int(2, "Early-turn swing size (candles each side)", minval=1, maxval=5)
 showPat   = input.bool(false, "Show candle pattern names (only away from the middle)")
 
@@ -158,25 +159,31 @@ if trend == 1 and not legHd and close > legH
     if not na(legL) and not na(strong) and legL > strong
         strong := legL
 
-// Newest leg (Jeff's fib, Oct 10 2026 v22). Up leg: fib from the newest low that led to the newest high, to that high.
-// Each NEW HIGH redraws it: if price pulled back and made a small swing low since the last high, that pullback low
-// becomes the new bottom. While price pulls back (no new high yet) the fib stays put, so the pullback shows as
-// premium/discount of the current leg. A body close past the newest small swing flips the leg. Down leg = mirror.
+// Newest leg (Jeff's fib, Oct 10 2026 v22), checked against Jeff's BTC 5m fib (82,770-82,950 on OKX):
+//  FIB  up leg = from the low that led to the newest high, to the newest high. A new high redraws it; if price pulled
+//       back and made a swing low since the last high, that pullback low becomes the new bottom. While price pulls back
+//       (no new high yet) the fib stays put, so the pullback shows as premium/discount of this leg. Down leg = mirror.
+//  LEG  a body close above the newest swing high starts an up leg; below the newest swing low starts a down leg.
+//       Swing size = "Newest leg: swing size" (2 matched Jeff's fib; 1 flips too often on 5m).
+nph = ta.pivothigh(high, nLen, nLen)
+npl = ta.pivotlow(low, nLen, nLen)
 var float nH  = na
 var float nL  = na
 var int   nHb = na
 var int   nLb = na
 var int   fTr = 0
-var float fHi = na
-var float fLo = na
+var float fHi = na      // newest high (up leg) / protected high (down leg)
+var float fLo = na      // protected low (up leg) / newest low (down leg)
 var int   fHb = na
 var int   fLb = na
-if not na(lph)
-    nH  := lph
-    nHb := bar_index - legLen
-if not na(lpl)
-    nL  := lpl
-    nLb := bar_index - legLen
+if not na(nph)
+    nH  := nph
+    nHb := bar_index - nLen
+
+if not na(npl)
+    nL  := npl
+    nLb := bar_index - nLen
+
 loSinceH  = ta.lowest(low, math.max(1, na(nHb) ? 1 : bar_index - nHb + 1))
 hiSinceL  = ta.highest(high, math.max(1, na(nLb) ? 1 : bar_index - nLb + 1))
 loSinceFH = ta.lowest(low, math.max(1, na(fHb) ? 1 : bar_index - fHb + 1))
@@ -201,6 +208,8 @@ else if fTr == -1 and low < fLo
         fHi := hiSinceFL
     fLo := low
     fLb := bar_index
+zTop = fHi
+zBot = fLo
 
 bos      = false
 shift    = false
@@ -329,9 +338,9 @@ bearTxt = (shooting ? "Shooting star " : "") + (bearEng ? "Engulfing " : "") + (
 useNew  = fibMode == "Newest leg (my fib)"
 zTrend  = useNew ? fTr : trend                                          // direction the shading follows
 zStrong = useNew ? (fTr == 1 ? fLo : fTr == -1 ? fHi : na) : strong      // the leg's protected end (stop goes past it)
-rangeOk = useNew ? (fTr != 0 and not na(fHi) and not na(fLo) and fHi > fLo) : (trend != 0 and not na(strong) and not na(ext) and strong != ext)
-rangeHi = rangeOk ? (useNew ? fHi : math.max(strong, ext)) : na
-rangeLo = rangeOk ? (useNew ? fLo : math.min(strong, ext)) : na
+rangeOk = useNew ? (fTr != 0 and not na(zTop) and not na(zBot) and zTop > zBot) : (trend != 0 and not na(strong) and not na(ext) and strong != ext)
+rangeHi = rangeOk ? (useNew ? zTop : math.max(strong, ext)) : na
+rangeLo = rangeOk ? (useNew ? zBot : math.min(strong, ext)) : na
 mid     = rangeOk ? (rangeHi + rangeLo) / 2 : na
 inDiscount = rangeOk and zTrend == 1 and close <= mid and close > zStrong
 inPremium  = rangeOk and zTrend == -1 and close >= mid and close < zStrong
