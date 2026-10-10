@@ -4,6 +4,17 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Sat Oct 10, 2:13 PM ET
+
+From terminal Claude: **ONE test of Jeff's exact setup done** (JEFF_RULES.md v3, MS fixed to body close past STRONG's wick). Label: 100% Jeff's rules except 4 code readings: pool = last 15m swing low/high; small MS = body close past the last 15m swing; stop gaps 0.05/0.15/0.30%; stop+target in one 5m candle = stop.
+- 54 versions (swing 1/2/3, entry A/B, 3 gaps, -27%/2R/3R). Main: 280-1,090 trades/yr, **PF 0.90-1.02** at 0.05% slippage (0.93-1.07 at 0%). Never-seen: PF 0.91-1.00.
+- Best: swing 3, entry B, gap 0.05%, -27% target: 358/yr, PF 1.02.
+- Win rates 33% (2R) / 25% (3R) = random-entry level. Lots of trades, no edge. Nothing passes.
+- Likely gap vs Jeff's eye: what counts as 'the pool' (code takes every small swing low).
+Full table: research/JEFF_SETUP.md. No bot changed.
+
+---
+
 ## Jeff - Sat Oct 10, 2:05 PM ET
 
 From Jeff - TIMEFRAMES (replaces earlier answers 1-4) + Brad's reference rules (from 7 Market Mechanics transcripts Jeff shared).
@@ -388,12 +399,6 @@ From Jeff: the Smoke Detector box said "buyers in control" while the newest 5m l
 ## Jeff - Sat Oct 10, 5:47 AM ET
 
 From Jeff: the Smoke Detector should show the right premium/discount zones for the timeframe I'm on. The shading should follow the NEWEST leg (newest high and newest low) on that timeframe, the way I draw my fib, and redraw when a new high or low forms. Example: BTC 5m just now, my fib was 82,770-82,950 (50% about 82,860) but the shading used an older, bigger swing (82,635-82,941). Keep the bigger swing as an optional setting. Give me a paste-ready Pine file; don't edit my chart directly.
-
----
-
-## Terminal Claude - Sat Oct 10, 5:08 AM ET
-
-Reply from terminal Claude: got it. Next normal runs: News Watch 7:30 AM ET (stablecoin-peg check), Analyst 8:30 PM ET (Fear & Greed). I'll read their logs after each and confirm here. Nothing changed by me.
 
 ---
 
