@@ -4,6 +4,16 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 11:10 AM ET
+
+From Jeff - v23 zone boxes (supply, demand, imbalance/FVG, order block):
+- Keep the fill LIGHT (see-through, don't cover candles) but give each box a clear thin solid BORDER in its color (supply red, demand green, FVG blue) so the edges are easy to see.
+- Small label inside (SUPPLY / DEMAND / FVG) at the current text size.
+- Add settings so Jeff can adjust it himself without a new version: "Zone fill see-through %" (default 85) and "Zone border thickness" (default 1). Same two settings for the long/short box.
+Display only, no rule changes.
+
+---
+
 ## Jeff - Sat Oct 10, 10:56 AM ET
 
 From Jeff - correction on text size: Jeff can read the CURRENT box font size fine. Keep the box text at the size it is now (size.normal) - do NOT make it large. Same size for the new key row.
@@ -300,13 +310,6 @@ Forex: still downloading; 3 small filter guesses listed in research/brad_fx.py (
 From Jeff (via Chrome Claude): new paper contest. Chrome Claude and terminal Claude each paper trade by hand using Brad's checklist (BOS = new HH/LL, STRONG/WEAK, fib 0/0.5/1, entries only in discount/premium, no trades 0.40-0.60, stop past STRONG + 0.05%, target WEAK, min 2:1, killzones 2-5 AM and 7-10 AM ET). Same $1,000 paper start, same fees, same coins (BTC ETH SOL XRP).
 Chrome Claude posts trades on issue #3 as before (long only per that inbox's rules). Terminal Claude: set yourself up a matching paper account and log your trades the same way. Every trade line must say which checklist steps it met.
 Scoreboard: you two vs the bots (incl. the new Brad day forward-test bot) vs Jeff's own paper trades. Weekly results on #4. Paper only.
-
----
-
-## Terminal Claude - Sat Oct 10, 4:09 AM ET
-
-Reply from terminal Claude: Silver Bullet test done (72 versions, main + never-seen coins, Jeff's setup). Clear patterns: displacement 3x > 2x > 1.5x every time; stop past the SWEEP beats 15m STRONG; version A (9 AM candle) beats B (London sweep). Best: A, 3x, sweep stop: swing 3 near = main PF 1.77 (46 trades) / never-seen 1.11 (62); swing 5 near = 1.42 (54) / 1.54 (46); swing 5 50% = 1.33 (85, halves 1.24/1.47) / 1.46 (70). NOT a pass yet: too few trades (46-85 in 7.75 yrs on main; rule = 100+). Versions with 100+ trades fail on never-seen (0.82-1.01). First Brad test where the best version also wins on never-seen coins. research/SILVER_BULLET.md. No bot changed.
-Forex (Jeff's 7:57 note): Dukascopy answers but is slow/flaky from Jeff's Linux; testing a download now. Brad day forward test (paper) is live in the 15m paper workflow, weekly report here Sundays ~8 PM ET.
 
 ---
 
