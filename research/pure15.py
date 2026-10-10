@@ -38,13 +38,17 @@ TAKER, MAXSTOP, MINRR = 0.0004, 0.0135, 2.0
 COINS = ["BTC", "ETH", "SOL", "XRP"]
 
 
-def run(o, h, l, c, ts, N, cush, trig, tgtm, trail, spr=None, taker=TAKER, log=None):
+def run(o, h, l, c, ts, N, cush, trig, tgtm, trail, spr=None, taker=TAKER, log=None, flat=None, fib=0.5, mslog=None):
+    """flat = no new trades when the last BOS or market shift is more than this many candles old (Jeff rule 1, Oct 9).
+    fib = entry level on the fib (0.5 = the 50% line; deeper levels sit nearer the 100%, Jeff rule 4)."""
     """long side only (shorts: upside-down prices). Returns (entry ts, exit ts, R)."""
     n, t0 = len(ts), B.ms(B.START)
     # cost per side in price: crypto = taker+slippage on entries/stops, 0 on targets; forex = half the OANDA spread
     mkt = (lambda i, px: spr[i] / 2) if spr else (lambda i, px: taker * abs(px))
     lim = (lambda i, px: spr[i] / 2) if spr else (lambda i, px: 0.0)
     trend, lsh, lsl, lsl_i = 0, None, None, 0
+    hi_hit = lo_hit = True
+    last_ev = -10 ** 9
     ms_ts = ms_lvl = None  # last swing high / low
     highs = []  # swing highs not yet taken out
     leg_lo = leg_hi = None
@@ -81,8 +85,8 @@ def run(o, h, l, c, ts, N, cush, trig, tgtm, trail, spr=None, taker=TAKER, log=N
         # 3) touch entry at the 50% line during this candle
         if (not pos and trig == "touch" and trend == 1 and leg_lo is not None and not leg_used
                 and ts[i] >= t0 and leg_hi > leg_lo):
-            mid = (leg_lo + leg_hi) / 2
-            if l[i] <= mid:
+            mid = leg_hi - fib * (leg_hi - leg_lo)
+            if l[i] <= mid and (flat is None or i - last_ev <= flat):
                 e = min(o[i], mid)
                 p = open_pos(e, leg_lo, cush, highs, tgtm, ts[i], leg_hi)
                 leg_used = True  # one try per fib leg, taken or skipped
@@ -99,29 +103,49 @@ def run(o, h, l, c, ts, N, cush, trig, tgtm, trail, spr=None, taker=TAKER, log=N
         # 4) green candle close in the discount -> buy next open
         if (not pos and trig == "green" and trend == 1 and leg_lo is not None and not leg_used
                 and ts[i] >= t0 and leg_hi > leg_lo):
-            mid = (leg_lo + leg_hi) / 2
-            if c[i] > o[i] and c[i] < mid and l[i] > leg_lo:
+            mid = leg_hi - fib * (leg_hi - leg_lo)
+            if c[i] > o[i] and c[i] < mid and l[i] > leg_lo and (flat is None or i - last_ev <= flat):
                 green_go = True
                 leg_used = True
-        # 5) structure: body closes through the last swing
+        # 5) structure: body closes through the last swing (BOS or market shift = the market is moving)
+        if lsh is not None and not hi_hit and c[i] > lsh:
+            hi_hit, last_ev = True, i
+        if lsl is not None and not lo_hit and c[i] < lsl:
+            lo_hit, last_ev = True, i
         if trend != 1 and lsh is not None and c[i] > lsh:
             trend = 1
             ms_ts, ms_lvl = ts[i], lsh
+            if mslog is not None:
+                mslog.append((ts[i], 1, lsh))
             leg_lo, leg_hi, leg_used = lsl, (max(h[lsl_i:i + 1]) if lsl is not None else None), False
         elif trend != -1 and lsl is not None and c[i] < lsl:
             trend = -1
+            if mslog is not None:
+                mslog.append((ts[i], -1, lsl))
             leg_lo = leg_hi = None
             green_go = False
+        # 5b) Jeff Oct 9: decide only on a CLOSED candle - buy at the close of a candle that closes at/below the fib
+        #     level (above the 100%), with the trend still bullish after that close
+        if (not pos and trig == "close" and trend == 1 and leg_lo is not None and not leg_used and ts[i] >= t0
+                and leg_hi > leg_lo and (flat is None or i - last_ev <= flat)):
+            mid = leg_hi - fib * (leg_hi - leg_lo)
+            if leg_lo < c[i] <= mid:
+                leg_used = True
+                p = open_pos(c[i], leg_lo, cush, highs, tgtm, ts[i], leg_hi)
+                if p:
+                    pos = p
+                    p["ec"] = mkt(i, c[i])
+                    p["info"] = (ms_ts, ms_lvl, leg_lo, leg_hi)
         if trend == 1 and leg_hi is not None:
             leg_hi = max(leg_hi, h[i])
         # 6) swings confirmed N candles later (no look-ahead)
         j = i - N
         if j >= N:
             if h[j] == max(h[j - N:i + 1]) and h[j] > max(h[j + 1:i + 1]):
-                lsh = h[j]
+                lsh, hi_hit = h[j], False
                 highs.append(h[j])
             if l[j] == min(l[j - N:i + 1]) and l[j] < min(l[j + 1:i + 1]):
-                lsl, lsl_i = l[j], j
+                lsl, lsl_i, lo_hit = l[j], j, False
                 if trend == 1:  # newer higher low: redraw the fib to it
                     leg_lo, leg_hi, leg_used = l[j], max(h[j:i + 1]), False
                     green_go = False
@@ -186,7 +210,42 @@ def load(cn):
     return [x for x in m15.m15(cn) if x["ts"] >= B.ms(B.START) - 30 * 86400000], None
 
 
+def main_v2():
+    """Oct 9 round 2 (Jeff's rules 1-4): swing 1/3/5 x flat filter x fib entry level; 0.05% cushion, enter on a candle close, 2:1."""
+    years = (dt.datetime.now(dt.timezone.utc) - B.START).days / 365.25
+    vers = [(f"swing {N}, flat {'off' if fl is None else f'after {fl} candles'}, entry at {fb * 100:.1f}%", N, fl, fb)
+            for N in (1, 3, 5) for fl in (None, 8, 16, 32) for fb in (0.5, 0.618, 0.705, 0.786)]
+    res = {v[0]: [] for v in vers}
+    for cn in COINS:
+        raw, _ = load(cn)
+        ts = [x["ts"] for x in raw]
+        o, h, l, c = ([x[k] for x in raw] for k in "ohlc")
+        del raw
+        gc.collect()
+        no, nh, nl, nc = [-v for v in o], [-v for v in l], [-v for v in h], [-v for v in c]
+        for name, N, fl, fb in vers:
+            kw = dict(flat=fl, fib=fb)
+            lo = [t + (1,) for t in run(o, h, l, c, ts, N, 0.0005, "close", "2R", False, **kw)]
+            sh = [t + (-1,) for t in run(no, nh, nl, nc, ts, N, 0.0005, "close", "2R", False, **kw)]
+            keep, busy = [], -1
+            for t in sorted(lo + sh):
+                if t[0] > busy:
+                    keep.append(t)
+                    busy = t[1]
+            res[name] += keep
+        del o, h, l, c, no, nh, nl, nc
+        gc.collect()
+        print(f"  ({cn} done)", flush=True)
+    print("\n### BTC ETH SOL XRP, 15m only, 0.05% cushion, buy on a candle CLOSE at/below the fib level, 2:1 target, Binance.US costs\n")
+    print("| Version | Trades/yr | Win % | Avg win | Avg loss | PF | Avg | Max DD | 2019-22 PF | 2023-now PF | "
+          "Long PF | Short PF |\n|---|---|---|---|---|---|---|---|---|---|---|---|")
+    for v in vers:
+        print(row(v[0], res[v[0]], years), flush=True)
+
+
 def main():
+    if sys.argv[1:] == ["v2"]:
+        return main_v2()
     years = (dt.datetime.now(dt.timezone.utc) - B.START).days / 365.25
     # trail-to-breakeven lost in every version on the BTC trial (Oct 9), so the full run is trail "none" only
     vers = [(f"swing {N}, cushion {'0.05%' if cu else '0'}, {tr}, target {tg}", N, cu, tr, tg, False)
