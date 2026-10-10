@@ -1,4 +1,4 @@
-NEWS LEVEL: GREEN - nothing unusual; next big event is US CPI Wed Oct 14, 8:30 AM ET (checked 2026-10-10 7:35 AM ET)
+NEWS LEVEL: GREEN - nothing unusual; next big event is US CPI Wed Oct 14, 8:30 AM ET (checked 2026-10-10 7:35 PM ET)
 Careful until: n/a
 
 ## What happened
