@@ -4,6 +4,18 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 1:13 AM ET
+
+From Jeff (via Chrome Claude): Brad's method, for the next 15m build.
+- After a BOS, STRONG = the lowest point that led to that break of structure (shorts: the highest point that led to the break down). WEAK = the newest high (or low) after the BOS.
+- Market shift = a candle BODY closes past STRONG. Breaks that don't make a new strong/weak range = iBOS, early warning only.
+- Fib only 0 / 0.5 / 1 between STRONG and WEAK. Buy only in discount, sell only in premium. Never the middle.
+- Day trade first. Test both zone types. Swing size: test 1, 3 and 5 and show me which matches my marks best.
+- Stop past STRONG + my cushion. Target WEAK, at least 2R.
+Screenshots of Brad's examples are in my Linux files folder. Re-run and show me the 10-trade check. Paper only.
+
+---
+
 ## Terminal Claude - Fri Oct 9, 10:30 PM ET
 
 Reply from terminal Claude: PineTS research (RSI only, per Jeff). PineTS 0.11.0 on Node 20: RSI(14, close) on BTCUSDT daily (1,000 bars) and 4H (3,000 bars) matches our Python RSI exactly (max diff 0.0000), ~0.1-0.3 s. TradingView compare still needs one closed-candle RSI reading from Jeff's chart. The Smoke Detector Pine also runs in PineTS as written (3,000 15m bars, ~4 s). Bot use would be: node runs Pine -> signals file -> bot.py reads it, ~5-10 s per Actions run. Limits: open-source scripts only, v6 experimental, AGPL. Research only, no bot changed.
@@ -244,25 +256,6 @@ Note from terminal Claude: Jeff approved a new PAPER bot, **db2-bnus: Breakout I
 ## Terminal Claude - Thu Oct 8, 11:03 PM ET
 
 Note from terminal Claude: Jeff asked me to check QuantConnect's free strategy library. Tested Dual Thrust, Dynamic Breakout II and Turn of the Month on crypto (Binance.US costs) + forex, 2019-now. Only **Dynamic Breakout II on crypto (long only)** passes: PF 4.9 main coins / 3.3 never-seen, both halves, and it beat the Turtle 55/20 rules at equal size. Dual Thrust = huge drops (-52 to -81%), Turn of the Month died since 2023, forex all fail. Details: research/QC_LIBRARY.md. A paper bot would need Jeff's OK.
-
----
-
-## Terminal Claude - Thu Oct 8, 10:14 PM ET
-
-Reply from terminal Claude: all 4 of your notes are done.
-
-**1. Fixes**
-- RSI(2) "5 open, max 3": false alarm. That bot was tested and set up with max 5. The watcher was using the default 3; the hourly check already fixed the watcher at 8:49 PM (commit 6e82e5f). The 5 paper trades are fine and stay open. The 9:28 PM "all normal" was correct: the ATTENTION line below it is history (the log keeps old lines).
-- Notes log clash (run #18): the comment it missed was my own transcript-bot reply, not one of yours, so nothing to back-fill. Concurrency was already on; I also made each retry start fresh from main and redo the line, so two comments at once can't conflict any more.
-- Shut-offs: tmux is installed on Jeff's Linux. Jeff types `claudebox` to start me (or come back to me). Closing the terminal window no longer kills me. A Chromebook sleep or restart still does, and then `claudebox` resumes with --continue.
-
-**2. Newest-first chat:** https://github.com/HarleyBear70/okx-trading-bot/blob/main/CHAT.md (last 30 messages, newest on top, who + time ET; rebuilt on every new comment here).
-
-**3. Asian range → London push → NY reversal: DEAD.** 15m, 2019-now, real costs. Forex main (EUR, GBP, gold) PF 0.87; never-seen pairs 0.63; crypto BTC/ETH/SOL 0.96; never-seen coins 0.69. Even with ZERO fees forex is only PF 1.04, so there's no raw edge. Details: research/ASIAN_RANGE.md
-
-**4. Order flow filters on the Brad bot: none pass.** delta and CVD don't beat the base on never-seen coins. "Absorption at the sweep" looked best (PF 1.56 on main coins) but only 71 trades in 7 years, and it's worse than base on never-seen coins, losing since 2023. Funding/OI crowding not tested (OI history starts late 2021). Details: research/ORDERFLOW.md
-
-Nothing here touches real money or the live bots.
 
 ---
 
