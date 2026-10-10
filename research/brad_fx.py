@@ -2,17 +2,20 @@
 BRAD_FX: the best Brad day-trade version on FOREX (Jeff, issue #4, Oct 10 2026): "test the Brad day method on forex,
 where Brad trades." Exact round-3 version (research/BRAD_DAY.md): swing 5, range zones, BOS/iBOS rule, stop below
 the 15m STRONG +0.05% (no cap), no trades 0.40-0.60, target 15m WEAK (min 2:1), 3% daily loss limit (6R a day).
-Costs: REAL Dukascopy spreads (ask - bid, averaged per 5m candle); half paid on entry, half on exit.
+Costs: REAL OANDA spreads (ask - bid at each 5m candle's close, practice-account history); half on entry, half on exit.
+Data: OANDA practice M5 history (tools/oanda_history.py, read-only practice key; Dukascopy refused bulk downloads).
 
   Sessions  NO Asia. London only (2-5 AM ET), NY only (7-10 AM ET), both (Jeff).
   DXY       only buy XXX/USD pairs when the dollar index is in a 4H downtrend, only sell when it's up (Jeff).
             Downtrend = the same BOS/STRONG/WEAK structure rules, swing 5 (no new numbers).
+            OANDA has no DXY, so it is built from the official ICE formula: 50.14348112 x EURUSD^-0.576 x USDJPY^0.136
+            x GBPUSD^-0.119 x USDCAD^0.091 x USDSEK^0.042 x USDCHF^0.036 (5m closes, only when all six have a candle).
             USDJPY (USD first) = the opposite [GUESS]. GBPJPY has no USD: not filtered [GUESS].
   COT       only trade the way big speculators (CFTC legacy report, non-commercial long minus short) are net
             positioned (Jeff). USDJPY = opposite of the yen. GBPJPY = long only if specs are net long GBP AND net short
             JPY, short only for the reverse, else no trade [GUESS]. A report (Tuesday) counts from that Friday
             4 PM ET, when the CFTC publishes it (no peeking).
-  Pairs     EURUSD GBPUSD GBPJPY USDJPY XAUUSD (Jeff); never-seen pair AUDUSD. Dukascopy 5m, Nov 2018 - now.
+  Pairs     EURUSD GBPUSD GBPJPY USDJPY XAUUSD (Jeff); never-seen pair AUDUSD. OANDA 5m (mid prices), 2019 - now.
 
   python3 research/brad_fx.py
 """
@@ -39,19 +42,51 @@ COT = {"EUR": "EURO FX - CHICAGO", "GBP": "BRITISH POUND", "JPY": "JAPANESE YEN 
        "XAU": "GOLD - COMMODITY EXCHANGE", "AUD": "AUSTRALIAN DOLLAR - CHICAGO"}
 
 
+OANDA = {"EURUSD": "EUR_USD", "GBPUSD": "GBP_USD", "GBPJPY": "GBP_JPY", "USDJPY": "USD_JPY", "XAUUSD": "XAU_USD",
+         "AUDUSD": "AUD_USD", "USDCAD": "USD_CAD", "USDSEK": "USD_SEK", "USDCHF": "USD_CHF"}
+DXY_W = {"EURUSD": -0.576, "USDJPY": 0.136, "GBPUSD": -0.119, "USDCAD": 0.091, "USDSEK": 0.042, "USDCHF": 0.036}
+
+
 def load(pair):
-    out = {}
-    for k in ("ts", "o", "h", "l", "c", "sp"):
-        a = array.array("q" if k == "ts" else "d")
-        with open(os.path.join(HERE, ".cache", "bin", f"FX5_{pair}_{k}.bin"), "rb") as f:
-            a.frombytes(f.read())
-        out[k] = a
+    """OANDA M5 rows [ts, o, h, l, c (mid), spread at close, volume] from research/.cache/oanda5/."""
+    import gzip
+    import json
+    rows = json.load(gzip.open(os.path.join(HERE, ".cache", "oanda5", f"{OANDA[pair]}_M5.json.gz"), "rt"))
+    out = {"ts": array.array("q", (r[0] for r in rows))}
+    for j, k in enumerate(("o", "h", "l", "c", "sp"), 1):
+        out[k] = array.array("d", (r[j] for r in rows))
+    return out
+
+
+def dxy_series():
+    """the dollar index from its six currencies (ICE formula), 5m candles where all six have one."""
+    import math
+    parts = {p: load(p) for p in DXY_W}
+    common = set(parts["EURUSD"]["ts"])
+    for p in DXY_W:
+        common &= set(parts[p]["ts"])
+    ts = sorted(common)
+    idx = {p: {t: i for i, t in enumerate(parts[p]["ts"])} for p in DXY_W}
+    out = {"ts": array.array("q", ts)}
+    for k in "ohlc":
+        col = array.array("d")
+        for t in ts:
+            v = math.log(50.14348112)
+            for p, w in DXY_W.items():
+                v += w * math.log(parts[p][k][idx[p][t]])
+            col.append(math.exp(v))
+        out[k] = col
+    # with negative weights a pair's high is the index's low: keep each candle's high/low consistent
+    for i in range(len(ts)):
+        hi = max(out["o"][i], out["h"][i], out["l"][i], out["c"][i])
+        lo = min(out["o"][i], out["h"][i], out["l"][i], out["c"][i])
+        out["h"][i], out["l"][i] = hi, lo
     return out
 
 
 def dxy_trend():
     """[(close time of each 4H dollar-index candle, trend after it)]"""
-    d = load("DOLLARIDXUSD")
+    d = dxy_series()
     O, H, L, C, end = D.resample(d["ts"], d["o"], d["h"], d["l"], d["c"], D.H4)
     s = D.RangeStruct(O, H, L, C, 5)
     out = []
