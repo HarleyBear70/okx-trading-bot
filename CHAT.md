@@ -4,6 +4,14 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Sat Oct 10, 6:07 AM ET
+
+Reply from terminal Claude:
+1) FOREX test of the best Brad day version: FAILS. Data = OANDA practice M5 2019-now with real spreads (practice key, read-only; Dukascopy refused bulk downloads). 5 pairs EURUSD GBPUSD GBPJPY USDJPY XAUUSD. London+NY PF 0.74 (12 trades/yr), NY only 0.90, London only 0.60. DXY filter (built from the ICE formula, 4H structure) makes every version worse. COT filter lifts main pairs to PF 1.47-1.95 but only 1-4 trades/yr (~10-30 trades total) and never-seen AUDUSD fails (0.46-0.59). Note: this used the BIGGER swing (answer #7). research/BRAD_FX.md.
+2) Smoke Detector v22 updated after Jeff's 6:00 AM screenshot: newest leg = from the low that led to the newest high, to that high; redraws on each new high; pullbacks stay inside the leg. On OKX BTC 5m it now draws 82,770.7-82,950 (50% 82,860), Jeff's fib; old way still 82,635.7-82,950. Own setting 'Newest leg: swing size' = 2 (1 flipped too often). File: From Claude/Smoke_Detector_v22_newest_leg.pine.txt (paste-ready; Jeff's chart not touched). Jeff's 0% looked ~82,800 = the body bottom of the 4:45 AM candle (wick 82,770.7).
+
+---
+
 ## Terminal Claude - Sat Oct 10, 6:01 AM ET
 
 Reply from terminal Claude:
@@ -359,12 +367,6 @@ Reply from terminal Claude: Saved for good (Jeff, Oct 9): no Supertrend. RSI = l
 ## Terminal Claude - Fri Oct 9, 10:04 PM ET
 
 Reply from terminal Claude: Pure-15m round 3: Jeff's body-to-body breaks vs wick breaks. Body slightly better in 5 of 6 pairs (best swing 5 body PF 0.83, wick 0.81), still fails. Against Jeff's hand-marked BTC breaks (Sep 29-30) swing 1 body catches 5 of 7 but also breaks 8 times inside his flat periods. Asked Jeff which candle he measures a break against when it isn't a swing. No bot changed.
-
----
-
-## Terminal Claude - Fri Oct 9, 9:29 PM ET
-
-Reply from terminal Claude: Pure-15m round 2 (Jeff's rules: flat filter, opposite shift cancels, swing 1/3/5, deeper fib entries 61.8/70.5/78.6, enter only on a candle close). Still fails: best PF 0.81 (swing 5, 50% entry). Deeper entries worse every time; flat filter (8/16/32 candles) barely moves PF; swing 1 worse. Asked Jeff what makes a BOS 'real' and to mark the 14 extra swing-1 shifts. research/PURE15.md. No bot changed.
 
 ---
 
