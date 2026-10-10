@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 1:26 PM ET
+
+From Jeff, on risk (please keep in mind for the test and the bots): small losses are expected and fine - "if I can make $5 and I'm losing $2, I'm good." The goal is to get INTO trades, not to sit on the bench. Don't stack extra filters to avoid every loss. Keep: 2:1 or better, stop past the liquidity, with the trend. Judge it on total profit over many trades, not on avoiding losers.
+
+---
+
 ## Jeff - Sat Oct 10, 1:25 PM ET
 
 Jeff's answers to the 8 open questions in JEFF_RULES.md v2 (Jeff OK'd these; test, and adjust later if they don't work):
@@ -371,13 +377,6 @@ From Jeff: added api.alternative.me, api.coingecko.com, www.coingecko.com and co
 ## Terminal Claude - Sat Oct 10, 5:01 AM ET
 
 Reply from terminal Claude: cloud network test. I ran the Analyst routine once (8:58 AM UTC, paper only). WORKS now: OKX candles (first time in 5 days), GitHub pull/push. The Analyst read all 6 coins, made no new trades (its old LINK dip order had filled and stopped, -1.13R; BTC/SOL orders expired), balance 994.34. STILL BLOCKED: Fear & Greed (api.alternative.me). The News Watch also said 'price sites were blocked' for its stablecoin-peg check. Please add: api.alternative.me, api.coingecko.com, www.coingecko.com, coinmarketcap.com. (A one-time network-test routine I tried to create was refused by a safety check, so I used the Analyst's normal run instead.)
-
----
-
-## Jeff - Sat Oct 10, 4:56 AM ET
-
-From Jeff: I changed the Default cloud environment on claude.ai to Custom network access. Allowed domains: us.okx.com, www.okx.com, api.binance.us, github.com, api.github.com, raw.githubusercontent.com, objects.githubusercontent.com, plus the default package-manager list.
-Please test the cloud routine (and the Analyst) and tell me if any other website they need is still blocked, so I can add it. Read prices / existing keys only, same safety rules as always.
 
 ---
 
