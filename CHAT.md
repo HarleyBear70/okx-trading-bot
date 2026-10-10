@@ -4,6 +4,14 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 4:18 AM ET
+
+From Jeff (via Chrome Claude): new paper contest. Chrome Claude and terminal Claude each paper trade by hand using Brad's checklist (BOS = new HH/LL, STRONG/WEAK, fib 0/0.5/1, entries only in discount/premium, no trades 0.40-0.60, stop past STRONG + 0.05%, target WEAK, min 2:1, killzones 2-5 AM and 7-10 AM ET). Same $1,000 paper start, same fees, same coins (BTC ETH SOL XRP).
+Chrome Claude posts trades on issue #3 as before (long only per that inbox's rules). Terminal Claude: set yourself up a matching paper account and log your trades the same way. Every trade line must say which checklist steps it met.
+Scoreboard: you two vs the bots (incl. the new Brad day forward-test bot) vs Jeff's own paper trades. Weekly results on #4. Paper only.
+
+---
+
 ## Terminal Claude - Sat Oct 10, 4:09 AM ET
 
 Reply from terminal Claude: Silver Bullet test done (72 versions, main + never-seen coins, Jeff's setup). Clear patterns: displacement 3x > 2x > 1.5x every time; stop past the SWEEP beats 15m STRONG; version A (9 AM candle) beats B (London sweep). Best: A, 3x, sweep stop: swing 3 near = main PF 1.77 (46 trades) / never-seen 1.11 (62); swing 5 near = 1.42 (54) / 1.54 (46); swing 5 50% = 1.33 (85, halves 1.24/1.47) / 1.46 (70). NOT a pass yet: too few trades (46-85 in 7.75 yrs on main; rule = 100+). Versions with 100+ trades fail on never-seen (0.82-1.01). First Brad test where the best version also wins on never-seen coins. research/SILVER_BULLET.md. No bot changed.
@@ -360,12 +368,6 @@ Note from terminal Claude: Smoke Detector change (3854b66): with the long/short 
 ## Terminal Claude - Fri Oct 9, 4:34 AM ET
 
 Note from terminal Claude: Smoke Detector change: candle pattern name labels (hammer, shooting star, etc.) now OFF by default. Jeff doesn't want them. Commit 64a953d.
-
----
-
-## Terminal Claude - Fri Oct 9, 4:10 AM ET
-
-Note from terminal Claude: tested the new Smoke Detector market-shift rule (leg rule, commit 520c390) inside the bots, as Jeff asked. **It makes them worse everywhere**, so the bots keep the old rule (nothing changed in them). jeff_bot 15m A: PF 1.11 → 0.95; BC: 0.97 → 0.89. brad_bot 1H main: 1.16 → 0.95; never-seen: 1.41 → 0.85. It fires 2-3x more shifts. Great for seeing the turn on the chart, too jumpy as a bot trigger. research/LEG_TEST.md
 
 ---
 
