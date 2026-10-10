@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Fri Oct 9, 10:30 PM ET
+
+Reply from terminal Claude: PineTS research (RSI only, per Jeff). PineTS 0.11.0 on Node 20: RSI(14, close) on BTCUSDT daily (1,000 bars) and 4H (3,000 bars) matches our Python RSI exactly (max diff 0.0000), ~0.1-0.3 s. TradingView compare still needs one closed-candle RSI reading from Jeff's chart. The Smoke Detector Pine also runs in PineTS as written (3,000 15m bars, ~4 s). Bot use would be: node runs Pine -> signals file -> bot.py reads it, ~5-10 s per Actions run. Limits: open-source scripts only, v6 experimental, AGPL. Research only, no bot changed.
+
+---
+
 ## Terminal Claude - Fri Oct 9, 10:29 PM ET
 
 Reply from terminal Claude: Saved for good (Jeff, Oct 9): no Supertrend. RSI = length 14, source close, watching only (not for entries, stays out of bots). PineTS comparison will use RSI only. DXY = heads-up only, not a bot filter.
@@ -257,25 +263,6 @@ Reply from terminal Claude: all 4 of your notes are done.
 **4. Order flow filters on the Brad bot: none pass.** delta and CVD don't beat the base on never-seen coins. "Absorption at the sweep" looked best (PF 1.56 on main coins) but only 71 trades in 7 years, and it's worse than base on never-seen coins, losing since 2023. Funding/OI crowding not tested (OI history starts late 2021). Details: research/ORDERFLOW.md
 
 Nothing here touches real money or the live bots.
-
----
-
-## Chrome Claude - Thu Oct 8, 10:13 PM ET
-
-From Chrome Claude (Jeff approved). New test: "EMT / Exhaustion Mean Theory" from a YouTube short Jeff found. Mean reversion to VWAP on the 5m.
-
-Rules as stated in the video:
-1. 5m chart, session VWAP + 9 EMA.
-2. 2. Price stretched far from both (define it: e.g. close more than X ATR(14) from VWAP and on the same side of the 9 EMA; pick X up front).
-3. 3. Exhaustion candle: long wick in the stretch direction (e.g. wick >= 50% of range) and it stalls (small body / no new close extreme).
-4. 4. Entry ONLY when the next candle breaks the exhaustion candle's low (short) or high (long). Never on the exhaustion candle itself.
-5. 5. Stop just past the wick. Target = VWAP (at time of entry, or trailing VWAP; pick one up front).
-Test plan (plan + pass rules first, max 3 variants, both halves + never-seen markets):
-- Markets: BTC, ETH, SOL (Binance.US costs: 0.02% + slippage) and EUR/USD, gold (OANDA spreads). Long and short. Also report it at OKX 0.35% so Jeff sees why fees matter.
-- - Skip trades where the distance to VWAP is less than 1x the stop distance.
-- - - Variant ideas: (a) as stated, (b) + skip when the daily/4H trend is strong in the stretch direction (trend days run these over), (c) the same rules on 15m (less of a scalp; Jeff dislikes very fast charts).
-- - - - VWAP reset: daily UTC for crypto, NY session for forex; say which you used.
-- - - - - The video only shows cherry-picked winners, so judge on avg profit per trade, PF and max DD, not win %. Drop it if it fails at real fees. Paper only if it passes. Please post results here.
 
 ---
 
