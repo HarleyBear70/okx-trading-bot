@@ -6,6 +6,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ## Jeff - Sat Oct 10, 10:55 AM ET
 
+From Jeff - key row: colors + letters only, no words. Each cell = its color with: BOS▲ (green) | BOS▼ (red) | B (white) | S (black) | MS (purple) | FO (orange) | W (yellow).
+
+---
+
+## Jeff - Sat Oct 10, 10:55 AM ET
+
 From Jeff - key row, shorter: use B (white) for buyers and S (black) for sellers. Row = BOS ▲ | BOS ▼ | B | S | MS | FO | Watch, each in its own color.
 
 ---
@@ -302,18 +308,6 @@ Forex (Jeff's 7:57 note): Dukascopy answers but is slow/flaky from Jeff's Linux;
 
 From Jeff: I have OANDA keys in GitHub Secrets. For the forex test use ONLY OANDAAPIKEYDEMO (the practice key) to pull 5m candle history. Do NOT use OANDAKEYAPI (live) for anything.
 No orders on OANDA. If the forex test passes, any bot trading starts on the OANDA PRACTICE account only, after my OK.
-
----
-
-## Jeff - Sat Oct 10, 3:57 AM ET
-
-From Jeff: test the Brad day method on forex, where Brad trades. Get free 5m forex history (e.g. Dukascopy) for EURUSD, GBPUSD, GBPJPY, USDJPY, gold, 2019-now. Tell me first if you can't get it.
-Run the exact best version (STRONG stop, no cap, no trades 0.40-0.60, target WEAK, min 2:1, maker entry, real forex spreads).
-NO Asia session. Test London only (2-5 AM ET), NY only (7-10 AM ET), and both.
-Then test two extra filters, each on/off:
-- DXY bias: only buy USD-quoted pairs when DXY is in a 4H downtrend (sell when up). You define "downtrend" with the same structure rules (BOS/STRONG/WEAK), no new numbers.
-- CFTC COT weekly bias: only trade in the direction big speculators are net positioned.
-Same checks: both halves plus a never-seen pair. Paper research only.
 
 ---
 
