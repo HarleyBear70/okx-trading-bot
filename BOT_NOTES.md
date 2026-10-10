@@ -1,9 +1,10 @@
-STATUS: all normal (checked 2026-10-10 10:25 AM ET)
+STATUS: all normal (checked 2026-10-10 11:25 AM ET)
 
 # Bot notes
 
 Written every hour by watcher.py after the bots run. Read-only: it never trades. Newest first, Eastern time. ATTENTION means: a bot 8%+ below its best balance, a losing streak longer than the backtest's worst, live vs backtest replay 2%+ apart, a failed bot run, or an unexpected open position.
 
+- 2026-10-10 11:23 AM ET · Trend Rider 1H (Binance.US paper) bought BNB 0.714949 at 752.6 (538.18 USDT), stop 747.005, target -
 - 2026-10-09 10:24 PM ET · Trend Rider 1H (Binance.US paper) bought SUI 187.787 at 1.091 (204.92 USDT), stop 1.0697, target -
 - 2026-10-08 8:39 PM ET · RSI(2) snap-back (Binance.US paper) unexpected position: 5 trades open (max 3)
 - 2026-10-08 8:38 PM ET · RSI(2) snap-back (Binance.US paper) bought BTC 0.000754275 at 81649.3 (61.60 USDT), stop 75020.4, target -

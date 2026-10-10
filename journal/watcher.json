@@ -1,5 +1,5 @@
 {
- "rows_seen": 21,
+ "rows_seen": 22,
  "bots": {
   "v4-okx": {
    "peak": 1006.89,
@@ -122,7 +122,7 @@
    "odd": ""
   },
   "tr1h-bnus": {
-   "peak": 1005.0055637963296,
+   "peak": 1006.0836353684518,
    "halt_flag": false,
    "odd": ""
   },
