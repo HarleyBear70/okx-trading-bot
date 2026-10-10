@@ -216,7 +216,7 @@ def pos_in(x, st):
 
 
 def run(d, N, ztype, taker=TAKER, log=None, kz=False, maker=False, rng=False, stopm="sweep", cap=MAXSTOP,
-        band=0.0):
+        band=0.0, state=None):
     """long side only. Returns [(entry ts, exit ts, R)].
     kz    = the limit order can only fill inside Jeff's killzones; outside them it waits (Oct 10).
     maker = the limit entry pays 0% (maker); stop exits still pay taker + slippage (Jeff, Oct 10).
@@ -313,6 +313,8 @@ def run(d, N, ztype, taker=TAKER, log=None, kz=False, maker=False, rng=False, st
         k = end4[i]
         if k >= 0:
             s4.step(k)
+    if state is not None:  # what's still open at the end (paper forward test)
+        state.update(pos=pos, pend=pend)
     return out
 
 
