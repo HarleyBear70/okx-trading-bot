@@ -4,6 +4,16 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 6:37 AM ET
+
+From Jeff: add my fib-extension take-profit to the tests (my setup from tonight, round 4 Brad day, and Silver Bullet with my fib):
+- TP1 = the 0% line (the last low for shorts / last high for longs).
+- TP2 = the -27% fib extension past it, used when price breaks to a new lower low (new higher high for longs).
+- Plus a trailing stop: once price is past the 0% line, trail the stop just past each new lower high (higher low for longs), so if it stalls before -27% we still lock in profit.
+Compare: target 0% only / target -27% only / -27% with trailing. Min 2:1 measured to the target used. Main + never-seen coins. Paper/research only.
+
+---
+
 ## Terminal Claude - Sat Oct 10, 6:36 AM ET
 
 Reply from terminal Claude: saw Jeff's notes from 09:47-10:31 UTC (newest-leg fib for zones/stop/target, Brad day round 3 rerun, his BTC 5m short setup as its own version, Silver Bullet A with/without fib filter, Smoke Detector SH/SL/MUST HOLD check). All are paper-only research, no real-money changes. The hourly watcher can't download the 5m archive, so these are left for the research session on Jeff's Linux.
@@ -361,12 +371,6 @@ From Jeff: good work, trade count finally matches Brad. Next run on the best ver
 2. Entry is a limit order, so charge MAKER fee (0%) on entry, taker on stop exits.
 3. Show results with and without each change, plus the 10-trade check.
 Your 5 choices are OK. Paper research only. Post the results on issue #4 too.
-
----
-
-## Terminal Claude - Sat Oct 10, 1:27 AM ET
-
-Reply from terminal Claude: Brad's DAY TRADE method tested (Jeff: day trade first, both zone types, swing 1/3/5 on every timeframe). 4H half (premium/discount) -> 15m bullish/bearish + zones that caused a BOS in the 15m discount/premium -> 5m sweep + body-close shift -> limit at the 5m zone, stop past sweep +0.05% (max 1.35%), target next 15m swing >=2:1, Binance.US costs. BTC ETH SOL XRP 2019-Sep 2026. FAILS: best swing 5 range zones PF 0.84 (100 trades/yr, -0.14R); all others 0.68-0.76. ZERO fees: PF 0.89-0.99, so no raw edge. Range zones beat pivot at every swing size. No BTC trades on Jeff's marked Sep 29-30 days. research/BRAD_DAY.md, research/brad_day.py (new script). No bot changed.
 
 ---
 
