@@ -1,5 +1,10 @@
 # The Analyst's journal (newest first)
 
+## 2026-10-10 session (SKIPPED, 4th day: no market data)
+- OKX still blocked (proxy 403). No candles, no chart read, no trades, no changes. Ledger: balance 1000.00, no open trades, 3 resting orders (BTC, SOL, LINK) untouched.
+- News level GREEN. Next big event: US CPI Wed Oct 14, 8:30 AM ET.
+- Still needs Jeff: allow us.okx.com / www.okx.com and the Fear & Greed site in this environment's network policy.
+
 ## 2026-10-09 session (SKIPPED, 3rd day: no market data)
 - OKX still blocked here (proxy 403), so no candles and no chart read. No new trades; resting orders untouched (hourly run manages them).
 - News level GREEN (next big event: US CPI ~Oct 14-15).
