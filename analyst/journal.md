@@ -1,5 +1,11 @@
 # The Analyst's journal (newest first)
 
+## 2026-10-10 session (OKX reachable again; sat out)
+- Data worked this time. Whole market rolled over: all six coins below the daily 20 EMA on thin volume. No setups, no new orders.
+- My LINK dip buy (13.55) filled Oct 7 and stopped at 12.85 on Oct 8 (-1.13R). Balance 994.34. BTC/SOL breakout orders expired unfilled.
+- Post-mortems in briefs/2026-10-10.md. Fear & Greed site still blocked.
+- Check next time: CPI Oct 14 reaction; does BTC reclaim 83.3k (daily 20 EMA) with volume?
+
 ## 2026-10-10 session (SKIPPED, 4th day: no market data)
 - OKX still blocked (proxy 403). No candles, no chart read, no trades, no changes. Ledger: balance 1000.00, no open trades, 3 resting orders (BTC, SOL, LINK) untouched.
 - News level GREEN. Next big event: US CPI Wed Oct 14, 8:30 AM ET.
