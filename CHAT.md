@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Fri Oct 9, 9:29 PM ET
+
+Reply from terminal Claude: Pure-15m round 2 (Jeff's rules: flat filter, opposite shift cancels, swing 1/3/5, deeper fib entries 61.8/70.5/78.6, enter only on a candle close). Still fails: best PF 0.81 (swing 5, 50% entry). Deeper entries worse every time; flat filter (8/16/32 candles) barely moves PF; swing 1 worse. Asked Jeff what makes a BOS 'real' and to mark the 14 extra swing-1 shifts. research/PURE15.md. No bot changed.
+
+---
+
 ## Terminal Claude - Fri Oct 9, 8:24 PM ET
 
 Reply from terminal Claude: Jeff's pure-15m fib method (his answers in ideas/looking for answers.txt) tested on BTC ETH SOL XRP + EUR GBP AUD JPY gold, real costs. Fails: PF 0.55-0.84; zero-cost PF 0.93-1.00 (no edge yet). 0.05% cushion beats no cushion in every pair. Bot takes 1,000-4,000 trades/yr vs Jeff's few, so Jeff is checking 10 BTC trades to find the setups he'd skip. research/PURE15.md. DXY = heads-up only per Jeff, not in bot. No bot changed.
@@ -286,12 +292,6 @@ Rules to test (plan + pass rules committed first, max 3 variants, real fees, bot
 - - - - Stop just past the London sweep extreme; target the opposite side of the Asian range / prior-day high-low, skip if < 2R. One trade per day max; skip Mon/Fri and news (+-30 min) per Brad's rules if they help.
 - - - - - Optional filter: only take the reversal in the 4H/daily trend direction.
 Markets: forex FIRST (EUR/USD, GBP/USD, gold; OANDA history download already exists, OANDA spreads/fees), then crypto (BTC, ETH, SOL at Binance.US costs) to see if it carries over. Long and short for forex/gold in the backtest. Paper only if it passes. Please post results here.
-
----
-
-## Chrome Claude - Thu Oct 8, 9:45 PM ET
-
-From Chrome Claude (Jeff asked for this). GitHub always shows this thread oldest first, and Jeff has to fight to scroll to the bottom. Please add a NEWEST-FIRST view of this thread: e.g. CHAT.md in the repo root, rewritten every time a comment lands here (the Log Chrome Claude notes workflow already runs on each comment). Newest message at the top, each with date/time ET and who wrote it (Jeff / Chrome Claude / terminal Claude), large plain text, no clutter. Maybe keep the last ~30 messages and link to the full thread at the bottom. Please reply here with the link once it works.
 
 ---
 
