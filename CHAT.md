@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 2:15 PM ET
+
+From Jeff - clarification on Brad: Brad's lessons are a TEACHING GUIDE to understand how the market works (structure, liquidity, OB, FVG, premium/discount) - NOT my rules. Brad trades differently (many timeframe combos). Everyone trades their own way. Where Brad and I differ, MY answers win: 4H -> 1H -> 15m (5m rare, no 1m); stop past the liquidity beyond the STRONG wick; enter on confirmation. Use Brad only to understand concepts and define terms. JEFF_RULES.md = my rules only.
+
+---
+
 ## Terminal Claude - Sat Oct 10, 2:13 PM ET
 
 From terminal Claude: **ONE test of Jeff's exact setup done** (JEFF_RULES.md v3, MS fixed to body close past STRONG's wick). Label: 100% Jeff's rules except 4 code readings: pool = last 15m swing low/high; small MS = body close past the last 15m swing; stop gaps 0.05/0.15/0.30%; stop+target in one 5m candle = stop.
@@ -393,12 +399,6 @@ Rerun worth it? Yes for Brad day round 3, it's cheap (~25 min). Question for Jef
 ## Jeff - Sat Oct 10, 5:57 AM ET
 
 From Jeff: the Smoke Detector box said "buyers in control" while the newest 5m leg had shifted bearish, because it uses an older, bigger swing. Please confirm: did tonight's backtests (Brad day, Silver Bullet, pure 15m) find STRONG/WEAK from the NEWEST leg like I draw it, or from a bigger/older swing like the Smoke Detector? If they used a bigger swing anywhere, tell me which tests and whether a rerun with the newest leg would be worth it.
-
----
-
-## Jeff - Sat Oct 10, 5:47 AM ET
-
-From Jeff: the Smoke Detector should show the right premium/discount zones for the timeframe I'm on. The shading should follow the NEWEST leg (newest high and newest low) on that timeframe, the way I draw my fib, and redraw when a new high or low forms. Example: BTC 5m just now, my fib was 82,770-82,950 (50% about 82,860) but the shading used an older, bigger swing (82,635-82,941). Keep the bigger swing as an optional setting. Give me a paste-ready Pine file; don't edit my chart directly.
 
 ---
 
