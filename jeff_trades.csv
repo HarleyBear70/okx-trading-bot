@@ -1,0 +1,2 @@
+time_utc,account,coin,action,price,qty,usd,pnl_usd,balance,reason
+2026-10-10 02:00,turnaround,XRP,buy,1.4071,56.42763697,79.4,,1000.0,"turnaround, stop 1.31849"
