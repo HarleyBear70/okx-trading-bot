@@ -1,5 +1,5 @@
 {
- "updated_utc": "2026-10-10 13:26",
+ "updated_utc": "2026-10-10 14:25",
  "bots": {
   "v4-okx": {
    "live_now": 1005.0504,
@@ -189,8 +189,8 @@
    "error": null
   },
   "tr1h-bnus": {
-   "live_now": 1002.9097075408449,
-   "replay_now": 996.6446308888092,
+   "live_now": 1002.6290125066282,
+   "replay_now": 996.3656893284015,
    "live": {
     "n": 0,
     "win": null,
