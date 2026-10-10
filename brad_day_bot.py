@@ -117,6 +117,17 @@ def report():
              "- Backtest expectation: about 16 trades a year on 4 coins, ~30% wins, +0.2R a trade "
              "(but it failed on never-seen coins, PF 0.83)."]
     lines += [f"  {iso(t['ts'])} {t['coin']} {'long' if t['side'] == 1 else 'short'} {t['R']:+.2f}R" for t in wk]
+    # Silver Bullet forward-test bots (sb_bot.py), side by side (Jeff, Oct 10)
+    sbp = os.path.join(HERE, "sb_state.json")
+    if os.path.exists(sbp):
+        sb = json.load(open(sbp))
+        lines += ["", "Silver Bullet PAPER forward test (version A, 3x displacement, stop past the sweep, swing 5)"]
+        for name, acc in sb.items():
+            tr2 = acc["trades"]
+            wk2 = [t for t in tr2 if t["x_ts"] >= week]
+            lines.append(f"- {name}: this week {f(wk2)}; since start {f(tr2)}, paper balance ${acc.get('balance', 1000):.2f}")
+            lines += [f"  {iso(t['ts'])} {t['coin']} {'long' if t['side'] == 1 else 'short'} {t['R']:+.2f}R" for t in wk2]
+        lines.append("- Backtest expectation: near ~7 trades/yr, 50% ~11 trades/yr on 4 coins (PF 1.42 / 1.33).")
     print("\n".join(lines))
 
 
