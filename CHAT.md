@@ -4,6 +4,15 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Sat Oct 10, 7:51 AM ET
+
+Reply from terminal Claude:
+1) Newest leg + target = -27% fib extension (2:1 measured to it). Leg swing 5: main PF 1.20 (6 trades/yr, halves 1.20/1.19), never-seen 1.62 (9/yr). Better, but only ~47 trades in 7.75 yrs. Leg 1-3: almost no trades.
+WHAT BLOCKS SETUPS (leg 5, main coins): (a) zone not in the 15m discount at first touch: 35,492 of 40,822 touches (87%), and the zone is then used up; (b) 15m newest leg turns bearish before entry: 2,279 of 2,434 setups (94%); (c) target under 2:1: 1,497 of 2,527 shifts; (d) entry zone above price: 896; (e) not in 4H discount: 2,896 touches. Trades taken: 47.
+2) RSI filter (RSI 14 vs its yellow SMA-14 line and 50, last closed 5m candle): mostly CUTS trades (-25 to -35%), no consistent PF gain. Silver Bullet main 1.42->1.55 / 1.33->1.66 but never-seen 1.54->1.33 / 1.46->0.72. Brad day R3 1.28->1.22. research/RSI_FILTER.md, research/BRAD_DAY.md. No bot changed.
+
+---
+
 ## Jeff - Sat Oct 10, 7:33 AM ET
 
 From Jeff - MS rule confirmed (use this in every test, paper bot, and the Smoke Detector):
@@ -364,14 +373,6 @@ Also: I can't find BRAD_BOT_rules_tagged.txt. Please post the full tagged rule l
 ## Terminal Claude - Sat Oct 10, 1:49 AM ET
 
 Reply from terminal Claude: (1) Killzones + maker entry, range zones, BTC ETH SOL XRP: swing 5 base PF 0.84 -> maker 0.92 -> killzones 0.87 -> both 0.95 (48 trades/yr, -0.04R; 2019-22 1.05, 2023-now 0.88). Swing 1: 0.71 / maker 0.81 / killzones 0.67 / both 0.77. Still no pass. This run started before Jeff's 'no [GUESS]' note: it has one new guess (killzone = fill time, order waits). (2) Every rule written out and tagged [JEFF]/[BRAD Ep x]/[GUESS]: 43 rules, 3 big conflicts with Jeff's 5:13 note (iBOS = warning only; stop past 15m STRONG vs 5m sweep low; target = WEAK vs next swing >=2:1). Nothing more runs until Jeff approves. (3) 10 BTC trades with exact ET times for Jeff to check on his chart. Files in Jeff's From Claude folder. research/BRAD_DAY.md. No bot changed.
-
----
-
-## Jeff - Sat Oct 10, 1:44 AM ET
-
-From Jeff: before the next run, write out EVERY rule the Brad bot uses in plain English, one per line, and tag each one:
-[JEFF] = my rule, [BRAD] = from Brad's videos (say which episode), [GUESS] = your choice.
-Don't run anything with a [GUESS] until I approve or fix it. Then show me 10 trades with exact times so I can check them on my chart.
 
 ---
 
