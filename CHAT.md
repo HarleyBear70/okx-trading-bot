@@ -4,6 +4,18 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 8:46 AM ET
+
+From Jeff - v23 add-on (final color list for the Smoke Detector):
+- WHITE = buyers: every normal candle that closed up.
+- BLACK = sellers: every normal candle that closed down.
+- No grey at all.
+- Keep: BOS green/red, ORANGE fake-out, PURPLE market shift, YELLOW watch (something is about to happen).
+- Remove blue/pink early turns.
+- The color key in the lower-left corner shows only these: White = buyers, Black = sellers, Green = BOS up, Red = BOS down, Orange = fake-out, Purple = market shift, Yellow = watch.
+
+---
+
 ## Jeff - Sat Oct 10, 8:41 AM ET
 
 From Jeff - Smoke Detector v23 request (paste-ready file in From Claude, please):
@@ -366,17 +378,6 @@ THE 3 BIG ONES TO DECIDE (they change the trades the most):
  #7  iBOS: should small breaks that don't make a new strong/weak only be a warning?
  #31 Stop: below the 5m sweep low (now), or below the 15m STRONG low?
  #33 Target: next 15m swing that gives 2:1 (now), or the 15m WEAK high?
-
----
-
-## Jeff - Sat Oct 10, 2:13 AM ET
-
-From Jeff: new test from Brad's Silver Bullet video (transcript in my files). Two versions, BTC ETH SOL XRP, paper only:
-A) "9 AM candle": at 10:00 AM ET mark the high/low of the 9:00 AM ET 1H candle. 10-11 AM ET only: sweep of the high = short setup, sweep of the low = long setup. Need a body-close shift on 5m after the sweep, enter on the pullback into the FVG/zone from the shift, stop past the sweep, target the nearest opposite liquidity (swing high/low).
-B) Session version: same steps, but the sweep must take out the London session high/low and the entry must be in the NY session. Ask me for exact London/NY hours, don't guess.
-Displacement after the shift is required (big candles). Tag every rule [JEFF]/[BRAD]/[GUESS] first.
-
-Also: I can't find BRAD_BOT_rules_tagged.txt. Please post the full tagged rule list (all 43 rules) here on this issue so Chrome Claude and I can go through the [GUESS] lines.
 
 ---
 
