@@ -22,7 +22,13 @@ Code: research/jeff_setup.py. Lines marked [NOT JEFF] are the only places Claude
 | 13 | One trade at a time per coin, no daily limit, no killzones, trade any time. | 17:01 (10), 16:52 (12) |
 | 14 | Fees: limit entries 0%, stop-outs 0.02% taker + TEST slippage 0 / 0.02% / 0.05% (must pass at the worst). | 16:52 (11), 17:25 (7) |
 | 15 | Small losses are fine; judge on total profit over many trades. No extra filters. | 17:26 |
+| 17 | LOOK LEFT before every entry: scan back (hours, and the higher timeframe) for anything UNTOUCHED price may grab for fuel first: above = supply zones, OBs, pools (equal/swing highs); below = demand zones, FVGs, pools (equal/swing lows). Nearest first, then farther left. Price may break a level to reach it, then turn (another swing, not the real move). Use: stop BEYOND what price will likely grab first; target = the next untouched pool/FVG/OB in the trade direction; old levels still shape BOS/MS/swings. | 18:39 |
 | 16 | Longs and shorts. BTC ETH SOL XRP + never-seen coins. Paper only. | earlier notes |
+
+## Open questions (v4, nothing runs until answered)
+
+- Test case (BTC 5m Oct 10): Q1-Q4 in Claude Files/From Claude/TEST_CASE_side_by_side.txt + the heartbeat follow-up.
+- LOOK LEFT: L1 target = the next untouched level INSTEAD of -27%, or whichever comes first? L2 how far back (e.g. all untouched levels on 15m/1H/4H, or a time limit)? L3 FVG / order block = Brad's definitions (FVG = gap between candle 1 and 3 wicks; OB = last candle before a move that left an FVG and caused a BOS/MS, untouched)? L4 "untouched" = price never traded back into it (FVG: never filled to which part, the edge or fully)?
 
 ## How the code reads Jeff's words [NOT JEFF where marked]
 
