@@ -4,6 +4,26 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 2:05 PM ET
+
+From Jeff - TIMEFRAMES (replaces earlier answers 1-4) + Brad's reference rules (from 7 Market Mechanics transcripts Jeff shared).
+
+JEFF'S TIMEFRAMES: mostly swing-style. 4H = direction (Daily/Weekly above it). 1H = more detail. 15m = working/entry chart. 5m rarely, 1m too busy - avoid. Lower TFs build the higher one; higher TF is king. Process: 4H mark BOS/MS/highs/lows/direction -> 1H/15m mark again, premium or discount, pick the spot -> wait for price to reach it, with the trend -> 15m (5m optional) sweep + small MS -> enter.
+
+BRAD'S RULES (reference):
+1. Market structure (Ep5): BOS = candle BODY close past the last high/low; wick does NOT count. Swing low (STRONG in uptrend) = LOWEST point that led to the BOS; swing high (WEAK) = highest point before the pullback starts (can't mark until pullback starts). Redraw on every BOS. MS = body close past the STRONG level - ONE side is enough. Internal structure (inside the swing range) shifts first = usually just a pullback; only breaking the swing STRONG = reversal. After a BOS expect a pullback - don't buy the breakout candle. Trade from STRONG, target WEAK. Sideways inside the range = no bias.
+2. Top-down (Ep11): HTF = who's in control; MTF = where (POI in the right half of the MTF range); LTF only AFTER price touches the MTF POI, then wait for sweep + MS. Never start bottom-up. Price in the middle = do nothing (set an alert). Stop under the last internal low; target next opposite OB/zone. Hold while the last internal low/high holds.
+3. Liquidity (Ep13): sits above swing highs / below swing lows, equal highs/lows, trendlines, obvious S/R. Shorts: wait for a sweep ABOVE highs; longs: sweep BELOW lows. Real sweep = sharp V-shape. Sweep alone is not a reversal - still need the MS. Inducement = bait (double top, first touch of a zone) - don't enter on it. Zone/OB that already swept liquidity = stronger.
+4. FVG (Ep9): big candle + gap between wick of candle 1 and wick of candle 3; no gap = no FVG. Price tends to return to fill (edge, 50%, extreme, or past it). Only use with the trend: bullish FVG in discount, bearish in premium.
+5. Order blocks: last candle before the big move. Valid only if it left an FVG, caused a BOS/MS, and is untouched (one use). Use the OB that made the most recent LH/HL, not the extreme. Wait for price to return, then LTF MS for entry. Stop past the OB; target next opposite OB. Moves stop to breakeven.
+6. Premium/discount (Ep8): fib from swing low to swing high after a BOS. Buy in discount, sell in premium. Best = zone in the right half; the most extreme zone (at STRONG) holds most. Use the fib from the timeframe you trade on.
+7. Entries/exits: wait for a key level, momentum fading (small candles/long wicks), then a clean BODY close past the small local level (wick = wait), or break + retest. Stop just past that local level/swing. Target 2R or 3R (Brad prefers 3R).
+
+TARGET TEST: fixed 2R vs fixed 3R vs -27% fib extension - let results decide.
+Use these to build JEFF_RULES.md v3, then run the ONE test.
+
+---
+
 ## Terminal Claude - Sat Oct 10, 1:36 PM ET
 
 Reply from terminal Claude: got Jeff's answers (12 questions, #8/#10, the 8 follow-ups, and the risk note: small losses fine, get into trades, judge on total profit). Paper research only, no real-money changes. Queued for the research session: JEFF_RULES.md v3, MS code fix (body close past STRONG's wick), then ONE test labeled "100% Jeff's rules" on main + never-seen coins. The hourly watcher can't download the 5m archive, so the test runs on Jeff's Linux. Nothing here needs Jeff's OK.
@@ -374,12 +394,6 @@ From Jeff: the Smoke Detector should show the right premium/discount zones for t
 ## Terminal Claude - Sat Oct 10, 5:08 AM ET
 
 Reply from terminal Claude: got it. Next normal runs: News Watch 7:30 AM ET (stablecoin-peg check), Analyst 8:30 PM ET (Fear & Greed). I'll read their logs after each and confirm here. Nothing changed by me.
-
----
-
-## Jeff - Sat Oct 10, 5:07 AM ET
-
-From Jeff: added api.alternative.me, api.coingecko.com, www.coingecko.com and coinmarketcap.com to the Default cloud environment's allowed domains. Please re-test on the next normal Analyst / News Watch run and confirm Fear & Greed and the stablecoin-peg price check work. Same safety rules.
 
 ---
 
