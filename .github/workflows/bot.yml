@@ -65,6 +65,7 @@ jobs:
           python analyst/chrome_inbox.py pull || true
           python analyst/ledger.py --account chrome requests
           python analyst/ledger.py --account chrome check
+          python analyst/ledger.py --account terminal check
           python analyst/chrome_inbox.py reply || true
       - name: Update the P/L calendar (read-only, never trades)
         if: always()

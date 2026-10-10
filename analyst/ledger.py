@@ -31,7 +31,9 @@ import bot  # noqa: E402
 
 LEDGER = os.path.join(HERE, "ledger.json")
 TRADES = os.path.join(HERE, "trades.csv")
-ACCOUNTS = {"claude": HERE, "chrome": os.path.join(HERE, "chrome")}  # same rules, separate balances
+ACCOUNTS = {"claude": HERE, "chrome": os.path.join(HERE, "chrome"),
+            "terminal": os.path.join(HERE, "terminal")}  # same rules, separate balances
+# "terminal" = terminal Claude's Brad-checklist contest account (Jeff, Oct 10 2026), fresh $1,000
 COINS = ["BTC", "ETH", "SOL", "XRP", "BNB", "LINK"]
 FEE = 0.0035
 MAX_RISK = 0.005
