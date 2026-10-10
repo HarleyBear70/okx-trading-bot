@@ -1,51 +1,46 @@
 # JEFF_RULES.md — Jeff's day-trade method, ONLY rules Jeff stated
 
-Status: **DRAFT, waiting for Jeff's approval. No test runs until Jeff approves this file.**
-Sources = Jeff's notes on GitHub issue #4 (times are UTC, Oct 10 2026), or Jeff's words relayed by Chrome Claude.
-Anything Jeff did not state is in the MISSING list at the bottom. Nothing gets filled in by Claude.
+Status: **v2, waiting for Jeff's FINAL OK. No test runs until Jeff approves this file.**
+Sources = Jeff's notes on GitHub issue #4 (UTC times, Oct 10 2026), some relayed by Chrome Claude.
+Nothing here is filled in by Claude. Open questions are in section C.
 
-## A. Rules Jeff stated
+## A. Jeff's rules
 
-| # | Rule | Where Jeff said it |
+| # | Rule | Source |
 |---|---|---|
-| 1 | Trade WITH the trend only. | #4 14:01 (via Chrome Claude) |
-| 2 | Timeframes 4H -> 15m -> 5m. | #4 14:01; day trade first #4 05:13 |
-| 3 | No killzones / time rules for crypto. | #4 14:01 (via Chrome Claude). Note: #4 05:35 asked to ADD killzones 2-5 / 7-10 AM ET. 14:01 replaces it? |
-| 4 | Fib on the NEWEST leg: up leg = the low that led to the newest high (STRONG, fib 1) to that high (WEAK, fib 0). Down leg = mirror. | #4 10:09; screenshot BTC 5m 82,770.7 -> 82,950; Smoke v22 checked live #4 12:41 |
-| 5 | My BOS rule and my fib are the same thing: every new HH moves STRONG up to the newest pullback low, WEAK = the new high. Redraw after every BOS. | #4 10:09 |
-| 6 | BOS = a candle BODY closes past the last HH (uptrend) / LL (downtrend). Breaks inside the range = iBOS, warning only, no reset. | #4 06:38 (#7) |
-| 7 | Market shift (MS) = a candle BODY closes past STRONG's WICK. A wick past it = sweep. A body close between STRONG's body and its wick = NOT an MS. | #4 11:33 |
-| 8 | Fib only 0 / 0.5 / 1. Long only in discount (below 0.5), short only in premium (above 0.5). Never the middle. | #4 05:13 |
-| 9 | Stop past STRONG + "my cushion". | #4 05:13, #4 10:09 |
-| 10 | Target = -27% fib extension (TP1 = the 0% line). | #4 10:37; #4 14:01 |
-| 11 | At least 2:1, measured to the target used. | #4 05:13, #4 10:37 |
-| 12 | Longs and shorts, shorts are the mirror. | Jeff "both directions" |
-| 13 | Entry = limit order -> maker fee (0%); stop exits pay taker. | #4 05:35 |
-| 14 | Coins BTC ETH SOL XRP; check on never-seen coins too. | #4 07:44, #4 10:09 |
-| 15 | 3% daily loss limit. | #4 06:38 (#43) |
-| 16 | Trailing stop = an optional add-on to TEST, not Jeff's rule. | #4 14:01 |
-| 17 | Paper / research only. | every note |
+| 1 | Trade WITH the higher-timeframe trend only. | #4 14:01, 16:52 (1) |
+| 2 | Mark everything on every timeframe before moving down. Nothing marked = no trade. | #4 16:52 (0) |
+| 3 | Timeframes: start high (Daily or 4H), 1H optional, 15m = working chart, 5m = entry (1m sometimes). | #4 16:52 (4) |
+| 4 | Swings: Jeff marks by eye. TEST 1, 2 and 3 candles each side. | #4 16:52 (5) |
+| 5 | Fib on the NEWEST leg: up leg = the low that led to the newest high (STRONG, fib 1) to that high (WEAK, fib 0). Down leg = mirror. Redraw on every BOS. | #4 10:09 |
+| 6 | BOS = a candle BODY closes past the last HH (up) / LL (down). New HH -> STRONG moves up to the newest pullback low, WEAK = the new high. Breaks inside the range = iBOS, warning only. | #4 06:38, 10:09 |
+| 7 | Market shift (MS) = a candle BODY closes past STRONG's WICK. A wick past it = sweep. A body close between STRONG's body and wick = NOT an MS. | #4 11:33 |
+| 8 | Fib 0 / 0.5 / 1 only. Long only in discount, short only in premium, never the middle. | #4 05:13, 16:52 (3) |
+| 9 | Entry: with the HTF trend, in the right zone, a 5m liquidity sweep, then a 5m MS. | #4 16:52 (1) |
+| 10 | Limit orders, 1x mindset, sized in dollars. Limit price: TEST A = shift candle close, B = shift candle level, C = fib 50% or a box. | #4 16:52 (2) |
+| 11 | Stop past STRONG's wick, beyond the liquidity, far enough that price must make an MS to hit it. Cushion: TEST none / small / one wick. | #4 16:52 (6-7) |
+| 12 | Target = -27% fib extension, at least 2:1 measured to it. Compare with TP at the 0% line. | #4 10:37, 16:52 (9) |
+| 13 | Trailing / taking profit when it stalls = optional TEST only, not the base rule. | #4 14:01, 16:52 (9) |
+| 14 | Cancel an unfilled order when the setup is no longer valid: an MS against it, or price reaches the target without filling. | #4 17:01 (8) |
+| 15 | One trade at a time PER COIN. NO daily limit. Trade any time a clean setup appears. | #4 17:01 (10) |
+| 16 | No killzones for crypto, trade any time. | #4 16:52 (12) |
+| 17 | Fees: Binance.US maker 0% (limit entries), taker 0.02% (stop exits), plus small standard slippage on stop-outs. | #4 16:52 (11) |
+| 18 | Longs and shorts (shorts = mirror). Coins BTC ETH SOL XRP, plus never-seen coins as a check. | #4 07:44, 10:09 |
+| 19 | Paper / research only. | every note |
 
-## B. MISSING — Claude needs Jeff's answer (nothing filled in)
+Removed (not Jeff's): killzones on crypto, the 3% daily loss limit, 1.35% max stop, 0.40-0.60 band, counter-trend, fixed 0.05% cushion.
 
-1. **Entry trigger:** what has to happen before you enter? (e.g. a 5m sweep then a 5m MS? price touching a zone? or just price in discount?)
-2. **Entry price:** limit at what level? (the zone of the shift, the 0.5, the close of the shift candle, ...)
-3. **Zones:** are zones (order blocks) part of your setup at all? If yes, which candle(s)?
-4. **What each timeframe does:** what must the 4H show, what must the 15m show, what does the 5m do?
-5. **Swing size:** how many candles each side make a swing high/low (for the newest leg)? Smoke v22 uses 2 on your chart.
-6. **Cushion size:** how much is "my cushion"? (0.05% was used before; Chrome Claude says you never approved it.)
-7. **Stop:** past STRONG (#4 10:09) or past the sweep candle (your own BTC short, #4 10:29)? Or test both?
-8. **Order cancel:** when does an unfilled order get cancelled? (price hits target first? an MS against it? never?)
-9. **-27% rule:** go straight for -27%, or TP1 at 0% then TP2 at -27% only after a new HH/LL (#4 10:37)? Part closes at TP1?
-10. **One trade per coin at a time?** Max trades per day?
-11. **Fees / slippage numbers** for stop exits (0.02% taker + 0.02% slippage was used before).
-12. **Killzones:** confirm none for crypto (rule 3 above).
+## B. Before the test
 
-## C. Your requests I have NOT done yet (queued until this file is approved)
+- Fix the MS code to rule 7 first (now it flips on a body close past the swing's BODY, not STRONG's wick).
 
-- #4 10:29 test YOUR BTC 5m short setup (stop past the sweep candle, target 0%) + re-check Smoke v22 SH/SL/MUST HOLD/TARGET/box.
-- #4 10:31 Silver Bullet with your fib filter.
-- #4 10:37 TP1 0% / -27% / -27% + trailing comparison.
-- #4 11:33 MS-rule check of the code. Answer now: the code does NOT match. It flips the leg on a body close past the
-  newest swing's BODY, not past STRONG's wick. All past tests did it that way. Will be fixed in the next test.
-- #4 12:41 + 12:46 Smoke Detector v23 (color on/off, remove GOOD/SKIP and 1.35%/2%, purple only on your MS rule, new color key).
+## C. Still unclear — need Jeff's answer (Claude will NOT pick)
+
+1. **HTF trend:** Daily or 4H? Or test both?
+2. **"Right zone":** discount/premium of which leg: the 15m, the HTF (4H/Daily), or both?
+3. **-27% extension:** of which leg: the 15m leg or the 5m leg?
+4. **Limit B "shift candle level":** which price is that? (the STRONG wick it broke? the open of the shift candle?)
+5. **Limit C "a box":** which box? (the order block that caused the shift? the FVG?)
+6. **Cushion "small":** how much? (e.g. 0.05%, 0.1%?) "One wick" = the size of the STRONG candle's wick?
+7. **Slippage "small standard":** how much? (e.g. 0.02%?)
+8. **The 5m sweep:** a wick past the last 5m swing low (longs)? Any 5m swing, or a particular one?
