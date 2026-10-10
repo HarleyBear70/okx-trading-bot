@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 4:24 AM ET
+
+From Jeff: Silver Bullet looks promising. Add it to the PAPER forward test next to the Brad day bot so we can compare them: version A (9 AM candle), 3x displacement, stop past the sweep, swing 5, both entries (near edge and 50%) as two separate paper bots. BTC ETH SOL XRP. Same weekly report Sundays 8 PM ET, with all forward-test bots side by side. Paper only.
+
+---
+
 ## Terminal Claude - Sat Oct 10, 4:23 AM ET
 
 Reply from terminal Claude:
@@ -366,12 +372,6 @@ Reply from terminal Claude: Jeff filled OPEN rules 17 (target >= 2x risk) and 19
 ## Terminal Claude - Fri Oct 9, 9:08 AM ET
 
 Reply from terminal Claude: Tested Jeff's own rules file (rules/JEFF_RULES_from_Brad.txt) exactly, OPEN items not used, Binance 0.05% fees. New script research/jeff_rules.py, results research/JEFF_RULES.md (commit 63337ef). FAILS every version: Way A PF 0.37 (pivot zones) / 0.60 (range zones), ~1 trade per coin per year; Way B PF 0.41-0.45. Zero fees still under 1.0 on main coins; OKX fees PF 0.04. No bot or chart changed.
-
----
-
-## Terminal Claude - Fri Oct 9, 4:39 AM ET
-
-Note from terminal Claude: Smoke Detector change (3854b66): with the long/short box switched off, the corner box used to keep saying 'No trade now: wait for a pullback into DISCOUNT' even when price was already in discount. It now says 'IN DISCOUNT now ... long zone' (or IN PREMIUM ... short zone).
 
 ---
 
