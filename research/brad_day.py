@@ -204,10 +204,10 @@ def zone(h, l, org, N, ztype):
     return min(l[a:org + 1]), max(h[a:org + 1])
 
 
-def killzone(t):
+def killzone(t, win=((2, 5), (7, 10))):
     """Jeff rule 19 (approved Oct 10): entries only 2-5 AM and 7-10 AM New York time."""
     e = dt.datetime.fromtimestamp(t / 1000, dt.timezone.utc).astimezone(NY)
-    return 2 <= e.hour < 5 or 7 <= e.hour < 10
+    return any(a <= e.hour < b for a, b in win)
 
 
 def pos_in(x, st):
@@ -216,14 +216,17 @@ def pos_in(x, st):
 
 
 def run(d, N, ztype, taker=TAKER, log=None, kz=False, maker=False, rng=False, stopm="sweep", cap=MAXSTOP,
-        band=0.0, state=None):
+        band=0.0, state=None, kzw=None, allow=None, spr=None):
     """long side only. Returns [(entry ts, exit ts, R)].
     kz    = the limit order can only fill inside Jeff's killzones; outside them it waits (Oct 10).
     maker = the limit entry pays 0% (maker); stop exits still pay taker + slippage (Jeff, Oct 10).
     rng   = Jeff's Oct 10 answers: 4H/15m use RangeStruct (#7) and the target is the 15m WEAK high (#33).
     stopm = "sweep" (below the 5m sweep low) or "strong" (below the 15m STRONG low), +0.05% (#31).
     cap   = max stop distance as a fraction of price, None = no cap (#32).
-    band  = no-trade band around the 0.5: 0.05 = 0.45-0.55, 0.10 = 0.40-0.60 (#11)."""
+    band  = no-trade band around the 0.5: 0.05 = 0.45-0.55, 0.10 = 0.40-0.60 (#11).
+    kzw   = killzone hours instead of Jeff's default [(2, 5), (7, 10)] ET, e.g. [(2, 5)] = London only (forex, Oct 10).
+    allow = bytearray, 1 = this side may fill on this 5m candle (DXY / COT filters, forex Oct 10).
+    spr   = forex: real spread per 5m candle; half of it is paid on the entry and half on every exit."""
     ts, o, h, l, c = d["ts"], d["o"], d["h"], d["l"], d["c"]
     t0 = B.ms(B.START)
     O15, H15, L15, C15, end15 = resample(ts, o, h, l, c, M15)
@@ -231,6 +234,9 @@ def run(d, N, ztype, taker=TAKER, log=None, kz=False, maker=False, rng=False, st
     SS = RangeStruct if rng else Struct
     s5, s15, s4 = Struct(o, h, l, c, N), SS(O15, H15, L15, C15, N), SS(O4, H4_, L4, C4, N)
     fee = lambda px: taker * abs(px)
+    if spr is not None:
+        fee = lambda px: spr[i] / 2
+    win = kzw or [(2, 5), (7, 10)]
     zones = []  # [bottom, top, used]
     setup = None  # {"z": zone, "low": sweep low or None, "swept": bool}
     pend = pos = None
@@ -242,7 +248,7 @@ def run(d, N, ztype, taker=TAKER, log=None, kz=False, maker=False, rng=False, st
             if l[i] <= pos["stop"]:
                 px, f = min(pos["stop"], o[i]), fee(pos["stop"])
             elif h[i] >= pos["tgt"]:
-                px, f = max(pos["tgt"], o[i]), 0.0
+                px, f = max(pos["tgt"], o[i]), (0.0 if spr is None else spr[i] / 2)
             if px is not None:
                 r = (px - pos["e"] - pos["ec"] - f) / pos["r"]
                 out.append((pos["ts"], ts[i], r))
@@ -251,9 +257,9 @@ def run(d, N, ztype, taker=TAKER, log=None, kz=False, maker=False, rng=False, st
                 pos = None
         # 2) pending limit order
         if pend and not pos:
-            if l[i] <= pend["e"] and (not kz or killzone(ts[i])):
+            if l[i] <= pend["e"] and (not kz or killzone(ts[i], win)) and (allow is None or allow[i]):
                 e = min(o[i], pend["e"])
-                pos = dict(pend, e=e, ec=0.0 if maker else fee(e), ts=ts[i], r=e - pend["stop"])
+                pos = dict(pend, e=e, ec=fee(e) if spr is not None or not maker else 0.0, ts=ts[i], r=e - pend["stop"])
                 pend = setup = None
                 if l[i] <= pos["stop"]:  # same candle: assume the stop came first
                     r = (pos["stop"] - e - pos["ec"] - fee(pos["stop"])) / pos["r"]
