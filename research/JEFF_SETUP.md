@@ -1,5 +1,7 @@
 # JEFF_SETUP results (Oct 10 2026) — rules: research/JEFF_RULES.md v3
 
+**INVALID (Oct 10, after Jeff's BTC 5m test case): the structure code missed almost every BOS/MS/pool Jeff marked. Re-run after the code matches the test case.**
+
 100% Jeff's rules EXCEPT (Claude's reading, marked [NOT JEFF] in JEFF_RULES.md): liquidity pool = the last 15m swing low/high; small MS = body close past the last 15m swing high/low; stop gap sizes 0.05/0.15/0.30%; stop+target in one 5m candle = stop.
 
 
