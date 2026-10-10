@@ -31,6 +31,7 @@ Long rules below; shorts are the exact mirror (run on upside-down prices). One t
   Coins       BTC ETH SOL XRP. Binance 5m archive 2019 to Sep 30 2026. Halves 2019-22 / 2023-now.
   Not used    killzones/sessions, news, daily loss limit (not in Ep 11's steps).
 
+  python3 research/brad_day.py kz         (Oct 10: killzones + maker entry, swing 5 and 1, range zones)
   python3 research/brad_day.py            (BTC ETH SOL XRP, swing 1/3/5 x pivot/range, with and without fees)
 """
 import array
@@ -38,6 +39,7 @@ import datetime as dt
 import gc
 import os
 import sys
+from zoneinfo import ZoneInfo
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -47,6 +49,7 @@ import pure15 as P  # noqa: E402  (stats + table row)
 TAKER, CUSH, MAXSTOP, MINRR = 0.0004, 0.0005, 0.0135, 2.0
 COINS = ["BTC", "ETH", "SOL", "XRP"]
 M15, H4 = 900000, 14400000
+NY = ZoneInfo("America/New_York")
 
 
 def load(coin):
@@ -138,8 +141,16 @@ def zone(h, l, org, N, ztype):
     return min(l[a:org + 1]), max(h[a:org + 1])
 
 
-def run(d, N, ztype, taker=TAKER, log=None):
-    """long side only. Returns [(entry ts, exit ts, R)]."""
+def killzone(t):
+    """Jeff rule 19 (approved Oct 10): entries only 2-5 AM and 7-10 AM New York time."""
+    e = dt.datetime.fromtimestamp(t / 1000, dt.timezone.utc).astimezone(NY)
+    return 2 <= e.hour < 5 or 7 <= e.hour < 10
+
+
+def run(d, N, ztype, taker=TAKER, log=None, kz=False, maker=False):
+    """long side only. Returns [(entry ts, exit ts, R)].
+    kz    = the limit order can only fill inside Jeff's killzones; outside them it waits (Oct 10).
+    maker = the limit entry pays 0% (maker); stop exits still pay taker + slippage (Jeff, Oct 10)."""
     ts, o, h, l, c = d["ts"], d["o"], d["h"], d["l"], d["c"]
     t0 = B.ms(B.START)
     O15, H15, L15, C15, end15 = resample(ts, o, h, l, c, M15)
@@ -166,9 +177,9 @@ def run(d, N, ztype, taker=TAKER, log=None):
                 pos = None
         # 2) pending limit order
         if pend and not pos:
-            if l[i] <= pend["e"]:
+            if l[i] <= pend["e"] and (not kz or killzone(ts[i])):
                 e = min(o[i], pend["e"])
-                pos = dict(pend, e=e, ec=fee(e), ts=ts[i], r=e - pend["stop"])
+                pos = dict(pend, e=e, ec=0.0 if maker else fee(e), ts=ts[i], r=e - pend["stop"])
                 pend = setup = None
                 if l[i] <= pos["stop"]:  # same candle: assume the stop came first
                     r = (pos["stop"] - e - pos["ec"] - fee(pos["stop"])) / pos["r"]
@@ -231,7 +242,37 @@ def mirror(d):
             "l": array.array("d", (-v for v in d["h"])), "c": array.array("d", (-v for v in d["c"]))}
 
 
+def main_kz():
+    """Oct 10 round 2 (Jeff): best version (swing 5 range) + swing 1 range, with/without killzones and maker entry."""
+    years = (dt.datetime(2026, 10, 1, tzinfo=dt.timezone.utc) - B.START).days / 365.25
+    vers = [(f"swing {N}, range zones{', killzones' if k else ''}{', maker entry' if m else ''}", N, k, m)
+            for N in (5, 1) for k in (False, True) for m in (False, True)]
+    res = {v[0]: [] for v in vers}
+    for cn in COINS:
+        d = load(cn)
+        md = mirror(d)
+        for name, N, k, m in vers:
+            lo = [t + (1,) for t in run(d, N, "range", kz=k, maker=m)]
+            sh = [t + (-1,) for t in run(md, N, "range", kz=k, maker=m)]
+            keep, busy = [], -1
+            for t in sorted(lo + sh):
+                if t[0] > busy:
+                    keep.append(t)
+                    busy = t[1]
+            res[name] += keep
+            print(f"  {cn} {name}: {len(keep)} trades", flush=True)
+        del d, md
+        gc.collect()
+    print("\n### Brad DAY TRADE, range zones: killzones and maker entry, BTC ETH SOL XRP, Binance.US costs\n")
+    print("| Version | Trades/yr | Win % | Avg win | Avg loss | PF | Avg | Max DD | 2019-22 PF | 2023-now PF | "
+          "Long PF | Short PF |\n|---|---|---|---|---|---|---|---|---|---|---|---|")
+    for v in vers:
+        print(P.row(v[0], res[v[0]], years), flush=True)
+
+
 def main():
+    if sys.argv[1:] == ["kz"]:
+        return main_kz()
     coins = sys.argv[1:] or COINS
     years = (dt.datetime(2026, 10, 1, tzinfo=dt.timezone.utc) - B.START).days / 365.25
     vers = [(f"swing {N}, {z} zones{', ZERO fees' if zf else ''}", N, z, zf)
