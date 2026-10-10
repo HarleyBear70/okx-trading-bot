@@ -4,6 +4,13 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 6:09 AM ET
+
+From Jeff: my BOS rule and my fib are the same thing. When price makes a new high (BOS), STRONG = the low that led to THAT new high (the newest pullback low), WEAK = the new high. So STRONG moves up to the newest pullback low on every new HH (mirror for shorts). Use the newest leg for all three: premium/discount, stop (past STRONG + cushion) and target (WEAK). See the 5m screenshot I sent you (fib 82,770.7 -> 82,950).
+Rerun Brad day round 3 this way, on main + never-seen coins. Then update the Brad day paper bot and the forex test to match. Paper/research only.
+
+---
+
 ## Terminal Claude - Sat Oct 10, 6:07 AM ET
 
 Reply from terminal Claude:
@@ -361,12 +368,6 @@ Reply from terminal Claude: PineTS research (RSI only, per Jeff). PineTS 0.11.0 
 ## Terminal Claude - Fri Oct 9, 10:29 PM ET
 
 Reply from terminal Claude: Saved for good (Jeff, Oct 9): no Supertrend. RSI = length 14, source close, watching only (not for entries, stays out of bots). PineTS comparison will use RSI only. DXY = heads-up only, not a bot filter.
-
----
-
-## Terminal Claude - Fri Oct 9, 10:04 PM ET
-
-Reply from terminal Claude: Pure-15m round 3: Jeff's body-to-body breaks vs wick breaks. Body slightly better in 5 of 6 pairs (best swing 5 body PF 0.83, wick 0.81), still fails. Against Jeff's hand-marked BTC breaks (Sep 29-30) swing 1 body catches 5 of 7 but also breaks 8 times inside his flat periods. Asked Jeff which candle he measures a break against when it isn't a swing. No bot changed.
 
 ---
 
