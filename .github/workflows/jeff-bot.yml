@@ -28,6 +28,10 @@ jobs:
         run: python brad_day_bot.py || echo "brad-day run failed"
       - name: Silver Bullet forward test (paper, never places real orders)
         run: python sb_bot.py || echo "sb run failed"
+      - name: Watch Jeff's waiting setups (paper only, never trades; notes on issue 4)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python tools/jeff_setup_watch.py || echo "setup watch failed"
       - name: Check Jeff's own paper trades (read-only, never trades; notes closed trades on issue 4)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -49,7 +53,7 @@ jobs:
           git config user.email "jeff-bot@users.noreply.github.com"
           git add jeff_state.json
           if [ -f jeff_trades.csv ]; then git add jeff_trades.csv; fi
-          git add journal/jeff_paper_trades.csv journal/heartbeat_events.csv journal/heartbeat_now.md journal/claude_hb_state.json; if [ -f journal/claude_hb_trades.csv ]; then git add journal/claude_hb_trades.csv; fi
+          git add journal/jeff_paper_trades.csv journal/heartbeat_events.csv journal/heartbeat_now.md journal/claude_hb_state.json journal/jeff_setups.json; if [ -f journal/claude_hb_trades.csv ]; then git add journal/claude_hb_trades.csv; fi
           for f in brad_day_state.json brad_day_trades.csv sb_state.json sb_trades.csv; do if [ -f $f ]; then git add $f; fi; done
           git diff --cached --quiet && exit 0
           git commit -m "jeff bot: update state"
