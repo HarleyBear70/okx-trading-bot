@@ -1,0 +1,21 @@
+{
+ "balance": 1000.0,
+ "coins": {
+  "LINK": {
+   "last": 1791735600000,
+   "order": null
+  },
+  "BTC": {
+   "last": 1791735600000,
+   "order": null
+  },
+  "ETH": {
+   "last": 1791735600000,
+   "order": null
+  },
+  "SOL": {
+   "last": 1791735600000,
+   "order": null
+  }
+ }
+}

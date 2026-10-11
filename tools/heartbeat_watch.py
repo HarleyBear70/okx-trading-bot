@@ -24,7 +24,9 @@ import urllib.request
 
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(HERE, "research"))
+sys.path.insert(0, os.path.join(HERE, "tools"))
 from jeff_struct import Heart  # noqa: E402
+import claude_hb_trader as trader  # noqa: E402
 
 ET = dt.timezone(dt.timedelta(hours=-4))  # EDT (Oct 2026)
 COINS = ["LINK", "BTC", "ETH", "SOL"]
@@ -61,7 +63,7 @@ def run(d, size):
         hist.append((close_t, st))
         if ev and ev.split()[0] in ("BOS", "MS", "sweep", "fuel", "start"):
             evs.append((close_t, ev, c[k], st))
-    return evs, hist, s, c[-1]
+    return evs, hist, s, c[-1], d
 
 
 def state_at(hist, t):
@@ -93,7 +95,7 @@ def main():
         for name, _, _ in TFS:
             if name not in runs:
                 continue
-            evs, hist, s, last = runs[name]
+            evs, hist, s, last, _ = runs[name]
             if not s.trend:
                 continue
             up = s.trend == 1
@@ -114,6 +116,11 @@ def main():
                     row[big] = state_at(runs[big][1], close_t) if big in runs and big != name else ""
                 new.append(row)
         lines.append("")
+        try:
+            lines += trader.step(coin, runs, state_at)
+        except Exception as ex:
+            print(f"{coin} trader failed: {ex}")
+    trader.save()
     new.sort(key=lambda r: r["time_et"])
     exists = os.path.exists(EVENTS)
     with open(EVENTS, "a", newline="") as f:
