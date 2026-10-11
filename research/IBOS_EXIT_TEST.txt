@@ -1,0 +1,34 @@
+
+### Entry: 15m MS (longs + shorts, 9 coins)
+2R             all       6501 trades, win  31%, avg win 2.00R, avg -0.119R, PF 0.84, avg hold 8.2 h
+               2019-22   2150 trades, win  31%, avg win 2.00R, avg -0.089R, PF 0.88
+               2023-on   4351 trades, win  30%, avg win 2.00R, avg -0.134R, PF 0.82
+2R + iBOS      all       7312 trades, win  23%, avg win 0.79R, avg -0.139R, PF 0.57, avg hold 1.1 h
+               2019-22   2272 trades, win  22%, avg win 0.91R, avg -0.162R, PF 0.56
+               2023-on   5040 trades, win  24%, avg win 0.75R, avg -0.128R, PF 0.58
+iBOS only      all       7312 trades, win  23%, avg win 0.80R, avg -0.143R, PF 0.56, avg hold 1.2 h
+               2019-22   2272 trades, win  22%, avg win 0.98R, avg -0.156R, PF 0.58
+               2023-on   5040 trades, win  23%, avg win 0.73R, avg -0.137R, PF 0.55
+iBOS after 1R  all       6860 trades, win  41%, avg win 1.15R, avg -0.126R, PF 0.79, avg hold 5.7 h
+               2019-22   2201 trades, win  38%, avg win 1.27R, avg -0.123R, PF 0.80
+               2023-on   4659 trades, win  42%, avg win 1.10R, avg -0.127R, PF 0.78
+MS only        all       7311 trades, win  23%, avg win 2.39R, avg -0.093R, PF 0.86, avg hold 9.4 h
+               2019-22   2272 trades, win  22%, avg win 2.88R, avg -0.065R, PF 0.91
+               2023-on   5039 trades, win  24%, avg win 2.19R, avg -0.106R, PF 0.83
+
+### Entry: 15m BOS (longs + shorts, 9 coins)
+2R             all      19527 trades, win  30%, avg win 2.00R, avg -0.138R, PF 0.81, avg hold 4.7 h
+               2019-22   8247 trades, win  30%, avg win 2.00R, avg -0.153R, PF 0.79
+               2023-on  11280 trades, win  30%, avg win 2.00R, avg -0.127R, PF 0.83
+2R + iBOS      all      26037 trades, win  26%, avg win 1.08R, avg -0.148R, PF 0.66, avg hold 1.1 h
+               2019-22  10104 trades, win  25%, avg win 1.19R, avg -0.166R, PF 0.65
+               2023-on  15933 trades, win  27%, avg win 1.02R, avg -0.136R, PF 0.67
+iBOS only      all      25508 trades, win  25%, avg win 1.18R, avg -0.141R, PF 0.68, avg hold 1.4 h
+               2019-22   9908 trades, win  24%, avg win 1.35R, avg -0.154R, PF 0.68
+               2023-on  15600 trades, win  26%, avg win 1.08R, avg -0.132R, PF 0.68
+iBOS after 1R  all      20456 trades, win  36%, avg win 1.35R, avg -0.145R, PF 0.77, avg hold 3.6 h
+               2019-22   8486 trades, win  33%, avg win 1.47R, avg -0.161R, PF 0.75
+               2023-on  11970 trades, win  38%, avg win 1.28R, avg -0.133R, PF 0.78
+MS only        all      17737 trades, win  20%, avg win 3.39R, avg -0.077R, PF 0.90, avg hold 8.6 h
+               2019-22   7521 trades, win  18%, avg win 3.99R, avg -0.063R, PF 0.92
+               2023-on  10216 trades, win  22%, avg win 3.01R, avg -0.087R, PF 0.88
