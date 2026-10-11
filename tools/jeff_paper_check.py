@@ -15,12 +15,15 @@ import datetime as dt
 import json
 import os
 import subprocess
+import sys
 import urllib.request
 
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CSV = os.path.join(HERE, "journal", "jeff_paper_trades.csv")
 ET = dt.timezone(dt.timedelta(hours=-4))  # EDT (Oct 2026)
 STOP_COST = 0.0004
+BARS = {"5m": "5m", "15m": "15m", "1H": "1H", "4H": "4H"}
+sys.path.insert(0, os.path.join(HERE, "research"))
 
 
 def candles(inst, since_ms):
@@ -40,6 +43,37 @@ def candles(inst, since_ms):
             break
         after = f"&after={oldest}"
     return [out[k] for k in sorted(out) if k >= since_ms]
+
+
+def code_view(t):
+    """what the structure code (research/jeff_struct.py, swing 1) saw on the trade's chart when Jeff entered"""
+    from jeff_struct import Heart
+    inst = t["coin"] if t["coin"].endswith("USDT") else t["coin"] + "T"
+    start = dt.datetime.strptime(t["date_et"].replace("~", ""), "%Y-%m-%d %H:%M").replace(tzinfo=ET)
+    t0 = int(start.timestamp() * 1000)
+    rows, after = {}, f"&after={t0}"  # only candles that had closed before Jeff entered
+    for _ in range(3):
+        url = f"https://www.okx.com/api/v5/market/history-candles?instId={inst}&bar={BARS[t['tf']]}&limit=100{after}"
+        data = json.load(urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "x"}), timeout=20))["data"]
+        if not data:
+            break
+        for r in data:
+            rows[int(r[0])] = r
+        after = f"&after={min(int(r[0]) for r in data)}"
+    d = [rows[k] for k in sorted(rows)]
+    h, l, c = ([float(r[i]) for r in d] for i in (2, 3, 4))
+    s, evs = Heart(h, l, c, 1), []
+    for k in range(len(d)):
+        ev = s.step(k)
+        if ev and ev.split()[0] in ("BOS", "MS", "sweep", "fuel", "start"):
+            evs.append(f"{ev} {dt.datetime.fromtimestamp(int(d[k][0]) / 1000, ET):%m-%d %H:%M}")
+    if not s.trend:
+        return "code: no structure yet"
+    lo, hi = s.rng
+    mid, e = (lo + hi) / 2, float(t["entry"])
+    zone = "premium" if e > mid else "discount"
+    return (f"code at entry ({t['tf']}): leg {'UP' if s.trend == 1 else 'DOWN'}, MUST HOLD {s.strong}, leg {'high' if s.trend == 1 else 'low'} "
+            f"{s.weak}, 50% {mid:.6g}, entry in {zone}; last events: " + "; ".join(evs[-3:]))
 
 
 def check(t):
@@ -81,7 +115,14 @@ def main():
         rows = list(csv.DictReader(f))
         fields = list(rows[0].keys()) if rows else []
     closed = []
+    if "code_view" not in fields:
+        fields.append("code_view")
     for t in rows:
+        if not t.get("code_view"):
+            try:
+                t["code_view"] = code_view(t)
+            except Exception as ex:
+                print(f"code view failed: {ex}")
         if not (t["status"].startswith("open") or "limit" in t["status"]):
             continue
         try:
