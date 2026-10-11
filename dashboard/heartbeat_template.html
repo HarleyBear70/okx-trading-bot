@@ -1,0 +1,186 @@
+<title>Heartbeat Monitor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: an ECG strip chart. Light = printed ECG paper, dark = bedside monitor. Leads = timeframes, top-down. */
+:root {
+  --paper: #fdf4f3; --grid-minor: #f3d3d0; --grid-major: #e6a9a3; --ink: #2a1d1c; --muted: #7d6461;
+  --trace: #1d1715; --candle: #b9a3a0; --panel: #fffaf9; --line: #ecd0cc;
+  --bull: #138a4b; --bear: #c42a2a; --ms: #7c3aed; --fo: #d97706; --zone-prem: rgba(196,42,42,.07); --zone-disc: rgba(19,138,75,.08);
+  --display: "Barlow Condensed", "Arial Narrow", sans-serif; --body: "Source Sans 3", "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #07110d; --grid-minor: #0d2219; --grid-major: #173a2a; --ink: #d7f5e6; --muted: #7fa592;
+  --trace: #44f59a; --candle: #2f5a46; --panel: #0b1913; --line: #1a3427;
+  --bull: #3ddc84; --bear: #ff5d5d; --ms: #b18cff; --fo: #f5a524; --zone-prem: rgba(255,93,93,.07); --zone-disc: rgba(61,220,132,.07);
+  color-scheme: dark } }
+:root[data-theme="dark"] {
+  --paper: #07110d; --grid-minor: #0d2219; --grid-major: #173a2a; --ink: #d7f5e6; --muted: #7fa592;
+  --trace: #44f59a; --candle: #2f5a46; --panel: #0b1913; --line: #1a3427;
+  --bull: #3ddc84; --bear: #ff5d5d; --ms: #b18cff; --fo: #f5a524; --zone-prem: rgba(255,93,93,.07); --zone-disc: rgba(61,220,132,.07);
+  color-scheme: dark }
+body { background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.5; }
+.wrap { max-width: 1100px; margin: 0 auto; padding-inline: 16px; padding-block: 20px 40px; display: grid; gap: 18px; }
+header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 20px; }
+h1 { font-family: var(--display); font-weight: 700; font-size: 2.4rem; letter-spacing: .02em; margin: 0; text-transform: uppercase; text-wrap: balance; }
+.stamp { font-family: var(--mono); font-size: .8rem; color: var(--muted); }
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.tabs button { font-family: var(--display); font-weight: 600; font-size: 1.1rem; letter-spacing: .06em; padding: 6px 16px;
+  border: 1px solid var(--line); background: var(--panel); color: var(--ink); border-radius: 4px; cursor: pointer; }
+.tabs button[aria-selected="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.tabs button:focus-visible { outline: 2px solid var(--ms); outline-offset: 2px; }
+.leads { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.lead { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 10px 14px; display: grid; gap: 2px; min-width: 0; }
+.lead .tf { font-family: var(--display); font-size: .95rem; letter-spacing: .12em; color: var(--muted); text-transform: uppercase; }
+.lead .way { font-family: var(--display); font-weight: 700; font-size: 1.6rem; letter-spacing: .04em; }
+.lead .way.UP { color: var(--bull); } .lead .way.DOWN { color: var(--bear); }
+.lead .lvl { font-family: var(--mono); font-size: .8rem; font-variant-numeric: tabular-nums; color: var(--muted); }
+.lead .lvl b { color: var(--ink); font-weight: 600; }
+.strip { display: grid; gap: 4px; }
+.strip h2 { font-family: var(--display); font-weight: 600; font-size: 1.15rem; letter-spacing: .1em; margin: 0; text-transform: uppercase;
+  display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+.strip h2 span { font-family: var(--mono); font-weight: 400; font-size: .75rem; letter-spacing: 0; color: var(--muted); text-transform: none; }
+.chart { border: 1px solid var(--grid-major); border-radius: 4px; overflow: hidden; background: var(--paper); }
+.chart svg { display: block; width: 100%; height: auto; }
+svg text { font-family: var(--mono); fill: var(--muted); }
+.key { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: .85rem; color: var(--muted); }
+.key i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+.read { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 14px 18px; max-width: 70ch; }
+.read h3 { font-family: var(--display); font-size: 1.2rem; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 6px; }
+.read ul { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
+@keyframes pulse { 0%,100% { r: 4; opacity: 1 } 50% { r: 9; opacity: .35 } }
+.live { animation: pulse 1.4s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .live { animation: none; } }
+@media (max-width: 640px) { .leads { grid-template-columns: minmax(0, 1fr); } h1 { font-size: 1.9rem; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Heartbeat Monitor</h1>
+    <div class="stamp" id="stamp"></div>
+  </header>
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="leads" id="leads"></div>
+  <div class="key">
+    <span><i style="background:var(--trace)"></i>Heartbeat: every high and low the code counts</span>
+    <span><i style="background:var(--bull)"></i>BOS up</span>
+    <span><i style="background:var(--bear)"></i>BOS down</span>
+    <span><i style="background:var(--ms)"></i>MS (the flip)</span>
+    <span><i style="background:var(--fo)"></i>Fake-out / sweep</span>
+    <span>- - MUST HOLD &nbsp; ··· 50%</span>
+  </div>
+  <div id="strips" style="display:grid;gap:18px"></div>
+  <div class="read">
+    <h3>How to read the strip</h3>
+    <ul>
+      <li><b>Healthy uptrend:</b> each beat peaks higher and each dip stops higher. Up, down, up, like a steady pulse.</li>
+      <li><b>BOS</b> = the pulse keeps going the same way. <b>MS</b> = the rhythm flips. A body closed past MUST HOLD.</li>
+      <li><b>Read top-down:</b> 4H first, then 1H, then 15m. The small strip is made of the big one's beats.</li>
+      <li><b>Shaded band</b> = the current leg. Red half is premium (sell side), green half is discount (buy side).</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+const DATA = /*DATA*/null;
+const TFS = ["4H", "1H", "15m"];
+let coin = "LINK";
+try { coin = localStorage.getItem("hb-coin") || coin; } catch (e) {}
+if (!DATA.coins[coin]) coin = Object.keys(DATA.coins)[0];
+document.getElementById("stamp").textContent = "Snapshot " + DATA.made + " · OKX candles · code = Jeff's heartbeat rules, swing 1";
+
+const fmt = v => v == null ? "–" : (v >= 1000 ? v.toFixed(1) : v >= 10 ? v.toFixed(3) : v.toFixed(4));
+const NS = "http://www.w3.org/2000/svg";
+const el = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
+
+function tabs() {
+  const box = document.getElementById("tabs"); box.innerHTML = "";
+  for (const c of Object.keys(DATA.coins)) {
+    const b = document.createElement("button");
+    b.id = "tab-" + c; b.role = "tab"; b.textContent = c; b.setAttribute("aria-selected", c === coin);
+    b.onclick = () => { coin = c; try { localStorage.setItem("hb-coin", c); } catch (e) {} render(); };
+    box.appendChild(b);
+  }
+}
+
+function leads() {
+  const box = document.getElementById("leads"); box.innerHTML = "";
+  for (const tf of TFS) {
+    const d = DATA.coins[coin][tf], up = d.trend === "UP";
+    const zone = d.fifty == null ? "" : (d.last > d.fifty ? "premium" : "discount");
+    box.insertAdjacentHTML("beforeend", `<div class="lead"><div class="tf">${tf}</div>
+      <div class="way ${d.trend}">${up ? "▲ Bullish" : "▼ Bearish"}</div>
+      <div class="lvl">holds while ${up ? "above" : "below"} <b>${fmt(d.hold)}</b></div>
+      <div class="lvl">flips on a body close ${up ? "below" : "above"} <b>${fmt(d.hold)}</b></div>
+      <div class="lvl">price <b>${fmt(d.last)}</b> · ${zone} · 50% ${fmt(d.fifty)}</div></div>`);
+  }
+}
+
+function strip(tf) {
+  const d = DATA.coins[coin][tf], n = d.c.length;
+  const W = 1000, H = 300, L = 8, R = 78, T = 14, B = 26;
+  let lo = Math.min(...d.l), hi = Math.max(...d.h);
+  for (const v of [d.hold, d.fifty]) if (v != null) { lo = Math.min(lo, v); hi = Math.max(hi, v); }
+  const pad = (hi - lo) * 0.06; lo -= pad; hi += pad;
+  const cw = (W - L - R) / n, x = i => L + (i + 0.5) * cw, y = p => T + (hi - p) / (hi - lo) * (H - T - B);
+  const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": `${coin} ${tf} heartbeat` });
+  const id = `clip-${tf}`;
+  el("rect", { x: L, y: 0, width: W - L - R, height: H }, el("clipPath", { id }, el("defs", {}, svg)));
+  for (let gx = 0; gx <= W; gx += 10) el("line", { x1: gx, x2: gx, y1: 0, y2: H, stroke: gx % 50 ? "var(--grid-minor)" : "var(--grid-major)", "stroke-width": gx % 50 ? .6 : 1 }, svg);
+  for (let gy = 0; gy <= H; gy += 10) el("line", { x1: 0, x2: W, y1: gy, y2: gy, stroke: gy % 50 ? "var(--grid-minor)" : "var(--grid-major)", "stroke-width": gy % 50 ? .6 : 1 }, svg);
+  if (d.fifty != null) {
+    const top = Math.max(d.hold, d.extreme), bot = Math.min(d.hold, d.extreme);
+    el("rect", { x: L, width: W - L - R, y: y(top), height: y(d.fifty) - y(top), fill: "var(--zone-prem)" }, svg);
+    el("rect", { x: L, width: W - L - R, y: y(d.fifty), height: y(bot) - y(d.fifty), fill: "var(--zone-disc)" }, svg);
+  }
+  const g = el("g", { "clip-path": `url(#${id})` }, svg);
+  for (let i = 0; i < n; i++) {
+    el("line", { x1: x(i), x2: x(i), y1: y(d.h[i]), y2: y(d.l[i]), stroke: "var(--candle)", "stroke-width": 1 }, g);
+    const t = Math.max(d.o[i], d.c[i]), b = Math.min(d.o[i], d.c[i]);
+    el("rect", { x: x(i) - cw * .32, width: cw * .64, y: y(t), height: Math.max(1, y(b) - y(t)),
+      fill: d.c[i] >= d.o[i] ? "none" : "var(--candle)", stroke: "var(--candle)", "stroke-width": .8 }, g);
+  }
+  const pts = d.beats.map(([i, p]) => `${x(i).toFixed(1)},${y(p).toFixed(1)}`);
+  pts.push(`${x(n - 1).toFixed(1)},${y(d.c[n - 1]).toFixed(1)}`);
+  el("polyline", { points: pts.join(" "), fill: "none", stroke: "var(--trace)", "stroke-width": 2.4, "stroke-linejoin": "round" }, g);
+  for (const [i, p, t] of d.beats) if (i >= 0) el("circle", { cx: x(i), cy: y(p), r: 2.6, fill: "var(--trace)" }, g);
+  for (const [lvl, dash, lab] of [[d.hold, "7 5", "MUST HOLD"], [d.fifty, "2 4", "50%"]]) {
+    if (lvl == null) continue;
+    el("line", { x1: L, x2: W - R, y1: y(lvl), y2: y(lvl), stroke: "var(--ink)", "stroke-width": 1.2, "stroke-dasharray": dash, opacity: .75 }, svg);
+    el("text", { x: W - R + 4, y: y(lvl) - 2, "font-size": 10 }, svg).textContent = lab;
+    el("text", { x: W - R + 4, y: y(lvl) + 10, "font-size": 11, style: "fill:var(--ink)" }, svg).textContent = fmt(lvl);
+  }
+  for (const [i, ev, p] of d.marks) {
+    const col = ev.startsWith("BOS up") || ev === "start UP" ? "var(--bull)" : ev.startsWith("BOS down") || ev === "start DOWN" ? "var(--bear)"
+      : ev.startsWith("MS") ? "var(--ms)" : "var(--fo)";
+    const up = ev.includes("up") || ev.includes("UP"), cx = x(i);
+    if (ev.startsWith("MS")) el("rect", { x: cx - 5, y: y(p) - 5, width: 10, height: 10, fill: col, transform: `rotate(45 ${cx} ${y(p)})` }, g);
+    else if (ev.startsWith("BOS") || ev.startsWith("start")) el("path", { d: up ? `M${cx - 5} ${y(p) + 12} l5 -8 l5 8z` : `M${cx - 5} ${y(p) - 12} l5 8 l5 -8z`, fill: col }, g);
+    else el("circle", { cx, cy: y(p), r: 3.5, fill: col }, g);
+    if (ev.startsWith("MS")) el("text", { x: cx, y: y(p) + (up ? 22 : -12), "font-size": 11, "text-anchor": "middle", style: `fill:${col};font-weight:600` }, g).textContent = "MS";
+  }
+  el("circle", { class: "live", cx: x(n - 1), cy: y(d.c[n - 1]), r: 4, fill: "var(--trace)" }, svg);
+  const step = Math.ceil(n / 6);
+  for (let i = 0; i < n; i += step) {
+    const t = new Date(d.t[i]);
+    const lab = tf === "4H" ? t.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "America/New_York" })
+      : t.toLocaleString("en-US", { weekday: "short", hour: "numeric", timeZone: "America/New_York" });
+    el("text", { x: x(i), y: H - 8, "font-size": 11, "text-anchor": "middle" }, svg).textContent = lab;
+  }
+  return svg;
+}
+
+function render() {
+  tabs(); leads();
+  const box = document.getElementById("strips"); box.innerHTML = "";
+  for (const tf of TFS) {
+    const d = DATA.coins[coin][tf];
+    const s = document.createElement("section"); s.className = "strip";
+    s.innerHTML = `<h2>${coin} · ${tf}<span>last ${d.c.length} candles · ${d.trend === "UP" ? "bullish" : "bearish"} leg, MUST HOLD ${fmt(d.hold)}</span></h2>`;
+    const c = document.createElement("div"); c.className = "chart"; c.appendChild(strip(tf)); s.appendChild(c);
+    box.appendChild(s);
+  }
+}
+render();
+</script>
