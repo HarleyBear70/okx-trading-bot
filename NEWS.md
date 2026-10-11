@@ -1,19 +1,21 @@
-NEWS LEVEL: GREEN - nothing unusual; next big event is US CPI Wed Oct 14, 8:30 AM ET (checked 2026-10-10 7:35 PM ET)
+NEWS LEVEL: GREEN - nothing unusual; next big event is US CPI Wed Oct 14, 8:30 AM ET (checked 2026-10-11 7:40 AM ET)
 Careful until: n/a
 
 ## What happened
-- No OKX or Binance.US hack, outage or withdrawal halt found. Older story, already resolved: Bitget (not one of our exchanges) lost about $352M in a hack on Sep 24 and has been reopening withdrawals since Sep 28 ([Bleeping Computer](https://bleepingcomputer.com/news/security/bitget-resumes-bitcoin-withdrawals-after-3875-million-crypto-heist), [BNN Bloomberg](https://www.bnnbloomberg.ca/markets/crypto/2026/09/25/crypto-exchange-bitget-pauses-withdrawals-after-us350-million-stolen-in-hack/)).
-- No USDT/USDC peg problem found (unconfirmed - no live price source reachable).
-- BTC about $82,800 now, versus about $84,800 at the start of October ([Pluang](https://pluang.com/en/news-feed/prediksi-harga-bitcoin-enam-dari-delapan-oktober-naik)): a mild dip, no 5%+ crash or mass liquidation found.
+- No OKX or Binance.US hack, outage or withdrawal halt found in searches (nothing current turned up either way; search tools return mostly old stories, so this is "nothing found", not a guarantee).
+- No USDT/USDC peg problem found (unconfirmed - no live peg source reachable).
+- BTC about $83,000 and ETH about $2,500 per the edge brief (Binance data): no 5%+ crash or mass liquidation found. Fear & Greed 61 (greed), down from 73 five days ago.
 - No new SEC/CFTC regulatory shock found.
+- Older story, already resolved: Bitget (not our exchange) hack Sep 24, withdrawals reopening since Sep 28 ([Bleeping Computer](https://bleepingcomputer.com/news/security/bitget-resumes-bitcoin-withdrawals-after-3875-million-crypto-heist)).
 
 ## Coming up (next 7 days, ET)
 - Mon Oct 12: US Columbus Day - thin US markets, medium.
-- Wed Oct 14, 8:30 AM: US CPI (September) - HIGH (aggregator calendars, not yet checked on bls.gov: [akrostec](https://www.akrostec.com/indices/AUL500/events)). Careful window about 4:30 AM to 12:30 PM ET.
-- Thu Oct 15: US PPI and retail sales - medium (aggregator calendar).
-- Fri Oct 16: US import/export prices - low.
-- FOMC, ECB, BoE: none found in the next 7 days (not confirmed on official sites).
+- Wed Oct 14, early AM: Bailey (BoE), Lagarde (ECB), Macklem speak - medium for EUR/GBP.
+- Wed Oct 14, 8:30 AM: US CPI (September) - HIGH. Forecast headline +0.6% month, 3.6% year (hotter than last time) ([investinglive](https://investinglive.com/news/week-ahead-us-inflation-and-retail-sales-lead-a-busy-economic-calendar-be-aware/), [Fed calendar](https://www.federalreserve.gov/newsevents/2026-october.htm)). Careful window about 4:30 AM to 12:30 PM ET.
+- Thu Oct 15, 8:30 AM: US PPI and retail sales - medium. UK GDP same day - medium for GBP.
+- Wed Oct 28: FOMC decision (outside this week).
+- No ECB or BoE rate decision found in the next 7 days.
 
 ## What it means for us
-Normal trading. No emergency found.
-Next caution window: CPI day, Wed Oct 14 - no new trades about 4 hours before to 4 hours after 8:30 AM ET.
+Normal trading today. No emergency found.
+Next caution window: CPI day, Wed Oct 14 - no new trades about 4 hours before to 4 hours after 8:30 AM ET. A hot CPI could shake crypto and the dollar.
