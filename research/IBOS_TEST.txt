@@ -1,0 +1,100 @@
+
+### iBOS A (top candle low), target 2R
+all              38077 trades, win  32%, avg -0.086R, PF 0.88
+shorts           20699 trades, win  32%, avg -0.083R, PF 0.88
+longs            17378 trades, win  32%, avg -0.089R, PF 0.88
+2019-22          15483 trades, win  33%, avg -0.052R, PF 0.93
+2023-now         22594 trades, win  31%, avg -0.109R, PF 0.85
+1H with yes      17167 trades, win  31%, avg -0.095R, PF 0.87
+1H with no       20910 trades, win  32%, avg -0.079R, PF 0.89
+4H with yes      19441 trades, win  31%, avg -0.100R, PF 0.86
+4H with no       18636 trades, win  32%, avg -0.071R, PF 0.90
+RSI hot yes      12302 trades, win  31%, avg -0.107R, PF 0.85
+RSI hot no       25775 trades, win  32%, avg -0.076R, PF 0.89
+top in 1H premium yes 31016 trades, win  32%, avg -0.086R, PF 0.88
+top in 1H premium no  7061 trades, win  32%, avg -0.085R, PF 0.88
+1H with+premium  12421 trades, win  31%, avg -0.096R, PF 0.87
+   BTC    5143 trades, win  32%, avg -0.098R, PF 0.87
+   ETH    4479 trades, win  32%, avg -0.079R, PF 0.89
+   SOL    3951 trades, win  33%, avg -0.055R, PF 0.92
+   XRP    3123 trades, win  31%, avg -0.106R, PF 0.85
+   BNB    5688 trades, win  31%, avg -0.100R, PF 0.86
+   ADA    4369 trades, win  32%, avg -0.063R, PF 0.91
+   DOGE   2742 trades, win  32%, avg -0.078R, PF 0.89
+   LINK   4306 trades, win  31%, avg -0.112R, PF 0.85
+   LTC    4276 trades, win  32%, avg -0.076R, PF 0.89
+
+### iBOS A (top candle low), target 3R
+all              35450 trades, win  24%, avg -0.079R, PF 0.90
+shorts           19382 trades, win  24%, avg -0.077R, PF 0.90
+longs            16068 trades, win  24%, avg -0.081R, PF 0.90
+2019-22          14643 trades, win  25%, avg -0.034R, PF 0.96
+2023-now         20807 trades, win  23%, avg -0.111R, PF 0.86
+1H with yes      15897 trades, win  24%, avg -0.094R, PF 0.88
+1H with no       19553 trades, win  24%, avg -0.067R, PF 0.92
+4H with yes      18235 trades, win  24%, avg -0.094R, PF 0.88
+4H with no       17215 trades, win  24%, avg -0.062R, PF 0.92
+RSI hot yes      11933 trades, win  24%, avg -0.091R, PF 0.89
+RSI hot no       23517 trades, win  24%, avg -0.072R, PF 0.91
+top in 1H premium yes 29017 trades, win  24%, avg -0.083R, PF 0.90
+top in 1H premium no  6433 trades, win  25%, avg -0.061R, PF 0.92
+1H with+premium  11521 trades, win  23%, avg -0.105R, PF 0.87
+   BTC    4673 trades, win  24%, avg -0.102R, PF 0.87
+   ETH    4174 trades, win  24%, avg -0.066R, PF 0.92
+   SOL    3746 trades, win  24%, avg -0.060R, PF 0.92
+   XRP    2868 trades, win  24%, avg -0.092R, PF 0.88
+   BNB    5223 trades, win  24%, avg -0.079R, PF 0.90
+   ADA    4107 trades, win  24%, avg -0.060R, PF 0.92
+   DOGE   2594 trades, win  24%, avg -0.074R, PF 0.91
+   LINK   4074 trades, win  24%, avg -0.093R, PF 0.88
+   LTC    3991 trades, win  24%, avg -0.080R, PF 0.90
+
+### iBOS B (last swing low inside the leg), target 2R
+all              14969 trades, win  32%, avg -0.086R, PF 0.88
+shorts            7870 trades, win  31%, avg -0.095R, PF 0.87
+longs             7099 trades, win  32%, avg -0.076R, PF 0.89
+2019-22           5675 trades, win  33%, avg -0.033R, PF 0.95
+2023-now          9294 trades, win  30%, avg -0.118R, PF 0.84
+1H with yes       6198 trades, win  31%, avg -0.096R, PF 0.87
+1H with no        8771 trades, win  32%, avg -0.079R, PF 0.89
+4H with yes       7635 trades, win  31%, avg -0.109R, PF 0.85
+4H with no        7334 trades, win  32%, avg -0.062R, PF 0.91
+RSI hot yes       2643 trades, win  30%, avg -0.132R, PF 0.82
+RSI hot no       12326 trades, win  32%, avg -0.076R, PF 0.89
+top in 1H premium yes 12411 trades, win  31%, avg -0.093R, PF 0.87
+top in 1H premium no  2558 trades, win  33%, avg -0.051R, PF 0.93
+1H with+premium   4487 trades, win  31%, avg -0.104R, PF 0.86
+   BTC    2601 trades, win  32%, avg -0.089R, PF 0.88
+   ETH    2035 trades, win  32%, avg -0.072R, PF 0.90
+   SOL    1282 trades, win  29%, avg -0.149R, PF 0.80
+   XRP    1292 trades, win  31%, avg -0.109R, PF 0.85
+   BNB    2474 trades, win  33%, avg -0.055R, PF 0.92
+   ADA    1447 trades, win  33%, avg -0.028R, PF 0.96
+   DOGE   1020 trades, win  30%, avg -0.124R, PF 0.83
+   LINK   1225 trades, win  31%, avg -0.100R, PF 0.86
+   LTC    1593 trades, win  31%, avg -0.095R, PF 0.87
+
+### iBOS B (last swing low inside the leg), target 3R
+all              14089 trades, win  24%, avg -0.078R, PF 0.90
+shorts            7409 trades, win  24%, avg -0.091R, PF 0.89
+longs             6680 trades, win  24%, avg -0.064R, PF 0.92
+2019-22           5418 trades, win  25%, avg -0.019R, PF 0.98
+2023-now          8671 trades, win  23%, avg -0.115R, PF 0.86
+1H with yes       5762 trades, win  24%, avg -0.087R, PF 0.89
+1H with no        8327 trades, win  24%, avg -0.071R, PF 0.91
+4H with yes       7220 trades, win  24%, avg -0.091R, PF 0.89
+4H with no        6869 trades, win  24%, avg -0.064R, PF 0.92
+RSI hot yes       2563 trades, win  23%, avg -0.110R, PF 0.86
+RSI hot no       11526 trades, win  24%, avg -0.071R, PF 0.91
+top in 1H premium yes 11736 trades, win  24%, avg -0.090R, PF 0.89
+top in 1H premium no  2353 trades, win  25%, avg -0.015R, PF 0.98
+1H with+premium   4172 trades, win  23%, avg -0.101R, PF 0.87
+   BTC    2403 trades, win  24%, avg -0.081R, PF 0.90
+   ETH    1894 trades, win  24%, avg -0.053R, PF 0.93
+   SOL    1228 trades, win  23%, avg -0.119R, PF 0.85
+   XRP    1213 trades, win  23%, avg -0.124R, PF 0.85
+   BNB    2280 trades, win  25%, avg -0.056R, PF 0.93
+   ADA    1397 trades, win  25%, avg -0.029R, PF 0.96
+   DOGE    976 trades, win  23%, avg -0.102R, PF 0.87
+   LINK   1179 trades, win  24%, avg -0.085R, PF 0.89
+   LTC    1519 trades, win  24%, avg -0.091R, PF 0.89
