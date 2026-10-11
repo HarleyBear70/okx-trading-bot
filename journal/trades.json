@@ -1000,7 +1000,7 @@
   "mode": "paper",
   "planned_stop": 857.597,
   "planned_target": null,
-  "price_now": 83862.2,
+  "price_now": 83718.4,
   "qty": 0.011660489,
   "result": "open",
   "risk_pct": 99.0,
@@ -1009,7 +1009,7 @@
   "stop_now": 857.597,
   "strategy": "hold",
   "trailing_on": false,
-  "unrealized_pct": -2.213,
+  "unrealized_pct": -2.38,
   "why_entry": null,
   "worst_pct": -6.25,
   "worst_px": 80400.0
@@ -1036,7 +1036,7 @@
   "mode": "paper",
   "planned_stop": 2317.74,
   "planned_target": null,
-  "price_now": 2538.66,
+  "price_now": 2533.57,
   "qty": 0.019416043,
   "result": "open",
   "risk_pct": 10.0,
@@ -1045,7 +1045,7 @@
   "stop_now": 2317.74,
   "strategy": "rsi2",
   "trailing_on": false,
-  "unrealized_pct": -1.421,
+  "unrealized_pct": -1.619,
   "why_entry": null,
   "worst_pct": -6.588,
   "worst_px": 2405.59
@@ -1072,7 +1072,7 @@
   "mode": "paper",
   "planned_stop": 1.20074,
   "planned_target": null,
-  "price_now": 1.414,
+  "price_now": 1.4061,
   "qty": 22.67935,
   "result": "open",
   "risk_pct": 15.512,
@@ -1081,7 +1081,7 @@
   "stop_now": 1.20074,
   "strategy": "rsi2",
   "trailing_on": false,
-  "unrealized_pct": -0.507,
+  "unrealized_pct": -1.062,
   "why_entry": null,
   "worst_pct": -7.205,
   "worst_px": 1.3188
@@ -1108,7 +1108,7 @@
   "mode": "paper",
   "planned_stop": 75020.4,
   "planned_target": null,
-  "price_now": 83794.0,
+  "price_now": 83655.0,
   "qty": 0.00075427503,
   "result": "open",
   "risk_pct": 8.119,
@@ -1117,7 +1117,7 @@
   "stop_now": 75020.4,
   "strategy": "rsi2",
   "trailing_on": false,
-  "unrealized_pct": 2.627,
+  "unrealized_pct": 2.456,
   "why_entry": null,
   "worst_pct": -1.606,
   "worst_px": 80337.9
@@ -1144,7 +1144,7 @@
   "mode": "paper",
   "planned_stop": 94.0891,
   "planned_target": null,
-  "price_now": 111.92,
+  "price_now": 111.26,
   "qty": 0.32507879,
   "result": "open",
   "risk_pct": 14.05,
@@ -1153,7 +1153,7 @@
   "stop_now": 94.0891,
   "strategy": "rsi2",
   "trailing_on": false,
-  "unrealized_pct": 2.238,
+  "unrealized_pct": 1.635,
   "why_entry": null,
   "worst_pct": -3.444,
   "worst_px": 105.7
@@ -1180,7 +1180,7 @@
   "mode": "paper",
   "planned_stop": 669.102,
   "planned_target": null,
-  "price_now": 752.78,
+  "price_now": 752.57,
   "qty": 0.07357516,
   "result": "open",
   "risk_pct": 9.22,
@@ -1189,7 +1189,7 @@
   "stop_now": 669.102,
   "strategy": "rsi2",
   "trailing_on": false,
-  "unrealized_pct": 2.133,
+  "unrealized_pct": 2.104,
   "why_entry": null,
   "worst_pct": -2.666,
   "worst_px": 717.41
@@ -1486,7 +1486,7 @@
   "mode": "demo",
   "planned_stop": 82152.2,
   "planned_target": null,
-  "price_now": 83862.2,
+  "price_now": 83718.4,
   "qty": 0.0022628323,
   "result": "open",
   "risk_pct": 1.971,
@@ -1495,10 +1495,10 @@
   "stop_now": 82152.2,
   "strategy": "tr",
   "trailing_on": false,
-  "unrealized_pct": 0.07,
+  "unrealized_pct": -0.102,
   "why_entry": "BUY signal: broke above the swing high 83,530.1 with the daily and 4H trend up. Stop 2.09% below at 82,152.2; no fixed target - a trailing stop 3 ATR under the highest close follows the trend.",
-  "worst_pct": -0.095,
-  "worst_px": 83723.6
+  "worst_pct": -0.276,
+  "worst_px": 83572.6
  },
  {
   "best_pct": 0.343,
@@ -1584,7 +1584,7 @@
   "mode": "paper",
   "planned_stop": 82162.2,
   "planned_target": null,
-  "price_now": 83794.0,
+  "price_now": 83655.0,
   "qty": 0.0023974773,
   "result": "open",
   "risk_pct": 1.99,
@@ -1593,10 +1593,10 @@
   "stop_now": 82162.2,
   "strategy": "tr",
   "trailing_on": false,
-  "unrealized_pct": -0.044,
+  "unrealized_pct": -0.21,
   "why_entry": "BUY signal: broke above the swing high 83,449.6 with the daily and 4H trend up. Stop 1.99% below at 82,162.2; no fixed target - a trailing stop 3 ATR under the highest close follows the trend.",
-  "worst_pct": -0.195,
-  "worst_px": 83667.3
+  "worst_pct": -0.401,
+  "worst_px": 83494.2
  },
  {
   "best_pct": 0.343,
@@ -1619,7 +1619,7 @@
   "mode": "paper",
   "planned_stop": 83264.9,
   "planned_target": null,
-  "price_now": 83794.0,
+  "price_now": 83655.0,
   "qty": 0.0070796909,
   "result": "open",
   "risk_pct": 0.675,
@@ -1628,9 +1628,9 @@
   "stop_now": 83295.7,
   "strategy": "tr",
   "trailing_on": false,
-  "unrealized_pct": -0.044,
-  "worst_pct": -0.195,
-  "worst_px": 83667.3
+  "unrealized_pct": -0.21,
+  "worst_pct": -0.401,
+  "worst_px": 83494.2
  },
  {
   "best_pct": 0.735,
@@ -1653,7 +1653,7 @@
   "mode": "paper",
   "planned_stop": 2510.14,
   "planned_target": null,
-  "price_now": 2538.66,
+  "price_now": 2533.57,
   "qty": 0.16093256,
   "result": "open",
   "risk_pct": 0.919,
@@ -1662,9 +1662,9 @@
   "stop_now": 2522.52,
   "strategy": "tr",
   "trailing_on": false,
-  "unrealized_pct": 0.207,
-  "worst_pct": -0.201,
-  "worst_px": 2528.31
+  "unrealized_pct": 0.006,
+  "worst_pct": -0.225,
+  "worst_px": 2527.7
  },
  {
   "best_pct": 0.466,
@@ -1750,7 +1750,7 @@
   "mode": "live",
   "planned_stop": 82162.2,
   "planned_target": null,
-  "price_now": 83794.0,
+  "price_now": 83655.0,
   "qty": 0.00014997,
   "result": "open",
   "risk_pct": 1.871,
@@ -1759,9 +1759,9 @@
   "stop_now": 82162.2,
   "strategy": "tr",
   "trailing_on": false,
-  "unrealized_pct": 0.078,
+  "unrealized_pct": -0.088,
   "why_entry": "BUY signal: broke above the swing high 83,449.6 with the daily and 4H trend up. Stop 1.99% below at 82,162.2; no fixed target - a trailing stop 3 ATR under the highest close follows the trend.",
-  "worst_pct": -0.073,
-  "worst_px": 83667.3
+  "worst_pct": -0.28,
+  "worst_px": 83494.2
  }
 ]
