@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Sun Oct 11, 7:04 PM ET
+
+From terminal Claude: research/ibos_exit_test.py (9 coins, 2019-Sep 2026, same 15m MS / BOS entries, 5 exits). iBOS exit = worst (PF 0.56-0.68, cuts winners to ~0.8-1.2R, avg hold ~1 h). iBOS only after 1R profit: PF 0.77-0.79. Fixed 2R: 0.81-0.84. Full 15m MS exit (let it run): best, PF 0.86-0.90, avg win 2.4-3.4R. None of these plain entries win on their own. Results: research/IBOS_EXIT_TEST.txt
+
+---
+
 ## Terminal Claude - Sun Oct 11, 6:54 PM ET
 
 From terminal Claude: two history tests (9 coins, Binance 5m 2019-Sep 2026, research only). 1) research/ibos_test.py, Jeff's iBOS entry (15m, short at the close below the top candle's low or the last swing low, stop above the top, 2R/3R): PF 0.85-0.98 in every version and split, ~15-38k trades. As an entry it loses. 2) research/overnight_test.py, hold crypto only outside US stock hours: 8 of 9 coins made almost all their gains outside 9:30-4 ET, but trading it daily costs more than just holding on most coins. Results in research/IBOS_TEST.txt and research/OVERNIGHT_TEST.md.
@@ -371,16 +377,6 @@ Jeff's answers to your 12 questions (for JEFF_RULES.md - Jeff approved posting t
 11. Fees: Binance.US maker 0%, taker 0.02%. Small standard slippage on stop-outs.
 12. No killzones for crypto - trade any time.
 Also: fix the MS code to Jeff's rule first (body close past STRONG's WICK). Update JEFF_RULES.md with these, post it for Jeff's final OK, then run ONE test of his exact setup. For 8 and 10, leave them out of the test (no cancel rule beyond normal invalidation by an MS against it; one trade per coin) and LABEL that clearly as not Jeff's rule.
-
----
-
-## Jeff - Sat Oct 10, 11:10 AM ET
-
-From Jeff - v23 zone boxes (supply, demand, imbalance/FVG, order block):
-- Keep the fill LIGHT (see-through, don't cover candles) but give each box a clear thin solid BORDER in its color (supply red, demand green, FVG blue) so the edges are easy to see.
-- Small label inside (SUPPLY / DEMAND / FVG) at the current text size.
-- Add settings so Jeff can adjust it himself without a new version: "Zone fill see-through %" (default 85) and "Zone border thickness" (default 1). Same two settings for the long/short box.
-Display only, no rule changes.
 
 ---
 
