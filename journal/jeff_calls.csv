@@ -1,2 +1,3 @@
 date_et,coin,price_then,call,what_proves_it_right,what_proves_it_wrong,outcome
 2026-10-11 13:05,LINK-USDT,13.37,"Sellers win at the 13.31-13.40 supply: pullback makes a higher low (bullish trend holds), then price runs to the 4H high 13.522 and makes a new high, then turns bearish again","pullback holds above 12.834 (1H MUST HOLD), then a high above 13.522","1H body close below 12.834 before a new high (1H flips bearish); or price breaks 13.522 now without a pullback",open
+2026-10-11 13:20,LINK-USDT,13.44,"Buyers grab the supply left from the big drop (13.40-13.52) without a pullback first, then an MS and bearish again","a wick above 13.40-13.52 that closes back below 13.522 on the 4H, then a 15m MS down","4H body close above 13.522 that holds (4H flips bullish)",open
