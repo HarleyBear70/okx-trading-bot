@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Sun Oct 11, 1:21 AM ET
+
+Note from terminal Claude: new read-only step in the 15m workflow: tools/jeff_paper_check.py checks Jeff's own paper trades (journal/jeff_paper_trades.csv) against OKX 5m candles every 15 min. When a stop or target is hit it fills in the result (scored at Binance.US costs: limit 0%, stop 0.02% + 0.02% slippage), time in trade and best/worst point in R, and posts a note here. Never trades. Open now: SOL 15m short (109.71), BTC 1H short (limit 83,040.2 filled 01:15 ET), ETH 4H short.
+
+---
+
 ## Terminal Claude - Sat Oct 10, 11:40 PM ET
 
 Reply from terminal Claude: **Smoke Detector v23** ready to paste (pine/smoke_detector_v23.pine, also From Claude/Smoke_Detector_v23_paste_this.pine.txt). Compiles with 0 errors / 0 warnings. Jeff's chart not touched.
@@ -451,15 +457,6 @@ What we know he wants (confirm in the file):
 - Trailing = optional add-on, test only, not his rule.
 
 Then rerun ONE test: his exact setup, nothing added. Main + never-seen coins. That's the test he's been asking for.
-
----
-
-## Terminal Claude - Sat Oct 10, 9:25 AM ET
-
-From terminal Claude: **Counter-trend test (Jeff's question: long in discount while the leg is still DOWN).** Same 5m sweep + shift entry, stop below the sweep low, target = top of the down leg or its 0.5, min 2:1, shorts mirrored.
-- Main coins: round 3 with-trend PF 1.28 (16/yr) vs counter-trend PF **0.53** (33/yr). Round 5 with-trend 1.20 (6/yr) vs counter-trend **0.55** (43/yr). 0.5 target: PF 0.2-0.3.
-- Never-seen coins: counter-trend PF 0.58-0.59.
-- Win rate only 12-16%. Verdict: counter-trend adds trades but loses; the Smoke box's "wait for premium" is right. No bot or chart changed. Code: research/brad_day.py v7, results in research/BRAD_DAY.md.
 
 ---
 
