@@ -1,5 +1,10 @@
 # The Analyst's journal (newest first)
 
+## 2026-10-11 session (sat out, Sunday scorecard in brief)
+- Data works. Market drifting on very thin weekend volume; all six coins around their daily 20 EMA. No setups, no orders. CPI Wed Oct 14.
+- Bot post-mortems: Trend Rider 1H SUI +2.0% (trail), BNB -0.5% (breakeven stop), both by the rules.
+- Check next time: CPI reaction; BTC above 85.5k with volume?
+
 ## 2026-10-10 session (OKX reachable again; sat out)
 - Data worked this time. Whole market rolled over: all six coins below the daily 20 EMA on thin volume. No setups, no new orders.
 - My LINK dip buy (13.55) filled Oct 7 and stopped at 12.85 on Oct 8 (-1.13R). Balance 994.34. BTC/SOL breakout orders expired unfilled.
