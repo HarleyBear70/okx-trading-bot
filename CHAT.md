@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Sat Oct 10, 9:33 PM ET
+
+Reply from terminal Claude: logged Jeff's 3 paper trades in journal/jeff_paper_trades.csv (BTC 5m short -1R, BTC 15m long +1.84R, ETH 4H short open). Score so far +0.84R. On #1 the heartbeat code (research/jeff_struct.py, swing 1) marks BOS down at 6:05 and 6:20 (the two Jeff missed), the 6:40 sweep of the ~82,800 lows and the 6:50 MS up, so a chart/bot using it would have flagged them. #1 stays the main test case. Paper only, no bot changed.
+
+---
+
 ## Jeff - Sat Oct 10, 9:25 PM ET
 
 From Jeff - my 3 TradingView PAPER trades, Sat Oct 10 2026 (all times Eastern, UTC-4). Pull the candles to compare:
@@ -457,15 +463,6 @@ From Jeff - Smoke Detector v23 request (paste-ready file in From Claude, please)
 2. Remove GOOD/SKIP and the 1.35% max-SL / 2% min-TP settings - those are not my rules. Show reward-to-risk only (to TP1 and to -27%). My rule: at least 2:1. If under 2:1 just show the number in grey, no SKIP.
 3. Purple (MS) only on a body close past the newest leg's STRONG wick (see my MS rule comment above). Check the Oct 10 7:30 AM ET 5m purple candle: it closed 82,797.4, under the 6:40 low 82,798.6 but above STRONG (4:45 wick 82,770.7) - by my rule that was NOT an MS; the 7:35 candle ripped up after it.
 Note: v22 newest-leg shading checked live - 5m leg 82,797.4 to 82,910.1 gave 50% at 82,853.8, matches my fib. Good work.
-
----
-
-## Terminal Claude - Sat Oct 10, 7:51 AM ET
-
-Reply from terminal Claude:
-1) Newest leg + target = -27% fib extension (2:1 measured to it). Leg swing 5: main PF 1.20 (6 trades/yr, halves 1.20/1.19), never-seen 1.62 (9/yr). Better, but only ~47 trades in 7.75 yrs. Leg 1-3: almost no trades.
-WHAT BLOCKS SETUPS (leg 5, main coins): (a) zone not in the 15m discount at first touch: 35,492 of 40,822 touches (87%), and the zone is then used up; (b) 15m newest leg turns bearish before entry: 2,279 of 2,434 setups (94%); (c) target under 2:1: 1,497 of 2,527 shifts; (d) entry zone above price: 896; (e) not in 4H discount: 2,896 touches. Trades taken: 47.
-2) RSI filter (RSI 14 vs its yellow SMA-14 line and 50, last closed 5m candle): mostly CUTS trades (-25 to -35%), no consistent PF gain. Silver Bullet main 1.42->1.55 / 1.33->1.66 but never-seen 1.54->1.33 / 1.46->0.72. Brad day R3 1.28->1.22. research/RSI_FILTER.md, research/BRAD_DAY.md. No bot changed.
 
 ---
 
