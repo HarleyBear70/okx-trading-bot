@@ -23,6 +23,7 @@ Code: research/jeff_setup.py. Lines marked [NOT JEFF] are the only places Claude
 | 14 | Fees: limit entries 0%, stop-outs 0.02% taker + TEST slippage 0 / 0.02% / 0.05% (must pass at the worst). | 16:52 (11), 17:25 (7) |
 | 15 | Small losses are fine; judge on total profit over many trades. No extra filters. | 17:26 |
 | 17 | LOOK LEFT before every entry: scan back (hours, and the higher timeframe) for anything UNTOUCHED price may grab for fuel first: above = supply zones, OBs, pools (equal/swing highs); below = demand zones, FVGs, pools (equal/swing lows). Nearest first, then farther left. Price may break a level to reach it, then turn (another swing, not the real move). Use: stop BEYOND what price will likely grab first; target = the next untouched pool/FVG/OB in the trade direction; old levels still shape BOS/MS/swings. | 18:39 |
+| 18 | INTERNAL BOS (iBOS) = a candle BODY closes past the most recent high (low) INSIDE the leg, not past STRONG. A warning that price is turning from what it was doing, NOT a flip. BOS = the trend continues; only the MS tells the true story of a flip. Jeff's SOL 1H examples: Oct 8 3 PM close 109.16 > 12 PM high 109.14; Oct 9 7 AM close 111.29 > Oct 8 10 PM wick 110.92. | chat Oct 11 |
 | 16 | Longs and shorts. BTC ETH SOL XRP + never-seen coins. Paper only. | earlier notes |
 
 ## Open questions (v4, nothing runs until answered)
