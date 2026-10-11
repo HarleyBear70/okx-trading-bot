@@ -1,9 +1,14 @@
-STATUS: all normal (checked 2026-10-11 11:25 AM ET)
+STATUS: all normal (checked 2026-10-11 12:26 PM ET)
 
 # Bot notes
 
 Written every hour by watcher.py after the bots run. Read-only: it never trades. Newest first, Eastern time. ATTENTION means: a bot 8%+ below its best balance, a losing streak longer than the backtest's worst, live vs backtest replay 2%+ apart, a failed bot run, or an unexpected open position.
 
+- 2026-10-11 12:24 PM ET · Trend Rider bought BTC 0.00226283 at 83803.6 (190.30 USDT), stop 82152.2, target -
+- 2026-10-11 12:24 PM ET · Trend Rider (Binance.US paper) bought BTC 0.00239748 at 83830.6 (201.02 USDT), stop 82162.2, target -
+- 2026-10-11 12:24 PM ET · Trend Rider 1H (Binance.US paper) bought BTC 0.00707969 at 83830.6 (593.61 USDT), stop 83264.9, target -
+- 2026-10-11 12:24 PM ET · Trend Rider 1H (Binance.US paper) bought ETH 0.160933 at 2533.41 (407.79 USDT), stop 2510.14, target -
+- 2026-10-11 12:24 PM ET · Trend Rider (LIVE Binance.US) bought BTC 0.00014997 at 83728.5 (12.56 USDT), stop 82162.2, target -
 - 2026-10-10 8:34 PM ET · Trend Rider 1H (Binance.US paper) sold BNB at 748.902 (breakeven stop), P/L -2.86 (-0.53%), balance 1001.32
 - 2026-10-10 6:23 PM ET · Trend Rider 1H (Binance.US paper) sold SUI at 1.1137 (trailing stop), P/L +4.18 (+2.04%), balance 1004.18
 - 2026-10-10 11:23 AM ET · Trend Rider 1H (Binance.US paper) bought BNB 0.714949 at 752.6 (538.18 USDT), stop 747.005, target -
