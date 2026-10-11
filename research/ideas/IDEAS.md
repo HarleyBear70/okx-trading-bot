@@ -38,5 +38,5 @@ A pass only makes a PAPER candidate, and only with Jeff's OK. To add an idea: wr
 | Order | Spec | Status | Result |
 |---|---|---|---|
 | 1 | research/specs/T1_trend_sizing.py | fail | research/specs/results/T1.md |
-| 2 | research/specs/T1b_trend_sizing_calibrated.py | queued | - |
-| 3 | research/specs/V4T_lock_big_winners.py | queued | - |
+| 2 | research/specs/T1b_trend_sizing_calibrated.py | fail | research/specs/results/T1b.md |
+| 3 | research/specs/V4T_lock_big_winners.py | fail | research/specs/results/V4T.md |

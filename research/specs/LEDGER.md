@@ -3,7 +3,7 @@
 Every strategy / filter variant ever judged against pass rules is counted here. The more variants we test, the more
 will pass by luck, so a pass is only worth a PAPER trial, never real money on its own.
 
-Variants tested so far: 133
+Variants tested so far: 142
 Rule passes so far: 10
 (expected lucky passes at a 5% false-pass rate: about 7)
 
@@ -23,3 +23,12 @@ why every pass also has to hold on never-seen coins and in the 2022-now holdout,
 | 2026-10-05 | T1 | Trend Rider / TS1: 4H ADX | fail |
 | 2026-10-05 | T1 | Trend Rider / TS2: daily ADX | fail |
 | 2026-10-05 | T1 | Trend Rider / TS3: 4H EMA50 slope | fail |
+| 2026-10-11 | T1b | SP-12 v4 / TS1b: 4H ADX vs its median | fail |
+| 2026-10-11 | T1b | SP-12 v4 / TS2b: daily ADX vs its median | fail |
+| 2026-10-11 | T1b | SP-12 v4 / TS3b: EMA50 slope vs its median | fail |
+| 2026-10-11 | T1b | Trend Rider / TS1b: 4H ADX vs its median | fail |
+| 2026-10-11 | T1b | Trend Rider / TS2b: daily ADX vs its median | fail |
+| 2026-10-11 | T1b | Trend Rider / TS3b: EMA50 slope vs its median | fail |
+| 2026-10-11 | V4T | SP-12 v4 / VT1: at +10R lock +6R | fail |
+| 2026-10-11 | V4T | SP-12 v4 / VT2: at +10R trail 3R under the high | fail |
+| 2026-10-11 | V4T | SP-12 v4 / VT3: at +5R lock +3R | fail |
