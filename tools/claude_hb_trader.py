@@ -5,7 +5,8 @@ Brad's top-down blueprint). Called from tools/heartbeat_watch.py every 15 min.
 
   Read top-down: 4H, 1H and 15m heartbeat legs all point the same way          -> bias
   Trigger:       the 5m makes a market shift (MS) in the bias direction          -> set a limit order
-  Entry:         limit at the 50% of the new 5m leg (discount for a long, premium for a short)
+  Entry:         limit at the 50% of the new 5m leg, only if that sits in the 15m discount (long) / premium (short)
+                 (added Oct 11 after the history test: research/claude_hb_backtest.py)
   Stop:          past the 5m MUST HOLD (the new leg's start) + 0.05%
   Target:        2R
   Cancel:        price reaches the target first, the 5m shifts back the other way, the bias breaks, or 2 h unfilled
@@ -121,6 +122,9 @@ def step(coin, runs, state_at):
                         lg, sg, wk = s15[1][i][1]
                         lo, hi = (sg, wk) if lg == "UP" else (wk, sg)
                         z = "premium" if entry > (lo + hi) / 2 else "discount"
+                    if z != ("discount" if up else "premium"):
+                        risk = 0  # lesson 1 from the history test: wrong 15m zone lost more (PF 0.89-0.92 vs 0.96-1.01)
+                if risk > 0:
                     cs["order"] = {"side": "long" if up else "short", "sig": t, "fill": None, "entry": round(entry, 8),
                                    "stop": round(stop, 8), "target": round(entry + (TGT_R if up else -TGT_R) * risk, 8),
                                    "best": 0.0, "worst": 0.0, "bias": want, "day": leg_at(state_at, runs["1D"], t) if "1D" in runs else "",
