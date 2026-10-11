@@ -1,0 +1,2 @@
+time_utc,coin,action,price,qty,usd,pnl_usd,balance,reason
+2026-10-11 21:00,XRP,buy,1.3984,399.21453478,558.26,,1000.0,"gap fill, stop 1.38588, target 1.43597"
