@@ -428,3 +428,6 @@ time_et,coin,tf,event,close,leg,must_hold,leg_extreme,fifty,1D,4H,1H,15m
 2026-10-10 16:20,LINK,5m,fuel grab (MS undone),13.066,UP,13.064,13.097,13.0805,DOWN (hold 15.773),DOWN (hold 13.522),UP (hold 12.086),UP (hold 13.029)
 2026-10-10 17:25,SOL,5m,sweep of equal lows,110.3,DOWN,110.54,110.28,110.41,DOWN (hold 124.96),DOWN (hold 116.81),DOWN (hold 115.84),DOWN (hold 112.06)
 2026-10-10 19:25,SOL,5m,BOS down,110.11,DOWN,110.58,110.09,110.335,DOWN (hold 124.96),DOWN (hold 116.81),DOWN (hold 115.84),DOWN (hold 112.06)
+2026-10-10 15:35,LINK,5m,start UP,13.084,UP,13.067,13.088,13.0775,DOWN (hold 15.773),DOWN (hold 13.522),UP (hold 12.086),UP (hold 13.029)
+2026-10-10 16:20,LINK,5m,MS DOWN,13.066,DOWN,13.097,13.047,13.072,DOWN (hold 15.773),DOWN (hold 13.522),UP (hold 12.086),UP (hold 13.029)
+2026-10-10 16:50,LINK,5m,MS UP,13.116,UP,13.047,13.12,13.0835,DOWN (hold 15.773),DOWN (hold 13.522),UP (hold 12.086),UP (hold 13.029)
