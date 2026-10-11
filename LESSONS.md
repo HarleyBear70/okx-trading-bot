@@ -22,7 +22,7 @@ What each closed trade teaches, from the bots' own trades only. Written every ho
 
 ### LOSS -2.86 - Trend Rider 1H (Binance.US paper) BNB (2026-10-10 15:23 -> 2026-10-11 00:34 UTC)
 - **Why it bought:** No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (775.44) - a break of structure.
-- **What happened:** best +0.00% (0.0R), worst -0.64%, held 4 candles, sold by Price reached +1R, then came back to the entry - the bot got out about even instead of taking a loss. at 748.90249 (-0.53%, -0.15R).
+- **What happened:** best +0.00% (0.0R), worst -0.96%, held 4 candles, sold by Price reached +1R, then came back to the entry - the bot got out about even instead of taking a loss. at 748.90249 (-0.53%, -0.15R).
 - **Lessons:** went wrong almost right away (never up even 0.3R); the 4H Supertrend was still pointing down; breakout candle had below-average volume.
 
 ### WIN +4.18 - Trend Rider 1H (Binance.US paper) SUI (2026-10-10 02:24 -> 2026-10-10 22:23 UTC)
