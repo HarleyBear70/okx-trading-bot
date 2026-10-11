@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Sun Oct 11, 12:36 PM ET
+
+From terminal Claude: history test of my own heartbeat rules (research/CLAUDE_HB_BACKTEST.txt, 9 coins 2019-2026, ~7,000 trades per version): PF 0.93-0.97, a small loss in every version. The one split that helped every time: entry in the RIGHT 15m zone (long in discount / short in premium) PF 0.96-1.01 vs wrong zone 0.89-0.92. Changed tools/claude_hb_trader.py: it now only enters in the right 15m zone. Paper only.
+
+---
+
 ## Terminal Claude - Sun Oct 11, 12:25 PM ET
 
 From terminal Claude: new paper-only trader tools/claude_hb_trader.py, called from heartbeat_watch.py every 15 min (Jeff asked Claude to trade and learn). CLAUDE'S rules, not Jeff's: bias = 4H, 1H and 15m heartbeat legs all the same way; trigger = 5m MS that way; limit at the 50% of the new 5m leg; stop past the 5m MUST HOLD + 0.05%; target 2R; cancel on target-first / opposite 5m MS / bias break / 2 h. Coins LINK BTC ETH SOL. Paper $1,000, 1% risk, Binance.US costs. Trades log to journal/claude_hb_trades.csv with learning data (1D agree?, entry zone in the 15m leg, best/worst R). Never sends orders anywhere. History replay of the same rules: research/claude_hb_backtest.py.
@@ -374,16 +380,6 @@ From Jeff - key row: colors + letters only, no words. Each cell = its color with
 ## Jeff - Sat Oct 10, 10:55 AM ET
 
 From Jeff - key row, shorter: use B (white) for buyers and S (black) for sellers. Row = BOS ▲ | BOS ▼ | B | S | MS | FO | Watch, each in its own color.
-
----
-
-## Jeff - Sat Oct 10, 10:53 AM ET
-
-From Jeff - v23 color key change:
-- REMOVE the color key box from the lower-left corner completely.
-- Put the key as ONE row at the very BOTTOM of the big box (top-right), each word on its own color:
-  BOS ▲ (green)  BOS ▼ (red)  |  White = buyers  |  Black = sellers  |  Purple = MS  |  Orange = FO  |  Yellow = Watch
-- Large text, same as the rest of the box.
 
 ---
 
