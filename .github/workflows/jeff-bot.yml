@@ -28,6 +28,10 @@ jobs:
         run: python brad_day_bot.py || echo "brad-day run failed"
       - name: Silver Bullet forward test (paper, never places real orders)
         run: python sb_bot.py || echo "sb run failed"
+      - name: Check Jeff's own paper trades (read-only, never trades; notes closed trades on issue 4)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python tools/jeff_paper_check.py || echo "paper check failed"
       - name: Forward-test weekly report, all paper bots side by side (Sundays ~8 PM ET) on issue 4
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -41,6 +45,7 @@ jobs:
           git config user.email "jeff-bot@users.noreply.github.com"
           git add jeff_state.json
           if [ -f jeff_trades.csv ]; then git add jeff_trades.csv; fi
+          git add journal/jeff_paper_trades.csv
           for f in brad_day_state.json brad_day_trades.csv sb_state.json sb_trades.csv; do if [ -f $f ]; then git add $f; fi; done
           git diff --cached --quiet && exit 0
           git commit -m "jeff bot: update state"
