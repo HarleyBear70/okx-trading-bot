@@ -4,6 +4,30 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 10, 9:25 PM ET
+
+From Jeff - my 3 TradingView PAPER trades, Sat Oct 10 2026 (all times Eastern, UTC-4). Pull the candles to compare:
+
+1) BTC-USDT (OKX), 5m, SHORT - LOSS
+- Placed ~5:45 AM. Entry 82,863.7, stop 82,904 (40.3 pts), target 82,771.4 (92.3 pts), R:R 2.29.
+- Fib I used: 4:45 low 82,770.7 -> 5:30 high 82,950.
+- Stopped out ~7:40 AM (7:40 candle hit 82,910, closed 82,910).
+- BOS I MISSED: 6:05 (body close 82,816.6 < 5:50 low 82,840) and 6:20 (close 82,812.6 < 6:10 low 82,813.6). After those, the new low was 6:25 (~82,800), so my target should have moved to just above the ~82,800 pool (6:25 / 6:30 / 6:40 / 7:15 lows) - price touched it 4 times = a win of ~60 pts. Instead I kept the old target at 82,771, price never got there, swept the pool at 7:30 and ripped up (6:50 small MS up was the warning).
+
+2) BTC-USDT (OKX), 15m, LONG - WIN
+- Drawn before 9:43 AM. Entry 82,855.2, stop 82,781.2 (74 pts), target 82,991.7 (136.5 pts), R:R 1.84.
+- Target hit by 10:45 AM (Closed PnL +136.5 pts).
+- Note: R:R was under my 2:1 and the Smoke box at entry said newest 15m leg DOWN - it worked, but wasn't a textbook setup.
+
+3) ETHUSD (Bitstamp), 4H, SHORT - STILL OPEN
+- Seen at 9:43 AM. Entry ~2,495, stop 2,554 (60.9 pts, 2.44%), target 2,402 (91.2 pts, 3.66%), R:R 1.5.
+- Neither stop nor target hit yet (ETH high since ~2,519, now ~2,507 = small open loss).
+- Note: R:R under 2:1, and entry was in the 4H DISCOUNT half (box said wait for a bounce to premium ~2,585).
+
+Screenshots coming separately. Please log these in my journal and use #1 as the main test case.
+
+---
+
 ## Terminal Claude - Sat Oct 10, 2:55 PM ET
 
 From terminal Claude: **Jeff's setup round 2** (structure matches the BTC 5m test case at swing 1; look left = 15m levels only; 4H direction). 360 versions. Best: swing 1, entry B, gap 0.05%, stop past the sweep, target = nearest untouched 15m level: main 124/yr **PF 1.12** (1.19 no slip, halves 1.22/1.07), never-seen **PF 0.89**. Look Left target beats -27%/2R/3R; swing 1 is best. Nothing passes. Not-Jeff readings listed in research/JEFF_SETUP2.md. No bot changed.
@@ -442,17 +466,6 @@ Reply from terminal Claude:
 1) Newest leg + target = -27% fib extension (2:1 measured to it). Leg swing 5: main PF 1.20 (6 trades/yr, halves 1.20/1.19), never-seen 1.62 (9/yr). Better, but only ~47 trades in 7.75 yrs. Leg 1-3: almost no trades.
 WHAT BLOCKS SETUPS (leg 5, main coins): (a) zone not in the 15m discount at first touch: 35,492 of 40,822 touches (87%), and the zone is then used up; (b) 15m newest leg turns bearish before entry: 2,279 of 2,434 setups (94%); (c) target under 2:1: 1,497 of 2,527 shifts; (d) entry zone above price: 896; (e) not in 4H discount: 2,896 touches. Trades taken: 47.
 2) RSI filter (RSI 14 vs its yellow SMA-14 line and 50, last closed 5m candle): mostly CUTS trades (-25 to -35%), no consistent PF gain. Silver Bullet main 1.42->1.55 / 1.33->1.66 but never-seen 1.54->1.33 / 1.46->0.72. Brad day R3 1.28->1.22. research/RSI_FILTER.md, research/BRAD_DAY.md. No bot changed.
-
----
-
-## Jeff - Sat Oct 10, 7:33 AM ET
-
-From Jeff - MS rule confirmed (use this in every test, paper bot, and the Smoke Detector):
-- Market shift (MS) = a candle BODY closing past STRONG's WICK (the extreme), not past STRONG's body.
-- A wick past it = sweep, not MS.
-- A body close between STRONG's body and its wick = still not MS (sweep/defense).
-Example live now, BTC 5m Oct 10: STRONG = 4:45 AM ET candle, wick low 82,770.7, body close 82,800.6. Candles at 6:25, 6:30, 6:40 and 7:15 all stopped at about 82,800 (6:40 wicked to 82,798.6, body closed 82,814) = no MS. MS only on a body close under 82,770.7.
-Please check your code uses the wick extreme for STRONG and a body close (not wick) to trigger MS, and tell me if any past test did it differently.
 
 ---
 
