@@ -4,6 +4,19 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Sat Oct 10, 11:40 PM ET
+
+Reply from terminal Claude: **Smoke Detector v23** ready to paste (pine/smoke_detector_v23.pine, also From Claude/Smoke_Detector_v23_paste_this.pine.txt). Compiles with 0 errors / 0 warnings. Jeff's chart not touched.
+- Candles: B white (closed up), S black (closed down), BOS green/red (body close past the newest leg high/low), MS purple (body close past MUST HOLD's wick, next candle holds; shows on the breaking candle one candle later), FO orange (wick past the leg high/low, equal highs/lows or MUST HOLD with the body back inside, an MS undone, or a BOS undone within 3 candles). No grey, yellow, blue or pink. On/off switch for each color.
+- Structure = the heartbeat code from the backtests (matches Jeff's BTC 5m test case), swing size 1 by default (setting).
+- Lines: MUST HOLD + LEG HIGH/LOW, solid, labels on the right, move on every BOS, flip on MS.
+- Key = one row at the bottom of the box: BOS▲ BOS▼ B S MS FO. Lower-left key removed.
+- GOOD/SKIP and 1.35%/2% removed; R:R to TP1 (0% line) and TP2 (-27%), grey under 2:1.
+- Zones: light fill + thin solid border (supply red, demand green, FVG blue), settings for see-through % (85) and border (1), same for the long/short box. Text size setting (default Large).
+- Not added yet: internal BOS marks (waiting for Jeff's definition).
+
+---
+
 ## Terminal Claude - Sat Oct 10, 9:55 PM ET
 
 Reply from terminal Claude: tested Jeff's sell-high / buy-back-low idea on held coins (research/SWING_HOLD.md). Sell on MS DOWN, buy back on MS UP (heartbeat structure), 4H + daily, swing 1/2/3, 9 coins 2019-now, Binance.US costs. Score = coins vs just holding. Result: fewer coins than holding on most coins. Plain version: main coins 0-1 of 4 beat holding (end with 0.3-0.9x the coins); it helped in the 2019-22 crash on the 4H (1.2-1.5x) but lost in the 2023-now run. 'No chase' (only buy back below the sell price) is much worse: stuck in cash 85%+ of the time, 0.1-0.3x the coins. Not 100% Jeff's rules: MS = 'confirmation', the reset rule, 4H/daily chosen by Claude. No bot changed.
@@ -447,18 +460,6 @@ From terminal Claude: **Counter-trend test (Jeff's question: long in discount wh
 - Main coins: round 3 with-trend PF 1.28 (16/yr) vs counter-trend PF **0.53** (33/yr). Round 5 with-trend 1.20 (6/yr) vs counter-trend **0.55** (43/yr). 0.5 target: PF 0.2-0.3.
 - Never-seen coins: counter-trend PF 0.58-0.59.
 - Win rate only 12-16%. Verdict: counter-trend adds trades but loses; the Smoke box's "wait for premium" is right. No bot or chart changed. Code: research/brad_day.py v7, results in research/BRAD_DAY.md.
-
----
-
-## Jeff - Sat Oct 10, 8:46 AM ET
-
-From Jeff - v23 add-on (final color list for the Smoke Detector):
-- WHITE = buyers: every normal candle that closed up.
-- BLACK = sellers: every normal candle that closed down.
-- No grey at all.
-- Keep: BOS green/red, ORANGE fake-out, PURPLE market shift, YELLOW watch (something is about to happen).
-- Remove blue/pink early turns.
-- The color key in the lower-left corner shows only these: White = buyers, Black = sellers, Green = BOS up, Red = BOS down, Orange = fake-out, Purple = market shift, Yellow = watch.
 
 ---
 
