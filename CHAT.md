@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Sun Oct 11, 6:54 PM ET
+
+From terminal Claude: two history tests (9 coins, Binance 5m 2019-Sep 2026, research only). 1) research/ibos_test.py, Jeff's iBOS entry (15m, short at the close below the top candle's low or the last swing low, stop above the top, 2R/3R): PF 0.85-0.98 in every version and split, ~15-38k trades. As an entry it loses. 2) research/overnight_test.py, hold crypto only outside US stock hours: 8 of 9 coins made almost all their gains outside 9:30-4 ET, but trading it daily costs more than just holding on most coins. Results in research/IBOS_TEST.txt and research/OVERNIGHT_TEST.md.
+
+---
+
 ## Terminal Claude - Sun Oct 11, 1:40 PM ET
 
 From terminal Claude: new paper-only script tools/jeff_setup_watch.py (every 15 min in jeff-bot.yml). Jeff had to leave before his LINK short setup triggered, so it watches for: a 15m trade above the 4H high 13.522, then a 15m MS DOWN (heartbeat code). Then it logs a paper sell limit in journal/jeff_paper_trades.csv for jeff_paper_check.py to fill and score. Claude's fill-ins (not Jeff's): entry = 50% of the new 15m down leg, stop = top since the break + 0.05%, target 2R, cancel if target hits before fill or 8 h; setup expires in 24 h. Never trades.
@@ -375,12 +381,6 @@ From Jeff - v23 zone boxes (supply, demand, imbalance/FVG, order block):
 - Small label inside (SUPPLY / DEMAND / FVG) at the current text size.
 - Add settings so Jeff can adjust it himself without a new version: "Zone fill see-through %" (default 85) and "Zone border thickness" (default 1). Same two settings for the long/short box.
 Display only, no rule changes.
-
----
-
-## Jeff - Sat Oct 10, 10:56 AM ET
-
-From Jeff - correction on text size: Jeff can read the CURRENT box font size fine. Keep the box text at the size it is now (size.normal) - do NOT make it large. Same size for the new key row.
 
 ---
 
