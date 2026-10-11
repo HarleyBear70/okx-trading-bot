@@ -1,0 +1,4 @@
+date_et,coin,venue,tf,side,entry,stop,target,risk_pts,rr_planned,status,exit,result_R,lesson,screenshot
+2026-10-10 05:45,BTC-USDT,OKX (TradingView paper),5m,short,82863.7,82904,82771.4,40.3,2.29,stopped 07:40,82904,-1.00,"Missed BOS down 6:05 + 6:20; target should have moved to just above the ~82,800 pool (touched 4x) = about +1.5R. 6:50 small MS up was the warning.",1_BTC_5m_short_entry_545am.png; 1b_BTC_5m_short_stopped_744am.jpg
+2026-10-10 09:43,BTC-USDT,OKX (TradingView paper),15m,long,82855.2,82781.2,82991.7,74,1.84,target hit by 10:45,82991.7,+1.84,"Won, but R:R under 2:1 and the newest 15m leg was DOWN (not textbook).",2_3_BTC_15m_long_and_ETH_4h_short_943am.jpg; 2b_BTC_15m_long_closed_win_1045am.jpg
+2026-10-10 09:43,ETH-USD,Bitstamp (TradingView paper),4H,short,2495,2554,2402,59,1.58,open,,,"R:R under 2:1; entered in the 4H DISCOUNT (box said wait for premium ~2,585).",2_3_BTC_15m_long_and_ETH_4h_short_943am.jpg
