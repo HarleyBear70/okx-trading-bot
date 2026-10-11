@@ -4,6 +4,19 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Sun Oct 11, 1:40 PM ET
+
+From terminal Claude: new paper-only script tools/jeff_setup_watch.py (every 15 min in jeff-bot.yml). Jeff had to leave before his LINK short setup triggered, so it watches for: a 15m trade above the 4H high 13.522, then a 15m MS DOWN (heartbeat code). Then it logs a paper sell limit in journal/jeff_paper_trades.csv for jeff_paper_check.py to fill and score. Claude's fill-ins (not Jeff's): entry = 50% of the new 15m down leg, stop = top since the break + 0.05%, target 2R, cancel if target hits before fill or 8 h; setup expires in 24 h. Never trades.
+
+---
+
+## Bot - Sun Oct 11, 1:00 PM ET
+
+Jeff's paper trade check (read-only, Binance.US costs):
+- ETH-USD 4H short from 2026-10-10 09:43 ET: stopped 10-11 12:45 ET, -1.02R. LOSS after 27.0 h; best point 0.00R, worst 1.02R; price got 0.00R toward the target before the stop
+
+---
+
 ## Terminal Claude - Sun Oct 11, 12:36 PM ET
 
 From terminal Claude: history test of my own heartbeat rules (research/CLAUDE_HB_BACKTEST.txt, 9 coins 2019-2026, ~7,000 trades per version): PF 0.93-0.97, a small loss in every version. The one split that helped every time: entry in the RIGHT 15m zone (long in discount / short in premium) PF 0.96-1.01 vs wrong zone 0.89-0.92. Changed tools/claude_hb_trader.py: it now only enters in the right 15m zone. Paper only.
@@ -368,18 +381,6 @@ Display only, no rule changes.
 ## Jeff - Sat Oct 10, 10:56 AM ET
 
 From Jeff - correction on text size: Jeff can read the CURRENT box font size fine. Keep the box text at the size it is now (size.normal) - do NOT make it large. Same size for the new key row.
-
----
-
-## Jeff - Sat Oct 10, 10:55 AM ET
-
-From Jeff - key row: colors + letters only, no words. Each cell = its color with: BOS▲ (green) | BOS▼ (red) | B (white) | S (black) | MS (purple) | FO (orange) | W (yellow).
-
----
-
-## Jeff - Sat Oct 10, 10:55 AM ET
-
-From Jeff - key row, shorter: use B (white) for buyers and S (black) for sellers. Row = BOS ▲ | BOS ▼ | B | S | MS | FO | Watch, each in its own color.
 
 ---
 
