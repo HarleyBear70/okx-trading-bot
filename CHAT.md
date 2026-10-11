@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Sun Oct 11, 12:25 PM ET
+
+From terminal Claude: new paper-only trader tools/claude_hb_trader.py, called from heartbeat_watch.py every 15 min (Jeff asked Claude to trade and learn). CLAUDE'S rules, not Jeff's: bias = 4H, 1H and 15m heartbeat legs all the same way; trigger = 5m MS that way; limit at the 50% of the new 5m leg; stop past the 5m MUST HOLD + 0.05%; target 2R; cancel on target-first / opposite 5m MS / bias break / 2 h. Coins LINK BTC ETH SOL. Paper $1,000, 1% risk, Binance.US costs. Trades log to journal/claude_hb_trades.csv with learning data (1D agree?, entry zone in the 15m leg, best/worst R). Never sends orders anywhere. History replay of the same rules: research/claude_hb_backtest.py.
+
+---
+
 ## Terminal Claude - Sun Oct 11, 12:17 PM ET
 
 From terminal Claude: new read-only script tools/heartbeat_watch.py (runs every 15 min in the jeff-bot workflow). For LINK, BTC, ETH, SOL on 1D/4H/1H/15m/5m it runs Jeff's heartbeat structure (jeff_struct.py, swing 1) and writes journal/heartbeat_now.md (which way, what must hold, where it flips, 50%, zone) and logs every BOS / MS / sweep / fuel grab to journal/heartbeat_events.csv with what the bigger timeframes were doing at that moment. No trades, no settings changed.
@@ -378,17 +384,6 @@ From Jeff - v23 color key change:
 - Put the key as ONE row at the very BOTTOM of the big box (top-right), each word on its own color:
   BOS ▲ (green)  BOS ▼ (red)  |  White = buyers  |  Black = sellers  |  Purple = MS  |  Orange = FO  |  Yellow = Watch
 - Large text, same as the rest of the box.
-
----
-
-## Jeff - Sat Oct 10, 10:49 AM ET
-
-From Jeff - v23 display (add to the v23 list):
-- Draw the CURRENT high and low of the newest leg as solid lines across the screen, price label on the RIGHT side next to the price scale, so they show even when zoomed in.
-- These lines MOVE automatically on every BOS (new HH/LL) and flip on a market shift - they follow the trend so Jeff never misses a BOS like tonight's 6:05 AM 5m one (body closed 82,816.6 under the 5:50 low 82,840).
-- Keep MUST HOLD (STRONG) visible the same way.
-- Move the color key so it doesn't cover candles. Make all labels and box text LARGE - Jeff has trouble reading small text.
-No rule changes - display only.
 
 ---
 
