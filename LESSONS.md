@@ -4,21 +4,26 @@ What each closed trade teaches, from the bots' own trades only. Written every ho
 
 ## Candidate rules (0)
 
-- none yet (7 closed trades; need a mistake on 3+ losers)
+- none yet (8 closed trades; need a mistake on 3+ losers)
 
 ## Mistake tally
 
 | Mistake | On losers | On winners | P/L of those trades |
 |---|---|---|---|
-| went wrong almost right away (never up even 0.3R) | 1 | 0 | -7.75 |
+| went wrong almost right away (never up even 0.3R) | 2 | 0 | -10.61 |
 | was up 1R or more, then ended as a loss | 2 | 0 | -4.16 |
 | bought more than 6% above the 50 EMA (chasing) | 1 | 0 | -7.75 |
 | stop was more than 8% away | 1 | 0 | -7.75 |
-| the 4H Supertrend was still pointing down | 1 | 1 | -3.57 |
-| breakout candle had below-average volume | 3 | 3 | +2.47 |
+| the 4H Supertrend was still pointing down | 2 | 1 | -6.43 |
+| breakout candle had below-average volume | 4 | 3 | -0.39 |
 | daily RSI was over 70 (overbought) | 0 | 0 | +0.00 |
 
-## Every closed trade, newest first (7)
+## Every closed trade, newest first (8)
+
+### LOSS -2.86 - Trend Rider 1H (Binance.US paper) BNB (2026-10-10 15:23 -> 2026-10-11 00:34 UTC)
+- **Why it bought:** No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (775.44) - a break of structure.
+- **What happened:** best +0.00% (0.0R), worst -0.64%, held 4 candles, sold by Price reached +1R, then came back to the entry - the bot got out about even instead of taking a loss. at 748.90249 (-0.53%, -0.15R).
+- **Lessons:** went wrong almost right away (never up even 0.3R); the 4H Supertrend was still pointing down; breakout candle had below-average volume.
 
 ### WIN +4.18 - Trend Rider 1H (Binance.US paper) SUI (2026-10-10 02:24 -> 2026-10-10 22:23 UTC)
 - **Why it bought:** No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (1.1445) - a break of structure.
