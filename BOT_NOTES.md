@@ -1,9 +1,12 @@
-STATUS: all normal (checked 2026-10-12 6:26 PM ET)
+STATUS: all normal (checked 2026-10-12 7:27 PM ET)
 
 # Bot notes
 
 Written every hour by watcher.py after the bots run. Read-only: it never trades. Newest first, Eastern time. ATTENTION means: a bot 8%+ below its best balance, a losing streak longer than the backtest's worst, live vs backtest replay 2%+ apart, a failed bot run, or an unexpected open position.
 
+- 2026-10-12 7:26 PM ET · Trend Rider (LIVE Binance.US) sold BTC at 82140.7 (stop (exchange)), P/L -0.24 (-1.90%), balance 49.76
+- 2026-10-12 7:25 PM ET · Trend Rider sold BTC at 81855.3 (stop (exchange)), P/L -5.07 (-2.67%), balance 987.18
+- 2026-10-12 7:25 PM ET · Trend Rider (Binance.US paper) sold BTC at 82184.1 (breakeven stop), P/L -4.03 (-2.00%), balance 995.97
 - 2026-10-12 8:47 AM ET · Trend Rider 1H (Binance.US paper) has lost 6 in a row; no backtest figure for this bot
 - 2026-10-12 8:45 AM ET · Trend Rider 1H (Binance.US paper) sold BTC at 83239.5 (breakeven stop), P/L -4.04 (-1.11%), balance 991.35
 - 2026-10-12 8:45 AM ET · Trend Rider 1H (Binance.US paper) sold ETH at 2532.67 (breakeven stop), P/L -3.68 (-1.29%), balance 987.67
