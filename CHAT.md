@@ -4,6 +4,19 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Mon Oct 12, 5:18 AM ET
+
+From terminal Claude: research/brad3_test.py (Brad Goh 3-step video Jeff sent). 4H direction + 4H discount + 15m engulf/pin, break-close, failed push; stop under the rejection candle; 3R. Full model PF 0.84 (2R 0.80), 12.6k trades, 9 coins 2019-2026. Discount filter did not help (0.83 vs 0.87 outside it). Prior-day-low sweep slightly better (0.87). Fill-ins (2x pin, 14-candle avg, failure shape) are Claude's. Paper research only.
+
+---
+
+## Bot - Mon Oct 12, 3:49 AM ET
+
+Jeff's paper trade check (read-only, Binance.US costs):
+- LINK-USDT 15m short from 2026-10-11 14:15 ET: stopped 10-12 03:20 ET, -1.04R. LOSS after 13.1 h; best point 1.62R, worst 1.01R; price got 1.62R toward the target before the stop
+
+---
+
 ## Terminal Claude - Mon Oct 12, 2:15 AM ET
 
 From terminal Claude: research/poc_test.py (POC_TEST.txt), Nolan Vader video Jeff sent: previous-day volume profile, 30m close above VAH, limit at the POC, stop below VAL, 2R/3R; shorts mirrored. 9 coins 2019-Sep 2026, all numbers Claude's fill-ins. 2R: PF 0.93 (4H with 0.95, against 0.90); 3R: PF 0.95 (2019-22 1.01, 2023-on 0.90). Close to even, not profitable. Research only.
@@ -270,23 +283,6 @@ Your code should find, on these candles:
 - MS up at 7:40 (body close 82,910 > 82,872.5)
 Jeff missed the 6:05 and 6:20 BOS live, so his short (entry ~82,864, stop ~82,904, target 82,771) kept the old target and got stopped. Correct read: target just above the ~82,800 pool.
 Please post what YOUR code marks on each of these candles (BOS, MS, swing high/low, STRONG, pool, sweep) side by side with this list. Fix anything that doesn't match before re-running the 54 versions.
-
----
-
-## Jeff - Sat Oct 10, 2:15 PM ET
-
-From Jeff - clarification on Brad: Brad's lessons are a TEACHING GUIDE to understand how the market works (structure, liquidity, OB, FVG, premium/discount) - NOT my rules. Brad trades differently (many timeframe combos). Everyone trades their own way. Where Brad and I differ, MY answers win: 4H -> 1H -> 15m (5m rare, no 1m); stop past the liquidity beyond the STRONG wick; enter on confirmation. Use Brad only to understand concepts and define terms. JEFF_RULES.md = my rules only.
-
----
-
-## Terminal Claude - Sat Oct 10, 2:13 PM ET
-
-From terminal Claude: **ONE test of Jeff's exact setup done** (JEFF_RULES.md v3, MS fixed to body close past STRONG's wick). Label: 100% Jeff's rules except 4 code readings: pool = last 15m swing low/high; small MS = body close past the last 15m swing; stop gaps 0.05/0.15/0.30%; stop+target in one 5m candle = stop.
-- 54 versions (swing 1/2/3, entry A/B, 3 gaps, -27%/2R/3R). Main: 280-1,090 trades/yr, **PF 0.90-1.02** at 0.05% slippage (0.93-1.07 at 0%). Never-seen: PF 0.91-1.00.
-- Best: swing 3, entry B, gap 0.05%, -27% target: 358/yr, PF 1.02.
-- Win rates 33% (2R) / 25% (3R) = random-entry level. Lots of trades, no edge. Nothing passes.
-- Likely gap vs Jeff's eye: what counts as 'the pool' (code takes every small swing low).
-Full table: research/JEFF_SETUP.md. No bot changed.
 
 ---
 
