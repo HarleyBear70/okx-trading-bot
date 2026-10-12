@@ -1,0 +1,41 @@
+  BTC done
+  ETH done
+  SOL done
+  XRP done
+  BNB done
+  ADA done
+  DOGE done
+  LINK done
+  LTC done
+
+### Brad 3-step, target 2R
+FULL MODEL (4H with + discount + 15m 3 confluences, one at a time)
+  all            13502 trades, win  30%, avg -0.150R, PF 0.80
+  longs           6608 trades, win  29%, avg -0.174R, PF 0.77
+  shorts          6894 trades, win  31%, avg -0.126R, PF 0.83
+  2019-22         6152 trades, win  30%, avg -0.142R, PF 0.81
+  2023-on         7350 trades, win  30%, avg -0.156R, PF 0.79
+  swept PDL yes   3266 trades, win  31%, avg -0.112R, PF 0.85
+  swept PDL no   10236 trades, win  30%, avg -0.161R, PF 0.79
+WHAT EACH STEP ADDS (every signal, overlapping trades allowed)
+  15m only                87976 trades, win  31%, avg -0.122R, PF 0.83
+  15m + 4H with           44254 trades, win  31%, avg -0.121R, PF 0.84
+  15m + 4H against        43722 trades, win  31%, avg -0.124R, PF 0.83
+  15m + 4H with + disc    16870 trades, win  30%, avg -0.152R, PF 0.80
+  15m + 4H with, no disc  27384 trades, win  32%, avg -0.102R, PF 0.86
+
+### Brad 3-step, target 3R
+FULL MODEL (4H with + discount + 15m 3 confluences, one at a time)
+  all            12634 trades, win  23%, avg -0.131R, PF 0.84
+  longs           6184 trades, win  23%, avg -0.148R, PF 0.82
+  shorts          6450 trades, win  23%, avg -0.115R, PF 0.86
+  2019-22         5823 trades, win  23%, avg -0.120R, PF 0.85
+  2023-on         6811 trades, win  23%, avg -0.141R, PF 0.83
+  swept PDL yes   3201 trades, win  24%, avg -0.101R, PF 0.87
+  swept PDL no    9433 trades, win  23%, avg -0.141R, PF 0.83
+WHAT EACH STEP ADDS (every signal, overlapping trades allowed)
+  15m only                87972 trades, win  23%, avg -0.120R, PF 0.85
+  15m + 4H with           44251 trades, win  23%, avg -0.117R, PF 0.86
+  15m + 4H against        43721 trades, win  23%, avg -0.124R, PF 0.85
+  15m + 4H with + disc    16869 trades, win  23%, avg -0.140R, PF 0.83
+  15m + 4H with, no disc  27382 trades, win  24%, avg -0.102R, PF 0.87
