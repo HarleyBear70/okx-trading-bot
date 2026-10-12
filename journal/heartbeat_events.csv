@@ -531,3 +531,5 @@ time_et,coin,tf,event,close,leg,must_hold,leg_extreme,fifty,1D,4H,1H,15m
 2026-10-10 19:55,LINK,5m,start DOWN,13.016,DOWN,13.036,13.012,13.024,DOWN (hold 15.773),DOWN (hold 13.522),UP (hold 12.086),DOWN (hold 13.252)
 2026-10-11 19:55,LINK,5m,sweep of equal highs,13.353,UP,13.148,13.359,13.2535,DOWN (hold 15.773),DOWN (hold 13.522),UP (hold 12.834),DOWN (hold 13.351)
 2026-10-11 19:55,SOL,5m,BOS up,111.36,UP,111.09,111.42,111.255,DOWN (hold 124.96),DOWN (hold 116.81),DOWN (hold 115.84),DOWN (hold 111.49)
+2026-10-10 19:45,BTC,5m,start DOWN,83026.8,DOWN,83072.5,83012.7,83042.6,UP (hold 74955.5),UP (hold 74955.5),UP (hold 80400.0),DOWN (hold 83530.1)
+2026-10-11 20:05,LINK,5m,BOS up,13.377,UP,13.344,13.38,13.362,DOWN (hold 15.773),DOWN (hold 13.522),UP (hold 12.834),DOWN (hold 13.351)
