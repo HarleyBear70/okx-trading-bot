@@ -2,19 +2,32 @@
  "balance": 1000.0,
  "coins": {
   "LINK": {
-   "last": 1791765900000,
+   "last": 1791767700000,
    "order": null
   },
   "BTC": {
-   "last": 1791765900000,
-   "order": null
+   "last": 1791767700000,
+   "order": {
+    "side": "long",
+    "sig": 1791766500000,
+    "fill": null,
+    "entry": 83624.4,
+    "stop": 83240.359,
+    "target": 84392.482,
+    "best": 0.0,
+    "worst": 0.0,
+    "bias": "UP",
+    "day": "UP",
+    "z15": "discount",
+    "ctx15": "UP (hold 83282.0)"
+   }
   },
   "ETH": {
-   "last": 1791766200000,
+   "last": 1791767700000,
    "order": null
   },
   "SOL": {
-   "last": 1791766200000,
+   "last": 1791767700000,
    "order": null
   }
  }
