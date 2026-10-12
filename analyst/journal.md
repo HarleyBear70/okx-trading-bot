@@ -1,5 +1,10 @@
 # The Analyst's journal (newest first)
 
+## 2026-10-12 session (sat out)
+- Data works. All six coins near their daily 20 EMA on very thin volume. No setups; no orders because CPI is Wed Oct 14. News GREEN.
+- No new closed bot trades to review. Balance 994.34, nothing open.
+- Check next time: CPI reaction; BTC daily close above 85.5k with volume?
+
 ## 2026-10-11 session (sat out, Sunday scorecard in brief)
 - Data works. Market drifting on very thin weekend volume; all six coins around their daily 20 EMA. No setups, no orders. CPI Wed Oct 14.
 - Bot post-mortems: Trend Rider 1H SUI +2.0% (trail), BNB -0.5% (breakeven stop), both by the rules.
