@@ -1,3 +1,5 @@
 time_utc,mode,kind,coin,usd,price,units,dip,sma200,coin_units_total,coin_spent_total
 2026-10-05 13:31,paper,weekly DCA,BTC-USDT,5.0,86525.1,5.7728971e-05,False,71539.443,5.7728971e-05,5.0
 2026-10-05 13:31,paper,weekly DCA,XRP-USDT,5.0,1.5206,3.2848908,False,1.2801,3.2848908,5.0
+2026-10-12 00:37,paper,weekly DCA,BTC-USDT,5.0,83760.4,5.9485879e-05,False,72018.221,0.00011721485,10.0
+2026-10-12 00:37,paper,weekly DCA,XRP-USDT,5.0,1.4104,3.532729,False,1.280429,6.8176199,10.0

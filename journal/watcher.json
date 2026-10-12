@@ -1,5 +1,5 @@
 {
- "rows_seen": 31,
+ "rows_seen": 36,
  "bots": {
   "v4-okx": {
    "peak": 1006.89,
@@ -97,7 +97,7 @@
    "odd": ""
   },
   "rsi2-bnus": {
-   "peak": 1000.0,
+   "peak": 1002.15,
    "halt_flag": false,
    "odd": ""
   },

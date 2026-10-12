@@ -19,7 +19,32 @@ What each closed trade teaches, from the bots' own trades only. Written every ho
 | breakout candle had below-average volume | 5 | 3 | -2.30 |
 | daily RSI was over 70 (overbought) | 0 | 0 | +0.00 |
 
-## Every closed trade, newest first (10)
+## Every closed trade, newest first (15)
+
+### LOSS -0.81 - RSI(2) snap-back (Binance.US paper) ETH (2026-10-08 00:34 -> 2026-10-12 00:37 UTC)
+- **Why it bought:** score RSI(2) 4.5
+- **What happened:** best +0.41% (-R), worst -6.59%, held 25 candles, sold by closed above the 5-day average at 2534.72 (-1.61%, -R).
+- **Lessons:** none - the trade followed the plan (a normal loss).
+
+### LOSS -0.28 - RSI(2) snap-back (Binance.US paper) XRP (2026-10-08 00:34 -> 2026-10-12 00:37 UTC)
+- **Why it bought:** score RSI(2) 4.9
+- **What happened:** best +0.41% (-R), worst -7.21%, held 25 candles, sold by closed above the 5-day average at 1.4094 (-0.87%, -R).
+- **Lessons:** none - the trade followed the plan (a normal loss).
+
+### WIN +1.49 - RSI(2) snap-back (Binance.US paper) BTC (2026-10-09 00:38 -> 2026-10-12 00:37 UTC)
+- **Why it bought:** score RSI(2) 4.2
+- **What happened:** best +3.02% (-R), worst -0.06%, held 19 candles, sold by closed above the 5-day average at 83660.58 (+2.42%, -R).
+- **Lessons:** none - the trade followed the plan.
+
+### WIN +0.55 - RSI(2) snap-back (Binance.US paper) SOL (2026-10-09 00:38 -> 2026-10-12 00:37 UTC)
+- **Why it bought:** score RSI(2) 1.7
+- **What happened:** best +2.77% (-R), worst -0.93%, held 19 candles, sold by closed above the 5-day average at 111.22 (+1.56%, -R).
+- **Lessons:** none - the trade followed the plan.
+
+### WIN +1.19 - RSI(2) snap-back (Binance.US paper) BNB (2026-10-09 00:38 -> 2026-10-12 00:37 UTC)
+- **Why it bought:** score RSI(2) 2.7
+- **What happened:** best +2.69% (-R), worst -0.52%, held 19 candles, sold by closed above the 5-day average at 753.52 (+2.19%, -R).
+- **Lessons:** none - the trade followed the plan.
 
 ### LOSS -4.02 - Trend Rider 1H (Binance.US paper) BTC (2026-10-11 16:24 -> 2026-10-11 21:24 UTC)
 - **Why it bought:** BUY signal: broke above the swing high 83,449.6 with the daily and 4H trend up. Stop 1.99% below at 82,162.2; no fixed target - a trailing stop 3 ATR under the highest close follows the trend.

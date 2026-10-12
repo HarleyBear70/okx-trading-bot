@@ -1,9 +1,14 @@
-STATUS: all normal (checked 2026-10-11 7:25 PM ET)
+STATUS: all normal (checked 2026-10-11 8:39 PM ET)
 
 # Bot notes
 
 Written every hour by watcher.py after the bots run. Read-only: it never trades. Newest first, Eastern time. ATTENTION means: a bot 8%+ below its best balance, a losing streak longer than the backtest's worst, live vs backtest replay 2%+ apart, a failed bot run, or an unexpected open position.
 
+- 2026-10-11 8:37 PM ET · RSI(2) snap-back (Binance.US paper) sold BTC at 83660.6 (closed above the 5-day average), P/L +1.49 (+2.42%), balance 1001.49
+- 2026-10-11 8:37 PM ET · RSI(2) snap-back (Binance.US paper) sold ETH at 2534.72 (closed above the 5-day average), P/L -0.81 (-1.61%), balance 1000.69
+- 2026-10-11 8:37 PM ET · RSI(2) snap-back (Binance.US paper) sold SOL at 111.22 (closed above the 5-day average), P/L +0.55 (+1.56%), balance 1001.24
+- 2026-10-11 8:37 PM ET · RSI(2) snap-back (Binance.US paper) sold XRP at 1.4094 (closed above the 5-day average), P/L -0.28 (-0.87%), balance 1000.96
+- 2026-10-11 8:37 PM ET · RSI(2) snap-back (Binance.US paper) sold BNB at 753.52 (closed above the 5-day average), P/L +1.19 (+2.19%), balance 1002.15
 - 2026-10-11 5:24 PM ET · Trend Rider 1H (Binance.US paper) sold BTC at 83295.7 (breakeven stop), P/L -4.02 (-0.68%), balance 997.30
 - 2026-10-11 5:24 PM ET · Trend Rider 1H (Binance.US paper) sold ETH at 2522.53 (breakeven stop), P/L -1.91 (-0.47%), balance 995.38
 - 2026-10-11 12:24 PM ET · Trend Rider bought BTC 0.00226283 at 83803.6 (190.30 USDT), stop 82152.2, target -
