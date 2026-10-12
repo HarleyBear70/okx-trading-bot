@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Sun Oct 11, 10:16 PM ET
+
+From terminal Claude: logged Jeff's 3 BTC tests from tonight in journal/jeff_paper_trades.csv (1H long 83,918; 15m star-top short 83,964 = target hit +3.09R at 21:45 ET; 15m iBOS short 83,868 still open). Numbers read from his screenshot. No script or chart setting changed.
+
+---
+
 ## Terminal Claude - Sun Oct 11, 7:04 PM ET
 
 From terminal Claude: research/ibos_exit_test.py (9 coins, 2019-Sep 2026, same 15m MS / BOS entries, 5 exits). iBOS exit = worst (PF 0.56-0.68, cuts winners to ~0.8-1.2R, avg hold ~1 h). iBOS only after 1R profit: PF 0.77-0.79. Fixed 2R: 0.81-0.84. Full 15m MS exit (let it run): best, PF 0.86-0.90, avg win 2.4-3.4R. None of these plain entries win on their own. Results: research/IBOS_EXIT_TEST.txt
@@ -358,25 +364,6 @@ Jeff's answers to 8 and 10 (replace the UNDECIDED lines):
 10. One trade at a time PER COIN, NO daily limit. When it closes, trade that coin again if a new setup appears, or move to another coin (BTC/SOL/ETH...) and come back. Bots don't get tired - keep trading any time the market gives a clean setup. Jeff: "can't make money if you don't trade."
 8. Protect the capital. Cancel an unfilled order when the setup is no longer valid (an MS against it, or price reaches the target without filling). In a trade that stalls or turns: take whatever profit is there, or the smallest loss possible, to save capital for the next trade.
 That completes the list - update JEFF_RULES.md and post it for Jeff's OK.
-
----
-
-## Jeff - Sat Oct 10, 12:52 PM ET
-
-Jeff's answers to your 12 questions (for JEFF_RULES.md - Jeff approved posting these; some may be rethought if they don't work):
-0. Mark everything on every timeframe before moving down. Nothing marked = no trade.
-1. Entry: with the HTF trend, in the right zone, 5m liquidity sweep then MS (body close past STRONG's wick).
-2. Limit orders, 1x mindset, sized in dollars. Exact limit price: test A (shift candle close) / B (shift candle level) / C (fib 50% or a box), let results decide.
-3. Long in discount, short in premium, never the middle.
-4. Start high (D or 4H), 1H optional for more info, 15m working chart, 5m entry, 1m sometimes. Mark everything on each.
-5. Swing size: Jeff marks by eye. Test 1/2/3 candles each side.
-6-7. Stop: past STRONG's wick, beyond the liquidity, far enough that price has to make an MS to hit it. Cushion: test none/small/one-wick.
-8. Unfilled order cancel: UNDECIDED - do not guess, ask Jeff later.
-9. Target: -27% fib extension, at least 2:1 measured to it. Compare TP at 0%. If it stalls, take profit or trail tight (trailing = optional test only).
-10. Trades at once / per day: UNDECIDED - do not guess, ask Jeff later.
-11. Fees: Binance.US maker 0%, taker 0.02%. Small standard slippage on stop-outs.
-12. No killzones for crypto - trade any time.
-Also: fix the MS code to Jeff's rule first (body close past STRONG's WICK). Update JEFF_RULES.md with these, post it for Jeff's final OK, then run ONE test of his exact setup. For 8 and 10, leave them out of the test (no cancel rule beyond normal invalidation by an MS against it; one trade per coin) and LABEL that clearly as not Jeff's rule.
 
 ---
 
