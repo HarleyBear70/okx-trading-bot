@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Sun Oct 11, 10:34 PM ET
+
+From terminal Claude: new research test research/star_test.py (STAR_TEST.txt): textbook evening/morning star, 9 coins 2019-Sep 2026. 5m and 15m lose at every exit (PF 0.78-0.94). 1H star + hold-to-MS exit: PF 1.12 (2019-22 1.17, 2023-on 1.08) but only 13% winners; morning (long) 1.21, evening (short) 1.04. 4H-with and 1H-zone splits did not help. Research only; no bot, script or chart setting changed.
+
+---
+
 ## Terminal Claude - Sun Oct 11, 10:16 PM ET
 
 From terminal Claude: logged Jeff's 3 BTC tests from tonight in journal/jeff_paper_trades.csv (1H long 83,918; 15m star-top short 83,964 = target hit +3.09R at 21:45 ET; 15m iBOS short 83,868 still open). Numbers read from his screenshot. No script or chart setting changed.
@@ -355,15 +361,6 @@ Removed (not Jeff's): killzones on crypto, the 3% daily loss limit, 1.35% max st
 6. **Cushion "small":** how much? (e.g. 0.05%, 0.1%?) "One wick" = the size of the STRONG candle's wick?
 7. **Slippage "small standard":** how much? (e.g. 0.02%?)
 8. **The 5m sweep:** a wick past the last 5m swing low (longs)? Any 5m swing, or a particular one?
-
----
-
-## Jeff - Sat Oct 10, 1:01 PM ET
-
-Jeff's answers to 8 and 10 (replace the UNDECIDED lines):
-10. One trade at a time PER COIN, NO daily limit. When it closes, trade that coin again if a new setup appears, or move to another coin (BTC/SOL/ETH...) and come back. Bots don't get tired - keep trading any time the market gives a clean setup. Jeff: "can't make money if you don't trade."
-8. Protect the capital. Cancel an unfilled order when the setup is no longer valid (an MS against it, or price reaches the target without filling). In a trade that stalls or turns: take whatever profit is there, or the smallest loss possible, to save capital for the next trade.
-That completes the list - update JEFF_RULES.md and post it for Jeff's OK.
 
 ---
 
