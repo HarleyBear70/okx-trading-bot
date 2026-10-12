@@ -1000,7 +1000,7 @@
   "mode": "paper",
   "planned_stop": 857.597,
   "planned_target": null,
-  "price_now": 83676.3,
+  "price_now": 83486.2,
   "qty": 0.011660489,
   "result": "open",
   "risk_pct": 99.0,
@@ -1009,7 +1009,7 @@
   "stop_now": 857.597,
   "strategy": "hold",
   "trailing_on": false,
-  "unrealized_pct": -2.429,
+  "unrealized_pct": -2.651,
   "why_entry": null,
   "worst_pct": -6.25,
   "worst_px": 80400.0
@@ -1491,7 +1491,7 @@
   "mode": "demo",
   "planned_stop": 82152.2,
   "planned_target": null,
-  "price_now": 83676.3,
+  "price_now": 83486.2,
   "qty": 0.0022628323,
   "result": "open",
   "risk_pct": 1.971,
@@ -1500,7 +1500,7 @@
   "stop_now": 82186.3,
   "strategy": "tr",
   "trailing_on": false,
-  "unrealized_pct": -0.152,
+  "unrealized_pct": -0.379,
   "why_entry": "BUY signal: broke above the swing high 83,530.1 with the daily and 4H trend up. Stop 2.09% below at 82,152.2; no fixed target - a trailing stop 3 ATR under the highest close follows the trend.",
   "worst_pct": -0.622,
   "worst_px": 83282.0
@@ -1589,7 +1589,7 @@
   "mode": "paper",
   "planned_stop": 82162.2,
   "planned_target": null,
-  "price_now": 83590.5,
+  "price_now": 83404.5,
   "qty": 0.0023974773,
   "result": "open",
   "risk_pct": 1.99,
@@ -1598,7 +1598,7 @@
   "stop_now": 82184.1,
   "strategy": "tr",
   "trailing_on": false,
-  "unrealized_pct": -0.286,
+  "unrealized_pct": -0.508,
   "why_entry": "BUY signal: broke above the swing high 83,449.6 with the daily and 4H trend up. Stop 1.99% below at 82,162.2; no fixed target - a trailing stop 3 ATR under the highest close follows the trend.",
   "worst_pct": -0.746,
   "worst_px": 83205.4
@@ -1895,7 +1895,7 @@
   "mode": "live",
   "planned_stop": 82162.2,
   "planned_target": null,
-  "price_now": 83590.5,
+  "price_now": 83404.5,
   "qty": 0.00014997,
   "result": "open",
   "risk_pct": 1.871,
@@ -1904,14 +1904,14 @@
   "stop_now": 82184.1,
   "strategy": "tr",
   "trailing_on": false,
-  "unrealized_pct": -0.165,
+  "unrealized_pct": -0.387,
   "why_entry": "BUY signal: broke above the swing high 83,449.6 with the daily and 4H trend up. Stop 1.99% below at 82,162.2; no fixed target - a trailing stop 3 ATR under the highest close follows the trend.",
   "worst_pct": -0.625,
   "worst_px": 83205.4
  },
  {
-  "best_pct": -0.142,
-  "best_px": 2561.06,
+  "best_pct": -0.139,
+  "best_px": 2561.14,
   "best_r": -0.1,
   "bot": "Trend Rider 1H (Binance.US paper)",
   "bot_id": "tr1h-bnus",
@@ -1993,7 +1993,7 @@
   "mode": "paper",
   "planned_stop": 2528.92,
   "planned_target": null,
-  "price_now": 2553.99,
+  "price_now": 2549.93,
   "qty": 0.11124261,
   "result": "open",
   "risk_pct": 1.395,
@@ -2002,10 +2002,10 @@
   "stop_now": 2530.51,
   "strategy": "tr",
   "trailing_on": false,
-  "unrealized_pct": -0.418,
+  "unrealized_pct": -0.576,
   "why_entry": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (2,724.11) - a break of structure.",
-  "worst_pct": -0.574,
-  "worst_px": 2549.99
+  "worst_pct": -0.638,
+  "worst_px": 2548.34
  },
  {
   "best_pct": -0.531,
@@ -2091,7 +2091,7 @@
   "mode": "paper",
   "planned_stop": 110.977,
   "planned_target": null,
-  "price_now": 111.74,
+  "price_now": 111.5,
   "qty": 1.9391912,
   "result": "open",
   "risk_pct": 1.816,
@@ -2100,10 +2100,10 @@
   "stop_now": 110.977,
   "strategy": "tr",
   "trailing_on": false,
-  "unrealized_pct": -1.141,
+  "unrealized_pct": -1.354,
   "why_entry": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (110.58) - a break of structure.",
-  "worst_pct": -1.168,
-  "worst_px": 111.71
+  "worst_pct": -1.424,
+  "worst_px": 111.42
  },
  {
   "best_pct": -0.312,
@@ -2126,7 +2126,7 @@
   "mode": "paper",
   "planned_stop": 83218.8,
   "planned_target": null,
-  "price_now": 83590.5,
+  "price_now": 83404.5,
   "qty": 0.0043055171,
   "result": "open",
   "risk_pct": 1.099,
@@ -2135,8 +2135,8 @@
   "stop_now": 83218.8,
   "strategy": "tr",
   "trailing_on": false,
-  "unrealized_pct": -0.657,
-  "worst_pct": -0.791,
-  "worst_px": 83478.3
+  "unrealized_pct": -0.878,
+  "worst_pct": -0.965,
+  "worst_px": 83331.8
  }
 ]
