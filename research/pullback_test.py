@@ -10,6 +10,9 @@ Fixed rules decided before the results. Paper research only.
   Entry B  "pullback": limit at the 50% of the leg (Jeff's discount line), 0% fee        [NOT JEFF: wait limit below]
            cancelled if not filled within 24 candles (6 h), or if price reaches the 2R target / an opposite MS first.
            Fill and stop inside the same candle = counted as the stop.
+  Entry C  "hold + break" (Tommy Galvin video Jeff sent, Oct 12): price pulls back to the 50% within 24 candles, then a
+           candle CLOSES above the leg high within 24 more candles -> enter at that close (market). Cancelled if the
+           stop is hit or an opposite MS comes first.                                   [NOT JEFF: the 24-candle windows]
   Exits    2R (limit, 0%) or MS only (stop, or the close of an MS against the trade); same for both entries.
 
   python3 research/pullback_test.py
@@ -68,6 +71,26 @@ def sim(T, H, L, C, sig, flip, kind, entry, mode):
             if r <= 0 or r / abs(C[k]) > MAXSTOP:
                 continue
             R, j = walk(H, L, C, flip, k + 1, e, stop, r, mode)
+        elif entry == "hold+break":
+            top, j, touched, R = H[k], k + 1, None, None
+            while j < n:
+                if L[j] <= stop or flip[j] or j > (touched or k) + WAIT:
+                    break
+                if touched is None:
+                    if L[j] <= mid:
+                        touched = j
+                    else:
+                        top = max(top, H[j])
+                elif C[j] > top:
+                    e = C[j] + COST * abs(C[j])
+                    r = e - stop
+                    if 0 < r <= MAXSTOP * abs(C[j]):
+                        R, j = walk(H, L, C, flip, j + 1, e, stop, r, mode)
+                    break
+                j += 1
+            if R is None:
+                free = j
+                continue
         else:
             e, r = mid, mid - stop
             if r <= 0 or r / abs(mid) > MAXSTOP or C[k] <= mid:
@@ -103,7 +126,7 @@ def stats(xs, signals):
 
 
 def main():
-    keys = [(k, e, m) for k in ("MS", "BOS") for e in ("flip", "pullback") for m in ("2R", "MS only")]
+    keys = [(k, e, m) for k in ("MS", "BOS") for e in ("flip", "pullback", "hold+break") for m in ("2R", "MS only")]
     res, nsig = {x: [] for x in keys}, {"MS": 0, "BOS": 0}
     for coin in COINS:
         d = D.load(coin)

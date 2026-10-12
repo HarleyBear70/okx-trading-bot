@@ -19,6 +19,16 @@ all        9396 trades ( 31% of signals), win  24%, avg -0.069R, total -647R, PF
 2019-22    3770 trades, win  23%, avg -0.038R, total -145R, PF 0.95
 2023-on    5626 trades, win  25%, avg -0.089R, total -502R, PF 0.87
 
+### 15m MS signal, entry hold+break, exit 2R
+all         905 trades (  3% of signals), win  30%, avg -0.146R, total -133R, PF 0.80
+2019-22     226 trades, win  29%, avg -0.167R, total -38R, PF 0.77
+2023-on     679 trades, win  30%, avg -0.140R, total -95R, PF 0.81
+
+### 15m MS signal, entry hold+break, exit MS only
+all         936 trades (  3% of signals), win  25%, avg -0.075R, total -70R, PF 0.87
+2019-22     230 trades, win  24%, avg -0.032R, total -7R, PF 0.95
+2023-on     706 trades, win  26%, avg -0.089R, total -63R, PF 0.85
+
 ### 15m BOS signal, entry flip, exit 2R
 all       19527 trades ( 28% of signals), win  30%, avg -0.138R, total -2692R, PF 0.81
 2019-22    8247 trades, win  30%, avg -0.153R, total -1259R, PF 0.79
@@ -38,3 +48,13 @@ all       19868 trades ( 29% of signals), win  32%, avg -0.098R, total -1945R, P
 all       17303 trades ( 25% of signals), win  20%, avg -0.100R, total -1737R, PF 0.87
 2019-22    7868 trades, win  18%, avg -0.108R, total -851R, PF 0.87
 2023-on    9435 trades, win  21%, avg -0.094R, total -886R, PF 0.88
+
+### 15m BOS signal, entry hold+break, exit 2R
+all        1979 trades (  3% of signals), win  31%, avg -0.094R, total -187R, PF 0.87
+2019-22     602 trades, win  31%, avg -0.086R, total -52R, PF 0.88
+2023-on    1377 trades, win  31%, avg -0.098R, total -135R, PF 0.86
+
+### 15m BOS signal, entry hold+break, exit MS only
+all        1996 trades (  3% of signals), win  24%, avg -0.005R, total -10R, PF 0.99
+2019-22     600 trades, win  22%, avg -0.043R, total -26R, PF 0.94
+2023-on    1396 trades, win  25%, avg +0.011R, total +16R, PF 1.02
