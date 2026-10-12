@@ -1,6 +1,6 @@
 # P/L calendar and strategy cards
 
-Updated automatically every hour (2026-10-12 08:46 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
+Updated automatically every hour (2026-10-12 09:40 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
 
 ## Combined OKX demo account
 
@@ -185,7 +185,7 @@ Binance.US · BTC ETH SOL BNB SUI · 1-hour candles · started - · balance now 
 | | Trades | Win % | PF | Max DD |
 |---|---|---|---|---|
 | Backtest, long run (research, 2022-now) | - | - | - | - |
-| Backtest replay since start | 7 | 14% | 0.22 | -2.3% |
+| Backtest replay since start | 9 | 11% | 0.16 | -2.3% |
 | Live (paper) since start | 7 | 14% | 0.20 | -2.0% |
 
 ### Donchian Trend (Binance.US paper)  ·  PAPER

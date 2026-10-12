@@ -1000,7 +1000,7 @@
   "mode": "paper",
   "planned_stop": 857.597,
   "planned_target": null,
-  "price_now": 82916.4,
+  "price_now": 82765.9,
   "qty": 0.011660489,
   "result": "open",
   "risk_pct": 99.0,
@@ -1009,7 +1009,7 @@
   "stop_now": 857.597,
   "strategy": "hold",
   "trailing_on": false,
-  "unrealized_pct": -3.315,
+  "unrealized_pct": -3.491,
   "why_entry": null,
   "worst_pct": -6.25,
   "worst_px": 80400.0
@@ -1491,7 +1491,7 @@
   "mode": "demo",
   "planned_stop": 82152.2,
   "planned_target": null,
-  "price_now": 82916.4,
+  "price_now": 82765.9,
   "qty": 0.0022628323,
   "result": "open",
   "risk_pct": 1.971,
@@ -1500,10 +1500,10 @@
   "stop_now": 82186.3,
   "strategy": "tr",
   "trailing_on": false,
-  "unrealized_pct": -1.059,
+  "unrealized_pct": -1.238,
   "why_entry": "BUY signal: broke above the swing high 83,530.1 with the daily and 4H trend up. Stop 2.09% below at 82,152.2; no fixed target - a trailing stop 3 ATR under the highest close follows the trend.",
-  "worst_pct": -1.372,
-  "worst_px": 82654.1
+  "worst_pct": -1.585,
+  "worst_px": 82475.2
  },
  {
   "best_pct": 0.523,
@@ -1589,7 +1589,7 @@
   "mode": "paper",
   "planned_stop": 82162.2,
   "planned_target": null,
-  "price_now": 82857.8,
+  "price_now": 82654.6,
   "qty": 0.0023974773,
   "result": "open",
   "risk_pct": 1.99,
@@ -1598,10 +1598,10 @@
   "stop_now": 82184.1,
   "strategy": "tr",
   "trailing_on": false,
-  "unrealized_pct": -1.16,
+  "unrealized_pct": -1.403,
   "why_entry": "BUY signal: broke above the swing high 83,449.6 with the daily and 4H trend up. Stop 1.99% below at 82,162.2; no fixed target - a trailing stop 3 ATR under the highest close follows the trend.",
-  "worst_pct": -1.447,
-  "worst_px": 82617.6
+  "worst_pct": -1.685,
+  "worst_px": 82418.1
  },
  {
   "balance_after": 997.3,
@@ -1895,7 +1895,7 @@
   "mode": "live",
   "planned_stop": 82162.2,
   "planned_target": null,
-  "price_now": 82857.8,
+  "price_now": 82654.6,
   "qty": 0.00014997,
   "result": "open",
   "risk_pct": 1.871,
@@ -1904,10 +1904,10 @@
   "stop_now": 82184.1,
   "strategy": "tr",
   "trailing_on": false,
-  "unrealized_pct": -1.04,
+  "unrealized_pct": -1.283,
   "why_entry": "BUY signal: broke above the swing high 83,449.6 with the daily and 4H trend up. Stop 1.99% below at 82,162.2; no fixed target - a trailing stop 3 ATR under the highest close follows the trend.",
-  "worst_pct": -1.327,
-  "worst_px": 82617.6
+  "worst_pct": -1.565,
+  "worst_px": 82418.1
  },
  {
   "balance_after": 987.67,
@@ -2114,8 +2114,8 @@
   "status": "closed",
   "strategy": "tr",
   "why_entry": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (110.58) - a break of structure.",
-  "worst_pct": -2.716,
-  "worst_px": 109.96
+  "worst_pct": -2.955,
+  "worst_px": 109.69
  },
  {
   "balance_after": 991.35,
@@ -2218,7 +2218,7 @@
   "status": "closed",
   "strategy": "tr",
   "why_entry": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (83,449.6) - a break of structure.",
-  "worst_pct": -1.814,
-  "worst_px": 82617.6
+  "worst_pct": -2.051,
+  "worst_px": 82418.1
  }
 ]
