@@ -1,0 +1,117 @@
+
+### 5m stars, exit 2R
+all                189188 trades, win  30%, avg -0.167R, PF 0.78
+evening (short)     95570 trades, win  31%, avg -0.149R, PF 0.80
+morning (long)      93618 trades, win  29%, avg -0.185R, PF 0.76
+2019-22             94085 trades, win  31%, avg -0.145R, PF 0.81
+2023-now            95103 trades, win  30%, avg -0.188R, PF 0.76
+4H with yes         94317 trades, win  30%, avg -0.165R, PF 0.79
+4H with no          94871 trades, win  30%, avg -0.169R, PF 0.78
+1H premium yes     106964 trades, win  30%, avg -0.171R, PF 0.78
+1H premium no       82224 trades, win  30%, avg -0.161R, PF 0.79
+4H with + zone      52298 trades, win  30%, avg -0.172R, PF 0.78
+  same, 2023-now    26303 trades, win  29%, avg -0.194R, PF 0.75
+
+### 5m stars, exit 3R
+all                172148 trades, win  23%, avg -0.168R, PF 0.80
+evening (short)     87270 trades, win  23%, avg -0.146R, PF 0.83
+morning (long)      84878 trades, win  22%, avg -0.190R, PF 0.78
+2019-22             86131 trades, win  23%, avg -0.146R, PF 0.83
+2023-now            86017 trades, win  22%, avg -0.190R, PF 0.78
+4H with yes         86007 trades, win  23%, avg -0.163R, PF 0.81
+4H with no          86141 trades, win  23%, avg -0.173R, PF 0.80
+1H premium yes      98530 trades, win  23%, avg -0.172R, PF 0.80
+1H premium no       73618 trades, win  23%, avg -0.162R, PF 0.81
+4H with + zone      48281 trades, win  23%, avg -0.173R, PF 0.80
+  same, 2023-now    24107 trades, win  22%, avg -0.200R, PF 0.77
+
+### 5m stars, exit MS only
+all                137126 trades, win  18%, avg -0.178R, PF 0.80
+evening (short)     67156 trades, win  18%, avg -0.184R, PF 0.79
+morning (long)      69970 trades, win  18%, avg -0.172R, PF 0.80
+2019-22             68306 trades, win  17%, avg -0.142R, PF 0.84
+2023-now            68820 trades, win  18%, avg -0.213R, PF 0.76
+4H with yes         67396 trades, win  18%, avg -0.171R, PF 0.80
+4H with no          69730 trades, win  18%, avg -0.184R, PF 0.79
+1H premium yes      86381 trades, win  18%, avg -0.191R, PF 0.78
+1H premium no       50745 trades, win  18%, avg -0.154R, PF 0.82
+4H with + zone      42079 trades, win  18%, avg -0.199R, PF 0.77
+  same, 2023-now    21348 trades, win  19%, avg -0.246R, PF 0.72
+
+### 15m stars, exit 2R
+all                 59763 trades, win  31%, avg -0.105R, PF 0.86
+evening (short)     30397 trades, win  32%, avg -0.089R, PF 0.88
+morning (long)      29366 trades, win  31%, avg -0.121R, PF 0.84
+2019-22             28632 trades, win  32%, avg -0.094R, PF 0.87
+2023-now            31131 trades, win  31%, avg -0.115R, PF 0.84
+4H with yes         29810 trades, win  31%, avg -0.114R, PF 0.85
+4H with no          29953 trades, win  32%, avg -0.096R, PF 0.87
+1H premium yes      36014 trades, win  31%, avg -0.107R, PF 0.85
+1H premium no       23749 trades, win  32%, avg -0.102R, PF 0.86
+4H with + zone      17837 trades, win  31%, avg -0.120R, PF 0.84
+  same, 2023-now     9405 trades, win  31%, avg -0.127R, PF 0.83
+
+### 15m stars, exit 3R
+all                 55838 trades, win  24%, avg -0.100R, PF 0.88
+evening (short)     28399 trades, win  24%, avg -0.081R, PF 0.90
+morning (long)      27439 trades, win  23%, avg -0.118R, PF 0.86
+2019-22             26933 trades, win  24%, avg -0.088R, PF 0.89
+2023-now            28905 trades, win  24%, avg -0.110R, PF 0.87
+4H with yes         27876 trades, win  24%, avg -0.104R, PF 0.87
+4H with no          27962 trades, win  24%, avg -0.095R, PF 0.88
+1H premium yes      34054 trades, win  24%, avg -0.107R, PF 0.87
+1H premium no       21784 trades, win  24%, avg -0.088R, PF 0.89
+4H with + zone      16854 trades, win  23%, avg -0.118R, PF 0.86
+  same, 2023-now     8844 trades, win  23%, avg -0.125R, PF 0.85
+
+### 15m stars, exit MS only
+all                 42912 trades, win  16%, avg -0.056R, PF 0.94
+evening (short)     21094 trades, win  16%, avg -0.111R, PF 0.87
+morning (long)      21818 trades, win  16%, avg -0.003R, PF 1.00
+2019-22             21097 trades, win  15%, avg -0.023R, PF 0.97
+2023-now            21815 trades, win  16%, avg -0.088R, PF 0.90
+4H with yes         20581 trades, win  15%, avg -0.045R, PF 0.95
+4H with no          22331 trades, win  16%, avg -0.067R, PF 0.92
+1H premium yes      28839 trades, win  16%, avg -0.078R, PF 0.91
+1H premium no       14073 trades, win  16%, avg -0.013R, PF 0.99
+4H with + zone      13763 trades, win  15%, avg -0.067R, PF 0.92
+  same, 2023-now     7100 trades, win  16%, avg -0.142R, PF 0.84
+
+### 1H stars, exit 2R
+all                  8659 trades, win  32%, avg -0.076R, PF 0.89
+evening (short)      4548 trades, win  33%, avg -0.058R, PF 0.92
+morning (long)       4111 trades, win  31%, avg -0.096R, PF 0.87
+2019-22              3641 trades, win  33%, avg -0.047R, PF 0.93
+2023-now             5018 trades, win  31%, avg -0.097R, PF 0.87
+4H with yes          4316 trades, win  32%, avg -0.083R, PF 0.88
+4H with no           4343 trades, win  32%, avg -0.070R, PF 0.90
+1H premium yes       5861 trades, win  32%, avg -0.085R, PF 0.88
+1H premium no        2798 trades, win  33%, avg -0.057R, PF 0.92
+4H with + zone       2900 trades, win  31%, avg -0.103R, PF 0.86
+  same, 2023-now     1672 trades, win  31%, avg -0.096R, PF 0.87
+
+### 1H stars, exit 3R
+all                  8354 trades, win  24%, avg -0.060R, PF 0.92
+evening (short)      4373 trades, win  25%, avg -0.052R, PF 0.93
+morning (long)       3981 trades, win  24%, avg -0.070R, PF 0.91
+2019-22              3526 trades, win  25%, avg -0.021R, PF 0.97
+2023-now             4828 trades, win  24%, avg -0.089R, PF 0.89
+4H with yes          4169 trades, win  24%, avg -0.069R, PF 0.91
+4H with no           4185 trades, win  25%, avg -0.052R, PF 0.93
+1H premium yes       5657 trades, win  24%, avg -0.072R, PF 0.91
+1H premium no        2697 trades, win  25%, avg -0.036R, PF 0.95
+4H with + zone       2795 trades, win  23%, avg -0.107R, PF 0.87
+  same, 2023-now     1606 trades, win  23%, avg -0.121R, PF 0.85
+
+### 1H stars, exit MS only
+all                  7016 trades, win  13%, avg +0.110R, PF 1.12
+evening (short)      3532 trades, win  13%, avg +0.035R, PF 1.04
+morning (long)       3484 trades, win  13%, avg +0.187R, PF 1.21
+2019-22              3042 trades, win  13%, avg +0.156R, PF 1.17
+2023-now             3974 trades, win  14%, avg +0.075R, PF 1.08
+4H with yes          3314 trades, win  13%, avg +0.103R, PF 1.11
+4H with no           3702 trades, win  14%, avg +0.117R, PF 1.13
+1H premium yes       5045 trades, win  13%, avg +0.089R, PF 1.10
+1H premium no        1971 trades, win  13%, avg +0.166R, PF 1.18
+4H with + zone       2383 trades, win  12%, avg +0.027R, PF 1.03
+  same, 2023-now     1349 trades, win  13%, avg +0.063R, PF 1.07
