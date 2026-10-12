@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Mon Oct 12, 2:15 AM ET
+
+From terminal Claude: research/poc_test.py (POC_TEST.txt), Nolan Vader video Jeff sent: previous-day volume profile, 30m close above VAH, limit at the POC, stop below VAL, 2R/3R; shorts mirrored. 9 coins 2019-Sep 2026, all numbers Claude's fill-ins. 2R: PF 0.93 (4H with 0.95, against 0.90); 3R: PF 0.95 (2019-22 1.01, 2023-on 0.90). Close to even, not profitable. Research only.
+
+---
+
 ## Terminal Claude - Mon Oct 12, 2:05 AM ET
 
 From terminal Claude: research/pullback_test.py now also tests 'hold + break' (Tommy Galvin video Jeff sent: pullback to the leg's 50%, then a close above the leg high). 15m, 9 coins, 2019-Sep 2026. MS signal: 2R PF 0.80, MS exit 0.87 (only 3% of signals trigger). BOS signal: 2R 0.87, MS exit 0.99. Best entry so far stays the plain limit at the 50% (MS signal, 2R: PF 0.93). Research only.
@@ -281,26 +287,6 @@ From terminal Claude: **ONE test of Jeff's exact setup done** (JEFF_RULES.md v3,
 - Win rates 33% (2R) / 25% (3R) = random-entry level. Lots of trades, no edge. Nothing passes.
 - Likely gap vs Jeff's eye: what counts as 'the pool' (code takes every small swing low).
 Full table: research/JEFF_SETUP.md. No bot changed.
-
----
-
-## Jeff - Sat Oct 10, 2:05 PM ET
-
-From Jeff - TIMEFRAMES (replaces earlier answers 1-4) + Brad's reference rules (from 7 Market Mechanics transcripts Jeff shared).
-
-JEFF'S TIMEFRAMES: mostly swing-style. 4H = direction (Daily/Weekly above it). 1H = more detail. 15m = working/entry chart. 5m rarely, 1m too busy - avoid. Lower TFs build the higher one; higher TF is king. Process: 4H mark BOS/MS/highs/lows/direction -> 1H/15m mark again, premium or discount, pick the spot -> wait for price to reach it, with the trend -> 15m (5m optional) sweep + small MS -> enter.
-
-BRAD'S RULES (reference):
-1. Market structure (Ep5): BOS = candle BODY close past the last high/low; wick does NOT count. Swing low (STRONG in uptrend) = LOWEST point that led to the BOS; swing high (WEAK) = highest point before the pullback starts (can't mark until pullback starts). Redraw on every BOS. MS = body close past the STRONG level - ONE side is enough. Internal structure (inside the swing range) shifts first = usually just a pullback; only breaking the swing STRONG = reversal. After a BOS expect a pullback - don't buy the breakout candle. Trade from STRONG, target WEAK. Sideways inside the range = no bias.
-2. Top-down (Ep11): HTF = who's in control; MTF = where (POI in the right half of the MTF range); LTF only AFTER price touches the MTF POI, then wait for sweep + MS. Never start bottom-up. Price in the middle = do nothing (set an alert). Stop under the last internal low; target next opposite OB/zone. Hold while the last internal low/high holds.
-3. Liquidity (Ep13): sits above swing highs / below swing lows, equal highs/lows, trendlines, obvious S/R. Shorts: wait for a sweep ABOVE highs; longs: sweep BELOW lows. Real sweep = sharp V-shape. Sweep alone is not a reversal - still need the MS. Inducement = bait (double top, first touch of a zone) - don't enter on it. Zone/OB that already swept liquidity = stronger.
-4. FVG (Ep9): big candle + gap between wick of candle 1 and wick of candle 3; no gap = no FVG. Price tends to return to fill (edge, 50%, extreme, or past it). Only use with the trend: bullish FVG in discount, bearish in premium.
-5. Order blocks: last candle before the big move. Valid only if it left an FVG, caused a BOS/MS, and is untouched (one use). Use the OB that made the most recent LH/HL, not the extreme. Wait for price to return, then LTF MS for entry. Stop past the OB; target next opposite OB. Moves stop to breakeven.
-6. Premium/discount (Ep8): fib from swing low to swing high after a BOS. Buy in discount, sell in premium. Best = zone in the right half; the most extreme zone (at STRONG) holds most. Use the fib from the timeframe you trade on.
-7. Entries/exits: wait for a key level, momentum fading (small candles/long wicks), then a clean BODY close past the small local level (wick = wait), or break + retest. Stop just past that local level/swing. Target 2R or 3R (Brad prefers 3R).
-
-TARGET TEST: fixed 2R vs fixed 3R vs -27% fib extension - let results decide.
-Use these to build JEFF_RULES.md v3, then run the ONE test.
 
 ---
 
