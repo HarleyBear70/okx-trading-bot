@@ -1,9 +1,13 @@
-STATUS: all normal (checked 2026-10-12 7:30 AM ET)
+STATUS: all normal (checked 2026-10-12 8:47 AM ET)
 
 # Bot notes
 
 Written every hour by watcher.py after the bots run. Read-only: it never trades. Newest first, Eastern time. ATTENTION means: a bot 8%+ below its best balance, a losing streak longer than the backtest's worst, live vs backtest replay 2%+ apart, a failed bot run, or an unexpected open position.
 
+- 2026-10-12 8:47 AM ET · Trend Rider 1H (Binance.US paper) has lost 6 in a row; no backtest figure for this bot
+- 2026-10-12 8:45 AM ET · Trend Rider 1H (Binance.US paper) sold BTC at 83239.5 (breakeven stop), P/L -4.04 (-1.11%), balance 991.35
+- 2026-10-12 8:45 AM ET · Trend Rider 1H (Binance.US paper) sold ETH at 2532.67 (breakeven stop), P/L -3.68 (-1.29%), balance 987.67
+- 2026-10-12 8:45 AM ET · Trend Rider 1H (Binance.US paper) sold SOL at 111.038 (breakeven stop), P/L -3.95 (-1.80%), balance 983.72
 - 2026-10-12 3:31 AM ET · Trend Rider 1H (Binance.US paper) bought BTC 0.00430552 at 84143.6 (362.35 USDT), stop 83218.8, target -
 - 2026-10-12 1:27 AM ET · Trend Rider 1H (Binance.US paper) bought ETH 0.111243 at 2564.71 (285.36 USDT), stop 2528.92, target -
 - 2026-10-12 1:27 AM ET · Trend Rider 1H (Binance.US paper) bought SOL 1.93919 at 113.03 (219.23 USDT), stop 110.977, target -
