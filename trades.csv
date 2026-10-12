@@ -35,3 +35,5 @@ time_utc,bot,mode,coin,side,qty,price,usdt,pnl_usdt,pnl_pct,reason,bot_balance
 2026-10-12 00:37,RSI(2) snap-back (Binance.US paper),paper,SOL-USDT,sell,0.32507879,111.22,36.15,0.55,1.56,closed above the 5-day average,1001.24
 2026-10-12 00:37,RSI(2) snap-back (Binance.US paper),paper,XRP-USDT,sell,22.67935,1.4094,31.96,-0.28,-0.87,closed above the 5-day average,1000.96
 2026-10-12 00:37,RSI(2) snap-back (Binance.US paper),paper,BNB-USDT,sell,0.07357516,753.52,55.43,1.19,2.19,closed above the 5-day average,1002.15
+2026-10-12 05:27,Trend Rider 1H (Binance.US paper),paper,ETH-USDT,buy,0.11124261,2564.71,285.36,,,score BOS,995.38
+2026-10-12 05:27,Trend Rider 1H (Binance.US paper),paper,SOL-USDT,buy,1.9391912,113.03,219.23,,,score BOS,995.38
