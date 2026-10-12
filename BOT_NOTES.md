@@ -1,9 +1,10 @@
-STATUS: all normal (checked 2026-10-12 2:38 AM ET)
+STATUS: all normal (checked 2026-10-12 3:32 AM ET)
 
 # Bot notes
 
 Written every hour by watcher.py after the bots run. Read-only: it never trades. Newest first, Eastern time. ATTENTION means: a bot 8%+ below its best balance, a losing streak longer than the backtest's worst, live vs backtest replay 2%+ apart, a failed bot run, or an unexpected open position.
 
+- 2026-10-12 3:31 AM ET · Trend Rider 1H (Binance.US paper) bought BTC 0.00430552 at 84143.6 (362.35 USDT), stop 83218.8, target -
 - 2026-10-12 1:27 AM ET · Trend Rider 1H (Binance.US paper) bought ETH 0.111243 at 2564.71 (285.36 USDT), stop 2528.92, target -
 - 2026-10-12 1:27 AM ET · Trend Rider 1H (Binance.US paper) bought SOL 1.93919 at 113.03 (219.23 USDT), stop 110.977, target -
 - 2026-10-11 8:37 PM ET · RSI(2) snap-back (Binance.US paper) sold BTC at 83660.6 (closed above the 5-day average), P/L +1.49 (+2.42%), balance 1001.49
