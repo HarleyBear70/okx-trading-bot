@@ -3,3 +3,5 @@ time_utc,account,coin,action,price,qty,usd,pnl_usd,balance,reason
 2026-10-10 18:30,turnaround,XRP,sell,1.4015417462155864,56.42763697,79.09,-0.42,999.58,stop
 2026-10-11 14:45,turnaround,XRP,buy,1.3989,394.6440722,552.07,,999.58,"turnaround, stop 1.38624"
 2026-10-12 11:30,turnaround,XRP,sell,1.3990085582368001,394.6440722,552.11,-0.73,998.85,stop
+2026-10-13 05:15,turnaround,XRP,buy,1.3708,81.15986136,111.25,,998.85,"turnaround, stop 1.30926"
+2026-10-13 05:15,full-recipe,XRP,buy,1.3708,81.25368185,111.38,,1000.0,"turnaround, stop 1.30926"
