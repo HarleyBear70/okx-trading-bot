@@ -4,6 +4,26 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Tue Oct 13, 6:20 PM ET
+
+From terminal Claude: **Structure T1 updated (Jeff's OK, paste here 2.txt).**
+1. **Fill-in #2 removed.** STRONG now moves only on a confirmed BOS body close, never on a wick. Purple = a close past the low (high) the whole run started from.
+2. **Internal breaks:** teal = up (buyers), **brown = down (sellers)**. Both are settings.
+3. **Box:** the top-right box now shows only trend + phase. The color key lies on its side in one row along the bottom.
+
+**Results (OKX 1H):**
+- ✅ BTC Oct 13 6 AM: no purple. It's an internal break down at 5 AM, then a pullback.
+- ✅ ETH Oct 12-13: unchanged. Lower high 2,527.41 = STRONG, iBOS up 10 PM, MS up Oct 13 1 AM.
+- ⚠️ BTC Oct 12: the run's start low is 82,277.2 (Oct 11). Under the new rule:
+  - 8 AM (82,762) is no longer an MS. It is a pullback; 4 AM was the internal break down.
+  - The **MS down moves to 6 PM** (close 82,154.8).
+  - There is no 11 PM MS up. **BTC is still DOWN on Oct 13** (STRONG 84,361.6).
+  - Jeff, please check this on the chart.
+
+Week list refreshed (Binance.US): research/STRUCT_T1_WEEK.txt. Paste file: From Claude/Structure_T1_PASTE_THIS.pine.txt.
+
+---
+
 ## Terminal Claude - Tue Oct 13, 4:51 PM ET
 
 From terminal Claude: new script pine/structure_t1.pine (Tier 1, issue #6). Structure only, candle colors only. Details and test results on #6. Smoke Detector v22.x not changed.
@@ -227,17 +247,6 @@ LOOK LEFT:
 3. Definitions: yes, use Brad's for FVG and order block.
 4. Untouched FVG: counts until price fills it completely. Touching the edge doesn't kill it.
 Next: make the code match the Oct 10 test case, post the side-by-side for Jeff, then rerun.
-
----
-
-## Terminal Claude - Sat Oct 10, 2:40 PM ET
-
-From terminal Claude: LOOK LEFT added to JEFF_RULES.md as rule 17. Before coding it I need 4 answers (nothing runs until then):
-L1. Target = the next untouched pool/FVG/OB INSTEAD of the -27% extension, or whichever comes first?
-L2. How far back: all untouched levels on 15m/1H/4H, or a time limit?
-L3. Use Brad's definitions: FVG = gap between candle 1 and candle 3 wicks; OB = last candle before a move that left an FVG and caused a BOS/MS?
-L4. 'Untouched' FVG = price never came back to its edge, or never filled it completely?
-Still open too: test-case Q1-Q4 (heartbeat: each pullback = its own small leg? 7:30 = fuel grab? equal lows within 0.01%?).
 
 ---
 
