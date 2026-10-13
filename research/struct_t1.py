@@ -35,6 +35,7 @@ class Tier1:
         self.h, self.l, self.c = h, l, c
         self.trend, self.strong, self.sb, self.weak, self.wb = 0, None, -1, None, -1
         self.pulled = False
+        self.key = None  # key pullback low/high (Jeff Oct 13: counts once price makes a new extreme after it)
         self.pend = None  # (kind, candle) waiting for the next candle's close
         self.ilo = self.ihi = None  # candle index of the current low / high for internal breaks
         self.ilo_from = self.ihi_from = 0
@@ -70,8 +71,22 @@ class Tier1:
         else:
             self.ihi, self.ihi_from = None, k
 
+    def _bos(self, b, k, up, out):
+        """BOS on candle b: STRONG = the extreme that launched it (lowest low between the old WEAK and the break);
+        WEAK = the newest high since the old WEAK"""
+        h, l = self.h, self.l
+        r = range(self.wb + 1, b + 1) if self.wb < b else range(b, b + 1)
+        s = min(r, key=lambda x: l[x]) if up else max(r, key=lambda x: h[x])
+        self.strong, self.sb = (l[s] if up else h[s]), s
+        r2 = range(self.wb + 1, k + 1)
+        w = max(r2, key=lambda x: h[x]) if up else min(r2, key=lambda x: l[x])
+        self.weak, self.wb = (h[w] if up else l[w]), w
+        self.pulled, self.key = w != k, None
+        self.reset_internal(up, b)
+        out.append((b, "BOS up" if up else "BOS down", self.c[b]))
+
     def step(self, k):
-        """returns a list of (candle, event, level). BOS/MS are confirmed one candle later and reported on the BREAK candle."""
+        """returns a list of (candle, event, level). MS is confirmed one candle later and reported on the BREAK candle."""
         h, l, c = self.h, self.l, self.c
         out = []
         if self.trend == 0:
@@ -85,47 +100,46 @@ class Tier1:
                 out.append((k, "start DOWN", c[k]))
             return out
         up = self.trend == 1
-        if self.pend is not None:  # confirm or undo last candle's break
+        if self.pend is not None:  # confirm or undo last candle's MS
             kind, b, lvl = self.pend
             self.pend = None
-            if kind == "MS":
-                if (c[k] < lvl) if up else (c[k] > lvl):
-                    self.trend, up = -self.trend, not up
-                    self.strong, self.sb = self.weak, self.wb  # the extreme that led to the MS
-                    self.weak, self.wb, self.pulled = (h[b] if up else l[b]), b, False
-                    self.reset_internal(up, b)
-                    out.append((b, "MS UP" if up else "MS DOWN", c[b]))
-                else:
-                    out.append((b, "sweep (MS undone)", c[b]))
+            if (c[k] < lvl) if up else (c[k] > lvl):
+                r = range(self.wb, b + 1)
+                s = max(r, key=lambda x: h[x]) if up else min(r, key=lambda x: l[x])  # top (bottom) of the run
+                self.trend, up = -self.trend, not up
+                self.strong, self.sb = (l[s] if up else h[s]), s
+                self.weak, self.wb, self.pulled, self.key = (h[b] if up else l[b]), b, False, None
+                self.reset_internal(up, b)
+                out.append((b, "MS UP" if up else "MS DOWN", c[b]))
             else:
-                held = (c[k] > lvl) if up else (c[k] < lvl)
-                if held:  # STRONG moves only on a confirmed BOS body close (Jeff, Oct 13)
-                    self.strong, self.sb = self.pend_s
-                    self.reset_internal(up, b)
-                out.append((b, ("BOS up" if up else "BOS down") if held else "sweep (BOS undone)", c[b]))
+                out.append((b, "sweep (MS undone)", c[b]))
         # MS: a body close past STRONG's wick (waits one candle)
         if (c[k] < self.strong) if up else (c[k] > self.strong):
             self.pend = ("MS", k, self.strong)
             return out
         if (l[k] < self.strong) if up else (h[k] > self.strong):
             out.append((k, "sweep of STRONG", self.strong))
+        if self.key is not None:  # key pullback low (high): wick past it, close back = sweep
+            if (l[k] < self.key) if up else (h[k] > self.key):
+                if ((c[k] >= self.key) if up else (c[k] <= self.key)) and not any(e[0] == k for e in out):
+                    out.append((k, "sweep of key " + ("low" if up else "high"), self.key))
+                self.key = None
         if (h[k] > self.weak) if up else (l[k] < self.weak):  # new high (low)
-            if self.pulled:  # after a pullback: a body close past WEAK = BOS (STRONG moves to the pullback's extreme once confirmed)
+            if self.pulled:
                 if (c[k] > self.weak) if up else (c[k] < self.weak):
-                    s = min(range(self.wb, k + 1), key=lambda x: l[x]) if up else max(range(self.wb, k + 1), key=lambda x: h[x])
-                    self.pend_s = ((l[s] if up else h[s]), s)
-                    self.pend = ("BOS", k, self.weak)
-                else:
+                    self._bos(k, k, up, out)  # body close past WEAK after a pullback = BOS (no next-candle hold, Jeff Oct 13 "A")
+                else:  # wick only: sweep. WEAK and STRONG stay. The pullback's extreme before it becomes a key level.
                     out.append((k, "sweep of WEAK", self.weak))
-            self.weak, self.wb, self.pulled = (h[k] if up else l[k]), k, False
+                    r = range(self.wb, k)  # includes the WEAK candle (BTC Oct 12: the 10 AM high 83,109.1)
+                    if len(r):
+                        self.key = min(l[x] for x in r) if up else max(h[x] for x in r)
+            else:  # no pullback yet: the leg stretches
+                self.weak, self.wb = (h[k] if up else l[k]), k
         elif self.wb != k:
             self.pulled = True
-        if self.pend is None or self.pend[0] != "BOS":
-            iv = self._internal(k)
-            if iv and not any(e[0] == k for e in out):
-                out.append((k, iv[0], iv[1]))
-        else:
-            self._internal(k)
+        iv = self._internal(k)
+        if iv and not any(e[0] == k for e in out):
+            out.append((k, iv[0], iv[1]))
         return out
 
 
