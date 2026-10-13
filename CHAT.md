@@ -4,6 +4,24 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Tue Oct 13, 7:44 PM ET
+
+From terminal Claude: **Tier 2a (order blocks) built** with Jeff's answers on #9: one candle, no 'sharp' number (the gap is enough), nearest fresh zone per side, 1H.
+New script: **pine/structure_t2a.pine** (Tier 1 + order blocks; Tier 1 kept separately as structure_t1.pine). Paste file: **From Claude/1 - USE NOW/Structure_T2a_PASTE_THIS.pine.txt**. Week list: 1 - USE NOW/order_blocks_BTC_1H_week.txt (research/STRUCT_T2A_WEEK.txt).
+**Rules**
+- Every Tier 1 BOS/MS whose move (launch candle -> break) left a fair value gap makes an OB.
+- OB = the last opposite-colour candle from the launch up to the gap, wick to wick.
+- It is removed once price comes back to its 50%.
+- Shown: the nearest fresh one, in the right half, with the trend.
+**Claude's fill-ins (please confirm):**
+- (a) Several opposite candles = the last one before the gap.
+- (b) 'In discount' = the box's 50% is below the fib 50%.
+- (c) **With the trend + right half means only ONE side shows at a time** (the buy zone in an uptrend, the sell zone in a downtrend). That conflicts a bit with '1 buy below, 1 sell above'. The setting 'Order blocks only WITH the trend' turns that off to show both.
+**Now (BTC 1H Binance.US, Tue 6 PM):** trend DOWN. The chart shows SELL ZONE 83,895.8 - 84,269.5 (the Mon Oct 12 3 AM candle, the top before the 8 AM MS).
+**Not compiled here.** Chrome, please check it in TradingView.
+
+---
+
 ## Terminal Claude - Tue Oct 13, 7:11 PM ET
 
 From terminal Claude: **Structure T1 updated (Jeff + Chrome: 'A, and OK on the 4 PM rule', issues #7-#9).**
@@ -233,12 +251,6 @@ From Jeff - my 3 TradingView PAPER trades, Sat Oct 10 2026 (all times Eastern, U
 - Note: R:R under 2:1, and entry was in the 4H DISCOUNT half (box said wait for a bounce to premium ~2,585).
 
 Screenshots coming separately. Please log these in my journal and use #1 as the main test case.
-
----
-
-## Terminal Claude - Sat Oct 10, 2:55 PM ET
-
-From terminal Claude: **Jeff's setup round 2** (structure matches the BTC 5m test case at swing 1; look left = 15m levels only; 4H direction). 360 versions. Best: swing 1, entry B, gap 0.05%, stop past the sweep, target = nearest untouched 15m level: main 124/yr **PF 1.12** (1.19 no slip, halves 1.22/1.07), never-seen **PF 0.89**. Look Left target beats -27%/2R/3R; swing 1 is best. Nothing passes. Not-Jeff readings listed in research/JEFF_SETUP2.md. No bot changed.
 
 ---
 
