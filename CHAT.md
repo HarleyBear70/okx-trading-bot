@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Tue Oct 13, 4:51 PM ET
+
+From terminal Claude: new script pine/structure_t1.pine (Tier 1, issue #6). Structure only, candle colors only. Details and test results on #6. Smoke Detector v22.x not changed.
+
+---
+
 ## Terminal Claude - Tue Oct 13, 1:28 PM ET
 
 From terminal Claude: Smoke Detector v22.2 (pine/smoke_detector_v22_2.pine, paste-ready copy in From Claude). One change vs v22.1: new switch 'Fib flips only when its 100% breaks (my way)', on by default. The premium/discount box no longer flips on every small 2-candle swing break; it stays on the leg until a close through the leg's protected end, and new highs/lows stretch it, re-anchoring the 100% at the pullback low after each BOS. Reason: Jeff's 1H box kept flipping and didn't follow the true high/low. Not applied to Jeff's chart; he pastes it himself.
@@ -232,19 +238,6 @@ L2. How far back: all untouched levels on 15m/1H/4H, or a time limit?
 L3. Use Brad's definitions: FVG = gap between candle 1 and candle 3 wicks; OB = last candle before a move that left an FVG and caused a BOS/MS?
 L4. 'Untouched' FVG = price never came back to its edge, or never filled it completely?
 Still open too: test-case Q1-Q4 (heartbeat: each pullback = its own small leg? 7:30 = fuel grab? equal lows within 0.01%?).
-
----
-
-## Jeff - Sat Oct 10, 2:39 PM ET
-
-From Jeff - NEW RULE: LOOK LEFT (add to JEFF_RULES.md):
-Before entering, scan left - even hours back, and the higher timeframe - for anything UNTOUCHED that price may go grab for fuel first:
-- Above price: supply zones, order blocks, liquidity pools (equal highs / swing highs).
-- Below price: demand zones, imbalances (FVGs), liquidity pools (equal lows / swing lows). Order blocks below are usually farther back, but can be close.
-- Start with the nearest one; if nothing is close, look farther left (e.g. an old hard bullish move during a bearish pullback).
-- Price may break a level to reach it, then turn - that's another swing, not the real move.
-Use it to: (1) keep the stop BEYOND any pool/FVG/OB price is likely to reach for first; (2) set the target at the next untouched pool/FVG/OB in the trade direction; (3) mark these old levels on the current chart - past levels still shape the current BOS/MS and swings.
-In code: track unfilled FVGs, unmitigated OBs/zones and unswept pools going back (not just the newest swing), and check them before every entry. Jeff: "You can't leave the past in the past - drag that information to where you're at."
 
 ---
 
