@@ -5,7 +5,7 @@ What each closed trade teaches, from the bots' own trades only. Written every ho
 ## Candidate rules (3)
 
 - **skip breakouts that don't follow through: wait for a close above the breakout candle** - seen on 8 losers vs 0 winners (P/L -32.24). Status: needs a backtest.
-- **only buy when the 4H Supertrend is up** - seen on 10 losers vs 1 winners (P/L -33.37). Status: needs a backtest.
+- **only buy when the 4H Supertrend is up** - seen on 11 losers vs 1 winners (P/L -33.37). Status: needs a backtest.
 - **need volume at least equal to the 20-candle average** - seen on 6 losers vs 3 winners (P/L -7.37). Status: needs a backtest.
 
 ## Mistake tally
@@ -16,11 +16,16 @@ What each closed trade teaches, from the bots' own trades only. Written every ho
 | was up 1R or more, then ended as a loss | 2 | 0 | -4.16 |
 | bought more than 6% above the 50 EMA (chasing) | 1 | 0 | -7.75 |
 | stop was more than 8% away | 1 | 0 | -7.75 |
-| the 4H Supertrend was still pointing down | 10 | 1 | -33.37 |
+| the 4H Supertrend was still pointing down | 11 | 1 | -33.37 |
 | breakout candle had below-average volume | 6 | 3 | -7.37 |
 | daily RSI was over 70 (overbought) | 0 | 0 | +0.00 |
 
-## Every closed trade, newest first (21)
+## Every closed trade, newest first (22)
+
+### LOSS +0.00 - Trend Rider 1H (Binance.US paper) BTC (2026-10-13 04:28 -> 2026-10-13 11:28 UTC)
+- **Why it bought:** No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (84,269.5) - a break of structure.
+- **What happened:** best +1.00% (0.35R), worst -0.19%, held 2 candles, sold by Price reached +1R, then came back to the entry - the bot got out about even instead of taking a loss. at 83266.343 (-0.00%, 0.01R).
+- **Lessons:** the 4H Supertrend was still pointing down.
 
 ### LOSS -0.24 - Trend Rider (LIVE Binance.US) BTC (2026-10-11 16:24 -> 2026-10-12 23:26 UTC)
 - **Why it bought:** BUY signal: broke above the swing high 83,449.6 with the daily and 4H trend up. Stop 1.99% below at 82,162.2; no fixed target - a trailing stop 3 ATR under the highest close follows the trend.

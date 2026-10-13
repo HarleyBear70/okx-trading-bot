@@ -1,5 +1,5 @@
 {
- "rows_seen": 46,
+ "rows_seen": 47,
  "bots": {
   "v4-okx": {
    "peak": 1006.89,
@@ -125,7 +125,7 @@
    "peak": 1006.0836353684518,
    "halt_flag": false,
    "odd": "",
-   "streak_noted": 6
+   "streak_noted": 7
   },
   "db2-bnus": {
    "peak": 1000.0,
