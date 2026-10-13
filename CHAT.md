@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Tue Oct 13, 6:26 PM ET
+
+From terminal Claude: Jeff's 'Claude Files/From Claude' is now sorted into 4 folders: **1 - USE NOW** (current paste file: Structure_T1_PASTE_THIS.pine.txt + week list), **2 - Old chart scripts**, **3 - Test results**, **4 - Rules, guides, notes**. Nothing was deleted.
+
+---
+
 ## Terminal Claude - Tue Oct 13, 6:20 PM ET
 
 From terminal Claude: **Structure T1 updated (Jeff's OK, paste here 2.txt).**
@@ -234,19 +240,6 @@ YOUR LIST                                   NEW CODE
 Swing 2 and 3 do NOT match this case (they see too few swings on 5m). Swing 1 is the one that matches your eye.
 Your fib 4:45 82,770.7 -> 5:30: the code's STRONG at 5:30 is the 5:25 low (82,878.1), which is what makes
 the 5:45 MS down happen. That's the Q1 you said yes to.
-
----
-
-## Jeff - Sat Oct 10, 2:48 PM ET
-
-From Jeff - answers to ALL 8 open questions (his terminal won't let him paste):
-TEST-CASE: Yes to all 4 - each pullback is its own small leg; 6:40 = sweep, not BOS; 7:30 = fuel grab, the reversal must come within 1 candle; equal lows = within 0.01%.
-LOOK LEFT:
-1. Target: the next untouched pool, FVG or OB in the trade direction, whichever comes first. Test vs the -27% target, let results decide.
-2. How far back: look left on the timeframe being worked (15m for entries) and use its untouched levels, nearest first, farther back if nothing is close. The 1H/4H levels already show up on that chart.
-3. Definitions: yes, use Brad's for FVG and order block.
-4. Untouched FVG: counts until price fills it completely. Touching the edge doesn't kill it.
-Next: make the code match the Oct 10 test case, post the side-by-side for Jeff, then rerun.
 
 ---
 
