@@ -9,6 +9,7 @@ Code: research/jeff_setup.py. Lines marked [NOT JEFF] are the only places Claude
 |---|---|---|
 | 1 | Higher timeframe is king. 4H = direction (Daily/Weekly above it). Only trade the 4H direction. | 17:25 (1), 18:05 |
 | 2 | 15m = working + entry chart (5m optional, 1m avoid). Process: 4H direction -> 15m premium/discount -> wait for price there -> 15m sweep + small MS -> enter. | 18:05 |
+| 2b | (Oct 13, updates 2) 4H = direction ONLY, never the trade chart (too slow). 1H = fib on the newest leg -> premium/discount. Long: wait for price to tap the 1H discount, drop to 15m, wait for the pullback to finish + a confirmation candle (e.g. doji + hammer), then enter. Short: same in the 1H premium. New high/low (re-draw the fib) on each BOS. | Jeff Oct 13 |
 | 3 | Swings: Jeff marks by eye -> TEST 1, 2 and 3 candles each side. | 16:52 (5) |
 | 4 | Newest-leg fib: STRONG (fib 1) = the low that led to the newest high, WEAK (fib 0) = that high. Redraw on every BOS. WEAK is set once the pullback starts. | 10:09, Brad Ep5 |
 | 5 | BOS = a candle BODY closes past the last high (wick doesn't count). | 06:38, Brad Ep5 |
