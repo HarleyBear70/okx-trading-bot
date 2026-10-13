@@ -4,6 +4,25 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Tue Oct 13, 7:11 PM ET
+
+From terminal Claude: **Structure T1 updated (Jeff + Chrome: 'A, and OK on the 4 PM rule', issues #7-#9).**
+- **STRONG** = the low that launched the last BOS up: the lowest low between the old WEAK and the break close (LuxAlgo). A wick never moves STRONG or WEAK.
+- **BOS** (green/red) = the body close above WEAK after a pullback, colored on that candle. **No next-candle hold.**
+- **MS** (purple) still needs the next candle to close past STRONG too; otherwise orange. After an MS, the top (bottom) of the run becomes STRONG.
+- **Key sweep** (orange): after a wick-only new high, the pullback low (including the WEAK candle) becomes a key low. A wick under it that closes back above = orange. Mirror for highs.
+- **Box:** new row "4H: UP | 1H: DOWN (against 4H = likely pullback)". It uses the same rules on 4H candles (last closed 4H, no repaint).
+
+**Check (OKX 1H; Binance.US gives the same events):**
+- ✅ Oct 12: 2 AM BOS up (STRONG 83,282), 8 AM MS down, 4 PM orange (swept the 10 AM high 83,109.1), 6 PM BOS down (STRONG 83,148.7), 11 PM MS up
+- ✅ Oct 13: 1 AM BOS up (STRONG 83,253.7), 6 AM no purple (orange: wick under STRONG), 1 PM MS down
+- ✅ ETH: 10 PM internal up, 1 AM MS up, 4 AM internal down, 10 AM internal up
+- ✅ SOL: internal breaks at 3 PM and 2 AM. Oct 9 7 AM is still an internal break, not a BOS (question still open).
+
+**Not compiled here.** Chrome, please check it compiles in TradingView. Paste file: From Claude/1 - USE NOW/Structure_T1_PASTE_THIS.pine.txt. Week list (Binance.US): research/STRUCT_T1_WEEK.txt.
+
+---
+
 ## Terminal Claude - Tue Oct 13, 6:26 PM ET
 
 From terminal Claude: Jeff's 'Claude Files/From Claude' is now sorted into 4 folders: **1 - USE NOW** (current paste file: Structure_T1_PASTE_THIS.pine.txt + week list), **2 - Old chart scripts**, **3 - Test results**, **4 - Rules, guides, notes**. Nothing was deleted.
@@ -220,26 +239,6 @@ Screenshots coming separately. Please log these in my journal and use #1 as the 
 ## Terminal Claude - Sat Oct 10, 2:55 PM ET
 
 From terminal Claude: **Jeff's setup round 2** (structure matches the BTC 5m test case at swing 1; look left = 15m levels only; 4H direction). 360 versions. Best: swing 1, entry B, gap 0.05%, stop past the sweep, target = nearest untouched 15m level: main 124/yr **PF 1.12** (1.19 no slip, halves 1.22/1.07), never-seen **PF 0.89**. Look Left target beats -27%/2R/3R; swing 1 is best. Nothing passes. Not-Jeff readings listed in research/JEFF_SETUP2.md. No bot changed.
-
----
-
-## Jeff - Sat Oct 10, 2:49 PM ET
-
-TEST CASE MATCH (new structure code research/jeff_struct.py, swing 1), BTC-USDT 5m OKX Oct 10 2026, ET.
-
-YOUR LIST                                   NEW CODE
-5:30 newest high                            5:30 high 82,950 = WEAK, STRONG moves up to 5:25 low 82,878.1
-(leg turns down - your Q1 yes)              5:45 close 82,850.7 under STRONG -> MS DOWN (confirmed 5:50)
-6:05 BOS down (close 82,816.6)              6:05 BOS down                                     MATCH
-6:20 BOS down, STRONG -> 6:15 82,843.9      6:20 BOS down, STRONG 82,843.9 (6:15)             MATCH
-6:25-6:40 pool ~82,800                      6:40 = sweep of equal lows (not a BOS)            MATCH
-6:50 small MS up (> 82,843.9)               6:50 MS up, confirmed when 6:55 stayed above      MATCH
-7:30 sweep / fuel grab                      7:30 closed under -> 7:35 closed back = fuel grab MATCH
-7:40 MS up (> 82,872.5)                     7:40 body close past 82,872.5 = break up          MATCH (code calls it BOS up)
-
-Swing 2 and 3 do NOT match this case (they see too few swings on 5m). Swing 1 is the one that matches your eye.
-Your fib 4:45 82,770.7 -> 5:30: the code's STRONG at 5:30 is the 5:25 low (82,878.1), which is what makes
-the 5:45 MS down happen. That's the Q1 you said yes to.
 
 ---
 
