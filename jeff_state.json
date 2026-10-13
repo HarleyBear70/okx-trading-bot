@@ -3,25 +3,25 @@
   "equity": 998.8453386071523,
   "coins": {
    "BTC": {
-    "last": 1791907200000,
+    "last": 1791909000000,
     "pos": null,
     "pend": null,
     "exit": false
    },
    "ETH": {
-    "last": 1791907200000,
+    "last": 1791909000000,
     "pos": null,
     "pend": null,
     "exit": false
    },
    "SOL": {
-    "last": 1791907200000,
+    "last": 1791909000000,
     "pos": null,
     "pend": null,
     "exit": false
    },
    "XRP": {
-    "last": 1791907200000,
+    "last": 1791909000000,
     "pos": {
      "entry": 1.3708,
      "stop": 1.3473969106855002,
@@ -32,7 +32,7 @@
     "exit": false
    },
    "BNB": {
-    "last": 1791907200000,
+    "last": 1791909000000,
     "pos": null,
     "pend": null,
     "exit": false
@@ -43,25 +43,25 @@
   "equity": 1000.0,
   "coins": {
    "BTC": {
-    "last": 1791907200000,
+    "last": 1791909000000,
     "pos": null,
     "pend": null,
     "exit": false
    },
    "ETH": {
-    "last": 1791907200000,
+    "last": 1791909000000,
     "pos": null,
     "pend": null,
     "exit": false
    },
    "SOL": {
-    "last": 1791907200000,
+    "last": 1791909000000,
     "pos": null,
     "pend": null,
     "exit": false
    },
    "XRP": {
-    "last": 1791907200000,
+    "last": 1791909000000,
     "pos": {
      "entry": 1.3708,
      "stop": 1.3473969106855002,
@@ -72,7 +72,7 @@
     "exit": false
    },
    "BNB": {
-    "last": 1791907200000,
+    "last": 1791909000000,
     "pos": null,
     "pend": null,
     "exit": false
