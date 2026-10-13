@@ -3,22 +3,23 @@
 // Jeff's test cases (BTC 1H Oct 12, ETH 1H Oct 12-13, SOL 1H Oct 8-9 iBOS) and prints every event for a week.
 //   All breaks are candle BODY closes. A wick alone never counts. No "N candles each side" swing points.
 //   UP trend: WEAK = newest high (follows wicks). STRONG = the low the move started from (fib 100%).
-//     BOS up (GREEN)  a body closes above WEAK after a pullback. STRONG moves up to the pullback low.
+//     BOS up (GREEN)  a body closes above WEAK after a pullback. STRONG moves up to the pullback low once the BOS is
+//                     confirmed. STRONG never moves on a wick (Jeff, Oct 13): MS = a break of the low the whole run started from.
 //     MS (PURPLE)     a body closes below STRONG's wick: the trend flips; STRONG = the high that led to it.
 //     A body close past a level that is back inside on the very next candle = SWEEP (ORANGE), not a break,
 //     so a BOS/MS candle gets its color one candle later, once the next candle confirms it.
-//     SWEEP (ORANGE)  a wick past WEAK or STRONG with no body close past it. After a pullback, a new high/low by wick
-//                     still moves STRONG to the pullback low/high (matched Jeff's BTC Oct 12 marks).
+//     SWEEP (ORANGE)  a wick past WEAK or STRONG with no body close past it. WEAK follows the wick; STRONG stays.
 //   DOWN trend = mirror (BOS down = RED).
-//   INTERNAL break (your color): a body closes above the HIGH of the candle just before the low (the candle the last
-//     drop started from); bearish = mirror. Does not flip the trend.
+//   INTERNAL break (TEAL = buyers, BROWN = sellers): a body closes above the HIGH of the candle just before the low
+//     (the candle the last drop started from); bearish = mirror. Does not flip the trend.
 //   PULLBACK: WHITE = green candle / BLACK = red candle, while price is pulling back (no new high/low yet).
 //   WATCH (YELLOW): close within 0.5 x ATR of STRONG or WEAK (same setting as Smoke Detector v22).
 //   [Claude's fill-ins: "pullback" = at least 1 candle that did not make a new high/low; equal lows = within 0.01%.]
 //@version=6
 indicator("Jeff's Structure T1", shorttitle="Structure", overlay=true, max_lines_count=20, max_labels_count=20, max_boxes_count=10, max_bars_back=2000)
 
-iCol     = input.color(color.rgb(0, 200, 200), "Internal break color (pick yours)")
+iCol     = input.color(color.rgb(0, 200, 200), "Internal break up (buyers)")
+iColDn   = input.color(color.rgb(140, 85, 40), "Internal break down (sellers)")
 nearAtr  = input.float(0.5, "Watch: 'getting close' distance (x ATR)", minval=0.1, step=0.1)
 showFib  = input.bool(true, "Show premium / discount (fib STRONG to WEAK)")
 showLns  = input.bool(true, "Show the STRONG / WEAK lines")
@@ -60,6 +61,8 @@ var bool  pulled  = false
 var int   pendK   = 0       // 1 = MS waiting, 2 = BOS waiting (one candle)
 var int   pendBar = na
 var float pendLvl = na
+var float pendS   = na      // STRONG to use once the BOS is confirmed
+var int   pendSb  = na
 var float hiAll   = na
 var float loAll   = na
 // internal breaks
@@ -115,6 +118,8 @@ else
         else
             held = up ? close > pendLvl : close < pendLvl
             if held
+                strong := pendS
+                sb := pendSb
                 if up
                     ilo := na
                     iloFrom := b
@@ -133,9 +138,9 @@ else
             evCur := 5
         if up ? high > weak : low < weak
             if pulled
-                strong := up ? loW : hiW
-                sb := up ? loWb : hiWb
                 if up ? close > weak : close < weak
+                    pendS := up ? loW : hiW
+                    pendSb := up ? loWb : hiWb
                     pendK := 2
                     pendBar := bar_index
                     pendLvl := weak
@@ -172,7 +177,7 @@ else
 atr = ta.atr(14)
 waiting = pendK != 0 and pendBar == bar_index
 nearLvl = trend != 0 and (math.abs(close - strong) <= nearAtr * atr or math.abs(close - weak) <= nearAtr * atr)
-curCol = not barstate.isconfirmed or waiting ? na : evCur == 5 ? ORANGE : evCur >= 6 ? iCol : nearLvl ? YELLOW : trend != 0 and pulled ? (close >= open ? color.white : color.black) : na
+curCol = not barstate.isconfirmed or waiting ? na : evCur == 5 ? ORANGE : evCur == 6 ? iCol : evCur == 7 ? iColDn : nearLvl ? YELLOW : trend != 0 and pulled ? (close >= open ? color.white : color.black) : na
 prevCol = not barstate.isconfirmed ? na : evPrev == 1 ? GREEN : evPrev == 2 ? RED : evPrev >= 3 and evPrev <= 4 ? PURPLE : evPrev == 5 ? ORANGE : na
 barcolor(curCol)
 barcolor(prevCol, offset=-1)
@@ -208,23 +213,23 @@ if barstate.islast and trend != 0
         tS := label.new(x2, strong, "STRONG " + str.tostring(strong, format.mintick), style=label.style_label_left, color=color.rgb(70, 70, 70), textcolor=color.white, size=size.normal)
         tW := label.new(x2, weak, "WEAK " + str.tostring(weak, format.mintick), style=label.style_label_left, color=color.rgb(110, 110, 110), textcolor=color.white, size=size.normal)
 
-// the big top-right box: trend, phase, then the color key
-var table tb = table.new(position.top_right, 2, 10, bgcolor=color.new(color.black, 15), frame_color=color.gray, frame_width=1, border_width=3)
-keyRow(r, c, t) =>
-    table.cell(tb, 0, r, "    ", bgcolor=c, text_size=size.normal)
-    table.cell(tb, 1, r, t, text_color=color.white, text_size=size.normal, text_halign=text.align_left)
+// small top-right box (trend + phase) and the color key laid on its side along the bottom
+var table tb  = table.new(position.top_right, 1, 2, bgcolor=color.new(color.black, 15), frame_color=color.gray, frame_width=1, border_width=2)
+var table key = table.new(position.bottom_center, 18, 1, bgcolor=color.new(color.black, 15), frame_color=color.gray, frame_width=1, border_width=2)
+keyCell(i, c, t) =>
+    table.cell(key, 2 * i, 0, "  ", bgcolor=c, text_size=size.small)
+    table.cell(key, 2 * i + 1, 0, t, text_color=color.white, text_size=size.small)
 if barstate.islast and showBox
     tTxt = trend == 1 ? "Trend UP: buyers in control" : trend == -1 ? "Trend DOWN: sellers in control" : "Waiting for structure"
     pTxt = trend == 0 ? "" : pulled ? "Pullback: holds while " + (trend == 1 ? "above " : "below ") + str.tostring(strong, format.mintick) : "Moving " + (trend == 1 ? "up" : "down") + ", new " + (trend == 1 ? "high " : "low ") + str.tostring(weak, format.mintick)
     table.cell(tb, 0, 0, tTxt, text_color=trend == 1 ? GREEN : trend == -1 ? RED : color.white, text_size=size.normal)
-    table.merge_cells(tb, 0, 0, 1, 0)
-    table.cell(tb, 0, 1, pTxt, text_color=color.white, text_size=size.normal)
-    table.merge_cells(tb, 0, 1, 1, 1)
-    keyRow(2, GREEN, "BOS up, trend continues up")
-    keyRow(3, RED, "BOS down, trend continues down")
-    keyRow(4, PURPLE, "MS, trend flipped")
-    keyRow(5, iCol, "Internal break, small turn inside a pullback")
-    keyRow(6, ORANGE, "Sweep / fake-out, do nothing")
-    keyRow(7, color.white, "Pullback, buyers")
-    keyRow(8, color.black, "Pullback, sellers")
-    keyRow(9, YELLOW, "Watch, move coming")
+    table.cell(tb, 0, 1, pTxt, text_color=color.white, text_size=size.small)
+    keyCell(0, GREEN, "BOS up")
+    keyCell(1, RED, "BOS down")
+    keyCell(2, PURPLE, "MS flip")
+    keyCell(3, iCol, "Internal up")
+    keyCell(4, iColDn, "Internal down")
+    keyCell(5, ORANGE, "Sweep")
+    keyCell(6, color.white, "Pullback buy")
+    keyCell(7, color.black, "Pullback sell")
+    keyCell(8, YELLOW, "Watch")

@@ -7,6 +7,7 @@ pine/structure_t1.pine; this file checks it against Jeff's test cases on OKX 1H 
     BOS up    a body closes above WEAK after a pullback (at least one candle since WEAK did not make a new high).
               STRONG = the lowest low between the WEAK candle and the BOS candle; WEAK = the new high.
               [CLAUDE: "pullback" = 1 candle that did not make a new high; without one, a close above just stretches WEAK]
+              A wick-only new high never moves STRONG (Jeff, Oct 13: removed fill-in #2). It is a sweep of WEAK.
     MS down   a body closes below STRONG's wick. Trend flips: STRONG = the old WEAK (the high that led to it).
     Sweep     a wick goes past WEAK or STRONG but no body closes past it, OR a body closes past and the very next candle
               closes back inside (then it was a fuel grab). Sweep of WEAK: WEAK follows the wick; STRONG stays.
@@ -98,7 +99,8 @@ class Tier1:
                     out.append((b, "sweep (MS undone)", c[b]))
             else:
                 held = (c[k] > lvl) if up else (c[k] < lvl)
-                if held:
+                if held:  # STRONG moves only on a confirmed BOS body close (Jeff, Oct 13)
+                    self.strong, self.sb = self.pend_s
                     self.reset_internal(up, b)
                 out.append((b, ("BOS up" if up else "BOS down") if held else "sweep (BOS undone)", c[b]))
         # MS: a body close past STRONG's wick (waits one candle)
@@ -108,10 +110,10 @@ class Tier1:
         if (l[k] < self.strong) if up else (h[k] > self.strong):
             out.append((k, "sweep of STRONG", self.strong))
         if (h[k] > self.weak) if up else (l[k] < self.weak):  # new high (low)
-            if self.pulled:  # after a pullback: STRONG moves to the pullback's extreme (wicks)
-                s = min(range(self.wb, k + 1), key=lambda x: l[x]) if up else max(range(self.wb, k + 1), key=lambda x: h[x])
-                self.strong, self.sb = (l[s] if up else h[s]), s
+            if self.pulled:  # after a pullback: a body close past WEAK = BOS (STRONG moves to the pullback's extreme once confirmed)
                 if (c[k] > self.weak) if up else (c[k] < self.weak):
+                    s = min(range(self.wb, k + 1), key=lambda x: l[x]) if up else max(range(self.wb, k + 1), key=lambda x: h[x])
+                    self.pend_s = ((l[s] if up else h[s]), s)
                     self.pend = ("BOS", k, self.weak)
                 else:
                     out.append((k, "sweep of WEAK", self.weak))
