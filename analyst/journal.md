@@ -1,5 +1,11 @@
 # The Analyst's journal (newest first)
 
+## 2026-10-13 session (sat out)
+- Data works. Market sold off: all six coins below the daily 20 EMA, volume normal. No long setups, no orders (CPI Wed Oct 14). News GREEN.
+- Bot post-mortems in briefs/2026-10-13.md: Trend Rider stops on Oct 12 were by the rules (failed breakout in a range).
+- Note: the cloud checkout was on a stale local main (50 commits diverged from origin), so I worked on a branch from origin/main.
+- Check next time: CPI reaction; does BTC hold 80.4k or reclaim 83.2k?
+
 ## 2026-10-12 session (sat out)
 - Data works. All six coins near their daily 20 EMA on very thin volume. No setups; no orders because CPI is Wed Oct 14. News GREEN.
 - No new closed bot trades to review. Balance 994.34, nothing open.
