@@ -1,0 +1,230 @@
+// Jeff's Structure (Tier 1) - Oct 13 2026. MARKET STRUCTURE ONLY (issue #6, Chrome Claude + Jeff).
+// No trade box, no patterns, no zones, no early turns. Same logic as research/struct_t1.py, which was checked against
+// Jeff's test cases (BTC 1H Oct 12, ETH 1H Oct 12-13, SOL 1H Oct 8-9 iBOS) and prints every event for a week.
+//   All breaks are candle BODY closes. A wick alone never counts. No "N candles each side" swing points.
+//   UP trend: WEAK = newest high (follows wicks). STRONG = the low the move started from (fib 100%).
+//     BOS up (GREEN)  a body closes above WEAK after a pullback. STRONG moves up to the pullback low.
+//     MS (PURPLE)     a body closes below STRONG's wick: the trend flips; STRONG = the high that led to it.
+//     A body close past a level that is back inside on the very next candle = SWEEP (ORANGE), not a break,
+//     so a BOS/MS candle gets its color one candle later, once the next candle confirms it.
+//     SWEEP (ORANGE)  a wick past WEAK or STRONG with no body close past it. After a pullback, a new high/low by wick
+//                     still moves STRONG to the pullback low/high (matched Jeff's BTC Oct 12 marks).
+//   DOWN trend = mirror (BOS down = RED).
+//   INTERNAL break (your color): a body closes above the HIGH of the candle just before the low (the candle the last
+//     drop started from); bearish = mirror. Does not flip the trend.
+//   PULLBACK: WHITE = green candle / BLACK = red candle, while price is pulling back (no new high/low yet).
+//   WATCH (YELLOW): close within 0.5 x ATR of STRONG or WEAK (same setting as Smoke Detector v22).
+//   [Claude's fill-ins: "pullback" = at least 1 candle that did not make a new high/low; equal lows = within 0.01%.]
+//@version=6
+indicator("Jeff's Structure T1", shorttitle="Structure", overlay=true, max_lines_count=20, max_labels_count=20, max_boxes_count=10, max_bars_back=2000)
+
+iCol     = input.color(color.rgb(0, 200, 200), "Internal break color (pick yours)")
+nearAtr  = input.float(0.5, "Watch: 'getting close' distance (x ATR)", minval=0.1, step=0.1)
+showFib  = input.bool(true, "Show premium / discount (fib STRONG to WEAK)")
+showLns  = input.bool(true, "Show the STRONG / WEAK lines")
+showBox  = input.bool(true, "Show the corner box")
+
+GREEN  = color.rgb(0, 230, 118)
+RED    = color.rgb(255, 50, 50)
+PURPLE = color.rgb(170, 60, 255)
+ORANGE = color.rgb(255, 140, 0)
+YELLOW = color.rgb(255, 214, 0)
+TOL    = 0.0001
+
+// lowest low / highest high from bar a to now, and where
+f_lo(a) =>
+    n = math.min(bar_index - a, 1500)
+    m = low
+    at = bar_index
+    for i = 0 to n
+        if low[i] < m
+            m := low[i]
+            at := bar_index - i
+    [m, at]
+f_hi(a) =>
+    n = math.min(bar_index - a, 1500)
+    m = high
+    at = bar_index
+    for i = 0 to n
+        if high[i] > m
+            m := high[i]
+            at := bar_index - i
+    [m, at]
+
+var int   trend   = 0
+var float strong  = na
+var int   sb      = na
+var float weak    = na
+var int   wb      = na
+var bool  pulled  = false
+var int   pendK   = 0       // 1 = MS waiting, 2 = BOS waiting (one candle)
+var int   pendBar = na
+var float pendLvl = na
+var float hiAll   = na
+var float loAll   = na
+// internal breaks
+var int   ilo = na
+var float iloL = na
+var float iloRef = na
+var int   iloFrom = 0
+var int   ihi = na
+var float ihiH = na
+var float ihiRef = na
+var int   ihiFrom = 0
+
+[loW, loWb] = f_lo(nz(wb, bar_index))
+[hiW, hiWb] = f_hi(nz(wb, bar_index))
+
+evPrev = 0   // last candle: 1 BOS up, 2 BOS down, 3 MS up, 4 MS down, 5 sweep (break undone)
+evCur  = 0   // this candle: 5 sweep, 6 internal up, 7 internal down
+if trend == 0
+    if bar_index > 0 and close > hiAll
+        trend := 1
+        strong := loAll
+        weak := high
+        wb := bar_index
+    else if bar_index > 0 and close < loAll
+        trend := -1
+        strong := hiAll
+        weak := low
+        wb := bar_index
+    hiAll := na(hiAll) ? high : math.max(hiAll, high)
+    loAll := na(loAll) ? low : math.min(loAll, low)
+else
+    up = trend == 1
+    if pendK != 0
+        b = pendBar
+        if pendK == 1
+            if up ? close < pendLvl : close > pendLvl
+                trend := -trend
+                up := not up
+                strong := weak
+                sb := wb
+                weak := up ? high[1] : low[1]
+                wb := b
+                pulled := false
+                if up
+                    ilo := na
+                    iloFrom := b
+                else
+                    ihi := na
+                    ihiFrom := b
+                evPrev := up ? 3 : 4
+            else
+                evPrev := 5
+        else
+            held = up ? close > pendLvl : close < pendLvl
+            if held
+                if up
+                    ilo := na
+                    iloFrom := b
+                else
+                    ihi := na
+                    ihiFrom := b
+            evPrev := held ? (up ? 1 : 2) : 5
+        pendK := 0
+    msNow = up ? close < strong : close > strong
+    if msNow
+        pendK := 1
+        pendBar := bar_index
+        pendLvl := strong
+    else
+        if up ? low < strong : high > strong
+            evCur := 5
+        if up ? high > weak : low < weak
+            if pulled
+                strong := up ? loW : hiW
+                sb := up ? loWb : hiWb
+                if up ? close > weak : close < weak
+                    pendK := 2
+                    pendBar := bar_index
+                    pendLvl := weak
+                else
+                    evCur := 5
+            weak := up ? high : low
+            wb := bar_index
+            pulled := false
+        else if wb != bar_index
+            pulled := true
+    // internal breaks (skipped on a candle waiting to be an MS; hidden on one waiting to be a BOS)
+    if not msNow
+        if bar_index > iloFrom and (na(ilo) or low < iloL * (1 - TOL)) and low < low[1]
+            ilo := bar_index
+            iloL := low
+            iloRef := high[1]
+        if bar_index > ihiFrom and (na(ihi) or high > ihiH * (1 + TOL)) and high > high[1]
+            ihi := bar_index
+            ihiH := high
+            ihiRef := low[1]
+        iEv = 0
+        if not na(ilo) and bar_index > ilo and close > iloRef
+            iEv := 6
+            ilo := na
+            iloFrom := bar_index
+        else if not na(ihi) and bar_index > ihi and close < ihiRef
+            iEv := 7
+            ihi := na
+            ihiFrom := bar_index
+        if pendK == 0 and evCur == 0
+            evCur := iEv
+
+// colors: only after the candle closes
+atr = ta.atr(14)
+waiting = pendK != 0 and pendBar == bar_index
+nearLvl = trend != 0 and (math.abs(close - strong) <= nearAtr * atr or math.abs(close - weak) <= nearAtr * atr)
+curCol = not barstate.isconfirmed or waiting ? na : evCur == 5 ? ORANGE : evCur >= 6 ? iCol : nearLvl ? YELLOW : trend != 0 and pulled ? (close >= open ? color.white : color.black) : na
+prevCol = not barstate.isconfirmed ? na : evPrev == 1 ? GREEN : evPrev == 2 ? RED : evPrev >= 3 and evPrev <= 4 ? PURPLE : evPrev == 5 ? ORANGE : na
+barcolor(curCol)
+barcolor(prevCol, offset=-1)
+
+// premium / discount (fib STRONG -> WEAK, redrawn on every BOS / MS and whenever WEAK extends) + lines
+var line  lS = na
+var line  lW = na
+var line  lM = na
+var box   bP = na
+var box   bD = na
+var label tS = na
+var label tW = na
+if barstate.islast and trend != 0
+    line.delete(lS)
+    line.delete(lW)
+    line.delete(lM)
+    box.delete(bP)
+    box.delete(bD)
+    label.delete(tS)
+    label.delete(tW)
+    x1 = math.min(nz(sb, wb), wb)
+    x2 = bar_index + 15
+    mid = (strong + weak) / 2
+    if showFib
+        top = math.max(strong, weak)
+        bot = math.min(strong, weak)
+        bP := box.new(x1, top, x2, mid, border_color=color.new(RED, 80), bgcolor=color.new(RED, 90), text="PREMIUM", text_size=size.normal, text_color=color.new(color.white, 30), text_halign=text.align_right)
+        bD := box.new(x1, mid, x2, bot, border_color=color.new(GREEN, 80), bgcolor=color.new(GREEN, 90), text="DISCOUNT", text_size=size.normal, text_color=color.new(color.white, 30), text_halign=text.align_right)
+        lM := line.new(x1, mid, x2, mid, color=YELLOW, style=line.style_dashed)
+    if showLns
+        lS := line.new(x1, strong, x2, strong, color=color.white, width=2)
+        lW := line.new(x1, weak, x2, weak, color=color.gray, style=line.style_dotted, width=2)
+        tS := label.new(x2, strong, "STRONG " + str.tostring(strong, format.mintick), style=label.style_label_left, color=color.rgb(70, 70, 70), textcolor=color.white, size=size.normal)
+        tW := label.new(x2, weak, "WEAK " + str.tostring(weak, format.mintick), style=label.style_label_left, color=color.rgb(110, 110, 110), textcolor=color.white, size=size.normal)
+
+// the big top-right box: trend, phase, then the color key
+var table tb = table.new(position.top_right, 2, 10, bgcolor=color.new(color.black, 15), frame_color=color.gray, frame_width=1, border_width=3)
+keyRow(r, c, t) =>
+    table.cell(tb, 0, r, "    ", bgcolor=c, text_size=size.normal)
+    table.cell(tb, 1, r, t, text_color=color.white, text_size=size.normal, text_halign=text.align_left)
+if barstate.islast and showBox
+    tTxt = trend == 1 ? "Trend UP: buyers in control" : trend == -1 ? "Trend DOWN: sellers in control" : "Waiting for structure"
+    pTxt = trend == 0 ? "" : pulled ? "Pullback: holds while " + (trend == 1 ? "above " : "below ") + str.tostring(strong, format.mintick) : "Moving " + (trend == 1 ? "up" : "down") + ", new " + (trend == 1 ? "high " : "low ") + str.tostring(weak, format.mintick)
+    table.cell(tb, 0, 0, tTxt, text_color=trend == 1 ? GREEN : trend == -1 ? RED : color.white, text_size=size.normal)
+    table.merge_cells(tb, 0, 0, 1, 0)
+    table.cell(tb, 0, 1, pTxt, text_color=color.white, text_size=size.normal)
+    table.merge_cells(tb, 0, 1, 1, 1)
+    keyRow(2, GREEN, "BOS up, trend continues up")
+    keyRow(3, RED, "BOS down, trend continues down")
+    keyRow(4, PURPLE, "MS, trend flipped")
+    keyRow(5, iCol, "Internal break, small turn inside a pullback")
+    keyRow(6, ORANGE, "Sweep / fake-out, do nothing")
+    keyRow(7, color.white, "Pullback, buyers")
+    keyRow(8, color.black, "Pullback, sellers")
+    keyRow(9, YELLOW, "Watch, move coming")

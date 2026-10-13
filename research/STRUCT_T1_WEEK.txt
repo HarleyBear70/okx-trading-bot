@@ -1,0 +1,46 @@
+BTCUSD 1H, Binance.US, times ET (candle open time, like TradingView). Last 7 days.
+time               event               candle close   level broken   -> trend / STRONG / WEAK after
+Tue Oct 06 09 PM   iBOS down            84403.3        85500          -> DOWN / 87168.2 / 83878.3
+Tue Oct 06 10 PM   sweep (BOS undone)   83865.8        83865.8        -> DOWN / 86970.5 / 83600
+Wed Oct 07 03 AM   iBOS down            84096.2        84109.4        -> DOWN / 86970.5 / 83600
+Wed Oct 07 06 AM   sweep of WEAK        83720.2        83600          -> DOWN / 84500 / 83431.3
+Wed Oct 07 08 AM   sweep of WEAK        83470          83431.3        -> DOWN / 83919.9 / 83419.9
+Wed Oct 07 11 PM   BOS down             82770.4        82770.4        -> DOWN / 83662.1 / 82190.1
+Thu Oct 08 07 AM   iBOS down            82463.5        82486.1        -> DOWN / 83662.1 / 82190.1
+Thu Oct 08 08 AM   sweep of WEAK        82236.2        82190.1        -> DOWN / 83230.3 / 81947.9
+Thu Oct 08 10 AM   iBOS up              82687.1        82453.6        -> DOWN / 83230.3 / 81747.8
+Thu Oct 08 11 AM   BOS down             80989.9        80989.9        -> DOWN / 82726.4 / 80786.8
+Thu Oct 08 02 PM   iBOS up              81454.8        81374.9        -> DOWN / 82726.4 / 80337.9
+Thu Oct 08 06 PM   iBOS up              81820          81815.4        -> DOWN / 82726.4 / 80337.9
+Thu Oct 08 10 PM   iBOS up              82064.1        81795.1        -> DOWN / 82726.4 / 80337.9
+Fri Oct 09 07 AM   MS UP                83177.6        83177.6        -> UP / 80337.9 / 83449.6
+Fri Oct 09 02 PM   iBOS down            82388.5        82434.2        -> UP / 80337.9 / 83449.6
+Sat Oct 10 01 AM   iBOS up              82769.3        82654          -> UP / 80337.9 / 83449.6
+Sat Oct 10 05 AM   iBOS up              82839.2        82815.7        -> UP / 80337.9 / 83449.6
+Sat Oct 10 10 AM   iBOS up              82920.1        82869.8        -> UP / 80337.9 / 83449.6
+Sat Oct 10 07 PM   iBOS down            82919.4        82924.6        -> UP / 80337.9 / 83449.6
+Sat Oct 10 10 PM   iBOS up              83033.3        83030.5        -> UP / 80337.9 / 83449.6
+Sat Oct 10 11 PM   iBOS down            82799.1        82882          -> UP / 80337.9 / 83449.6
+Sun Oct 11 02 AM   iBOS up              83093.4        83076.3        -> UP / 80337.9 / 83449.6
+Sun Oct 11 05 AM   iBOS down            82963.3        82984.6        -> UP / 80337.9 / 83449.6
+Sun Oct 11 11 AM   BOS up               83830.6        83830.6        -> UP / 82225.2 / 83956.3
+Sun Oct 11 02 PM   iBOS down            83585.9        83667.3        -> UP / 82225.2 / 84118.3
+Sun Oct 11 07 PM   iBOS up              83660.6        83645.4        -> UP / 82225.2 / 84118.3
+Sun Oct 11 11 PM   iBOS down            83528.3        83652.6        -> UP / 82225.2 / 84118.3
+Mon Oct 12 12 AM   iBOS up              84055.6        83891.4        -> UP / 82225.2 / 84118.3
+Mon Oct 12 01 AM   sweep of WEAK        83933.5        84118.3        -> UP / 83205.4 / 84186.2
+Mon Oct 12 04 AM   iBOS down            83512.9        83671.6        -> UP / 83205.4 / 84269.5
+Mon Oct 12 08 AM   MS DOWN              82679.3        82679.3        -> DOWN / 84269.5 / 82418.1
+Mon Oct 12 01 PM   sweep of WEAK        82435.3        82345.5        -> DOWN / 83022.7 / 82309.4
+Mon Oct 12 02 PM   iBOS down            82350.2        82418.1        -> DOWN / 83022.7 / 82229
+Mon Oct 12 03 PM   iBOS up              82761.5        82552          -> DOWN / 83022.7 / 82229
+Mon Oct 12 04 PM   sweep of STRONG      82992          83022.7        -> DOWN / 83022.7 / 82229
+Mon Oct 12 06 PM   BOS down             82083.7        82083.7        -> DOWN / 83035.2 / 81669.3
+Mon Oct 12 09 PM   iBOS up              82348.1        82154.6        -> DOWN / 83035.2 / 80969.6
+Mon Oct 12 11 PM   MS UP                83233.1        83233.1        -> UP / 80969.6 / 83489.6
+Tue Oct 13 01 AM   BOS up               83587          83587          -> UP / 82694.5 / 83812.5
+Tue Oct 13 03 AM   sweep of WEAK        83803.1        83812.5        -> UP / 83324 / 83959.2
+Tue Oct 13 05 AM   sweep of STRONG      83552.4        83324          -> UP / 83324 / 84068.4
+Tue Oct 13 06 AM   MS DOWN              83176.9        83176.9        -> DOWN / 84068.4 / 83077.1
+Tue Oct 13 09 AM   iBOS down            83147.6        83164.3        -> DOWN / 84068.4 / 83064
+Tue Oct 13 01 PM   sweep (BOS undone)   82930.4        82930.4        -> DOWN / 83747.3 / 82903.4
