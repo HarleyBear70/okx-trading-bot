@@ -1,3 +1,4 @@
 2026-10-07 02:40 UTC - URGENT: Trend Rider SUI missing from state.json, no sell in trades.csv (emailed Jeff)
 2026-10-09 00:55 UTC - FIXED: watcher false alarm 'RSI(2) 5 trades open (max 3)' - watcher ignored per-bot max_open (rsi2-bnus allows 5)
 2026-10-14 09:40 UTC - URGENT: bot.yml runs failing instantly (7:43, 8:39 UTC), no steps run, likely GitHub billing/Actions issue; cannot read logs (emailed Jeff)
+2026-10-14 18:50 UTC - URGENT (repeat): all workflows still failing in 3-4s with no steps/logs; no bot heartbeat since 06:55 UTC (~12h); likely GitHub billing/Actions limit (emailed Jeff)
