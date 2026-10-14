@@ -1,0 +1,42 @@
+  BTC done
+  ETH done
+  SOL done
+  XRP done
+
+### BROWN (internal down) -> short   (BTC ETH SOL XRP 15m, 2019 to Sep 2026)
+  all                                   52987 | win  32% | avg -0.09R | went 2R+ in 4h  18% | fizzled (<0.5R)  42%
+  2019-22                               22860 | win  32% | avg -0.07R | went 2R+ in 4h  19% | fizzled (<0.5R)  41%
+  2023-on                               30127 | win  31% | avg -0.11R | went 2R+ in 4h  17% | fizzled (<0.5R)  43%
+  with the 15m trend                    29284 | win  32% | avg -0.09R | went 2R+ in 4h  18% | fizzled (<0.5R)  41%
+  against the 15m trend                 23703 | win  31% | avg -0.10R | went 2R+ in 4h  17% | fizzled (<0.5R)  43%
+  with the 4H trend                     28795 | win  33% | avg -0.06R | went 2R+ in 4h  18% | fizzled (<0.5R)  42%
+  against the 4H trend                  24192 | win  31% | avg -0.13R | went 2R+ in 4h  17% | fizzled (<0.5R)  42%
+  right half of the fib                 21829 | win  32% | avg -0.10R | went 2R+ in 4h  17% | fizzled (<0.5R)  42%
+  wrong half of the fib                 31158 | win  32% | avg -0.09R | went 2R+ in 4h  18% | fizzled (<0.5R)  42%
+  4H with + right half                  12089 | win  33% | avg -0.07R | went 2R+ in 4h  17% | fizzled (<0.5R)  42%
+  4H with + 15m with + right half        6072 | win  33% | avg -0.07R | went 2R+ in 4h  17% | fizzled (<0.5R)  42%
+  4H with + 15m AGAINST + right half     6017 | win  32% | avg -0.07R | went 2R+ in 4h  16% | fizzled (<0.5R)  42%
+  SWEPT $$$ first                       32573 | win  32% | avg -0.09R | went 2R+ in 4h  16% | fizzled (<0.5R)  42%
+  no sweep                              20414 | win  32% | avg -0.10R | went 2R+ in 4h  20% | fizzled (<0.5R)  41%
+  swept + 4H with                       17438 | win  33% | avg -0.06R | went 2R+ in 4h  17% | fizzled (<0.5R)  43%
+  swept + 4H with + right half           8123 | win  33% | avg -0.07R | went 2R+ in 4h  15% | fizzled (<0.5R)  43%
+  swept + 4H with + right half, 2023+    4509 | win  32% | avg -0.09R | went 2R+ in 4h  15% | fizzled (<0.5R)  44%
+
+### TEAL (internal up) -> long   (BTC ETH SOL XRP 15m, 2019 to Sep 2026)
+  all                                   48792 | win  30% | avg -0.13R | went 2R+ in 4h  16% | fizzled (<0.5R)  45%
+  2019-22                               20764 | win  30% | avg -0.13R | went 2R+ in 4h  17% | fizzled (<0.5R)  44%
+  2023-on                               28028 | win  30% | avg -0.14R | went 2R+ in 4h  15% | fizzled (<0.5R)  45%
+  with the 15m trend                    22370 | win  30% | avg -0.13R | went 2R+ in 4h  17% | fizzled (<0.5R)  44%
+  against the 15m trend                 26422 | win  30% | avg -0.13R | went 2R+ in 4h  15% | fizzled (<0.5R)  45%
+  with the 4H trend                     21717 | win  30% | avg -0.14R | went 2R+ in 4h  16% | fizzled (<0.5R)  45%
+  against the 4H trend                  27075 | win  31% | avg -0.13R | went 2R+ in 4h  16% | fizzled (<0.5R)  45%
+  right half of the fib                 17726 | win  31% | avg -0.12R | went 2R+ in 4h  14% | fizzled (<0.5R)  45%
+  wrong half of the fib                 31066 | win  30% | avg -0.14R | went 2R+ in 4h  17% | fizzled (<0.5R)  44%
+  4H with + right half                   7902 | win  30% | avg -0.14R | went 2R+ in 4h  13% | fizzled (<0.5R)  45%
+  4H with + 15m with + right half        2893 | win  31% | avg -0.12R | went 2R+ in 4h  14% | fizzled (<0.5R)  45%
+  4H with + 15m AGAINST + right half     5009 | win  30% | avg -0.15R | went 2R+ in 4h  13% | fizzled (<0.5R)  46%
+  SWEPT $$$ first                       29025 | win  31% | avg -0.12R | went 2R+ in 4h  14% | fizzled (<0.5R)  45%
+  no sweep                              19767 | win  30% | avg -0.15R | went 2R+ in 4h  18% | fizzled (<0.5R)  43%
+  swept + 4H with                       12830 | win  31% | avg -0.12R | went 2R+ in 4h  14% | fizzled (<0.5R)  46%
+  swept + 4H with + right half           5293 | win  32% | avg -0.10R | went 2R+ in 4h  12% | fizzled (<0.5R)  45%
+  swept + 4H with + right half, 2023+    3065 | win  32% | avg -0.07R | went 2R+ in 4h  12% | fizzled (<0.5R)  46%
