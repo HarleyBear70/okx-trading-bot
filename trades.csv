@@ -47,3 +47,4 @@ time_utc,bot,mode,coin,side,qty,price,usdt,pnl_usdt,pnl_pct,reason,bot_balance
 2026-10-13 04:28,Trend Rider 1H (Binance.US paper),paper,BTC-USDT,buy,0.0076980593,83233.05,640.86,,,score BOS,983.72
 2026-10-13 11:28,Trend Rider 1H (Binance.US paper),paper,BTC-USDT,sell,0.0076980593,83266.343,640.86,-0.0,-0.0,breakeven stop,983.72
 2026-10-14 04:39,Trend Rider 1H (Binance.US paper),paper,BNB-USDT,buy,0.60115838,745.79,448.43,,,score BOS,983.72
+2026-10-14 19:39,Trend Rider 1H (Binance.US paper),paper,BNB-USDT,sell,0.60115838,740.26377,444.93,-3.5,-0.78,breakeven stop,980.22
