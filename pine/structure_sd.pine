@@ -30,7 +30,9 @@
 //     Oct 14 = Jeff's D SH 109.07 / D SL 101.63). $$$ = equal highs: a top (green candle then red candle; its wick = the
 //     higher of the two) whose upper wick a later top's high reaches into (between its body top and its high), with no
 //     wick past it in between; the line sits on the highest high. Equal lows = mirror. Only since the start of the current
-//     fib leg; a level inside another level's wick is dropped (one line per group). [Claude's rules, no number]
+//     fib leg; a level inside another level's wick is dropped (one line per group). Leg $$$ = the highest high since the
+//     break before the latest break (uptrend: lowest low), shown when it is past STRONG: the stops for the whole leg
+//     (Jeff Oct 14: his "yellow candle" 113.33 on SOL 1H). [Claude's rules, no number]
 //   [Claude's fill-ins: "pullback" = at least 1 candle that did not make a new high/low; equal lows = within 0.01%.]
 //@version=6
 indicator("Jeff's Structure Zones", shorttitle="Structure", overlay=true, max_lines_count=100, max_labels_count=100, max_boxes_count=100, max_bars_back=2000)
@@ -470,6 +472,13 @@ if close[1] < open[1] and close > open
         array.shift(uE)
         array.shift(uB)
         array.shift(uQ)
+// leg $$$: the highest high (uptrend: lowest low) since the break before the latest break (BOS or MS), not counting
+// that break candle. Stops for the whole leg sit past it (Jeff's SOL 1H Oct 11 "yellow candle" 113.33).
+var int brkA = na   // the break before the latest
+var int brkB = na   // the latest break
+if evCur == 1 or evCur == 2 or evPrev == 3 or evPrev == 4
+    brkA := brkB
+    brkB := evCur == 1 or evCur == 2 ? bar_index : bar_index - 1
 var array<line>  liqL = array.new_line()
 var array<label> liqT = array.new_label()
 f_liq(x1, y, txt) =>
@@ -485,7 +494,7 @@ f_eq(W, E, B, Q, x0) =>
                 y = array.get(W, i)
                 inside = false
                 for j = 0 to n - 1
-                    if j != i and array.get(Q, j) and array.get(B, j) >= x0 and array.get(W, j) != y
+                    if j != i and array.get(Q, j) and array.get(B, j) >= x0 and (array.get(W, j) != y or j < i)
                         lo = math.min(array.get(W, j), array.get(E, j))
                         hi = math.max(array.get(W, j), array.get(E, j))
                         if y >= lo and y <= hi
@@ -505,6 +514,13 @@ if barstate.islast
             f_liq(nz(pdStart, bar_index), pdh, "D $$$")
         if not na(pdl) and dLo >= pdl
             f_liq(nz(pdStart, bar_index), pdl, "D $$$")
+        if trend != 0 and not na(brkA) and bar_index - brkA <= 1500
+            [legH, legHb] = f_hi(brkA + 1, 0)
+            [legL, legLb] = f_lo(brkA + 1, 0)
+            if trend == -1 and legH > strong
+                f_liq(legHb, legH, "$$$")
+            if trend == 1 and legL < strong
+                f_liq(legLb, legL, "$$$")
         if trend != 0
             x0 = math.min(nz(sb, wb), wb)
             f_eq(topW, topE, topB, topQ, x0)

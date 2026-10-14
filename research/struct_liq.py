@@ -12,6 +12,10 @@ part of pine/structure_sd.pine.
            wick in between went past the earlier high. $$$ = the earlier (highest) high. Bottoms = mirror.
            Only tops made since the start of the current fib leg (here and now). One line per group: a level inside
            another level's wick is dropped. [CLAUDE's rules, no number]
+  Leg      the highest high since the break (BOS or MS) before the latest break, not counting that break candle
+           (uptrend: the lowest low). It sits above STRONG; the stops for the whole leg sit past it. Jeff, Oct 14: his SOL
+           1H short (Oct 11 4 PM) was stopped by a wick to 113.40 that took the Oct 8 8 AM high 113.33 (his "yellow
+           candle"), then price fell to 101.6. Shown only when it is beyond STRONG. [CLAUDE's rule, Jeff OK'd]
   python3 research/struct_liq.py FILE "10-14 13:00"   (rows: OKX layout [ts, o, h, l, c], times ET)
 """
 import datetime as dt
@@ -29,8 +33,11 @@ def run(rows, at):
     s = T.Tier1(h, l, c)
     tops, bots = [], []  # [bar, wick, body edge, is_equal]
     day, dhi, dlo, pdh, pdl = None, None, None, None, None
+    brk = []  # BOS / MS candles
     for k in range(len(rows)):
-        s.step(k)
+        for b, ev, _ in s.step(k):
+            if ev.startswith(("BOS", "MS ")):
+                brk.append(b)
         d = int(rows[k][0]) // 86400000
         if d != day:
             pdh, pdl = dhi, dlo
@@ -58,10 +65,17 @@ def run(rows, at):
             start = min(s.sb, s.wb)
             print(f"{tm[k]:%a %b %d %H:%M} ET  close {c[k]}  trend {'UP' if s.trend == 1 else 'DOWN'}  STRONG {s.strong}  WEAK {s.weak}")
             print(f"  yesterday high {pdh}{'' if dhi <= pdh else '  (taken today)'}   yesterday low {pdl}{'' if dlo >= pdl else '  (taken today)'}")
+            if len(brk) >= 2:
+                r = range(brk[-2] + 1, k + 1)
+                j = max(r, key=lambda x: h[x]) if s.trend == -1 else min(r, key=lambda x: l[x])
+                lv = h[j] if s.trend == -1 else l[j]
+                if (lv > s.strong) if s.trend == -1 else (lv < s.strong):
+                    print(f"  leg $$$ (past STRONG): {lv} ({tm[j]:%m-%d %H:%M})")
             for name, xs in (("equal highs $$$", tops), ("equal lows $$$", bots)):
                 lv = [x for x in xs if x[3] and x[0] >= start]
                 # one line per group: drop a level that sits inside another level's wick
-                lv = [x for x in lv if not any(y is not x and min(y[1], y[2]) <= x[1] <= max(y[1], y[2]) and y[1] != x[1] for y in lv)]
+                lv = [x for x in lv if not any(y is not x and min(y[1], y[2]) <= x[1] <= max(y[1], y[2])
+                                               and (y[1] != x[1] or y[0] < x[0]) for y in lv)]  # same price: keep the first
                 print(f"  {name}: " + (", ".join(f"{x[1]} ({tm[x[0]]:%m-%d %H:%M})" for x in lv) or "none"))
 
 
