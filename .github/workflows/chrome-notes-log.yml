@@ -17,7 +17,8 @@ concurrency:
 
 jobs:
   log:
-    if: github.event.issue.number == 3 || github.event.issue.number == 4
+    # only Jeff's own login (Chrome Claude and terminal Claude post with it); strangers can comment once the repo is public
+    if: (github.event.issue.number == 3 || github.event.issue.number == 4) && github.event.comment.user.login == 'HarleyBear70'
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
