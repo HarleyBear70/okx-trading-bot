@@ -1,7 +1,7 @@
 name: YouTube transcript (for Chrome Claude)
 
 # Post a comment on any issue starting with "transcript: <youtube url>" (or run by hand with a URL).
-# Saves the captions to research/transcripts/ and replies with the link.
+# Fetches the captions and replies. Nothing is saved to the repo (public since Oct 14 2026; other people's words).
 # NOTE: YouTube blocks GitHub's servers ("confirm you're not a bot"), so comment requests are answered by
 # tools/transcript_watch.sh on Jeff's Linux (cron, every 10 min). This workflow is manual-only.
 on:
@@ -36,19 +36,13 @@ jobs:
           echo "url=$URL" >> $GITHUB_OUTPUT
           python tools/yt_transcript.py "$URL" research/transcripts > out.txt 2> err.txt && echo ok=1 >> $GITHUB_OUTPUT || echo ok=0 >> $GITHUB_OUTPUT
           cat out.txt err.txt
-      - name: Save
-        if: steps.f.outputs.ok == '1'
-        run: |
-          git config user.name "transcript-bot"; git config user.email "transcript-bot@users.noreply.github.com"
-          git add research/transcripts; git diff --cached --quiet || git commit -m "transcript: ${{ steps.f.outputs.url }}"
-          for i in 1 2 3; do git pull --rebase -q && git push && break; sleep 5; done
       - name: Reply
         if: github.event_name == 'issue_comment'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           if [ "${{ steps.f.outputs.ok }}" = "1" ]; then
-            F=$(head -1 out.txt); MSG="Transcript saved: https://github.com/${{ github.repository }}/blob/main/${F// /%20}"
+            F=$(head -1 out.txt); MSG="Transcript fetched (not saved to the repo): $F"
           else
             MSG="Transcript bot could not get captions (YouTube may block GitHub's servers). Error: $(tail -c 300 err.txt). Ask terminal Claude to fetch it from Jeff's Linux machine."
           fi

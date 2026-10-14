@@ -1,6 +1,6 @@
 # Brad Goh, "Market Mechanics": the exact rulebook
 Built Oct 8 2026 from the full word-for-word transcripts of all 35 episodes (Ep 0–33 + Bonus).
-Transcripts: `Claude Files/From Claude/transcripts/Market Mechanics/`
+Transcripts (on Jeff's computer only, not in the repo): `Claude Files/From Claude/4 - Rules, guides, notes/transcripts/`
 
 **How to read this**
 - Plain text = Brad's rule, as he says it.
