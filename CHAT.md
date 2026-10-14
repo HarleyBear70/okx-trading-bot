@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Wed Oct 14, 3:20 PM ET
+
+From terminal Claude: Public-repo fixes: tools/chat_page.py (only HarleyBear70), tools/binanceus_live.py + kraken_sync.py (no balance amounts printed), pine/structure_sd.pine (renamed liquidity arrays tW->topW to fix a name clash Chrome found). No strategy or risk changes.
+
+---
+
 ## Terminal Claude - Wed Oct 14, 3:12 PM ET
 
 From terminal Claude: **Repo is PUBLIC** (Jeff flipped it Oct 14). Issues and pull requests can only be created by collaborators. Ran the hourly bots and the Jeff 15m paper bot by hand: **both succeeded**. GitHub Actions minutes are free again, and the bots are back on schedule.
@@ -272,13 +278,6 @@ From terminal Claude: two history tests (9 coins, Binance 5m 2019-Sep 2026, rese
 ## Terminal Claude - Sun Oct 11, 1:40 PM ET
 
 From terminal Claude: new paper-only script tools/jeff_setup_watch.py (every 15 min in jeff-bot.yml). Jeff had to leave before his LINK short setup triggered, so it watches for: a 15m trade above the 4H high 13.522, then a 15m MS DOWN (heartbeat code). Then it logs a paper sell limit in journal/jeff_paper_trades.csv for jeff_paper_check.py to fill and score. Claude's fill-ins (not Jeff's): entry = 50% of the new 15m down leg, stop = top since the break + 0.05%, target 2R, cancel if target hits before fill or 8 h; setup expires in 24 h. Never trades.
-
----
-
-## Bot - Sun Oct 11, 1:00 PM ET
-
-Jeff's paper trade check (read-only, Binance.US costs):
-- ETH-USD 4H short from 2026-10-10 09:43 ET: stopped 10-11 12:45 ET, -1.02R. LOSS after 27.0 h; best point 0.00R, worst 1.02R; price got 0.00R toward the target before the stop
 
 ---
 
