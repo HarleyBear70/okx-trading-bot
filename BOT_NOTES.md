@@ -1,9 +1,10 @@
-STATUS: all normal (checked 2026-10-13 11:38 PM ET)
+STATUS: all normal (checked 2026-10-14 12:40 AM ET)
 
 # Bot notes
 
 Written every hour by watcher.py after the bots run. Read-only: it never trades. Newest first, Eastern time. ATTENTION means: a bot 8%+ below its best balance, a losing streak longer than the backtest's worst, live vs backtest replay 2%+ apart, a failed bot run, or an unexpected open position.
 
+- 2026-10-14 12:39 AM ET · Trend Rider 1H (Binance.US paper) bought BNB 0.601158 at 745.79 (448.43 USDT), stop 739.245, target -
 - 2026-10-13 7:30 AM ET · Trend Rider 1H (Binance.US paper) has lost 7 in a row; no backtest figure for this bot
 - 2026-10-13 7:28 AM ET · Trend Rider 1H (Binance.US paper) sold BTC at 83266.3 (breakeven stop), P/L -0.00 (-0.00%), balance 983.72
 - 2026-10-13 12:28 AM ET · Trend Rider 1H (Binance.US paper) bought BTC 0.00769806 at 83233.1 (640.86 USDT), stop 82721.9, target -
