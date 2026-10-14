@@ -4,6 +4,56 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Wed Oct 14, 3:12 PM ET
+
+From terminal Claude: **Repo is PUBLIC** (Jeff flipped it Oct 14). Issues and pull requests can only be created by collaborators. Ran the hourly bots and the Jeff 15m paper bot by hand: **both succeeded**. GitHub Actions minutes are free again, and the bots are back on schedule.
+
+---
+
+## Terminal Claude - Wed Oct 14, 2:53 PM ET
+
+From terminal Claude: Locked down for a public repo (Jeff flips the switch himself; Claude Code won't make things public). Every part that reads GitHub comments now trusts **only HarleyBear70**:
+- chrome-notes-log workflow (logs #3/#4 comments)
+- tools/transcript_watch.sh (Jeff's Linux cron, 'transcript:' comments)
+- Beekeeper cloud routine: its prompt now treats any other author's text as untrusted data.
+- Transcripts moved off GitHub to Jeff's computer (Claude Files/From Claude/4 - Rules, guides, notes/transcripts); new ones save there too.
+
+---
+
+## Terminal Claude - Wed Oct 14, 2:44 PM ET
+
+From terminal Claude: Prep for making the repo public (Jeff wants the free Actions minutes):
+- Searched all history for keys or tokens: **none found**. Keys live only in GitHub secrets, which stay hidden on public repos and are never given to forks.
+- **Changed .github/workflows/chrome-notes-log.yml:** it now logs only comments from Jeff's own login (HarleyBear70), so strangers' comments can't write into the repo.
+- No workflow runs on pull requests, so outside code can't reach the secrets.
+- Will be visible: code, notes, trade history, Jeff's email on 96 old commits, Brad transcripts in research/transcripts.
+Waiting for Jeff's final OK before the switch is flipped.
+
+---
+
+## Terminal Claude - Wed Oct 14, 2:42 PM ET
+
+From terminal Claude: **Tier 2b $$$ liquidity built**, in one go (Jeff OK'd the rules). It's in the same script, pine/structure_sd.pine. Paste file: **From Claude/1 - USE NOW/Structure_Zones_PASTE_THIS.pine.txt**.
+- **D $$$** = yesterday's daily candle high/low (TradingView's day). **On SOL it gives 109.07 / 101.63, exactly Jeff's D SH / D SL.** So Jeff's way is the standard yesterday high/low.
+- **$$$** = equal highs: a later top's wick reaches into an earlier top's upper wick, with no wick past it in between. The line sits on the highest high. Equal lows = mirror. Only since the start of the current fib leg, one line per group.
+- **Gone when a wick takes it.** Green dotted line with a '$$$' tag, color in settings.
+**Check list** (1 - USE NOW/check_list_SOL_BTC_Oct14.txt):
+- SOL 15m 2 PM: D $$$ 109.07 / 101.63, **$$$ 103.53** (equal lows, 10:30 + 11:00 + 12:00). Zones: supply A 107.46-108.67, B 105.35-106.35, C 104.97-105.38; demand A 103.53-104.47.
+- SOL 15m 11:45 PM Oct 13: $$$ 108.64 (equal highs = WEAK), $$$ 106.98 (equal lows).
+- **BTC 1H Binance.US 1 PM (zones on a 2nd coin):** supply A 83,599.71-83,776.12, B 83,274.68-83,534.30; demand A 80,969.58-81,839.47. D $$$ 84,068.42 / 80,969.58, $$$ 84,035.74 (equal highs).
+**Not compiled here.** Chrome, please load it and check. Risky spots: timeframe.change('D'), the arrays passed into f_eq, the label count (now 100).
+
+---
+
+## Terminal Claude - Wed Oct 14, 2:20 PM ET
+
+From terminal Claude: **GitHub Actions stopped at about 3:40 AM ET Oct 14.** Every run fails with: 'The job was not started because recent account payments have failed or your spending limit needs to be increased.' The free monthly Actions minutes for this private repo are used up.
+- **Real money is safe:** tr-live and turtle-live have **no open positions** (equity $49.76 / $50.00). They just can't take new trades until Actions runs again.
+- Paper bots (hourly, Jeff 15m, Brad) are also paused.
+- Nothing changed by me. The fix is Jeff's choice: wait for the monthly reset, raise the spending limit, or run the bots less often.
+
+---
+
 ## Terminal Claude - Wed Oct 14, 1:47 AM ET
 
 From terminal Claude: Copied Chrome's look change into pine/structure_sd.pine so the repo matches Jeff's chart. Hot pink 50% line (255,0,200), solid, width 3, drawn on top of the zones, reaching 30 bars right with a '50%' tag. New input '50% line color'. The yellow dashed mid line is removed. No rule changes; Jeff doesn't need to re-paste.
@@ -229,37 +279,6 @@ From terminal Claude: new paper-only script tools/jeff_setup_watch.py (every 15 
 
 Jeff's paper trade check (read-only, Binance.US costs):
 - ETH-USD 4H short from 2026-10-10 09:43 ET: stopped 10-11 12:45 ET, -1.02R. LOSS after 27.0 h; best point 0.00R, worst 1.02R; price got 0.00R toward the target before the stop
-
----
-
-## Terminal Claude - Sun Oct 11, 12:36 PM ET
-
-From terminal Claude: history test of my own heartbeat rules (research/CLAUDE_HB_BACKTEST.txt, 9 coins 2019-2026, ~7,000 trades per version): PF 0.93-0.97, a small loss in every version. The one split that helped every time: entry in the RIGHT 15m zone (long in discount / short in premium) PF 0.96-1.01 vs wrong zone 0.89-0.92. Changed tools/claude_hb_trader.py: it now only enters in the right 15m zone. Paper only.
-
----
-
-## Terminal Claude - Sun Oct 11, 12:25 PM ET
-
-From terminal Claude: new paper-only trader tools/claude_hb_trader.py, called from heartbeat_watch.py every 15 min (Jeff asked Claude to trade and learn). CLAUDE'S rules, not Jeff's: bias = 4H, 1H and 15m heartbeat legs all the same way; trigger = 5m MS that way; limit at the 50% of the new 5m leg; stop past the 5m MUST HOLD + 0.05%; target 2R; cancel on target-first / opposite 5m MS / bias break / 2 h. Coins LINK BTC ETH SOL. Paper $1,000, 1% risk, Binance.US costs. Trades log to journal/claude_hb_trades.csv with learning data (1D agree?, entry zone in the 15m leg, best/worst R). Never sends orders anywhere. History replay of the same rules: research/claude_hb_backtest.py.
-
----
-
-## Terminal Claude - Sun Oct 11, 12:17 PM ET
-
-From terminal Claude: new read-only script tools/heartbeat_watch.py (runs every 15 min in the jeff-bot workflow). For LINK, BTC, ETH, SOL on 1D/4H/1H/15m/5m it runs Jeff's heartbeat structure (jeff_struct.py, swing 1) and writes journal/heartbeat_now.md (which way, what must hold, where it flips, 50%, zone) and logs every BOS / MS / sweep / fuel grab to journal/heartbeat_events.csv with what the bigger timeframes were doing at that moment. No trades, no settings changed.
-
----
-
-## Bot - Sun Oct 11, 3:01 AM ET
-
-Jeff's paper trade check (read-only, Binance.US costs):
-- BTC-USDT 1H short from 2026-10-11 ~01:15 ET: stopped 10-11 02:45 ET, -1.25R. LOSS after 1.5 h; best point 0.11R, worst 1.26R; price got 0.11R toward the target before the stop
-
----
-
-## Terminal Claude - Sun Oct 11, 1:21 AM ET
-
-Note from terminal Claude: new read-only step in the 15m workflow: tools/jeff_paper_check.py checks Jeff's own paper trades (journal/jeff_paper_trades.csv) against OKX 5m candles every 15 min. When a stop or target is hit it fills in the result (scored at Binance.US costs: limit 0%, stop 0.02% + 0.02% slippage), time in trade and best/worst point in R, and posts a note here. Never trades. Open now: SOL 15m short (109.71), BTC 1H short (limit 83,040.2 filled 01:15 ET), ETH 4H short.
 
 ---
 
