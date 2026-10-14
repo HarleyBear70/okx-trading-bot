@@ -36,6 +36,7 @@ showFib  = input.bool(true, "Show premium / discount (fib STRONG to WEAK)")
 showLns  = input.bool(true, "Show the STRONG / WEAK lines")
 showBox  = input.bool(true, "Show the corner box")
 showOB   = input.bool(true, "Show supply / demand zones (A, B, C...)")
+midCol   = input.color(color.rgb(255, 0, 200), "50% line color")
 obTrend  = input.bool(false, "Zones only WITH the trend (supply in a downtrend, demand in an uptrend)")
 
 GREEN  = color.rgb(0, 230, 118)
@@ -281,7 +282,6 @@ barcolor(prevCol, offset=-1)
 // premium / discount (fib STRONG -> WEAK, redrawn on every BOS / MS and whenever WEAK extends) + lines
 var line  lS = na
 var line  lW = na
-var line  lM = na
 var box   bP = na
 var box   bD = na
 var label tS = na
@@ -289,7 +289,6 @@ var label tW = na
 if barstate.islast and trend != 0
     line.delete(lS)
     line.delete(lW)
-    line.delete(lM)
     box.delete(bP)
     box.delete(bD)
     label.delete(tS)
@@ -302,7 +301,6 @@ if barstate.islast and trend != 0
         bot = math.min(strong, weak)
         bP := box.new(x1, top, x2, mid, border_color=color.new(RED, 80), bgcolor=color.new(RED, 90), text="PREMIUM", text_size=size.normal, text_color=color.new(color.white, 30), text_halign=text.align_right)
         bD := box.new(x1, mid, x2, bot, border_color=color.new(GREEN, 80), bgcolor=color.new(GREEN, 90), text="DISCOUNT", text_size=size.normal, text_color=color.new(color.white, 30), text_halign=text.align_right)
-        lM := line.new(x1, mid, x2, mid, color=YELLOW, style=line.style_dashed)
     if showLns
         lS := line.new(x1, strong, x2, strong, color=color.white, width=2)
         lW := line.new(x1, weak, x2, weak, color=color.gray, style=line.style_dotted, width=2)
@@ -378,6 +376,17 @@ if barstate.islast
                     for j = 0 to array.size(gTop) - 1
                         letter = j < 26 ? str.substring("ABCDEFGHIJKLMNOPQRSTUVWXYZ", j, j + 1) : str.tostring(j + 1)
                         array.push(obBoxes, box.new(array.get(gX, j), array.get(gTop, j), bar_index + 15, array.get(gBot, j), border_color=color.black, border_width=2, bgcolor=color.new(sd == 1 ? GREEN : RED, 88), text=letter, text_size=size.normal, text_color=color.black))
+
+// the 50% line: hot pink, solid, on top of the zone boxes, past them on the right with a "50%" tag (Jeff via Chrome, Oct 14)
+var line  lM = na
+var label tM = na
+if barstate.islast
+    line.delete(lM)
+    label.delete(tM)
+    if showFib and trend != 0
+        fm = (strong + weak) / 2
+        lM := line.new(math.min(nz(sb, wb), wb), fm, bar_index + 30, fm, color=midCol, width=3)
+        tM := label.new(bar_index + 30, fm, "50%", style=label.style_label_left, color=midCol, textcolor=color.white, size=size.normal)
 
 // small top-right box (trend + phase) and the color key laid on its side along the bottom
 var table tb  = table.new(position.top_right, 1, 3, bgcolor=color.new(color.black, 15), frame_color=color.gray, frame_width=1, border_width=2)
