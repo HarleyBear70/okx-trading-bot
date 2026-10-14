@@ -413,22 +413,22 @@ if timeframe.change("D")
 else
     dHi := math.max(nz(dHi, high), high)
     dLo := math.min(nz(dLo, low), low)
-var array<float> tW = array.new_float()   // tops: wick (high), body top, candle, equal?
-var array<float> tE = array.new_float()
-var array<int>   tB = array.new_int()
-var array<bool>  tQ = array.new_bool()
+var array<float> topW = array.new_float()   // tops: wick (high), body top, candle, equal?
+var array<float> topE = array.new_float()
+var array<int>   topB = array.new_int()
+var array<bool>  topQ = array.new_bool()
 var array<float> uW = array.new_float()   // bottoms: wick (low), body bottom, candle, equal?
 var array<float> uE = array.new_float()
 var array<int>   uB = array.new_int()
 var array<bool>  uQ = array.new_bool()
 // a wick past it takes it
-if array.size(tW) > 0
-    for i = array.size(tW) - 1 to 0
-        if high > array.get(tW, i)
-            array.remove(tW, i)
-            array.remove(tE, i)
-            array.remove(tB, i)
-            array.remove(tQ, i)
+if array.size(topW) > 0
+    for i = array.size(topW) - 1 to 0
+        if high > array.get(topW, i)
+            array.remove(topW, i)
+            array.remove(topE, i)
+            array.remove(topB, i)
+            array.remove(topQ, i)
 if array.size(uW) > 0
     for i = array.size(uW) - 1 to 0
         if low < array.get(uW, i)
@@ -440,19 +440,19 @@ if array.size(uW) > 0
 if close[1] > open[1] and close < open
     oj = high[1] >= high ? 1 : 0
     w = high[oj]
-    if array.size(tW) > 0
-        for i = 0 to array.size(tW) - 1
-            if array.get(tE, i) <= w and w <= array.get(tW, i)
-                array.set(tQ, i, true)
-    array.push(tW, w)
-    array.push(tE, math.max(open[oj], close[oj]))
-    array.push(tB, bar_index - oj)
-    array.push(tQ, false)
-    if array.size(tW) > 300
-        array.shift(tW)
-        array.shift(tE)
-        array.shift(tB)
-        array.shift(tQ)
+    if array.size(topW) > 0
+        for i = 0 to array.size(topW) - 1
+            if array.get(topE, i) <= w and w <= array.get(topW, i)
+                array.set(topQ, i, true)
+    array.push(topW, w)
+    array.push(topE, math.max(open[oj], close[oj]))
+    array.push(topB, bar_index - oj)
+    array.push(topQ, false)
+    if array.size(topW) > 300
+        array.shift(topW)
+        array.shift(topE)
+        array.shift(topB)
+        array.shift(topQ)
 // new bottom: a red candle then a green candle
 if close[1] < open[1] and close > open
     oj = low[1] <= low ? 1 : 0
@@ -507,7 +507,7 @@ if barstate.islast
             f_liq(nz(pdStart, bar_index), pdl, "D $$$")
         if trend != 0
             x0 = math.min(nz(sb, wb), wb)
-            f_eq(tW, tE, tB, tQ, x0)
+            f_eq(topW, topE, topB, topQ, x0)
             f_eq(uW, uE, uB, uQ, x0)
 
 // small top-right box (trend + phase) and the color key laid on its side along the bottom

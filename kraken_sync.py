@@ -118,7 +118,7 @@ def main():
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w") as f:
         json.dump(res, f, indent=1)
-    print("kraken:", "ok" if not res["errors"] else res["errors"], "| total", res.get("total_usd"), "| trades", res.get("trades_count"))
+    print("kraken:", "ok" if not res["errors"] else res["errors"], "| trades", res.get("trades_count"))
 
 
 if __name__ == "__main__":

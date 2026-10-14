@@ -19,6 +19,8 @@ def who(c):
     body = c["body"].lstrip()
     if c["user"]["login"].endswith("[bot]") or c["user"]["login"] == "sp12-bot":
         return "Bot"
+    if c["user"]["login"] != "HarleyBear70":  # public repo: a stranger's comment is never shown as Jeff or a Claude
+        return None
     if body.startswith(TERMINAL):
         return "Terminal Claude"
     if body.startswith(("From Chrome Claude", "**From Chrome Claude", "Chrome Claude")):
@@ -30,6 +32,7 @@ def main():
     out = subprocess.run(["gh", "api", f"repos/{REPO}/issues/4/comments", "--paginate"],
                          capture_output=True, text=True, check=True).stdout
     comments = json.loads(out.replace("][", ","))
+    comments = [c for c in comments if who(c)]  # strangers' comments left out (public repo)
     comments = sorted(comments, key=lambda c: c["created_at"], reverse=True)[:KEEP]
     lines = ["# Claude chat - NEWEST FIRST", "",
              f"Last {KEEP} messages from [issue #4](https://github.com/{REPO}/issues/4). "

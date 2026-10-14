@@ -99,7 +99,7 @@ def main():
     print(f"key works: YES | can trade: {'YES' if acct.get('canTrade') else 'NO'}")
     for a in ("USD", "USDC", "USDT", "BTC"):
         if a in bal:
-            print(f"balance {a}: free {bal[a][0]:.8g}, locked {bal[a][1]:.8g}")
+            print(f"balance {a}: present")  # amounts not printed: Actions logs are public (Oct 14 2026)
     if mode != "trade":
         print("check only: no orders placed")
         return
