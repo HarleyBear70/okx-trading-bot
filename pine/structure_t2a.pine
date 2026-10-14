@@ -18,12 +18,13 @@
 //   Top-right box: the 4H trend (same rules on 4H candles, last closed 4H candle) next to this chart's trend.
 //   TIER 2a ORDER BLOCKS (Brad Ep 7/9/10/25, Jeff's answers on #9): every BOS/MS whose move (launch candle -> break)
 //     left a fair value gap gives an OB = ONE candle, wick to wick: the last opposite-colour candle from the launch candle
-//     up to the gap. Used (removed) once price comes back to the box's 50%. Shown: only the NEAREST fresh one per side,
-//     with the trend (setting) and in the right half (demand in discount, supply in premium).
-//     [Claude's fill-ins: several opposite candles = the last one before the gap; "in discount" = box 50% below fib 50%.]
+//     up to the gap. Used (removed) once price comes back to the box's 50%. Shown: EVERY fresh one inside the right half
+//     of the fib ("Way 2": buy zones between STRONG and the 50%, sell zones between the 50% and STRONG; the box's 50%
+//     decides), with the trend (setting). Letters per side: A = farthest from price (Brad's extreme zone), then B, C...
+//     [Claude's fill-in: several opposite candles = the last one before the gap.]
 //   [Claude's fill-ins: "pullback" = at least 1 candle that did not make a new high/low; equal lows = within 0.01%.]
 //@version=6
-indicator("Jeff's Structure T2a", shorttitle="Structure", overlay=true, max_lines_count=20, max_labels_count=20, max_boxes_count=10, max_bars_back=2000)
+indicator("Jeff's Structure T2a", shorttitle="Structure", overlay=true, max_lines_count=20, max_labels_count=20, max_boxes_count=100, max_bars_back=2000)
 
 iCol     = input.color(color.rgb(0, 200, 200), "Internal break up (buyers)")
 iColDn   = input.color(color.rgb(140, 85, 40), "Internal break down (sellers)")
@@ -31,7 +32,7 @@ nearAtr  = input.float(0.5, "Watch: 'getting close' distance (x ATR)", minval=0.
 showFib  = input.bool(true, "Show premium / discount (fib STRONG to WEAK)")
 showLns  = input.bool(true, "Show the STRONG / WEAK lines")
 showBox  = input.bool(true, "Show the corner box")
-showOB   = input.bool(true, "Show order blocks (nearest fresh zone)")
+showOB   = input.bool(true, "Show order blocks (fresh zones A, B, C...)")
 obTrend  = input.bool(true, "Order blocks only WITH the trend (Brad)")
 
 GREEN  = color.rgb(0, 230, 118)
@@ -275,29 +276,39 @@ if barstate.islast and trend != 0
         tS := label.new(x2, strong, "STRONG " + str.tostring(strong, format.mintick), style=label.style_label_left, color=color.rgb(70, 70, 70), textcolor=color.white, size=size.normal)
         tW := label.new(x2, weak, "WEAK " + str.tostring(weak, format.mintick), style=label.style_label_left, color=color.rgb(110, 110, 110), textcolor=color.white, size=size.normal)
 
-// the nearest fresh order block each side
-var box obB = na
-var box obS = na
+// fresh order blocks inside the right half of the fib (Jeff "Way 2"), lettered A (farthest from price), B, C ... per side
+var array<box> obBoxes = array.new_box()
+f_side(sd, fm) =>
+    // indices of this side's zones inside the fib half, sorted farthest from price first
+    lo = sd == 1 ? math.min(strong, fm) : fm
+    hi = sd == 1 ? fm : math.max(strong, fm)
+    keys = array.new_float()
+    idx = array.new_int()
+    for i = 0 to array.size(zTop) - 1
+        zm = (array.get(zTop, i) + array.get(zBot, i)) / 2
+        if array.get(zSide, i) == sd and zm >= lo and zm <= hi
+            array.push(keys, sd == 1 ? array.get(zBot, i) : -array.get(zTop, i))
+            array.push(idx, i)
+    out = array.new_int()
+    if array.size(keys) > 0
+        srt = array.sort_indices(keys, order.ascending)
+        for j = 0 to array.size(srt) - 1
+            array.push(out, array.get(idx, array.get(srt, j)))
+    out
 if barstate.islast
-    box.delete(obB)
-    box.delete(obS)
+    for bx in obBoxes
+        box.delete(bx)
+    array.clear(obBoxes)
     if showOB and trend != 0 and array.size(zTop) > 0
         fm = (strong + weak) / 2
-        bi = -1
-        si = -1
-        for i = 0 to array.size(zTop) - 1
-            t = array.get(zTop, i)
-            b = array.get(zBot, i)
-            zm = (t + b) / 2
-            sd = array.get(zSide, i)
-            if sd == 1 and (not obTrend or trend == 1) and zm < fm and t < close and (bi < 0 or t > array.get(zTop, bi))
-                bi := i
-            if sd == -1 and (not obTrend or trend == -1) and zm > fm and b > close and (si < 0 or b < array.get(zBot, si))
-                si := i
-        if bi >= 0
-            obB := box.new(array.get(zOb, bi), array.get(zTop, bi), bar_index + 15, array.get(zBot, bi), border_color=GREEN, border_width=2, bgcolor=color.new(GREEN, 70), text="BUY ZONE (fresh OB)", text_size=size.small, text_color=color.white, text_halign=text.align_right)
-        if si >= 0
-            obS := box.new(array.get(zOb, si), array.get(zTop, si), bar_index + 15, array.get(zBot, si), border_color=RED, border_width=2, bgcolor=color.new(RED, 70), text="SELL ZONE (fresh OB)", text_size=size.small, text_color=color.white, text_halign=text.align_right)
+        for sd in array.from(1, -1)
+            if not obTrend or sd == trend
+                lst = f_side(sd, fm)
+                if array.size(lst) > 0
+                    for j = 0 to array.size(lst) - 1
+                        i = array.get(lst, j)
+                        letter = j < 26 ? str.substring("ABCDEFGHIJKLMNOPQRSTUVWXYZ", j, j + 1) : str.tostring(j + 1)
+                        array.push(obBoxes, box.new(array.get(zOb, i), array.get(zTop, i), bar_index + 15, array.get(zBot, i), border_color=color.black, border_width=2, bgcolor=color.new(sd == 1 ? GREEN : RED, 70), text=letter, text_size=size.small, text_color=color.black))
 
 // small top-right box (trend + phase) and the color key laid on its side along the bottom
 var table tb  = table.new(position.top_right, 1, 3, bgcolor=color.new(color.black, 15), frame_color=color.gray, frame_width=1, border_width=2)

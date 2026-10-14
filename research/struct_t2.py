@@ -8,10 +8,9 @@ Rules (Brad Ep 7, 9, 10, 25; Jeff's answers on #9):
             candle up to the gap's candle 1; if there is none, the launch candle itself.
             [CLAUDE: which candle when the move has several red candles = the last one before the gap]
   Fresh     price has not come back to the box's 50% line since the break. Used = removed.
-  Show      every zone that is fresh and in the right half of the current fib STRONG-WEAK (demand in discount, supply in
-            premium); switch "only WITH the trend" (demand in an uptrend, supply in a downtrend). Letters per side (Jeff,
+  Show      every zone that is fresh and INSIDE the right half of the current fib (Jeff "Way 2": demand between STRONG
+            and the 50%, supply between the 50% and STRONG; the box's 50% line decides); switch "only WITH the trend" (demand in an uptrend, supply in a downtrend). Letters per side (Jeff,
             Oct 13 #9): A = the extreme zone (farthest from price), then B, C, ... toward price. No cap (Jeff).
-            [CLAUDE: "in discount" = the box's 50% line is below the fib 50%]
   python3 research/struct_t2.py sol15 FILE   SOL 15m (OKX json) lettered zones every 3 hours on Oct 12
   python3 research/struct_t2.py   BTCUSD 1H Binance.US: every OB made in the last 7 days + when it was used, and what shows now
 """
@@ -58,7 +57,8 @@ def lettered(trend, strong, weak, fresh, with_trend=True):
     for side, sgn in (("demand", 1), ("supply", -1)):
         if with_trend and sgn != trend:
             continue
-        zs = [z for z in fresh if z["side"] == side and (((z["top"] + z["bot"]) / 2 < mid) if sgn == 1 else ((z["top"] + z["bot"]) / 2 > mid))]
+        lo, hi = (min(strong, mid), mid) if sgn == 1 else (mid, max(strong, mid))  # Way 2: inside the fib, STRONG to 50%
+        zs = [z for z in fresh if z["side"] == side and lo <= (z["top"] + z["bot"]) / 2 <= hi]
         zs.sort(key=lambda z: z["bot"] if sgn == 1 else -z["top"])  # farthest from price first
         out[side] = [(chr(65 + i) if i < 26 else str(i + 1), z) for i, z in enumerate(zs)]
     return out
