@@ -1,5 +1,5 @@
 {
- "updated_utc": "2026-10-14 22:37",
+ "updated_utc": "2026-10-14 23:33",
  "errors": {},
  "balances": [],
  "total_usd": 0,
@@ -11,9 +11,9 @@
    "ETH": 0.8
   },
   "maker": {
-   "XRP": 0.4,
    "BTC": 0.4,
-   "ETH": 0.4
+   "ETH": 0.4,
+   "XRP": 0.4
   }
  },
  "trades_count": 0,
