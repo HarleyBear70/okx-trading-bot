@@ -25,9 +25,15 @@
 //     one letter (Jeff: demand Oct 13 = A | 7:45+8:30+9:00 | 9:45+7PM+7:45PM; supply = A | B). See-through fill.
 //     [Claude's fill-ins: the A wording above; letters by the box's 50%; a box joins a group when its 50% is inside the
 //     group's first box (no number); a tie = the bigger box first (Chrome).]
+//   TIER 2b LIQUIDITY $$$ (Jeff, Oct 14, #9): the money (stops) sits above wicks and below wicks. Once a wick takes it,
+//     it is gone ("the fuel station is empty"). D $$$ = yesterday's daily candle high and low (TradingView's day; on SOL
+//     Oct 14 = Jeff's D SH 109.07 / D SL 101.63). $$$ = equal highs: a top (green candle then red candle; its wick = the
+//     higher of the two) whose upper wick a later top's high reaches into (between its body top and its high), with no
+//     wick past it in between; the line sits on the highest high. Equal lows = mirror. Only since the start of the current
+//     fib leg; a level inside another level's wick is dropped (one line per group). [Claude's rules, no number]
 //   [Claude's fill-ins: "pullback" = at least 1 candle that did not make a new high/low; equal lows = within 0.01%.]
 //@version=6
-indicator("Jeff's Structure Zones", shorttitle="Structure", overlay=true, max_lines_count=20, max_labels_count=20, max_boxes_count=100, max_bars_back=2000)
+indicator("Jeff's Structure Zones", shorttitle="Structure", overlay=true, max_lines_count=100, max_labels_count=100, max_boxes_count=100, max_bars_back=2000)
 
 iCol     = input.color(color.rgb(0, 200, 200), "Internal break up (buyers)")
 iColDn   = input.color(color.rgb(140, 85, 40), "Internal break down (sellers)")
@@ -37,6 +43,8 @@ showLns  = input.bool(true, "Show the STRONG / WEAK lines")
 showBox  = input.bool(true, "Show the corner box")
 showOB   = input.bool(true, "Show supply / demand zones (A, B, C...)")
 midCol   = input.color(color.rgb(255, 0, 200), "50% line color")
+showLiq  = input.bool(true, "Show liquidity $$$ (yesterday's high/low + equal highs/lows)")
+liqCol   = input.color(color.rgb(0, 170, 70), "$$$ color")
 obTrend  = input.bool(false, "Zones only WITH the trend (supply in a downtrend, demand in an uptrend)")
 
 GREEN  = color.rgb(0, 230, 118)
@@ -387,6 +395,120 @@ if barstate.islast
         fm = (strong + weak) / 2
         lM := line.new(math.min(nz(sb, wb), wb), fm, bar_index + 30, fm, color=midCol, width=3)
         tM := label.new(bar_index + 30, fm, "50%", style=label.style_label_left, color=midCol, textcolor=color.white, size=size.normal)
+
+// TIER 2b: liquidity $$$
+var float dHi = na
+var float dLo = na
+var float pdh = na
+var float pdl = na
+var int   dStart = na
+var int   pdStart = na
+if timeframe.change("D")
+    pdh := dHi
+    pdl := dLo
+    pdStart := dStart
+    dHi := high
+    dLo := low
+    dStart := bar_index
+else
+    dHi := math.max(nz(dHi, high), high)
+    dLo := math.min(nz(dLo, low), low)
+var array<float> tW = array.new_float()   // tops: wick (high), body top, candle, equal?
+var array<float> tE = array.new_float()
+var array<int>   tB = array.new_int()
+var array<bool>  tQ = array.new_bool()
+var array<float> uW = array.new_float()   // bottoms: wick (low), body bottom, candle, equal?
+var array<float> uE = array.new_float()
+var array<int>   uB = array.new_int()
+var array<bool>  uQ = array.new_bool()
+// a wick past it takes it
+if array.size(tW) > 0
+    for i = array.size(tW) - 1 to 0
+        if high > array.get(tW, i)
+            array.remove(tW, i)
+            array.remove(tE, i)
+            array.remove(tB, i)
+            array.remove(tQ, i)
+if array.size(uW) > 0
+    for i = array.size(uW) - 1 to 0
+        if low < array.get(uW, i)
+            array.remove(uW, i)
+            array.remove(uE, i)
+            array.remove(uB, i)
+            array.remove(uQ, i)
+// new top: a green candle then a red candle
+if close[1] > open[1] and close < open
+    oj = high[1] >= high ? 1 : 0
+    w = high[oj]
+    if array.size(tW) > 0
+        for i = 0 to array.size(tW) - 1
+            if array.get(tE, i) <= w and w <= array.get(tW, i)
+                array.set(tQ, i, true)
+    array.push(tW, w)
+    array.push(tE, math.max(open[oj], close[oj]))
+    array.push(tB, bar_index - oj)
+    array.push(tQ, false)
+    if array.size(tW) > 300
+        array.shift(tW)
+        array.shift(tE)
+        array.shift(tB)
+        array.shift(tQ)
+// new bottom: a red candle then a green candle
+if close[1] < open[1] and close > open
+    oj = low[1] <= low ? 1 : 0
+    w = low[oj]
+    if array.size(uW) > 0
+        for i = 0 to array.size(uW) - 1
+            if array.get(uW, i) <= w and w <= array.get(uE, i)
+                array.set(uQ, i, true)
+    array.push(uW, w)
+    array.push(uE, math.min(open[oj], close[oj]))
+    array.push(uB, bar_index - oj)
+    array.push(uQ, false)
+    if array.size(uW) > 300
+        array.shift(uW)
+        array.shift(uE)
+        array.shift(uB)
+        array.shift(uQ)
+var array<line>  liqL = array.new_line()
+var array<label> liqT = array.new_label()
+f_liq(x1, y, txt) =>
+    array.push(liqL, line.new(x1, y, bar_index + 22, y, color=liqCol, style=line.style_dotted, width=2))
+    array.push(liqT, label.new(bar_index + 22, y, txt, style=label.style_label_left, color=liqCol, textcolor=color.white, size=size.normal))
+    true
+// one side's equal levels since x0, one line per group (a level inside another level's wick is dropped)
+f_eq(W, E, B, Q, x0) =>
+    n = array.size(W)
+    if n > 0
+        for i = 0 to n - 1
+            if array.get(Q, i) and array.get(B, i) >= x0
+                y = array.get(W, i)
+                inside = false
+                for j = 0 to n - 1
+                    if j != i and array.get(Q, j) and array.get(B, j) >= x0 and array.get(W, j) != y
+                        lo = math.min(array.get(W, j), array.get(E, j))
+                        hi = math.max(array.get(W, j), array.get(E, j))
+                        if y >= lo and y <= hi
+                            inside := true
+                if not inside
+                    f_liq(array.get(B, i), y, "$$$")
+    true
+if barstate.islast
+    for x in liqL
+        line.delete(x)
+    for x in liqT
+        label.delete(x)
+    array.clear(liqL)
+    array.clear(liqT)
+    if showLiq
+        if not na(pdh) and dHi <= pdh
+            f_liq(nz(pdStart, bar_index), pdh, "D $$$")
+        if not na(pdl) and dLo >= pdl
+            f_liq(nz(pdStart, bar_index), pdl, "D $$$")
+        if trend != 0
+            x0 = math.min(nz(sb, wb), wb)
+            f_eq(tW, tE, tB, tQ, x0)
+            f_eq(uW, uE, uB, uQ, x0)
 
 // small top-right box (trend + phase) and the color key laid on its side along the bottom
 var table tb  = table.new(position.top_right, 1, 3, bgcolor=color.new(color.black, 15), frame_color=color.gray, frame_width=1, border_width=2)
