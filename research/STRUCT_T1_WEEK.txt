@@ -1,6 +1,5 @@
 BTCUSD 1H, Binance.US, times ET (candle open time, like TradingView). Last 7 days.
 time               event               candle close   level broken   -> trend / STRONG / WEAK after
-Tue Oct 06 09 PM   iBOS down            84403.3        85500          -> UP / 83162.4 / 86848.9
 Wed Oct 07 03 AM   iBOS down            84096.2        84109.4        -> UP / 83162.4 / 86848.9
 Wed Oct 07 09 AM   sweep of STRONG      83252.5        83162.4        -> UP / 83162.4 / 86848.9
 Wed Oct 07 10 AM   sweep (MS undone)    82952.3        82952.3        -> UP / 83162.4 / 86848.9
@@ -55,3 +54,4 @@ Tue Oct 13 08 AM   sweep of STRONG      83233.2        83170.4        -> UP / 83
 Tue Oct 13 09 AM   sweep (MS undone)    83147.6        83147.6        -> UP / 83170.4 / 83812.5
 Tue Oct 13 11 AM   sweep of STRONG      83322.6        83170.4        -> UP / 83170.4 / 83812.5
 Tue Oct 13 01 PM   MS DOWN              82930.4        82930.4        -> DOWN / 84068.4 / 82903.4
+Tue Oct 13 07 PM   iBOS down            83100.6        83229.4        -> DOWN / 84068.4 / 82903.4

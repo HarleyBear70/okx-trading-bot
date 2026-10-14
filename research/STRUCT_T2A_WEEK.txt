@@ -9,5 +9,5 @@ MS DOWN  Mon 12 08 AM  Mon Oct 12 03 AM  supply   83895.8    - 84269.5     FRESH
 BOS down Mon 12 06 PM  Mon Oct 12 04 PM  supply   82769.4    - 83035.2     Mon Oct 12 10 PM
 MS UP    Mon 12 11 PM  Mon Oct 12 08 PM  demand   80969.6    - 81839.5     FRESH
 
-Now (Tue Oct 13 06 PM): trend DOWN, fib STRONG 84068.4 / WEAK 82903.4, 50% 83485.9, close 83466.6
+Now (Tue Oct 13 09 PM): trend DOWN, fib STRONG 84068.4 / WEAK 82903.4, 50% 83485.9, close 83243
 Chart shows: supply 83895.8 - 84269.5 (OB candle Mon Oct 12 03 AM)

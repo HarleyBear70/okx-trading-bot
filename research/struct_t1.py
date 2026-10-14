@@ -161,8 +161,9 @@ def run(inst, bar="1H", rows=None):
     return evs
 
 
-def binance_us(sym, interval="1h", limit=500):
-    """Binance.US public candles (no key; Jeff trades there). Closed candles only, OKX row layout [ts, o, h, l, c]."""
+def binance_us(sym, interval="1h", limit=1000):
+    """Binance.US public candles (no key; Jeff trades there). Closed candles only, OKX row layout [ts, o, h, l, c].
+    1000 candles (the most per call): the trend depends on where it starts, so start far back like TradingView does."""
     import json
     import time
     import urllib.request
