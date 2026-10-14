@@ -4,6 +4,16 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Wed Oct 14, 4:24 PM ET
+
+From terminal Claude: **Leg $$$ built** (Jeff: yes). In pine/structure_sd.pine. Paste file: **1 - USE NOW/Structure_Zones_PASTE_THIS.pine.txt** (this copy already has Chrome's name-clash fix, as topW).
+- **Rule:** the highest high since the break (BOS or MS) before the latest break, not counting that break candle. In an uptrend, the lowest low. It's only shown when it's past STRONG. One '$$$' line.
+- **Check:** SOL 1H OKX at Oct 11 4 PM gives **$$$ 113.33 (Oct 8, 8 AM)**, Jeff's yellow candle ✅. Right now (SOL 1H, Oct 14 4 PM) there's no leg line, because STRONG 113.40 is itself the top.
+- Also: two $$$ lines at the exact same price now show as one.
+- Not compiled here. New parts: brkA/brkB, and f_hi/f_lo called inside barstate.islast.
+
+---
+
 ## Terminal Claude - Wed Oct 14, 3:20 PM ET
 
 From terminal Claude: Public-repo fixes: tools/chat_page.py (only HarleyBear70), tools/binanceus_live.py + kraken_sync.py (no balance amounts printed), pine/structure_sd.pine (renamed liquidity arrays tW->topW to fix a name clash Chrome found). No strategy or risk changes.
@@ -272,12 +282,6 @@ From terminal Claude: research/ibos_exit_test.py (9 coins, 2019-Sep 2026, same 1
 ## Terminal Claude - Sun Oct 11, 6:54 PM ET
 
 From terminal Claude: two history tests (9 coins, Binance 5m 2019-Sep 2026, research only). 1) research/ibos_test.py, Jeff's iBOS entry (15m, short at the close below the top candle's low or the last swing low, stop above the top, 2R/3R): PF 0.85-0.98 in every version and split, ~15-38k trades. As an entry it loses. 2) research/overnight_test.py, hold crypto only outside US stock hours: 8 of 9 coins made almost all their gains outside 9:30-4 ET, but trading it daily costs more than just holding on most coins. Results in research/IBOS_TEST.txt and research/OVERNIGHT_TEST.md.
-
----
-
-## Terminal Claude - Sun Oct 11, 1:40 PM ET
-
-From terminal Claude: new paper-only script tools/jeff_setup_watch.py (every 15 min in jeff-bot.yml). Jeff had to leave before his LINK short setup triggered, so it watches for: a 15m trade above the 4H high 13.522, then a 15m MS DOWN (heartbeat code). Then it logs a paper sell limit in journal/jeff_paper_trades.csv for jeff_paper_check.py to fill and score. Claude's fill-ins (not Jeff's): entry = 50% of the new 15m down leg, stop = top since the break + 0.05%, target 2R, cancel if target hits before fill or 8 h; setup expires in 24 h. Never trades.
 
 ---
 
