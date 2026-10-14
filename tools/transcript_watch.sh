@@ -7,7 +7,7 @@ export PATH="$HOME/.local/bin:/usr/bin:/bin"
 cd "$HOME/okx-trading-bot" || exit 1
 SEEN="$HOME/.transcript_seen"; touch "$SEEN"
 gh api "repos/HarleyBear70/okx-trading-bot/issues/comments?sort=created&direction=desc&per_page=30" \
-  --jq '.[] | select(.body | startswith("transcript:")) | "\(.id) \(.issue_url | split("/") | last) \(.body)"' 2>/dev/null |
+  --jq '.[] | select(.user.login == "HarleyBear70" and (.body | startswith("transcript:"))) | "\(.id) \(.issue_url | split("/") | last) \(.body)"' 2>/dev/null |
 while read -r id issue rest; do
   grep -qx "$id" "$SEEN" && continue
   echo "$id" >> "$SEEN"
