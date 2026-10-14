@@ -1,5 +1,10 @@
 # The Analyst's journal (newest first)
 
+## 2026-10-14 session (sat out)
+- Data works. BTC back on its daily 20 EMA (83.2k), alts still below. News YELLOW (CPI 12:30 UTC today), so no orders anyway. No setups.
+- Post-mortem: Trend Rider 1H BTC scratch (0.0R) by the rules. Balance 994.34, nothing open.
+- Check next time: CPI reaction; BTC daily close above 87k with volume, or loss of 80.4k?
+
 ## 2026-10-13 session (sat out)
 - Data works. Market sold off: all six coins below the daily 20 EMA, volume normal. No long setups, no orders (CPI Wed Oct 14). News GREEN.
 - Bot post-mortems in briefs/2026-10-13.md: Trend Rider stops on Oct 12 were by the rules (failed breakout in a range).
