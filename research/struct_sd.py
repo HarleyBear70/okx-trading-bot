@@ -42,12 +42,12 @@ def anchor(o, h, l, c, top, b, sd):
     return next((x for x in range(top - 1, -1, -1) if opp(o, c, x, sd)), None)
 
 
-def groups(z, h, l, sd):
+def groups(z, h, l, a):
     """A alone; the rest, farthest from price first: a box joins the group when its 50% is inside the group's first box"""
     out = []
     for j in z:
         m = (h[j] + l[j]) / 2
-        if len(out) > 1 and l[out[-1][0]] <= m <= h[out[-1][0]]:
+        if out and out[-1][0] != a and l[out[-1][0]] <= m <= h[out[-1][0]]:
             out[-1].append(j)
         else:
             out.append([j])
@@ -78,12 +78,12 @@ def run(rows, at):
             print(f"{tm[k]:%a %b %d %H:%M} ET  close {c[k]}  trend {'UP' if s.trend == 1 else 'DOWN'}  STRONG {s.strong}  WEAK {s.weak}  fib 50% {mid:.3f}")
             for sd, name in ((-1, "SUPPLY (premium)"), (1, "DEMAND (discount)")):
                 show = [j for j in z[sd] if ((h[j] + l[j]) / 2 > mid if sd == -1 else (h[j] + l[j]) / 2 < mid)]
-                show.sort(key=lambda j: -(h[j] + l[j]) if sd == -1 else (h[j] + l[j]))
+                show.sort(key=lambda j: (-(h[j] + l[j]) if sd == -1 else (h[j] + l[j]), l[j] - h[j]))  # tie: bigger box first (Chrome)
                 if anc[sd] in show:  # A first, on its own
                     show.remove(anc[sd])
                     show.insert(0, anc[sd])
                 print(" ", name)
-                for n, g in enumerate(groups(show, h, l, sd)):
+                for n, g in enumerate(groups(show, h, l, anc[sd])):
                     print(f"    {'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[n] if n < 26 else n + 1}  {min(l[j] for j in g)} - {max(h[j] for j in g)}   (" + ", ".join(f"{tm[j]:%m-%d %H:%M}" for j in g) + ")")
 
 

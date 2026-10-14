@@ -17,12 +17,14 @@
 //   WATCH (YELLOW): close within 0.5 x ATR of STRONG or WEAK (same setting as Smoke Detector v22).
 //   Top-right box: the 4H trend (same rules on 4H candles, last closed 4H candle) next to this chart's trend.
 //   TIER 2 SUPPLY / DEMAND ZONES (Jeff, Oct 14, #9; his SOL 15m Oct 13 drawing A 4:00 AM, B 10:15 AM, C 3 PM, D 11:30 PM):
-//     ONE candle, wick to wick. Supply A = the last GREEN candle before the latest MS DOWN candle (where the current
-//     bearish move started; nothing older, a body close above A ends it). Then every later top = a green candle followed by
-//     a red candle (a place to pull back to for fuel). Removed ONLY when a body closes past its far edge (a wick = sweep,
-//     stays). Overlaps all show. Demand = mirror (A = the last RED candle before the latest MS UP). Shown: supply whose
-//     50% is in premium, demand whose 50% is in discount, both sides. Letters per side: A = farthest from price, B, C ...
-//     [Claude's fill-ins: "where the move started" = last green candle before the MS DOWN candle; letters by the box's 50%.]
+//     ONE candle, wick to wick. Supply A = where the current bearish move started (nothing older, a body close above A
+//     ends it): from the top candle of the run, the last GREEN candle before the first body close below that candle's low.
+//     Then every later top = a green candle followed by a red candle (a place to pull back to for fuel). Removed ONLY when
+//     a body closes past its far edge (a wick = sweep, stays). Demand = mirror. Shown: supply whose
+//     50% is in premium, demand whose 50% is in discount, both sides. A stands alone; "same area" boxes merge into one box,
+//     one letter (Jeff: demand Oct 13 = A | 7:45+8:30+9:00 | 9:45+7PM+7:45PM; supply = A | B). See-through fill.
+//     [Claude's fill-ins: the A wording above; letters by the box's 50%; a box joins a group when its 50% is inside the
+//     group's first box (no number); a tie = the bigger box first (Chrome).]
 //   [Claude's fill-ins: "pullback" = at least 1 candle that did not make a new high/low; equal lows = within 0.01%.]
 //@version=6
 indicator("Jeff's Structure Zones", shorttitle="Structure", overlay=true, max_lines_count=20, max_labels_count=20, max_boxes_count=100, max_bars_back=2000)
@@ -221,14 +223,31 @@ f_add(sd, off) =>
         array.shift(zSide)
         array.shift(zOb)
     true
-// A: on an MS (reported on the last candle), the last green (red) candle before the MS candle
-if evPrev == 3 or evPrev == 4
+// A: on an MS (reported on the last candle). From the top candle of the run (the new STRONG candle), the last green (red)
+// candle before the first body close below the top candle's low (above its high). If none, the last one before the top candle.
+if (evPrev == 3 or evPrev == 4) and not na(sb) and bar_index - sb <= 1500
     sd = evPrev == 3 ? 1 : -1
+    b = bar_index - 1
+    offT = bar_index - sb
+    hT = high[offT]
+    lT = low[offT]
+    stp = b + 1
+    if sb + 1 <= b
+        for x = sb + 1 to b
+            ox = bar_index - x
+            if sd == 1 ? close[ox] > hT : close[ox] < lT
+                stp := x
+                break
     off = int(na)
-    for i = 2 to math.min(bar_index, 1500)
-        if sd == 1 ? close[i] < open[i] : close[i] > open[i]
-            off := i
-            break
+    for x = sb to stp - 1
+        ox = bar_index - x
+        if sd == 1 ? close[ox] < open[ox] : close[ox] > open[ox]
+            off := ox
+    if na(off)
+        for i = offT + 1 to math.min(bar_index, 1500)
+            if sd == 1 ? close[i] < open[i] : close[i] > open[i]
+                off := i
+                break
     if not na(off)
         f_clear(sd)
         f_add(sd, off)
@@ -290,22 +309,62 @@ if barstate.islast and trend != 0
         tS := label.new(x2, strong, "STRONG " + str.tostring(strong, format.mintick), style=label.style_label_left, color=color.rgb(70, 70, 70), textcolor=color.white, size=size.normal)
         tW := label.new(x2, weak, "WEAK " + str.tostring(weak, format.mintick), style=label.style_label_left, color=color.rgb(110, 110, 110), textcolor=color.white, size=size.normal)
 
-// zones: supply with its 50% in premium, demand with its 50% in discount; lettered A (farthest from price), B, C ... per side
+// zones: supply with its 50% in premium, demand with its 50% in discount. A (where the move started) stands alone; the rest,
+// farthest from price first (a tie: the bigger box first), join a group when their 50% is inside the group's first box.
+// Each group = one box (lowest wick to highest wick), one letter: A, B, C ... per side.
 var array<box> obBoxes = array.new_box()
-f_side(sd, fm) =>
-    keys = array.new_float()
+f_side(sd, fm, aBar) =>
     idx = array.new_int()
+    aIdx = -1
     for i = 0 to array.size(zTop) - 1
         zm = (array.get(zTop, i) + array.get(zBot, i)) / 2
         if array.get(zSide, i) == sd and (sd == 1 ? zm < fm : zm > fm)
-            array.push(keys, sd == 1 ? zm : -zm)
-            array.push(idx, i)
-    out = array.new_int()
-    if array.size(keys) > 0
-        srt = array.sort_indices(keys, order.ascending)
-        for j = 0 to array.size(srt) - 1
-            array.push(out, array.get(idx, array.get(srt, j)))
-    out
+            if array.get(zOb, i) == aBar
+                aIdx := i
+            else
+                array.push(idx, i)
+    // sort: farthest from price first, tie = bigger box first
+    n = array.size(idx)
+    if n > 1
+        for p = 0 to n - 2
+            for q = 0 to n - 2 - p
+                i1 = array.get(idx, q)
+                i2 = array.get(idx, q + 1)
+                m1 = (array.get(zTop, i1) + array.get(zBot, i1)) / 2
+                m2 = (array.get(zTop, i2) + array.get(zBot, i2)) / 2
+                k1 = sd == 1 ? m1 : -m1
+                k2 = sd == 1 ? m2 : -m2
+                s1 = array.get(zTop, i1) - array.get(zBot, i1)
+                s2 = array.get(zTop, i2) - array.get(zBot, i2)
+                if k2 < k1 or (k2 == k1 and s2 > s1)
+                    array.set(idx, q, i2)
+                    array.set(idx, q + 1, i1)
+    // groups: gTop / gBot = the merged box, fTop / fBot = the group's first box, gX = its oldest candle
+    gTop = array.new_float()
+    gBot = array.new_float()
+    gX = array.new_int()
+    if aIdx >= 0
+        array.push(gTop, array.get(zTop, aIdx))
+        array.push(gBot, array.get(zBot, aIdx))
+        array.push(gX, array.get(zOb, aIdx))
+    fTop = float(na)
+    fBot = float(na)
+    if n > 0
+        for j = 0 to n - 1
+            i = array.get(idx, j)
+            zm = (array.get(zTop, i) + array.get(zBot, i)) / 2
+            g = array.size(gTop) - 1
+            if not na(fTop) and zm >= fBot and zm <= fTop
+                array.set(gTop, g, math.max(array.get(gTop, g), array.get(zTop, i)))
+                array.set(gBot, g, math.min(array.get(gBot, g), array.get(zBot, i)))
+                array.set(gX, g, math.min(array.get(gX, g), array.get(zOb, i)))
+            else
+                fTop := array.get(zTop, i)
+                fBot := array.get(zBot, i)
+                array.push(gTop, fTop)
+                array.push(gBot, fBot)
+                array.push(gX, array.get(zOb, i))
+    [gTop, gBot, gX]
 if barstate.islast
     for bx in obBoxes
         box.delete(bx)
@@ -314,12 +373,11 @@ if barstate.islast
         fm = (strong + weak) / 2
         for sd in array.from(1, -1)
             if not obTrend or sd == trend
-                lst = f_side(sd, fm)
-                if array.size(lst) > 0
-                    for j = 0 to array.size(lst) - 1
-                        i = array.get(lst, j)
+                [gTop, gBot, gX] = f_side(sd, fm, sd == 1 ? demA : supA)
+                if array.size(gTop) > 0
+                    for j = 0 to array.size(gTop) - 1
                         letter = j < 26 ? str.substring("ABCDEFGHIJKLMNOPQRSTUVWXYZ", j, j + 1) : str.tostring(j + 1)
-                        array.push(obBoxes, box.new(array.get(zOb, i), array.get(zTop, i), bar_index + 15, array.get(zBot, i), border_color=color.black, border_width=2, bgcolor=color.new(sd == 1 ? GREEN : RED, 70), text=letter, text_size=size.small, text_color=color.black))
+                        array.push(obBoxes, box.new(array.get(gX, j), array.get(gTop, j), bar_index + 15, array.get(gBot, j), border_color=color.black, border_width=2, bgcolor=color.new(sd == 1 ? GREEN : RED, 88), text=letter, text_size=size.normal, text_color=color.black))
 
 // small top-right box (trend + phase) and the color key laid on its side along the bottom
 var table tb  = table.new(position.top_right, 1, 3, bgcolor=color.new(color.black, 15), frame_color=color.gray, frame_width=1, border_width=2)
