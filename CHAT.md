@@ -4,6 +4,25 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Tue Oct 13, 10:28 PM ET
+
+From terminal Claude: **Way 2 built** (Jeff's pick; 'only WITH the trend' stays as a switch).
+- **Shown:** every fresh OB inside the right half of the fib. Buy zones between STRONG and the 50%, sell zones between the 50% and STRONG. The box's 50% line decides.
+- **Letters per side:** A = farthest from price (Brad's extreme zone), then B, C… They re-letter when a zone is removed.
+- **Look:** black outline, black letter (small, one size under PREMIUM/DISCOUNT), same green/red fill.
+- Paste file: **From Claude/1 - USE NOW/Structure_T2a_PASTE_THIS.pine.txt** (pine/structure_t2a.pine).
+- **SOL 15m OKX, Oct 12, both sides (3,000 candles of history):** list in 1 - USE NOW/SOL_15m_Oct12_zone_letters.txt
+  - 12 AM: buy A 108.45-108.83
+  - 3 AM and 6 AM: buy A 109.97-110.76
+  - 9 AM: none (price closed 110.17, at A's 50%, so A is used)
+  - 12 PM: sell A 113.02-113.39
+  - 3 PM and 6 PM: sell A 108.89-109.26
+  - 9 PM: sell A 103.77-104.67
+- **BTC 1H Binance.US now:** no zone inside the fib half.
+- Not compiled here. Chrome, please check it in TradingView.
+
+---
+
 ## Terminal Claude - Tue Oct 13, 7:44 PM ET
 
 From terminal Claude: **Tier 2a (order blocks) built** with Jeff's answers on #9: one candle, no 'sharp' number (the gap is enough), nearest fresh zone per side, 1H.
@@ -227,30 +246,6 @@ Reply from terminal Claude: tested Jeff's sell-high / buy-back-low idea on held 
 ## Terminal Claude - Sat Oct 10, 9:33 PM ET
 
 Reply from terminal Claude: logged Jeff's 3 paper trades in journal/jeff_paper_trades.csv (BTC 5m short -1R, BTC 15m long +1.84R, ETH 4H short open). Score so far +0.84R. On #1 the heartbeat code (research/jeff_struct.py, swing 1) marks BOS down at 6:05 and 6:20 (the two Jeff missed), the 6:40 sweep of the ~82,800 lows and the 6:50 MS up, so a chart/bot using it would have flagged them. #1 stays the main test case. Paper only, no bot changed.
-
----
-
-## Jeff - Sat Oct 10, 9:25 PM ET
-
-From Jeff - my 3 TradingView PAPER trades, Sat Oct 10 2026 (all times Eastern, UTC-4). Pull the candles to compare:
-
-1) BTC-USDT (OKX), 5m, SHORT - LOSS
-- Placed ~5:45 AM. Entry 82,863.7, stop 82,904 (40.3 pts), target 82,771.4 (92.3 pts), R:R 2.29.
-- Fib I used: 4:45 low 82,770.7 -> 5:30 high 82,950.
-- Stopped out ~7:40 AM (7:40 candle hit 82,910, closed 82,910).
-- BOS I MISSED: 6:05 (body close 82,816.6 < 5:50 low 82,840) and 6:20 (close 82,812.6 < 6:10 low 82,813.6). After those, the new low was 6:25 (~82,800), so my target should have moved to just above the ~82,800 pool (6:25 / 6:30 / 6:40 / 7:15 lows) - price touched it 4 times = a win of ~60 pts. Instead I kept the old target at 82,771, price never got there, swept the pool at 7:30 and ripped up (6:50 small MS up was the warning).
-
-2) BTC-USDT (OKX), 15m, LONG - WIN
-- Drawn before 9:43 AM. Entry 82,855.2, stop 82,781.2 (74 pts), target 82,991.7 (136.5 pts), R:R 1.84.
-- Target hit by 10:45 AM (Closed PnL +136.5 pts).
-- Note: R:R was under my 2:1 and the Smoke box at entry said newest 15m leg DOWN - it worked, but wasn't a textbook setup.
-
-3) ETHUSD (Bitstamp), 4H, SHORT - STILL OPEN
-- Seen at 9:43 AM. Entry ~2,495, stop 2,554 (60.9 pts, 2.44%), target 2,402 (91.2 pts, 3.66%), R:R 1.5.
-- Neither stop nor target hit yet (ETH high since ~2,519, now ~2,507 = small open loss).
-- Note: R:R under 2:1, and entry was in the 4H DISCOUNT half (box said wait for a bounce to premium ~2,585).
-
-Screenshots coming separately. Please log these in my journal and use #1 as the main test case.
 
 ---
 
