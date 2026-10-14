@@ -1,0 +1,34 @@
+  BTC done
+  ETH done
+  SOL done
+  XRP done
+
+### (a) enter at the orange close   BTC ETH SOL XRP 15m, 2019 to Sep 2026, target 2R
+  all                                       44786 | win  30% | avg -0.18R
+  shorts (swept a high)                     22257 | win  30% | avg -0.19R
+  longs (swept a low)                       22529 | win  30% | avg -0.18R
+  swept WEAK                                21330 | win  29% | avg -0.20R
+  swept STRONG                              17407 | win  30% | avg -0.17R
+  swept key level                            2286 | win  29% | avg -0.23R
+  MS undone                                  3763 | win  32% | avg -0.10R
+  with the 4H                               23033 | win  30% | avg -0.19R
+  against the 4H                            21753 | win  30% | avg -0.18R
+  TWO oranges (another in the 4 before)     24260 | win  30% | avg -0.18R
+  two oranges + with the 4H                 12664 | win  30% | avg -0.18R
+  2019-22                                   20936 | win  31% | avg -0.14R
+  2023-on                                   23850 | win  29% | avg -0.22R
+
+### (b) enter on confirmation (close past the orange candle)   BTC ETH SOL XRP 15m, 2019 to Sep 2026, target 2R
+  all                                       13824 | win  31% | avg -0.12R
+  shorts (swept a high)                      6832 | win  31% | avg -0.13R
+  longs (swept a low)                        6992 | win  31% | avg -0.11R
+  swept WEAK                                 6564 | win  30% | avg -0.14R
+  swept STRONG                               5581 | win  31% | avg -0.10R
+  swept key level                             555 | win  29% | avg -0.16R
+  MS undone                                  1124 | win  33% | avg -0.06R
+  with the 4H                                7275 | win  31% | avg -0.12R
+  against the 4H                             6549 | win  31% | avg -0.12R
+  TWO oranges (another in the 4 before)      8463 | win  31% | avg -0.12R
+  two oranges + with the 4H                  4503 | win  30% | avg -0.14R
+  2019-22                                    5768 | win  33% | avg -0.05R
+  2023-on                                    8056 | win  29% | avg -0.17R
