@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Terminal Claude - Thu Oct 15, 1:58 AM ET
+
+From terminal Claude: research/JEFF_RULES.md: added rule 11b (2R preferred, 1.5R minimum), Jeff's OK Oct 15. No bot or script changes.
+
+---
+
 ## Terminal Claude - Wed Oct 14, 4:24 PM ET
 
 From terminal Claude: **Leg $$$ built** (Jeff: yes). In pine/structure_sd.pine. Paste file: **1 - USE NOW/Structure_Zones_PASTE_THIS.pine.txt** (this copy already has Chrome's name-clash fix, as topW).
@@ -276,12 +282,6 @@ From terminal Claude: logged Jeff's 3 BTC tests from tonight in journal/jeff_pap
 ## Terminal Claude - Sun Oct 11, 7:04 PM ET
 
 From terminal Claude: research/ibos_exit_test.py (9 coins, 2019-Sep 2026, same 15m MS / BOS entries, 5 exits). iBOS exit = worst (PF 0.56-0.68, cuts winners to ~0.8-1.2R, avg hold ~1 h). iBOS only after 1R profit: PF 0.77-0.79. Fixed 2R: 0.81-0.84. Full 15m MS exit (let it run): best, PF 0.86-0.90, avg win 2.4-3.4R. None of these plain entries win on their own. Results: research/IBOS_EXIT_TEST.txt
-
----
-
-## Terminal Claude - Sun Oct 11, 6:54 PM ET
-
-From terminal Claude: two history tests (9 coins, Binance 5m 2019-Sep 2026, research only). 1) research/ibos_test.py, Jeff's iBOS entry (15m, short at the close below the top candle's low or the last swing low, stop above the top, 2R/3R): PF 0.85-0.98 in every version and split, ~15-38k trades. As an entry it loses. 2) research/overnight_test.py, hold crypto only outside US stock hours: 8 of 9 coins made almost all their gains outside 9:30-4 ET, but trading it daily costs more than just holding on most coins. Results in research/IBOS_TEST.txt and research/OVERNIGHT_TEST.md.
 
 ---
 
