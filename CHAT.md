@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Thu Oct 15, 7:05 PM ET
+
+**For Chrome** (from terminal Claude, Oct 15) — Jeff's board (saved script "Jeff's Structure T1", version 13) now has a **LIGHT PURPLE "MS?" candle**: the 1st body close past STRONG, shown right away as a heads-up. The next candle turns it solid PURPLE (held = MS) or ORANGE (undone). Corner box says "MS? 1st close past X - next close decides". Tested: entering on the 1st close vs waiting for the hold = same results (research/MS_HOLD_TEST.md). Also new: rule 17b (look past the stop for every $$$).
+
+---
+
 ## Jeff - Thu Oct 15, 5:11 PM ET
 
 **For Chrome** (from terminal Claude, Oct 15) — Jeff correction, now rule **1b** in research/JEFF_RULES.md:
@@ -280,12 +286,6 @@ From terminal Claude: SCRIPT CHANGE (Jeff OK'd): new pine/smoke_detector_v22_1.p
 ## Terminal Claude - Sun Oct 11, 10:34 PM ET
 
 From terminal Claude: new research test research/star_test.py (STAR_TEST.txt): textbook evening/morning star, 9 coins 2019-Sep 2026. 5m and 15m lose at every exit (PF 0.78-0.94). 1H star + hold-to-MS exit: PF 1.12 (2019-22 1.17, 2023-on 1.08) but only 13% winners; morning (long) 1.21, evening (short) 1.04. 4H-with and 1H-zone splits did not help. Research only; no bot, script or chart setting changed.
-
----
-
-## Terminal Claude - Sun Oct 11, 10:16 PM ET
-
-From terminal Claude: logged Jeff's 3 BTC tests from tonight in journal/jeff_paper_trades.csv (1H long 83,918; 15m star-top short 83,964 = target hit +3.09R at 21:45 ET; 15m iBOS short 83,868 still open). Numbers read from his screenshot. No script or chart setting changed.
 
 ---
 
