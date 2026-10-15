@@ -30,6 +30,7 @@ INSTRUCTIONS FOR ANY CLAUDE USING THIS FILE:
 3. On the Daily/4H: draw the swing range of the last break of structure + premium/discount.
    Mark yesterday's high/low and any equal highs/lows (liquidity).
    Premium = sells only. Discount = buys only. Middle = no trade.
+   (Exception: rule 38 - with the trend right after a TRUE market shift.)
 4. The bias is wrong if a candle BODY closes beyond the key level (not a wick).
    If that happens, reset the bias. No revenge trades, no doubling down.
 
@@ -110,3 +111,9 @@ INSTRUCTIONS FOR ANY CLAUDE USING THIS FILE:
     (Brad calls entering without the pullback the aggressive version.)
 37. Trailing: once price moves my way, trail the stop to just below the MS candle,
     then under each new higher low (mirror for shorts). Don't trail too tight.
+38. With the trend after a TRUE market shift (Jeff, Oct 15): after a true MS up (solid purple, the
+    follow-through candle held), a long is allowed even while price is in PREMIUM. Enter Way A: wait
+    for the pullback into the zone that made the shift, then confirmation; the pullback does NOT have
+    to reach discount. Stop just below the MS candle, a little past the sweep (rules 14 + 29).
+    Shorts = mirror: after a true MS down, a short is allowed even while price is in DISCOUNT.
+    A light-purple "MS?" candle does NOT count - it has to be the true (solid purple) shift.

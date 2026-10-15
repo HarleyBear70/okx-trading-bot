@@ -16,6 +16,7 @@ Code: research/jeff_setup.py. Lines marked [NOT JEFF] are the only places Claude
 | 5 | BOS = a candle BODY closes past the last high (wick doesn't count). | 06:38, Brad Ep5 |
 | 6 | MS = a candle BODY closes past STRONG's WICK. A wick past = sweep. | 11:33 |
 | 7 | Long only in the 15m discount, short only in the 15m premium, never the middle. | 17:25 (2) |
+| 7b | (Oct 15, exception to 7) Right after a TRUE MS (solid purple, held), trade WITH the new direction even in the 'wrong' zone: long in premium after an MS up, short in discount after an MS down. Way A: pullback into the zone that made the shift + confirmation; stop just past the MS candle / sweep. A light-purple 'MS?' does not count. (= rules/JEFF_RULES_from_Brad.txt rule 38) | Jeff Oct 15 (with Chrome) |
 | 8 | Sweep = a wick into the nearest liquidity pool with the body closing back inside (the fuel grab). | 17:25 (8) |
 | 9 | Entry after the turn is confirmed: TEST A = at the confirming candle's close, B = limit at the retest of the broken level. No OB/FVG entries. | 17:25 (4, 5) |
 | 10 | Stop below the STRONG wick / beyond the liquidity pool, never right at the wick. TEST a few gap sizes. | 17:25 (6, 8) |
