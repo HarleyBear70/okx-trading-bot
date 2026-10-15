@@ -7,6 +7,8 @@
 //                     break (the pullback low that launched it); WEAK = the newest high. No next-candle hold (Jeff, "A").
 //     MS (PURPLE)     a body closes below STRONG and the next candle also closes below: the trend flips.
 //                     The top of the run becomes the new STRONG. (Undone by the next candle = ORANGE.)
+//     MS? (LIGHT PURPLE) the 1st body close past STRONG, shown right away as a heads-up (Jeff, Oct 15). The next candle
+//                     turns it solid PURPLE (held = MS) or ORANGE (undone). Test: 1st close vs hold = same PF (research/MS_HOLD_TEST.md).
 //     SWEEP (ORANGE)  a wick past WEAK or STRONG with no body close past it. A wick never moves WEAK or STRONG.
 //                     Also a wick past a KEY pullback low and close back: a pullback low counts as key once price
 //                     makes a new high after it (Jeff OK, Oct 13: BTC Oct 12 4 PM swept the 10 AM high).
@@ -52,6 +54,7 @@ obTrend  = input.bool(false, "Zones only WITH the trend (supply in a downtrend, 
 GREEN  = color.rgb(0, 230, 118)
 RED    = color.rgb(255, 50, 50)
 PURPLE = color.rgb(170, 60, 255)
+LPURPLE = color.rgb(215, 175, 255)
 ORANGE = color.rgb(255, 140, 0)
 YELLOW = color.rgb(255, 214, 0)
 TOL    = 0.0001
@@ -284,7 +287,7 @@ if array.size(zTop) > 0
 atr = ta.atr(14)
 waiting = not na(pendBar) and pendBar == bar_index
 nearLvl = trend != 0 and (math.abs(close - strong) <= nearAtr * atr or math.abs(close - weak) <= nearAtr * atr)
-curCol = not barstate.isconfirmed or waiting ? na : evCur == 1 ? GREEN : evCur == 2 ? RED : evCur == 5 ? ORANGE : evCur == 6 ? iCol : evCur == 7 ? iColDn : nearLvl ? YELLOW : trend != 0 and pulled ? (close >= open ? color.white : color.black) : na
+curCol = not barstate.isconfirmed ? na : waiting ? LPURPLE : evCur == 1 ? GREEN : evCur == 2 ? RED : evCur == 5 ? ORANGE : evCur == 6 ? iCol : evCur == 7 ? iColDn : nearLvl ? YELLOW : trend != 0 and pulled ? (close >= open ? color.white : color.black) : na
 prevCol = not barstate.isconfirmed ? na : evPrev >= 3 and evPrev <= 4 ? PURPLE : evPrev == 5 ? ORANGE : na
 barcolor(curCol)
 barcolor(prevCol, offset=-1)
@@ -528,13 +531,15 @@ if barstate.islast
 
 // small top-right box (trend + phase) and the color key laid on its side along the bottom
 var table tb  = table.new(position.top_right, 1, 3, bgcolor=color.new(color.black, 15), frame_color=color.gray, frame_width=1, border_width=2)
-var table key = table.new(position.bottom_center, 18, 1, bgcolor=color.new(color.black, 15), frame_color=color.gray, frame_width=1, border_width=2)
+var table key = table.new(position.bottom_center, 20, 1, bgcolor=color.new(color.black, 15), frame_color=color.gray, frame_width=1, border_width=2)
 keyCell(i, c, t) =>
     table.cell(key, 2 * i, 0, "  ", bgcolor=c, text_size=size.small)
     table.cell(key, 2 * i + 1, 0, t, text_color=color.white, text_size=size.small)
 if barstate.islast and showBox
     tTxt = trend == 1 ? "Trend UP: buyers in control" : trend == -1 ? "Trend DOWN: sellers in control" : "Waiting for structure"
     pTxt = trend == 0 ? "" : pulled ? "Pullback: holds while " + (trend == 1 ? "above " : "below ") + str.tostring(strong, format.mintick) : "Moving " + (trend == 1 ? "up" : "down") + ", new " + (trend == 1 ? "high " : "low ") + str.tostring(weak, format.mintick)
+    if waiting
+        pTxt := "MS? 1st close past " + str.tostring(strong, format.mintick) + " - next close decides"
     table.cell(tb, 0, 0, tTxt, text_color=trend == 1 ? GREEN : trend == -1 ? RED : color.white, text_size=size.normal)
     table.cell(tb, 0, 1, pTxt, text_color=color.white, text_size=size.small)
     tf = timeframe.isintraday and timeframe.multiplier % 60 == 0 ? str.tostring(timeframe.multiplier / 60, "#") + "H" : timeframe.period
@@ -545,6 +550,7 @@ if barstate.islast and showBox
     keyCell(0, GREEN, "BOS up")
     keyCell(1, RED, "BOS down")
     keyCell(2, PURPLE, "MS flip")
+    keyCell(9, LPURPLE, "MS? 1st close")
     keyCell(3, iCol, "Internal up")
     keyCell(4, iColDn, "Internal down")
     keyCell(5, ORANGE, "Sweep")
