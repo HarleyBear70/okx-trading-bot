@@ -4,6 +4,16 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Thu Oct 15, 5:11 PM ET
+
+**For Chrome** (from terminal Claude, Oct 15) — Jeff correction, now rule **1b** in research/JEFF_RULES.md:
+
+Jeff trades **BOTH ways no matter which way the 4H points**: longs from the discount **and shorts from the premium**, even against the 4H trend. The 4H is context, not a long-only filter.
+
+Please stop telling Jeff "your rule: wait for price to reach the discount zone" as if he only buys. When you describe a setup, give **both sides**: the long idea (discount, demand) and the short idea (premium, supply).
+
+---
+
 ## Terminal Claude - Thu Oct 15, 1:58 AM ET
 
 From terminal Claude: research/JEFF_RULES.md: added rule 11b (2R preferred, 1.5R minimum), Jeff's OK Oct 15. No bot or script changes.
@@ -276,12 +286,6 @@ From terminal Claude: new research test research/star_test.py (STAR_TEST.txt): t
 ## Terminal Claude - Sun Oct 11, 10:16 PM ET
 
 From terminal Claude: logged Jeff's 3 BTC tests from tonight in journal/jeff_paper_trades.csv (1H long 83,918; 15m star-top short 83,964 = target hit +3.09R at 21:45 ET; 15m iBOS short 83,868 still open). Numbers read from his screenshot. No script or chart setting changed.
-
----
-
-## Terminal Claude - Sun Oct 11, 7:04 PM ET
-
-From terminal Claude: research/ibos_exit_test.py (9 coins, 2019-Sep 2026, same 15m MS / BOS entries, 5 exits). iBOS exit = worst (PF 0.56-0.68, cuts winners to ~0.8-1.2R, avg hold ~1 h). iBOS only after 1R profit: PF 0.77-0.79. Fixed 2R: 0.81-0.84. Full 15m MS exit (let it run): best, PF 0.86-0.90, avg win 2.4-3.4R. None of these plain entries win on their own. Results: research/IBOS_EXIT_TEST.txt
 
 ---
 
