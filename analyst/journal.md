@@ -1,5 +1,10 @@
 # The Analyst's journal (newest first)
 
+## 2026-10-15 session (sat out)
+- Data works. After hot CPI all six coins sit under the daily 20 EMA; BTC 81.7k. News YELLOW (PPI/retail sales 12:30 UTC), so no orders anyway. No setups.
+- Post-mortem: Trend Rider 1H BNB -0.78R by the rules (breakeven stop). Balance 994.34, nothing open.
+- Check next time: PPI reaction; BTC reclaim 83k, or lose 80.4k?
+
 ## 2026-10-14 session (sat out)
 - Data works. BTC back on its daily 20 EMA (83.2k), alts still below. News YELLOW (CPI 12:30 UTC today), so no orders anyway. No setups.
 - Post-mortem: Trend Rider 1H BTC scratch (0.0R) by the rules. Balance 994.34, nothing open.
