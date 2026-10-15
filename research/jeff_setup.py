@@ -24,7 +24,7 @@ Paper research only. Lines marked [NOT JEFF] are the only places Claude had to t
              = the stop [NOT JEFF: the safe way].
   Coins      BTC ETH SOL XRP; never-seen BNB ADA DOGE LINK LTC. Binance 5m archive 2019 - Sep 30 2026.
 
-  python3 research/jeff_setup.py [with|against|any]
+  python3 research/jeff_setup.py [with|against|any] [hold]   (hold = Brad's 'close and hold': wait for the next 15m close)
              4H filter: with = Jeff rule 1 (default), against = only setups against the 4H leg,
              any = no 4H filter (Jeff rule 1b, Oct 15: he trades both ways no matter the 4H)
 """
@@ -42,6 +42,7 @@ import pure15 as P  # noqa: E402
 TAKER, M15, H4 = 0.0002, 900000, 14400000
 NS, ENTRIES, GAPS, TGTS, SLIPS = (1, 2, 3), ("A", "B"), (0.0005, 0.0015, 0.003), ("-27% ext", "2R", "3R"), (0.0, 0.0002, 0.0005)
 MODE = sys.argv[1] if len(sys.argv) > 1 else "with"
+HOLD = len(sys.argv) > 2 and sys.argv[2] == "hold"  # Brad: the turn candle's close must HOLD (next 15m also closes past)
 MAIN, UNSEEN = ["BTC", "ETH", "SOL", "XRP"], ["BNB", "ADA", "DOGE", "LINK", "LTC"]
 
 
@@ -111,7 +112,7 @@ def signals(d, N):
     O, H, L, C, e15 = D.resample(ts, o, h, l, c, M15)
     _, H4_, L4, C4, e4 = D.resample(ts, o, h, l, c, H4)
     s15, s4 = Leg(H, L, C, N), Leg(H4_, L4, C4, N)
-    out, armed = [], None
+    out, armed, pend = [], None, None
     for i in range(len(ts)):
         k = e15[i]
         if k >= 0:
@@ -121,19 +122,28 @@ def signals(d, N):
             s15.step(k)
             ok4 = {"with": s4.trend == 1, "against": s4.trend == -1, "any": True}[MODE]
             if not ok4 or lo is None or hi <= lo:
-                armed = None
+                armed = pend = None
             elif armed is None:
                 if pl is not None and L[k] < pl and C[k] > pl and (L[k] - lo) / (hi - lo) < 0.5:
                     armed = L[k]
             elif C[k] < armed:
-                armed = None  # body closed below the pool: no fuel grab, it broke down
+                armed = pend = None  # body closed below the pool: no fuel grab, it broke down
             elif L[k] < armed:
-                armed = L[k]  # deeper sweep, body still back above
+                armed, pend = L[k], None  # deeper sweep, body still back above
+            elif pend is not None:
+                if C[k] > pend[1]:  # held: enter on this close
+                    if ts[i] >= B.ms(B.START):
+                        out.append((i, C[k], pend[1], pend[0], pend[2]))
+                    armed = None
+                pend = None  # not held = undone (orange); stay armed for the next try
             elif ph is not None and C[k] > ph:
                 base = min(armed, strong15) if up15 else armed
-                if ts[i] >= B.ms(B.START):
-                    out.append((i, C[k], ph, base, hi + 0.27 * (hi - lo)))
-                armed = None
+                if HOLD:
+                    pend = (base, ph, hi + 0.27 * (hi - lo))
+                else:
+                    if ts[i] >= B.ms(B.START):
+                        out.append((i, C[k], ph, base, hi + 0.27 * (hi - lo)))
+                    armed = None
         k = e4[i]
         if k >= 0:
             s4.step(k)
@@ -213,7 +223,7 @@ def main():
         del d
         gc.collect()
     for grp, title in (("main", "BTC ETH SOL XRP"), ("unseen", "NEVER-SEEN BNB ADA DOGE LINK LTC")):
-        print(f"\n### JEFF'S SETUP (4H filter: {MODE}), 100% Jeff's rules except the gap sizes + same-candle rule, {title}")
+        print(f"\n### JEFF'S SETUP (4H filter: {MODE}{', HOLD: 2nd close' if HOLD else ', 1st close'}), 100% Jeff's rules except the gap sizes + same-candle rule, {title}")
         print("Main columns at the WORST slippage (0.05%); last two columns = PF at 0% and 0.02% slippage.\n")
         print("| Version | Trades/yr | Win % | Avg win | Avg loss | PF | Avg | Max DD | 2019-22 PF | 2023-now PF | "
               "Long PF | Short PF | PF slip 0 | PF slip 0.02% |\n" + "|---" * 14 + "|")
