@@ -8,6 +8,7 @@ Code: research/jeff_setup.py. Lines marked [NOT JEFF] are the only places Claude
 | # | Rule | Source |
 |---|---|---|
 | 1 | Higher timeframe is king. 4H = direction (Daily/Weekly above it). Only trade the 4H direction. | 17:25 (1), 18:05 |
+| 1b | (Oct 15, updates 1) Jeff trades BOTH ways no matter which way the 4H points: longs from the discount AND shorts from the premium, including against the 4H trend. 4H = context, not a long-only/short-only filter. | Jeff Oct 15 |
 | 2 | 15m = working + entry chart (5m optional, 1m avoid). Process: 4H direction -> 15m premium/discount -> wait for price there -> 15m sweep + small MS -> enter. | 18:05 |
 | 2b | (Oct 13, updates 2) 4H = direction ONLY, never the trade chart (too slow). 1H = fib on the newest leg -> premium/discount. Long: wait for price to tap the 1H discount, drop to 15m, wait for the pullback to finish + a confirmation candle (e.g. doji + hammer), then enter. Short: same in the 1H premium. New high/low (re-draw the fib) on each BOS. | Jeff Oct 13 |
 | 3 | Swings: Jeff marks by eye -> TEST 1, 2 and 3 candles each side. | 16:52 (5) |
