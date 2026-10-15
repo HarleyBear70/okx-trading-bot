@@ -24,7 +24,9 @@ Paper research only. Lines marked [NOT JEFF] are the only places Claude had to t
              = the stop [NOT JEFF: the safe way].
   Coins      BTC ETH SOL XRP; never-seen BNB ADA DOGE LINK LTC. Binance 5m archive 2019 - Sep 30 2026.
 
-  python3 research/jeff_setup.py
+  python3 research/jeff_setup.py [with|against|any]
+             4H filter: with = Jeff rule 1 (default), against = only setups against the 4H leg,
+             any = no 4H filter (Jeff rule 1b, Oct 15: he trades both ways no matter the 4H)
 """
 import datetime as dt
 import gc
@@ -39,6 +41,7 @@ import pure15 as P  # noqa: E402
 
 TAKER, M15, H4 = 0.0002, 900000, 14400000
 NS, ENTRIES, GAPS, TGTS, SLIPS = (1, 2, 3), ("A", "B"), (0.0005, 0.0015, 0.003), ("-27% ext", "2R", "3R"), (0.0, 0.0002, 0.0005)
+MODE = sys.argv[1] if len(sys.argv) > 1 else "with"
 MAIN, UNSEEN = ["BTC", "ETH", "SOL", "XRP"], ["BNB", "ADA", "DOGE", "LINK", "LTC"]
 
 
@@ -116,7 +119,8 @@ def signals(d, N):
             up15, strong15 = s15.trend == 1, s15.strong
             pl, ph = s15.pl, s15.ph
             s15.step(k)
-            if s4.trend != 1 or lo is None or hi <= lo:
+            ok4 = {"with": s4.trend == 1, "against": s4.trend == -1, "any": True}[MODE]
+            if not ok4 or lo is None or hi <= lo:
                 armed = None
             elif armed is None:
                 if pl is not None and L[k] < pl and C[k] > pl and (L[k] - lo) / (hi - lo) < 0.5:
@@ -209,7 +213,7 @@ def main():
         del d
         gc.collect()
     for grp, title in (("main", "BTC ETH SOL XRP"), ("unseen", "NEVER-SEEN BNB ADA DOGE LINK LTC")):
-        print(f"\n### JEFF'S SETUP, 100% Jeff's rules except the gap sizes + same-candle rule, {title}")
+        print(f"\n### JEFF'S SETUP (4H filter: {MODE}), 100% Jeff's rules except the gap sizes + same-candle rule, {title}")
         print("Main columns at the WORST slippage (0.05%); last two columns = PF at 0% and 0.02% slippage.\n")
         print("| Version | Trades/yr | Win % | Avg win | Avg loss | PF | Avg | Max DD | 2019-22 PF | 2023-now PF | "
               "Long PF | Short PF | PF slip 0 | PF slip 0.02% |\n" + "|---" * 14 + "|")
