@@ -1,19 +1,19 @@
-NEWS LEVEL: YELLOW - Jumpy after hot US inflation; PPI and retail sales land at 8:30 AM ET today (checked 2026-10-15 7:40 AM ET)
-Careful until: Thu 2026-10-15 12:30 PM ET
+NEWS LEVEL: GREEN - Hot inflation shock has passed; no event in the next 24 hours and no exchange trouble found (checked 2026-10-15 7:35 PM ET)
+Careful until: n/a
 
 ## What happened
-- Nothing new found overnight. Latest confirmed story: US September CPI hot at 3.7% vs 3.6% expected; BTC fell to about $82,000 and Fed rate-hike odds for Oct 27-28 rose to about 49%. [The Block](https://www.theblock.co/news/markets/2026-10-14-bitcoin-falls-below-82000-core-inflation-fed-rate-hike-418582), [CoinDesk](https://www.coindesk.com/business/2026/10/14/live-updates-bitcoin-tumbles-from-near-usd84-000-ahead-of-u-s-inflation-data)
-- BTC is about $81,500 this morning (edge brief data), no 10% crash.
-- No OKX, Binance.US, Coinbase, Kraken, Bybit or OANDA hack, outage or withdrawal halt found (searches returned only old stories; "nothing found", not a guarantee).
+- US September PPI (producer prices) came in far hotter than expected (reported 6.3% a year; biggest monthly jump since March 2022). BTC dipped under $80,000 for a moment, then bounced to about $81,000-82,000 (about 3-4% down on the day). Rate-hike worries rose. [Cointelegraph](https://cointelegraph.com/markets/bitcoin-price-breaks-under-80k-after-us-ppi-gains-most-in-over-4-years), [Yahoo Finance](https://finance.yahoo.com/markets/crypto/articles/bitcoin-xrp-slip-us-ppi-134202675.html)
+- US retail sales reportedly +0.8% vs +0.3% expected (single source, treat with caution).
+- Day before: US CPI hot at 3.7% vs 3.6% expected, about $1B of crypto liquidations. [CryptoTimes](https://www.cryptotimes.io/2026/10/14/us-cpi-live-inflation-data-bitcoin-price-fed-rate-discussion/)
+- No hack, outage or withdrawal halt found at OKX, Binance.US, Coinbase, Kraken, Bybit or OANDA (searches returned only old stories; not a guarantee).
 - No USDT/USDC peg problem or new SEC/CFTC action found (unconfirmed - no live peg source reachable).
-- Forex data feed blocked again (403), so the dollar/EUR/GBP check is missing.
+- Forex data feed blocked (403), so the dollar/EUR/GBP check is missing.
 
 ## Coming up (next 7 days, ET)
-- Thu Oct 15, 8:30 AM: US PPI, retail sales, jobless claims - HIGH.
 - Fri Oct 16: Eurozone CPI - medium for EUR (date unconfirmed).
-- Wed Oct 28, 2:00 PM: FOMC decision - HIGH (outside 7 days; a hike is a real possibility).
-- No ECB or BoE rate decision or US jobs report confirmed inside the next 7 days.
+- Tue-Wed Oct 27-28: FOMC decision Wed 2:00 PM - HIGH (outside 7 days; a hike is a real possibility).
+- No ECB or BoE decision or US jobs report confirmed inside the next 7 days.
 
 ## What it means for us
-Stay careful: no new trades until about 12:30 PM ET today (4 hours after PPI/retail sales).
-Markets are jumpy on Fed-hike worries. No emergency found; nothing frozen.
+Normal trading, but markets are jumpy on Fed-hike worries, so size carefully.
+No emergency found; nothing frozen.
