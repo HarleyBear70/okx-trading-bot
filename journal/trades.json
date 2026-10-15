@@ -1000,7 +1000,7 @@
   "mode": "paper",
   "planned_stop": 857.597,
   "planned_target": null,
-  "price_now": 80436.7,
+  "price_now": 81499.0,
   "qty": 0.011660489,
   "result": "open",
   "risk_pct": 99.0,
@@ -1009,10 +1009,10 @@
   "stop_now": 857.597,
   "strategy": "hold",
   "trailing_on": false,
-  "unrealized_pct": -6.207,
+  "unrealized_pct": -4.968,
   "why_entry": null,
-  "worst_pct": -6.608,
-  "worst_px": 80092.5
+  "worst_pct": -6.978,
+  "worst_px": 79775.1
  },
  {
   "balance_after": 1000.69,
