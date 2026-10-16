@@ -61,6 +61,7 @@ showOB   = input.bool(true, "Show supply / demand zones (A, B, C...)")
 midCol   = input.color(color.rgb(255, 0, 200), "50% line color")
 showLiq  = input.bool(true, "Show liquidity $$$ (yesterday's high/low + equal highs/lows)")
 liqCol   = input.color(color.rgb(0, 170, 70), "$$$ color")
+liqOld   = input.bool(true, "$$$: also show OLDER untouched equal highs/lows (left of this leg)")
 obTrend  = input.bool(false, "Zones only WITH the trend (supply in a downtrend, demand in an uptrend)")
 showChk  = input.bool(true, "Show the READY / WAIT checklist")
 minRR    = input.float(1.5, "Checklist: minimum reward-to-risk (rule 11b)", minval=0.5, step=0.1)
@@ -513,7 +514,7 @@ if evCur == 1 or evCur == 2 or evPrev == 3 or evPrev == 4
 var array<line>  liqL = array.new_line()
 var array<label> liqT = array.new_label()
 f_liq(x1, y, txt) =>
-    array.push(liqL, line.new(x1, y, bar_index + 22, y, color=liqCol, style=line.style_dotted, width=2))
+    array.push(liqL, line.new(x1, y, bar_index + 22, y, color=liqCol, style=line.style_solid, width=2))
     array.push(liqT, label.new(bar_index + 22, y, txt, style=label.style_label_left, color=liqCol, textcolor=color.white, size=size.normal))
     true
 // one side's equal levels since x0, one line per group (a level inside another level's wick is dropped)
@@ -553,7 +554,7 @@ if barstate.islast
             if trend == 1 and legL < strong
                 f_liq(legLb, legL, "$$$")
         if trend != 0
-            x0 = math.min(nz(sb, wb), wb)
+            x0 = liqOld ? 0 : math.min(nz(sb, wb), wb)
             f_eq(topW, topE, topB, topQ, x0)
             f_eq(uW, uE, uB, uQ, x0)
 
