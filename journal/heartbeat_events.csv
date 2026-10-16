@@ -2661,3 +2661,4 @@ time_et,coin,tf,event,close,leg,must_hold,leg_extreme,fifty,1D,4H,1H,15m
 2026-10-15 23:45,ETH,15m,BOS down,2432.18,DOWN,2447.12,2424.18,2435.65,DOWN (hold 2587.5),DOWN (hold 2579.98),DOWN (hold 2538.65),
 2026-10-15 23:45,SOL,5m,MS DOWN,104.82,DOWN,106.54,104.58,105.56,DOWN (hold 113.4),DOWN (hold 109.07),DOWN (hold 109.07),UP (hold 105.14)
 2026-10-16 00:00,SOL,15m,fuel grab (MS undone),105.33,UP,105.14,106.54,105.84,DOWN (hold 113.4),DOWN (hold 109.07),DOWN (hold 109.07),
+2026-10-15 00:20,LINK,5m,start UP,12.149,UP,12.046,12.149,12.0975,DOWN (hold 15.773),DOWN (hold 13.506),DOWN (hold 13.193),DOWN (hold 12.63)
