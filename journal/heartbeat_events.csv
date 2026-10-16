@@ -3021,3 +3021,5 @@ time_et,coin,tf,event,close,leg,must_hold,leg_extreme,fifty,1D,4H,1H,15m
 2026-10-16 07:15,BTC,5m,BOS up,82652.8,UP,81841.8,82719.3,82280.6,UP (hold 74955.5),UP (hold 74955.5),UP (hold 79775.1),UP (hold 81690.6)
 2026-10-16 09:40,BTC,5m,fuel grab (MS undone),81971.2,UP,81841.8,82928.5,82385.1,UP (hold 74955.5),UP (hold 74955.5),UP (hold 79775.1),UP (hold 81690.6)
 2026-10-16 11:15,BTC,5m,MS DOWN,81726.2,DOWN,82928.5,81500.0,82214.2,UP (hold 74955.5),UP (hold 74955.5),UP (hold 79775.1),UP (hold 81690.6)
+2026-10-04 10:00,SOL,1H,start UP,121.72,UP,121.17,121.97,121.57,UP (hold 110.7),UP (hold 116.37),,
+2026-10-04 11:00,LINK,1H,start UP,14.162,UP,14.027,14.181,14.104,UP (hold 13.523),UP (hold 13.523),,
