@@ -61,7 +61,7 @@ showOB   = input.bool(true, "Show supply / demand zones (A, B, C...)")
 midCol   = input.color(color.rgb(255, 0, 200), "50% line color")
 showLiq  = input.bool(true, "Show liquidity $$$ (yesterday's high/low + equal highs/lows)")
 liqCol   = input.color(color.rgb(0, 170, 70), "$$$ color")
-liqOld   = input.bool(true, "$$$: also show OLDER untouched equal highs/lows (left of this leg)")
+liqOld   = input.bool(true, "$$$: also show OLDER untouched equal highs/lows (last 1500 candles)")
 obTrend  = input.bool(false, "Zones only WITH the trend (supply in a downtrend, demand in an uptrend)")
 showChk  = input.bool(true, "Show the READY / WAIT checklist")
 minRR    = input.float(1.5, "Checklist: minimum reward-to-risk (rule 11b)", minval=0.5, step=0.1)
@@ -554,7 +554,7 @@ if barstate.islast
             if trend == 1 and legL < strong
                 f_liq(legLb, legL, "$$$")
         if trend != 0
-            x0 = liqOld ? 0 : math.min(nz(sb, wb), wb)
+            x0 = liqOld ? math.max(0, bar_index - 1500) : math.min(nz(sb, wb), wb)   // [Claude: older = last 1500 candles, TradingView's reach]
             f_eq(topW, topE, topB, topQ, x0)
             f_eq(uW, uE, uB, uQ, x0)
 
