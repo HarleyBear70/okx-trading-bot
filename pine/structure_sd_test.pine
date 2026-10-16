@@ -710,7 +710,7 @@ if fireL
 if fireS
     alert(syminfo.ticker + " " + timeframe.period + " READY SHORT  entry " + str.tostring(sEn, format.mintick) + "  stop " + str.tostring(sSH, format.mintick) + "  target " + str.tostring(sTg, format.mintick) + "  R:R " + str.tostring(sRR, "#.#"), alert.freq_once_per_bar_close)
 
-var table ck = table.new(position.middle_right, 3, 8, bgcolor=color.new(color.black, 15), frame_color=color.gray, frame_width=1, border_width=2)
+var table ck = table.new(position.bottom_right, 3, 8, bgcolor=color.new(color.black, 0), frame_color=color.gray, frame_width=1, border_width=2)
 f_mark(ok) => ok ? "✓" : "✗"
 f_tm(b) => str.format_time(time[bar_index - b], "MMM d HH:mm", "America/New_York")
 f_status(fire, sw, ms, pb, rd, endTxt, isL) =>
@@ -737,10 +737,10 @@ if barstate.islast and showChk
     table.cell(ck, 0, 6, "R:R " + str.tostring(minRR, "#.#") + "+", text_color=color.white, text_size=size.small, text_halign=text.align_left)
     table.cell(ck, 1, 6, na(lRRnow) ? "-" : str.tostring(lRRnow, "#.#"), text_color=na(lRRnow) ? color.gray : lRRnow >= minRR ? GREEN : YELLOW, text_size=size.small)
     table.cell(ck, 2, 6, na(sRRnow) ? "-" : str.tostring(sRRnow, "#.#"), text_color=na(sRRnow) ? color.gray : sRRnow >= minRR ? GREEN : YELLOW, text_size=size.small)
-    lS = f_status(fireL, lSw, lMs, lPb, lRd, lEnd, true)
-    sS = f_status(fireS, sSw, sMs, sPb, sRd, sEnd, false)
-    table.cell(ck, 1, 7, lS, text_color=fireL ? color.black : color.white, bgcolor=fireL ? GREEN : na, text_size=size.small)
-    table.cell(ck, 2, 7, sS, text_color=fireS ? color.white : color.white, bgcolor=fireS ? RED : na, text_size=size.small)
+    lSt = f_status(fireL, lSw, lMs, lPb, lRd, lEnd, true)
+    sSt = f_status(fireS, sSw, sMs, sPb, sRd, sEnd, false)
+    table.cell(ck, 1, 7, lSt, text_color=fireL ? color.black : color.white, bgcolor=fireL ? GREEN : na, text_size=size.small)
+    table.cell(ck, 2, 7, sSt, text_color=fireS ? color.white : color.white, bgcolor=fireS ? RED : na, text_size=size.small)
     table.cell(ck, 0, 7, "Look past stop (17b)", text_color=YELLOW, text_size=size.tiny, text_halign=text.align_left)
 
 // small top-right box (trend + phase) and the color key laid on its side along the bottom
