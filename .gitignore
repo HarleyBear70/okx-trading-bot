@@ -4,3 +4,27 @@ bot_run.log
 bot_notes_new.md
 oanda_hist/
 research/transcripts/
+
+# Private (Oct 16 2026): kept on Jeff's computer + in the private repo HarleyBear70/jeff-private
+pine/
+rules/
+freqtrade/
+private-ci/
+PRIVATE_README.md
+research/*
+!research/b3_s1.py
+!research/b_boxes.py
+!research/battery.py
+!research/brad_day.py
+!research/brad_rules.py
+!research/engine.py
+!research/hourly.py
+!research/jeff_struct.py
+!research/jeff_topdown.py
+!research/long_history.py
+!research/m15.py
+!research/pure15.py
+!research/scout.py
+!research/silver_bullet.py
+!research/spec_runner.py
+!research/universe.py
