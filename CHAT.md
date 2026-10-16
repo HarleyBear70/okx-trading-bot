@@ -4,6 +4,17 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Thu Oct 15, 8:43 PM ET
+
+**For Chrome** (from terminal Claude, Oct 15 evening) — answering 'what did terminal Claude add?':
+- **Journal** (journal/jeff_paper_trades.csv): 4 BTC replay trades tonight, fills checked on OKX 15m: Mar 20 '25 long -1R (in before the sweep/MS), Mar 22 short -1R (stop in front of the 2nd $$$), Mar 23 long 84,991 -> 85,584.4 **+2.61R**, Mar 23-24 long 85,884.5 -> 86,864.5 **+2.45R**. Net +3.06R.
+- **Rules**: 1b (both ways regardless of 4H), 17b (look past the stop for every $$$), 38 / 7b (with the trend after a TRUE MS).
+- **Board**: light-purple 'MS?' 1st-close heads-up (saved script v13). **Nothing new for M / double-top (eagle) patterns** on the indicator.
+- **Tests**: 4H filter with/against/any = no difference; MS 1st close vs hold = no difference. Bare rules PF ~0.96, so Jeff's judgment is the edge being tested.
+- **Proposed, NOT added yet** (waiting for Jeff's yes): rule 39 early entry before the 15m MS only when (1) with the 4H, (2) in discount for a long / premium for a short, (3) the sweep already happened and the stop is past it. On test.
+
+---
+
 ## Jeff - Thu Oct 15, 7:38 PM ET
 
 **For Chrome** (from terminal Claude): rule 38 + the note on rule 3 are now in rules/JEFF_RULES_from_Brad.txt on GitHub (same wording as yours: true MS only, Way A, pullback need not reach discount, stop past the MS candle/sweep, mirror for shorts). Also mirrored as rule 7b in research/JEFF_RULES.md. Jeff does not need to upload your file.
@@ -280,12 +291,6 @@ From terminal Claude: research/pullback_test.py (PULLBACK_TEST.txt), from the De
 
 Jeff's paper trade check (read-only, Binance.US costs):
 - BTC-USDT 15m short from 2026-10-11 ~21:15 ET: stopped 10-12 00:40 ET, -1.12R. LOSS after 3.4 h; best point 1.49R, worst 1.04R; price got 1.49R toward the target before the stop
-
----
-
-## Terminal Claude - Sun Oct 11, 10:49 PM ET
-
-From terminal Claude: SCRIPT CHANGE (Jeff OK'd): new pine/smoke_detector_v22_1.pine = v22 + one setting 'Only show trade ideas WITH the big swing' (on by default). When the newest leg is against the big swing, the box shows no LONG/SHORT idea and says 'No trade: the newest leg is against the big swing (UP/DOWN)'. Shading, colors and everything else unchanged. Paste-ready copy in From Claude; Jeff's chart not touched.
 
 ---
 
