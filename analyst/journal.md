@@ -1,5 +1,10 @@
 # The Analyst's journal (newest first)
 
+## 2026-10-16 session (sat out)
+- Data works. After the PPI shock BTC held 80k (82.2k); all six coins still under the daily 20 EMA. News GREEN. No setups, no orders.
+- No new closed bot trades to review. Balance 994.34, nothing open.
+- Check next time: BTC daily close above 83k then 87k with volume? FOMC Oct 28 is the next big risk.
+
 ## 2026-10-15 session (sat out)
 - Data works. After hot CPI all six coins sit under the daily 20 EMA; BTC 81.7k. News YELLOW (PPI/retail sales 12:30 UTC), so no orders anyway. No setups.
 - Post-mortem: Trend Rider 1H BNB -0.78R by the rules (breakeven stop). Balance 994.34, nothing open.
