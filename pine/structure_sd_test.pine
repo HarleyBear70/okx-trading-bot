@@ -560,14 +560,15 @@ if barstate.islast
 
 // CHECKLIST: READY / WAIT, LONG and SHORT side by side (see the notes at the top)
 cMid = (strong + weak) / 2
-// nearest untouched level above (below) ref: $$$ tops (bottoms), yesterday's high (low) if not taken, STRONG / WEAK
+// nearest untouched level above (below) ref: the $$$ the board draws (equal highs/lows), yesterday's high (low) if not taken, STRONG / WEAK
 f_tgt(ref, isUp) =>
     t = float(na)
     arr = isUp ? topW : uW
+    q = isUp ? topQ : uQ
     if array.size(arr) > 0
         for i = 0 to array.size(arr) - 1
             L = array.get(arr, i)
-            if isUp ? L > ref and (na(t) or L < t) : L < ref and (na(t) or L > t)
+            if array.get(q, i) and (isUp ? L > ref and (na(t) or L < t) : L < ref and (na(t) or L > t))
                 t := L
     for L in array.from(strong, weak, isUp ? (dHi <= nz(pdh) ? pdh : na) : (dLo >= nz(pdl) ? pdl : na))
         if not na(L) and (isUp ? L > ref and (na(t) or L < t) : L < ref and (na(t) or L > t))
