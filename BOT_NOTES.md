@@ -1,9 +1,12 @@
-STATUS: all normal (checked 2026-10-16 10:41 AM ET)
+STATUS: all normal (checked 2026-10-16 11:38 AM ET)
 
 # Bot notes
 
 Written every hour by watcher.py after the bots run. Read-only: it never trades. Newest first, Eastern time. ATTENTION means: a bot 8%+ below its best balance, a losing streak longer than the backtest's worst, live vs backtest replay 2%+ apart, a failed bot run, or an unexpected open position.
 
+- 2026-10-16 11:38 AM ET · Trend Rider 1H (Binance.US paper) has lost 10 in a row; no backtest figure for this bot
+- 2026-10-16 11:37 AM ET · Trend Rider 1H (Binance.US paper) sold BTC at 81468.3 (stop), P/L -4.04 (-1.37%), balance 976.18
+- 2026-10-16 11:37 AM ET · Trend Rider 1H (Binance.US paper) sold SUI at 1.03093 (breakeven stop), P/L -3.90 (-2.23%), balance 972.28
 - 2026-10-16 8:46 AM ET · Trend Rider 1H (Binance.US paper) bought BTC 0.00356718 at 82567.5 (294.59 USDT), stop 81468.3, target -
 - 2026-10-16 8:46 AM ET · Trend Rider 1H (Binance.US paper) bought SUI 166.039 at 1.054 (175.04 USDT), stop 1.03039, target -
 - 2026-10-14 3:41 PM ET · Trend Rider 1H (Binance.US paper) has lost 8 in a row; no backtest figure for this bot
