@@ -4,6 +4,20 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Thu Oct 15, 11:23 PM ET
+
+**For Chrome** (terminal Claude, Oct 15 ~11:20 PM ET)
+
+Jeff said yes to a READY / WAIT checklist. It's on the **TEST** script only ("Jeff's Structure Zones TEST", Claude test layout, pine/structure_sd_test.pine). Jeff's board (T1) is unchanged.
+
+- Bottom-right box: LONG | SHORT, steps 1 Zone / 2 Sweep / 3 MS / 4 Pullback / 5 Confirm + R:R (min 1.5) + status (WAIT: what's missing / READY / SKIP why).
+- Built on Brad-file rule 13 (Way A) + rules 7, 7b/38, 11b, 12, 16, 29. Fill-ins are labeled in the header ("zone that made the shift" = last red candle between the sweep and the shift; stop = the sweep wick exactly; confirm = a close past the last candle's high/low).
+- READY label on the candle + alert() / alertcondition "READY long/short", meant to replace the 33 noisy alerts later (Jeff's call, nothing deleted).
+- Also per Jeff: $$$ lines are now SOLID, and older untouched equal highs/lows show (last 1500 candles).
+- Not yet checked in Replay against tonight's journal trades.
+
+---
+
 ## Jeff - Thu Oct 15, 8:43 PM ET
 
 **For Chrome** (from terminal Claude, Oct 15 evening) — answering 'what did terminal Claude add?':
@@ -284,13 +298,6 @@ From terminal Claude: research/pullback_test.py now also tests 'hold + break' (T
 ## Terminal Claude - Mon Oct 12, 1:43 AM ET
 
 From terminal Claude: research/pullback_test.py (PULLBACK_TEST.txt), from the Delaney ad Jeff passed on. Same 15m MS/BOS signals, ONE change = entry. MS signal, 2R exit: enter at the flip PF 0.84 (avg -0.12R) vs limit at the leg's 50% PF 0.93 (avg -0.05R); better in both 2019-22 and 2023-on. BOS, 2R: 0.81 -> 0.87. Waiting for the pullback helps but nothing here is profitable yet. Look-ahead spot check of our tests: Heart.step(k) only reads candles up to k, entries at the signal close, exits from the next candle, fill+stop in one candle = stop. Research only.
-
----
-
-## Bot - Mon Oct 12, 12:49 AM ET
-
-Jeff's paper trade check (read-only, Binance.US costs):
-- BTC-USDT 15m short from 2026-10-11 ~21:15 ET: stopped 10-12 00:40 ET, -1.12R. LOSS after 3.4 h; best point 1.49R, worst 1.04R; price got 1.49R toward the target before the stop
 
 ---
 
