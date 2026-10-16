@@ -42,11 +42,12 @@
 //     3 MS: after the sweep, the 15m shifts my way: internal up (teal), BOS up, or a true MS up (rule 13c).
 //     4 PULLBACK: price comes back into the zone that made the shift (rule 13d).
 //     5 CONFIRM: a candle closes my way past the last candle's high (low) (rule 13e) -> READY, if R:R >= 1.5.
-//     Stop = the sweep low (rule 29). Target = the nearest untouched level my way ($$$, D $$$, WEAK/STRONG) (rule 34).
+//     Stop = past the nearest untouched $$$ / D $$$ / WEAK / STRONG beyond the sweep wick (rules 17b, 29); none = past the
+//     wick. READY draws ENTRY / SL / TP lines until the stop or target is hit. Target = the nearest untouched level my way ($$$, D $$$, WEAK/STRONG) (rule 34).
 //     Off: a body close past the sweep low or an MS against (rules 12/16), target hit first (rule 12), one try (rule 16).
 //     [Claude's fill-ins: "small MS" = the board's internal / BOS / MS; "zone that made the shift" = the last red candle
 //     (short: green) between the sweep and the shift, its high (low); "strong candle" = closes past the last candle's
-//     high (low); stop exactly at the sweep wick (rule 29's "a little beyond" gap is not set); a deeper sweep restarts.]
+//     high (low); stop gap 0.05% (Jeff's rule 10 says "test a few"); only the NEAREST level past the wick; a deeper sweep restarts.]
 //   [Claude's fill-ins: "pullback" = at least 1 candle that did not make a new high/low; equal lows = within 0.01%.]
 //@version=6
 indicator("Jeff's Structure Zones TEST", shorttitle="Structure TEST", overlay=true, max_lines_count=100, max_labels_count=100, max_boxes_count=100, max_bars_back=2000)
@@ -65,6 +66,7 @@ liqOld   = input.bool(true, "$$$: also show OLDER untouched equal highs/lows (la
 obTrend  = input.bool(false, "Zones only WITH the trend (supply in a downtrend, demand in an uptrend)")
 showChk  = input.bool(true, "Show the READY / WAIT checklist")
 minRR    = input.float(1.5, "Checklist: minimum reward-to-risk (rule 11b)", minval=0.5, step=0.1)
+stopBuf  = input.float(0.05, "Checklist: stop gap past the level (%)", minval=0, step=0.01)
 
 GREEN  = color.rgb(0, 230, 118)
 RED    = color.rgb(255, 50, 50)
@@ -585,6 +587,7 @@ var float lTg = na
 var int   lPb = na
 var int   lRd = na      // READY / SKIP candle
 var float lEn = na
+var float lSt = na      // stop
 var float lRR = na
 var string lEnd = ""
 fireL = false
@@ -599,6 +602,7 @@ var float sTg = na
 var int   sPb = na
 var int   sRd = na
 var float sEn = na
+var float sSt = na
 var float sRR = na
 var string sEnd = ""
 fireS = false
@@ -643,7 +647,9 @@ if barstate.isconfirmed and trend != 0
             lRd := bar_index
             lEn := close
             lTg := f_tgt(close, true)
-            lRR := na(lTg) ? na : (lTg - close) / math.max(close - lSL, syminfo.mintick)
+            pl = f_tgt(lSL, false)
+            lSt := (na(pl) ? lSL : pl) * (1 - stopBuf / 100)
+            lRR := na(lTg) ? na : (lTg - close) / math.max(close - lSt, syminfo.mintick)
             zoneOk = lDisc or lTrue
             fireL := zoneOk and (na(lRR) or lRR >= minRR)
             lEnd := fireL ? "READY" : not zoneOk ? "SKIP: sweep not in discount, no true MS" : "SKIP: R:R " + str.tostring(lRR, "#.#") + " under " + str.tostring(minRR, "#.#")
@@ -692,7 +698,9 @@ if barstate.isconfirmed and trend != 0
             sRd := bar_index
             sEn := close
             sTg := f_tgt(close, false)
-            sRR := na(sTg) ? na : (close - sTg) / math.max(sSH - close, syminfo.mintick)
+            ps = f_tgt(sSH, true)
+            sSt := (na(ps) ? sSH : ps) * (1 + stopBuf / 100)
+            sRR := na(sTg) ? na : (close - sTg) / math.max(sSt - close, syminfo.mintick)
             zoneOk = sPrem or sTrue
             fireS := zoneOk and (na(sRR) or sRR >= minRR)
             sEnd := fireS ? "READY" : not zoneOk ? "SKIP: sweep not in premium, no true MS" : "SKIP: R:R " + str.tostring(sRR, "#.#") + " under " + str.tostring(minRR, "#.#")
@@ -707,15 +715,55 @@ plotshape(showChk and fireS, "READY short", shape.labeldown, location.abovebar, 
 alertcondition(fireL, "READY long", "{{ticker}} {{interval}} READY LONG (Jeff checklist)")
 alertcondition(fireS, "READY short", "{{ticker}} {{interval}} READY SHORT (Jeff checklist)")
 if fireL
-    alert(syminfo.ticker + " " + timeframe.period + " READY LONG  entry " + str.tostring(lEn, format.mintick) + "  stop " + str.tostring(lSL, format.mintick) + "  target " + str.tostring(lTg, format.mintick) + "  R:R " + str.tostring(lRR, "#.#"), alert.freq_once_per_bar_close)
+    alert(syminfo.ticker + " " + timeframe.period + " READY LONG  entry " + str.tostring(lEn, format.mintick) + "  stop " + str.tostring(lSt, format.mintick) + "  target " + str.tostring(lTg, format.mintick) + "  R:R " + str.tostring(lRR, "#.#"), alert.freq_once_per_bar_close)
 if fireS
-    alert(syminfo.ticker + " " + timeframe.period + " READY SHORT  entry " + str.tostring(sEn, format.mintick) + "  stop " + str.tostring(sSH, format.mintick) + "  target " + str.tostring(sTg, format.mintick) + "  R:R " + str.tostring(sRR, "#.#"), alert.freq_once_per_bar_close)
+    alert(syminfo.ticker + " " + timeframe.period + " READY SHORT  entry " + str.tostring(sEn, format.mintick) + "  stop " + str.tostring(sSt, format.mintick) + "  target " + str.tostring(sTg, format.mintick) + "  R:R " + str.tostring(sRR, "#.#"), alert.freq_once_per_bar_close)
+
+// READY: ENTRY / SL / TP lines, kept until the stop or the target is hit
+var array<line>  tlL = array.new_line()
+var array<label> tbL = array.new_label()
+var array<line>  tlS = array.new_line()
+var array<label> tbS = array.new_label()
+var bool lLive = false
+var bool sLive = false
+f_draw(ls, lbs, en, st, tg, isL) =>
+    for x in ls
+        line.delete(x)
+    for x in lbs
+        label.delete(x)
+    array.clear(ls)
+    array.clear(lbs)
+    r = math.abs(tg - en) / math.max(math.abs(en - st), syminfo.mintick)
+    for k = 0 to 2
+        y = k == 0 ? en : k == 1 ? st : tg
+        c = k == 0 ? color.white : k == 1 ? RED : GREEN
+        t = (k == 0 ? (isL ? "LONG entry " : "SHORT entry ") : k == 1 ? "SL " : "TP ") + str.tostring(y, format.mintick) + (k == 2 ? "  (" + str.tostring(r, "#.#") + "R)" : "")
+        array.push(ls, line.new(bar_index, y, bar_index + 1, y, color=c, width=2, extend=extend.right))
+        array.push(lbs, label.new(bar_index, y, t, style=isL == (k == 1) ? label.style_label_up : label.style_label_down, color=c, textcolor=k == 0 ? color.black : color.white, size=size.small))
+    true
+f_stopExt(ls) =>
+    for x in ls
+        line.set_extend(x, extend.none)
+        line.set_x2(x, bar_index)
+    true
+if showChk and fireL and not na(lTg)
+    f_draw(tlL, tbL, lEn, lSt, lTg, true)
+    lLive := true
+else if lLive and barstate.isconfirmed and (low <= lSt or high >= lTg)
+    f_stopExt(tlL)
+    lLive := false
+if showChk and fireS and not na(sTg)
+    f_draw(tlS, tbS, sEn, sSt, sTg, false)
+    sLive := true
+else if sLive and barstate.isconfirmed and (high >= sSt or low <= sTg)
+    f_stopExt(tlS)
+    sLive := false
 
 var table ck = table.new(position.bottom_right, 3, 8, bgcolor=color.new(color.black, 0), frame_color=color.gray, frame_width=1, border_width=2)
 f_mark(ok) => ok ? "✓" : "✗"
 f_tm(b) => str.format_time(time[bar_index - b], "MMM d HH:mm", "America/New_York")
-f_status(fire, sw, ms, pb, rd, endTxt, isL) =>
-    fire ? "READY " + (isL ? "LONG" : "SHORT") : not na(rd) ? (endTxt == "READY" ? "Done: READY " + f_tm(rd) + " (one try)" : endTxt) : na(sw) ? "WAIT: no sweep of a " + (isL ? "low" : "high") + " yet" : na(ms) ? "WAIT: no 15m MS " + (isL ? "up" : "down") + " yet" : na(pb) ? "WAIT: pullback to the zone" : "WAIT: confirm candle"
+f_status(fire, sw, ms, pb, rd, endTxt, isL, en, st, tg) =>
+    fire ? "READY " + (isL ? "LONG" : "SHORT") + "  in " + str.tostring(en, format.mintick) + "  SL " + str.tostring(st, format.mintick) + "  TP " + str.tostring(tg, format.mintick) : not na(rd) ? (endTxt == "READY" ? "READY " + f_tm(rd) + ": in " + str.tostring(en, format.mintick) + "  SL " + str.tostring(st, format.mintick) + "  TP " + str.tostring(tg, format.mintick) : endTxt) : na(sw) ? "WAIT: no sweep of a " + (isL ? "low" : "high") + " yet" : na(ms) ? "WAIT: no 15m MS " + (isL ? "up" : "down") + " yet" : na(pb) ? "WAIT: pullback to the zone" : "WAIT: confirm candle"
 if barstate.islast and showChk
     lZoneNow = na(lSw) ? close < cMid : lDisc or lTrue
     sZoneNow = na(sSw) ? close > cMid : sPrem or sTrue
@@ -738,10 +786,10 @@ if barstate.islast and showChk
     table.cell(ck, 0, 6, "R:R " + str.tostring(minRR, "#.#") + "+", text_color=color.white, text_size=size.small, text_halign=text.align_left)
     table.cell(ck, 1, 6, na(lRRnow) ? "-" : str.tostring(lRRnow, "#.#"), text_color=na(lRRnow) ? color.gray : lRRnow >= minRR ? GREEN : YELLOW, text_size=size.small)
     table.cell(ck, 2, 6, na(sRRnow) ? "-" : str.tostring(sRRnow, "#.#"), text_color=na(sRRnow) ? color.gray : sRRnow >= minRR ? GREEN : YELLOW, text_size=size.small)
-    lSt = f_status(fireL, lSw, lMs, lPb, lRd, lEnd, true)
-    sSt = f_status(fireS, sSw, sMs, sPb, sRd, sEnd, false)
-    table.cell(ck, 1, 7, lSt, text_color=fireL ? color.black : color.white, bgcolor=fireL ? GREEN : na, text_size=size.small)
-    table.cell(ck, 2, 7, sSt, text_color=fireS ? color.white : color.white, bgcolor=fireS ? RED : na, text_size=size.small)
+    lTx = f_status(fireL, lSw, lMs, lPb, lRd, lEnd, true, lEn, lSt, lTg)
+    sTx = f_status(fireS, sSw, sMs, sPb, sRd, sEnd, false, sEn, sSt, sTg)
+    table.cell(ck, 1, 7, lTx, text_color=fireL ? color.black : color.white, bgcolor=fireL ? GREEN : na, text_size=size.small)
+    table.cell(ck, 2, 7, sTx, text_color=fireS ? color.white : color.white, bgcolor=fireS ? RED : na, text_size=size.small)
     table.cell(ck, 0, 7, "Look past stop (17b)", text_color=YELLOW, text_size=size.tiny, text_halign=text.align_left)
 
 // small top-right box (trend + phase) and the color key laid on its side along the bottom
