@@ -35,6 +35,18 @@
 //     fib leg; a level inside another level's wick is dropped (one line per group). Leg $$$ = the highest high since the
 //     break before the latest break (uptrend: lowest low), shown when it is past STRONG: the stops for the whole leg
 //     (Jeff Oct 14: his "yellow candle" 113.33 on SOL 1H). [Claude's rules, no number]
+//   CHECKLIST (Jeff Oct 15: "tell me WAIT or READY"). Rule 13 Way A (rules/JEFF_RULES_from_Brad.txt) + rules 7, 7b/38, 11b,
+//     12, 16, 29. Each side (LONG / SHORT) on its own, both ways (rule 1b). Steps, in order, on CLOSED candles only:
+//     1 ZONE: the sweep was in discount (long) / premium (short), or the shift was a TRUE MS (solid purple, rule 7b/38).
+//     2 SWEEP: a wick past a recent low ($$$ bottom, yesterday's low, STRONG/WEAK) and the body closes back (rule 8/12).
+//     3 MS: after the sweep, the 15m shifts my way: internal up (teal), BOS up, or a true MS up (rule 13c).
+//     4 PULLBACK: price comes back into the zone that made the shift (rule 13d).
+//     5 CONFIRM: a candle closes my way past the last candle's high (low) (rule 13e) -> READY, if R:R >= 1.5.
+//     Stop = the sweep low (rule 29). Target = the nearest untouched level my way ($$$, D $$$, WEAK/STRONG) (rule 34).
+//     Off: a body close past the sweep low or an MS against (rules 12/16), target hit first (rule 12), one try (rule 16).
+//     [Claude's fill-ins: "small MS" = the board's internal / BOS / MS; "zone that made the shift" = the last red candle
+//     (short: green) between the sweep and the shift, its high (low); "strong candle" = closes past the last candle's
+//     high (low); stop exactly at the sweep wick (rule 29's "a little beyond" gap is not set); a deeper sweep restarts.]
 //   [Claude's fill-ins: "pullback" = at least 1 candle that did not make a new high/low; equal lows = within 0.01%.]
 //@version=6
 indicator("Jeff's Structure Zones TEST", shorttitle="Structure TEST", overlay=true, max_lines_count=100, max_labels_count=100, max_boxes_count=100, max_bars_back=2000)
@@ -50,6 +62,8 @@ midCol   = input.color(color.rgb(255, 0, 200), "50% line color")
 showLiq  = input.bool(true, "Show liquidity $$$ (yesterday's high/low + equal highs/lows)")
 liqCol   = input.color(color.rgb(0, 170, 70), "$$$ color")
 obTrend  = input.bool(false, "Zones only WITH the trend (supply in a downtrend, demand in an uptrend)")
+showChk  = input.bool(true, "Show the READY / WAIT checklist")
+minRR    = input.float(1.5, "Checklist: minimum reward-to-risk (rule 11b)", minval=0.5, step=0.1)
 
 GREEN  = color.rgb(0, 230, 118)
 RED    = color.rgb(255, 50, 50)
@@ -426,6 +440,20 @@ var array<float> uW = array.new_float()   // bottoms: wick (low), body bottom, c
 var array<float> uE = array.new_float()
 var array<int>   uB = array.new_int()
 var array<bool>  uQ = array.new_bool()
+// checklist step 2: did this candle sweep a recent low (high) and close back? (checked before the wick removes it)
+f_swept(arr, isLow) =>
+    hit = false
+    if array.size(arr) > 0
+        for i = 0 to array.size(arr) - 1
+            L = array.get(arr, i)
+            if isLow ? (low < L and close > L) : (high > L and close < L)
+                hit := true
+    hit
+newDay = timeframe.change("D")
+loLvl = trend[1] == 1 ? strong[1] : trend[1] == -1 ? weak[1] : na
+hiLvl = trend[1] == 1 ? weak[1] : trend[1] == -1 ? strong[1] : na
+swLo = f_swept(uW, true) or (not na(loLvl) and low < loLvl and close > loLvl) or (not na(pdl) and not newDay and nz(dLo[1], low) >= pdl and low < pdl and close > pdl)
+swHi = f_swept(topW, false) or (not na(hiLvl) and high > hiLvl and close < hiLvl) or (not na(pdh) and not newDay and nz(dHi[1], high) <= pdh and high > pdh and close < pdh)
 // a wick past it takes it
 if array.size(topW) > 0
     for i = array.size(topW) - 1 to 0
@@ -528,6 +556,191 @@ if barstate.islast
             x0 = math.min(nz(sb, wb), wb)
             f_eq(topW, topE, topB, topQ, x0)
             f_eq(uW, uE, uB, uQ, x0)
+
+// CHECKLIST: READY / WAIT, LONG and SHORT side by side (see the notes at the top)
+cMid = (strong + weak) / 2
+// nearest untouched level above (below) ref: $$$ tops (bottoms), yesterday's high (low) if not taken, STRONG / WEAK
+f_tgt(ref, isUp) =>
+    t = float(na)
+    arr = isUp ? topW : uW
+    if array.size(arr) > 0
+        for i = 0 to array.size(arr) - 1
+            L = array.get(arr, i)
+            if isUp ? L > ref and (na(t) or L < t) : L < ref and (na(t) or L > t)
+                t := L
+    for L in array.from(strong, weak, isUp ? (dHi <= nz(pdh) ? pdh : na) : (dLo >= nz(pdl) ? pdl : na))
+        if not na(L) and (isUp ? L > ref and (na(t) or L < t) : L < ref and (na(t) or L > t))
+            t := L
+    t
+// LONG
+var int   lSw = na      // sweep candle
+var float lSL = na      // sweep low = stop
+var bool  lDisc = false
+var int   lMs = na      // shift candle
+var bool  lTrue = false
+var float lZ = na       // top of the zone that made the shift
+var float lTg = na
+var int   lPb = na
+var int   lRd = na      // READY / SKIP candle
+var float lEn = na
+var float lRR = na
+var string lEnd = ""
+fireL = false
+// SHORT (mirror)
+var int   sSw = na
+var float sSH = na
+var bool  sPrem = false
+var int   sMs = na
+var bool  sTrue = false
+var float sZ = na
+var float sTg = na
+var int   sPb = na
+var int   sRd = na
+var float sEn = na
+var float sRR = na
+var string sEnd = ""
+fireS = false
+if barstate.isconfirmed and trend != 0
+    // ---- LONG ----
+    if swLo and (na(lSw) or not na(lRd) or low <= lSL)
+        lSw := bar_index
+        lSL := low
+        lDisc := low < cMid
+        lMs := na
+        lTrue := false
+        lPb := na
+        lRd := na
+        lTg := na
+        lEnd := ""
+    else if not na(lSw) and na(lRd) and (close < lSL or evPrev == 4)
+        lEnd := close < lSL ? "Off: closed below the sweep low" : "Off: MS down"
+        lSw := na
+        lMs := na
+        lPb := na
+    if not na(lSw) and na(lMs) and (evCur == 1 or evCur == 6 or (evPrev == 3 and bar_index - 1 >= lSw))
+        lMs := evPrev == 3 ? bar_index - 1 : bar_index
+        lTrue := evPrev == 3
+        z = float(na)
+        if lMs - 1 >= lSw
+            for x = lMs - 1 to lSw
+                o = bar_index - x
+                if close[o] < open[o]
+                    z := high[o]
+                    break
+        lZ := na(z) ? math.min(open[bar_index - lSw], close[bar_index - lSw]) : z
+        lTg := f_tgt(close, true)
+    else if not na(lMs) and na(lPb) and na(lRd) and bar_index > lMs
+        if low <= lZ
+            lPb := bar_index
+        else if not na(lTg) and high >= lTg
+            lEnd := "Off: target hit before the pullback"
+            lSw := na
+            lMs := na
+    else if not na(lPb) and na(lRd) and bar_index > lPb
+        if close > open and close > high[1]
+            lRd := bar_index
+            lEn := close
+            lTg := f_tgt(close, true)
+            lRR := na(lTg) ? na : (lTg - close) / math.max(close - lSL, syminfo.mintick)
+            zoneOk = lDisc or lTrue
+            fireL := zoneOk and (na(lRR) or lRR >= minRR)
+            lEnd := fireL ? "READY" : not zoneOk ? "SKIP: sweep not in discount, no true MS" : "SKIP: R:R " + str.tostring(lRR, "#.#") + " under " + str.tostring(minRR, "#.#")
+        else if not na(lTg) and high >= lTg
+            lEnd := "Off: target hit before entry"
+            lSw := na
+            lMs := na
+            lPb := na
+    // ---- SHORT (mirror) ----
+    if swHi and (na(sSw) or not na(sRd) or high >= sSH)
+        sSw := bar_index
+        sSH := high
+        sPrem := high > cMid
+        sMs := na
+        sTrue := false
+        sPb := na
+        sRd := na
+        sTg := na
+        sEnd := ""
+    else if not na(sSw) and na(sRd) and (close > sSH or evPrev == 3)
+        sEnd := close > sSH ? "Off: closed above the sweep high" : "Off: MS up"
+        sSw := na
+        sMs := na
+        sPb := na
+    if not na(sSw) and na(sMs) and (evCur == 2 or evCur == 7 or (evPrev == 4 and bar_index - 1 >= sSw))
+        sMs := evPrev == 4 ? bar_index - 1 : bar_index
+        sTrue := evPrev == 4
+        z = float(na)
+        if sMs - 1 >= sSw
+            for x = sMs - 1 to sSw
+                o = bar_index - x
+                if close[o] > open[o]
+                    z := low[o]
+                    break
+        sZ := na(z) ? math.max(open[bar_index - sSw], close[bar_index - sSw]) : z
+        sTg := f_tgt(close, false)
+    else if not na(sMs) and na(sPb) and na(sRd) and bar_index > sMs
+        if high >= sZ
+            sPb := bar_index
+        else if not na(sTg) and low <= sTg
+            sEnd := "Off: target hit before the pullback"
+            sSw := na
+            sMs := na
+    else if not na(sPb) and na(sRd) and bar_index > sPb
+        if close < open and close < low[1]
+            sRd := bar_index
+            sEn := close
+            sTg := f_tgt(close, false)
+            sRR := na(sTg) ? na : (close - sTg) / math.max(sSH - close, syminfo.mintick)
+            zoneOk = sPrem or sTrue
+            fireS := zoneOk and (na(sRR) or sRR >= minRR)
+            sEnd := fireS ? "READY" : not zoneOk ? "SKIP: sweep not in premium, no true MS" : "SKIP: R:R " + str.tostring(sRR, "#.#") + " under " + str.tostring(minRR, "#.#")
+        else if not na(sTg) and low <= sTg
+            sEnd := "Off: target hit before entry"
+            sSw := na
+            sMs := na
+            sPb := na
+
+plotshape(showChk and fireL, "READY long", shape.labelup, location.belowbar, GREEN, text="READY", textcolor=color.black, size=size.small)
+plotshape(showChk and fireS, "READY short", shape.labeldown, location.abovebar, RED, text="READY", textcolor=color.white, size=size.small)
+alertcondition(fireL, "READY long", "{{ticker}} {{interval}} READY LONG (Jeff checklist)")
+alertcondition(fireS, "READY short", "{{ticker}} {{interval}} READY SHORT (Jeff checklist)")
+if fireL
+    alert(syminfo.ticker + " " + timeframe.period + " READY LONG  entry " + str.tostring(lEn, format.mintick) + "  stop " + str.tostring(lSL, format.mintick) + "  target " + str.tostring(lTg, format.mintick) + "  R:R " + str.tostring(lRR, "#.#"), alert.freq_once_per_bar_close)
+if fireS
+    alert(syminfo.ticker + " " + timeframe.period + " READY SHORT  entry " + str.tostring(sEn, format.mintick) + "  stop " + str.tostring(sSH, format.mintick) + "  target " + str.tostring(sTg, format.mintick) + "  R:R " + str.tostring(sRR, "#.#"), alert.freq_once_per_bar_close)
+
+var table ck = table.new(position.middle_right, 3, 8, bgcolor=color.new(color.black, 15), frame_color=color.gray, frame_width=1, border_width=2)
+f_mark(ok) => ok ? "✓" : "✗"
+f_tm(b) => str.format_time(time[bar_index - b], "MMM d HH:mm", "America/New_York")
+f_status(fire, sw, ms, pb, rd, endTxt, isL) =>
+    fire ? "READY " + (isL ? "LONG" : "SHORT") : not na(rd) ? (endTxt == "READY" ? "Done: READY " + f_tm(rd) + " (one try)" : endTxt) : na(sw) ? "WAIT: no sweep of a " + (isL ? "low" : "high") + " yet" : na(ms) ? "WAIT: no 15m MS " + (isL ? "up" : "down") + " yet" : na(pb) ? "WAIT: pullback to the zone" : "WAIT: confirm candle"
+if barstate.islast and showChk
+    lZoneNow = na(lSw) ? close < cMid : lDisc or lTrue
+    sZoneNow = na(sSw) ? close > cMid : sPrem or sTrue
+    lRRnow = not na(lRd) ? lRR : not na(lMs) and not na(lTg) ? (lTg - close) / math.max(close - lSL, syminfo.mintick) : na
+    sRRnow = not na(sRd) ? sRR : not na(sMs) and not na(sTg) ? (close - sTg) / math.max(sSH - close, syminfo.mintick) : na
+    rows = array.from("1 Zone", "2 Sweep", "3 MS", "4 Pullback", "5 Confirm")
+    lOk = array.from(lZoneNow, not na(lSw), not na(lMs), not na(lPb), not na(lRd) and lEnd == "READY")
+    sOk = array.from(sZoneNow, not na(sSw), not na(sMs), not na(sPb), not na(sRd) and sEnd == "READY")
+    table.cell(ck, 0, 0, "CHECKLIST", text_color=color.white, text_size=size.small)
+    table.cell(ck, 1, 0, "LONG", text_color=GREEN, text_size=size.small)
+    table.cell(ck, 2, 0, "SHORT", text_color=RED, text_size=size.small)
+    for i = 0 to 4
+        table.cell(ck, 0, i + 1, array.get(rows, i), text_color=color.white, text_size=size.small, text_halign=text.align_left)
+        lo = array.get(lOk, i)
+        so = array.get(sOk, i)
+        lT = f_mark(lo) + (i == 2 and lTrue and not na(lMs) ? " TRUE" : "")
+        sT = f_mark(so) + (i == 2 and sTrue and not na(sMs) ? " TRUE" : "")
+        table.cell(ck, 1, i + 1, lT, text_color=lo ? GREEN : color.gray, text_size=size.small)
+        table.cell(ck, 2, i + 1, sT, text_color=so ? GREEN : color.gray, text_size=size.small)
+    table.cell(ck, 0, 6, "R:R " + str.tostring(minRR, "#.#") + "+", text_color=color.white, text_size=size.small, text_halign=text.align_left)
+    table.cell(ck, 1, 6, na(lRRnow) ? "-" : str.tostring(lRRnow, "#.#"), text_color=na(lRRnow) ? color.gray : lRRnow >= minRR ? GREEN : YELLOW, text_size=size.small)
+    table.cell(ck, 2, 6, na(sRRnow) ? "-" : str.tostring(sRRnow, "#.#"), text_color=na(sRRnow) ? color.gray : sRRnow >= minRR ? GREEN : YELLOW, text_size=size.small)
+    lS = f_status(fireL, lSw, lMs, lPb, lRd, lEnd, true)
+    sS = f_status(fireS, sSw, sMs, sPb, sRd, sEnd, false)
+    table.cell(ck, 1, 7, lS, text_color=fireL ? color.black : color.white, bgcolor=fireL ? GREEN : na, text_size=size.small)
+    table.cell(ck, 2, 7, sS, text_color=fireS ? color.white : color.white, bgcolor=fireS ? RED : na, text_size=size.small)
+    table.cell(ck, 0, 7, "Look past stop (17b)", text_color=YELLOW, text_size=size.tiny, text_halign=text.align_left)
 
 // small top-right box (trend + phase) and the color key laid on its side along the bottom
 var table tb  = table.new(position.top_right, 1, 3, bgcolor=color.new(color.black, 15), frame_color=color.gray, frame_width=1, border_width=2)
