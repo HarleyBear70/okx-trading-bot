@@ -1,3 +1,5 @@
+> **Copyright (c) 2026 Jeff Birge. All rights reserved.** No use, copying or sharing without Jeff Birge's written permission. See LICENSE.
+
 # okx-trading-bot
 
 **Dashboard:** [CALENDAR.md](CALENDAR.md): daily P/L calendar + one strategy card per bot (live vs backtest), updated every hour.
