@@ -1,9 +1,10 @@
-ATTENTION: bot run had 1 error(s) (checked 2026-10-17 9:36 AM ET)
+ATTENTION: bot run had 1 error(s) (checked 2026-10-17 10:33 AM ET)
 
 # Bot notes
 
 Written every hour by watcher.py after the bots run. Read-only: it never trades. Newest first, Eastern time. ATTENTION means: a bot 8%+ below its best balance, a losing streak longer than the backtest's worst, live vs backtest replay 2%+ apart, a failed bot run, or an unexpected open position.
 
+- 2026-10-17 10:33 AM ET · Bot run problem: [Trend Rider] TRX-USDT: ERROR OKX error on /api/v5/trade/order: {"code": "1", "data": [{"clOrdId": "ghTBTRX1792224000", "ordId": "", "sCode": "51155", "sMsg": "You can't trade this pair or borrow this crypto due to local compliance restrictions. ", "subCode": "", "tag": "", "ts": "1792247500817"}], "inTime": "1792247500771197", "msg": "All operations failed", "outTime": "1792247500862653"}
 - 2026-10-17 9:36 AM ET · Bot run problem: [Trend Rider] TRX-USDT: ERROR OKX error on /api/v5/trade/order: {"code": "1", "data": [{"clOrdId": "ghTBTRX1792224000", "ordId": "", "sCode": "51155", "sMsg": "You can't trade this pair or borrow this crypto due to local compliance restrictions. ", "subCode": "", "tag": "", "ts": "1792244046529"}], "inTime": "1792244046482539", "msg": "All operations failed", "outTime": "1792244046576756"}
 - 2026-10-17 8:40 AM ET · Bot run problem: [Trend Rider] TRX-USDT: ERROR OKX error on /api/v5/trade/order: {"code": "1", "data": [{"clOrdId": "ghTBTRX1792224000", "ordId": "", "sCode": "51155", "sMsg": "You can't trade this pair or borrow this crypto due to local compliance restrictions. ", "subCode": "", "tag": "", "ts": "1792240713860"}], "inTime": "1792240713813144", "msg": "All operations failed", "outTime": "1792240713907713"}
 - 2026-10-16 11:38 AM ET · Trend Rider 1H (Binance.US paper) has lost 10 in a row; no backtest figure for this bot
