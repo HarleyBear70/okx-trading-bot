@@ -4,6 +4,28 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Chrome Claude - Sat Oct 17, 3:28 PM ET
+
+From Chrome Claude: re-test of the NEW TEST board (Jeff's trend + no-chop rule), same 16 tests as the v17 posts above: BTC, ETH, SOL, XRP x Mar 16-Apr 16 2025, Mar 2026, Jun 2026, Aug 2026. Same method (READYs from the board's plots, first of SL/TP on later 15m candles). Closed trades only, fees NOT included.
+
+| Coin | Mar-Apr 2025 | Mar 2026 | Jun 2026 | Aug 2026 | NEW total | v17 total |
+|---|---|---|---|---|---|---|
+| BTC | 8W/6L +8.8R | 7W/8L +7.1R | 0W/7L -7.0R | 3W/5L +0.5R | 44 tr, 18W/26L, +9.4R | 89 tr, 28W/61L, -8.2R |
+| ETH | 2W/0L +4.3R | 4W/4L +4.7R | no trades | 7W/2L +10.3R | 19 tr, 13W/6L, +19.3R | 49 tr, 25W/24L, +29.2R |
+| SOL | 0W/1L -1.0R | 2W/4L +1.2R | 1W/2L -0.3R | 2W/8L -3.8R | 20 tr, 5W/15L, -3.9R | 49 tr, 12W/37L, -12.7R |
+| XRP | (1 open) | 0W/3L -3.0R | 1W/2L -0.1R | 3W/3L +2.4R | 12 tr, 4W/8L, -0.7R | 31 tr, 9W/22L, -3.9R |
+| ALL | | | | | 95 tr, 40W/55L (42%), +24.1R | 218 tr, 74W/144L (34%), +4.4R |
+
+Findings:
+1. Jeff's rule works: less than half the trades, win rate 34% -> 42%, profit per trade about +0.02R -> +0.25R. BTC flipped from -8.2R to +9.4R. SOL and XRP lose much less.
+2. After fees: at Binance.US 0.02%/side (about -0.05R per trade) it stays positive, roughly +19R. At OKX 0.1%/side (about -0.2R per trade) it's close to break-even.
+3. Split by type: M/W READYs 28W/30L about +26R; checklist READYs 12W/25L about -2R. The checklist trades are now the weak part (BTC 4W/10L, SOL 2W/6L, XRP 2W/6L).
+4. Still weak spots: BTC Jun 2026 0W/7L, SOL Aug 2026 2W/8L. ETH is still a big share of the profit; without ETH: 76 trades, about +4.8R.
+5. 95 trades is still a small sample. Next: (a) look at the checklist READYs (or turn them off and keep M/W only), (b) test more months before anything goes near a bot.
+My earlier FIX1 no longer adds anything (the new rule covers it); FIX2 trailing still doesn't help. Board stays test-only.
+
+---
+
 ## Jeff - Sat Oct 17, 10:18 AM ET
 
 HEADS UP: TEST board v18 is on GitHub (jeff-private pine/structure_sd_test.pine, 1,244 lines), NOT loaded in TradingView yet - Chrome is mid-test on the TV tab. v18: M/W READY only when the 4H AND the 15m trend agree; no M/W trades in sideways chop (15m trend flipped 2+ times in the last 48 candles = chop, [fill-in]); 2nd top matched to the real 1st top (Apr 8 M). Chrome: tell Jeff when your test is done and terminal Claude will load v18, or load it yourself (copy raw from GitHub, paste into the Pine Editor, save, check 1,244 lines).
@@ -456,14 +478,6 @@ Jeff's instruction:
 2. If you DON'T fix it, STOP the Turtle bot.
 
 Please reply here with which one you did.
-
----
-
-## Bot - Fri Oct 16, 11:29 AM ET
-
-From terminal Claude: my own heartbeat paper trades (Claude's rules, paper only):
-- BTC long 82204.95 -> LOSS -1.06R ($-10.59), 2.9 h, best 0.50R; bias UP, 1D UP, entry in 15m discount
-Paper balance $989.41 (started $1,000).
 
 ---
 
