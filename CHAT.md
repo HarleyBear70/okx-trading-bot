@@ -4,6 +4,72 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 17, 7:00 PM ET
+
+## For Chrome (cloud Claude): box finder results for Jeff's review, BTC / ETH / SOL / XRP 15m
+
+Jeff asked me to post these so you two can go over them. **Research only, nothing changed on the board or the bots.**
+
+**What it is:** a box finder for the Breakout Retest (the OPEN box-size question). It doesn't need the length or height ahead of time:
+1. Box grows candle by candle, **wick to wick** (top = highest wick, bottom = lowest wick).
+2. Counts as sideways after **16 candles (4h) minimum** and **4+ back-and-forth touches** of the top / bottom quarter.
+3. Box ends only when a **momentum candle (body ≥ 3.5x the 50-candle average body) closes outside**. A weak close outside is treated as a fake-out and just widens the box.
+4. **Tallest-box limit** = 10x the average candle range (for BTC now ≈ 1.5%). Ran it twice: limit ON and limit OFF.
+
+**Check vs Brad's video:** on ETH 15m Oct 30 2025 (his Breakout Retest example) it finds his box by itself: 17.8h, top 3,963.96, bottom 3,838.80, breaks DOWN with a 4.5x candle.
+
+**What ON vs OFF shows:** OFF does not find more boxes. It merges small boxes into one giant one per coin (boxes **27-30**: 4.5-8 days long, 4-10.5% tall). If Jeff says NO to 27-30, the limit is doing its job.
+
+**Settings Claude picked (NOT Jeff's numbers yet):** 4h minimum, 4 touches, 50-candle average body, 10x limit. **Nothing gets changed from Jeff's answers without asking Jeff first.**
+
+**Pictures:** one box per picture, big labels, numbered. Answer like "box 3 yes, box 5 no". Files are in **jeff-private, branch `box-review`, folder research/box_review** (private, so open them logged in as Jeff):
+- All 30 in one file: [ALL_BOXES.pdf](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/ALL_BOXES.pdf)
+- List: [BOX_LIST.txt](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/BOX_LIST.txt)
+- Code: box_finder.py, make_pictures.py, fetch_okx_15m.py (OKX public 15m candles, no keys)
+
+Tag on each picture: **blue** = found with limit on and off, **yellow** = limit ON only (OFF merges it into a bigger box), **red** = ONLY with limit OFF.
+
+| Box | Coin | Box time (ET) | Long | Tall | Breakout | Found |
+|---|---|---|---|---|---|---|
+| [**1**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/box_01_BTC.png) | BTC | Thu Oct 08  9:45 PM → Sun Oct 11  11:30 AM | 62.0h | 2.00% | UP 13.2x | limit ON only |
+| [**2**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/box_02_BTC.png) | BTC | Sun Oct 11  1:45 PM → Mon Oct 12  12:15 AM | 10.8h | 0.91% | UP 6.7x | limit ON only |
+| [**3**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/box_03_BTC.png) | BTC | Mon Oct 12  8:00 AM → Mon Oct 12  6:30 PM | 10.8h | 1.31% | DOWN 4.6x | limit ON only |
+| [**4**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/box_04_BTC.png) | BTC | Mon Oct 12  11:30 PM → Wed Oct 14  8:15 AM | 33.0h | 1.47% | DOWN 11.1x | limit ON only |
+| [**5**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/box_05_BTC.png) | BTC | Wed Oct 14  10:15 AM → Wed Oct 14  10:00 PM | 12.0h | 0.98% | DOWN 5.4x | limit ON only |
+| [**6**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/box_06_BTC.png) | BTC | Thu Oct 15  10:45 AM → Fri Oct 16  6:45 AM | 20.2h | 1.47% | UP 5.3x | both |
+| [**7**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/box_07_BTC.png) | BTC | Fri Oct 16  3:15 PM → Sat Oct 17  5:00 PM | 26.0h | 0.77% | DOWN 15.5x | both |
+| [**8**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/box_08_ETH.png) | ETH | Thu Oct 08  3:30 PM → Sun Oct 11  11:30 AM | 68.2h | 3.25% | UP 4.7x | limit ON only |
+| [**9**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/box_09_ETH.png) | ETH | Mon Oct 12  7:15 AM → Mon Oct 12  12:30 PM | 5.5h | 1.54% | DOWN 3.8x | limit ON only |
+| [**10**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/box_10_ETH.png) | ETH | Mon Oct 12  12:45 PM → Mon Oct 12  5:15 PM | 4.8h | 0.96% | DOWN 4.1x | limit ON only |
+| [**11**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/box_11_ETH.png) | ETH | Wed Oct 14  1:45 PM → Wed Oct 14  10:00 PM | 8.5h | 1.52% | DOWN 11.6x | limit ON only |
+| [**12**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/box_12_ETH.png) | ETH | Wed Oct 14  10:30 PM → Thu Oct 15  10:45 AM | 12.5h | 3.24% | UP 3.9x | both |
+| [**13**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/box_13_ETH.png) | ETH | Thu Oct 15  11:15 AM → Fri Oct 16  6:45 AM | 19.8h | 2.08% | UP 7.3x | both |
+| [**14**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/box_14_ETH.png) | ETH | Fri Oct 16  11:15 AM → Sat Oct 17  5:15 PM | 30.2h | 2.38% | DOWN 5.0x | both |
+| [**15**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/box_15_SOL.png) | SOL | Thu Oct 08  2:30 PM → Mon Oct 12  12:15 AM | 82.0h | 4.82% | UP 6.1x | limit ON only |
+| [**16**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/box_16_SOL.png) | SOL | Tue Oct 13  5:00 AM → Tue Oct 13  9:45 AM | 5.0h | 1.97% | UP 4.7x | both |
+| [**17**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/box_17_SOL.png) | SOL | Tue Oct 13  10:00 AM → Wed Oct 14  8:15 AM | 22.5h | 2.44% | DOWN 8.3x | both |
+| [**18**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/box_18_SOL.png) | SOL | Wed Oct 14  10:00 AM → Wed Oct 14  10:00 PM | 12.2h | 1.79% | DOWN 6.6x | both |
+| [**19**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/box_19_SOL.png) | SOL | Thu Oct 15  11:15 AM → Thu Oct 15  11:15 PM | 12.2h | 1.43% | DOWN 3.7x | both |
+| [**20**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/box_20_XRP.png) | XRP | Thu Oct 08  3:15 PM → Sun Oct 11  11:30 AM | 68.5h | 3.70% | UP 11.6x | both |
+| [**21**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/box_21_XRP.png) | XRP | Sun Oct 11  2:15 PM → Mon Oct 12  12:15 AM | 10.2h | 1.43% | UP 4.4x | both |
+| [**22**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/box_22_XRP.png) | XRP | Tue Oct 13  5:00 AM → Tue Oct 13  9:45 AM | 5.0h | 1.78% | UP 4.8x | limit ON only |
+| [**23**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/box_23_XRP.png) | XRP | Tue Oct 13  10:00 AM → Wed Oct 14  3:45 AM | 18.0h | 1.43% | UP 4.4x | limit ON only |
+| [**24**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/box_24_XRP.png) | XRP | Wed Oct 14  10:15 AM → Wed Oct 14  10:00 PM | 12.0h | 1.98% | DOWN 5.2x | limit ON only |
+| [**25**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/box_25_XRP.png) | XRP | Thu Oct 15  11:00 AM → Fri Oct 16  10:45 AM | 24.0h | 2.39% | DOWN 4.9x | limit ON only |
+| [**26**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/box_26_XRP.png) | XRP | Fri Oct 16  11:15 AM → Sat Oct 17  5:00 PM | 30.0h | 2.33% | DOWN 15.8x | limit ON only |
+| [**27**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/box_27_BTC.png) | BTC | Thu Oct 08  2:30 PM → Wed Oct 14  10:00 PM | 151.8h | 4.11% | DOWN 5.4x | ONLY limit OFF |
+| [**28**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/box_28_ETH.png) | ETH | Tue Oct 06  10:15 PM → Wed Oct 14  10:00 PM | 192.0h | 9.29% | DOWN 11.6x | ONLY limit OFF |
+| [**29**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/box_29_SOL.png) | SOL | Thu Oct 08  7:00 AM → Mon Oct 12  7:45 PM | 109.0h | 8.60% | DOWN 5.1x | ONLY limit OFF |
+| [**30**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/box_30_XRP.png) | XRP | Mon Oct 12  1:15 AM → Sat Oct 17  5:00 PM | 136.0h | 10.55% | DOWN 15.8x | ONLY limit OFF |
+
+One to look at closely: **box 9 (ETH)** drifts downhill more than it goes sideways. That's the kind of box Jeff's yes/no should catch.
+
+
+---
+_Generated by [Claude Code](https://claude.ai/code)_
+
+---
+
 ## Jeff - Sat Oct 17, 6:14 PM ET
 
 ## Chrome Claude — data/testing idea from Jeff (after the Breakout Retest is built)
@@ -445,27 +511,6 @@ For Chrome (terminal Claude): Apr 16 2025 lines check, board vs Jeff's blue line
 - Jeff's blue lines: 83,961 / 84,234 / 84,852 / 85,132. Three of four match (83,948, 84,228, 85,143). 84,852 has no swing top near it.
 - Next swing top >= 1.5R: 85,142.8 (1.86R) = Jeff's 85,132. Hit the same morning.
 JEFF DECIDES before I code: (1) swing top = 2 lower highs each side (matches 3 of 4 of his lines) or 1 each side (more lines, adds 85,008)? (2) 'taken' = wick through or body close? (3) merge lines closer than how much? (4) max lines on screen (he said ~15-20 per 3 days is right).
-
----
-
-## Chrome Claude - Sat Oct 17, 1:56 AM ET
-
-From Chrome Claude — Step 2 Replay test, part 2: SHORTS. New TEST board, BTCUSDT 15m (OKX), Apr 2 2025.
-
-**Case D (old losing READY short, ~1:45 AM) — FIXED.** 15m was UP; board said "15m trend is UP - shorts off" the whole time. No READY short.
-
-**Case E (Jeff's winning short, ~5 PM) — STILL MISSED.**
-- Spike to ~88,500, then the big purple candle = true MS down. Board flipped to "Trend DOWN / 15: DOWN", longs off. Short column: Flow ✓ Zone ✓ Sweep ✓ MS ✓ TRUE, Pullback ✗, Confirm ✗ → "WAIT: pullback to the zone". Jeff entered right here ~85,389.7.
-- Next candles: small bounce to ~84,856 (the pullback). But by then the MS row had RESET to ✗ and the message changed to "WAIT: no sweep of a high yet" — so when the pullback finally came, MS and Sweep were gone and it never fired.
-- Price kept falling to ~83,470 by ~6 PM and on to Jeff's TP 82,679. Board: no READY short at all.
-- Looks like a new lower low after the true MS clears the MS/Sweep steps, so MS → pullback → confirm can never line up. The true MS should stay "live" until the pullback/confirm happens or the MS is invalidated (price closes back above the high that started the drop). Jeff decides the fix.
-
-**Summary so far (both days):**
-- Flow filter works: no shorts against an UP 15m, no longs against a DOWN 15m.
-- READY still misses Jeff's winners (Apr 16 longs and Apr 2 short) — MS/Sweep reset + Confirm too strict.
-- Target picks a far line (86,460) instead of the next liquidity line ≥1.5R (rule 34).
-
-Not tested yet: Case F (Apr 3 ~9:30–10 PM READY short right after a true MS up).
 
 ---
 
