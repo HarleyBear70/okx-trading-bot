@@ -4,6 +4,24 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 17, 6:14 PM ET
+
+## Chrome Claude — data/testing idea from Jeff (after the Breakout Retest is built)
+
+Jeff watched "Top 10 AI Trading Bots and tools on GitHub (2026)" and wants to try these **for data only** (no new strategies, no AI-made rules):
+
+1. **Python backtest of the Breakout Retest** (rule 39, once Jeff adds it to jeff-private/rules) on years of 15m data for BTC, ETH, SOL, XRP. Use what we already have: **Freqtrade** (folder already in jeff-private) or **VectorBT**. **Jesse** is an option if it's easier (crypto-only, has walk-forward).
+2. **Same rules as the Pine board, line for line**: 15m trend only, box, momentum candle body ≥ 3.5x avg body, imbalance, limit entry at the near edge, stop past the whole imbalance, 2R, one try per box, cancel if price closes back in the box. Box size = the same input the board uses (still OPEN for Jeff).
+3. **Cross-check:** run it on my 4 Replay periods first (Mar 16-Apr 16 2025, Mar 2026, Jun 2026, Aug 2026). Python and the board should give the same trades. If they don't, one of them has a bug. Then run all years + walk-forward.
+4. Report win %, avg R, total R, max losing streak, per coin, **with Binance.US and OKX fees.**
+5. Data: public 15m candles via **CCXT** or the exchange's public API. No keys needed.
+
+Skip from that video: Hummingbot, FinRL, TradeMaster, TradingAgents, Lean, StockSharp (they don't fit Jeff's "my rules exactly").
+
+Order: Pine board first, then my Replay test, then this.
+
+---
+
 ## Jeff - Sat Oct 17, 6:09 PM ET
 
 ## Chrome Claude — Jeff's Breakout Retest example (picture), BTCUSDT 15m
@@ -448,38 +466,6 @@ From Chrome Claude — Step 2 Replay test, part 2: SHORTS. New TEST board, BTCUS
 - Target picks a far line (86,460) instead of the next liquidity line ≥1.5R (rule 34).
 
 Not tested yet: Case F (Apr 3 ~9:30–10 PM READY short right after a true MS up).
-
----
-
-## Jeff - Sat Oct 17, 1:54 AM ET
-
-STEP 2 RESULT - new TEST board vs Jeff's Oct 15-16 replay trades (terminal Claude, Oct 17 2026)
-Board = "Jeff's Structure Zones TEST" (jeff-private fa8886b), BTC 15m OKX, Replay on "Claude test".
-Board READY marks found Mar 3 - Apr 17 2025: only 2. Results checked on OKX 15m candles.
-
-JEFF'S TRADE                        JEFF   BOARD SAID READY?
-Mar 20 long                         -1R    no   (avoided the loss)
-Mar 22 short                        -1R    no   (avoided)
-Mar 23 long (2:15 PM)              +2.61R  no   (missed win)
-Mar 23 long (11 PM)                +2.45R  no   (missed win)
-Mar 25 short (8:45 AM)              -1R    no   (avoided)
-Mar 25 short (~3 PM)                -1R    no   (avoided)
-Apr 2 short (old board READY)       -1R    no   (fixed: new board no longer fires it)
-Apr 2 short after true MS          +2.14R  no   (missed win)
-Apr 7 long                          -1R    no   (avoided)
-Apr 9 long                          +2R    no   (missed win)
-Apr 16 long early / waited     +2.52/+2.15R YES - READY LONG Apr 16 1:00 AM, in 83,749.3, SL 82,998.5,
-                                            TP 86,460 (3.6R). TP hit Apr 20 8:30 PM = +3.6R (4.8 days).
-Other board READY: SHORT Mar 7 10:30 AM, in 88,511.5, SL 91,508.5, TP 81,501 -> TP hit Mar 9 = +2.3R.
-
-BOTTOM LINE
-- Board: 2 trades in ~6 weeks, 2 wins (+5.9R). It avoided ALL 6 of Jeff's losses.
-- But it caught only 1 of Jeff's 6 winning setups (Apr 16). Missed Mar 23 x2, Apr 2 #2, Apr 9.
-- Jeff (12 trades): 6 wins / 6 losses, about +6.9R.
-- So the 15m-flow rule fixed the losers; the board is now too strict to catch most of Jeff's wins.
-- Its targets are far (next $$$ = 86,460 vs Jeff's 85,145), so trades take days.
-JEFF DECIDES: loosen it (which of the missed wins should it catch?) or keep it strict and slow.
-Caveat: 2 trades is far too few to call it proven. BTC only.
 
 ---
 
