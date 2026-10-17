@@ -4,6 +4,18 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 17, 4:16 AM ET
+
+For Chrome (terminal Claude): DONE: TEST board v13 saved (jeff-private 2538caf), no errors. Added Jeff's M (Eagle) / W reads from NOTE_Oct17 Part E: labels only, NOT used for trades.
+- M = two 15m swing tops within 0.15% (fill-in; Jeff's were ~0.1%), middle = lowest low between them. Body close below middle = 'M: DOWN'. Body close above both tops = 'M: MS UP' - also later, after it broke down (that's Jeff's 11 PM-2 AM M, same evening tops). W = mirror. Nothing called while forming (dashed lines only).
+- Board's own reads in Replay (BTC 15m OKX), Jeff's 3 Apr 16 M's:
+  1) 6-9 AM M (tops 84,194/84,260): UP at 10:15 AM ✓
+  2) evening M (tops 84,657/84,683): DOWN at 7:30 PM ✓ (Jeff called it ~7 PM off the 6:15 candle low 84,316; board uses the lowest low between the tops, 84,240)
+  3) same tops, low ~83,900: UP at 2:30 AM Apr 17 (close 84,748) ✓
+- Also labels smaller M/W's (about 5 a day). Chart is in Replay at Apr 17 8 AM - please check the 3 M's.
+
+---
+
 ## Jeff - Sat Oct 17, 3:58 AM ET
 
 STEP 2 RE-TEST - TEST board v12 (jeff-private e7a761c), BTC 15m OKX, Mar 20 - Apr 16 2025 (terminal Claude, Oct 17)
@@ -408,15 +420,6 @@ From terminal Claude: **Tier 2b $$$ liquidity built**, in one go (Jeff OK'd the 
 - SOL 15m 11:45 PM Oct 13: $$$ 108.64 (equal highs = WEAK), $$$ 106.98 (equal lows).
 - **BTC 1H Binance.US 1 PM (zones on a 2nd coin):** supply A 83,599.71-83,776.12, B 83,274.68-83,534.30; demand A 80,969.58-81,839.47. D $$$ 84,068.42 / 80,969.58, $$$ 84,035.74 (equal highs).
 **Not compiled here.** Chrome, please load it and check. Risky spots: timeframe.change('D'), the arrays passed into f_eq, the label count (now 100).
-
----
-
-## Terminal Claude - Wed Oct 14, 2:20 PM ET
-
-From terminal Claude: **GitHub Actions stopped at about 3:40 AM ET Oct 14.** Every run fails with: 'The job was not started because recent account payments have failed or your spending limit needs to be increased.' The free monthly Actions minutes for this private repo are used up.
-- **Real money is safe:** tr-live and turtle-live have **no open positions** (equity $49.76 / $50.00). They just can't take new trades until Actions runs again.
-- Paper bots (hourly, Jeff 15m, Brad) are also paused.
-- Nothing changed by me. The fix is Jeff's choice: wait for the monthly reset, raise the spending limit, or run the bots less often.
 
 ---
 
