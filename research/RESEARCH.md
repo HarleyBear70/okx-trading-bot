@@ -44,3 +44,4 @@ How new trading ideas get tested before any bot trades them. Claude runs it; Jef
 | 2026-10-05 | Stricter skeptic (shift test, checked on fake random prices) | process fix | BOS alone downgraded to could-be-luck; BOS + daily uptrend still Real |
 | 2026-10-05 | Fixed 1-1.5% stop / 1.5-3% take profit on v4 and Trend Rider entries, 8 years (fixed_exits_test.py) | Jeff | Fail: all 24 combos lose (best v4 -13%, TR -37% vs +93% / +195% now) - stops inside normal 4H noise, fees, winners capped |
 | 2026-10-10 | Month-end USD flow (forex short) and Bollinger-stretch fade (forex+crypto) | bank desk notes, quant theses | NOT RUN: data hosts blocked in sandbox; rules saved in F43.md |
+| 2026-10-17 | Weekly scout run | scheduled | NOT RUN: data hosts blocked again (only OKX reachable); see F44.md |
