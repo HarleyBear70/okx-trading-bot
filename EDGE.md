@@ -1,13 +1,12 @@
-# Edge brief (2026-10-17 11:32 UTC)
+# Edge brief (2026-10-17 23:32 UTC)
 
 ## Today in plain English
-- News level: GREEN. No exchange trouble or shock found; the big Fed day is Oct 28.
-- Crypto: all six coins are in the same shape - daily trend up, 4-hour trend down and pulling back. None is at a breakout. Closest to a level: SOL ($105.09, just under liquidity at $105.19) and BTC ($81,740, just under $81,953). All sit well below their 4-hour must-hold levels, so no clean setup yet; LINK is still expanding down, so leave it alone.
-- Mood: Fear & Greed is 55 (neutral), down from 63 yesterday.
-- Whales: Hyperliquid whale data came back empty today.
-- Forex: data feed blocked today, so no dollar lean or RSI(2) setups for EUR/USD or GBP/USD.
-- Open: one paper BTC hold from $85,759.7 (now about $4,000 under water); both Claudes have no waiting orders.
-
+- News level: GREEN - nothing unusual found (no exchange trouble, no peg problem).
+- Crypto: all six coins (BTC, ETH, SOL, XRP, BNB, LINK) are UP on the daily chart but pulling back on the 4-hour. None is at a breakout; all sit below their 4-hour must-hold levels (BTC 84,166), so nothing is close to a setup. Leave them alone for now.
+- Closest to a level below: BNB 717.8 vs 717 and LINK 12.074 vs 12.05 are sitting right on the next liquidity below - watch for a sweep, not a buy.
+- Fear & Greed is 55 (neutral); Trend Rider only skips buys at 25 or below.
+- Whales (Hyperliquid): no data shown in this brief.
+- Forex: EUR/USD and GBP/USD data unavailable tonight (feed blocked), so no dollar lean or RSI(2) setup.
 
 Everything that gives an edge, in one place. Public data only. Read top to bottom.
 
@@ -15,12 +14,12 @@ Everything that gives an edge, in one place. Public data only. Read top to botto
 
 | Coin | Daily | 4-hour | Must hold (4H) | Next liquidity above | below |
 |---|---|---|---|---|---|
-| BTC 81,740.2 | UP, pulling back / loading orders | DOWN, pulling back / loading orders | 84,166.3 | 81,953.1 | 81,032.8 |
-| ETH 2,435.23 | UP, pulling back / loading orders | DOWN, pulling back / loading orders | 2,579.98 | 2,493.89 | 2,431 |
-| SOL 105.09 | UP, pulling back / loading orders | DOWN, pulling back / loading orders | 110.79 | 105.19 | 101.72 |
-| XRP 1.3088 | UP, pulling back / loading orders | DOWN, pulling back / loading orders | 1.6583 | 1.3534 | 1.2877 |
-| BNB 722.5 | UP, pulling back / loading orders | DOWN, pulling back / loading orders | 758.5 | 730 | 717 |
-| LINK 12.259 | UP, pulling back / loading orders | DOWN, expanding | 15.773 | 12.691 | 12.086 |
+| BTC 81,605 | UP, pulling back / loading orders | DOWN, pulling back / loading orders | 84,166.3 | 81,953.1 | 81,032.8 |
+| ETH 2,418.94 | UP, pulling back / loading orders | DOWN, pulling back / loading orders | 2,579.98 | 2,493.89 | 2,409.11 |
+| SOL 104.12 | UP, pulling back / loading orders | DOWN, pulling back / loading orders | 110.79 | 104.83 | 102.5 |
+| XRP 1.3003 | UP, pulling back / loading orders | DOWN, pulling back / loading orders | 1.6583 | 1.3534 | 1.2893 |
+| BNB 717.8 | UP, pulling back / loading orders | DOWN, pulling back / loading orders | 758.5 | 730 | 717 |
+| LINK 12.074 | UP, pulling back / loading orders | DOWN, pulling back / loading orders | 15.773 | 12.165 | 12.05 |
 
 ## 2. Market mood
 
@@ -37,7 +36,7 @@ Context, not a signal: a few big wallets dominate and some are hedges.
 
 ## 5. Bots and Claudes
 
-Open trades: BTC Protected Hold (paper) BTC from 85,759.7 (stop 857.597)
+Open trades: BTC Protected Hold (paper) BTC from 85,759.7 (stop 857.597); Trend Rider (Binance.US paper) TRX from 0.3368 (stop 0.33396)
 Claude: balance $994.34; waiting orders: none
 Chrome Claude: balance $1,000.00; waiting orders: none
 
