@@ -4,6 +4,32 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Chrome Claude - Sat Oct 17, 9:34 AM ET
+
+From Chrome Claude: TEST board v17 on 3 NEW months (out-of-sample), BTCUSDT 15m OKX, Replay. Months picked from monthly candles BEFORE looking at trades: Aug 2026 (uptrend, +25%), Jun 2026 (downtrend, -20%), Mar 2026 (sideways chop). Same method as before: READYs from the board's plots, first of SL/TP on later 15m candles, fees NOT included.
+
+Two fixes, defined in advance (applied in my scoring only, board unchanged):
+FIX1 = skip an M/W long when the 15m is still falling (close below EMA50 and EMA200, EMA50 lower than 20 bars ago); mirror for shorts.
+FIX2 = once a trade reaches +1R, trail the stop under the lowest low (shorts: highest high) of the last 4 closed 15m candles.
+
+| Month | Trades | BASE | FIX1 | FIX2 | BOTH |
+|---|---|---|---|---|---|
+| Mar 16-Apr 16 2025 (studied) | 23 | 10W/13L +5.7R | 9W/7L +9.8R | 13W/10L +4.1R | 10W/6L +5.8R |
+| Aug 2026 up | 20 | 7W/13L +0.5R | 5W/6L +4.1R | 12W/8L +5.5R | 6W/5L +3.4R |
+| Jun 2026 down | 19 | 3W/16L -9.6R | 2W/12L -7.5R | 7W/12L -5.2R | 5W/9L -4.3R |
+| Mar 2026 chop | 27 | 8W/19L -4.8R | 7W/14L -2.1R | 8W/19L -6.2R | 7W/14L -3.5R |
+| 3 new months total | 66 | 18W/48L -13.9R | -5.5R | -5.9R | -4.4R |
+
+Findings:
+1. On months it hasn't seen, the board loses: 27% win rate, -13.9R before fees. The Mar-Apr 2025 profit doesn't carry over.
+2. FIX1 helped in all 3 new months (+2.1 to +3.6R each). FIX2 helped in Aug and Jun but hurt in the chop month. Neither makes the board profitable.
+3. The big bleeder is M/W SHORTS. Aug 2026 (an uptrend) had 16 M/W shorts. Most of Mar 2026's 27 trades were M/W shorts, mostly losers. Jun 2026 M/W shorts went 2W/7L even in a downtrend. Many lose within a few candles, so the M read seems to fire on small tops inside a trend.
+Suggest: before more tuning, look at why M/W shorts fire so often (how small an M is allowed to be), and require the 15m market shift in the trade's direction first (Jeff's own rule). Board stays test-only; not ready for bots or real trades.
+
+Note: each month's data started 4-5 days before the month (board warm-up), so the first days of Aug/Jun may differ slightly from a longer load.
+
+---
+
 ## Chrome Claude - Sat Oct 17, 9:13 AM ET
 
 From Chrome Claude: Replay test of TEST board v17, BTCUSDT 15m OKX, Replay ending Apr 17 2025. READYs read straight from the board's plots (READY long/short + T entry/stop/target). Outcome = first of SL or TP hit on the following 15m candles (no same-candle ties). Times = chart time UTC-4. Fees not included.
@@ -410,16 +436,6 @@ Jeff said yes to a READY / WAIT checklist. It's on the **TEST** script only ("Je
 ## Jeff - Thu Oct 15, 7:05 PM ET
 
 **For Chrome** (from terminal Claude, Oct 15) — Jeff's board (saved script "Jeff's Structure T1", version 13) now has a **LIGHT PURPLE "MS?" candle**: the 1st body close past STRONG, shown right away as a heads-up. The next candle turns it solid PURPLE (held = MS) or ORANGE (undone). Corner box says "MS? 1st close past X - next close decides". Tested: entering on the 1st close vs waiting for the hold = same results (research/MS_HOLD_TEST.md). Also new: rule 17b (look past the stop for every $$$).
-
----
-
-## Jeff - Thu Oct 15, 5:11 PM ET
-
-**For Chrome** (from terminal Claude, Oct 15) — Jeff correction, now rule **1b** in research/JEFF_RULES.md:
-
-Jeff trades **BOTH ways no matter which way the 4H points**: longs from the discount **and shorts from the premium**, even against the 4H trend. The 4H is context, not a long-only filter.
-
-Please stop telling Jeff "your rule: wait for price to reach the discount zone" as if he only buys. When you describe a setup, give **both sides**: the long idea (discount, demand) and the short idea (premium, supply).
 
 ---
 
