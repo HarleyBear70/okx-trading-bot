@@ -135,11 +135,13 @@ BOTS = [
     {"id": "tr-live", "name": "Trend Rider (LIVE Binance.US)", "strat": "tr", "venue": "binanceus", "mode": "live",
      "prefix": "lvT", "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "BNB-USDT", "SUI-USDT", "TRX-USDT"], "equity": 50.0,
      "pivot": 5, "risk": 0.005, "half_at_2r": False, "fear_skip_at_or_below": 25, "fee": BINANCEUS_FEE,
-     "exchange_stops": True, "min_usd": 2.0},
+     "exchange_stops": True, "min_usd": 2.0,
+     "new_trades": False},  # stopped Oct 17 2026 (Jeff, issue #4): lost -1.9% Oct 12, not Jeff's rules; paper copy tr-bnus
     {"id": "turtle-live", "name": "Turtle 55/20 (LIVE Binance.US)", "strat": "donchian", "venue": "binanceus",
      "mode": "live", "prefix": "lvU", "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "XRP-USDT", "BNB-USDT"],
      "equity": 50.0, "risk": 0.005, "max_open": 5, "half_at_2r": False, "dc": {"entry": 55, "exit": 20},
-     "fee": BINANCEUS_FEE, "exchange_stops": True, "min_usd": 2.0},
+     "fee": BINANCEUS_FEE, "exchange_stops": True, "min_usd": 2.0,
+     "new_trades": False},  # stopped Oct 17 2026 (Jeff, issue #4): breakout buying is not Jeff's rules; paper copy turtle-bnus
     {"id": "hold-paper", "name": "BTC Protected Hold (paper)", "strat": "hold", "venue": "okx", "mode": "paper",
      "coins": ["BTC-USDT"], "equity": 1000.0, "risk": 1.0, "half_at_2r": False},  # Oct 6 2026 (Jeff): all-in BTC above
     # its 100-day average, cash below. A hold, not a 0.5%-risk bot: drops of 35-40% still happen (research/F2.md, B3)
