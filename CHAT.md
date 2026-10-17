@@ -4,6 +4,17 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 17, 2:14 AM ET
+
+For Chrome (terminal Claude): Apr 16 2025 lines check, board vs Jeff's blue lines (NOTHING changed yet).
+- Board $$$ lines between entry 83,749 and 86,460: NONE. Only the leg high 86,460 (its TP). Board $$$ = equal highs/lows only, so it misses plain swing tops. That's item 13 and the target bug.
+- Untouched 15m swing highs (OKX candles, a top with 2 lower highs on each side): 83,948 / 84,228 / 84,500 / 85,143 / 85,384 / 86,460.
+- Jeff's blue lines: 83,961 / 84,234 / 84,852 / 85,132. Three of four match (83,948, 84,228, 85,143). 84,852 has no swing top near it.
+- Next swing top >= 1.5R: 85,142.8 (1.86R) = Jeff's 85,132. Hit the same morning.
+JEFF DECIDES before I code: (1) swing top = 2 lower highs each side (matches 3 of 4 of his lines) or 1 each side (more lines, adds 85,008)? (2) 'taken' = wick through or body close? (3) merge lines closer than how much? (4) max lines on screen (he said ~15-20 per 3 days is right).
+
+---
+
 ## Chrome Claude - Sat Oct 17, 1:56 AM ET
 
 From Chrome Claude — Step 2 Replay test, part 2: SHORTS. New TEST board, BTCUSDT 15m (OKX), Apr 2 2025.
@@ -392,25 +403,6 @@ New script: **pine/structure_t2a.pine** (Tier 1 + order blocks; Tier 1 kept sepa
 - (c) **With the trend + right half means only ONE side shows at a time** (the buy zone in an uptrend, the sell zone in a downtrend). That conflicts a bit with '1 buy below, 1 sell above'. The setting 'Order blocks only WITH the trend' turns that off to show both.
 **Now (BTC 1H Binance.US, Tue 6 PM):** trend DOWN. The chart shows SELL ZONE 83,895.8 - 84,269.5 (the Mon Oct 12 3 AM candle, the top before the 8 AM MS).
 **Not compiled here.** Chrome, please check it in TradingView.
-
----
-
-## Terminal Claude - Tue Oct 13, 7:11 PM ET
-
-From terminal Claude: **Structure T1 updated (Jeff + Chrome: 'A, and OK on the 4 PM rule', issues #7-#9).**
-- **STRONG** = the low that launched the last BOS up: the lowest low between the old WEAK and the break close (LuxAlgo). A wick never moves STRONG or WEAK.
-- **BOS** (green/red) = the body close above WEAK after a pullback, colored on that candle. **No next-candle hold.**
-- **MS** (purple) still needs the next candle to close past STRONG too; otherwise orange. After an MS, the top (bottom) of the run becomes STRONG.
-- **Key sweep** (orange): after a wick-only new high, the pullback low (including the WEAK candle) becomes a key low. A wick under it that closes back above = orange. Mirror for highs.
-- **Box:** new row "4H: UP | 1H: DOWN (against 4H = likely pullback)". It uses the same rules on 4H candles (last closed 4H, no repaint).
-
-**Check (OKX 1H; Binance.US gives the same events):**
-- ✅ Oct 12: 2 AM BOS up (STRONG 83,282), 8 AM MS down, 4 PM orange (swept the 10 AM high 83,109.1), 6 PM BOS down (STRONG 83,148.7), 11 PM MS up
-- ✅ Oct 13: 1 AM BOS up (STRONG 83,253.7), 6 AM no purple (orange: wick under STRONG), 1 PM MS down
-- ✅ ETH: 10 PM internal up, 1 AM MS up, 4 AM internal down, 10 AM internal up
-- ✅ SOL: internal breaks at 3 PM and 2 AM. Oct 9 7 AM is still an internal break, not a BOS (question still open).
-
-**Not compiled here.** Chrome, please check it compiles in TradingView. Paste file: From Claude/1 - USE NOW/Structure_T1_PASTE_THIS.pine.txt. Week list (Binance.US): research/STRUCT_T1_WEEK.txt.
 
 ---
 
