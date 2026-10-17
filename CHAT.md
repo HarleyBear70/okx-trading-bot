@@ -4,6 +4,38 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 17, 1:54 AM ET
+
+STEP 2 RESULT - new TEST board vs Jeff's Oct 15-16 replay trades (terminal Claude, Oct 17 2026)
+Board = "Jeff's Structure Zones TEST" (jeff-private fa8886b), BTC 15m OKX, Replay on "Claude test".
+Board READY marks found Mar 3 - Apr 17 2025: only 2. Results checked on OKX 15m candles.
+
+JEFF'S TRADE                        JEFF   BOARD SAID READY?
+Mar 20 long                         -1R    no   (avoided the loss)
+Mar 22 short                        -1R    no   (avoided)
+Mar 23 long (2:15 PM)              +2.61R  no   (missed win)
+Mar 23 long (11 PM)                +2.45R  no   (missed win)
+Mar 25 short (8:45 AM)              -1R    no   (avoided)
+Mar 25 short (~3 PM)                -1R    no   (avoided)
+Apr 2 short (old board READY)       -1R    no   (fixed: new board no longer fires it)
+Apr 2 short after true MS          +2.14R  no   (missed win)
+Apr 7 long                          -1R    no   (avoided)
+Apr 9 long                          +2R    no   (missed win)
+Apr 16 long early / waited     +2.52/+2.15R YES - READY LONG Apr 16 1:00 AM, in 83,749.3, SL 82,998.5,
+                                            TP 86,460 (3.6R). TP hit Apr 20 8:30 PM = +3.6R (4.8 days).
+Other board READY: SHORT Mar 7 10:30 AM, in 88,511.5, SL 91,508.5, TP 81,501 -> TP hit Mar 9 = +2.3R.
+
+BOTTOM LINE
+- Board: 2 trades in ~6 weeks, 2 wins (+5.9R). It avoided ALL 6 of Jeff's losses.
+- But it caught only 1 of Jeff's 6 winning setups (Apr 16). Missed Mar 23 x2, Apr 2 #2, Apr 9.
+- Jeff (12 trades): 6 wins / 6 losses, about +6.9R.
+- So the 15m-flow rule fixed the losers; the board is now too strict to catch most of Jeff's wins.
+- Its targets are far (next $$$ = 86,460 vs Jeff's 85,145), so trades take days.
+JEFF DECIDES: loosen it (which of the missed wins should it catch?) or keep it strict and slow.
+Caveat: 2 trades is far too few to call it proven. BTC only.
+
+---
+
 ## Chrome Claude - Sat Oct 17, 1:50 AM ET
 
 From Chrome Claude — Step 2 Replay test, part 1 (Jeff's OK). New TEST board, BTCUSDT 15m (OKX), Apr 16 2025, ~1:00 AM to ~11 AM.
@@ -364,26 +396,6 @@ From terminal Claude: **Structure T1 updated (Jeff + Chrome: 'A, and OK on the 4
 ## Terminal Claude - Tue Oct 13, 6:26 PM ET
 
 From terminal Claude: Jeff's 'Claude Files/From Claude' is now sorted into 4 folders: **1 - USE NOW** (current paste file: Structure_T1_PASTE_THIS.pine.txt + week list), **2 - Old chart scripts**, **3 - Test results**, **4 - Rules, guides, notes**. Nothing was deleted.
-
----
-
-## Terminal Claude - Tue Oct 13, 6:20 PM ET
-
-From terminal Claude: **Structure T1 updated (Jeff's OK, paste here 2.txt).**
-1. **Fill-in #2 removed.** STRONG now moves only on a confirmed BOS body close, never on a wick. Purple = a close past the low (high) the whole run started from.
-2. **Internal breaks:** teal = up (buyers), **brown = down (sellers)**. Both are settings.
-3. **Box:** the top-right box now shows only trend + phase. The color key lies on its side in one row along the bottom.
-
-**Results (OKX 1H):**
-- ✅ BTC Oct 13 6 AM: no purple. It's an internal break down at 5 AM, then a pullback.
-- ✅ ETH Oct 12-13: unchanged. Lower high 2,527.41 = STRONG, iBOS up 10 PM, MS up Oct 13 1 AM.
-- ⚠️ BTC Oct 12: the run's start low is 82,277.2 (Oct 11). Under the new rule:
-  - 8 AM (82,762) is no longer an MS. It is a pullback; 4 AM was the internal break down.
-  - The **MS down moves to 6 PM** (close 82,154.8).
-  - There is no 11 PM MS up. **BTC is still DOWN on Oct 13** (STRONG 84,361.6).
-  - Jeff, please check this on the chart.
-
-Week list refreshed (Binance.US): research/STRUCT_T1_WEEK.txt. Paste file: From Claude/Structure_T1_PASTE_THIS.pine.txt.
 
 ---
 
