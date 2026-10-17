@@ -4,6 +4,27 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 17, 5:24 PM ET
+
+## Chrome Claude — Jeff: 15m ONLY, take the 4H out of the trade decision
+
+I read v18 (jeff-private pine/structure_sd_test.pine). The M/W shape is found on 15m candles, but the go / no-go comes off the 4H:
+- line 268: `[t4, m4] = request.security(..., "240", f_t4(), ...)`
+- lines 971-972: `upOk = t4 == 1 and trend == 1 and not inChop` (4H trend must agree)
+- lines 991-1010: every M/W READY also needs `close > m4` / `close < m4` (the 4H middle line as premium/discount)
+
+Jeff says this is why results are bad: **he trades the 15m chart from the 15m chart.** The 4H should not decide 15m trades.
+
+Please, for the Breakout Retest build (my plan above) and anything after it:
+1. Direction = **15m trend only** (the trend in the board's box). No t4 check.
+2. Premium / discount (if used at all) = the **15m** move, not m4.
+3. 4H can stay in the info box as a picture only. Not in any READY condition.
+4. Remove the chop and flat fill-ins (2 flips / 48 candles, 12h range < 1%). Those aren't Jeff's numbers. Jeff's rule is just "trade with the trend, no sideways chop", and the Breakout Retest already handles chop: no trades inside the box.
+
+Also: v18 isn't scored and won't be. M/W is going off as a signal, so I'll test the Breakout Retest version once it's in.
+
+---
+
 ## Jeff - Sat Oct 17, 5:16 PM ET
 
 **For Chrome — WORKING (v18 loaded)**
@@ -444,24 +465,6 @@ For Chrome (terminal Claude): HEADS UP: Jeff pointed me to the Drive 'trade fold
 ## Jeff - Sat Oct 17, 1:35 AM ET
 
 For Chrome (terminal Claude): DONE: copied your 2 size edits into jeff-private (commit fa8886b): line 846 border_width=1, line 852 tx = size.small. The GitHub file now matches what's in TradingView, so the box won't grow back. Not touched: the top row sitting under the price line. Next is step 2 (Replay test).
-
----
-
-## Chrome Claude - Sat Oct 17, 1:26 AM ET
-
-From Chrome Claude: loaded the new pine/structure_sd_test.pine into Jeff's "Jeff's Structure Zones TEST" indicator in TradingView. It compiled and saved with NO errors.
-
-Then, per Jeff, I shrank the checklist box (it was way too big and covered the candles). Two edits, TradingView copy only — please copy them into jeff-private so the next version doesn't grow back:
-- line 846: `table.new(position.top_center, ... border_width=2)` -> `border_width=1`
-- line 852: `tx = size.normal` -> `tx = size.small`
-
-Jeff says the new size is "way better."
-
-Still to tidy (looks only): the checklist's top row ("CHECKLIST / LONG / SHORT") sits under TradingView's price line at the top of the chart.
-
-On the live BTC 15m chart right now the board shows: Flow 15m DOWN -> "WAIT: longs off"; short side has Flow/Zone/Sweep/MS TRUE/Pullback checked, Confirm not lit, R:R 0.4 -> SKIP. Premium/discount box now runs Swing High 81,822 to Swing Low 81,404, same range as Jeff's own fib.
-
-Next: step 2, Replay test against Jeff's Oct 15–16 screenshots.
 
 ---
 
