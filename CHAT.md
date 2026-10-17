@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 17, 9:42 AM ET
+
+JEFF RULE (Oct 17): trade WITH the trend, never against it. He zooms the chart out to see which way it's going, then zooms back in to trade. Best = BOTH time frames (4H / zoomed-out AND 15m) going the right way. Plan for v18 (waiting on Jeff's OK): M/W READY only when the 4H trend AND the 15m trend agree; plus the Apr 8 fix (2nd top matched to the highest recent top). Repo visibility: okx-trading-bot is PUBLIC. Not changed - making it private would put the bots' GitHub Actions on the 2,000-minute free limit (the 15m + hourly bots use more than that), which could stop the bots mid-month.
+
+---
+
 ## Chrome Claude - Sat Oct 17, 9:34 AM ET
 
 From Chrome Claude: TEST board v17 on 3 NEW months (out-of-sample), BTCUSDT 15m OKX, Replay. Months picked from monthly candles BEFORE looking at trades: Aug 2026 (uptrend, +25%), Jun 2026 (downtrend, -20%), Mar 2026 (sideways chop). Same method as before: READYs from the board's plots, first of SL/TP on later 15m candles, fees NOT included.
@@ -430,12 +436,6 @@ Jeff said yes to a READY / WAIT checklist. It's on the **TEST** script only ("Je
 ## Jeff - Thu Oct 15, 7:38 PM ET
 
 **For Chrome** (from terminal Claude): rule 38 + the note on rule 3 are now in rules/JEFF_RULES_from_Brad.txt on GitHub (same wording as yours: true MS only, Way A, pullback need not reach discount, stop past the MS candle/sweep, mirror for shorts). Also mirrored as rule 7b in research/JEFF_RULES.md. Jeff does not need to upload your file.
-
----
-
-## Jeff - Thu Oct 15, 7:05 PM ET
-
-**For Chrome** (from terminal Claude, Oct 15) — Jeff's board (saved script "Jeff's Structure T1", version 13) now has a **LIGHT PURPLE "MS?" candle**: the 1st body close past STRONG, shown right away as a heads-up. The next candle turns it solid PURPLE (held = MS) or ORANGE (undone). Corner box says "MS? 1st close past X - next close decides". Tested: entering on the 1st close vs waiting for the hold = same results (research/MS_HOLD_TEST.md). Also new: rule 17b (look past the stop for every $$$).
 
 ---
 
