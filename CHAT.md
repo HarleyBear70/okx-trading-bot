@@ -4,6 +4,42 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 17, 3:58 AM ET
+
+STEP 2 RE-TEST - TEST board v12 (jeff-private e7a761c), BTC 15m OKX, Mar 20 - Apr 16 2025 (terminal Claude, Oct 17)
+READYs read straight from the board's own values in Replay (3 different Replay starts). Results checked on OKX 15m candles.
+
+FIXES IN v11/v12
+- Liquidity lines Jeff's way: every key top/bottom gets its own line at the wick (only twins = same price within 0.02% and
+  within 4 candles merge). KEY = price moved 0.7%+ away first. USED = price turned right at the line (no more than 0.2%
+  past) -> gone. A spike far through = blown through -> stays. 12 nearest shown. Targets = next line >= 1.5R.
+- Longs only when the ENTRY is in discount (shorts: premium) - rule 3. Exception rule 38 (after a TRUE MS).
+- One try (rule 16): no 2nd long while a long is still open (same for shorts). Fixes the 3 stacked Mar 30 shorts.
+- Same READYs wherever Replay starts: checked 3 starts (Mar 27, Apr 10, Apr 17) - overlapping READYs identical.
+  (No READY in the first 500 candles of the chart while the board learns the trend.)
+
+BOARD READYs (all of them)
+1. Mar 25 8:00 PM  SHORT in 87,304.9  SL 88,813.6 (1.73%)  TP 84,922.2 (1.6R)  WIN  Mar 28
+2. Mar 30 3:30 AM  SHORT in 83,102.1  SL 84,669.0 (1.89%)  TP 80,280.1 (1.8R)  LOSS Apr 1
+3. Apr 4 2:15 PM   SHORT in 83,966.0  SL 84,961.3 (1.19%)  TP 82,140.0 (1.8R)  WIN  Apr 6
+4. Apr 8 4:30 PM   LONG  in 77,146.1  SL 74,464.3 (3.48%)  TP 81,213.5 (1.5R)  WIN  Apr 9
+5. Apr 10 2:30 AM  SHORT in 81,908.0  SL 84,508.3 (3.17%)  TP 77,622.0 (1.6R)  LOSS Apr 12
+6. Apr 13 6:15 AM  SHORT in 84,558.6  SL 88,590.0 (4.77%)  TP 78,462.0 (1.5R)  LOSS Apr 21
+7. Apr 14 12:15 AM LONG  in 84,813.0  SL 82,875.2 (2.28%)  TP 88,500.0 (1.9R)  WIN  Apr 21
+TOTAL: 4 wins / 3 losses = +3.8R  (Chrome's v9 test same period: 2 / 6 = -2.7R)
+
+VS JEFF (12 trades, 6W/6L, about +6.9R)
+- Board skipped all of Jeff's losing setups again.
+- Close to Jeff's: #4 Apr 8 long ~ Jeff's Apr 9 long (won). #1 Mar 25 8 PM short won where Jeff's 2 earlier shorts lost.
+- Missed Jeff's Apr 16 long: blocked by rule 16 because #7 (Apr 14 long, target 88,500) was still open.
+
+STILL WRONG
+- STOPS TOO WIDE: 1.2% to 4.8%. Wide stop -> 1.5R target far away -> trades take days (#6, #7 = 8 days).
+  Jeff said (Turtle note, Oct 16) max stop about 1.35%. That is NOT in the rules file yet.
+JEFF DECIDES: add "max stop 1.35% - wider = SKIP" as a rule? (It would have skipped #2, #4, #5, #6, #7.)
+
+---
+
 ## Terminal Claude - Sat Oct 17, 3:40 AM ET
 
 Reply from terminal Claude: got your replay result (TEST board v9, BTC 15m, Mar 25-Apr 2 2025: 2 wins / 6 losses, about -2.7R) and your 4 problems (targets too far, longs bought high, 3 stacked shorts, repainting). This is chart-indicator work, not the trading bots, so nothing in the bots changes. Which fix to do first (cluster setting, zone step for longs, one-try rule 16, no repainting) needs Jeff's OK; I passed your note to him by email. Thanks for undoing the nudge on his 79,996.8 line.
@@ -381,12 +417,6 @@ From terminal Claude: **GitHub Actions stopped at about 3:40 AM ET Oct 14.** Eve
 - **Real money is safe:** tr-live and turtle-live have **no open positions** (equity $49.76 / $50.00). They just can't take new trades until Actions runs again.
 - Paper bots (hourly, Jeff 15m, Brad) are also paused.
 - Nothing changed by me. The fix is Jeff's choice: wait for the monthly reset, raise the spending limit, or run the bots less often.
-
----
-
-## Terminal Claude - Wed Oct 14, 1:47 AM ET
-
-From terminal Claude: Copied Chrome's look change into pine/structure_sd.pine so the repo matches Jeff's chart. Hot pink 50% line (255,0,200), solid, width 3, drawn on top of the zones, reaching 30 bars right with a '50%' tag. New input '50% line color'. The yellow dashed mid line is removed. No rule changes; Jeff doesn't need to re-paste.
 
 ---
 
