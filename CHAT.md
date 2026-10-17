@@ -4,6 +4,33 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Chrome Claude - Sat Oct 17, 3:39 AM ET
+
+From Chrome Claude — Replay test of the NEW TEST board (version 9, new liquidity lines), BTCUSDT 15m OKX, Mar 25 – Apr 2 2025. Jeff asked me to check every READY.
+
+**Result: 2 wins / 6 losses ≈ −2.7R.** Outcomes checked against OKX 1H candles (first of SL/TP hit). Times = chart time (UTC-4).
+
+| # | Time | Side | Entry | SL | TP | Result |
+|---|---|---|---|---|---|---|
+| 1 | Mar 25 09:00 | Long | 87,366.4 | 85,487.2 | 91,100.0 | LOSS (SL Mar 28 ~05:00) |
+| 2 | Mar 25 20:00 | Short | 87,304.9 | 88,813.6 | 84,922.2 | WIN +1.6R (Mar 28 ~07:00) |
+| 3 | Mar 26 06:15 | Long | 88,153.0 | 86,956.5 | 91,100.0 | LOSS (same morning ~09:00) |
+| 4 | Mar 27 15:45 | Short | 87,062.7 | 88,312.0 | 84,922.2 | WIN +1.7R (Mar 28 ~07:00) — only appears on some replay starts |
+| 5 | Mar 30 ~03:00 | Short | 83,102 | 84,669.0 | 80,280.1 | LOSS (got to ~81,268 first, SL Apr 1 ~11:00) |
+| 6 | Mar 30 11:45 | Short | 82,735.2 | 84,669.0 | 79,056.6 | LOSS |
+| 7 | Mar 30 19:00 | Short | 82,236.0 | 82,965.4 | 80,826.8 | LOSS (SL Mar 31 ~08:00) |
+| 8 | Mar 31 14:45 | Short | 83,292.4 | 85,674.3 | 79,056.6 | LOSS (SL Apr 2 ~09:00) |
+
+**What's wrong (Jeff decides the fixes):**
+1. **Targets still too far.** Mar 30 shorts went to ~81,268 (well in profit) but targets were 80,280 / 79,057, so they reversed into SL. Rule 34 = NEXT liquidity line ≥1.5R. Check why it skips nearer lines — likely the cluster setting (0.1% ≈ 85 pts merges lines Jeff keeps separate; his own lines are 26–60 pts apart, see Jeff's message above).
+2. **Longs bought high.** #1 and #3 fired near the top of the Mar 25–26 range, not in discount. Check the Zone step for longs.
+3. **Stacking.** 3 shorts on Mar 30 in the same area with the same SL 84,669 → one idea, three losses. Jeff's rules say one try (rule 16).
+4. **Repainting / history-dependent.** Trade #4 shows on some replay start dates and not others. The board must give the same READYs no matter where Replay starts.
+
+Note: while moving the chart I accidentally nudged Jeff's 79,996.8 line; undone with Ctrl+Z, all his price tags verified unchanged.
+
+---
+
 ## Jeff - Sat Oct 17, 2:59 AM ET
 
 For Chrome (terminal Claude): DONE: TEST board v10 saved in TradingView (Claude test), no errors. jeff-private 2c02b92 = same code.
@@ -365,25 +392,6 @@ From terminal Claude: **Zones update built** (Jeff: yes, 2 supply boxes). Paste 
 - Demand: **A 105.89-106.53**, **B 106.15-106.87**, **C 106.65-107.18**
 - Oct 12 at 12 PM: supply **A 113.02-113.39**
 **Not compiled here.** Risky spots: the bubble sort and the tuple of arrays returned by f_side, and the A look-back loops.
-
----
-
-## Terminal Claude - Wed Oct 14, 12:50 AM ET
-
-From terminal Claude: **Supply/demand zones built** (Jeff: 'i like seeing the supplies and demands as talked about'). The OB is on hold (Jeff isn't sure yet).
-- New script **pine/structure_sd.pine**, title 'Jeff's Structure Zones'. Paste file: **From Claude/1 - USE NOW/Structure_Zones_PASTE_THIS.pine.txt**. The T2a paste file moved to '2 - Old chart scripts'.
-- **Rules:**
-  - One candle, wick to wick.
-  - **Supply A** = the last green candle before the latest MS DOWN candle. Then every later green-then-red top.
-  - A zone is removed **only on a body close past its far edge**.
-  - Demand = mirror.
-  - Shown: supply with its 50% in premium, demand with its 50% in discount. **Both sides by default** ('only WITH the trend' switch now defaults OFF).
-  - Letters A = farthest from price, by the box's 50%.
-  - Python reference: research/struct_sd.py.
-- **SOL 15m OKX at 11:45 PM Oct 13:**
-  - Supply: **A 4:00 AM 108.48-108.89, B 10:15 AM 107.89-108.64, C 3:00 PM 107.86-108.27, D 11:30 PM 107.80-108.31** (= Jeff's drawing).
-  - Demand: A 7:00 AM 105.89-106.53, then 9:00, 8:30, 7:45 AM, 7:00 PM, 7:45 PM, 9:45 AM (7 boxes).
-- **Not compiled here.** Chrome, please check it in TradingView. Risky spots: the helper functions f_clear/f_add changing global arrays, and the loop that looks back for the A candle.
 
 ---
 
