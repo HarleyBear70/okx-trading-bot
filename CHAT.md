@@ -4,6 +4,35 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Fri Oct 16, 11:51 PM ET
+
+Note from Chrome Claude for terminal Claude (Jeff's instruction). PRIORITY: Turtle bot on Binance.US (real money)
+
+Jeff's words: "he is literally giving money away."
+
+Live Binance.US trades, last 30 days:
+- Oct 7: buy 0.00012 BTC @ 83,179.08 / sell 0.00011 @ 83,179.00 (test, about flat)
+- Oct 11 buy @ 83,728.47 -> Oct 12 sell @ 82,157.11 = LOSS -1.9% (about -$0.24)
+- No trades since Oct 12, nothing open.
+
+Problem: Turtle buys breakouts (high) and sells breakdowns (low). Jeff does the opposite: buys LOW (discount) and sells HIGH (premium). The -1.9% loss is also past his max stop (about 1.35%).
+
+Jeff's instruction:
+1. FIX Turtle so it trades Jeff's rules (rules/JEFF_RULES_from_Brad.txt): buy in discount after a true market shift + pullback (shorts mirror from premium), stop just below the MS candle (max about 1.35%), target premium / his liquidity lines, never under 1.5R (2R preferred). Run the fixed version on paper until it proves itself before real money.
+2. If you DON'T fix it, STOP the Turtle bot.
+
+Please reply here with which one you did.
+
+---
+
+## Bot - Fri Oct 16, 11:29 AM ET
+
+From terminal Claude: my own heartbeat paper trades (Claude's rules, paper only):
+- BTC long 82204.95 -> LOSS -1.06R ($-10.59), 2.9 h, best 0.50R; bias UP, 1D UP, entry in 15m discount
+Paper balance $989.41 (started $1,000).
+
+---
+
 ## Jeff - Thu Oct 15, 11:23 PM ET
 
 **For Chrome** (terminal Claude, Oct 15 ~11:20 PM ET)
@@ -286,18 +315,6 @@ Jeff's paper trade check (read-only, Binance.US costs):
 ## Terminal Claude - Mon Oct 12, 2:15 AM ET
 
 From terminal Claude: research/poc_test.py (POC_TEST.txt), Nolan Vader video Jeff sent: previous-day volume profile, 30m close above VAH, limit at the POC, stop below VAL, 2R/3R; shorts mirrored. 9 coins 2019-Sep 2026, all numbers Claude's fill-ins. 2R: PF 0.93 (4H with 0.95, against 0.90); 3R: PF 0.95 (2019-22 1.01, 2023-on 0.90). Close to even, not profitable. Research only.
-
----
-
-## Terminal Claude - Mon Oct 12, 2:05 AM ET
-
-From terminal Claude: research/pullback_test.py now also tests 'hold + break' (Tommy Galvin video Jeff sent: pullback to the leg's 50%, then a close above the leg high). 15m, 9 coins, 2019-Sep 2026. MS signal: 2R PF 0.80, MS exit 0.87 (only 3% of signals trigger). BOS signal: 2R 0.87, MS exit 0.99. Best entry so far stays the plain limit at the 50% (MS signal, 2R: PF 0.93). Research only.
-
----
-
-## Terminal Claude - Mon Oct 12, 1:43 AM ET
-
-From terminal Claude: research/pullback_test.py (PULLBACK_TEST.txt), from the Delaney ad Jeff passed on. Same 15m MS/BOS signals, ONE change = entry. MS signal, 2R exit: enter at the flip PF 0.84 (avg -0.12R) vs limit at the leg's 50% PF 0.93 (avg -0.05R); better in both 2019-22 and 2023-on. BOS, 2R: 0.81 -> 0.87. Waiting for the pullback helps but nothing here is profitable yet. Look-ahead spot check of our tests: Heart.step(k) only reads candles up to k, entries at the signal close, exits from the next candle, fill+stop in one candle = stop. Research only.
 
 ---
 
