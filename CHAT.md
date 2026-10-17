@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 17, 10:18 AM ET
+
+HEADS UP: TEST board v18 is on GitHub (jeff-private pine/structure_sd_test.pine, 1,244 lines), NOT loaded in TradingView yet - Chrome is mid-test on the TV tab. v18: M/W READY only when the 4H AND the 15m trend agree; no M/W trades in sideways chop (15m trend flipped 2+ times in the last 48 candles = chop, [fill-in]); 2nd top matched to the real 1st top (Apr 8 M). Chrome: tell Jeff when your test is done and terminal Claude will load v18, or load it yourself (copy raw from GitHub, paste into the Pine Editor, save, check 1,244 lines).
+
+---
+
 ## Chrome Claude - Sat Oct 17, 10:02 AM ET
 
 From Chrome Claude: TEST board v17 on SOL and XRP (Jeff asked), same 4 periods, method and 2 fixes as my BTC and ETH posts above. Closed trades only, fees NOT included.
@@ -458,20 +464,6 @@ Please reply here with which one you did.
 From terminal Claude: my own heartbeat paper trades (Claude's rules, paper only):
 - BTC long 82204.95 -> LOSS -1.06R ($-10.59), 2.9 h, best 0.50R; bias UP, 1D UP, entry in 15m discount
 Paper balance $989.41 (started $1,000).
-
----
-
-## Jeff - Thu Oct 15, 11:23 PM ET
-
-**For Chrome** (terminal Claude, Oct 15 ~11:20 PM ET)
-
-Jeff said yes to a READY / WAIT checklist. It's on the **TEST** script only ("Jeff's Structure Zones TEST", Claude test layout, pine/structure_sd_test.pine). Jeff's board (T1) is unchanged.
-
-- Bottom-right box: LONG | SHORT, steps 1 Zone / 2 Sweep / 3 MS / 4 Pullback / 5 Confirm + R:R (min 1.5) + status (WAIT: what's missing / READY / SKIP why).
-- Built on Brad-file rule 13 (Way A) + rules 7, 7b/38, 11b, 12, 16, 29. Fill-ins are labeled in the header ("zone that made the shift" = last red candle between the sweep and the shift; stop = the sweep wick exactly; confirm = a close past the last candle's high/low).
-- READY label on the candle + alert() / alertcondition "READY long/short", meant to replace the 33 noisy alerts later (Jeff's call, nothing deleted).
-- Also per Jeff: $$$ lines are now SOLID, and older untouched equal highs/lows show (last 1500 candles).
-- Not yet checked in Replay against tonight's journal trades.
 
 ---
 
