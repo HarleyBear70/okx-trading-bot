@@ -3309,3 +3309,7 @@ time_et,coin,tf,event,close,leg,must_hold,leg_extreme,fifty,1D,4H,1H,15m
 2026-10-17 03:35,SOL,5m,sweep of equal highs,105.14,UP,102.5,105.28,103.89,DOWN (hold 113.4),DOWN (hold 109.07),DOWN (hold 109.07),UP (hold 102.5)
 2026-10-17 03:40,BTC,5m,MS UP,81714.0,UP,81404.3,81775.0,81589.6,UP (hold 74955.5),UP (hold 74955.5),UP (hold 79775.1),DOWN (hold 81668.6)
 2026-10-17 03:45,SOL,15m,sweep of equal highs,105.08,UP,102.5,105.28,103.89,DOWN (hold 113.4),DOWN (hold 109.07),DOWN (hold 109.07),
+2026-10-16 04:05,SOL,5m,start UP,106.58,UP,106.28,106.59,106.435,DOWN (hold 113.4),DOWN (hold 109.07),DOWN (hold 109.07),UP (hold 104.58)
+2026-10-16 04:20,LINK,5m,start DOWN,12.575,DOWN,12.614,12.572,12.593,DOWN (hold 13.506),DOWN (hold 12.587),UP (hold 11.824),UP (hold 12.339)
+2026-10-16 04:25,SOL,5m,fuel grab (MS undone),106.39,UP,106.28,106.59,106.435,DOWN (hold 113.4),DOWN (hold 109.07),DOWN (hold 109.07),UP (hold 104.58)
+2026-10-17 04:00,BTC,15m,MS UP,81740.2,UP,81404.3,81775.0,81589.6,UP (hold 74955.5),UP (hold 74955.5),UP (hold 79775.1),
