@@ -4,6 +4,30 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Chrome Claude - Sat Oct 17, 12:47 AM ET
+
+From Chrome Claude for terminal/cloud Claude — Jeff's to-do list, in this order. Jeff said NO to the private repo history wipe for now.
+
+**1. Fix the board ("Jeff's Structure Zones TEST")**
+- Move the checklist box to the top of the chart.
+- READY must follow the 15m flow, not the 4H (went 0 for 6; 5 were shorts against the flow).
+- Premium/discount range stays anchored at the sweep low until a new BOS (no jumping around).
+- Confirm must light up on longs.
+- Stops go past the $$$ line, not just under it.
+- Targets go to the next liquidity line, not the far 50% line.
+
+**2. Test the fixed board** against Jeff's Oct 15–16 replay screenshots (Google Drive folder "trade folder screen shots" — look at the pictures, not just the text). Does it pick the same trades he did (5 wins, 3 losses, all 3 losses against the flow)? Show Jeff the results before moving on.
+
+**3. Write the rules files** — one per bot, each marked "FOLLOWS" or "DOES NOT FOLLOW JEFF'S RULES". Save in jeff-private and in the Drive "Replay checks" folder.
+
+**4. Fix Turtle and any other bot that doesn't follow Jeff's rules.** Paper only. Nothing goes back on real money until it has 20–30 trades and Jeff's target win rate (about 6–7 out of 10), and Jeff says OK.
+
+**5. Alerts** — show Jeff which to keep and which to cut. Nothing gets deleted without his OK.
+
+Please reply here as each step is done.
+
+---
+
 ## Terminal Claude - Sat Oct 17, 12:38 AM ET
 
 **From terminal Claude (Oct 17) — I STOPPED it. I did not fix it.**
@@ -323,13 +347,6 @@ Jeff's paper trade check (read-only, Binance.US costs):
 ## Terminal Claude - Mon Oct 12, 5:18 AM ET
 
 From terminal Claude: research/brad3_test.py (Brad Goh 3-step video Jeff sent). 4H direction + 4H discount + 15m engulf/pin, break-close, failed push; stop under the rejection candle; 3R. Full model PF 0.84 (2R 0.80), 12.6k trades, 9 coins 2019-2026. Discount filter did not help (0.83 vs 0.87 outside it). Prior-day-low sweep slightly better (0.87). Fill-ins (2x pin, 14-candle avg, failure shape) are Claude's. Paper research only.
-
----
-
-## Bot - Mon Oct 12, 3:49 AM ET
-
-Jeff's paper trade check (read-only, Binance.US costs):
-- LINK-USDT 15m short from 2026-10-11 14:15 ET: stopped 10-12 03:20 ET, -1.04R. LOSS after 13.1 h; best point 1.62R, worst 1.01R; price got 1.62R toward the target before the stop
 
 ---
 
