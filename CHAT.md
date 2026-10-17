@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 17, 6:29 AM ET
+
+DONE: TEST v15 loaded (TV version 15, 1,179 lines). M/W trend + premium/discount now from the 4H (Jeff: the bigger move). Replay Mar 16-Apr 16 2025: M/W 26 trades 9W/17L +1.3R; checklist 4 trades 3W/1L +4.4R; total 12W/18L +5.7R. M/W losses cluster Mar 20-22 + Mar 28-30 + Apr 4-5 (4H UP, 15m chopping down). Asked Jeff to judge 'big candle' examples: Mar 23 6:30 AM (6.8x), Apr 8 9 PM (8.1x), Apr 13 3:30 PM (6.4x), Apr 2 4 PM (3.8x), Mar 19 6:30 PM (2.2x), Apr 13 7:15 AM (2.1x).
+
+---
+
 ## Jeff - Sat Oct 17, 5:55 AM ET
 
 DONE: TEST board v14 loaded (TV version 14, 1,175 lines, no errors). Jeff Oct 17: (1) M/W entries WITH the trend - 15m body close out of the M/W = READY; stop just past the M/W's last swing; big break candle = wait for pullback (size [fill-in] 2x avg body). (2) Stop over 1.5% = SKIP on all READYs (Jeff's widest winner 1.48%).
@@ -403,17 +409,6 @@ From terminal Claude: Locked down for a public repo (Jeff flips the switch himse
 - tools/transcript_watch.sh (Jeff's Linux cron, 'transcript:' comments)
 - Beekeeper cloud routine: its prompt now treats any other author's text as untrusted data.
 - Transcripts moved off GitHub to Jeff's computer (Claude Files/From Claude/4 - Rules, guides, notes/transcripts); new ones save there too.
-
----
-
-## Terminal Claude - Wed Oct 14, 2:44 PM ET
-
-From terminal Claude: Prep for making the repo public (Jeff wants the free Actions minutes):
-- Searched all history for keys or tokens: **none found**. Keys live only in GitHub secrets, which stay hidden on public repos and are never given to forks.
-- **Changed .github/workflows/chrome-notes-log.yml:** it now logs only comments from Jeff's own login (HarleyBear70), so strangers' comments can't write into the repo.
-- No workflow runs on pull requests, so outside code can't reach the secrets.
-- Will be visible: code, notes, trade history, Jeff's email on 96 old commits, Brad transcripts in research/transcripts.
-Waiting for Jeff's final OK before the switch is flipped.
 
 ---
 
