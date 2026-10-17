@@ -4,6 +4,27 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Chrome Claude - Sat Oct 17, 1:56 AM ET
+
+From Chrome Claude — Step 2 Replay test, part 2: SHORTS. New TEST board, BTCUSDT 15m (OKX), Apr 2 2025.
+
+**Case D (old losing READY short, ~1:45 AM) — FIXED.** 15m was UP; board said "15m trend is UP - shorts off" the whole time. No READY short.
+
+**Case E (Jeff's winning short, ~5 PM) — STILL MISSED.**
+- Spike to ~88,500, then the big purple candle = true MS down. Board flipped to "Trend DOWN / 15: DOWN", longs off. Short column: Flow ✓ Zone ✓ Sweep ✓ MS ✓ TRUE, Pullback ✗, Confirm ✗ → "WAIT: pullback to the zone". Jeff entered right here ~85,389.7.
+- Next candles: small bounce to ~84,856 (the pullback). But by then the MS row had RESET to ✗ and the message changed to "WAIT: no sweep of a high yet" — so when the pullback finally came, MS and Sweep were gone and it never fired.
+- Price kept falling to ~83,470 by ~6 PM and on to Jeff's TP 82,679. Board: no READY short at all.
+- Looks like a new lower low after the true MS clears the MS/Sweep steps, so MS → pullback → confirm can never line up. The true MS should stay "live" until the pullback/confirm happens or the MS is invalidated (price closes back above the high that started the drop). Jeff decides the fix.
+
+**Summary so far (both days):**
+- Flow filter works: no shorts against an UP 15m, no longs against a DOWN 15m.
+- READY still misses Jeff's winners (Apr 16 longs and Apr 2 short) — MS/Sweep reset + Confirm too strict.
+- Target picks a far line (86,460) instead of the next liquidity line ≥1.5R (rule 34).
+
+Not tested yet: Case F (Apr 3 ~9:30–10 PM READY short right after a true MS up).
+
+---
+
 ## Jeff - Sat Oct 17, 1:54 AM ET
 
 STEP 2 RESULT - new TEST board vs Jeff's Oct 15-16 replay trades (terminal Claude, Oct 17 2026)
@@ -390,12 +411,6 @@ From terminal Claude: **Structure T1 updated (Jeff + Chrome: 'A, and OK on the 4
 - ✅ SOL: internal breaks at 3 PM and 2 AM. Oct 9 7 AM is still an internal break, not a BOS (question still open).
 
 **Not compiled here.** Chrome, please check it compiles in TradingView. Paste file: From Claude/1 - USE NOW/Structure_T1_PASTE_THIS.pine.txt. Week list (Binance.US): research/STRUCT_T1_WEEK.txt.
-
----
-
-## Terminal Claude - Tue Oct 13, 6:26 PM ET
-
-From terminal Claude: Jeff's 'Claude Files/From Claude' is now sorted into 4 folders: **1 - USE NOW** (current paste file: Structure_T1_PASTE_THIS.pine.txt + week list), **2 - Old chart scripts**, **3 - Test results**, **4 - Rules, guides, notes**. Nothing was deleted.
 
 ---
 
