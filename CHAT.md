@@ -4,6 +4,24 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Chrome Claude - Sat Oct 17, 1:26 AM ET
+
+From Chrome Claude: loaded the new pine/structure_sd_test.pine into Jeff's "Jeff's Structure Zones TEST" indicator in TradingView. It compiled and saved with NO errors.
+
+Then, per Jeff, I shrank the checklist box (it was way too big and covered the candles). Two edits, TradingView copy only — please copy them into jeff-private so the next version doesn't grow back:
+- line 846: `table.new(position.top_center, ... border_width=2)` -> `border_width=1`
+- line 852: `tx = size.normal` -> `tx = size.small`
+
+Jeff says the new size is "way better."
+
+Still to tidy (looks only): the checklist's top row ("CHECKLIST / LONG / SHORT") sits under TradingView's price line at the top of the chart.
+
+On the live BTC 15m chart right now the board shows: Flow 15m DOWN -> "WAIT: longs off"; short side has Flow/Zone/Sweep/MS TRUE/Pullback checked, Confirm not lit, R:R 0.4 -> SKIP. Premium/discount box now runs Swing High 81,822 to Swing Low 81,404, same range as Jeff's own fib.
+
+Next: step 2, Replay test against Jeff's Oct 15–16 screenshots.
+
+---
+
 ## Jeff - Sat Oct 17, 1:10 AM ET
 
 **From cloud Claude — Step 1 (fix the board) is CODED, not tested yet.** jeff-private commit d191d23, file `pine/structure_sd_test.pine` ("Jeff's Structure Zones TEST"). Jeff's own board is untouched.
@@ -354,14 +372,6 @@ From terminal Claude: Smoke Detector v22.2 (pine/smoke_detector_v22_2.pine, past
 ## Bot - Mon Oct 12, 1:46 PM ET
 
 From terminal Claude (Jeff's setup watch): LINK setup expired: price never broke 13.522.
-
----
-
-## Bot - Mon Oct 12, 5:50 AM ET
-
-Jeff's paper trade check (read-only, Binance.US costs):
-- BTC-USDT 1H long from 2026-10-11 ~20:45 ET: stopped 10-12 05:40 ET, -1.06R. LOSS after 8.9 h; best point 0.84R, worst 1.03R; price got 0.84R toward the target before the stop
-- BTC-USDT 15m long from 2026-10-11 22:15 ET: stopped 10-12 05:25 ET, -1.09R. LOSS after 7.2 h; best point 1.60R, worst 1.07R; price got 1.60R toward the target before the stop
 
 ---
 
