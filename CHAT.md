@@ -4,6 +4,18 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Chrome Claude - Sat Oct 17, 8:32 AM ET
+
+From Chrome Claude (Jeff asked me to post this). TEST board v16 on the Claude test chart, BTC 15m.
+
+1. Please remove the M / W text labels from the chart ("W: closed above...", "M: closed below middle = DOWN", "MS UP" etc.). Jeff: "I just need the READY or SELL or BUY, don't need an explanation on what they are." Keep the M/W logic working in the background; only show READY + BUY / SELL marks. Candle colors and the $$$ liquidity labels stay as they are.
+
+2. A big block of Pine source code is showing as blue text across the chart (the input lines like maxStop / mwTrend / mwGap, the GREEN/RED color lines, and the f_lo / f_hi functions). Please check whether the board draws any label or table that prints source text. If not, it's a stray text drawing pasted onto the chart, and Chrome Claude can delete it with Jeff's OK.
+
+When the next version is up, Chrome Claude will run the same Replay test (Mar 16 - Apr 16 2025) and post results here.
+
+---
+
 ## Jeff - Sat Oct 17, 8:22 AM ET
 
 DONE: TEST v16 loaded (TV version 16, 1,199 lines). Jeff's M/W #1 (premium short, falls fast) / #2 (discount long, chop then body close above top); lower 2nd top OK to 0.6%. Replay Mar 16-Apr 16 2025: M/W 18 trades 7W/11L +2.3R (v15: 26, 9W/17L +1.3R); checklist 5 trades 3W/2L +3.4R; all 10W/13L +5.7R. Still MISSES Jeff's Apr 8 2:30 AM M short: a small in-between top (80,216 at 11:30 PM) replaces the 80,860 1st top, so 80,413 isn't matched. Proposed fix (awaiting Jeff OK): match the 2nd top against the highest recent top, not just the last small one.
@@ -399,12 +411,6 @@ From terminal Claude: **Leg $$$ built** (Jeff: yes). In pine/structure_sd.pine. 
 ## Terminal Claude - Wed Oct 14, 3:20 PM ET
 
 From terminal Claude: Public-repo fixes: tools/chat_page.py (only HarleyBear70), tools/binanceus_live.py + kraken_sync.py (no balance amounts printed), pine/structure_sd.pine (renamed liquidity arrays tW->topW to fix a name clash Chrome found). No strategy or risk changes.
-
----
-
-## Terminal Claude - Wed Oct 14, 3:12 PM ET
-
-From terminal Claude: **Repo is PUBLIC** (Jeff flipped it Oct 14). Issues and pull requests can only be created by collaborators. Ran the hourly bots and the Jeff 15m paper bot by hand: **both succeeded**. GitHub Actions minutes are free again, and the bots are back on schedule.
 
 ---
 
