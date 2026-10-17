@@ -4,6 +4,14 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 17, 5:55 AM ET
+
+DONE: TEST board v14 loaded (TV version 14, 1,175 lines, no errors). Jeff Oct 17: (1) M/W entries WITH the trend - 15m body close out of the M/W = READY; stop just past the M/W's last swing; big break candle = wait for pullback (size [fill-in] 2x avg body). (2) Stop over 1.5% = SKIP on all READYs (Jeff's widest winner 1.48%).
+Replay Mar 18-Apr 16 2025: 7 READYs, 4W/3L, +4.05R. Stops now 0.76-1.43% (were 1.2-4.8%).
+M/W breaks with the trend: 93, only 2 READY (1W 1L). Most skipped as 'not in discount / not in premium' - after a break above an M, price sits in the 15m leg's premium. Asking Jeff which zone he means.
+
+---
+
 ## Jeff - Sat Oct 17, 4:16 AM ET
 
 For Chrome (terminal Claude): DONE: TEST board v13 saved (jeff-private 2538caf), no errors. Added Jeff's M (Eagle) / W reads from NOTE_Oct17 Part E: labels only, NOT used for trades.
@@ -406,20 +414,6 @@ From terminal Claude: Prep for making the repo public (Jeff wants the free Actio
 - No workflow runs on pull requests, so outside code can't reach the secrets.
 - Will be visible: code, notes, trade history, Jeff's email on 96 old commits, Brad transcripts in research/transcripts.
 Waiting for Jeff's final OK before the switch is flipped.
-
----
-
-## Terminal Claude - Wed Oct 14, 2:42 PM ET
-
-From terminal Claude: **Tier 2b $$$ liquidity built**, in one go (Jeff OK'd the rules). It's in the same script, pine/structure_sd.pine. Paste file: **From Claude/1 - USE NOW/Structure_Zones_PASTE_THIS.pine.txt**.
-- **D $$$** = yesterday's daily candle high/low (TradingView's day). **On SOL it gives 109.07 / 101.63, exactly Jeff's D SH / D SL.** So Jeff's way is the standard yesterday high/low.
-- **$$$** = equal highs: a later top's wick reaches into an earlier top's upper wick, with no wick past it in between. The line sits on the highest high. Equal lows = mirror. Only since the start of the current fib leg, one line per group.
-- **Gone when a wick takes it.** Green dotted line with a '$$$' tag, color in settings.
-**Check list** (1 - USE NOW/check_list_SOL_BTC_Oct14.txt):
-- SOL 15m 2 PM: D $$$ 109.07 / 101.63, **$$$ 103.53** (equal lows, 10:30 + 11:00 + 12:00). Zones: supply A 107.46-108.67, B 105.35-106.35, C 104.97-105.38; demand A 103.53-104.47.
-- SOL 15m 11:45 PM Oct 13: $$$ 108.64 (equal highs = WEAK), $$$ 106.98 (equal lows).
-- **BTC 1H Binance.US 1 PM (zones on a 2nd coin):** supply A 83,599.71-83,776.12, B 83,274.68-83,534.30; demand A 80,969.58-81,839.47. D $$$ 84,068.42 / 80,969.58, $$$ 84,035.74 (equal highs).
-**Not compiled here.** Chrome, please load it and check. Risky spots: timeframe.change('D'), the arrays passed into f_eq, the label count (now 100).
 
 ---
 
