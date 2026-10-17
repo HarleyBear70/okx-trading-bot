@@ -1,6 +1,6 @@
 # P/L calendar and strategy cards
 
-Updated automatically every hour (2026-10-17 11:33 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
+Updated automatically every hour (2026-10-17 12:34 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
 
 ## Combined OKX demo account
 
@@ -36,7 +36,7 @@ Closed P/L only; open trades count when they close.
 
 ## Growth: demo vs paper
 
-Average balance per bot, each bot starting at $1,000: the active demo bots (3, solid) vs the paper bots (14, dashed). Demo now $995.73 (-0.43%), paper now $993.95 (-0.61%).
+Average balance per bot, each bot starting at $1,000: the active demo bots (3, solid) vs the paper bots (14, dashed). Demo now $995.73 (-0.43%), paper now $993.83 (-0.62%).
 
 ![Demo vs paper growth](calendars/cards/growth.svg)
 
@@ -101,7 +101,7 @@ OKX · BTC ETH SOL BNB SUI TRX · 4-hour candles · started 2026-10-04 · balanc
 | | Trades | Win % | PF | Max DD |
 |---|---|---|---|---|
 | Backtest, long run (research, 2022-now) | - | 33% | 1.66 | -9.6% |
-| Backtest replay since start | 2 | 0% | 0.00 | -1.1% |
+| Backtest replay since start | 2 | 0% | 0.00 | -1.2% |
 | Live (demo) since start | 2 | 0% | 0.00 | -1.3% |
 
 ### B1c breakout retest (paper)  ·  PAUSED
@@ -166,15 +166,15 @@ OKX · BTC ETH SOL XRP BNB · daily candles · started 2026-10-06 · balance now
 
 ### Trend Rider (Binance.US paper)  ·  PAPER
 
-Binance.US · BTC ETH SOL BNB SUI TRX · 4-hour candles · started 2026-10-07 · balance now 995.97
+Binance.US · BTC ETH SOL BNB SUI TRX · 4-hour candles · started 2026-10-07 · balance now 994.35
 
 ![Trend Rider (Binance.US paper) live vs backtest](calendars/cards/tr-bnus.svg)
 
 | | Trades | Win % | PF | Max DD |
 |---|---|---|---|---|
 | Backtest, long run (research, 2022-now) | - | - | - | - |
-| Backtest replay since start | 1 | 0% | 0.00 | -0.4% |
-| Live (paper) since start | 1 | 0% | 0.00 | -0.4% |
+| Backtest replay since start | 1 | 0% | 0.00 | -0.6% |
+| Live (paper) since start | 1 | 0% | 0.00 | -0.6% |
 
 ### Trend Rider 1H (Binance.US paper)  ·  PAPER
 

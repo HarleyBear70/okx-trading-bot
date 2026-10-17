@@ -1,5 +1,5 @@
 {
- "rows_seen": 53,
+ "rows_seen": 54,
  "bots": {
   "v4-okx": {
    "peak": 1006.89,
@@ -133,8 +133,6 @@
    "odd": ""
   }
  },
- "attention": [
-  "run"
- ],
- "run_errors": "[Trend Rider] TRX-USDT: ERROR OKX error on /api/v5/trade/order: {\"code\": \"1\", \"data\": [{\"clOrdId\": \"ghTBTRX1792224000\", \"ordId\": \"\", \"sCode\": \"51155\", \"sMsg\": \"You can't trade this pair or borrow this crypto due to local compliance restrictions. \", \"subCode\": \"\", \"tag\": \"\", \"ts\": \"1792251126114\"}], \"inTime\": \"1792251126068558\", \"msg\": \"All operations failed\", \"outTime\": \"1792251126160988\"}"
+ "attention": [],
+ "run_errors": ""
 }
