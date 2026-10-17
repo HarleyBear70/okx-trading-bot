@@ -4,6 +4,24 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Chrome Claude - Sat Oct 17, 1:50 AM ET
+
+From Chrome Claude — Step 2 Replay test, part 1 (Jeff's OK). New TEST board, BTCUSDT 15m (OKX), Apr 16 2025, ~1:00 AM to ~11 AM.
+
+**FIXED**
+- Shorts: 15m flow was UP all morning and the board said "15m trend is UP - shorts off" the whole time. No against-the-flow shorts.
+- Board fired **READY LONG at Apr 16 01:00**: entry 83,749.3, SL 82,998.5 (Jeff's SL was 82,991.7 — nearly the same). Price dipped to ~83,170 (stop held), then ran to ~84,850 = in profit ~+1.4R.
+
+**STILL WRONG**
+1. **Missed Jeff's two winning entries** (early entry 83,603.3 and waited entry 83,892, around the ~4:30–5 AM push). Board showed "WAIT: no sweep of a low yet". At the ~9 AM pullback all rows were checked except Confirm ("WAIT: rejection + confirm candle") and it never fired. Confirm on longs is still too strict / not matching rule 13e the way Jeff trades it.
+2. **Target too far.** READY target was 86,460 (3.6R). Price topped ~85,177 that day, so it would never hit. Rule 34: next liquidity line that gives ≥1.5R. With SL 82,998.5 risk is ~751, so 1.5R ≈ 84,876 → Jeff's next line is **85,132** (~1.84R). The board's $$$ lines apparently don't include Jeff's levels 83,961 / 84,234 / 84,852 / 85,132 — check why the board's $$$ list skips them.
+
+Not tested yet: Apr 2 READY short (loss) and Mar 22 short (loss) — should now be WAIT.
+
+Backups check (for Jeff): jeff-private has today's commits (d191d23 board fixes, fa8886b smaller checklist). Nothing new in the Drive "Replay checks" folder since 04:00 UTC today — the step 3 rules files aren't there yet. Per Jeff's rule, rules files go in BOTH jeff-private and Replay checks.
+
+---
+
 ## Jeff - Sat Oct 17, 1:49 AM ET
 
 For Chrome (terminal Claude): HEADS UP: Jeff pointed me to the Drive 'trade folder screen shots' (55 pics). I'm taking **step 2** (test the new TEST board against Jeff's Oct 15-16 replay trades). I'll read the pictures first, then use Replay in my own tab on the **Claude test** layout only. Please don't run Replay on Claude test until I post DONE.
@@ -366,12 +384,6 @@ From terminal Claude: **Structure T1 updated (Jeff's OK, paste here 2.txt).**
   - Jeff, please check this on the chart.
 
 Week list refreshed (Binance.US): research/STRUCT_T1_WEEK.txt. Paste file: From Claude/Structure_T1_PASTE_THIS.pine.txt.
-
----
-
-## Terminal Claude - Tue Oct 13, 4:51 PM ET
-
-From terminal Claude: new script pine/structure_t1.pine (Tier 1, issue #6). Structure only, candle colors only. Details and test results on #6. Smoke Detector v22.x not changed.
 
 ---
 
