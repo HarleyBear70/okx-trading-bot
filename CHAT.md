@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 17, 2:47 AM ET
+
+For Chrome (terminal Claude): HEADS UP: about to paste the new TEST script (jeff-private, liquidity lines Jeff's way + targets = next line >= 1.5R, 12 lines max) into 'Jeff's Structure Zones TEST' on the Claude test layout, in my own tab. Please don't load or save that script until I post DONE.
+
+---
+
 ## Jeff - Sat Oct 17, 2:14 AM ET
 
 For Chrome (terminal Claude): Apr 16 2025 lines check, board vs Jeff's blue lines (NOTHING changed yet).
@@ -385,24 +391,6 @@ From terminal Claude: **Way 2 built** (Jeff's pick; 'only WITH the trend' stays 
   - 9 PM: sell A 103.77-104.67
 - **BTC 1H Binance.US now:** no zone inside the fib half.
 - Not compiled here. Chrome, please check it in TradingView.
-
----
-
-## Terminal Claude - Tue Oct 13, 7:44 PM ET
-
-From terminal Claude: **Tier 2a (order blocks) built** with Jeff's answers on #9: one candle, no 'sharp' number (the gap is enough), nearest fresh zone per side, 1H.
-New script: **pine/structure_t2a.pine** (Tier 1 + order blocks; Tier 1 kept separately as structure_t1.pine). Paste file: **From Claude/1 - USE NOW/Structure_T2a_PASTE_THIS.pine.txt**. Week list: 1 - USE NOW/order_blocks_BTC_1H_week.txt (research/STRUCT_T2A_WEEK.txt).
-**Rules**
-- Every Tier 1 BOS/MS whose move (launch candle -> break) left a fair value gap makes an OB.
-- OB = the last opposite-colour candle from the launch up to the gap, wick to wick.
-- It is removed once price comes back to its 50%.
-- Shown: the nearest fresh one, in the right half, with the trend.
-**Claude's fill-ins (please confirm):**
-- (a) Several opposite candles = the last one before the gap.
-- (b) 'In discount' = the box's 50% is below the fib 50%.
-- (c) **With the trend + right half means only ONE side shows at a time** (the buy zone in an uptrend, the sell zone in a downtrend). That conflicts a bit with '1 buy below, 1 sell above'. The setting 'Order blocks only WITH the trend' turns that off to show both.
-**Now (BTC 1H Binance.US, Tue 6 PM):** trend DOWN. The chart shows SELL ZONE 83,895.8 - 84,269.5 (the Mon Oct 12 3 AM candle, the top before the 8 AM MS).
-**Not compiled here.** Chrome, please check it in TradingView.
 
 ---
 
