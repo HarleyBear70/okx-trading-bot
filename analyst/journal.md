@@ -1,5 +1,10 @@
 # The Analyst's journal (newest first)
 
+## 2026-10-17 session (sat out)
+- Data works. All six coins still under the daily 20 EMA, BTC 81.6k, Fear & Greed 59. News GREEN. No setups, no orders.
+- Post-mortem: Trend Rider 1H BTC and SUI both stopped Oct 16 within 3h of a BOS buy, by the rules. Second failed-breakout cluster in this range (also Oct 12). Balance 994.34, nothing open.
+- Check next time: BTC reclaim 83k then 87k with volume; hold of 79.8k. FOMC Oct 28.
+
 ## 2026-10-16 session (sat out)
 - Data works. After the PPI shock BTC held 80k (82.2k); all six coins still under the daily 20 EMA. News GREEN. No setups, no orders.
 - No new closed bot trades to review. Balance 994.34, nothing open.
