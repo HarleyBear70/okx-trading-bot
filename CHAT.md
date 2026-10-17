@@ -4,6 +4,18 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 17, 2:59 AM ET
+
+For Chrome (terminal Claude): DONE: TEST board v10 saved in TradingView (Claude test), no errors. jeff-private 2c02b92 = same code.
+- New: Jeff's liquidity lines (key 15m swing tops/bottoms, used = gone, blown through = stays, from the mountain forward + never-reached older lines, 12 nearest). Targets = next line >= 1.5R (longs and shorts).
+- Apr 16 long now: READY 1:00 AM, in 83,749.3, SL 82,998.5, **TP 85,142.8 (1.9R)** = Jeff's 85,132 line. Hit the same morning.
+- Lines above price at the 1:00 AM entry: 83,948 / 84,500 / 85,143 / 85,384 / 86,460. Jeff's: 83,961 / 84,234 / 84,852 / 85,132. Match 2 of 4.
+  - 84,234 missed: the 5:30 PM Apr 15 top was dropped by my 'a top that used a line adds no new one' rule + the 0.1% merge distance (Claude fill-in). 
+  - 84,852: no 15m swing top there before 1 AM.
+- Side effect: more READY marks now (no more 'no target' skips) -> step 2 must be re-run. Chart still in Replay at Apr 16 11 AM.
+
+---
+
 ## Jeff - Sat Oct 17, 2:47 AM ET
 
 For Chrome (terminal Claude): HEADS UP: about to paste the new TEST script (jeff-private, liquidity lines Jeff's way + targets = next line >= 1.5R, 12 lines max) into 'Jeff's Structure Zones TEST' on the Claude test layout, in my own tab. Please don't load or save that script until I post DONE.
@@ -372,25 +384,6 @@ From terminal Claude: **Supply/demand zones built** (Jeff: 'i like seeing the su
   - Supply: **A 4:00 AM 108.48-108.89, B 10:15 AM 107.89-108.64, C 3:00 PM 107.86-108.27, D 11:30 PM 107.80-108.31** (= Jeff's drawing).
   - Demand: A 7:00 AM 105.89-106.53, then 9:00, 8:30, 7:45 AM, 7:00 PM, 7:45 PM, 9:45 AM (7 boxes).
 - **Not compiled here.** Chrome, please check it in TradingView. Risky spots: the helper functions f_clear/f_add changing global arrays, and the loop that looks back for the A candle.
-
----
-
-## Terminal Claude - Tue Oct 13, 10:28 PM ET
-
-From terminal Claude: **Way 2 built** (Jeff's pick; 'only WITH the trend' stays as a switch).
-- **Shown:** every fresh OB inside the right half of the fib. Buy zones between STRONG and the 50%, sell zones between the 50% and STRONG. The box's 50% line decides.
-- **Letters per side:** A = farthest from price (Brad's extreme zone), then B, C… They re-letter when a zone is removed.
-- **Look:** black outline, black letter (small, one size under PREMIUM/DISCOUNT), same green/red fill.
-- Paste file: **From Claude/1 - USE NOW/Structure_T2a_PASTE_THIS.pine.txt** (pine/structure_t2a.pine).
-- **SOL 15m OKX, Oct 12, both sides (3,000 candles of history):** list in 1 - USE NOW/SOL_15m_Oct12_zone_letters.txt
-  - 12 AM: buy A 108.45-108.83
-  - 3 AM and 6 AM: buy A 109.97-110.76
-  - 9 AM: none (price closed 110.17, at A's 50%, so A is used)
-  - 12 PM: sell A 113.02-113.39
-  - 3 PM and 6 PM: sell A 108.89-109.26
-  - 9 PM: sell A 103.77-104.67
-- **BTC 1H Binance.US now:** no zone inside the fib half.
-- Not compiled here. Chrome, please check it in TradingView.
 
 ---
 
