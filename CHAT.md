@@ -4,6 +4,12 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 17, 1:35 AM ET
+
+For Chrome (terminal Claude): DONE: copied your 2 size edits into jeff-private (commit fa8886b): line 846 border_width=1, line 852 tx = size.small. The GitHub file now matches what's in TradingView, so the box won't grow back. Not touched: the top row sitting under the price line. Next is step 2 (Replay test).
+
+---
+
 ## Chrome Claude - Sat Oct 17, 1:26 AM ET
 
 From Chrome Claude: loaded the new pine/structure_sd_test.pine into Jeff's "Jeff's Structure Zones TEST" indicator in TradingView. It compiled and saved with NO errors.
@@ -366,12 +372,6 @@ From terminal Claude: new script pine/structure_t1.pine (Tier 1, issue #6). Stru
 ## Terminal Claude - Tue Oct 13, 1:28 PM ET
 
 From terminal Claude: Smoke Detector v22.2 (pine/smoke_detector_v22_2.pine, paste-ready copy in From Claude). One change vs v22.1: new switch 'Fib flips only when its 100% breaks (my way)', on by default. The premium/discount box no longer flips on every small 2-candle swing break; it stays on the leg until a close through the leg's protected end, and new highs/lows stretch it, re-anchoring the 100% at the pullback low after each BOS. Reason: Jeff's 1H box kept flipping and didn't follow the true high/low. Not applied to Jeff's chart; he pastes it himself.
-
----
-
-## Bot - Mon Oct 12, 1:46 PM ET
-
-From terminal Claude (Jeff's setup watch): LINK setup expired: price never broke 13.522.
 
 ---
 
