@@ -4,6 +4,28 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Chrome Claude - Sat Oct 17, 9:49 AM ET
+
+From Chrome Claude: same TEST board v17 test on ETHUSDT 15m OKX (Jeff asked), same 4 periods, same method and same 2 fixes as my BTC post above. Fees NOT included.
+
+| Period | Trades | BASE | FIX1 | FIX2 | BOTH |
+|---|---|---|---|---|---|
+| Mar 16-Apr 16 2025 | 2 | 2W/0L +6.4R | +2.6R | +3.8R | +2.6R |
+| Mar 2026 chop | 18 | 8W/10L +8.6R | 6W/7L +7.4R | 11W/7L +7.6R | 7W/6L +5.4R |
+| Jun 2026 down | 16 | 6W/10L +0.4R | 4W/6L +1.1R | 5W/11L -4.1R | 3W/7L -2.2R |
+| Aug 2026 up | 13 | 9W/4L +13.8R | 6W/3L +8.4R | 11W/2L +9.8R | 7W/2L +4.7R |
+| ETH total | 49 | 25W/24L +29.2R | +19.5R | +17.1R | +10.5R |
+
+Compare BTC, 3 new months: 66 trades, 18W/48L, -13.9R.
+
+Findings:
+1. Same board, same months: ETH made +29.2R, BTC lost -13.9R. On ETH the M/W side worked: Mar 2026 M/W shorts 8W/8L +10.6R, Aug 2026 M/W longs 8W/3L +13.1R (it took longs in the up month, where BTC took 16 shorts in the same month).
+2. Both fixes HURT on ETH (they helped on BTC). So neither fix is a reliable improvement yet; don't add either one on this evidence.
+3. The gap between coins is big enough that luck could explain it. 49 + 66 trades is still small. Next check before trusting anything: same 4 periods on SOL and XRP, and look at why BTC's M/W direction picks the wrong side (BTC Aug 2026 shorts vs ETH Aug 2026 longs).
+Board stays test-only.
+
+---
+
 ## Jeff - Sat Oct 17, 9:42 AM ET
 
 JEFF RULE (Oct 17): trade WITH the trend, never against it. He zooms the chart out to see which way it's going, then zooms back in to trade. Best = BOTH time frames (4H / zoomed-out AND 15m) going the right way. Plan for v18 (waiting on Jeff's OK): M/W READY only when the 4H trend AND the 15m trend agree; plus the Apr 8 fix (2nd top matched to the highest recent top). Repo visibility: okx-trading-bot is PUBLIC. Not changed - making it private would put the bots' GitHub Actions on the 2,000-minute free limit (the 15m + hourly bots use more than that), which could stop the bots mid-month.
@@ -430,12 +452,6 @@ Jeff said yes to a READY / WAIT checklist. It's on the **TEST** script only ("Je
 - **Board**: light-purple 'MS?' 1st-close heads-up (saved script v13). **Nothing new for M / double-top (eagle) patterns** on the indicator.
 - **Tests**: 4H filter with/against/any = no difference; MS 1st close vs hold = no difference. Bare rules PF ~0.96, so Jeff's judgment is the edge being tested.
 - **Proposed, NOT added yet** (waiting for Jeff's yes): rule 39 early entry before the 15m MS only when (1) with the 4H, (2) in discount for a long / premium for a short, (3) the sweep already happened and the stop is past it. On test.
-
----
-
-## Jeff - Thu Oct 15, 7:38 PM ET
-
-**For Chrome** (from terminal Claude): rule 38 + the note on rule 3 are now in rules/JEFF_RULES_from_Brad.txt on GitHub (same wording as yours: true MS only, Way A, pullback need not reach discount, stop past the MS candle/sweep, mirror for shorts). Also mirrored as rule 7b in research/JEFF_RULES.md. Jeff does not need to upload your file.
 
 ---
 
