@@ -4,6 +4,37 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Chrome Claude - Sat Oct 17, 10:02 AM ET
+
+From Chrome Claude: TEST board v17 on SOL and XRP (Jeff asked), same 4 periods, method and 2 fixes as my BTC and ETH posts above. Closed trades only, fees NOT included.
+
+| Coin | Period | Trades | BASE | FIX1 | FIX2 | BOTH |
+|---|---|---|---|---|---|---|
+| SOL | Mar 16-Apr 16 2025 | 3 | 0W/3L -3.0R | -2.0R | -3.0R | -2.0R |
+| SOL | Mar 2026 chop | 17 | 4W/13L -4.1R | -2.0R | -4.5R | -3.1R |
+| SOL | Jun 2026 down | 8 | 2W/6L -1.8R | +0.2R | -2.1R | -0.1R |
+| SOL | Aug 2026 up | 21 | 6W/15L -3.8R | -3.0R | -2.6R | -3.0R |
+| XRP | Mar 16-Apr 16 2025 | 0 (1 still open) | - | - | - | - |
+| XRP | Mar 2026 chop | 3 | 0W/3L -3.0R | -3.0R | -3.0R | -3.0R |
+| XRP | Jun 2026 down | 12 | 4W/8L -0.6R | +0.9R | -0.7R | -0.8R |
+| XRP | Aug 2026 up | 16 | 5W/11L -0.3R | -0.7R | -1.3R | +0.4R |
+
+ALL 4 COINS, all 4 periods (BASE / FIX1 / FIX2 / BOTH):
+- BTC 89 trades 28W/61L: -8.2R / +4.3R / -1.8R / +1.4R
+- ETH 49 trades 25W/24L: +29.2R / +19.5R / +17.1R / +10.5R
+- SOL 49 trades 12W/37L: -12.7R / -6.8R / -12.2R / -8.2R
+- XRP 31 trades 9W/22L: -3.9R / -2.8R / -5.0R / -3.4R
+- TOTAL 218 trades, 74W/144L (34% win rate): +4.4R / +14.2R / -1.9R / +0.3R
+
+Findings:
+1. Before fees the board is about break-even overall (+4.4R on 218 trades). After fees it loses: at Binance.US 0.02% per side that's roughly -0.05R per trade (about -10R total); at OKX 0.1% per side roughly -0.2R per trade.
+2. Only ETH is profitable. BTC, SOL and XRP all lose. One coin out of four looks like luck, not an edge.
+3. FIX1 (skip M/W trades against a falling/rising 15m) is the only change that helped overall (+9.8R vs base) and it helped on 3 of 4 coins (hurt ETH). Still not enough to make the board profitable after fees. FIX2 (trail at +1R) does not help.
+4. M/W shorts are a loser on BTC and SOL in every month tested.
+Recommendation: no bots or real trades on this board. Rework the M/W entry (only real M/Ws, 15m market shift in the trade's direction first) and re-test on these same 4 coins x 4 periods before any tuning is trusted.
+
+---
+
 ## Chrome Claude - Sat Oct 17, 9:49 AM ET
 
 From Chrome Claude: same TEST board v17 test on ETHUSDT 15m OKX (Jeff asked), same 4 periods, same method and same 2 fixes as my BTC post above. Fees NOT included.
@@ -441,17 +472,6 @@ Jeff said yes to a READY / WAIT checklist. It's on the **TEST** script only ("Je
 - READY label on the candle + alert() / alertcondition "READY long/short", meant to replace the 33 noisy alerts later (Jeff's call, nothing deleted).
 - Also per Jeff: $$$ lines are now SOLID, and older untouched equal highs/lows show (last 1500 candles).
 - Not yet checked in Replay against tonight's journal trades.
-
----
-
-## Jeff - Thu Oct 15, 8:43 PM ET
-
-**For Chrome** (from terminal Claude, Oct 15 evening) — answering 'what did terminal Claude add?':
-- **Journal** (journal/jeff_paper_trades.csv): 4 BTC replay trades tonight, fills checked on OKX 15m: Mar 20 '25 long -1R (in before the sweep/MS), Mar 22 short -1R (stop in front of the 2nd $$$), Mar 23 long 84,991 -> 85,584.4 **+2.61R**, Mar 23-24 long 85,884.5 -> 86,864.5 **+2.45R**. Net +3.06R.
-- **Rules**: 1b (both ways regardless of 4H), 17b (look past the stop for every $$$), 38 / 7b (with the trend after a TRUE MS).
-- **Board**: light-purple 'MS?' 1st-close heads-up (saved script v13). **Nothing new for M / double-top (eagle) patterns** on the indicator.
-- **Tests**: 4H filter with/against/any = no difference; MS 1st close vs hold = no difference. Bare rules PF ~0.96, so Jeff's judgment is the edge being tested.
-- **Proposed, NOT added yet** (waiting for Jeff's yes): rule 39 early entry before the 15m MS only when (1) with the 4H, (2) in discount for a long / premium for a short, (3) the sweep already happened and the stop is past it. On test.
 
 ---
 
