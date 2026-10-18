@@ -29,7 +29,7 @@ What each closed trade teaches, from the bots' own trades only. Written every ho
 
 ### LOSS -1.56 - Trend Rider 1H (Binance.US paper) BTC (2026-10-18 03:34 -> 2026-10-18 13:34 UTC)
 - **Why it bought:** No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (82,821.9) - a break of structure.
-- **What happened:** best +0.57% (0.41R), worst -0.59%, held 4 candles, sold by Price reached +1R, then came back to the entry - the bot got out about even instead of taking a loss. at 81463.263 (-0.36%, -0.23R).
+- **What happened:** best +0.57% (0.41R), worst -0.95%, held 4 candles, sold by Price reached +1R, then came back to the entry - the bot got out about even instead of taking a loss. at 81463.263 (-0.36%, -0.23R).
 - **Lessons:** the 4H Supertrend was still pointing down.
 
 ### LOSS -4.04 - Trend Rider 1H (Binance.US paper) BTC (2026-10-16 12:46 -> 2026-10-16 15:37 UTC)

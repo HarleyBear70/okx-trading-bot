@@ -1000,7 +1000,7 @@
   "mode": "paper",
   "planned_stop": 857.597,
   "planned_target": null,
-  "price_now": 81345.0,
+  "price_now": 81063.1,
   "qty": 0.011660489,
   "result": "open",
   "risk_pct": 99.0,
@@ -1009,7 +1009,7 @@
   "stop_now": 857.597,
   "strategy": "hold",
   "trailing_on": false,
-  "unrealized_pct": -5.148,
+  "unrealized_pct": -5.476,
   "why_entry": null,
   "worst_pct": -6.978,
   "worst_px": 79775.1
@@ -2861,7 +2861,7 @@
   "status": "closed",
   "strategy": "tr",
   "why_entry": "No buy. Missing: 4H close above the 50 EMA; candle closes above the last swing high (82,821.9) - a break of structure.",
-  "worst_pct": -0.593,
-  "worst_px": 81242.7
+  "worst_pct": -0.951,
+  "worst_px": 80950.4
  }
 ]
