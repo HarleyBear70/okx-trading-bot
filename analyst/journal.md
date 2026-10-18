@@ -1,5 +1,10 @@
 # The Analyst's journal (newest first)
 
+## 2026-10-18 session (sat out, Sunday scorecard in brief)
+- Data works. All six coins under the daily 20 EMA on very thin volume (BTC 81.5k, 0.23x avg). News GREEN, Fear & Greed 64. No setups, no orders.
+- No new closed bot trades. Trend Rider has a weekend TRX BOS trade open; watch whether it fails like Oct 12/16.
+- Check next time: BTC reclaim 83k then 87k with volume; hold of 79.8k; FOMC Oct 28.
+
 ## 2026-10-17 session (sat out)
 - Data works. All six coins still under the daily 20 EMA, BTC 81.6k, Fear & Greed 59. News GREEN. No setups, no orders.
 - Post-mortem: Trend Rider 1H BTC and SUI both stopped Oct 16 within 3h of a BOS buy, by the rules. Second failed-breakout cluster in this range (also Oct 12). Balance 994.34, nothing open.
