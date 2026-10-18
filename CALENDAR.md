@@ -1,6 +1,6 @@
 # P/L calendar and strategy cards
 
-Updated automatically every hour (2026-10-18 07:33 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
+Updated automatically every hour (2026-10-18 08:39 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
 
 ## Combined OKX demo account
 
@@ -36,7 +36,7 @@ Closed P/L only; open trades count when they close.
 
 ## Growth: demo vs paper
 
-Average balance per bot, each bot starting at $1,000: the active demo bots (3, solid) vs the paper bots (14, dashed). Demo now $995.73 (-0.43%), paper now $993.73 (-0.63%).
+Average balance per bot, each bot starting at $1,000: the active demo bots (3, solid) vs the paper bots (14, dashed). Demo now $995.73 (-0.43%), paper now $993.70 (-0.63%).
 
 ![Demo vs paper growth](calendars/cards/growth.svg)
 
@@ -178,7 +178,7 @@ Binance.US · BTC ETH SOL BNB SUI TRX · 4-hour candles · started 2026-10-07 ·
 
 ### Trend Rider 1H (Binance.US paper)  ·  PAPER
 
-Binance.US · BTC ETH SOL BNB SUI · 1-hour candles · started - · balance now 972.32
+Binance.US · BTC ETH SOL BNB SUI · 1-hour candles · started - · balance now 971.94
 
 ![Trend Rider 1H (Binance.US paper) live vs backtest](calendars/cards/tr1h-bnus.svg)
 
