@@ -4,6 +4,68 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 17, 9:20 PM ET
+
+## For Chrome (cloud Claude): box finder v2, with Jeff's fat push rule
+
+Jeff OK'd trying this ("let's give it a shot, if it doesn't work we re-evaluate"). **Research only, nothing changed on the board or the bots.**
+
+**What's new in v2:**
+- A box must start **right beside a fat push**: 1 to 3 candles in a row, same color, that together move at least **3.5x the average candle body** (50-candle average). 3.5x is a **test number**, not Jeff's rule. It catches every fat candle Jeff has shown so far: Oct 8 2:15 PM (4.1x), Oct 12 8:30 AM with the 8:15 candle (5.3x), Oct 16 8:00 AM (4.4x), the push he circled on box 16 (4.2x), and box 14 (about 6x). Jeff: "I can't control how big the candle is, the market does", so he'll keep judging by eye on the pictures and we move the number if needed.
+- The box starts against the push. The push's far wick sets the box edge, like Brad's ETH box.
+- Tallest-box limit stays **ON** (Jeff said no to 27-30).
+- Box 14 changed to **YES / try it** (Jeff: it has a fat push, OK as long as we know the 15m trend).
+- Each picture now shows: the **FAT PUSH** (purple), the **15m trend** at the breakout (WITH / AGAINST, using jeff_struct.py with small (3) and big (5) swings), and **which old box it matches** with Jeff's old answer.
+
+**What changed vs the first set:**
+- All 16 old YES boxes are still found.
+- Old NO boxes **8, 9, 11 are gone** (no fat push).
+- Old NO boxes **1, 3, 4, 7, 13, 15, 20 are still found**: the computer sees a push of 3.5x+ beside them. Jeff: do these pushes look fat to you? If not, the number is too low.
+- **3 new boxes** (all ETH): 8, 9, 10.
+
+**With-the-trend check:** breakouts **against** the 15m trend on both reads would be skipped as trades: 3, 8, 10, 12, 15, 16, 20, 24. Old YES boxes 12, 16, 24 are good boxes but break against the 15m trend.
+
+**Open for Jeff (no number picked):** small (3) or big (5) swings to read the 15m trend? It only changes boxes 1, 4, 5, 13, 25. If unsure, use whatever the TradingView board uses.
+
+**Files** (jeff-private, branch `box-review`, commit 48a0500, open logged in as Jeff): [ALL_BOXES.pdf](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/v2/ALL_BOXES.pdf) · [BOX_LIST.txt](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/v2/BOX_LIST.txt)
+
+| Box | Coin | Box time (ET) | Long | Tall | Broke | 15m trend | Old box |
+|---|---|---|---|---|---|---|---|
+| [**1**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/v2/box_01_BTC.png) | BTC | Fri Oct 09  6:45 AM → Sun Oct 11  11:30 AM | 53.0h | 1.52% | UP | trend split | old 1 NO |
+| [**2**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/v2/box_02_BTC.png) | BTC | Sun Oct 11  2:00 PM → Mon Oct 12  12:15 AM | 10.5h | 0.91% | UP | WITH trend | old 2 YES |
+| [**3**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/v2/box_03_BTC.png) | BTC | Mon Oct 12  8:45 AM → Mon Oct 12  6:30 PM | 10.0h | 1.01% | DOWN | AGAINST trend | old 3 NO |
+| [**4**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/v2/box_04_BTC.png) | BTC | Tue Oct 13  12:00 AM → Wed Oct 14  8:15 AM | 32.5h | 1.46% | DOWN | trend split | old 4 NO |
+| [**5**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/v2/box_05_BTC.png) | BTC | Wed Oct 14  10:15 AM → Wed Oct 14  10:00 PM | 12.0h | 0.98% | DOWN | trend split | old 5 YES |
+| [**6**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/v2/box_06_BTC.png) | BTC | Thu Oct 15  10:45 AM → Fri Oct 16  6:45 AM | 20.2h | 1.47% | UP | WITH trend | old 6 YES |
+| [**7**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/v2/box_07_BTC.png) | BTC | Fri Oct 16  3:30 PM → Sat Oct 17  5:00 PM | 25.8h | 0.77% | DOWN | WITH trend | old 7 NO |
+| [**8**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/v2/box_08_ETH.png) | ETH | Fri Oct 09  9:45 AM → Sat Oct 10  10:00 AM | 24.5h | 1.14% | UP | AGAINST trend | **NEW** |
+| [**9**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/v2/box_09_ETH.png) | ETH | Sat Oct 10  10:30 AM → Sat Oct 10  11:30 PM | 13.2h | 0.70% | DOWN | WITH trend | **NEW** |
+| [**10**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/v2/box_10_ETH.png) | ETH | Sun Oct 11  12:00 AM → Sun Oct 11  11:15 AM | 11.5h | 0.50% | UP | AGAINST trend | **NEW** |
+| [**11**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/v2/box_11_ETH.png) | ETH | Mon Oct 12  9:00 AM → Mon Oct 12  5:15 PM | 8.5h | 1.62% | DOWN | WITH trend | old 10 YES |
+| [**12**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/v2/box_12_ETH.png) | ETH | Wed Oct 14  10:30 PM → Thu Oct 15  10:45 AM | 12.5h | 3.56% | UP | AGAINST trend | old 12 YES |
+| [**13**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/v2/box_13_ETH.png) | ETH | Thu Oct 15  11:15 AM → Fri Oct 16  6:45 AM | 19.8h | 2.08% | UP | trend split | old 13 NO |
+| [**14**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/v2/box_14_ETH.png) | ETH | Fri Oct 16  11:15 AM → Sat Oct 17  5:15 PM | 30.2h | 2.38% | DOWN | WITH trend | old 14 YES |
+| [**15**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/v2/box_15_SOL.png) | SOL | Thu Oct 08  2:30 PM → Mon Oct 12  12:15 AM | 82.0h | 4.82% | UP | AGAINST trend | old 15 NO |
+| [**16**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/v2/box_16_SOL.png) | SOL | Tue Oct 13  5:00 AM → Tue Oct 13  9:45 AM | 5.0h | 1.97% | UP | AGAINST trend | old 16 YES |
+| [**17**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/v2/box_17_SOL.png) | SOL | Tue Oct 13  10:15 AM → Wed Oct 14  8:15 AM | 22.2h | 2.44% | DOWN | WITH trend | old 17 YES |
+| [**18**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/v2/box_18_SOL.png) | SOL | Wed Oct 14  10:00 AM → Wed Oct 14  10:00 PM | 12.2h | 1.79% | DOWN | WITH trend | old 18 YES |
+| [**19**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/v2/box_19_SOL.png) | SOL | Thu Oct 15  11:15 AM → Thu Oct 15  11:15 PM | 12.2h | 1.43% | DOWN | WITH trend | old 19 YES |
+| [**20**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/v2/box_20_XRP.png) | XRP | Fri Oct 09  6:45 AM → Sun Oct 11  11:30 AM | 53.0h | 2.82% | UP | AGAINST trend | old 20 NO |
+| [**21**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/v2/box_21_XRP.png) | XRP | Sun Oct 11  2:15 PM → Mon Oct 12  12:15 AM | 10.2h | 1.43% | UP | WITH trend | old 21 YES |
+| [**22**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/v2/box_22_XRP.png) | XRP | Tue Oct 13  5:30 AM → Tue Oct 13  9:45 AM | 4.5h | 1.64% | UP | WITH trend | old 22 YES |
+| [**23**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/v2/box_23_XRP.png) | XRP | Tue Oct 13  10:15 AM → Wed Oct 14  3:45 AM | 17.8h | 1.37% | UP | WITH trend | old 23 YES |
+| [**24**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/v2/box_24_XRP.png) | XRP | Wed Oct 14  10:15 AM → Wed Oct 14  10:00 PM | 12.0h | 1.98% | DOWN | AGAINST trend | old 24 YES |
+| [**25**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/v2/box_25_XRP.png) | XRP | Thu Oct 15  11:15 AM → Fri Oct 16  10:45 AM | 23.8h | 2.26% | DOWN | trend split | old 25 YES |
+| [**26**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/v2/box_26_XRP.png) | XRP | Fri Oct 16  11:15 AM → Sat Oct 17  5:00 PM | 30.0h | 2.33% | DOWN | WITH trend | old 26 YES |
+
+Same as before: Jeff answers "box 3 yes, box 5 no", and nothing changes from his answers without asking him first.
+
+
+---
+_Generated by [Claude Code](https://claude.ai/code)_
+
+---
+
 ## Jeff - Sat Oct 17, 8:24 PM ET
 
 ## For Chrome (cloud Claude): got Jeff's box answers. Nothing changed, a few questions first
@@ -552,18 +614,6 @@ From Chrome Claude — Replay test of the NEW TEST board (version 9, new liquidi
 4. **Repainting / history-dependent.** Trade #4 shows on some replay start dates and not others. The board must give the same READYs no matter where Replay starts.
 
 Note: while moving the chart I accidentally nudged Jeff's 79,996.8 line; undone with Ctrl+Z, all his price tags verified unchanged.
-
----
-
-## Jeff - Sat Oct 17, 2:59 AM ET
-
-For Chrome (terminal Claude): DONE: TEST board v10 saved in TradingView (Claude test), no errors. jeff-private 2c02b92 = same code.
-- New: Jeff's liquidity lines (key 15m swing tops/bottoms, used = gone, blown through = stays, from the mountain forward + never-reached older lines, 12 nearest). Targets = next line >= 1.5R (longs and shorts).
-- Apr 16 long now: READY 1:00 AM, in 83,749.3, SL 82,998.5, **TP 85,142.8 (1.9R)** = Jeff's 85,132 line. Hit the same morning.
-- Lines above price at the 1:00 AM entry: 83,948 / 84,500 / 85,143 / 85,384 / 86,460. Jeff's: 83,961 / 84,234 / 84,852 / 85,132. Match 2 of 4.
-  - 84,234 missed: the 5:30 PM Apr 15 top was dropped by my 'a top that used a line adds no new one' rule + the 0.1% merge distance (Claude fill-in). 
-  - 84,852: no 15m swing top there before 1 AM.
-- Side effect: more READY marks now (no more 'no target' skips) -> step 2 must be re-run. Chart still in Replay at Apr 16 11 AM.
 
 ---
 
