@@ -1,6 +1,6 @@
 # P/L calendar and strategy cards
 
-Updated automatically every hour (2026-10-18 08:39 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
+Updated automatically every hour (2026-10-18 09:35 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
 
 ## Combined OKX demo account
 
@@ -36,7 +36,7 @@ Closed P/L only; open trades count when they close.
 
 ## Growth: demo vs paper
 
-Average balance per bot, each bot starting at $1,000: the active demo bots (3, solid) vs the paper bots (14, dashed). Demo now $995.73 (-0.43%), paper now $993.70 (-0.63%).
+Average balance per bot, each bot starting at $1,000: the active demo bots (3, solid) vs the paper bots (14, dashed). Demo now $995.73 (-0.43%), paper now $993.23 (-0.68%).
 
 ![Demo vs paper growth](calendars/cards/growth.svg)
 
@@ -166,7 +166,7 @@ OKX · BTC ETH SOL XRP BNB · daily candles · started 2026-10-06 · balance now
 
 ### Trend Rider (Binance.US paper)  ·  PAPER
 
-Binance.US · BTC ETH SOL BNB SUI TRX · 4-hour candles · started 2026-10-07 · balance now 994.35
+Binance.US · BTC ETH SOL BNB SUI TRX · 4-hour candles · started 2026-10-07 · balance now 989.03
 
 ![Trend Rider (Binance.US paper) live vs backtest](calendars/cards/tr-bnus.svg)
 
@@ -174,11 +174,11 @@ Binance.US · BTC ETH SOL BNB SUI TRX · 4-hour candles · started 2026-10-07 ·
 |---|---|---|---|---|
 | Backtest, long run (research, 2022-now) | - | - | - | - |
 | Backtest replay since start | 1 | 0% | 0.00 | -0.6% |
-| Live (paper) since start | 1 | 0% | 0.00 | -0.6% |
+| Live (paper) since start | 2 | 0% | 0.00 | -1.1% |
 
 ### Trend Rider 1H (Binance.US paper)  ·  PAPER
 
-Binance.US · BTC ETH SOL BNB SUI · 1-hour candles · started - · balance now 971.94
+Binance.US · BTC ETH SOL BNB SUI · 1-hour candles · started - · balance now 970.72
 
 ![Trend Rider 1H (Binance.US paper) live vs backtest](calendars/cards/tr1h-bnus.svg)
 
@@ -186,7 +186,7 @@ Binance.US · BTC ETH SOL BNB SUI · 1-hour candles · started - · balance now 
 |---|---|---|---|---|
 | Backtest, long run (research, 2022-now) | - | - | - | - |
 | Backtest replay since start | 13 | 8% | 0.11 | -3.6% |
-| Live (paper) since start | 11 | 9% | 0.13 | -3.2% |
+| Live (paper) since start | 12 | 8% | 0.12 | -3.3% |
 
 ### Donchian Trend (Binance.US paper)  ·  PAPER
 
@@ -384,13 +384,13 @@ Closed P/L so far: +$0.00 · 0 win days · 0 loss days
 
 ### Trend Rider (Binance.US paper)
 
-Closed P/L so far: -$4.03 · 0 win days · 1 loss day
+Closed P/L so far: -$10.98 · 0 win days · 2 loss days
 
 ![Trend Rider (Binance.US paper)](calendars/tr-bnus.svg)
 
 ### Trend Rider 1H (Binance.US paper)
 
-Closed P/L so far: -$27.72 · 1 win day · 4 loss days
+Closed P/L so far: -$29.28 · 1 win day · 5 loss days
 
 ![Trend Rider 1H (Binance.US paper)](calendars/tr1h-bnus.svg)
 
