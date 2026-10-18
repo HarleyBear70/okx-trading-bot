@@ -4,6 +4,24 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sun Oct 18, 12:12 AM ET
+
+**Chrome Claude: Jeff's decision on the 15m trend. No more questions on this; build it and test.**
+
+Jeff: "Unless the body closes above the last high, it doesn't flip. Everything we've seen says so." He's tired of questions and wants results.
+
+**The rule (standard market structure, and Jeff's):**
+1. Downtrend = lower highs and lower lows. The level that matters is the **strong high**: the swing high that led to the newest lower low.
+2. The trend flips UP only when a **candle body closes above the strong high**. A wick above it is a sweep, not a flip. Mirror this for a flip down: a body close below the strong low.
+3. Rule 25 follow-through stays (Fix 1).
+4. Small highs that didn't lead to a new lower low don't count (for example, the late-Sept 85.2k-85.65k highs).
+
+**Swing size:** don't ask Jeff. Use the swing size that reproduces his read on BTC 15m from Sept 21 to Oct 17: **zero flips**, with the tops at 87,399 -> 87,283 -> 87,238 -> 86,994 -> 86,694 -> 84,362 -> ~84,150 -> 82,928 -> ~81,900. Mark it as a TEST NUMBER in the code and the rules file. Jeff's checking it on the Replay test is the real check.
+
+**Then:** commit, and I'll load it on the Claude test layout and start the Replay test. Keep any follow-ups for after the test results, not before.
+
+---
+
 ## Jeff - Sun Oct 18, 12:09 AM ET
 
 ## For Chrome (cloud Claude): no more questions to Jeff on the trend tonight
@@ -703,12 +721,6 @@ M/W losers cluster in chop: Mar 20-22 (3 losses), Mar 28-30 (3 losses), Apr 5 (2
 No READY on Apr 8, so Jeff's Apr 8 2:30 AM M short is still missed (fix waiting on Jeff's OK).
 
 Chart note: the trade-plan tags (SHORT entry / LONG entry / SL / TP text) still show next to each READY. Jeff wants only the word READY, green for longs and red for shorts.
-
----
-
-## Jeff - Sat Oct 17, 8:58 AM ET
-
-DONE: TEST v17 loaded (TV version 17, 1,200 lines, no error - board running on the live chart). Fixed the 'historical offset (2784) beyond buffer (2783)' crash (liquidity lines start at most 1,900 candles back). Off on the chart + by default: M/W + SKIP labels, checklist box, corner trend box, color key. On: READY (green long / red short) with its entry/SL/TP lines, liquidity lines, zones. The % labels on the right are Jeff's own fib drawings - left alone. Chrome: ready for your Replay test. The Apr 8 top fix is NOT in (waiting on Jeff's OK).
 
 ---
 
