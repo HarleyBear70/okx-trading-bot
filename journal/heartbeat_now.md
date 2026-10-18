@@ -1,4 +1,4 @@
-# Heartbeat map, Oct 17 11:43 PM ET
+# Heartbeat map, Oct 18 12:11 AM ET
 
 Code = Jeff's heartbeat rules, swing 1. MUST HOLD = the level that has to hold; a candle BODY closing past it (and the next candle not closing back) = market shift = the flip.
 
@@ -7,10 +7,10 @@ Code = Jeff's heartbeat rules, swing 1. MUST HOLD = the level that has to hold; 
 | TF | Way | Stays that way while | Flips on a body close | Leg high/low | 50% | Price | Zone |
 |---|---|---|---|---|---|---|---|
 | 1D | BEARISH | below 12.776 | above 12.776 | 11.751 | 12.2635 | 11.986 | discount |
-| 4H | BULLISH | above 11.824 | below 11.824 | 12.776 | 12.3 | 11.986 | discount |
-| 1H | BULLISH | above 11.839 | below 11.839 | 12.127 | 11.983 | 12.025 | premium |
-| 15m | BEARISH | below 12.127 | above 12.127 | 11.751 | 11.939 | 12.04 | premium |
-| 5m | BEARISH | below 12.127 | above 12.127 | 11.751 | 11.939 | 12.04 | premium |
+| 4H | BULLISH | above 11.824 | below 11.824 | 12.776 | 12.3 | 12.06 | discount |
+| 1H | BULLISH | above 11.839 | below 11.839 | 12.127 | 11.983 | 12.06 | premium |
+| 15m | BEARISH | below 12.127 | above 12.127 | 11.751 | 11.939 | 12.06 | premium |
+| 5m | BEARISH | below 12.127 | above 12.127 | 11.751 | 11.939 | 12.029 | premium |
 
 Claude's paper trade: none open on LINK.
 
@@ -19,10 +19,10 @@ Claude's paper trade: none open on LINK.
 | TF | Way | Stays that way while | Flips on a body close | Leg high/low | 50% | Price | Zone |
 |---|---|---|---|---|---|---|---|
 | 1D | BULLISH | above 74955.5 | below 74955.5 | 87399.0 | 81177.2 | 81489.4 | premium |
-| 4H | BULLISH | above 74955.5 | below 74955.5 | 87399.0 | 81177.2 | 81489.4 | premium |
-| 1H | BULLISH | above 79775.1 | below 79775.1 | 82928.5 | 81351.8 | 81816.6 | premium |
-| 15m | BULLISH | above 80813.6 | below 80813.6 | 81956.1 | 81384.9 | 81850.3 | premium |
-| 5m | BULLISH | above 81589.4 | below 81589.4 | 81956.1 | 81772.8 | 81880.6 | premium |
+| 4H | BULLISH | above 74955.5 | below 74955.5 | 87399.0 | 81177.2 | 81952.5 | premium |
+| 1H | BULLISH | above 79775.1 | below 79775.1 | 82928.5 | 81351.8 | 81952.5 | premium |
+| 15m | BULLISH | above 81779.4 | below 81779.4 | 82072.4 | 81925.9 | 81952.5 | premium |
+| 5m | BULLISH | above 81779.4 | below 81779.4 | 82072.4 | 81925.9 | 81907.6 | discount |
 
 Claude's paper trade: none open on BTC.
 
@@ -31,10 +31,10 @@ Claude's paper trade: none open on BTC.
 | TF | Way | Stays that way while | Flips on a body close | Leg high/low | 50% | Price | Zone |
 |---|---|---|---|---|---|---|---|
 | 1D | BEARISH | below 2587.5 | above 2587.5 | 2317.0 | 2452.25 | 2402.87 | discount |
-| 4H | BEARISH | below 2579.98 | above 2579.98 | 2317.0 | 2448.49 | 2402.87 | discount |
-| 1H | BEARISH | below 2538.65 | above 2538.65 | 2317.0 | 2427.82 | 2417.05 | discount |
-| 15m | BEARISH | below 2441.9 | above 2441.9 | 2356.62 | 2399.26 | 2421.02 | premium |
-| 5m | BEARISH | below 2425.14 | above 2425.14 | 2356.62 | 2390.88 | 2421.44 | premium |
+| 4H | BEARISH | below 2579.98 | above 2579.98 | 2317.0 | 2448.49 | 2425.43 | discount |
+| 1H | BEARISH | below 2538.65 | above 2538.65 | 2317.0 | 2427.82 | 2425.43 | discount |
+| 15m | BEARISH | below 2441.9 | above 2441.9 | 2356.62 | 2399.26 | 2425.43 | premium |
+| 5m | BULLISH | above 2356.62 | below 2356.62 | 2430.25 | 2393.43 | 2423.08 | premium |
 
 Claude's paper trade: none open on ETH.
 
@@ -43,10 +43,10 @@ Claude's paper trade: none open on ETH.
 | TF | Way | Stays that way while | Flips on a body close | Leg high/low | 50% | Price | Zone |
 |---|---|---|---|---|---|---|---|
 | 1D | BEARISH | below 113.4 | above 113.4 | 100.56 | 106.98 | 103.46 | discount |
-| 4H | BEARISH | below 109.07 | above 109.07 | 100.56 | 104.815 | 103.46 | discount |
-| 1H | BEARISH | below 109.07 | above 109.07 | 100.56 | 104.815 | 103.98 | discount |
-| 15m | BEARISH | below 105.28 | above 105.28 | 101.22 | 103.25 | 104.01 | premium |
-| 5m | BEARISH | below 104.36 | above 104.36 | 101.22 | 102.79 | 104.2 | premium |
+| 4H | BEARISH | below 109.07 | above 109.07 | 100.56 | 104.815 | 104.53 | discount |
+| 1H | BEARISH | below 109.07 | above 109.07 | 100.56 | 104.815 | 104.53 | discount |
+| 15m | BEARISH | below 105.28 | above 105.28 | 101.22 | 103.25 | 104.53 | premium |
+| 5m | BULLISH | above 101.22 | below 101.22 | 104.8 | 103.01 | 104.31 | premium |
 
 Claude's paper trade: none open on SOL.
 
