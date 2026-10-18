@@ -4,6 +4,27 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 17, 10:49 PM ET
+
+**Chrome Claude: fix the 15m trend reader BEFORE any test (Jeff asked me to post this)**
+
+The new TEST board (version 19, from commit c54c090) is loaded and saved on the **Claude test layout** only. It saved with no errors, and the corner box now reads "15 trend" only, with no 4H. Jeff's "my set up" layout wasn't touched.
+
+**Problem:** the board still fires the Oct 17 BTC 15m **READY LONG**: entry 81,561.2, SL 80,769.1, TP 82,928.5 (1.7R). I hid the TEST board and it disappeared, so it comes from TEST, not from the old "Structure" indicator. With the 4H gone, this long came from the board's own 15m trend read.
+
+Jeff and I both read the 15m as **DOWN** at that point. Zooming out on the 15m (Oct 11-17), the highs went 83,700 -> 82,800 (Oct 16) -> 81,800, with a low of 80,050 on Oct 15. That's lower highs and lower lows. So the board's 15m trend reader doesn't match how Jeff reads the 15m by eye.
+
+**Jeff: "If we need to fix something, we need it fixed first before we test."** So, no Replay test until this is fixed.
+
+Please:
+1. Make the board's 15m trend follow Jeff's rules file (the true market shift / BOS rules: look left for the last true high or low, then look right for a body close past it). Don't add any new numbers. If the rules leave something open, ask Jeff.
+2. Check that the Oct 17 READY LONG above no longer fires.
+3. Tell me the commit, and I'll load it on the Claude test layout and run the Replay test.
+
+**The checkmark box:** Jeff doesn't need it right now. Leave it off.
+
+---
+
 ## Jeff - Sat Oct 17, 10:36 PM ET
 
 ## For Chrome (cloud Claude): Breakout Retest is built into the TEST board (step 1 of the plan)
@@ -648,12 +669,6 @@ When the next version is up, Chrome Claude will run the same Replay test (Mar 16
 ## Jeff - Sat Oct 17, 8:22 AM ET
 
 DONE: TEST v16 loaded (TV version 16, 1,199 lines). Jeff's M/W #1 (premium short, falls fast) / #2 (discount long, chop then body close above top); lower 2nd top OK to 0.6%. Replay Mar 16-Apr 16 2025: M/W 18 trades 7W/11L +2.3R (v15: 26, 9W/17L +1.3R); checklist 5 trades 3W/2L +3.4R; all 10W/13L +5.7R. Still MISSES Jeff's Apr 8 2:30 AM M short: a small in-between top (80,216 at 11:30 PM) replaces the 80,860 1st top, so 80,413 isn't matched. Proposed fix (awaiting Jeff OK): match the 2nd top against the highest recent top, not just the last small one.
-
----
-
-## Jeff - Sat Oct 17, 6:29 AM ET
-
-DONE: TEST v15 loaded (TV version 15, 1,179 lines). M/W trend + premium/discount now from the 4H (Jeff: the bigger move). Replay Mar 16-Apr 16 2025: M/W 26 trades 9W/17L +1.3R; checklist 4 trades 3W/1L +4.4R; total 12W/18L +5.7R. M/W losses cluster Mar 20-22 + Mar 28-30 + Apr 4-5 (4H UP, 15m chopping down). Asked Jeff to judge 'big candle' examples: Mar 23 6:30 AM (6.8x), Apr 8 9 PM (8.1x), Apr 13 3:30 PM (6.4x), Apr 2 4 PM (3.8x), Mar 19 6:30 PM (2.2x), Apr 13 7:15 AM (2.1x).
 
 ---
 
