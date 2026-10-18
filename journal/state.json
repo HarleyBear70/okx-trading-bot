@@ -107,7 +107,7 @@
   "v4-okx|XLM-USDT": 1792267200000,
   "v4-okx|XRP-USDT": 1792267200000
  },
- "rows_seen": 54,
+ "rows_seen": 55,
  "signal_counts": {
   "tr-bnus": {
    "candles": 390,

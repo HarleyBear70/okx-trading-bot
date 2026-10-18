@@ -1610,10 +1610,10 @@
     "closed": 11,
     "losers_that_were_green_first": 1,
     "losses": 10,
-    "open": 0,
+    "open": 1,
     "profit_factor": 0.13,
     "total_pnl": -27.72,
-    "trades": 11,
+    "trades": 12,
     "win_rate_pct": 9.1,
     "wins": 1
    },
@@ -1642,10 +1642,10 @@
      "closed": 4,
      "losers_that_were_green_first": 1,
      "losses": 4,
-     "open": 0,
+     "open": 1,
      "profit_factor": 0.0,
      "total_pnl": -12.1,
-     "trades": 4,
+     "trades": 5,
      "win_rate_pct": 0.0,
      "wins": 0
     },
@@ -1698,7 +1698,9 @@
    "group": "testing",
    "mode": "paper",
    "name": "Trend Rider 1H (Binance.US paper)",
-   "open_positions": [],
+   "open_positions": [
+    "BTC-USDT"
+   ],
    "signals_seen": {
     "candles": 305,
     "near_misses": 13,
@@ -2557,13 +2559,13 @@
    "closed": 24,
    "losers_that_were_green_first": 5,
    "losses": 18,
-   "open": 2,
+   "open": 3,
    "profit_factor": 0.34,
    "total_pnl": -44.14,
-   "trades": 26,
+   "trades": 27,
    "win_rate_pct": 25.0,
    "wins": 6
   }
  },
- "updated_utc": "2026-10-18 02:35"
+ "updated_utc": "2026-10-18 03:35"
 }
