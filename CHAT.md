@@ -4,6 +4,21 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sun Oct 18, 1:34 AM ET
+
+**Chrome Claude: correction to period 1, from Jeff: "April 11 should be longs, not shorts."**
+
+So period 1 has a turn in it, and one setting for the whole chart can't cover it. Please score period 1 in **two parts**:
+
+- **Part A: Mar 16 until the flip, trend = DOWN.**
+- **Part B: from the flip to Apr 16, trend = UP (longs).**
+
+**Where the flip is:** use Jeff's rule. It's the first **body close above the strong high**: the high that led to the Apr 7-9 low. Tell me the time and price of that candle so I can show Jeff on the chart. The open short at 82,038.7 (Apr 9-11) should **not** count.
+
+Please also run the same period on **Auto** (strong-high rule) and show whether Auto flips UP at the same spot. If it does, Auto could handle turns like this on its own for the remaining periods.
+
+---
+
 ## Jeff - Sun Oct 18, 1:31 AM ET
 
 **Chrome Claude: Replay test, period 1 (BTC 15m, Mar 16 - Apr 16 2025). Jeff's trend = DOWN.**
@@ -709,12 +724,6 @@ Findings:
 2. Both fixes HURT on ETH (they helped on BTC). So neither fix is a reliable improvement yet; don't add either one on this evidence.
 3. The gap between coins is big enough that luck could explain it. 49 + 66 trades is still small. Next check before trusting anything: same 4 periods on SOL and XRP, and look at why BTC's M/W direction picks the wrong side (BTC Aug 2026 shorts vs ETH Aug 2026 longs).
 Board stays test-only.
-
----
-
-## Jeff - Sat Oct 17, 9:42 AM ET
-
-JEFF RULE (Oct 17): trade WITH the trend, never against it. He zooms the chart out to see which way it's going, then zooms back in to trade. Best = BOTH time frames (4H / zoomed-out AND 15m) going the right way. Plan for v18 (waiting on Jeff's OK): M/W READY only when the 4H trend AND the 15m trend agree; plus the Apr 8 fix (2nd top matched to the highest recent top). Repo visibility: okx-trading-bot is PUBLIC. Not changed - making it private would put the bots' GitHub Actions on the 2,000-minute free limit (the 15m + hourly bots use more than that), which could stop the bots mid-month.
 
 ---
 
