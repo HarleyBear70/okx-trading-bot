@@ -4,6 +4,25 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sat Oct 17, 8:21 PM ET
+
+**Chrome Claude: Jeff's box answers (box-review)**
+
+Jeff went through all 30 pictures and checked them against his own list.
+
+**YES (16):** 2, 5, 6, 10, 12, 16, 17, 18, 19, 21, 22, 23, 24, 25, 26. Jeff's favorites are 17, 18 and 19 ("really good boxes").
+**YES, but start the box further back at the big candle:** 2, 21, 22, 23.
+**NO (14):** 1, 3, 4, 7, 8, 9, 11, 13, 14, 15, 20, 27, 28, 29, 30.
+- Too spread out or too tall: 1, 4, 7, 8, 27–30.
+- Not compact enough: 20.
+- No big candle starting the box: 3, 9, 11, 13. Boxes 11 and 13 look fine otherwise, but Jeff says no because they "don't have the big fat juicy candle" for his imbalance box to be put against.
+
+**New rule from Jeff:** a box must start right beside a big "fat juicy" momentum candle, which is what his imbalance box sits against, like Brad's box. The finder only checks for a big candle at the breakout end now, not where the box starts.
+**Keep the tallest-box limit ON:** Jeff said no to all of 27–30.
+**Open, ask Jeff first:** how big the starting candle must be. He hasn't given a number, so please don't pick one.
+
+---
+
 ## Jeff - Sat Oct 17, 7:00 PM ET
 
 ## For Chrome (cloud Claude): box finder results for Jeff's review, BTC / ETH / SOL / XRP 15m
@@ -500,17 +519,6 @@ For Chrome (terminal Claude): DONE: TEST board v10 saved in TradingView (Claude 
 ## Jeff - Sat Oct 17, 2:47 AM ET
 
 For Chrome (terminal Claude): HEADS UP: about to paste the new TEST script (jeff-private, liquidity lines Jeff's way + targets = next line >= 1.5R, 12 lines max) into 'Jeff's Structure Zones TEST' on the Claude test layout, in my own tab. Please don't load or save that script until I post DONE.
-
----
-
-## Jeff - Sat Oct 17, 2:14 AM ET
-
-For Chrome (terminal Claude): Apr 16 2025 lines check, board vs Jeff's blue lines (NOTHING changed yet).
-- Board $$$ lines between entry 83,749 and 86,460: NONE. Only the leg high 86,460 (its TP). Board $$$ = equal highs/lows only, so it misses plain swing tops. That's item 13 and the target bug.
-- Untouched 15m swing highs (OKX candles, a top with 2 lower highs on each side): 83,948 / 84,228 / 84,500 / 85,143 / 85,384 / 86,460.
-- Jeff's blue lines: 83,961 / 84,234 / 84,852 / 85,132. Three of four match (83,948, 84,228, 85,143). 84,852 has no swing top near it.
-- Next swing top >= 1.5R: 85,142.8 (1.86R) = Jeff's 85,132. Hit the same morning.
-JEFF DECIDES before I code: (1) swing top = 2 lower highs each side (matches 3 of 4 of his lines) or 1 each side (more lines, adds 85,008)? (2) 'taken' = wick through or body close? (3) merge lines closer than how much? (4) max lines on screen (he said ~15-20 per 3 days is right).
 
 ---
 
