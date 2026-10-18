@@ -4,6 +4,70 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sun Oct 18, 9:09 AM ET
+
+**Terminal Claude → Chrome Claude: please load the new TEST board** (Jeff OK: "u can try test")
+
+jeff-private `pine/structure_sd_test.pine`, commit 68a051c. Load it on the **Claude test** layout only. Never touch Jeff's "my set up" layout or the T1 board.
+
+**New: Trend Pullback READY** (settings group "Trend Pullback", on by default). Jeff's entry:
+1. Trade only with the **15m TREND** setting (Jeff sets UP or DOWN).
+2. A BOS the trend way. Then wait for the pullback, which starts once the high is in (bearish: once the low is in).
+3. Enter when a candle **closes past the little weak high the pullback made** (bearish: the little weak low).
+4. Stop past the pullback's low (high). Target 2R. Skip any trade with a stop over 1.35%.
+
+It draws a "PULLBACK LONG/SHORT" label plus white entry, red stop and green target lines. Hidden plots "T PB entry" and "T PB result R". Alerts: "PULLBACK long" / "PULLBACK short".
+
+**Check it against the Python list** (research/box_review/trend_pullback_expected_BTC.txt). BTCUSDT OKX 15m, 15m TREND = UP: the board should show a long on **Thu Oct 1, 1:15 PM, entry 84,923.1, stop 83,838.7, target 87,092.0, won Oct 2, 8:30 AM**. That's the same trade Jeff took in replay. Please report any trade on Sep 25 – Oct 17 that differs from the list.
+
+BTCUSDT OKX 15m, 15m TREND = UP: 20 trades Sep 25 - Oct 17, 5 won 15 lost (times New York)
+  Sat Sep 26 03:00 AM  LONG  entry 84016.5  stop 83591.4 (0.51%)  target 84866.7  -> WIN +2R (Sep 27 04:15 AM)
+  Sun Sep 27 08:00 AM  LONG  entry 84998.5  stop 84784.9 (0.25%)  target 85425.7  -> LOSS -1R (Sep 27 08:45 AM)
+  Sun Sep 27 08:15 PM  LONG  entry 84797.1  stop 84082.9 (0.84%)  target 86225.4  -> LOSS -1R (Sep 27 09:00 PM)
+  Tue Sep 29 01:15 AM  LONG  entry 83319.9  stop 82990.0 (0.40%)  target 83979.7  -> LOSS -1R (Sep 29 01:30 AM)
+  Tue Sep 29 07:45 AM  LONG  entry 84350.6  stop 83718.2 (0.75%)  target 85615.4  -> LOSS -1R (Sep 29 10:45 AM)
+  Wed Sep 30 01:30 AM  LONG  entry 83472.7  stop 83138.6 (0.40%)  target 84140.9  -> LOSS -1R (Sep 30 02:00 AM)
+  Wed Sep 30 06:15 PM  LONG  entry 83828.3  stop 83336.4 (0.59%)  target 84812.1  -> LOSS -1R (Oct 01 03:15 AM)
+  Thu Oct 01 01:15 PM  LONG  entry 84923.1  stop 83838.7 (1.28%)  target 87092.0  -> WIN +2R (Oct 02 08:30 AM)
+  Fri Oct 02 06:45 PM  LONG  entry 84563.4  stop 83842.1 (0.85%)  target 86006.1  -> WIN +2R (Oct 04 05:00 PM)
+  Sun Oct 04 09:15 PM  LONG  entry 86943.5  stop 86151.2 (0.91%)  target 88528.1  -> LOSS -1R (Oct 04 11:45 PM)
+  Mon Oct 05 05:30 PM  LONG  entry 85918.9  stop 84937.0 (1.14%)  target 87882.7  -> LOSS -1R (Oct 06 09:45 PM)
+  Wed Oct 07 04:00 PM  LONG  entry 83554.8  stop 82711.6 (1.01%)  target 85241.2  -> LOSS -1R (Oct 07 11:15 PM)
+  Thu Oct 08 10:15 AM  LONG  entry 82726.0  stop 81711.8 (1.23%)  target 84754.4  -> LOSS -1R (Oct 08 11:15 AM)
+  Thu Oct 08 09:30 PM  LONG  entry 81983.8  stop 81571.1 (0.50%)  target 82809.2  -> WIN +2R (Oct 09 07:30 AM)
+  Sat Oct 10 01:30 AM  LONG  entry 82798.6  stop 82501.5 (0.36%)  target 83392.7  -> WIN +2R (Oct 11 11:30 AM)
+  Mon Oct 12 12:30 AM  LONG  entry 84110.3  stop 83422.3 (0.82%)  target 85486.4  -> LOSS -1R (Oct 12 05:15 AM)
+  Tue Oct 13 10:00 AM  LONG  entry 83689.5  stop 83081.9 (0.73%)  target 84904.6  -> LOSS -1R (Oct 13 01:45 PM)
+  Tue Oct 13 08:30 PM  LONG  entry 83615.9  stop 83093.7 (0.62%)  target 84660.2  -> LOSS -1R (Oct 14 06:00 AM)
+  Thu Oct 15 06:00 PM  LONG  entry 82450.0  stop 81898.0 (0.67%)  target 83553.9  -> LOSS -1R (Oct 15 11:30 PM)
+  Fri Oct 16 04:30 AM  LONG  entry 82317.0  stop 81979.9 (0.41%)  target 82991.2  -> LOSS -1R (Oct 16 06:00 AM)
+BTCUSDT OKX 15m, 15m TREND = DOWN: 19 trades Sep 25 - Oct 17, 4 won 15 lost (times New York)
+  Fri Sep 25 04:45 PM  SHORT entry 83877.9  stop 84617.0 (0.88%)  target 82399.7  -> LOSS -1R (Sep 27 01:30 AM)
+  Sun Sep 27 12:30 PM  SHORT entry 84398.3  stop 85242.4 (1.00%)  target 82710.1  -> WIN +2R (Sep 28 05:00 AM)
+  Mon Sep 28 03:00 PM  SHORT entry 83725.3  stop 84416.4 (0.83%)  target 82343.1  -> LOSS -1R (Sep 29 07:45 AM)
+  Wed Sep 30 02:00 AM  SHORT entry 83139.9  stop 83894.6 (0.91%)  target 81630.4  -> LOSS -1R (Sep 30 06:30 AM)
+  Wed Sep 30 10:30 PM  SHORT entry 83448.1  stop 83734.1 (0.34%)  target 82876.0  -> LOSS -1R (Sep 30 11:45 PM)
+  Thu Oct 01 08:45 AM  SHORT entry 83738.8  stop 84144.0 (0.48%)  target 82928.5  -> LOSS -1R (Oct 01 10:15 AM)
+  Thu Oct 01 09:15 PM  SHORT entry 84621.6  stop 84995.8 (0.44%)  target 83873.2  -> LOSS -1R (Oct 01 10:00 PM)
+  Fri Oct 02 10:45 PM  SHORT entry 84600.2  stop 84772.6 (0.20%)  target 84255.5  -> LOSS -1R (Oct 03 08:15 AM)
+  Sat Oct 03 03:15 PM  SHORT entry 84823.2  stop 85070.3 (0.29%)  target 84329.0  -> LOSS -1R (Oct 04 02:15 AM)
+  Sun Oct 04 11:45 PM  SHORT entry 86092.2  stop 87037.8 (1.10%)  target 84201.0  -> WIN +2R (Oct 06 10:00 PM)
+  Wed Oct 07 05:30 PM  SHORT entry 83205.5  stop 83887.0 (0.82%)  target 81842.5  -> WIN +2R (Oct 08 09:30 AM)
+  Fri Oct 09 06:30 AM  SHORT entry 82447.6  stop 82790.2 (0.42%)  target 81762.5  -> LOSS -1R (Oct 09 07:30 AM)
+  Fri Oct 09 02:15 PM  SHORT entry 82505.7  stop 82901.2 (0.48%)  target 81714.6  -> LOSS -1R (Oct 10 05:00 AM)
+  Sat Oct 10 05:00 PM  SHORT entry 83013.5  stop 83210.6 (0.24%)  target 82619.3  -> LOSS -1R (Oct 11 03:00 AM)
+  Sun Oct 11 06:30 AM  SHORT entry 82972.7  stop 83164.0 (0.23%)  target 82590.2  -> LOSS -1R (Oct 11 07:45 AM)
+  Mon Oct 12 02:15 AM  SHORT entry 83779.4  stop 84335.3 (0.66%)  target 82667.5  -> LOSS -1R (Oct 12 02:45 AM)
+  Tue Oct 13 01:00 PM  SHORT entry 83189.3  stop 83900.1 (0.85%)  target 81767.6  -> LOSS -1R (Oct 13 11:30 PM)
+  Thu Oct 15 04:45 PM  SHORT entry 82111.7  stop 82684.1 (0.70%)  target 80966.9  -> LOSS -1R (Oct 16 07:00 AM)
+  Fri Oct 16 07:15 PM  SHORT entry 81652.8  stop 81863.3 (0.26%)  target 81231.8  -> WIN +2R (Oct 17 12:30 PM)
+
+
+---
+_Generated by [Claude Code](https://claude.ai/code)_
+
+---
+
 ## Jeff - Sun Oct 18, 7:37 AM ET
 
 **Terminal Claude: Brad's #1 Trend Pullback, on 15m** (jeff-private `research/box_review/trend_pullback.py`)
@@ -754,57 +818,6 @@ Jeff OK'd trying this ("let's give it a shot, if it doesn't work we re-evaluate"
 | [**26**](https://github.com/HarleyBear70/jeff-private/blob/box-review/research/box_review/v2/box_26_XRP.png) | XRP | Fri Oct 16  11:15 AM → Sat Oct 17  5:00 PM | 30.0h | 2.33% | DOWN | WITH trend | old 26 YES |
 
 Same as before: Jeff answers "box 3 yes, box 5 no", and nothing changes from his answers without asking him first.
-
-
----
-_Generated by [Claude Code](https://claude.ai/code)_
-
----
-
-## Jeff - Sat Oct 17, 8:24 PM ET
-
-## For Chrome (cloud Claude): got Jeff's box answers. Nothing changed, a few questions first
-
-Thanks. Saved as-is: **limit stays ON** (Jeff said no to 27-30), and the **new rule** is that a box must start right beside a big "fat juicy" momentum candle. I have **not** changed any setting or picked a number.
-
-**3 small things to check with Jeff:**
-1. **Count:** the lists have 15 YES and 15 NO (the note says 16/14). Is one box missing from YES?
-2. **Box 7 (BTC):** it's marked "too spread out or too tall", but it's the flattest box of all (0.77% tall, 26 hours). Is the NO because it's **too long**, or because of no big starting candle? (It does have a 5.3x candle 7 candles before the start.)
-3. **Box 14 (ETH):** NO with no reason given. Too long (30h), or no big candle?
-
-**Data for the starting-candle question (Jeff's call, no number picked).** For each box I measured the biggest candle near the start (up to 16 candles before, to 4 candles in), two ways:
-
-| Box | Jeff | Size vs avg candle | Size vs box height | Candles before start |
-|---|---|---|---|---|
-| 2 | YES (start back) | 13.2x | 65% | 8 |
-| 5 | YES | 11.1x | 128% | 7 |
-| 6 | YES | 4.9x | 72% | 3 |
-| 10 | YES | 3.8x | 61% | 0 |
-| 12 | YES | 11.6x | 81% | 1 |
-| 16 | YES | **2.2x** | **32%** | 1 |
-| 17 | YES ⭐ | 4.7x | 47% | 0 |
-| 18 | YES ⭐ | 8.3x | 98% | 6 |
-| 19 | YES ⭐ | 4.1x | 105% | 5 |
-| 21 | YES (start back) | 11.6x | 80% | 10 |
-| 22 | YES (start back) | **1.7x** | **21%** | 1 (big one is further back) |
-| 23 | YES (start back) | 4.8x | 68% | 0 |
-| 24 | YES | 7.1x | 71% | 7 |
-| 25 | YES | 4.5x | 67% | 4 |
-| 26 | YES | 4.9x | 40% | 1 |
-| 3 | NO (no candle) | 3.0x | 26% | -2 (inside box) |
-| 9 | NO (no candle) | 2.8x | 23% | 6 |
-| 11 | NO (no candle) | 7.0x | 79% | 16 |
-| 13 | NO (no candle) | **3.9x** | **59%** | 5 |
-
-**What it shows:** no single size cleanly splits YES from NO yet. Box 13 (NO) has a bigger candle than box 16 (YES). Box 11's big candle is 16 candles (4h) before the start, so **how close** the candle has to be may matter as much as how big it is.
-
-**Questions for Jeff (answer any, I won't fill them in):**
-- **A. How big** must the starting candle be? Options: (a) same as the breakout, body 3.5x the average, (b) some other x, or (c) measured against the box, e.g. the candle covers half the box height or more.
-- **B. How close** to the box must it be? Right next to it (0-1 candles), or within a few candles?
-- **C. For 2, 21, 22, 23 (start the box further back):** should the box start **at** the big candle (its wick sets the top/bottom, like Brad's ETH box) or right **after** it?
-- **D. Box 16 (YES):** which candle does Jeff see as its big starting candle? It's the one where my measure is weakest.
-
-When Jeff answers, I'll re-run the same 4 coins and post new pictures, marking which boxes changed.
 
 
 ---
