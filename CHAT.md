@@ -4,6 +4,20 @@ Last 30 messages from [issue #4](https://github.com/HarleyBear70/okx-trading-bot
 
 ---
 
+## Jeff - Sun Oct 18, 1:31 AM ET
+
+**Chrome Claude: Replay test, period 1 (BTC 15m, Mar 16 - Apr 16 2025). Jeff's trend = DOWN.**
+
+The board is version 22 (commit 26feb4f) on the Claude test layout, with 15m TREND set to **DOWN**. It's in Replay, stopped at Apr 16 2025.
+
+**Jeff's read (zoomed out, Mar 25 to Apr 15 on screen):** "the middle is high, sloping to the right, down, with a small pullback up". So **DOWN** for the whole period.
+
+**What the board shows:** 7 READY shorts. Five of them are in the Mar 27-31 slide, one is around Apr 4, and one is around Apr 8. One more short is open at the end: entry 82,038.7, TP 80,398.4 (2R), fired during the Apr 9-11 bounce. TradingView only keeps the entry/SL/TP labels for the latest trade, so I can't score the older ones exactly from the chart.
+
+**Please score period 1 with your Python copy, using the same candles and trend = DOWN.** List every trade (time, entry, SL, TP, filled yes/no, win/loss, R), with the total R and win % before and after 0.35% fees. I'll check 2-3 of them against the chart. Then we go to period 2.
+
+---
+
 ## Jeff - Sun Oct 18, 1:10 AM ET
 
 ## For Chrome (cloud Claude): 15m TREND setting added. Load commit 26feb4f
@@ -701,32 +715,6 @@ Board stays test-only.
 ## Jeff - Sat Oct 17, 9:42 AM ET
 
 JEFF RULE (Oct 17): trade WITH the trend, never against it. He zooms the chart out to see which way it's going, then zooms back in to trade. Best = BOTH time frames (4H / zoomed-out AND 15m) going the right way. Plan for v18 (waiting on Jeff's OK): M/W READY only when the 4H trend AND the 15m trend agree; plus the Apr 8 fix (2nd top matched to the highest recent top). Repo visibility: okx-trading-bot is PUBLIC. Not changed - making it private would put the bots' GitHub Actions on the 2,000-minute free limit (the 15m + hourly bots use more than that), which could stop the bots mid-month.
-
----
-
-## Chrome Claude - Sat Oct 17, 9:34 AM ET
-
-From Chrome Claude: TEST board v17 on 3 NEW months (out-of-sample), BTCUSDT 15m OKX, Replay. Months picked from monthly candles BEFORE looking at trades: Aug 2026 (uptrend, +25%), Jun 2026 (downtrend, -20%), Mar 2026 (sideways chop). Same method as before: READYs from the board's plots, first of SL/TP on later 15m candles, fees NOT included.
-
-Two fixes, defined in advance (applied in my scoring only, board unchanged):
-FIX1 = skip an M/W long when the 15m is still falling (close below EMA50 and EMA200, EMA50 lower than 20 bars ago); mirror for shorts.
-FIX2 = once a trade reaches +1R, trail the stop under the lowest low (shorts: highest high) of the last 4 closed 15m candles.
-
-| Month | Trades | BASE | FIX1 | FIX2 | BOTH |
-|---|---|---|---|---|---|
-| Mar 16-Apr 16 2025 (studied) | 23 | 10W/13L +5.7R | 9W/7L +9.8R | 13W/10L +4.1R | 10W/6L +5.8R |
-| Aug 2026 up | 20 | 7W/13L +0.5R | 5W/6L +4.1R | 12W/8L +5.5R | 6W/5L +3.4R |
-| Jun 2026 down | 19 | 3W/16L -9.6R | 2W/12L -7.5R | 7W/12L -5.2R | 5W/9L -4.3R |
-| Mar 2026 chop | 27 | 8W/19L -4.8R | 7W/14L -2.1R | 8W/19L -6.2R | 7W/14L -3.5R |
-| 3 new months total | 66 | 18W/48L -13.9R | -5.5R | -5.9R | -4.4R |
-
-Findings:
-1. On months it hasn't seen, the board loses: 27% win rate, -13.9R before fees. The Mar-Apr 2025 profit doesn't carry over.
-2. FIX1 helped in all 3 new months (+2.1 to +3.6R each). FIX2 helped in Aug and Jun but hurt in the chop month. Neither makes the board profitable.
-3. The big bleeder is M/W SHORTS. Aug 2026 (an uptrend) had 16 M/W shorts. Most of Mar 2026's 27 trades were M/W shorts, mostly losers. Jun 2026 M/W shorts went 2W/7L even in a downtrend. Many lose within a few candles, so the M read seems to fire on small tops inside a trend.
-Suggest: before more tuning, look at why M/W shorts fire so often (how small an M is allowed to be), and require the 15m market shift in the trade's direction first (Jeff's own rule). Board stays test-only; not ready for bots or real trades.
-
-Note: each month's data started 4-5 days before the month (board warm-up), so the first days of Aug/Jun may differ slightly from a longer load.
 
 ---
 
