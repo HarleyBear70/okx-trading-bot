@@ -1,19 +1,19 @@
-NEWS LEVEL: GREEN - No exchange trouble or market shock found; no confirmed high-impact event in the next 24 hours (checked 2026-10-19 7:35 AM ET)
+NEWS LEVEL: GREEN - No exchange trouble or market shock found; no confirmed high-impact event in the next 24 hours (checked 2026-10-19 7:35 PM ET)
 Careful until: n/a
 
 ## What happened
-- BTC is about $82,700 per our chart data (up from about $80,900 last night); no crash or mass-liquidation story found.
+- BTC is about $81,900 per our chart data (down slightly from about $82,700 this morning); no crash or mass-liquidation story found.
 - No hack, outage or withdrawal halt found at OKX, Binance.US, Coinbase, Kraken, Bybit or OANDA (searches returned only old stories; not a guarantee).
-- No USDT/USDC peg problem found (unconfirmed - no live peg source reachable). Background: [The Block on USDT vs USDC](https://www.theblock.co/learn/stablecoins/usdt-vs-usdc-comparing-the-two-largest-stablecoins-408738).
-- No new SEC/CFTC action or ETF decision found for today.
+- No stablecoin problem found. A broker page dated Oct 12 showed USDT at $0.9992 ([Admiral Markets](https://admiralmarkets.com/education/articles/cryptocurrencies/usdtusd-tether-usdt-vs-us-dollar)); no live peg check today (unconfirmed).
+- No new SEC/CFTC action or ETF decision found.
 - Fear & Greed is 59 (greed).
 - Forex data feed blocked (403) again, so the dollar/EUR/GBP check is missing.
 
 ## Coming up (next 7 days, ET)
-- Week of Oct 19: UK CPI, Canada CPI, US housing starts, flash PMIs - medium; exact dates/times unconfirmed.
-- FOMC decision - HIGH; believed Wed Oct 28, 2:00 PM ET (unconfirmed); confirm at https://www.federalreserve.gov/newsevents/2026-october.htm
-- ECB and Bank of England decisions: dates unconfirmed - HIGH for EUR/GBP.
+- Wed Oct 28, 2:00 PM - FOMC rate decision - HIGH ([Fed calendar](https://www.federalreserve.gov/newsevents/2026-october.htm)). Outside the 24-hour window.
+- US CPI (8:30 AM ET release): October date unconfirmed - HIGH.
+- ECB and Bank of England October decisions, UK/Eurozone CPI: dates unconfirmed - HIGH for EUR/GBP; check ecb.europa.eu and bankofengland.co.uk.
 
 ## What it means for us
-Normal trading. Check the Fed, ECB and BoE sites for exact dates; this run could not confirm them.
-No emergency found; nothing frozen.
+Normal trading. Nothing unusual in the last 12 hours.
+Next big date to plan around is the Fed on Oct 28. No emergency found; nothing frozen.
