@@ -12,6 +12,9 @@ on:
         default: "2024-09-25"
       end:
         default: "2026-10-19"
+      source:
+        description: "okx or binanceus"
+        default: "okx"
 
 permissions:
   contents: write
@@ -26,10 +29,10 @@ jobs:
         with:
           python-version: "3.12"
       - name: Download candles (public data, no account, no key, nothing traded)
-        run: python tools/okx_history.py "${{ inputs.coins }}" "${{ inputs.bar }}" "${{ inputs.start }}" "${{ inputs.end }}" candles
+        run: python tools/${{ inputs.source == 'binanceus' && 'binanceus_history.py' || 'okx_history.py' }} "${{ inputs.coins }}" "${{ inputs.bar }}" "${{ inputs.start }}" "${{ inputs.end }}" candles
       - name: Save to the research-data branch (public prices only)
         run: |
-          name=candles_$(echo "${{ inputs.coins }}" | tr ' ' '_')_${{ inputs.bar }}.tgz
+          name=${{ inputs.source }}_candles_$(echo "${{ inputs.coins }}" | tr ' ' '_')_${{ inputs.bar }}.tgz
           tar czf /tmp/$name -C candles .
           git config user.name "candle-history-bot"; git config user.email "actions@github.com"
           git fetch origin research-data || true
