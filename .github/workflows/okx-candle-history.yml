@@ -1,0 +1,32 @@
+name: OKX candle history (read-only research data)
+
+on:
+  workflow_dispatch:
+    inputs:
+      coins:
+        description: "Coins, space separated"
+        default: "BTC ETH SOL LINK ADA AVAX BNB DOGE SUI XRP AAVE DOT LTC NEAR UNI ARB OP APT PEPE"
+      bar:
+        default: "15m"
+      start:
+        default: "2024-09-25"
+      end:
+        default: "2026-10-19"
+
+jobs:
+  download:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Download candles (public data, no account, no key, nothing traded)
+        run: python tools/okx_history.py "${{ inputs.coins }}" "${{ inputs.bar }}" "${{ inputs.start }}" "${{ inputs.end }}" candles
+      - run: tar czf candles.tgz candles
+      - uses: actions/upload-artifact@v4
+        with:
+          name: candles
+          path: candles.tgz
+          retention-days: 7
