@@ -1,0 +1,3 @@
+time_utc,pair,action,side,units,price,pnl_usd,balance,reason
+2026-10-19 00:48,USD_CAD,open,1,45030,1.41268,,100000.0000,"RSI(2) 1.9, stop 1.39622"
+2026-10-19 00:48,USD_CHF,open,1,31376,0.82446,,100000.0000,"RSI(2) 3.8, stop 0.81059"
