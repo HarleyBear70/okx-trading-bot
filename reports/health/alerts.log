@@ -2,3 +2,4 @@
 2026-10-09 00:55 UTC - FIXED: watcher false alarm 'RSI(2) 5 trades open (max 3)' - watcher ignored per-bot max_open (rsi2-bnus allows 5)
 2026-10-14 09:40 UTC - URGENT: bot.yml runs failing instantly (7:43, 8:39 UTC), no steps run, likely GitHub billing/Actions issue; cannot read logs (emailed Jeff)
 2026-10-17 12:50 UTC - URGENT: Trend Rider TRX-USDT order refused by OKX (compliance restriction 51155); emailed Jeff, no change made
+2026-10-19 22:45 UTC - URGENT: no bot update since 19:46 UTC (~3h, normal is hourly); no failed runs visible, cause unknown; emailed Jeff, no change made
