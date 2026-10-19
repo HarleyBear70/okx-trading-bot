@@ -2,57 +2,57 @@
  "equity": 994.2219337523987,
  "coins": {
   "BTC": {
-   "last": 1792429200000,
+   "last": 1792432800000,
    "pos": null,
    "order": null
   },
   "ETH": {
-   "last": 1792429200000,
+   "last": 1792432800000,
    "pos": null,
    "order": null
   },
   "SOL": {
-   "last": 1792429200000,
+   "last": 1792432800000,
    "pos": null,
    "order": null
   },
   "XRP": {
-   "last": 1792429200000,
+   "last": 1792432800000,
    "pos": null,
    "order": null
   },
   "BNB": {
-   "last": 1792429200000,
+   "last": 1792432800000,
    "pos": null,
    "order": null
   },
   "ADA": {
-   "last": 1792429200000,
+   "last": 1792432800000,
    "pos": null,
    "order": null
   },
   "DOGE": {
-   "last": 1792429200000,
+   "last": 1792432800000,
    "pos": null,
    "order": null
   },
   "AVAX": {
-   "last": 1792429200000,
+   "last": 1792432800000,
    "pos": null,
    "order": null
   },
   "LINK": {
-   "last": 1792429200000,
+   "last": 1792432800000,
    "pos": null,
    "order": null
   },
   "LTC": {
-   "last": 1792429200000,
+   "last": 1792432800000,
    "pos": null,
    "order": null
   },
   "DOT": {
-   "last": 1792429200000,
+   "last": 1792432800000,
    "pos": {
     "entry": 1.141,
     "stop": 1.0370259189633353,
@@ -63,22 +63,22 @@
    "order": null
   },
   "XLM": {
-   "last": 1792429200000,
+   "last": 1792432800000,
    "pos": null,
    "order": null
   },
   "BCH": {
-   "last": 1792429200000,
+   "last": 1792432800000,
    "pos": null,
    "order": null
   },
   "HBAR": {
-   "last": 1792429200000,
+   "last": 1792432800000,
    "pos": null,
    "order": null
   },
   "NEAR": {
-   "last": 1792429200000,
+   "last": 1792432800000,
    "pos": {
     "entry": 5.152,
     "stop": 4.501335925645248,
@@ -89,42 +89,42 @@
    "order": null
   },
   "UNI": {
-   "last": 1792429200000,
+   "last": 1792432800000,
    "pos": null,
    "order": null
   },
   "ATOM": {
-   "last": 1792429200000,
+   "last": 1792432800000,
    "pos": null,
    "order": null
   },
   "SHIB": {
-   "last": 1792429200000,
+   "last": 1792432800000,
    "pos": null,
    "order": null
   },
   "TRX": {
-   "last": 1792429200000,
+   "last": 1792432800000,
    "pos": null,
    "order": null
   },
   "SUI": {
-   "last": 1792429200000,
+   "last": 1792432800000,
    "pos": null,
    "order": null
   },
   "AAVE": {
-   "last": 1792429200000,
+   "last": 1792432800000,
    "pos": null,
    "order": null
   },
   "ETC": {
-   "last": 1792429200000,
+   "last": 1792432800000,
    "pos": null,
    "order": null
   },
   "ALGO": {
-   "last": 1792429200000,
+   "last": 1792432800000,
    "pos": null,
    "order": null
   }
