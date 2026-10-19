@@ -57,3 +57,4 @@ time_utc,bot,mode,coin,side,qty,price,usdt,pnl_usdt,pnl_pct,reason,bot_balance
 2026-10-18 13:34,Trend Rider (Binance.US paper),paper,TRX-USDT,sell,1302.5877,0.3316,431.85,-6.95,-1.58,breakeven stop,989.03
 2026-10-18 13:34,Trend Rider 1H (Binance.US paper),paper,BTC-USDT,sell,0.0052602638,81463.263,428.43,-1.56,-0.36,breakeven stop,970.72
 2026-10-19 00:47,B3 pairs (paper),paper,ETH-USDT,buy,0.025743018,2410.51,62.27,,,score z -2.62 ETH/BTC,1000.0
+2026-10-19 01:39,Trend Rider 1H (Binance.US paper),paper,BTC-USDT,buy,0.0041629074,82220.48,342.34,,,score BOS,970.72

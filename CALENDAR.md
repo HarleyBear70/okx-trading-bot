@@ -1,6 +1,6 @@
 # P/L calendar and strategy cards
 
-Updated automatically every hour (2026-10-18 20:49 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
+Updated automatically every hour (2026-10-18 21:40 EDT). Days are Eastern time. Green = closed profit that day, red = closed loss, grey = no closed trades; stronger colour = bigger day (full colour at 2% of the balance). Each square: the day's % change of the balance and the $ amount. DEMO = OKX demo account orders, PAPER = simulated, no orders. Made by pl_calendar.py.
 
 ## Combined OKX demo account
 
@@ -36,7 +36,7 @@ Closed P/L only; open trades count when they close.
 
 ## Growth: demo vs paper
 
-Average balance per bot, each bot starting at $1,000: the active demo bots (3, solid) vs the paper bots (14, dashed). Demo now $995.73 (-0.43%), paper now $993.72 (-0.63%).
+Average balance per bot, each bot starting at $1,000: the active demo bots (3, solid) vs the paper bots (14, dashed). Demo now $995.73 (-0.43%), paper now $993.63 (-0.64%).
 
 ![Demo vs paper growth](calendars/cards/growth.svg)
 
@@ -178,15 +178,15 @@ Binance.US · BTC ETH SOL BNB SUI TRX · 4-hour candles · started 2026-10-07 ·
 
 ### Trend Rider 1H (Binance.US paper)  ·  PAPER
 
-Binance.US · BTC ETH SOL BNB SUI · 1-hour candles · started - · balance now 970.72
+Binance.US · BTC ETH SOL BNB SUI · 1-hour candles · started - · balance now 969.45
 
 ![Trend Rider 1H (Binance.US paper) live vs backtest](calendars/cards/tr1h-bnus.svg)
 
 | | Trades | Win % | PF | Max DD |
 |---|---|---|---|---|
 | Backtest, long run (research, 2022-now) | - | - | - | - |
-| Backtest replay since start | 14 | 7% | 0.11 | -3.6% |
-| Live (paper) since start | 12 | 8% | 0.12 | -3.3% |
+| Backtest replay since start | 14 | 7% | 0.11 | -3.7% |
+| Live (paper) since start | 12 | 8% | 0.12 | -3.5% |
 
 ### Donchian Trend (Binance.US paper)  ·  PAPER
 

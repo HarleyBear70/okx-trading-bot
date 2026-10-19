@@ -1,9 +1,10 @@
-STATUS: all normal (checked 2026-10-18 8:50 PM ET)
+STATUS: all normal (checked 2026-10-18 9:41 PM ET)
 
 # Bot notes
 
 Written every hour by watcher.py after the bots run. Read-only: it never trades. Newest first, Eastern time. ATTENTION means: a bot 8%+ below its best balance, a losing streak longer than the backtest's worst, live vs backtest replay 2%+ apart, a failed bot run, or an unexpected open position.
 
+- 2026-10-18 9:39 PM ET · Trend Rider 1H (Binance.US paper) bought BTC 0.00416291 at 82220.5 (342.34 USDT), stop 81287.7, target -
 - 2026-10-18 8:47 PM ET · B3 pairs (paper) bought ETH 0.025743 at 2410.51 (62.27 USDT), stop 2216.28, target -
 - 2026-10-18 9:36 AM ET · Trend Rider 1H (Binance.US paper) has lost 11 in a row; no backtest figure for this bot
 - 2026-10-18 9:34 AM ET · Trend Rider (Binance.US paper) sold TRX at 0.3316 (breakeven stop), P/L -6.95 (-1.58%), balance 989.03
