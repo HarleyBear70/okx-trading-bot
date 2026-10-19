@@ -13,6 +13,9 @@ on:
       end:
         default: "2026-10-19"
 
+permissions:
+  contents: write
+
 jobs:
   download:
     runs-on: ubuntu-24.04
@@ -24,9 +27,12 @@ jobs:
           python-version: "3.12"
       - name: Download candles (public data, no account, no key, nothing traded)
         run: python tools/okx_history.py "${{ inputs.coins }}" "${{ inputs.bar }}" "${{ inputs.start }}" "${{ inputs.end }}" candles
-      - run: tar czf candles.tgz candles
-      - uses: actions/upload-artifact@v4
-        with:
-          name: candles
-          path: candles.tgz
-          retention-days: 7
+      - name: Save to the research-data branch (public prices only)
+        run: |
+          name=candles_$(echo "${{ inputs.coins }}" | tr ' ' '_')_${{ inputs.bar }}.tgz
+          tar czf /tmp/$name -C candles .
+          git config user.name "candle-history-bot"; git config user.email "actions@github.com"
+          git fetch origin research-data || true
+          if git rev-parse --verify origin/research-data >/dev/null 2>&1; then git checkout -B research-data origin/research-data; else git checkout --orphan research-data; git rm -rf -q .; fi
+          cp /tmp/$name . && git add $name && git commit -q -m "candle history: $name"
+          for i in 1 2 3 4 5; do git push origin research-data && break; git pull --rebase origin research-data; sleep 5; done
