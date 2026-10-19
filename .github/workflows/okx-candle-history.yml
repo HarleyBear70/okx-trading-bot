@@ -13,7 +13,7 @@ on:
       end:
         default: "2026-10-19"
       source:
-        description: "okx or binanceus"
+        description: "okx, binanceus or coinbase"
         default: "okx"
 
 permissions:
@@ -29,7 +29,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Download candles (public data, no account, no key, nothing traded)
-        run: python tools/${{ inputs.source == 'binanceus' && 'binanceus_history.py' || 'okx_history.py' }} "${{ inputs.coins }}" "${{ inputs.bar }}" "${{ inputs.start }}" "${{ inputs.end }}" candles
+        run: python tools/${{ inputs.source }}_history.py "${{ inputs.coins }}" "${{ inputs.bar }}" "${{ inputs.start }}" "${{ inputs.end }}" candles
       - name: Save to the research-data branch (public prices only)
         run: |
           name=${{ inputs.source }}_candles_$(echo "${{ inputs.coins }}" | tr ' ' '_')_${{ inputs.bar }}.tgz
