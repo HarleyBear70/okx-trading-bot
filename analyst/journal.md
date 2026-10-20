@@ -1,5 +1,10 @@
 # The Analyst's journal (newest first)
 
+## 2026-10-20 session (sat out)
+- Data works. BTC 81.9k just under its daily 20 EMA, all alts below theirs, volume under average. News GREEN, Fear & Greed 61. No setups, no orders.
+- No bot trades closed since last session. Open: Trend Rider 1H BTC (bought 82.2k), B3 pairs ETH. Review them when they close.
+- Check next time: BTC daily close above 83k then 87k with volume; hold of 79.8k. FOMC Oct 28.
+
 ## 2026-10-19 session (sat out)
 - Data works. BTC 82.1k back at its daily 20 EMA, alts still weak on thin volume. News GREEN, Fear & Greed 59. No setups, no orders.
 - Post-mortems: Trend Rider TRX (-1.58%) and 1H BTC (-0.36%) both breakeven stops Oct 18 by the rules; third failed BOS cluster in this range.
