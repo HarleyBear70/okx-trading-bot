@@ -3,3 +3,4 @@
 2026-10-14 09:40 UTC - URGENT: bot.yml runs failing instantly (7:43, 8:39 UTC), no steps run, likely GitHub billing/Actions issue; cannot read logs (emailed Jeff)
 2026-10-17 12:50 UTC - URGENT: Trend Rider TRX-USDT order refused by OKX (compliance restriction 51155); emailed Jeff, no change made
 2026-10-19 22:45 UTC - URGENT: no bot update since 19:46 UTC (~3h, normal is hourly); no failed runs visible, cause unknown; emailed Jeff, no change made
+2026-10-20 00:50 UTC - URGENT: cause of no bot updates = bot.yml, jeff-bot, brad-bot workflows are disabled_manually in GitHub Actions (not a crash); emailed Jeff, nothing re-enabled
