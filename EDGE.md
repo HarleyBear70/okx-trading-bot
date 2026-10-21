@@ -1,11 +1,12 @@
-# Edge brief (2026-10-21 11:33 UTC)
+# Edge brief (2026-10-21 23:32 UTC)
 
 ## Today in plain English
-- News level is GREEN: UK inflation (3.5%) came out hotter than expected but the pound barely moved. Nothing wrong at exchanges that we could find.
-- Crypto: all coins are up on the daily chart but pulling back on the 4-hour (BNB is the exception: up on both). ETH, SOL, XRP and LINK sit just under their must-hold levels (ETH 2,494, SOL 107.45, XRP 1.353, LINK 12.78), so they are closest to a breakout or a failed bounce. BTC must-hold is 84,166, about $1,000 above price - leave BTC alone for now.
-- Fear & Greed is 63 (greed), steady for the week.
-- Whales: Hyperliquid data came back empty today (unavailable).
-- Forex: the forex data feed was blocked today, so no dollar lean or RSI(2) setups are available. FOMC is Oct 28 and ECB Oct 29, so expect forex to get jumpy later next week.
+- News level: GREEN. No exchange, stablecoin or regulatory trouble found; next big event is the Fed decision Wed Oct 28, 2:00 PM ET.
+- Crypto: BTC, ETH, SOL, XRP and BNB are all in daily uptrends pulling back. BTC (84,493) is sitting right under liquidity at 84,558; SOL (108.30) is just under 108.67. Both are close to a breakout test.
+- LINK is the odd one out: 4-hour trend is DOWN and price (12.69) is below its must-hold level (12.776). Leave it alone.
+- Fear & Greed is 63 (greed), steady over the past week.
+- Whales: the Hyperliquid section came back empty this run, so no whale read.
+- Forex: the forex data was unavailable this run (network blocked), so no dollar lean or RSI(2) setups to report.
 
 Everything that gives an edge, in one place. Public data only. Read top to bottom.
 
@@ -13,12 +14,12 @@ Everything that gives an edge, in one place. Public data only. Read top to botto
 
 | Coin | Daily | 4-hour | Must hold (4H) | Next liquidity above | below |
 |---|---|---|---|---|---|
-| BTC 83,145.7 | UP, pulling back / loading orders | DOWN, pulling back / loading orders | 84,166.3 | 83,168.2 | 82,874.5 |
-| ETH 2,455.97 | UP, pulling back / loading orders | DOWN, pulling back / loading orders | 2,493.89 | 2,493.89 | 2,441.67 |
-| SOL 106.83 | UP, pulling back / loading orders | DOWN, pulling back / loading orders | 107.45 | 107.34 | 105.71 |
-| XRP 1.3464 | UP, pulling back / loading orders | DOWN, pulling back / loading orders | 1.3534 | 1.3534 | 1.3325 |
-| BNB 747.5 | UP, pulling back / loading orders | UP, expanding | 705.8 | 754.1 | 746 |
-| LINK 12.42 | UP, pulling back / loading orders | DOWN, pulling back / loading orders | 12.776 | 12.691 | 12.259 |
+| BTC 84,493.1 | UP, pulling back / loading orders | UP, pulling back / loading orders | 79,775.1 | 84,557.8 | 83,884 |
+| ETH 2,494.64 | UP, pulling back / loading orders | UP, pulling back / loading orders | 2,317 | 2,523.51 | 2,461.54 |
+| SOL 108.3 | UP, pulling back / loading orders | UP, pulling back / loading orders | 100.42 | 108.67 | 107.4 |
+| XRP 1.389 | UP, pulling back / loading orders | UP, expanding | 1.2561 | 1.413 | 1.3872 |
+| BNB 748.9 | UP, pulling back / loading orders | UP, pulling back / loading orders | 705.8 | 754.1 | 746 |
+| LINK 12.691 | UP, pulling back / loading orders | DOWN, pulling back / loading orders | 12.776 | 12.776 | 12.259 |
 
 ## 2. Market mood
 
