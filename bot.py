@@ -72,7 +72,7 @@ BOTS = [
      "new_trades": False},  # paused Oct 5 2026: no edge in long-history test, repair failed (research/REPAIR_v2.md)
     {"id": "v2-gold", "retired": True, "name": "SP-12 v2 (gold paper)", "strat": "v2", "venue": "okx", "mode": "paper",
      "coins": ["XAUT-USDT"], "equity": 1000.0, "new_trades": False},  # paused Oct 5 2026 with SP-12 v2
-    {"id": "tr-okx", "name": "Trend Rider", "strat": "tr", "venue": "okx", "mode": "demo", "prefix": "ghT",
+    {"retired": True, "id": "tr-okx", "name": "Trend Rider", "strat": "tr", "venue": "okx", "mode": "demo", "prefix": "ghT",
      "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "BNB-USDT", "SUI-USDT", "TRX-USDT"], "equity": 1000.0, "pivot": 5,
      "risk": 0.004,  # Oct 6 2026 (Jeff): 0.4% keeps the 8-year drop under 10% at the real 0.35% fee (research/FEES.md)
      "exchange_stops": True,  # Oct 6 2026 (Jeff): OKX holds the stop (EXCHANGE_STOPS_PLAN.md step 2, demo test)
@@ -90,7 +90,7 @@ BOTS = [
      "new_trades": False},  # moved to OKX demo as nnfx-okx on Oct 6 2026
     {"id": "nnfx-okx", "name": "NNFX Aroon", "strat": "nnfx", "venue": "okx", "mode": "demo", "prefix": "ghN",
      "coins": ["BTC-USDT", "ETH-USDT", "XRP-USDT"], "equity": 1000.0},  # Oct 6 2026 (Jeff): passed at the real fee, +45%, DD -7.6% (research/FEES.md)
-    {"id": "dc-okx", "name": "Donchian Trend", "strat": "donchian", "venue": "okx", "mode": "demo", "prefix": "ghD",
+    {"retired": True, "id": "dc-okx", "name": "Donchian Trend", "strat": "donchian", "venue": "okx", "mode": "demo", "prefix": "ghD",
      "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "XRP-USDT", "BNB-USDT"], "equity": 1000.0, "risk": 0.0032,
      "max_open": 5, "half_at_2r": False,  # Oct 6 2026 (Jeff): daily 20-day breakout
      "pyramid": True,  # Oct 6 2026 (Jeff): one add-on at +1R, stop then >= entry; risk 0.35% -> 0.32% (research/F10.md)
@@ -98,22 +98,22 @@ BOTS = [
     # Donchian: daily 20-day breakout, passed at the real fee: +123%, DD -9.1% (research/F2.md)
     # Binance.US copies (Oct 7 2026, Jeff: "can u build ones for it"): same strategies and settings as the OKX demo bots,
     # PAPER on Binance.US USD prices at Binance.US's 0.02% fee, to compare the two exchanges live (research/F36.md).
-    {"id": "tr-bnus", "name": "Trend Rider (Binance.US paper)", "strat": "tr", "venue": "binanceus", "mode": "paper",
+    {"retired": True, "id": "tr-bnus", "name": "Trend Rider (Binance.US paper)", "strat": "tr", "venue": "binanceus", "mode": "paper",
      "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "BNB-USDT", "SUI-USDT", "TRX-USDT"], "equity": 1000.0, "pivot": 5,
      "risk": 0.004, "half_at_2r": False, "fear_skip_at_or_below": 25, "fee": BINANCEUS_FEE},
     # Oct 7 2026 (Jeff: "if u can get the bot to make money on a lower time frame i will add money"): Trend Rider's
     # rules on 1H candles + daily trend, PAPER at the Binance.US fee. Backtest 2018-now: ~5 trades/week, +211%,
     # worst drop -23%, PF 1.27; lost on never-seen coins since 2022 (research/H1_TR.md).
-    {"id": "tr1h-bnus", "name": "Trend Rider 1H (Binance.US paper)", "strat": "tr", "tf": "1HD", "venue": "binanceus",
+    {"retired": True, "id": "tr1h-bnus", "name": "Trend Rider 1H (Binance.US paper)", "strat": "tr", "tf": "1HD", "venue": "binanceus",
      "mode": "paper", "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "BNB-USDT", "SUI-USDT"], "equity": 1000.0,
      "pivot": 5, "risk": 0.004, "half_at_2r": False, "fee": BINANCEUS_FEE},
-    {"id": "dc-bnus", "name": "Donchian Trend (Binance.US paper)", "strat": "donchian", "venue": "binanceus",
+    {"retired": True, "id": "dc-bnus", "name": "Donchian Trend (Binance.US paper)", "strat": "donchian", "venue": "binanceus",
      "mode": "paper", "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "XRP-USDT", "BNB-USDT"], "equity": 1000.0,
      "risk": 0.0032, "max_open": 5, "half_at_2r": False, "pyramid": True, "btc_leash": True, "fee": BINANCEUS_FEE},
     {"id": "nnfx-bnus", "name": "NNFX Aroon (Binance.US paper)", "strat": "nnfx", "venue": "binanceus", "mode": "paper",
      "coins": ["BTC-USDT", "ETH-USDT", "XRP-USDT"], "equity": 1000.0, "fee": BINANCEUS_FEE},
     # Forward tests from the Oct 7 2026 search for "something that works" (research/F38, F39, F41), Binance.US paper:
-    {"id": "turtle-bnus", "name": "Turtle 55/20 (Binance.US paper)", "strat": "donchian", "venue": "binanceus",
+    {"retired": True, "id": "turtle-bnus", "name": "Turtle 55/20 (Binance.US paper)", "strat": "donchian", "venue": "binanceus",
      "mode": "paper", "coins": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "XRP-USDT", "BNB-USDT"], "equity": 1000.0,
      "risk": 0.005, "max_open": 5, "half_at_2r": False, "dc": {"entry": 55, "exit": 20}, "fee": BINANCEUS_FEE},
     {"id": "rsi2-bnus", "name": "RSI(2) snap-back (Binance.US paper)", "strat": "rsi2", "venue": "binanceus",
