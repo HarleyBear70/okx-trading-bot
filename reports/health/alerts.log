@@ -8,3 +8,4 @@
 2026-10-21 06:50 UTC - URGENT: still no bot update since 2026-10-19 19:46 UTC (~35h); last scheduled bot.yml run 10-19 01:39 UTC (success); emailed Jeff again to enable/run workflow, no change made
 2026-10-21 12:50 UTC - URGENT: still no bot update since 2026-10-19 19:46 UTC (~41h); no workflow of any kind has run since; emailed Jeff to check Actions/billing, no change made
 2026-10-22 00:50 UTC - URGENT: still no bot update since 2026-10-19 19:46 UTC (~53h); no workflow has run since 10-19 01:39; emailed Jeff to check Actions/billing, no change made
+2026-10-22 06:50 UTC - URGENT: cause found: bot.yml, jeff-bot.yml, brad-bot.yml are 'disabled_manually' in GitHub Actions (no bot update since 10-19 19:46 UTC, ~59h); emailed Jeff to re-enable, no change made
