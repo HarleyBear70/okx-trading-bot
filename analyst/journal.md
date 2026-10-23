@@ -1,5 +1,10 @@
 # The Analyst's journal (newest first)
 
+## 2026-10-23 session (sat out)
+- Data works. BTC 81.4k, back under its daily 20 EMA after yesterday's bounce; all six coins under their 20s, XRP weakest. News GREEN, Fear & Greed 50. No setups, no orders.
+- No bot trades closed. Bots still stalled since Oct 19 (state.json/trades.csv unchanged); not mine to fix.
+- Check next time: BTC daily close above 87k with volume; hold of 79.8k (a loss opens the way down). FOMC Oct 28.
+
 ## 2026-10-22 session (sat out)
 - Data works. BTC 84.1k above daily 20/50/200 with volume 1.33x (best in weeks), but under the 87k lid; alts still sit on or under their 20 EMAs on thin volume. News GREEN, Fear & Greed 68. No setups, no orders.
 - No bot trades closed. Bots still stalled since Oct 19 (state.json/trades.csv unchanged); not mine to fix.
