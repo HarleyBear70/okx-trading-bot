@@ -45,3 +45,6 @@ How new trading ideas get tested before any bot trades them. Claude runs it; Jef
 | 2026-10-05 | Fixed 1-1.5% stop / 1.5-3% take profit on v4 and Trend Rider entries, 8 years (fixed_exits_test.py) | Jeff | Fail: all 24 combos lose (best v4 -13%, TR -37% vs +93% / +195% now) - stops inside normal 4H noise, fees, winners capped |
 | 2026-10-10 | Month-end USD flow (forex short) and Bollinger-stretch fade (forex+crypto) | bank desk notes, quant theses | NOT RUN: data hosts blocked in sandbox; rules saved in F43.md |
 | 2026-10-17 | Weekly scout run | scheduled | NOT RUN: data hosts blocked again (only OKX reachable); see F44.md |
+| 2026-10-24 | Turn of month (long, crypto) | bank desk notes, F43 | Fail: 2nd half -2.3%, PF 0.52 - F45.md |
+| 2026-10-24 | Bollinger stretch fade (crypto long) | quant thesis, F43 | Fail: PF 1.03 at 0.35%, 1.18 at 0.02% - F45.md |
+| 2026-10-24 | Bandwidth squeeze breakout (crypto) | TradingView-style write-ups | Fail/too few trades - F45.md. Forex ideas still NOT RUN (FX data hosts blocked) |
