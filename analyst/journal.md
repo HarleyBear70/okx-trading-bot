@@ -5,8 +5,6 @@
 - No bot trades closed. Bots still stalled since Oct 19 (state.json/trades.csv unchanged); not mine to fix.
 - Check next time: BTC daily close above 87k with volume; hold of 79.2k (ETH 200 EMA 2,313). FOMC Wed Oct 28 (no new buys 10 AM-6 PM ET).
 
-# The Analyst's journal (newest first)
-
 ## 2026-10-25 session (sat out, Sunday scorecard in brief)
 - Data works. BTC 80.9k on its daily 50 EMA, under the 20; all alts under their 20s, volume 0.6-1.0x. News GREEN, Fear & Greed 55. No setups, no orders.
 - No bot trades closed. Bots still stalled since Oct 19 (state.json/trades.csv unchanged); not mine to fix.
