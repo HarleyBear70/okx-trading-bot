@@ -1,12 +1,11 @@
-# Edge brief (2026-10-27 23:32 UTC)
+# Edge brief (2026-10-28 11:33 UTC)
 
 ## Today in plain English
-- News level: YELLOW. The Fed decides on rates Wed 2:00 PM ET; no new trades about 10 AM-6 PM ET that day. No exchange or stablecoin trouble found.
-- Closest to a setup: BTC ($80,807) and SOL ($101.17) sit just above support (80,680 / 100.56) with the 4-hour chart squeezing, so a breakout is building. XRP and BNB are in 4-hour uptrends (XRP near 1.3244, must hold 1.2731).
-- Leave alone: ETH ($2,348) is down on both charts. LINK ($11.49) is down on the 4-hour chart.
-- Whales (Hyperliquid): the check came back with no usable data this run.
-- Forex: unavailable this run (data blocked), so no EUR/USD or GBP/USD lean or RSI(2) setup to report. ECB is Thu Oct 29 morning.
-- Fear & Greed is 48 (neutral). Bots hold ETH (paper) and BTC (paper); both Claudes have no waiting orders.
+- News level is YELLOW: the Fed decision is today at 2:00 PM ET. No new trades from 10:00 AM to 6:00 PM ET.
+- Crypto closest to a setup: BTC (about $81,085) is sitting right on the price level just below it ($81,033), and ETH, SOL and BNB are all squeezing sideways on the 4-hour chart (a breakout is building).
+- Leave alone: LINK and ETH are in 4-hour downtrends, and ETH/SOL/LINK are far below their must-hold levels.
+- Fear & Greed is 51 (neutral), so no mood-based block.
+- Whales and forex (EUR/USD, GBP/USD, RSI(2)) data were unavailable this run, so there is no lean to report.
 
 Everything that gives an edge, in one place. Public data only. Read top to bottom.
 
@@ -14,16 +13,16 @@ Everything that gives an edge, in one place. Public data only. Read top to botto
 
 | Coin | Daily | 4-hour | Must hold (4H) | Next liquidity above | below |
 |---|---|---|---|---|---|
-| BTC 80,807.3 | UP, pulling back / loading orders | DOWN, sideways, squeezing (a breakout is building) | 84,899.6 | 81,953.1 | 80,680.5 |
-| ETH 2,348.16 | DOWN, expanding | DOWN, sideways, squeezing (a breakout is building) | 2,526.4 | 2,417.84 | 2,329.04 |
-| SOL 101.17 | UP, pulling back / loading orders | DOWN, sideways, squeezing (a breakout is building) | 109.22 | 102.74 | 100.56 |
-| XRP 1.3244 | UP, pulling back / loading orders | UP, expanding | 1.2731 | 1.3534 | 1.3186 |
-| BNB 749.03 | UP, pulling back / loading orders | UP, pulling back / loading orders | 732.33 | 750.5 | 746 |
-| LINK 11.488 | UP, pulling back / loading orders | DOWN, sideways, squeezing (a breakout is building) | 12.807 | 11.631 | 11.25 |
+| BTC 81,085.3 | UP, pulling back / loading orders | DOWN, pulling back / loading orders | 84,899.6 | 81,953.1 | 81,032.8 |
+| ETH 2,361.39 | DOWN, pulling back / loading orders | DOWN, sideways, squeezing (a breakout is building) | 2,526.4 | 2,417.84 | 2,360.34 |
+| SOL 102.33 | UP, pulling back / loading orders | DOWN, sideways, squeezing (a breakout is building) | 109.22 | 102.74 | 101.63 |
+| XRP 1.3292 | UP, pulling back / loading orders | UP, pulling back / loading orders | 1.2731 | 1.3534 | 1.3186 |
+| BNB 745.88 | UP, pulling back / loading orders | UP, sideways, squeezing (a breakout is building) | 732.33 | 747.1 | 744.9 |
+| LINK 11.783 | UP, pulling back / loading orders | DOWN, pulling back / loading orders | 12.807 | 11.967 | 11.776 |
 
 ## 2. Market mood
 
-Fear & Greed: **48 (neutral)**; last 7 days: 63, 68, 50, 51, 54, 50, 48.
+Fear & Greed: **51 (neutral)**; last 7 days: 68, 50, 51, 54, 50, 48, 51.
 Trend Rider skips new buys at 25 or below.
 
 ## 3. Whale check (Hyperliquid)
