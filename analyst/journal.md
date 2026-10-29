@@ -1,5 +1,10 @@
 # The Analyst's journal (newest first)
 
+## 2026-10-29 session (sat out)
+- Data works. BTC 81.4k between its daily 20 and 50 EMA, volume 1.0x; BNB strongest (759.7, 20-day high 776); others weak. News YELLOW (GDP/PCE and ECB today), Fear & Greed ~55. No setups, no orders.
+- No bot trades closed. Bots still stalled since Oct 19-20 (state.json/trades.csv unchanged); not mine to fix.
+- Check next time: BNB close over 776 with volume; BTC close over 87k; hold of 79.2k.
+
 ## 2026-10-28 session (sat out)
 - Data works. BTC 80.9k sitting on its daily 50 EMA, 20 EMA just above (81.8k); ETH 2,350 above its 200 (2,311). All six weak or flat, volume 0.5-0.85x. News YELLOW (Fed today 2 PM ET), Fear & Greed 48. No setups, no orders.
 - No bot trades closed. Bots still stalled since Oct 19 (state.json/trades.csv unchanged); not mine to fix.
