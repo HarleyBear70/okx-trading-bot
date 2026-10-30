@@ -1,18 +1,19 @@
-NEWS LEVEL: YELLOW - market is jumpy: Fear & Greed fell from 51 to 30 overnight and Bitcoin slid to about $78,200; no hack, outage or depeg confirmed (checked 2026-10-30 7:35 AM ET)
-Careful until: Fri Oct 30, 7:30 PM ET (re-check at the next run)
+NEWS LEVEL: YELLOW - market still jumpy: Fear & Greed at 30, Bitcoin down to about $76,900; no hack, outage or depeg found (checked 2026-10-30 7:35 PM ET)
+Careful until: Sat Oct 31, 7:30 AM ET (re-check at the next run)
 
 ## What happened
-- Fear & Greed index dropped from 51 to 30 (fear) in one day; Bitcoin about $78,200, roughly 3% below yesterday's ~$80.8K. A normal-size move, not a crash, but sentiment turned fast (source: EDGE brief public data; no news story explaining it found, so cause unconfirmed).
-- Fed held rates Oct 28; December hike odds are high (one source: above 75%) ([Unchained](https://unchainedcrypto.com/bitcoin-stalls-above-85000-as-weak-jobs-report-cuts-odds-of-an-october-rate-hike/), date unconfirmed).
-- Bank of Japan decision is scheduled today, Oct 30, noon JST; I could not find the result ([Finance Calendar](https://www.financecalendar.com/events/2026-10-30/)).
-- No hack, outage or withdrawal halt found at OKX, Binance.US, Coinbase, Kraken, Bybit or OANDA; no stablecoin depeg found. Searches returned mostly old stories, so this is "nothing found", not a guarantee.
-- The earlier unconfirmed "Binance $5.7B hack" headline: still no evidence of it.
+- Bitcoin slid further to about $76,900 (was ~$78,200 this morning, ~$80.8K yesterday). Down about 5% in two days, not a crash. Fear & Greed stays at 30 (fear). Cause unconfirmed: no dated news story found (source: public data in EDGE.md).
+- ETH about $2,239, SOL about $95, XRP about $1.25, BNB about $700, LINK about $11.12; all on the 4-hour and most on the daily chart are pointing down (source: EDGE.md chart read).
+- Bank of Japan decision was due today; I could not find the result - unconfirmed.
+- No hack, outage or withdrawal halt found at OKX, Binance.US, Coinbase, Kraken, Bybit or OANDA, and no stablecoin depeg found. Searches returned mostly old stories, so this means "nothing found", not a guarantee.
+- Forex data was unavailable again this run (network blocked).
 
 ## Coming up (next 7 days, ET)
-- Thu Nov 5, 7:00 AM: Bank of England decision (12:00 GMT) - impact HIGH for GBP/USD ([days.to](https://days.to/when-is/bank-of-england-interest-rate-decision)).
-- Fri Nov 6, 8:30 AM: US jobs report (NFP), first-Friday timing, unconfirmed - impact HIGH.
-- ECB / CPI dates for this window could not be confirmed.
+- Thu Nov 5, 7:00 AM: Bank of England decision - impact HIGH for GBP/USD (date from earlier run; not re-confirmed).
+- Fri Nov 6, 8:30 AM: US jobs report (NFP), usual first-Friday timing, unconfirmed - impact HIGH.
+- ECB and CPI dates for this window could not be confirmed.
 
 ## What it means for us
-Nothing is broken, but sentiment fell hard overnight, so be a bit more careful today.
-Forex data was unavailable this run. Plan to pause new trades about 3:00-11:00 AM ET Thu Nov 5 (BoE).
+Nothing is broken, but prices are sliding and sentiment is fearful, so go easy on new trades.
+Trend Rider skips new buys at Fear & Greed 25 or below; it is at 30, close to that line.
+Plan to pause new trades about 3:00-11:00 AM ET Thu Nov 5 (BoE).
