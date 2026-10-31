@@ -48,3 +48,5 @@ How new trading ideas get tested before any bot trades them. Claude runs it; Jef
 | 2026-10-24 | Turn of month (long, crypto) | bank desk notes, F43 | Fail: 2nd half -2.3%, PF 0.52 - F45.md |
 | 2026-10-24 | Bollinger stretch fade (crypto long) | quant thesis, F43 | Fail: PF 1.03 at 0.35%, 1.18 at 0.02% - F45.md |
 | 2026-10-24 | Bandwidth squeeze breakout (crypto) | TradingView-style write-ups | Fail/too few trades - F45.md. Forex ideas still NOT RUN (FX data hosts blocked) |
+| 2026-10-31 | Dip in uptrend (3 down days, -8%, above SMA100) crypto long | own variant, arXiv 2602.11708 context | Fail: first half flat, PF 1.00 - F46.md |
+| 2026-10-31 | Gated fast breakout (10-day high, above SMA200, SMA50>SMA200, 5-day low exit) crypto long | own variant | Candidate: PF 2.9/2.1 both halves at 0.35%; overlap with Donchian untested - F46.md. Forex still NOT run (data blocked) |

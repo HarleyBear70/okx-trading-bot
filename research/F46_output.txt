@@ -1,0 +1,16 @@
+D fee 0.35% seen   1st half: avg   -0.1%  worst dd   0.8%  avg PF 1.00  trades   31  coins+ 2/6
+D fee 0.35% seen   2nd half: avg   +0.3%  worst dd   0.8%  avg PF 10.07  trades   77  coins+ 4/6
+D fee 0.35% unseen 1st half: avg   +0.9%  worst dd   1.0%  avg PF 11.36  trades   38  coins+ 2/5
+D fee 0.35% unseen 2nd half: avg   +0.3%  worst dd   0.7%  avg PF 2.06  trades   78  coins+ 4/5
+D fee 0.02% seen   1st half: avg   +0.0%  worst dd   0.7%  avg PF 1.30  trades   31  coins+ 2/6
+D fee 0.02% seen   2nd half: avg   +0.5%  worst dd   0.7%  avg PF 3.06  trades   77  coins+ 5/6
+D fee 0.02% unseen 1st half: avg   +1.0%  worst dd   1.0%  avg PF 14.25  trades   38  coins+ 2/5
+D fee 0.02% unseen 2nd half: avg   +0.5%  worst dd   0.6%  avg PF 3.00  trades   78  coins+ 5/5
+G fee 0.35% seen   1st half: avg   +4.2%  worst dd   1.6%  avg PF 2.91  trades   99  coins+ 5/6
+G fee 0.35% seen   2nd half: avg   +3.7%  worst dd   2.4%  avg PF 2.10  trades  195  coins+ 5/6
+G fee 0.35% unseen 1st half: avg   +3.6%  worst dd   1.3%  avg PF 2.25  trades   54  coins+ 3/5
+G fee 0.35% unseen 2nd half: avg   +1.1%  worst dd   2.9%  avg PF 1.94  trades   96  coins+ 2/5
+G fee 0.02% seen   1st half: avg   +4.6%  worst dd   1.5%  avg PF 3.21  trades   99  coins+ 5/6
+G fee 0.02% seen   2nd half: avg   +4.6%  worst dd   1.8%  avg PF 2.45  trades  195  coins+ 6/6
+G fee 0.02% unseen 1st half: avg   +3.8%  worst dd   1.2%  avg PF 2.43  trades   54  coins+ 3/5
+G fee 0.02% unseen 2nd half: avg   +1.4%  worst dd   2.4%  avg PF 2.15  trades   96  coins+ 3/5
