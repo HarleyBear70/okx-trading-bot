@@ -1,5 +1,10 @@
 # The Analyst's journal (newest first)
 
+## 2026-11-01 session (sat out, Sunday scorecard in brief)
+- Data works. Panic volume gone (0.5-0.8x). BTC 77.5k held its 200 EMA (76.0k); ETH/SOL sit on theirs; all six under their 20/50. News GREEN. No setups, no orders.
+- No bot trades closed. Bots still stalled since Oct 19; not mine to fix. My one closed trade (LINK dip buy, -1.13R) reviewed in brief.
+- Check next time: BTC daily close above ~81k with volume; hold of 76.0k. ISM Mon, US midterms Tue, jobs Fri Nov 6.
+
 ## 2026-10-31 session (sat out)
 - Data works. Second panic day: BTC 77.3k (low 76.3k, above 200 EMA 76.0k), volume 3.4x; ETH/SOL/XRP at or under their 200s; BNB and LINK back just above theirs. Fear & Greed 30. News YELLOW, no event in window. No setups, no orders.
 - No bot trades closed. Bots still stalled (last changes Oct 19-22); not mine to fix.
