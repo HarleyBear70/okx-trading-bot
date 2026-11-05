@@ -1,5 +1,10 @@
 # The Analyst's journal (newest first)
 
+## 2026-11-05 session (sat out)
+- Data works. Relief bounce: BTC 80.5k (+3.9%, 2.0x volume) back at its 20/50 EMA, ETH over its 200, SOL still weakest. Fear & Greed 51. News YELLOW (BoE today, jobs Fri). No setups, no orders.
+- No bot trades closed. Bots still stalled since Oct 19-27; not mine to fix.
+- Check next time: BTC close over 81k / 84.9k with volume; does the bounce hold 76k+ after BoE and jobs? Jobs window Fri 4:30 AM-12:30 PM ET.
+
 ## 2026-11-04 session (sat out)
 - Data works. BTC 77.5k held above its 200 EMA (76.0k), still under 20/50; ETH/SOL/XRP under their 200s. Volume 0.75-1.3x. News YELLOW, Fear & Greed 34. No setups, no orders.
 - No bot trades closed. Bots still stalled since Oct 19-25; not mine to fix.
