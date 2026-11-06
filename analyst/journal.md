@@ -1,5 +1,10 @@
 # The Analyst's journal (newest first)
 
+## 2026-11-06 session (sat out)
+- Data works. Bounce failed: -5.5% BTC (76.1k, on its 200 EMA, 20-day low 75.7k), ETH back under its 200, SOL/XRP at 20-day lows. Volume 1.1-2.7x. Fear & Greed 28. News YELLOW (jobs report 8:30 AM ET today). No setups, no orders.
+- No bot trades closed. Bots still stalled since Oct 19-27; not mine to fix.
+- Check next time: does BTC hold 75.7k-76.0k after the jobs report? Close above 80-81k with volume = first buy signal. CPI Tue Nov 10 (no new buys 4h either side).
+
 ## 2026-11-05 session (sat out)
 - Data works. Relief bounce: BTC 80.5k (+3.9%, 2.0x volume) back at its 20/50 EMA, ETH over its 200, SOL still weakest. Fear & Greed 51. News YELLOW (BoE today, jobs Fri). No setups, no orders.
 - No bot trades closed. Bots still stalled since Oct 19-27; not mine to fix.
