@@ -1,20 +1,19 @@
-NEWS LEVEL: YELLOW - Bank of England decision just out (7 AM ET today, hike to 4% widely expected) and US jobs report tomorrow (checked 2026-11-05 7:35 AM ET)
-Careful until: Thu 2026-11-05 11:00 AM ET (then jobs report window Fri Nov 6, 4:30 AM-12:30 PM ET)
+NEWS LEVEL: YELLOW - Crypto dropped ~5-6% today on a tech-stock selloff ($1B liquidated) and the US jobs report is tomorrow 8:30 AM ET (checked 2026-11-05 7:35 PM ET)
+Careful until: Fri 2026-11-06 12:30 PM ET (no new trades from 4:30 AM ET)
 
 ## What happened
-- No new exchange trouble found for OKX or Binance.US today (searches returned only old incidents) - unconfirmed either way. The earlier Binance (global) hack story is unchanged; nothing new found.
-- Bank of England: Bank Rate was 3.75%; markets priced about a 96-99% chance of a 25bp hike to 4%. One headline says it did hike to 4%, but I could not confirm the final result ([FXStreet](https://www.fxstreet.com/news/boe-expected-to-hike-interest-rate-to-400-202611050700), [Acorn preview](https://acorn.finance/news/bank-of-england-mpc-november-2026-outlook)).
-- Bitcoin is calm at about $80,400 (no 5%+ move found). Fear & Greed is 50 (neutral), up from 34 yesterday.
-- No USDT/USDC depeg found.
-- Forex and whale data feeds were unreachable from here.
+- Bitcoin fell about 5-6% to roughly $75,700-$76,000 and Ether about 7%, after a tech/chip stock selloff; about $1 billion of leveraged bets were liquidated, mostly longs. Not a 10% crash, so not RED ([TokenPost](https://www.tokenpost.com/news/investing/49516), [crypto.news](https://crypto.news/crypto-crash-long-short-liquidations-bitcoin-stocks/), [CoinTurk](https://en.coin-turk.com/bitcoin-trades-near-76000-after-5yuzde-drop-1-billion-in-leverage-liquidated/)).
+- Some reports also link the drop to reaction to the US midterm election results (analysts say liquidations amplified a move that started elsewhere) ([CryptoTimes](https://www.cryptotimes.io/2026/11/05/bitcoin-price-today-btc-falls-below-77k-as-crypto-liquidations-reach-718-5m/)).
+- Fear & Greed fell from 50 to 28 (fear). Trend Rider skips buys at 25 or below.
+- No new hack, outage or withdrawal halt found for OKX or Binance.US - unconfirmed either way (searches returned only old incidents). No USDT/USDC depeg found.
+- Bank of England decision (Nov 5): I could not confirm the final result; a hike to 4% was widely expected ([ForexFundamentals](https://forexfundamentals.com/economic-calendar/boe/2026-11-05)). Forex data feed unreachable from here.
 
 ## Coming up (next 7 days, ET)
-- Thu Nov 5, 7:00 AM: Bank of England decision + report - impact HIGH for GBP/USD (just released).
 - Fri Nov 6, 8:30 AM: US jobs report (NFP) - impact HIGH.
 - Tue Nov 10, 8:30 AM: US CPI - impact HIGH (date unconfirmed).
 - Next FOMC: Dec 9 per calendar sites (unconfirmed).
 
 ## What it means for us
-Not RED: no confirmed problem at OKX or Binance.US and no stablecoin depeg.
-Pause new trades until 11 AM ET today (Bank of England), and 4:30 AM-12:30 PM ET Fri (jobs report).
+Not RED: no confirmed problem at an exchange and no stablecoin depeg, but crypto is jumpy.
+No new trades from 4:30 AM to 12:30 PM ET Friday (jobs report). Expect wild swings after a 5-6% drop.
 Nothing has been frozen or changed.
