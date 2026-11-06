@@ -1,19 +1,21 @@
-NEWS LEVEL: YELLOW - Crypto dropped ~5-6% today on a tech-stock selloff ($1B liquidated) and the US jobs report is tomorrow 8:30 AM ET (checked 2026-11-05 7:35 PM ET)
+NEWS LEVEL: YELLOW - US jobs report at 8:30 AM ET today, and the record Binance hack (Oct 29) is still being cleaned up; crypto is jumpy and in fear (checked 2026-11-06 7:40 AM ET)
 Careful until: Fri 2026-11-06 12:30 PM ET (no new trades from 4:30 AM ET)
 
 ## What happened
-- Bitcoin fell about 5-6% to roughly $75,700-$76,000 and Ether about 7%, after a tech/chip stock selloff; about $1 billion of leveraged bets were liquidated, mostly longs. Not a 10% crash, so not RED ([TokenPost](https://www.tokenpost.com/news/investing/49516), [crypto.news](https://crypto.news/crypto-crash-long-short-liquidations-bitcoin-stocks/), [CoinTurk](https://en.coin-turk.com/bitcoin-trades-near-76000-after-5yuzde-drop-1-billion-in-leverage-liquidated/)).
-- Some reports also link the drop to reaction to the US midterm election results (analysts say liquidations amplified a move that started elsewhere) ([CryptoTimes](https://www.cryptotimes.io/2026/11/05/bitcoin-price-today-btc-falls-below-77k-as-crypto-liquidations-reach-718-5m/)).
-- Fear & Greed fell from 50 to 28 (fear). Trend Rider skips buys at 25 or below.
-- No new hack, outage or withdrawal halt found for OKX or Binance.US - unconfirmed either way (searches returned only old incidents). No USDT/USDC depeg found.
-- Bank of England decision (Nov 5): I could not confirm the final result; a hike to 4% was widely expected ([ForexFundamentals](https://forexfundamentals.com/economic-calendar/boe/2026-11-05)). Forex data feed unreachable from here.
+- Binance (global, NOT Binance.US) was hacked for about $6.3 billion on Oct 29, the biggest crypto theft on record. Withdrawals were paused; as of Nov 6 they are being reopened in phases (62 tokens so far). About $3B was frozen, and Binance says it will cover user losses. Linked by analysts to North Korean hackers ([CNBC](https://www.cnbc.com/2026/10/30/billions-in-crypto-frozen-in-binance-hack-heres-what-happens-next-.html), [CryptoTimes](https://cryptotimes.io/2026/11/06/binance-reopens-more-withdrawals-after-6-3b-hack-but-hyperliquids-hype-is-still-missing)). Our earlier note missed this one.
+- Binance.US said on Oct 29 it was not affected and runs separately; I found no newer problem there (unconfirmed since) ([Decrypt/news roundup](https://saharareporters.com/2026/10/30/binance-says-deposits-unaffected-expects-resume-withdrawals-within-48-hours-after-63b)).
+- OKX: no outage or hack found; it had about $445M net inflows as money left Binance ([Cointelegraph](https://cointelegraph.com/news/okx-leads-crypto-exchanges-445m-inflows)).
+- Tether and Circle froze funds linked to the hack. No USDT/USDC depeg found ([Yahoo Finance](https://finance.yahoo.com/markets/article/bitcoin-drops-to-76000-as-binance-hack-spooks-investors-tether-circle-freeze-assets-083406383.html)).
+- Bitcoin is about $76,100 after yesterday's 5-6% drop (tech selloff, about $1B liquidated). Fear & Greed is 28 (fear). Not a 10% crash, so not RED.
+- Bank of England decision (Nov 5): result not confirmed; a hike to 4% was possible. Forex data feed unreachable from here.
 
 ## Coming up (next 7 days, ET)
 - Fri Nov 6, 8:30 AM: US jobs report (NFP) - impact HIGH.
-- Tue Nov 10, 8:30 AM: US CPI - impact HIGH (date unconfirmed).
+- Tue Nov 10, 8:30 AM: US CPI - impact HIGH (third-party calendar, unconfirmed).
+- Binance withdrawal reopening continues - medium (headline risk).
 - Next FOMC: Dec 9 per calendar sites (unconfirmed).
 
 ## What it means for us
-Not RED: no confirmed problem at an exchange and no stablecoin depeg, but crypto is jumpy.
-No new trades from 4:30 AM to 12:30 PM ET Friday (jobs report). Expect wild swings after a 5-6% drop.
-Nothing has been frozen or changed.
+Not RED: no confirmed problem at OKX or Binance.US and no stablecoin depeg, but Binance's hack keeps nerves high.
+No new trades until 12:30 PM ET today (jobs report); expect wild swings.
+Nothing has been frozen or changed. Jeff decides on any freeze.
