@@ -1,0 +1,12 @@
+M EURUSD 2012-18 ret   -1.8% dd  4.9% PF 0.86 trades 82
+M EURUSD 2019-now ret   +0.0% dd  5.2% PF 1.00 trades 93
+M GBPUSD 2012-18 ret   -1.5% dd  4.5% PF 0.90 trades 82
+M GBPUSD 2019-now ret   +0.7% dd  4.2% PF 1.06 trades 93
+Mlong EURUSD 2012-18 ret   +2.6% dd  4.0% PF 1.24 trades 82
+Mlong EURUSD 2019-now ret   -2.2% dd  6.8% PF 0.88 trades 93
+Mlong GBPUSD 2012-18 ret   +0.8% dd  4.8% PF 1.06 trades 82
+Mlong GBPUSD 2019-now ret   -4.2% dd  6.0% PF 0.72 trades 93
+B EURUSD 2012-18 ret   -4.6% dd  8.7% PF 0.83 trades 82
+B EURUSD 2019-now ret   +5.3% dd  4.0% PF 1.16 trades 108
+B GBPUSD 2012-18 ret   +3.4% dd  4.2% PF 1.13 trades 93
+B GBPUSD 2019-now ret   +4.0% dd  3.4% PF 1.13 trades 107
