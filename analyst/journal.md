@@ -1,5 +1,10 @@
 # The Analyst's journal (newest first)
 
+## 2026-11-08 session (sat out, Sunday scorecard in brief)
+- Data works. Quiet Saturday: BTC 75.9k on its 200 EMA (75.9k), volume 0.3x; SOL on its 20-day low, XRP just under. Fear & Greed 28. News YELLOW (CPI Tue). No setups, no orders.
+- No bot trades closed. Bots still stalled since Oct 19; not mine to fix.
+- Check next time: BTC close over 80-81k with volume, or sweep of 74.9k that reclaims. CPI Tue Nov 10 (no new buys 4:30 AM-12:30 PM ET).
+
 ## 2026-11-07 session (sat out)
 - Data works. Quiet day: BTC 75.8k closed just under its 200 EMA (76.0k), volume 1.3x; XRP closed under its 20-day low on 2.2x; ETH/SOL flat. Fear & Greed 30. News YELLOW (CPI Tue). No setups, no orders.
 - No bot trades closed. Bots still stalled since Oct 19; not mine to fix.
