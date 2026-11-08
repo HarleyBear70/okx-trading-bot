@@ -1,27 +1,23 @@
-NEWS LEVEL: YELLOW - Crypto jumpy and in fear after the record Binance hack; BTC under its 200-day line; US CPI due Tue (checked 2026-11-07 7:35 PM ET)
+NEWS LEVEL: YELLOW - Crypto jumpy and fearful after the record Binance hack; BTC near $76,000; US CPI due Tue (checked 2026-11-08 7:35 AM ET)
 Careful until: Tue 2026-11-10 12:30 PM ET (no new trades from 4:30 AM ET Tue because of CPI)
 
 ## What happened
-- Jobs report (Fri 8:30 AM ET) came in hot: +165,000 jobs vs about 59,000 expected. Traders now put ~80% odds on a Fed rate HIKE in December. Bitcoin barely moved, stayed near $75,500-$76,000 ([Cointelegraph](https://cointelegraph.com/markets/bitcoin-price-under-75k-crypto-markets-tech-stock), [CryptoTimes](https://www.cryptotimes.io/2026/11/06/bitcoin-and-ethereum-slip-as-us-jobs-report-shows-165k-new-jobs/)).
-- Bitcoin dropped below its 200-day average for the first time since Aug 19, with over $1B of positions liquidated in 24h and about $530M pulled out of crypto ETFs. Not a 10% crash, so not RED ([Coin Alert News](https://coinalertnews.com/news/2026/11/06/bitcoin-drops-ahead-jobs-report), [KuCoin news](https://www.kucoin.com/news/flash/bitcoin-price-falls-below-76-000-amid-strong-us-jobs-data-and-etf-outflows)).
-- Binance (global, NOT Binance.US) was hacked for about $6.3B on Oct 29. It has reopened bitcoin/ether withdrawals and says it covered about 95% of the loss; the FBI is reported to blame North Korea ([Khaleej Times](https://www.khaleejtimes.com/business/binance-resumes-bitcoin-ether-withdrawals-after-covering-bulk-of-stolen-63-billion)). Some asset/network withdrawals were still limited per Binance's status page.
-- Binance.US: no new problem found since its Oct 29 statement that it was unaffected (unconfirmed). OKX: no outage or hack found.
-- No USDT/USDC depeg found. Fear & Greed is 25 (extreme fear).
-- Forex price data could not be fetched from here (unconfirmed).
-
-- Morning re-check (Nov 7): no new exchange trouble, depeg or crash found; latest coverage is still the Oct 29-Nov 2 Binance hack aftermath. Forex prices still unavailable.
-
-- Evening re-check (Nov 7, 7:35 PM ET): searches found no new exchange hack/outage at OKX or Binance.US and no stablecoin depeg (unconfirmed where sources were thin). Other recent hacks reported: Mercado Bitcoin (Brazil, Nov 2) paused deposits/withdrawals ([Crowdfund Insider](https://www.crowdfundinsider.com/?p=321105)). BTC about $75,900, Fear & Greed 28. Forex prices still unavailable.
+- Nothing new since the last check. Search found no new hack, outage or withdrawal halt at OKX or Binance.US, and no USDT/USDC depeg (unconfirmed where sources were thin).
+- Still in the aftermath of the Binance (global, NOT Binance.US) hot-wallet hack of Oct 29 (reports say $5.6B-$6.3B). Tether and Circle froze about $2.4B ([Investinglive](https://investinglive.com/cryptocurrency/binance-pauses-withdrawals-after-suspected-3b-hack-as-tether-circle-freeze-2-4b/), [IBTimes](https://www.ibtimes.co.uk/binance-suspends-withdrawals-after-security-incident-1828947)).
+- Other smaller incidents in coverage (dates unconfirmed): StablR USDR/EURR stablecoins halted after a cyberattack ([KuCoin News](https://www.kucoin.com/news/flash/stablr-halts-usdr-and-eurr-operations-after-hacking-incident)). Not coins we trade.
+- Bitcoin about $76,000 (below its 200-day line), Fear & Greed 28 (fear). No 10% crash.
+- Last report: hot US jobs data pushed Fed hike odds for December to about 80%.
+- Forex prices could not be fetched from here (unconfirmed).
 
 ## Coming up (next 7 days, ET)
-- Mon Nov 9, about 12:25 PM ET: Bank of England Governor Bailey speech - medium.
+- Mon Nov 9, about 12:25 PM: Bank of England Governor Bailey speech - medium.
 - Tue Nov 10, 8:30 AM: US CPI (October) - HIGH (third-party calendar, confirm).
-- Wed-Thu Nov 11: Veterans Day (US bond market closed) - thin trading, medium.
+- Wed Nov 11: Veterans Day (US bond market closed), thin trading - medium.
 - Thu Nov 12 (approx): UK Q3 GDP - medium for GBP.
 - Fri Nov 13: US PPI - medium.
-- Dec 4: November jobs report; Fed meeting Dec 9 (per calendar sites, unconfirmed).
+- Dec 4 jobs report; Fed meeting Dec 9 (unconfirmed).
 
 ## What it means for us
 Not RED: no confirmed problem at OKX or Binance.US and no stablecoin depeg.
-Fed-hike talk plus extreme fear means sharp swings can come with little warning. Plan: no new trades 4:30 AM-12:30 PM ET Tue for CPI; keep stops in place.
+Fear plus Fed-hike talk means sharp swings can come with little warning. No new trades 4:30 AM-12:30 PM ET Tue for CPI; keep stops in place.
 Nothing has been frozen or changed. Jeff decides on any freeze.
