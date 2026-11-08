@@ -1,4 +1,4 @@
-NEWS LEVEL: YELLOW - Crypto is jumpy and in extreme fear after the record Binance hack; BTC under its 200-day line; US CPI due Tue (checked 2026-11-07 7:35 AM ET)
+NEWS LEVEL: YELLOW - Crypto jumpy and in fear after the record Binance hack; BTC under its 200-day line; US CPI due Tue (checked 2026-11-07 7:35 PM ET)
 Careful until: Tue 2026-11-10 12:30 PM ET (no new trades from 4:30 AM ET Tue because of CPI)
 
 ## What happened
@@ -10,6 +10,8 @@ Careful until: Tue 2026-11-10 12:30 PM ET (no new trades from 4:30 AM ET Tue bec
 - Forex price data could not be fetched from here (unconfirmed).
 
 - Morning re-check (Nov 7): no new exchange trouble, depeg or crash found; latest coverage is still the Oct 29-Nov 2 Binance hack aftermath. Forex prices still unavailable.
+
+- Evening re-check (Nov 7, 7:35 PM ET): searches found no new exchange hack/outage at OKX or Binance.US and no stablecoin depeg (unconfirmed where sources were thin). Other recent hacks reported: Mercado Bitcoin (Brazil, Nov 2) paused deposits/withdrawals ([Crowdfund Insider](https://www.crowdfundinsider.com/?p=321105)). BTC about $75,900, Fear & Greed 28. Forex prices still unavailable.
 
 ## Coming up (next 7 days, ET)
 - Mon Nov 9, about 12:25 PM ET: Bank of England Governor Bailey speech - medium.
