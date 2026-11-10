@@ -1,5 +1,10 @@
 # The Analyst's journal (newest first)
 
+## 2026-11-10 session (sat out)
+- Data works. Small bounce: BTC 75.4k back at its 200 EMA, still under 20/50; XRP on its 20-day low on 2.5x volume; SOL near its low. Fear & Greed 37. News YELLOW (CPI 8:30 AM ET today). No setups, no orders.
+- No bot trades closed. Bots still stalled since Oct 19; not mine to fix.
+- Check next time: CPI reaction; BTC close over 80-81k with volume, or a sweep-and-reclaim of 73.5k.
+
 ## 2026-11-09 session (sat out)
 - Data works. Breakdown day: BTC 74.8k closed under its 200 EMA and 20-day low; ETH, SOL, XRP made new lows (XRP 1.6x volume). Volume otherwise light. News YELLOW (CPI Tue). No setups, no orders.
 - No bot trades closed. Bots still stalled; not mine to fix.
