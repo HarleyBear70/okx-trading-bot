@@ -1,21 +1,19 @@
-NEWS LEVEL: GREEN - no new exchange, stablecoin or regulatory trouble found; market still fearful (checked 2026-11-11 7:40 PM ET)
-Careful until: n/a (next big event: PPI Fri Nov 13, 8:30 AM ET)
+NEWS LEVEL: YELLOW - Binance hack aftermath still developing, market jumpy (BTC ~$73k, fear 28), PPI due Fri 8:30 AM ET (checked 2026-11-12 7:40 AM ET)
+Careful until: Fri 2026-11-13 12:30 PM ET (4 hours after PPI)
 
 ## What happened
-- No new hack, outage or withdrawal halt found at OKX or Binance.US. No USDT/USDC depeg found (searches returned only old stories, so unconfirmed).
-- Binance (global, NOT Binance.US) hack of Oct 29-30 is still the main story ([Tech Economy](https://techeconomy.ng/binance-crypto-breach-bitcoin-price-falls)). No newer confirmed updates found.
-- Bitcoin is about $74,000 (exchange data in EDGE brief), no 10% crash. Fear & Greed 28 (fear).
-- October US CPI was scheduled for Tue Nov 10, 8:30 AM ET ([BabyPips](https://www.babypips.com/analysis/event-guide-us-cpi-report-october-2026-11-09)); I could not find the result (unconfirmed).
-- Forex prices could not be fetched (unconfirmed).
+- Binance (global) was hacked Oct 29 for about $6.3B, reported as the largest crypto theft ever; withdrawals were paused ~3 days and resumed in phases from Nov 1. Binance says 98% of affected assets were replenished from reserves. Loss and freeze figures differ between outlets, so treat numbers as provisional. [Wikipedia](https://en.wikipedia.org/wiki/2026_Binance_hack), [Yahoo Finance](https://finance.yahoo.com/markets/crypto/articles/tether-circle-freeze-2-38-222607515.html)
+- Tether and Circle froze part of the stolen stablecoins (about $2.4-2.85B total per Binance/outlets). [Yahoo Finance](https://finance.yahoo.com/markets/crypto/articles/tether-circle-freeze-2-38-222607515.html)
+- Binance saw large net outflows after reopening (estimates $4.7B to over $7B); OKX reported about $445M of inflows. [BigGo](https://finance.biggo.com/news/a46b621b-ad29-46ab-bede-6e5edc816a97), [FXStreet](https://www.fxstreet.com/cryptocurrencies/news/okx-draws-445m-in-net-inflows-as-binance-outflows-exceed-7b-202611021029)
+- Binance.US impact: not confirmed either way. No new OKX outage or hack found. No new USDT/USDC depeg found (unconfirmed beyond the above).
+- BTC fell about 5% on Nov 5-6 (to ~$76k, over $1B liquidated) and is now ~$73k per our chart read. [Fortune](https://fortune.com/article/price-of-bitcoin-11-06-2026/)
 
 ## Coming up (next 7 days, ET)
-- Thu Nov 12, 2:00 AM: UK GDP - medium for GBP (unconfirmed, aggregator-sourced).
-- Fri Nov 13, 8:30 AM: US PPI - medium/high ([Morningstar](https://www.morningstar.com/news/dow-jones/202611098867/consumer-prices-and-producer-prices-on-the-docket-data-week-ahead-update)).
-- Wed Nov 18, 2:00 AM: UK CPI - medium for GBP.
-- Wed Dec 9-10: FOMC (outside the 7 days, for awareness).
-- No Fed/ECB/BoE rate decision found this week.
+- Fri Nov 13, 8:30 AM: US PPI (October) - impact HIGH (consensus 0.4% m/m; prior 1.3%)
+- Fri Nov 13, 12:00 PM: Fed's Daly speaks - impact medium
+- Fri Nov 13, 7:00 PM: Fed's Jefferson speaks - impact medium
+- No ECB, BoE or jobs-report event found this week (unconfirmed; calendars were thin)
 
 ## What it means for us
-Normal trading, but the market is fearful, so keep stops in place.
-Avoid new trades around the PPI release Fri 4:30 AM - 12:30 PM ET if you want to be careful (it becomes YELLOW on Thursday evening).
-Nothing has been frozen or changed. Jeff decides on any freeze.
+Yellow: no new trades from 4 hours before to 4 hours after PPI (about 4:30 AM to 12:30 PM Fri ET). Crypto is in fear and mostly trending down on every coin we watch.
+Hack aftermath is old news but exchange-trust stories can flare; nothing is wrong at OKX that we can see. Jeff decides on any freezing.
