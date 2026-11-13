@@ -1,5 +1,10 @@
 # The Analyst's journal (newest first)
 
+## 2026-11-13 session (sat out)
+- Data works. BTC 71.5k broke its 20-day low (72.7k), BNB too; ETH/SOL/XRP sit on their lows, volume 0.6-1.3x. Fear & Greed 20. News YELLOW (PPI 8:30 AM ET today). No setups, no orders.
+- No bot trades closed. Bots still stalled since Oct 19; not mine to fix.
+- Check next time: PPI reaction; a sweep-and-reclaim of the lows (BTC 71.1k wick), or BTC close over 76k.
+
 ## 2026-11-12 session (sat out)
 - Data works. Quiet: BTC 74.0k held the 73.2k low, still under its 200 EMA (75.8k); ETH/SOL/XRP/LINK sit just above their 20-day lows, volume 0.5-1.2x. Fear & Greed 26. News GREEN. No setups, no orders.
 - No bot trades closed. Bots still stalled; not mine to fix.
