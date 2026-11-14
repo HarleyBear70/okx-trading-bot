@@ -1,11 +1,13 @@
-# Edge brief (2026-11-13 12:32 UTC)
+# Edge brief (2026-11-14 00:33 UTC)
 
 ## Today in plain English
-- News level: YELLOW. US PPI is out at 8:30 AM ET; no new trades until about 12:30 PM ET.
-- Crypto: everything is in a 4-hour downtrend and fear is extreme (20). None is at a clean setup. BTC ($69,321) is furthest below its must-hold level (76,200); the others (ETH, SOL, XRP, BNB, LINK) are all below theirs too. Leave all of them alone for now. Trend Rider skips buys at 25 or below.
-- Whales: the Hyperliquid check returned no data this time, so there is no whale read today.
-- Forex: the EUR/USD and GBP/USD section was unavailable (data connection blocked), so no dollar lean or RSI(2) setup today.
-- Next big event: FOMC minutes Wed Nov 18, 2:00 PM ET.
+- News level: YELLOW. Crypto is in extreme fear (Fear & Greed 13, down from 20 this morning); no new exchange or stablecoin trouble found.
+- Closest to a setup: BTC. Daily chart is still up but pulling back, 4-hour is down; price $68.3k is well under its must-hold $76.2k, so no setup yet. XRP ($1.01, next liquidity below $0.9974) and LINK ($9.86, below $9.621) are pulling back on the 4-hour but their daily is down.
+- Leave alone: ETH, SOL, BNB. Both daily and 4-hour are down and expanding.
+- Trend Rider skips new buys at fear 25 or below; it is at 13.
+- Whales: the Hyperliquid section came back empty tonight, so no read.
+- Forex (EUR/USD, GBP/USD): unavailable tonight (data blocked), so no dollar lean or RSI(2) setup to report.
+
 
 Everything that gives an edge, in one place. Public data only. Read top to bottom.
 
@@ -13,16 +15,16 @@ Everything that gives an edge, in one place. Public data only. Read top to botto
 
 | Coin | Daily | 4-hour | Must hold (4H) | Next liquidity above | below |
 |---|---|---|---|---|---|
-| BTC 69,321.5 | UP, pulling back / loading orders | DOWN, pulling back / loading orders | 76,200 | 74,803.3 | - |
-| ETH 1,959.22 | DOWN, expanding | DOWN, pulling back / loading orders | 2,104.15 | 2,104.15 | - |
-| SOL 80.66 | DOWN, expanding | DOWN, pulling back / loading orders | 85.84 | 85.84 | - |
-| XRP 1.0234 | DOWN, expanding | DOWN, pulling back / loading orders | 1.0807 | 1.0807 | - |
-| BNB 639.26 | DOWN, expanding | DOWN, pulling back / loading orders | 692.64 | 689.38 | - |
-| LINK 10.01 | DOWN, expanding | DOWN, pulling back / loading orders | 10.83 | 10.591 | - |
+| BTC 68,311.1 | UP, pulling back / loading orders | DOWN, expanding | 76,200 | 74,803.3 | - |
+| ETH 1,930.04 | DOWN, expanding | DOWN, expanding | 2,104.15 | 2,104.15 | - |
+| SOL 78.2 | DOWN, expanding | DOWN, expanding | 85.84 | 85.84 | - |
+| XRP 1.0109 | DOWN, expanding | DOWN, pulling back / loading orders | 1.0807 | 1.0807 | 0.9974 |
+| BNB 630.2 | DOWN, expanding | DOWN, pulling back / loading orders | 692.64 | 689.38 | - |
+| LINK 9.859 | DOWN, expanding | DOWN, pulling back / loading orders | 10.83 | 10.591 | 9.621 |
 
 ## 2. Market mood
 
-Fear & Greed: **20 (extreme fear)**; last 7 days: 25, 28, 29, 32, 29, 28, 20.
+Fear & Greed: **13 (extreme fear)**; last 7 days: 28, 29, 32, 29, 28, 20, 13.
 Trend Rider skips new buys at 25 or below.
 
 ## 3. Whale check (Hyperliquid)
