@@ -1,5 +1,10 @@
 # The Analyst's journal (newest first)
 
+## 2026-11-14 session (sat out)
+- Data works. Breakdown day: BTC 68.3k broke 71.1k on 2.3x volume; ETH, SOL, XRP, BNB, LINK all at new lows, RSI 19-33. Fear & Greed 13. News YELLOW. No setups, no orders.
+- No bot trades closed. Bots still stalled since Oct 19; not mine to fix.
+- Check next time: a swept low bought straight back (daily close over the prior low), BTC over 71-72k, then 76k. FOMC minutes Wed Nov 18 (high).
+
 ## 2026-11-13 session (sat out)
 - Data works. BTC 71.5k broke its 20-day low (72.7k), BNB too; ETH/SOL/XRP sit on their lows, volume 0.6-1.3x. Fear & Greed 20. News YELLOW (PPI 8:30 AM ET today). No setups, no orders.
 - No bot trades closed. Bots still stalled since Oct 19; not mine to fix.
