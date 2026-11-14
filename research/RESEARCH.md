@@ -52,3 +52,6 @@ How new trading ideas get tested before any bot trades them. Claude runs it; Jef
 | 2026-10-31 | Gated fast breakout (10-day high, above SMA200, SMA50>SMA200, 5-day low exit) crypto long | own variant | Candidate: PF 2.9/2.1 both halves at 0.35%; overlap with Donchian untested - F46.md. Forex still NOT run (data blocked) |
 | 2026-11-07 | Month-end dollar flow (EUR/USD, GBP/USD short, plus long mirror), daily closes only | bank desk notes, Melvin & Prins 2013, HSBC Donnelly | Fail: short flat/negative, mirror flips sign between halves - F47.md |
 | 2026-11-07 | Bollinger stretch fade (EUR/USD, GBP/USD both ways), daily closes only | quant thesis, F43 | Fail: PF 0.83-1.16, EUR first half -4.6% - F47.md. Only close data (no FXCM) |
+| 2026-11-14 | NR4 + volatility-contraction breakout in uptrend (crypto long) | Street Smarts / cryptodatadownload | Fail: 2nd half negative, PF 0.92 at 0.35%, too few trades - F48.md |
+| 2026-11-14 | 3-day streak fade (EUR/USD, GBP/USD both ways), closes only | tastyfx, short-term reversal papers | Fail: PF 0.92-1.06 - F48.md |
+| 2026-11-14 | Trend pullback vs SMA200 (EUR/USD, GBP/USD both ways), closes only | own variant | Fail: EUR +7% pre-2019 then -6%, GBP negative - F48.md |
