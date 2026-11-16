@@ -1,5 +1,10 @@
 # The Analyst's journal (newest first)
 
+## 2026-11-16 session (sat out)
+- Data works. First bounce: BTC swept 62.0k and closed 65.35k (+1.9%, 1.7x volume); ETH, SOL, XRP, LINK also swept their lows and closed back above the old ones. Still under all trend EMAs, RSI 21-33. Fear & Greed 10. News YELLOW. No setups, no orders.
+- No bot trades closed. Bots still stalled since Oct 19; not mine to fix.
+- Check next time: does BTC hold 62k and close over 67.5k? FOMC minutes Wed Nov 18 2 PM ET (no new buys 10 AM-6 PM ET).
+
 ## 2026-11-15 session (sat out, Sunday scorecard in brief)
 - Data works. Second breakdown day: BTC 64.2k broke 67.5k on 2.0x volume (-6%); ETH, SOL, XRP, BNB, LINK all at new lows on 1.5-2.5x volume, RSI 15-26. Fear & Greed 10. News YELLOW. No setups, no orders.
 - No bot trades closed. Bots still stalled since Oct 19; not mine to fix.
