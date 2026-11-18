@@ -1,11 +1,12 @@
-# Edge brief (2026-11-18 00:32 UTC)
+# Edge brief (2026-11-18 12:32 UTC)
 
 ## Today in plain English
-- News level: YELLOW. Extreme fear (11) and FOMC minutes Wednesday 2 PM ET; no new trades 10 AM-6 PM ET.
-- Closest to a setup: BTC. Daily trend is UP and it sits just under its must-hold level (65,687) with 63,910 below. Everything else (ETH, SOL, XRP, BNB, LINK) is down on both daily and 4-hour charts: leave alone.
-- Whales (Hyperliquid): no data came back this run.
-- EUR/USD and GBP/USD: forex data unavailable this run, so no dollar lean or RSI(2) setup.
-- Our paper bots hold ETH (from 2,410) and BTC; the Claudes have no waiting orders.
+
+- News level: YELLOW. FOMC minutes today 2:00 PM ET; no new trades 10 AM-6 PM. Market in extreme fear (11), still the Binance hack aftermath.
+- Closest to a setup: BTC (4H must-hold 65,687 just above price 64,239; liquidity below 63,910) and LINK (9.16, just above 9.009 below). Daily trend is down on ETH, SOL, XRP, BNB, LINK, with price far under their must-hold levels (ETH 2,104, SOL 85.84, BNB 692.64) - leave those alone.
+- Whales: Hyperliquid check returned no data this run.
+- Forex: EUR/USD and GBP/USD data unavailable this run (network block), so no lean or RSI(2) setup.
+- Heads-up: BTC Protected Hold paper trade shows entry 85,759.7 with stop 857.597, which looks like a typo (about 1% of the entry, not below it).
 
 Everything that gives an edge, in one place. Public data only. Read top to bottom.
 
@@ -13,12 +14,12 @@ Everything that gives an edge, in one place. Public data only. Read top to botto
 
 | Coin | Daily | 4-hour | Must hold (4H) | Next liquidity above | below |
 |---|---|---|---|---|---|
-| BTC 64,947.8 | UP, pulling back / loading orders | DOWN, pulling back / loading orders | 65,687 | 65,687 | 63,910 |
-| ETH 1,825.11 | DOWN, pulling back / loading orders | DOWN, pulling back / loading orders | 2,104.15 | 1,866.75 | 1,711 |
-| SOL 75.19 | DOWN, pulling back / loading orders | DOWN, pulling back / loading orders | 85.84 | 82.39 | 69.9 |
-| XRP 0.9836 | DOWN, pulling back / loading orders | DOWN, pulling back / loading orders | 1.0807 | 1.0807 | 0.942 |
-| BNB 597.42 | DOWN, pulling back / loading orders | DOWN, pulling back / loading orders | 692.64 | 689.38 | 583.81 |
-| LINK 9.323 | DOWN, pulling back / loading orders | DOWN, pulling back / loading orders | 10.591 | 9.362 | 9.009 |
+| BTC 64,238.6 | UP, pulling back / loading orders | DOWN, pulling back / loading orders | 65,687 | 65,687 | 63,910 |
+| ETH 1,801.26 | DOWN, pulling back / loading orders | DOWN, pulling back / loading orders | 2,104.15 | 1,866.75 | 1,751.54 |
+| SOL 74.44 | DOWN, pulling back / loading orders | DOWN, pulling back / loading orders | 85.84 | 82.39 | 69.9 |
+| XRP 0.988 | DOWN, pulling back / loading orders | DOWN, pulling back / loading orders | 1.0807 | 1.0807 | 0.9457 |
+| BNB 589.81 | DOWN, pulling back / loading orders | DOWN, pulling back / loading orders | 692.64 | 689.38 | 583.81 |
+| LINK 9.16 | DOWN, pulling back / loading orders | DOWN, pulling back / loading orders | 10.591 | 9.362 | 9.009 |
 
 ## 2. Market mood
 
