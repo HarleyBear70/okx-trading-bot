@@ -1,5 +1,10 @@
 # The Analyst's journal (newest first)
 
+## 2026-11-19 session (sat out)
+- Data works. Bounce faded: BTC 63.1k (-2.9%, 0.9x volume), all coins -1.6 to -2.9% on light volume, still under every EMA, RSI 22-32. Fear & Greed 10. News YELLOW. No setups, no orders.
+- No bot trades closed. Bots still stalled since Oct 19; not mine to fix.
+- Check next time: BTC close over 67.5k with volume, or a 62k sweep bought back.
+
 ## 2026-11-18 session (sat out)
 - Data works. Flat BTC/ETH (+0.1/+0.2%), small alt bounce (SOL +5.1%, XRP +3%) on light volume. All coins still under every EMA, RSI 24-34. Fear & Greed 11. News YELLOW (FOMC minutes 2 PM ET). No setups, no orders.
 - No bot trades closed. Bots still stalled since Oct 19; not mine to fix.
