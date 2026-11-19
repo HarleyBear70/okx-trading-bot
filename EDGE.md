@@ -1,11 +1,12 @@
-# Edge brief (2026-11-19 00:32 UTC)
+# Edge brief (2026-11-19 12:32 UTC)
 
 ## Today in plain English
-- News level: YELLOW. Market is jumpy and fearful (Fear & Greed 10, extreme fear all week); no new exchange or stablecoin trouble found.
-- Closest to a setup: BTC (Daily UP; 4H must-hold 65,687, price 63,071, support 62,000). Everything else (ETH, SOL, XRP, BNB, LINK) is DOWN on both charts, so leave them alone.
-- Whales: Hyperliquid check came back empty this run, so no read.
-- Forex: data unavailable this run (network block), so no EUR/USD or GBP/USD lean and no RSI(2) setup.
-- Backdrop: markets are pricing a Fed rate hike at the Dec 8-9 meeting (one report says ~92% odds, unconfirmed). Trend Rider skips buys at Fear & Greed 25 or below.
+- News level: YELLOW. Extreme fear (Fear & Greed 10), Fed hike worries, no new exchange or stablecoin trouble found.
+- Closest to a setup: BTC (~$63,953) is sitting right on the liquidity level below at 63,910; daily chart still up but 4-hour is down. Next level above/must-hold is 65,687. BNB (~$592) is also close to its must-hold of 599.48.
+- Leave alone: ETH, SOL, XRP, LINK - daily and 4-hour both down and well below their must-hold levels.
+- Whales: Hyperliquid whale data came back empty this run.
+- EUR/USD and GBP/USD: forex data unavailable this run (network block), so no dollar lean or RSI(2) setup to report.
+- Open: paper bots hold ETH and BTC; both Claudes have no waiting orders.
 
 
 Everything that gives an edge, in one place. Public data only. Read top to bottom.
@@ -14,12 +15,12 @@ Everything that gives an edge, in one place. Public data only. Read top to botto
 
 | Coin | Daily | 4-hour | Must hold (4H) | Next liquidity above | below |
 |---|---|---|---|---|---|
-| BTC 63,070.6 | UP, pulling back / loading orders | DOWN, pulling back / loading orders | 65,687 | 65,687 | 62,000 |
-| ETH 1,777.13 | DOWN, pulling back / loading orders | DOWN, pulling back / loading orders | 2,104.15 | 1,866.75 | 1,751.54 |
-| SOL 73.63 | DOWN, pulling back / loading orders | DOWN, pulling back / loading orders | 85.84 | 75.78 | 69.9 |
-| XRP 0.9676 | DOWN, pulling back / loading orders | DOWN, pulling back / loading orders | 1.0807 | 1.0807 | 0.9457 |
-| BNB 582.67 | DOWN, pulling back / loading orders | DOWN, pulling back / loading orders | 599.48 | 599.48 | 580.85 |
-| LINK 9.084 | DOWN, pulling back / loading orders | DOWN, pulling back / loading orders | 10.591 | 9.362 | 9.009 |
+| BTC 63,953 | UP, pulling back / loading orders | DOWN, pulling back / loading orders | 65,687 | 65,687 | 63,910 |
+| ETH 1,807.26 | DOWN, pulling back / loading orders | DOWN, pulling back / loading orders | 2,104.15 | 1,866.75 | 1,751.54 |
+| SOL 74.86 | DOWN, pulling back / loading orders | DOWN, pulling back / loading orders | 85.84 | 75.78 | 69.9 |
+| XRP 0.9893 | DOWN, pulling back / loading orders | DOWN, pulling back / loading orders | 1.0807 | 1.0079 | 0.9457 |
+| BNB 592.44 | DOWN, pulling back / loading orders | DOWN, pulling back / loading orders | 599.48 | 599.48 | 583.81 |
+| LINK 9.2 | DOWN, pulling back / loading orders | DOWN, pulling back / loading orders | 10.591 | 9.362 | 9.009 |
 
 ## 2. Market mood
 
@@ -32,7 +33,7 @@ Context, not a signal: a few big wallets dominate and some are hedges.
 
 ## 4. Forex: EUR/USD and GBP/USD
 
-(unavailable: <urlopen error Tunnel connection failed: 403 Forbidden>)
+(unavailable: <urlopen error Tunnel connection failed: 403 Forbidden (agent proxy: no rule or network setting allows this host)>)
 
 ## 5. Bots and Claudes
 
