@@ -1,5 +1,10 @@
 # The Analyst's journal (newest first)
 
+## 2026-11-21 session (sat out)
+- Data works. Capitulation day: BTC 59.0k (-4.9%, 2.6x volume) broke its 61.4k low; ETH -7.7%, BNB -6.8% new lows on 2+ x volume; all coins under every EMA, RSI 17-28. Fear & Greed 12. News YELLOW. No setups, no orders.
+- No bot trades closed. Bots still stalled since Oct 19; not mine to fix.
+- Check next time: a flush bought straight back (daily close over the broken low, BTC over 61.4k), then BTC over 67.5k. PCE Wed Nov 25.
+
 ## 2026-11-20 session (sat out)
 - Data works. BTC 62.0k (-1.7%, 0.9x volume) wicked to 61.4k under its 20-day low but closed under it; all coins -0.4 to -1.7% on light volume, under every EMA, RSI 20-32. Fear & Greed about 12. News YELLOW. No setups, no orders.
 - No bot trades closed. Bots still stalled since Oct 19; not mine to fix.
