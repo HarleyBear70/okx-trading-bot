@@ -55,3 +55,6 @@ How new trading ideas get tested before any bot trades them. Claude runs it; Jef
 | 2026-11-14 | NR4 + volatility-contraction breakout in uptrend (crypto long) | Street Smarts / cryptodatadownload | Fail: 2nd half negative, PF 0.92 at 0.35%, too few trades - F48.md |
 | 2026-11-14 | 3-day streak fade (EUR/USD, GBP/USD both ways), closes only | tastyfx, short-term reversal papers | Fail: PF 0.92-1.06 - F48.md |
 | 2026-11-14 | Trend pullback vs SMA200 (EUR/USD, GBP/USD both ways), closes only | own variant | Fail: EUR +7% pre-2019 then -6%, GBP negative - F48.md |
+| 2026-11-21 | 52-week-high nearness breakout (close within 5% of 252-day high, above SMA200, exit -15% from high), crypto long | George & Hwang 2004, therighttrader | Candidate: both halves +, PF 6.1/2.7 at 0.35%; probably overlaps G/Donchian, untested - F49.md |
+| 2026-11-21 | EUR/GBP cross reversion (z-score 60d of GBPUSD/EURUSD, +-2), closes only | pairs-trading write-ups | Near miss: PF 1.26/1.32, first half under 1.3 - F49.md |
+| 2026-11-21 | 2-year value reversion (z 1.5) EUR/USD, GBP/USD, closes only | PPP / ECB WP 682 | Fail: few trades, PF 0.8-1.3 - F49.md |
