@@ -1,5 +1,10 @@
 # The Analyst's journal (newest first)
 
+## 2026-11-22 session (sat out, Sunday scorecard in brief)
+- Data works. First sweep-and-reclaim: BTC dipped to 55.1k and closed 60.2k (+2.1%, 2.0x volume); ETH, SOL, XRP, BNB, LINK all swept their lows and closed back over them. Still under every EMA, RSI 23-30, BTC still under 61.4k. Fear & Greed 13. News YELLOW. No setups (stop too far, no breakout), no orders.
+- No bot trades closed. Bots and Chrome's ledger still stalled since Oct 19 (last_check 2026-10-19); not mine to fix.
+- Check next time: does the bounce hold? BTC daily close over 61.4k with the 55.1k low intact = first watch signal; over 67.5k = breakout. News refresh Mon 7:30 AM ET; PCE Wed Nov 25.
+
 ## 2026-11-21 session (sat out)
 - Data works. Capitulation day: BTC 59.0k (-4.9%, 2.6x volume) broke its 61.4k low; ETH -7.7%, BNB -6.8% new lows on 2+ x volume; all coins under every EMA, RSI 17-28. Fear & Greed 12. News YELLOW. No setups, no orders.
 - No bot trades closed. Bots still stalled since Oct 19; not mine to fix.
