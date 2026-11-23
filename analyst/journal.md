@@ -1,5 +1,10 @@
 # The Analyst's journal (newest first)
 
+## 2026-11-23 session (sat out)
+- Data works. BTC 61.3k (+1.8%, 0.7x volume) held above the 55.1k sweep low but closed just under the 61.4k line; all coins +/-2% on light volume (0.4-0.7x), under every EMA, RSI 27-33. Fear & Greed 11. News YELLOW. No setups, no orders.
+- No bot trades closed. Bots and Chrome still stalled since Oct 19; not mine to fix.
+- Check next time: BTC daily close over 61.4k (first signal), then 67.5k with volume. PCE Wed Nov 25.
+
 ## 2026-11-22 session (sat out, Sunday scorecard in brief)
 - Data works. First sweep-and-reclaim: BTC dipped to 55.1k and closed 60.2k (+2.1%, 2.0x volume); ETH, SOL, XRP, BNB, LINK all swept their lows and closed back over them. Still under every EMA, RSI 23-30, BTC still under 61.4k. Fear & Greed 13. News YELLOW. No setups (stop too far, no breakout), no orders.
 - No bot trades closed. Bots and Chrome's ledger still stalled since Oct 19 (last_check 2026-10-19); not mine to fix.
