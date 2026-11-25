@@ -1,5 +1,10 @@
 # The Analyst's journal (newest first)
 
+## 2026-11-25 session (sat out)
+- Data works. BTC 59.8k (-2.4%, 0.7x volume), failed bounce: back under 61.4k, all coins -1.4 to -3.2% on light volume (0.6-1.1x), under every EMA, RSI 25-35. Fear & Greed 12. News YELLOW (GDP/PCE 8:30 AM ET). No setups, no orders.
+- No bot trades closed. Bots and Chrome still stalled since Oct 19; not mine to fix.
+- Check next time: PCE reaction; BTC daily close over 61.4k (first signal), then 67.5k with volume. Thanksgiving thin Thursday.
+
 ## 2026-11-24 session (sat out)
 - Data works. BTC 61.3k flat on 1.4x volume: wicked to 64.6k, sold back, closed under 61.4k again. All coins under every EMA, RSI 27-37, volume 0.9-1.7x. Fear & Greed 11. News YELLOW. No setups, no orders.
 - No bot trades closed. Bots and Chrome still stalled since Oct 19; not mine to fix.
