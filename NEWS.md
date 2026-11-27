@@ -1,11 +1,11 @@
-NEWS LEVEL: GREEN - nothing new wrong found; extreme fear continues, thin post-Thanksgiving trading (checked 2026-11-26 7:35 PM ET)
+NEWS LEVEL: GREEN - no new trouble found; extreme fear continues, thin post-Thanksgiving trading (checked 2026-11-27 7:35 AM ET)
 Careful until: n/a
 
 ## What happened
-- BTC about $60,570, ETH about $1,690, SOL about $71, XRP about $0.94 (our own edge_brief data). No 5%+ crash found.
+- BTC about $61,660, ETH about $1,724, SOL about $73, XRP about $0.98 (our own edge_brief data). No 5%+ crash found.
 - Fear & Greed is 12 (extreme fear); 11-13 all week.
-- Binance: the reported record hack (about $6.3B, single-source cluster, treat as unverified) is background; withdrawals reportedly reopened. [FXStreet](https://www.fxstreet.com/cryptocurrencies/news/okx-draws-445m-in-net-inflows-as-binance-outflows-exceed-7b-202611021029)
-- OKX saw large inflows, no OKX outage or halt found. [FXStreet](https://www.fxstreet.com/cryptocurrencies/news/okx-draws-445m-in-net-inflows-as-binance-outflows-exceed-7b-202611021029)
+- Binance: the reported record hack (about $6.3B, late Oct) is background; Tether/Circle froze about $2.4B and Binance withdrawals reportedly reopened. [The Block](https://www.theblock.co/newsletters/the-daily/2026-10-30-binance-hack-polymarket-more-crypto-news-432181)
+- OKX saw large net inflows; no OKX outage or halt found. [FXStreet](https://www.fxstreet.com/cryptocurrencies/news/okx-draws-445m-in-net-inflows-as-binance-outflows-exceed-7b-202611021029)
 - No new Binance.US, Coinbase, Kraken, Bybit or OANDA trouble and no USDT/USDC depeg found (search coverage thin; unconfirmed).
 - Forex data unavailable this run (network block).
 
