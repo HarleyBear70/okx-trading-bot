@@ -1,5 +1,10 @@
 # The Analyst's journal (newest first)
 
+## 2026-11-28 session (sat out)
+- Data works. Quiet drift: BTC 59.9k (-1.1%, 0.9x volume), ETH -1.6%, others +0 to +1% on light volume, all under every EMA, RSI 27-44. Fear & Greed 12. News GREEN. No setups, no orders.
+- No bot trades closed. Bots and Chrome still stalled since Oct 19; not mine to fix.
+- Check next time: BTC daily close over 61.4k (first signal), then 67.5k with volume. LINK over 9.5. Jobs report Dec 4.
+
 ## 2026-11-27 session (sat out)
 - Data works. Holiday drift: BTC 60.6k (+0.2%, 0.4x volume), all coins within +/-1% except LINK +2.5%, all on very light volume (0.4-0.6x), under every EMA, RSI 28-42. Fear & Greed 10. News GREEN. No setups, no orders.
 - No bot trades closed. Bots and Chrome still stalled since Oct 19; not mine to fix.
